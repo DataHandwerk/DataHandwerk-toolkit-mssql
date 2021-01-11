@@ -1,0 +1,54 @@
+:toc:
+
+[NOTE]
+====
+A sample note admonition.
+We can use gemoji icons in the Asciidoctor markup.
+We assign an icon name to the document
+attributes `tip-caption`, `note-caption` and `important-caption`.
+====
+
+TIP: It works!
+
+IMPORTANT: Asciidoctor is awesome, don't forget!
+
+CAUTION: Don't forget to add the `...-caption` document attributes in the header of the document on GitHub.
+
+WARNING: You have no reason not to use Asciidoctor.
+
+== Caption
+
+=== Example 2. Literal paragraph
+
+A normal paragraph.
+
+ A literal paragraph.
+ One or more consecutive lines indented by at least one space.
+
+ The text is shown in a fixed-width (typically monospace) font.
+ The lines are preformatted (i.e., as formatted in the source).
+ Spaces and newlines,
+ like the ones in this sentence,
+ are preserved.
+
+=== Example 5. Constrained bold, italic, and monospace
+
+It has *strong* significance to me.
+
+I _cannot_ stress this enough.
+
+Type `OK` to accept.
+
+That *_really_* has to go.
+
+Can't pick one? Let's use them `*_all_*`.
+
+=== Example 6. Unconstrained bold, italic, and monospace
+
+**C**reate, **R**ead, **U**pdate, and **D**elete (CRUD)
+
+That's fan__freakin__tastic!
+
+Don't pass generic ``Object``s to methods that accept ``String``s!
+
+It was Beatle**__mania__**!
