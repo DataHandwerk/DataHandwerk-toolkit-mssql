@@ -35,9 +35,10 @@ include::src/config.adoc[]
 :project-report-issue-link: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:
 
 :improveDocImage: https://img.shields.io/badge/improve-this%20doc-orange.svg
-:repositoryDocsDir: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/blob/master/docs/
-:project-repository-docs-link: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/blob/master/docs/
-:project-repository-docs-edit-link: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/master/docs/
+:repositoryDocsDir: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/tree/main/docs/
+:project-repository-docs-link: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/tree/main/docs/
+:project-repository-docs-edit-link: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/
+
 
 
 //additional style for arc42 help callouts
