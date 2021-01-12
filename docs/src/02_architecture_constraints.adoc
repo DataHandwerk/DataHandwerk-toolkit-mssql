@@ -1,0 +1,7 @@
+[[section-architecture-constraints]]
+== Architecture Constraints
+
+:filename: src/02_architecture_constraints.adoc
+include::_feedback.adoc[]
+
+
