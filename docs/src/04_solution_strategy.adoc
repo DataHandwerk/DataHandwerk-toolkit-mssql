@@ -1,0 +1,7 @@
+[[section-solution-strategy]]
+== Solution Strategy
+
+:filename: src/04_solution_strategy.adoc
+include::_feedback.adoc[]
+
+
