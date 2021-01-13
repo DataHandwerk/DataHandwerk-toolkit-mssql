@@ -17,11 +17,7 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 </a>
 ++++
 
-// including all help texts
-//
-// ====================================
-
-= image:DatenHandwerk-toolkit-mssql.svg[dhw] DataHandwerk Toolkit mssql - architecture
+= image:DatenHandwerk-toolkit-mssql.svg[dhw] DataHandwerk toolkit mssql - architecture
 // // toc-title definition MUST follow document title without blank line!
 // :toc-title: Table of Contents
 :author: Germo Görtz
@@ -34,26 +30,8 @@ include::src/config.adoc[]
 // configure project settings settings for asciidoc
 include::src/config_project.adoc[]
 
-
-
-//additional style for arc42 help callouts
-ifdef::basebackend-html[]
-++++
-<style>
-.arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0px; padding: 2px 0px 3px 2px;}
-.arc42help::before {content: "?";}
-.arc42help:hover {width:auto; height: auto; z-index: 100; padding: 10px;}
-.arc42help:hover::before {content: "";}
-@media print {
-	.arc42help {display:hidden;}
-}
-</style>
-++++
-endif::basebackend-html[]
-
-
-// // horizontal line
-// ***
+// configure style settings settings for asciidoc
+include::src/config_style.adoc[]
 
 // numbering from here on
 :numbered:
