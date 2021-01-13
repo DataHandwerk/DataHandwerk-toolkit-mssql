@@ -1,3 +1,4 @@
+:filename: arc42-template.adoc
 // header file for arc42-template,
 // including all help texts
 //

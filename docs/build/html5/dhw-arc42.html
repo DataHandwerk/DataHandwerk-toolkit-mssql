@@ -581,7 +581,6 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
 <li><a href="#section-glossary">12. Glossary</a></li>
-<li><a href="#_about_arc42">13. About arc42</a></li>
 </ul>
 </li>
 </ul>
@@ -611,25 +610,256 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/01_introduction_and_goals.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/01_introduction_and_goals.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/01_introduction_and_goals.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
+</div>
+<div class="paragraph">
+<p><kbd>DHW</kbd> (<strong>D</strong>ata<strong>H</strong>and<strong>w</strong>erk) is designed to support BI and DWH developers working with the Microsoft BI platform (MS SQL Server) in their work.</p>
+</div>
+<div class="paragraph">
+<p>Handwerk statt Massenproduktion. Craft instead of mass production.<br>
+MSSQL based tools for data craftsmen. Individual customization instead of assembly line.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Handwerk = craft<br>
+Handwerker = craftsmen</p>
+</div>
+<div class="paragraph">
+<p>Craft is the term used to describe numerous commercial activities that manufacture products mostly to order or provide services on demand. Craft activities are contrasted with industrial mass production.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The project&#8217;s key stakeholders are DWH developers who see their work as a <strong>craft</strong>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A toolkit is created for these data craftsmen and gradually filled and expanded with tools.</p>
+</li>
+<li>
+<p>The data craftsmen are given the <strong>possibility to work faster and better</strong> with the toolkit and <strong>to automate parts</strong> if (and only if) they wish to do so.</p>
+</li>
+<li>
+<p>Tools and methods can be used individually and independently <strong>optional</strong>. They do not have to be used in a mandatory way.</p>
+</li>
+<li>
+<p>The toolbox should always be <strong>perceived as an enrichment and aid</strong>, gladly as a supportive, never as a constricting corset.<br>
+A developer is not undesirably restricted by the use of tools and methods. He allows himself to be partially and consciously restricted if the advantages subjectively outweigh the disadvantages for him.</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="_requirements_overview">1.1. Requirements Overview</h3>
-
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Combination of manual work and the use of tools</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The combination of <em>handwork without tools</em> and the <em>use of tools</em> is easily possible. There must be <strong>no one-way street</strong>.</p>
+</li>
+<li>
+<p>A <strong>developer does not become a slave</strong> to the tools or the methods, but can at any time, like a craftsman, decide for himself to what extent he wants to use which tools to support him, or not.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>mssql and Azure features</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It must <strong>always</strong> be possible for BI developers to use <strong>all</strong> mssql and Azure features. So ultimately also <a href="https://azure.microsoft.com/en-us/services/synapse-analytics/">Azure Synapse Analytics</a>, Data Factory, BLOB Storage and other Azure products.</p>
+</li>
+<li>
+<p>Whenever possible or desired, a developer may prefer to use mssql features to realize goals, rather than proprietary solutions. Tools should simplify their use.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>temporal tables</p>
+</li>
+<li>
+<p>graph databases</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>a minimally invasive <strong>repository</strong> supplements database metadata</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Functions and methods that are absent or insufficient in a database are supplemented via a repository (per database), which is connected via synonyms to system catalog views of the DWH database.</p>
+</li>
+<li>
+<p>A repository is also a database: the repository database.</p>
+</li>
+<li>
+<p>This repository does not need and should not contain all metadata to fully define a database, but only necessary or useful additions.</p>
+</li>
+<li>
+<p>A repository is externally connected to a DWH database, with <em>minimal invasive interventions</em> in this database.</p>
+</li>
+<li>
+<p>these minimal invasive interventions can be undone</p>
+</li>
+<li>
+<p>for these minimal invasive interventions (according to current conception) <code>extended properties</code> are used, which can be assigned to many database objects and also columns, parameters etc. and also removed again.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>by using unique <code>guid</code> it is possible to copy objects including the additional metadata stored in the <code>extended properties</code> into other databases.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Independence from immediate support</p>
+<div class="ulist">
+<ul>
+<li>
+<p>One should be able to work even if a tool does not work as expected. There shall be no blocking dependency on a tool or a method that requires support fire department interventions, but there shall always be a manual way out.</p>
+</li>
+<li>
+<p>This should especially make community collaboration more attractive: <span class="image"><a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a></span></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The repository, how it works, and the methods are <strong>clearly and thoroughly documented</strong>. Good documentation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>provides transparency</p>
+</li>
+<li>
+<p>creates understanding</p>
+</li>
+<li>
+<p>facilitates independent work</p>
+</li>
+<li>
+<p>makes it easier to get started</p>
+</li>
+<li>
+<p>reduces dependence on support</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Modular structure and expandability</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The toolbox concept allows the toolbox to be extended with modules (tools) by different users.</p>
+</li>
+<li>
+<p>Examples of possible modules:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Relation Management</p>
+<div class="ulist">
+<ul>
+<li>
+<p>virtual PK and FK</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Persistence and Historization Assistant</p>
+</li>
+<li>
+<p>Documentation Wizard (including creation and inheritance of descriptions and Friendly Name)</p>
+</li>
+<li>
+<p>Data Lineage Visualizer</p>
+</li>
+<li>
+<p>Import Wizard</p>
+</li>
+<li>
+<p>SSIS Generator</p>
+</li>
+<li>
+<p>Data Factory Generator</p>
+</li>
+<li>
+<p>Data Vault Wizard</p>
+</li>
+<li>
+<p>DSGVO Wizard</p>
+</li>
+<li>
+<p>SSAS Tabular Generator</p>
+</li>
+<li>
+<p>Easy Refactoring</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
-
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Fixing bugs is more important than implementing new features.</p>
+</li>
+<li>
+<p>A feature is only as good as its documentation.</p>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Stakeholders</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 40%;">
@@ -644,14 +874,31 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dwh developer</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>wants to work faster, more efficiently and more effectively</p>
+</li>
+<li>
+<p>wants to automate boring work optionally</p>
+</li>
+<li>
+<p>wants to decide for himself what he automates and what not</p>
+</li>
+<li>
+<p>does not want to become a slave of the tools</p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dwh user</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>wants a well documented DWH</p>
+</div></div></td>
 </tr>
 </tbody>
 </table>
@@ -664,13 +911,36 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/02_architecture_constraints.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/02_architecture_constraints.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/02_architecture_constraints.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>a minimally invasive <strong>repository database</strong> supplements DWH database metadata</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A repository database is externally connected to a DWH database via <strong>synonyms to system catalog views</strong> of the DWH database.</p>
+</li>
+<li>
+<p>for additional <em>minimal invasive interventions</em> <code>extended properties</code> are used, which can be assigned to many database objects and also columns, parameters etc. and also removed again.</p>
+</li>
+<li>
+<p>The DWH database works without the repository and all traces of a repository can be removed (extended properties can be dropped).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>It must <strong>always</strong> be possible for BI developers to use <strong>all</strong> mssql and Azure features in DWH databases.</p>
+</li>
+</ol>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -680,12 +950,12 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/03_system_scope_and_context.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/03_system_scope_and_context.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/03_system_scope_and_context.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div class="sect2">
@@ -717,12 +987,12 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/04_solution_strategy.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/04_solution_strategy.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/04_solution_strategy.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -733,12 +1003,12 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/05_building_block_view.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/05_building_block_view.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/05_building_block_view.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div class="sect2">
@@ -859,12 +1129,12 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/06_runtime_view.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/06_runtime_view.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/06_runtime_view.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div class="sect2">
@@ -900,12 +1170,12 @@ building block instances depicted in this diagram.&gt;</em></p>
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/07_deployment_view.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/07_deployment_view.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/07_deployment_view.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div class="sect2">
@@ -962,12 +1232,12 @@ building block instances depicted in this diagram.&gt;</em></p>
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/08_concepts.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/08_concepts.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/08_concepts.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div class="sect2">
@@ -999,12 +1269,12 @@ building block instances depicted in this diagram.&gt;</em></p>
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/09_design_decisions.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/09_design_decisions.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/09_design_decisions.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1015,12 +1285,12 @@ building block instances depicted in this diagram.&gt;</em></p>
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/10_quality_scenarios.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/10_quality_scenarios.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/10_quality_scenarios.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div class="sect2">
@@ -1038,12 +1308,12 @@ building block instances depicted in this diagram.&gt;</em></p>
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/11_technical_risks.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/11_technical_risks.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/11_technical_risks.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1054,12 +1324,12 @@ building block instances depicted in this diagram.&gt;</em></p>
 <div class="sectionbody">
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/src/12_glossary.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/12_glossary.adoc"><img src="https://img.shields.io/badge/create-an%20issue-red.svg" alt="create an%20issue red"></a>
 </div>
 </div>
 <div class="imageblock right">
 <div class="content">
-<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:src/12_glossary.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+<a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1085,11 +1355,9 @@ building block instances depicted in this diagram.&gt;</em></p>
 </tbody>
 </table>
 <hr>
+<div class="paragraph">
+<p><strong>About arc42</strong></p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_about_arc42">13. About arc42</h2>
-<div class="sectionbody">
 <div class="paragraph lead">
 <p>arc42, the Template for documentation of
 software and system architecture.</p>
@@ -1103,7 +1371,7 @@ software and system architecture.</p>
 <div class="paragraph">
 <p>&#169;
 We acknowledge that this document uses material from the
-arc 42 architecture template, <a href="http://www.arc42.de" class="bare">http://www.arc42.de</a>.
+arc 42 architecture template, <a href="https://arc42.de" class="bare">https://arc42.de</a>, <a href="https://arc42.org/" class="bare">https://arc42.org/</a>
 Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 </div>
@@ -1111,7 +1379,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-12 14:57:10 +0100
+Last updated 2021-01-13 16:43:54 +0100
 </div>
 </div>
 </body>

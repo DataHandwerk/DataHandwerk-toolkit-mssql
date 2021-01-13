@@ -1,3 +1,4 @@
+:filename: doctoolchain_demo.adoc
 == README
 
 This is just a demo file.

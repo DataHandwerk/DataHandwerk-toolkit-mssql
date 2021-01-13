@@ -1,0 +1,9 @@
+<testsuite tests="9" failures="0" errors="0" time="0" name="D:\Repos\GitHub\DataHandwerk-toolkit-mssql\docs\build\html5\doctoolchain_demo.html">
+  <testcase assertions="7" time="0" name="Duplicate Definition of id Check" />
+  <testcase assertions="0" time="0" name="Missing Local Resources Check" />
+  <testcase assertions="0" time="0" name="Missing Local Images Check" />
+  <testcase assertions="2" time="0" name="Broken Internal Links Check" />
+  <testcase assertions="0" time="0" name="Missing alt-attribute declaration in image tags" />
+  <testcase assertions="0" time="0" name="Consistency of ImageMaps" />
+  <testcase assertions="0" time="0" name="External Links Check" />
+</testsuite>
