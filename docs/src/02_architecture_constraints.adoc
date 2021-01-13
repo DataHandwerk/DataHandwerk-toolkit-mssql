@@ -1,7 +1,15 @@
+:filename: src/02_architecture_constraints.adoc
+
 [[section-architecture-constraints]]
 == Architecture Constraints
 
-:filename: src/02_architecture_constraints.adoc
 include::_feedback.adoc[]
+
+. a minimally invasive *repository database* supplements DWH database metadata
+** A repository database is externally connected to a DWH database via *synonyms to system catalog views* of the DWH database.
+** for additional _minimal invasive interventions_ `extended properties` are used, which can be assigned to many database objects and also columns, parameters etc. and also removed again.
+** The DWH database works without the repository and all traces of a repository can be removed (extended properties can be dropped).
+. It must *always* be possible for BI developers to use *all* mssql and Azure features in DWH databases.
+
 
 

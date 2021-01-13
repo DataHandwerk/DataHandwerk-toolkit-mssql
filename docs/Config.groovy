@@ -8,8 +8,8 @@ inputPath = '.';
 
 
 inputFiles = [
-        [file: 'dwh-arc42.adoc',    formats: ['html','pdf']],
-        [file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
+        [file: 'dhw-arc42.adoc',    formats: ['html','pdf']],
+        // [file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
         // [file: 'arc42-template.adoc',    formats: ['html','pdf']],
 ]
 
@@ -17,9 +17,9 @@ inputFiles = [
 // these are directories (dirs) and files which Gradle monitors for a change
 // in order to decide if the docs have to be re-build
 taskInputsDirs = [
-                    "${inputPath}",
-//                  "${inputPath}/src",
-//                  "${inputPath}/images",
+                 "${inputPath}",
+                //  "${inputPath}/src",
+                //  "${inputPath}/images",
                  ]
 
 taskInputsFiles = []
