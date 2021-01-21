@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>db_DataHandwerk</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{9c9d2678-85d0-4326-a997-a7ebb0722a14}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>db_DataHandwerk</RootNamespace>
+    <AssemblyName>db_DataHandwerk</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="repo\" />
+    <Folder Include="repo\Tables\" />
+    <Folder Include="repo_sys\" />
+    <Folder Include="repo_sys\Views\" />
+    <Folder Include="repo\Views\" />
+    <Folder Include="repo\Functions\" />
+    <Folder Include="repo_sys\Stored Procedures\" />
+    <Folder Include="repo\Stored Procedures\" />
+    <Folder Include="Security\" />
+    <Folder Include="sys_dwh\" />
+    <Folder Include="sys_dwh\Synonyms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="repo\Tables\RepoObjectSource__query_plan.sql" />
+    <Build Include="repo\Tables\RepoObject__sql_modules.sql" />
+    <Build Include="repo\Tables\RepoObjectSource__first_result_set.sql" />
+    <Build Include="repo\Tables\Parameter.sql" />
+    <Build Include="repo\Tables\IndexColumn__virtual.sql" />
+    <Build Include="repo\Tables\execution_log.sql" />
+    <Build Include="repo\Tables\Index__virtual.sql" />
+    <Build Include="repo\Tables\RepoObject.sql" />
+    <Build Include="repo\Tables\Index_IndexSemanticGroup.sql" />
+    <Build Include="repo\Tables\RepoObject_persistence.sql" />
+    <Build Include="repo\Tables\spt_values.sql" />
+    <Build Include="repo\Tables\RepoObjectColumnProperty.sql" />
+    <Build Include="repo\Tables\RepoObjectColumn.sql" />
+    <Build Include="repo\Tables\RepoObjectProperty.sql" />
+    <Build Include="repo_sys\Views\IndexColumn__real_unique.sql" />
+    <Build Include="repo_sys\Views\Index__real_unique.sql" />
+    <Build Include="repo_sys\Views\ColumnReference.sql" />
+    <Build Include="repo_sys\Views\sql_expression_dependencies.sql" />
+    <Build Include="repo_sys\Views\extended_properties__parameter_for_add_update_drop.sql" />
+    <Build Include="repo_sys\Views\extended_properties.sql" />
+    <Build Include="repo_sys\Views\SysColumn.sql" />
+    <Build Include="repo_sys\Views\SysObject.sql" />
+    <Build Include="repo_sys\Views\RepoObjectReferencing.sql" />
+    <Build Include="repo_sys\Views\RepoObjectReferenced.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_33_object_normalized.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_32_object_class.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_31_object.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_25_obsolet.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_reference__sql_expression_dependencies.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_21_statement_children_helper.sql" />
+    <Build Include="repo\Views\IndexReferencedReferencing_HasFullColumnsInReferencing.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_20_statement_children.sql" />
+    <Build Include="repo\Views\IndexReferencedReferencing.sql" />
+    <Build Include="repo\Views\execution_log__gross.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_10_statement.sql" />
+    <Build Include="repo\Views\check_IndexColumn__virtual_referenced_setpoint.sql" />
+    <Build Include="repo\Views\IndexColumn__virtual_referenced_setpoint.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_reference__first_result_set.sql" />
+    <Build Include="repo\Views\Index_IndexPattern.sql" />
+    <Build Include="repo\Views\Index__virtual_SysObject.sql" />
+    <Build Include="repo\Views\IndexColumn__virtual_gross.sql" />
+    <Build Include="repo\Views\execution_log__parent.sql" />
+    <Build Include="repo\Views\execution_log__plantUML_Sequence_start_stop.sql" />
+    <Build Include="repo\Views\IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing.sql" />
+    <Build Include="repo\Views\RepoObject_reference__sql_expression_dependencies.sql" />
+    <Build Include="repo\Views\RepoObject_reference__persistence.sql" />
+    <Build Include="repo\Views\SysColumn_RepoObjectColumn_via_name.sql" />
+    <Build Include="repo\Views\SysColumn_RepoObjectColumn_via_guid.sql" />
+    <Build Include="repo\Views\Index__union.sql" />
+    <Build Include="repo\Views\Index__gross.sql" />
+    <Build Include="repo\Views\IndexColumn__union.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_Repo_Sys.sql" />
+    <Build Include="repo\Views\RepoObjectColumn__gross.sql" />
+    <Build Include="repo\Views\RepoObject__gross.sql" />
+    <Build Include="repo\Views\SysObject_RepoObject_via_name.sql" />
+    <Build Include="repo\Views\SysObject_RepoObject_via_guid.sql" />
+    <Build Include="repo\Views\type.sql" />
+    <Build Include="repo\Views\type__level1type_level2type.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_column.sql" />
+    <Build Include="repo\Views\RepoObject_persistence__ObjectNames.sql" />
+    <Build Include="repo\Views\RepoObjectColumn__missing_source_type_v.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_reference__union.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_reference__by_same_predecessors.sql" />
+    <Build Include="repo\Views\RepoObject_reference__union.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_reference__persistence.sql" />
+    <Build Include="repo\Views\aa_test_RepoObject__column_list_common.sql" />
+    <Build Include="repo\Views\Parameter__default.sql" />
+    <Build Include="repo\Views\visjs_nodelist_object_test01.sql" />
+    <Build Include="repo\Views\visjs_EdgeList_object_test01.sql" />
+    <Build Include="repo\Views\SysObjectColumn__query_plan_expression.sql" />
+    <Build Include="repo\Views\RepoObjectColumnProperty_sys_repo.sql" />
+    <Build Include="repo\Views\aaa_test_sql_table_column.sql" />
+    <Build Include="repo\Views\RepoObjectProperty_sys_repo.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_26_object__union.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_42_from_Identifier.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_41_from.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_23_normalized_wo_nolock.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_22_identifier_alias_AS.sql" />
+    <Build Include="repo\Views\join_type.sql" />
+    <Build Include="repo\Views\RepoObject__sql_modules_39_object.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_reference__query_plan.sql" />
+    <Build Include="repo\Functions\fs_get_parameter_value.sql" />
+    <Build Include="repo\Functions\fs_dwh_database_name.sql" />
+    <Build Include="repo\Functions\ftv_dwh_database.sql" />
+    <Build Include="repo\Functions\ftv_query_plan_extract_source.sql" />
+    <Build Include="repo\Functions\ftv_sqlparse.sql" />
+    <Build Include="repo\Functions\ftv_sqlparse_with_some_children.sql" />
+    <Build Include="repo_sys\Stored Procedures\usp_RepoObjectSource__first_result_set__update.sql" />
+    <Build Include="repo_sys\Stored Procedures\usp_dropextendedproperty_level_1.sql" />
+    <Build Include="repo_sys\Stored Procedures\usp_RepoObject__update_SysObject_query_plan.sql" />
+    <Build Include="repo_sys\Stored Procedures\usp_AddOrUpdateExtendedproperty.sql" />
+    <Build Include="repo\Stored Procedures\usp_aaa_all.sql" />
+    <Build Include="repo\Stored Procedures\usp_RepoObjectSource__query_plan__update.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObject.sql" />
+    <Build Include="repo\Stored Procedures\usp_update_Referencing_Count.sql" />
+    <Build Include="repo\Stored Procedures\usp_init_parameter.sql" />
+    <Build Include="repo\Stored Procedures\usp_init_spt_values.sql" />
+    <Build Include="repo\Stored Procedures\usp_index_inheritance.sql" />
+    <Build Include="repo\Stored Procedures\usp_Index_IndexSemanticGroup__merge.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObjectColumn.sql" />
+    <Build Include="repo\Stored Procedures\usp_persistence__insert_update.sql" />
+    <Build Include="repo\Stored Procedures\usp_execution_log__insert.sql" />
+    <Build Include="repo\Stored Procedures\usp_connect_database.sql" />
+    <Build Include="repo\Stored Procedures\usp_parameter__insert_update.sql" />
+    <Build Include="Security\sys_dwh.sql" />
+    <Build Include="Security\repo_sys.sql" />
+    <Build Include="Security\repo.sql" />
+    <Build Include="sys_dwh\Synonyms\index_columns.sql" />
+    <Build Include="sys_dwh\Synonyms\dm_exec_describe_first_result_set.sql" />
+    <Build Include="sys_dwh\Synonyms\sp_addextendedproperty.sql" />
+    <Build Include="sys_dwh\Synonyms\sp_updateextendedproperty.sql" />
+    <Build Include="sys_dwh\Synonyms\sql_modules.sql" />
+    <Build Include="sys_dwh\Synonyms\schemas.sql" />
+    <Build Include="sys_dwh\Synonyms\types.sql" />
+    <Build Include="sys_dwh\Synonyms\tables.sql" />
+    <Build Include="sys_dwh\Synonyms\sql_expression_dependencies.sql" />
+    <Build Include="sys_dwh\Synonyms\parameters.sql" />
+    <Build Include="sys_dwh\Synonyms\objects.sql" />
+    <Build Include="sys_dwh\Synonyms\indexes.sql" />
+    <Build Include="sys_dwh\Synonyms\extended_properties.sql" />
+    <Build Include="sys_dwh\Synonyms\dm_sql_referenced_entities.sql" />
+    <Build Include="sys_dwh\Synonyms\default_constraints.sql" />
+    <Build Include="sys_dwh\Synonyms\computed_columns.sql" />
+    <Build Include="sys_dwh\Synonyms\columns.sql" />
+    <Build Include="sys_dwh\Synonyms\identity_columns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="db_2_project.scmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>True</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+  </ItemGroup>
+</Project>
