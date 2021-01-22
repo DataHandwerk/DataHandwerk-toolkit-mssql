@@ -25,7 +25,6 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-
 CREATE PROCEDURE [repo].[usp_RepoObjectSource__query_plan__update]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
@@ -430,5 +429,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'a31cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource__query_plan__update';
+
 

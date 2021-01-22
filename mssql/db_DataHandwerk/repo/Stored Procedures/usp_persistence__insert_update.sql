@@ -1,4 +1,5 @@
-﻿-- Alter Procedure usp_persistence__insert_update
+﻿
+-- Alter Procedure usp_persistence__insert_update
 -- Alter Procedure usp_persistence_insert_update
 -- Create Procedure usp_persistence_insert_update
 -- Alter Procedure usp_persistence_insert_update
@@ -107,7 +108,6 @@ EXEC repo.[usp_persistence_insert_update]
 
 */
 --todo: überlegen, ob @source_RepoObject_guid NULL sein darf, wenn @persistence_RepoObject_guid NOT NULL
-
 CREATE PROCEDURE [repo].[usp_persistence__insert_update]
      @source_RepoObject_guid        UNIQUEIDENTIFIER = NULL --
    , @persistence_RepoObject_guid   UNIQUEIDENTIFIER = NULL OUTPUT --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created
@@ -908,5 +908,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'04477f08-cb50-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence__insert_update';
+
 

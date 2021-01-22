@@ -31,61 +31,61 @@ FROM
 
 --WHERE  [iv].[is_index_unique] = 1
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd181875a-724f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'is_index_real';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'1fed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'parent_SysObject_fullname';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'1bed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'is_index_primary_key';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'1ced08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'is_index_unique';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'23ed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'SysObject_column_user_type_fullname';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'22ed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'SysObject_column_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'20ed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'parent_SysObject_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'1eed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'parent_schema_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'1aed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'index_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'1ded08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'parent_RepoObject_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'21ed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b4a4188b-0352-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'is_descending_key';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'18ed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'index_column_id';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'19ed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross', @level2type = N'COLUMN', @level2name = N'index_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'16ed08c3-304f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn__virtual_gross';
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
 

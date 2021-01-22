@@ -28,17 +28,17 @@ SELECT
 FROM
      repo.RepoObject_reference__sql_expression_dependencies
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'fd888a3c-034e-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'EdgeListElement';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'fe888a3c-034e-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'referenced_node_id';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'ff888a3c-034e-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'referencing_node_id';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'9a888a3c-034e-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01';
+
+
+
+GO
+
 

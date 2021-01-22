@@ -5,7 +5,6 @@
 -- Alter Procedure usp_sync_guid
 -- Alter Procedure usp_sync_guid
 -- Alter Procedure usp_sync_RepoObject_RepoObjectColumn
-
 CREATE PROCEDURE [repo].[usp_sync_guid]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
@@ -120,5 +119,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'709f84d1-c646-eb11-84d1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
 

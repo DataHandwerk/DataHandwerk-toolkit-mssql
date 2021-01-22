@@ -18,7 +18,6 @@ if a procedure is called several times per ssis_execution, for example the @ssis
 it is also possible to use the @execution_log_id output parameter ad to store it back as @parent_execution_log_id
 
 */
-
 CREATE PROCEDURE [repo].[usp_execution_log__insert]
      @execution_instance_guid UNIQUEIDENTIFIER
    , @ssis_execution_id       BIGINT           = NULL
@@ -171,5 +170,5 @@ VALUES
 
 SET @execution_log_id = SCOPE_IDENTITY();
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'b63dfec8-3849-eb11-84d1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_execution_log__insert';
+
 

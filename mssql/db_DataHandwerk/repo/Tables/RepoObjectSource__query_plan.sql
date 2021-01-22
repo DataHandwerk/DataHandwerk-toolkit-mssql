@@ -17,60 +17,62 @@
 );
 
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '991cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_from_query_plan_RepoObject';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'dc1cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'const_info';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'df1cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'source_column_info';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e61cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'target_column_info';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'dd1cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'const_value';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e51cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'SysObject_query_executed_dt';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e01cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'source_column_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e41cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'source_table_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e21cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'source_schema_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e11cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'source_database_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e31cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'source_server_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'e71cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'target_column_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'de1cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'a01cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan';
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO

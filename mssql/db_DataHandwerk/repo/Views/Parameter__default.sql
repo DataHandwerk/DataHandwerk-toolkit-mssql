@@ -75,17 +75,17 @@ SELECT
      , [Parameter_desciption] = N'use with "inherit_property_column" = 31 inherit (use pattern). todo: define possible values'
      , [Parameter_default_value] = CAST(N'' AS NVARCHAR(4000))
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0a477f08-cb50-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter__default', @level2type = N'COLUMN', @level2name = N'Parameter_default_value';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0b477f08-cb50-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter__default', @level2type = N'COLUMN', @level2name = N'Parameter_desciption';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0c477f08-cb50-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter__default', @level2type = N'COLUMN', @level2name = N'Parameter_name';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '00477f08-cb50-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter__default';
+
+
+
+GO
+
 

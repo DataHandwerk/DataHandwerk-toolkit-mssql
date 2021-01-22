@@ -1,11 +1,5 @@
 ﻿
-
-/*
-database_id required in
-- OBJECT_SCHEMA_NAME
-- OBJECT_NAME
-*/
-CREATE VIEW [repo_sys].[extended_properties]
+CREATE VIEW [sys_self].[extended_properties]
 AS
 --
 SELECT
@@ -17,11 +11,11 @@ SELECT
      , [sep].value AS                           [property_value]
      , CASE
            WHEN [sep].[class] IN(1 , 2 , 7)
-           THEN OBJECT_SCHEMA_NAME([sep].[major_id] , [db].[dwh_database_id])
+           THEN OBJECT_SCHEMA_NAME([sep].[major_id] /*, [db].[dwh_database_id]*/                      )
        END AS                                   [SysObject_schema_name]
      , CASE
            WHEN [sep].[class] IN(1 , 2 , 7)
-           THEN OBJECT_NAME([sep].[major_id] , [db].[dwh_database_id])
+           THEN OBJECT_NAME([sep].[major_id] /*, [db].[dwh_database_id]*/              )
        END AS                                   [SysObject_name]
      , CASE [sep].[class]
            WHEN 1
@@ -63,88 +57,25 @@ SELECT
 -- Explicit conversion from data type int to uniqueidentifier is not allowed.
 --, [property_value_uniqueidentifier] = TRY_CAST([sep].value As UniqueIdentifier)
 FROM
-     sys_dwh.extended_properties AS sep
+     sys.extended_properties AS sep
      LEFT OUTER JOIN
-     sys_dwh.columns AS sc
+     sys.columns AS sc
      ON sep.major_id = sc.object_id
         AND sep.minor_id = sc.column_id
      LEFT OUTER JOIN
-     sys_dwh.parameters AS sp
+     sys.parameters AS sp
      ON sep.major_id = sp.object_id
         AND sep.minor_id = sp.parameter_id
      LEFT OUTER JOIN
-     sys_dwh.indexes AS si
+     sys.indexes AS si
      ON sep.major_id = si.object_id
         AND sep.minor_id = si.index_id
      LEFT OUTER JOIN
-     sys_dwh.objects AS so
+     sys.objects AS so
      ON sep.major_id = so.object_id
      LEFT OUTER JOIN
-     sys_dwh.objects AS parent
+     sys.objects AS parent
      ON parent.object_id = so.parent_object_id
-     --
-     CROSS APPLY
-     repo.ftv_dwh_database() AS db
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
+----
+--CROSS APPLY
+--repo.ftv_dwh_database() AS db
