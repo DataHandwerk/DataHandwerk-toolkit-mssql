@@ -1,9 +1,9 @@
-﻿-- Alter View RepoObjectReferenced
+﻿
+-- Alter View RepoObjectReferenced
 
 /*
 this view can be used to check if SysObject renaming is safe or if exists referenced objects and refactoring is required
 */
-
 CREATE VIEW [repo_sys].[RepoObjectReferenced]
 AS
 --
@@ -50,109 +50,109 @@ FROM
      sys_dwh.dm_sql_referenced_entities(SysObject_fullname , 'OBJECT') AS referenced
 WHERE  ISNULL([ro].[has_get_referenced_issue] , 0) = 0
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_incomplete';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_insert_all';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '53e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_all_columns_found';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_select_all';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5be4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_updated';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5ae4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_selected';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '54e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_ambiguous';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '55e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_caller_dependent';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5de4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_class_desc';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5ce4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_class';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '61e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_minor_id';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '60e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_id';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '62e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_minor_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5fe4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_entity_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '63e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_schema_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5ee4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_database_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '64e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referenced_server_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '65e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'referencing_minor_id';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '68e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '66e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '52e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'has_different_sys_names';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'is_repo_managed';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6ae4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'SysObject_modify_date';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6be4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'SysObject_type';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'SysObject_id';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '67e4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4ee4634c-304c-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced';
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
 

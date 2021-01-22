@@ -48,7 +48,6 @@ Operations that require a change to the schema version, for example renaming, ar
 
 => todo
 */
-
 CREATE PROCEDURE [repo_sys].[usp_AddOrUpdateExtendedproperty]
      @name       SYSNAME
    , @value      SQL_VARIANT  = NULL
@@ -100,5 +99,5 @@ DECLARE
         END CATCH
     END CATCH
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'670b6976-d946-eb11-84d1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_AddOrUpdateExtendedproperty';
+
 

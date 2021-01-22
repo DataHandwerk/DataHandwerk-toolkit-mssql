@@ -1,6 +1,5 @@
 ﻿
 -- Create Procedure usp_index_inheritance
-
 CREATE PROCEDURE [repo].[usp_index_inheritance]
 --by default the source schema is used and the source name with prefix '_T' for table
 --todo: use general parameters to define this
@@ -629,5 +628,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'48a2cfa8-bb4e-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';
+
 

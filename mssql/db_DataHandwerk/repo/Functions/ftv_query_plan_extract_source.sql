@@ -1,4 +1,5 @@
-﻿-- Alter Function ftv_query_plan_extract_source
+﻿
+-- Alter Function ftv_query_plan_extract_source
 
 /*
 
@@ -237,5 +238,5 @@ AND
 --
 --OPTION(MAXRECURSION 100) -- It's an assurance from infinite loop.
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a41cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_query_plan_extract_source';
+
 

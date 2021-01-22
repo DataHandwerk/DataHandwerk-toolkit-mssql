@@ -244,5 +244,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'cf81875a-724f-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_IndexSemanticGroup__merge';
+
 

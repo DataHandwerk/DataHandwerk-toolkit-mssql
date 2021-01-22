@@ -1,4 +1,5 @@
-﻿-- Create Procedure usp_aaa_all
+﻿
+-- Create Procedure usp_aaa_all
 /*
 check log
 [repo].[execution_log]
@@ -8,7 +9,6 @@ repo.usp_aaa_all
 
 
 */
-
 CREATE PROCEDURE [repo].[usp_aaa_all]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
@@ -157,5 +157,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'02477f08-cb50-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_aaa_all';
+
 

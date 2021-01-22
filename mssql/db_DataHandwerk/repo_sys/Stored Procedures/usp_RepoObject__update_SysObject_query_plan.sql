@@ -144,6 +144,8 @@ WHILE @@fetch_status <> -1
                 --in this case mark the RepoObject in repo.RepoObject
                 --SET [has_execution_plan_issue] = 1
                 PRINT CONCAT(@RepoObject_guid , ' ' , @SysObject_query_sql)
+                PRINT 'if you get issues and TRY CATCH doesn''t solve them, then execute this:'
+                PRINT CONCAT('UPDATE [repo].[RepoObject] SET [has_execution_plan_issue] = 1 WHERE [RepoObject_guid] = ''', @RepoObject_guid, '''')
 
                 DECLARE
                      @xml_plan AS             XML     = NULL
@@ -272,5 +274,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'a11cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject__update_SysObject_query_plan';
+
 

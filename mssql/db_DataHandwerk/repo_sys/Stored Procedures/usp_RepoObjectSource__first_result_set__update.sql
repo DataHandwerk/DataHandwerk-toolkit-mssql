@@ -1,4 +1,5 @@
-﻿-- Alter Procedure usp_RepoObjectSource__first_result_set__update
+﻿
+-- Alter Procedure usp_RepoObjectSource__first_result_set__update
 -- Alter Procedure usp_RepoObjectSource__dm_exec_describe_first_result_set__update
 -- Alter Procedure usp_RepoObjectSource__dm_exec_describe_first_result_set__update
 -- Alter Procedure usp_RepoObjectSource__dm_exec_describe_first_result_set__update
@@ -12,7 +13,6 @@ source: sys.dm_exec_describe_first_result_set
 sometimes required
 truncate table [repo].[RepoObjectSource__dm_exec_describe_first_result_set]
 */
-
 CREATE PROCEDURE [repo_sys].[usp_RepoObjectSource__first_result_set__update]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
@@ -263,5 +263,5 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'a21cb308-944b-eb11-84d3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource__first_result_set__update';
+
 

@@ -8,24 +8,26 @@
 );
 
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b3cffd4a-a94e-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_IndexColumn__virtual_Index__virtual';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'09e10f86-474d-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual', @level2type = N'CONSTRAINT', @level2name = N'PK_IndexColumn__unique';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'afa4188b-0352-eb11-84d5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual', @level2type = N'COLUMN', @level2name = N'is_descending_key';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'0ee10f86-474d-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'0be10f86-474d-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual', @level2type = N'COLUMN', @level2name = N'index_column_id';
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO
@@ -35,9 +37,9 @@ sys.index_columns.index_column_id: "ID of the index column. index_column_id is u
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = N'0de10f86-474d-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual', @level2type = N'COLUMN', @level2name = N'Index_guid';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'08e10f86-474d-eb11-84d4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual';
+
 
