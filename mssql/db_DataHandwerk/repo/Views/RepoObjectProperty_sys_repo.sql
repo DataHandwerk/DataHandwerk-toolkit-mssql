@@ -12,7 +12,7 @@ SELECT
      , [link].[RepoObjectProperty_id]
      , [link].[property_value] AS [RepoObjectProperty_property_value]
 FROM
-     repo_sys.extended_properties AS ses
+     repo_sys.[ExtendedProperties] AS ses
      INNER JOIN
      repo.RepoObject AS ro
      ON ses.SysObject_schema_name = ro.SysObject_schema_name

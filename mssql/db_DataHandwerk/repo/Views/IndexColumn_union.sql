@@ -19,7 +19,7 @@ SELECT
      , [is_index_real]
      , [parent_SysObject_fullname]
 FROM
-     repo_sys.IndexColumn__real_unique AS T1
+     repo_sys.[IndexColumn_real_unique] AS T1
 UNION ALL
 SELECT
        [index_guid]

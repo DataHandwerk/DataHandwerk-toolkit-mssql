@@ -252,4 +252,81 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[RepoObjectColumn_reference_union]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="8677eb44-6cdb-4e92-9b6a-8e281363be49" ChangeDateTime="01/23/2021 11:36:55">
+    <Property Name="ElementName" Value="[repo_sys].[usp_RepoObject__update_SysObject_query_plan]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_RepoObject_update_SysObjectQueryPlan]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ba0d3ab4-6bbc-42a5-9da4-b092040fc607" ChangeDateTime="01/23/2021 11:38:34">
+    <Property Name="ElementName" Value="[repo_sys].[usp_RepoObjectSource__first_result_set__update]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_RepoObjectSource_FirstResultSet]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d68032ee-2e06-4cf6-bc0e-2729c7fdb321" ChangeDateTime="01/23/2021 11:40:39">
+    <Property Name="ElementName" Value="[repo_sys].[extended_properties__parameter_for_add_update_drop]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[extended_properties_ParameterForAddUpdateDrop]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6e80f248-80f7-4f72-9370-343412e12b8e" ChangeDateTime="01/23/2021 11:45:00">
+    <Property Name="ElementName" Value="[repo_sys].[Index__real_unique]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Index_real_unique]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="66ad8f7f-4701-4f89-8af0-04cd09c0c951" ChangeDateTime="01/23/2021 11:45:22">
+    <Property Name="ElementName" Value="[repo_sys].[IndexColumn__real_unique]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[IndexColumn_real_unique]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="63278d80-1bc8-42ed-b902-007c4f39f098" ChangeDateTime="01/23/2021 11:56:15">
+    <Property Name="ElementName" Value="[sys_self].[extended_properties__parameter_for_add_update_drop]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[sys_self]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[extended_properties_ParameterForAddUpdateDrop]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3a420b05-297f-4d19-a736-c4bf5e4f0331" ChangeDateTime="01/23/2021 11:57:19">
+    <Property Name="ElementName" Value="[sys_self].[extended_properties]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[sys_self]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[ExtendedProperties]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3ed49a33-588f-4654-a5ef-665e3cade02d" ChangeDateTime="01/23/2021 11:57:39">
+    <Property Name="ElementName" Value="[sys_self].[extended_properties_ParameterForAddUpdateDrop]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[sys_self]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[ExtendedProperties_ParameterForAddUpdateDrop]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2d3ea059-1a05-452a-aadf-047cbd06cf26" ChangeDateTime="01/23/2021 11:58:04">
+    <Property Name="ElementName" Value="[repo_sys].[extended_properties]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[ExtendedProperties]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="290b6317-b213-41aa-8766-70f91cfdf17b" ChangeDateTime="01/23/2021 11:58:24">
+    <Property Name="ElementName" Value="[repo_sys].[extended_properties_ParameterForAddUpdateDrop]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[ExtendedProperties_ParameterForAddUpdateDrop]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d0acf262-5371-4acc-b8bf-57a5d3a2936d" ChangeDateTime="01/23/2021 11:59:43">
+    <Property Name="ElementName" Value="[repo_sys].[usp_AddOrUpdateExtendedproperty]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo_sys]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_AddOrUpdateExtendedProperty]" />
+  </Operation>
 </Operations>

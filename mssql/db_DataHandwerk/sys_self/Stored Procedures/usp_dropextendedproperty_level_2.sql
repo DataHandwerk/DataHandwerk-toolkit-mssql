@@ -29,7 +29,7 @@ FOR SELECT
          , [level2type]
          , [level2name]
     FROM
-         sys_self.extended_properties__parameter_for_add_update_drop
+         sys_self.[ExtendedProperties_ParameterForAddUpdateDrop]
     WHERE  [property_name] = @name
            AND NOT [level1type] IS NULL
            AND NOT [level1name] IS NULL

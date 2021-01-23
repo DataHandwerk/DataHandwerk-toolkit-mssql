@@ -1,6 +1,6 @@
 ﻿
 -- Alter View Index__real_unique
-CREATE VIEW [repo_sys].[Index__real_unique]
+CREATE VIEW [repo_sys].[Index_real_unique]
 AS
 --
 SELECT
@@ -28,58 +28,3 @@ FROM
      ON ro_parent.SysObject_id = si.object_id
 WHERE  [si].[is_unique] = 1
        AND NOT [ro_index].[RepoObject_guid] IS NULL
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

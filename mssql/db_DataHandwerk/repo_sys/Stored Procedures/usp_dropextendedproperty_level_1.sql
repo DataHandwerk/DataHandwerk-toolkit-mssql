@@ -32,7 +32,7 @@ FOR SELECT
          , [level1type]
          , [level1name]
     FROM
-         repo_sys.extended_properties__parameter_for_add_update_drop
+         repo_sys.[ExtendedProperties_ParameterForAddUpdateDrop]
     WHERE  [property_name] = @name
            AND NOT [level1type] IS NULL
            AND NOT [level1name] IS NULL

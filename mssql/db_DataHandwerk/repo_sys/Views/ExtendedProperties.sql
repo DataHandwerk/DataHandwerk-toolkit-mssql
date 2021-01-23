@@ -5,7 +5,7 @@ database_id required in
 - OBJECT_SCHEMA_NAME
 - OBJECT_NAME
 */
-CREATE VIEW [repo_sys].[extended_properties]
+CREATE VIEW [repo_sys].[ExtendedProperties]
 AS
 --
 SELECT

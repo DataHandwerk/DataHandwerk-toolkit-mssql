@@ -28,7 +28,7 @@ Kombination mit virtuellen Index
 semantische Gruppen müssen aber ebenfalls (und vor allem) den echten Index zugeordnet werden, dafür wird also eh eine Tabelle benötigt
 
 */
-CREATE VIEW [repo_sys].[IndexColumn__real_unique]
+CREATE VIEW [repo_sys].[IndexColumn_real_unique]
 AS
 --
 SELECT

@@ -833,7 +833,7 @@ WHILE @@fetch_status <> -1
         IF @@fetch_status <> -2
             BEGIN
 
-                EXEC repo_sys.usp_AddOrUpdateExtendedproperty
+                EXEC repo_sys.[usp_AddOrUpdateExtendedProperty]
                      @name = N'RepoObjectColumn_guid'
                    , @value = @RepoObjectColumn_guid
                    , @level0type = N'Schema'
