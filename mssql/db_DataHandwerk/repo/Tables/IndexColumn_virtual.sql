@@ -1,4 +1,4 @@
-﻿CREATE TABLE [repo].[IndexColumn__virtual] (
+﻿CREATE TABLE [repo].[IndexColumn_virtual] (
     [Index_guid]            UNIQUEIDENTIFIER NOT NULL,
     [index_column_id]       INT              NOT NULL,
     [RepoObjectColumn_guid] UNIQUEIDENTIFIER NOT NULL,
@@ -33,7 +33,7 @@ GO
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'consecutive number of the column within the index.
 sys.index_columns.index_column_id: "ID of the index column. index_column_id is unique only within index_id."
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn__virtual', @level2type = N'COLUMN', @level2name = N'index_column_id';
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual', @level2type = N'COLUMN', @level2name = N'index_column_id';
 
 
 GO

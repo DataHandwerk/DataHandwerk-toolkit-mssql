@@ -19,7 +19,7 @@ SELECT
      , [parent_SysObject_fullname] = [sc_roc].[SysObject_fullname]
      , [is_index_real] = CAST(0 AS BIT)
 FROM
-     repo.IndexColumn__virtual AS icv
+     repo.[IndexColumn_virtual] AS icv
      INNER JOIN
      repo.[Index_virtual] AS iv
      ON icv.index_guid = iv.index_guid

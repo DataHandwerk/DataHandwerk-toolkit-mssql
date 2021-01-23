@@ -65,7 +65,7 @@ GROUP (
    --   , roc.[SysObjectColumn_column_id]
   )
 FROM [repo].[RepoObjectColumn] AS roc
-LEFT JOIN [repo].[IndexColumn__union] ic ON ic.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+LEFT JOIN [repo].[IndexColumn_union] ic ON ic.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
  AND ic.[is_index_primary_key] = 1
 WHERE
  --not [is_query_plan_expression]
