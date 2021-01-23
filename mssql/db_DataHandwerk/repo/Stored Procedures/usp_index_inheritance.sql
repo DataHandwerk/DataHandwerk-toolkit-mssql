@@ -171,15 +171,15 @@ EXEC repo.usp_ExecutionLog_insert
    , @info_08 = NULL
    , @info_09 = NULL
 
-DELETE FROM repo.IndexColumn__virtual
-FROM [repo].[IndexColumn__virtual]
+DELETE FROM repo.[IndexColumn_virtual]
+FROM [repo].[IndexColumn_virtual]
      INNER JOIN
      [repo].[Index_virtual] AS [i]
-     ON [repo].[IndexColumn__virtual].[Index_guid] = [i].[index_guid]
+     ON [repo].[IndexColumn_virtual].[Index_guid] = [i].[index_guid]
      LEFT OUTER JOIN
      [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
-     ON [repo].[IndexColumn__virtual].[index_column_id] = [setpoint].[index_column_id]
-        AND [repo].[IndexColumn__virtual].[Index_guid] = [setpoint].[index_guid]
+     ON [repo].[IndexColumn_virtual].[index_column_id] = [setpoint].[index_column_id]
+        AND [repo].[IndexColumn_virtual].[Index_guid] = [setpoint].[index_guid]
 WHERE
 --only referenced_index_guid
       NOT [i].[referenced_index_guid] IS NULL
@@ -221,7 +221,7 @@ EXEC repo.usp_ExecutionLog_insert
 
 --some combinations of ([Index_guid], [index_column_id]) are not unique
 --correct this in repo.IndexColumn__virtual_referenced_setpoint
-INSERT INTO repo.IndexColumn__virtual
+INSERT INTO repo.[IndexColumn_virtual]
 (
        [Index_guid]
      , [index_column_id]
@@ -240,7 +240,7 @@ WHERE  NOT EXISTS
     SELECT
            [ic].[index_guid]
     FROM
-         [repo].[IndexColumn__virtual] AS [ic]
+         [repo].[IndexColumn_virtual] AS [ic]
     WHERE  [ic].[index_guid] = [setpoint].[index_guid]
            AND [ic].[index_column_id] = [setpoint].[index_column_id]
 )
@@ -282,7 +282,7 @@ UPDATE icv
   SET
       [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid]
     , [is_descending_key] = [setpoint].[is_descending_key]
-FROM   [repo].[IndexColumn__virtual] [icv]
+FROM   [repo].[IndexColumn_virtual] [icv]
        INNER JOIN
        [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
        ON [icv].[index_column_id] = [setpoint].[index_column_id]
