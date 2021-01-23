@@ -23,5 +23,5 @@ FROM
      sys.objects AS so
      ON sep.major_id = so.object_id
      INNER JOIN
-     repo.type__level1type_level2type AS stl
+     repo.[type_level1type_level2type] AS stl
      ON so.type = stl.type COLLATE Latin1_General_CI_AS_KS_WS

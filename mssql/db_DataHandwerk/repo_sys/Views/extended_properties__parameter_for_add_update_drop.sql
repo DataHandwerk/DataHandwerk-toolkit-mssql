@@ -25,7 +25,7 @@ From
      sys_dwh.objects As so
      On sep.major_id = so.object_id
      Inner Join
-     repo.type__level1type_level2type As stl
+     repo.[type_level1type_level2type] As stl
      On so.type = stl.type Collate Latin1_General_CI_AS_KS_WS
 GO
 

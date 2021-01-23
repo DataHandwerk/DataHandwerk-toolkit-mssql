@@ -14,4 +14,242 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[IndexColumn_virtual]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="3bf3499f-8aed-4b0a-a12b-73363812d771" ChangeDateTime="01/23/2021 11:06:04">
+    <Property Name="ElementName" Value="[repo].[execution_log__plantUML_Sequence_start_stop]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[ExecutionLog_plantUML_Sequence_start_stop]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ae22e804-b0ad-40ab-b128-1e9cd20d38fa" ChangeDateTime="01/23/2021 11:06:46">
+    <Property Name="ElementName" Value="[repo].[check_IndexColumn__virtual_referenced_setpoint]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[check_IndexColumn_virtual_referenced_setpoint]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1291a6bd-cf70-4d05-8507-95bf97115932" ChangeDateTime="01/23/2021 11:07:51">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_10_statement]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_10_statement]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d295bc6c-f151-4ac0-9f7d-8a11bc764459" ChangeDateTime="01/23/2021 11:08:37">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_20_statement_children]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_20_statement_children]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="713d944e-f80c-4da2-949b-4aa1c28845d4" ChangeDateTime="01/23/2021 11:09:15">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_21_statement_children_helper]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_21_statement_children_helper]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="616e8449-b8f6-4e7e-a4c0-36bded2a2042" ChangeDateTime="01/23/2021 11:09:49">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_22_identifier_alias_AS]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_22_identifier_alias_AS]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="27e9e5a0-e1ab-4db3-b413-1deb279ab5ac" ChangeDateTime="01/23/2021 11:10:34">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_23_normalized_wo_nolock]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_23_normalized_wo_nolock]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="300cff01-cada-423e-a603-d4a193e37955" ChangeDateTime="01/23/2021 11:11:13">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_24_IdentifierList_children]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_24_IdentifierList_children]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d9409181-a596-44fd-8401-18c39e15d85f" ChangeDateTime="01/23/2021 11:11:54">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_25_IdentifierList_children_IdentifierSplit]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4b22efbb-e9d0-4f23-9657-599d151dd761" ChangeDateTime="01/23/2021 11:12:32">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_26_object__union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_26_object__union]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b0a4a882-4b2b-4a8f-b16c-62abcb8d258d" ChangeDateTime="01/23/2021 11:13:34">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_27_object__GroupBy]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_27_object__GroupBy]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b88ebb46-5a5c-4003-8cb9-2761c4a58384" ChangeDateTime="01/23/2021 11:14:14">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_31_object]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_31_object]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d0fe6472-ff24-47ab-b3d1-027905415576" ChangeDateTime="01/23/2021 11:14:46">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_32_object_class]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_32_object_class]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e83253ff-f8ba-4e54-b620-6a97a4969865" ChangeDateTime="01/23/2021 11:15:21">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_33_object_normalized]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_33_object_normalized]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="02b019c1-7dd5-4afc-a340-4e24ddb44915" ChangeDateTime="01/23/2021 11:15:56">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_39_object]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_39_object]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="29fd7d0b-44b1-418f-bc35-3e4a600e2a9e" ChangeDateTime="01/23/2021 11:16:35">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_41_from]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_41_from]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="99f87495-13be-489d-9009-5b489e6f7fa9" ChangeDateTime="01/23/2021 11:17:33">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_42_from_Identifier]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_42_from_Identifier]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9668d595-f9af-4e37-9136-83eb3e4d40a3" ChangeDateTime="01/23/2021 11:18:30">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_990_obsolet]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_990_obsolet]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a74a713b-b8dd-4b4d-a69d-0ab33fc29bcb" ChangeDateTime="01/23/2021 11:19:28">
+    <Property Name="ElementName" Value="[repo].[RepoObject__sql_modules_Repo_Sys]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_Repo_Sys]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ad040842-5a70-4f1e-9a14-6d4049cbe9d5" ChangeDateTime="01/23/2021 11:20:02">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn__gross]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_gross]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="143b7213-55d5-4118-92c8-665065d9af80" ChangeDateTime="01/23/2021 11:22:28">
+    <Property Name="ElementName" Value="[repo].[RepoObject_persistence__ObjectNames]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_persistence_ObjectNames]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c97022d2-276b-45a0-bcbc-a724050ea7e0" ChangeDateTime="01/23/2021 11:24:09">
+    <Property Name="ElementName" Value="[repo].[RepoObject_reference__persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_reference_persistence]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7f7b9664-535e-43b1-b002-20e6fd4a9fbe" ChangeDateTime="01/23/2021 11:24:52">
+    <Property Name="ElementName" Value="[repo].[RepoObject_reference__sql_expression_dependencies]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_reference_SqlExpressionDependencies]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="65a26d98-5896-4e44-bc0a-ba48d59a8217" ChangeDateTime="01/23/2021 11:25:26">
+    <Property Name="ElementName" Value="[repo].[RepoObject_reference__union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_reference_union]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d1b794c5-5f06-4eda-b95f-455ed558eb1c" ChangeDateTime="01/23/2021 11:26:27">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference__by_same_predecessors]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_reference_BySamePredecessors]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5d2d04e2-e0a8-41b2-9498-d67e01499525" ChangeDateTime="01/23/2021 11:27:22">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference__first_result_set]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_reference_FirstResultSet]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="839682d8-ec3f-46e8-86df-d2c62a81abaf" ChangeDateTime="01/23/2021 11:27:57">
+    <Property Name="ElementName" Value="[repo].[type__level1type_level2type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[type_level1type_level2type]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="28fc42b9-1b62-4580-b250-b576f2fe93bb" ChangeDateTime="01/23/2021 11:28:56">
+    <Property Name="ElementName" Value="[repo].[SysObjectColumn__query_plan_expression]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[SysObjectColumn_QueryPlanExpression]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="807d3518-89c9-4e2b-99c3-1cc539ba300c" ChangeDateTime="01/23/2021 11:30:55">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn__missing_source_type_v]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_MissingSource_TypeV]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bc180937-cf11-4eb0-b142-ce4445c15522" ChangeDateTime="01/23/2021 11:31:32">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference__persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_reference_Persistence]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="605b8746-7517-4d8b-afc5-7e085e858aa0" ChangeDateTime="01/23/2021 11:32:11">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference__query_plan]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_reference_QueryPlan]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4af27e4d-160d-4d1e-ac0b-39554931b2ae" ChangeDateTime="01/23/2021 11:32:45">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference__sql_expression_dependencies]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_reference__SqlExpressionDependencies]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="331d34d5-bf79-45d9-8751-d54525d30f22" ChangeDateTime="01/23/2021 11:33:16">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference__SqlExpressionDependencies]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_reference_SqlExpressionDependencies]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="35a78837-cedc-4804-a7d0-32fd444a1b52" ChangeDateTime="01/23/2021 11:33:41">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference__union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumn_reference_union]" />
+  </Operation>
 </Operations>

@@ -40,7 +40,7 @@ SELECT
 FROM
      repo.Index_union AS i_s --index source: index in referenced source object(s)
      INNER JOIN
-     repo.RepoObject_reference__union AS ror
+     repo.[RepoObject_reference_union] AS ror
      ON ror.referenced_RepoObject_guid = i_s.parent_RepoObject_guid
      LEFT JOIN
      repo.[Index_virtual] AS i_v
