@@ -1,0 +1,139 @@
+﻿
+-- Alter View RepoObject__sql_modules_990_obsolet
+CREATE VIEW [repo].[RepoObject_SqlModules_990_obsolet]
+AS
+--
+SELECT
+       [RepoObject_guid]
+--     , [is_create_view_as_Identifier_select] = CASE
+--                                                   WHEN EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_1_create] = 1
+--)
+--                                                        AND EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_2_view] = 1
+--)
+--                                                        AND EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_3_Identifier] = 1
+--)
+--                                                        AND EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_4_as] = 1
+--)
+--                                                        AND EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_5_select] = 1
+--)
+--                                                   THEN 1
+--                                                   ELSE 0
+--                                               END
+--     , [is_select_IdentifierList_from] = CASE
+--                                             WHEN EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_5_select] = 1
+--)
+--                                                  AND EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_6_IdentifierList] = 1
+--)
+--                                                  AND EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_7_from] = 1
+--)
+--                                             THEN 1
+--                                             ELSE 0
+--                                         END
+--     , [is_select_xxx_IdentifierList] = CASE
+--                                            WHEN EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[is_5_select] = 1
+--)
+--                                                 AND EXISTS
+--(
+--    SELECT
+--           1
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [t21].[class] = 'IdentifierList'
+--           AND [T21].[Min_RowNumber_per_class] > 6
+--)
+--                                            THEN 1
+--                                            ELSE 0
+--                                        END
+--     , [min_from] =
+--(
+--    SELECT TOP 1
+--           [Min_RowNumber_per_normalized]
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[normalized] = 'FROM'
+--)
+--     , [min_IdentifierList] =
+--(
+--    SELECT TOP 1
+--           [Min_RowNumber_per_class]
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[class] = 'IdentifierList'
+--)
+--     , [min_where] =
+--(
+--    SELECT TOP 1
+--           [Min_RowNumber_per_class]
+--    FROM
+--         [repo].[RepoObject__sql_modules_21_statement_children_helper] AS [T21]
+--    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
+--           AND [T21].[class] = 'Where'
+--)
+FROM
+     [repo].[RepoObject_SqlModules] AS T10

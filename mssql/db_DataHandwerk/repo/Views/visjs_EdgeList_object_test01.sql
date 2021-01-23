@@ -26,7 +26,7 @@ SELECT
      , [referenced_node_id]
      , EdgeListElement = concat('{ from: ' , [referenced_node_id] , ', to:' , [referencing_node_id] , ' },')
 FROM
-     repo.RepoObject_reference__sql_expression_dependencies
+     repo.[RepoObject_reference_SqlExpressionDependencies]
 GO
 
 

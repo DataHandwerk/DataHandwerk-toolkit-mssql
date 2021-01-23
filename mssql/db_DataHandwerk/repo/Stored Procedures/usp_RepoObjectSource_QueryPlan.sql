@@ -307,7 +307,7 @@ SELECT
      , [SysObjectColumn_column_id]
      , 1 AS [is_query_plan_expression]
 FROM
-     repo.SysObjectColumn__query_plan_expression AS T1
+     repo.[SysObjectColumn_QueryPlanExpression] AS T1
 WHERE  NOT EXISTS
 (
     SELECT
@@ -360,7 +360,7 @@ WHERE
     SELECT
            [SysObjectColumn_name]
     FROM
-         [repo].[SysObjectColumn__query_plan_expression] AS [T1]
+         [repo].[SysObjectColumn_QueryPlanExpression] AS [T1]
     WHERE  [roc].[RepoObject_guid] = [T1].[RepoObject_guid]
            AND [roc].[SysObjectColumn_name] = [T1].[SysObjectColumn_name]
 )
