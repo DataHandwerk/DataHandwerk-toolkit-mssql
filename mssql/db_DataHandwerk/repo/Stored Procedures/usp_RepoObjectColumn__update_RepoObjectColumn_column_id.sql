@@ -46,7 +46,7 @@ SELECT
 FROM
      [repo].[RepoObjectColumn] AS roc
      LEFT JOIN
-     [repo].[IndexColumn__union] AS ic
+     [repo].[IndexColumn_union] AS ic
      ON ic.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
         AND ic.[is_index_primary_key] = 1
 WHERE
@@ -59,6 +59,7 @@ AND NOT [Repo_user_type_fullname] IS NULL
 		SET @sqlCommand = @sqlCommand + '
 AND [roc].[RepoObject_guid] = @RepoObject_guid
 '
+	PRINT @sqlCommand
 
 	--EXECUTE sp_executesql @sqlCommand
 	EXECUTE sp_executesql @sqlCommand

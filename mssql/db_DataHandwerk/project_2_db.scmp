@@ -110,7 +110,7 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>GenerateSmartDefaults</Name>
-        <Value>False</Value>
+        <Value>True</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreDdlTriggerOrder</Name>
@@ -146,11 +146,11 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreWhitespace</Name>
-        <Value>True</Value>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreKeywordCasing</Name>
-        <Value>True</Value>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreSemicolonBetweenStatements</Name>
@@ -222,7 +222,7 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreQuotedIdentifiers</Name>
-        <Value>True</Value>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreUserSettingsObjects</Name>
@@ -306,11 +306,11 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetDatabaseName</Name>
-        <Value>dhw_master</Value>
+        <Value>dhw_PerformanceAnalytics</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetConnectionString</Name>
-        <Value>Data Source=ACER-F17\SQL2019;Initial Catalog=dhw_master;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</Value>
+        <Value>Integrated Security=True;Pooling=False;Connect Timeout=30</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TreatVerificationErrorsAsWarnings</Name>
