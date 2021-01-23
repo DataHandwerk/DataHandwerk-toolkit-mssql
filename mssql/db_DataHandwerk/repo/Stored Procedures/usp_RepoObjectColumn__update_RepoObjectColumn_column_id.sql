@@ -7,31 +7,24 @@ exec repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id
 
 */
 --if @RepoObject_guid then all RepoObject will be updated
-CREATE PROCEDURE [repo].[usp_RepoObjectColumn__update_RepoObjectColumn_column_id]
-(
-     @RepoObject_guid UNIQUEIDENTIFIER = NULL
-)
+CREATE PROCEDURE [repo].[usp_RepoObjectColumn__update_RepoObjectColumn_column_id] (@RepoObject_guid UNIQUEIDENTIFIER = NULL)
 AS
-DECLARE
-     @OrderBy NVARCHAR(1000)
-DECLARE
-     @sqlCommand NVARCHAR(4000)
+	DECLARE @OrderBy NVARCHAR(1000)
+	DECLARE @sqlCommand NVARCHAR(4000)
 
---set @RepoObject_guid = '7E756329-D857-EB11-84D8-A81E8446D5B0'
-SET @OrderBy = CAST(
-(
-    SELECT
-           [repo].[fs_get_parameter_value]('RepoObjectColumn_column_id_OrderBy' , DEFAULT)
-) AS NVARCHAR(1000))
+	--set @RepoObject_guid = '7E756329-D857-EB11-84D8-A81E8446D5B0'
+	SET @OrderBy = CAST((SELECT
+			[repo].[fs_get_parameter_value]('RepoObjectColumn_column_id_OrderBy', DEFAULT))
+	AS NVARCHAR(1000))
 
---'
---[roc].[Repo_is_identity]
---, [roc].[Repo_is_computed]
---, ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other columns
---, [roc].[Repo_generated_always_type]
---, [roc].[RepoObjectColumn_name]
---'
-SET @sqlCommand = '
+	--'
+	--[roc].[Repo_is_identity]
+	--, [roc].[Repo_is_computed]
+	--, ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other columns
+	--, [roc].[Repo_generated_always_type]
+	--, [roc].[RepoObjectColumn_name]
+	--'
+	SET @sqlCommand = '
 SELECT
      [roc].[RepoObjectColumn_guid]
      ,  [RepoObjectColumn_column_id_setpoint] = ROW_NUMBER() OVER(PARTITION BY [roc].[RepoObject_guid]
@@ -62,13 +55,12 @@ WHERE
 --we need the datatype
 AND NOT [Repo_user_type_fullname] IS NULL
 '
-IF NOT @RepoObject_guid IS NULL
-    SET @sqlCommand = @sqlCommand + '
+	IF NOT @RepoObject_guid IS NULL
+		SET @sqlCommand = @sqlCommand + '
 AND [roc].[RepoObject_guid] = @RepoObject_guid
 '
 
---EXECUTE sp_executesql @sqlCommand
-EXECUTE sp_executesql
-        @sqlCommand
-      , N'@RepoObject_guid uniqueidentifier'
-      , @RepoObject_guid = @RepoObject_guid
+	--EXECUTE sp_executesql @sqlCommand
+	EXECUTE sp_executesql @sqlCommand
+						 ,N'@RepoObject_guid uniqueidentifier'
+						 ,@RepoObject_guid = @RepoObject_guid

@@ -1,9 +1,4 @@
 ﻿
--- Alter View IndexColumn__real_unique
--- Alter View IndexColumn__real_unique
--- Alter View IndexUniqueColumn__real
--- Alter View IndexUniqueColumn__real
--- Alter View IndexColumn__unique_real
 /*
 Index hat folgende Eindeutigkeiten
 
@@ -32,21 +27,21 @@ CREATE VIEW [repo_sys].[IndexColumn_real_unique]
 AS
 --
 SELECT
-       [index_guid] = [sc_ro].[RepoObject_guid]
-     , [sic].[index_column_id]
-     , [sic].[is_descending_key]
-     , [sc_roc].[RepoObjectColumn_guid] --could by empty for new Objects, execute [repo].[usp_sync_guid]
-     , [parent_RepoObject_guid] = [sc_roc].[RepoObject_guid]       --could by empty for new Objects, execute [repo].[usp_sync_guid]
-     , [index_name] = [si].[name] COLLATE DATABASE_DEFAULT
-     , [parent_schema_name] = [sc_roc].[SysObject_schema_name]
-     , [parent_SysObject_name] = [sc_roc].[SysObject_name]
-     , [sc_roc].[SysObject_column_name]
-     , [sc_roc].[user_type_fullname] AS [SysObject_column_user_type_fullname]
-     , [si].[is_unique] AS              [is_index_unique]
-     , [si].[is_primary_key] AS         [is_index_primary_key]
-     , [parent_SysObject_fullname] = [sc_roc].[SysObject_fullname]
-     , [is_index_real] = CAST(1 AS BIT)
-     , [sic].[index_id]
+	[index_guid] = [sc_ro].[RepoObject_guid]
+   ,[sic].[index_column_id]
+   ,[sic].[is_descending_key]
+   ,[sc_roc].[RepoObjectColumn_guid] --could by empty for new Objects, execute [repo].[usp_sync_guid]
+   ,[parent_RepoObject_guid] = [sc_roc].[RepoObject_guid]       --could by empty for new Objects, execute [repo].[usp_sync_guid]
+   ,[index_name] = [si].[name] COLLATE database_default
+   ,[parent_schema_name] = [sc_roc].[SysObject_schema_name]
+   ,[parent_SysObject_name] = [sc_roc].[SysObject_name]
+   ,[sc_roc].[SysObject_column_name]
+   ,[sc_roc].[user_type_fullname] AS [SysObject_column_user_type_fullname]
+   ,[si].[is_unique] AS [is_index_unique]
+   ,[si].[is_primary_key] AS [is_index_primary_key]
+   ,[parent_SysObject_fullname] = [sc_roc].[SysObject_fullname]
+   ,[is_index_real] = CAST(1 AS BIT)
+   ,[sic].[index_id]
 
 --, [sic].[key_ordinal]
 --, [si].[type] AS                   [index_type]
@@ -73,81 +68,15 @@ SELECT
 --, [si].[suppress_dup_key_messages]
 --, [si].[auto_created]
 --, [si].[optimize_for_sequential_key]
-FROM
-     sys_dwh.index_columns AS sic
-     INNER JOIN
-     sys_dwh.indexes AS si
-     ON sic.object_id = si.object_id
-        AND sic.index_id = si.index_id
-     INNER JOIN
-     repo.SysColumn_RepoObjectColumn_via_name AS sc_roc
-     ON sic.object_id = sc_roc.SysObject_id
-        AND sic.column_id = sc_roc.SysObject_column_id
-     LEFT JOIN
-     repo.SysObject_RepoObject_via_name AS sc_ro
-     ON sc_ro.SysObject_name = si.name COLLATE DATABASE_DEFAULT
-        AND sc_ro.SysObject_schema_name = sc_roc.SysObject_schema_name
-WHERE  [si].[is_unique] = 1
+FROM sys_dwh.index_columns AS sic
+INNER JOIN sys_dwh.indexes AS si
+	ON sic.object_id = si.object_id
+		AND sic.index_id = si.index_id
+INNER JOIN repo.SysColumn_RepoObjectColumn_via_name AS sc_roc
+	ON sic.object_id = sc_roc.SysObject_id
+		AND sic.column_id = sc_roc.SysObject_column_id
+LEFT JOIN repo.SysObject_RepoObject_via_name AS sc_ro
+	ON sc_ro.SysObject_name = si.name COLLATE database_default
+		AND sc_ro.SysObject_schema_name = sc_roc.SysObject_schema_name
+WHERE [si].[is_unique] = 1
 GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

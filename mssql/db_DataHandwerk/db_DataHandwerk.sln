@@ -8,12 +8,20 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		dhw_PerformanceAnalytics|Any CPU = dhw_PerformanceAnalytics|Any CPU
+		dhw_WideWorldImporters-test|Any CPU = dhw_WideWorldImporters-test|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.dhw_PerformanceAnalytics|Any CPU.ActiveCfg = dhw_PerformanceAnalytics|Any CPU
+		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.dhw_PerformanceAnalytics|Any CPU.Build.0 = dhw_PerformanceAnalytics|Any CPU
+		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.dhw_PerformanceAnalytics|Any CPU.Deploy.0 = dhw_PerformanceAnalytics|Any CPU
+		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.dhw_WideWorldImporters-test|Any CPU.ActiveCfg = dhw_WideWorldImporters-test|Any CPU
+		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.dhw_WideWorldImporters-test|Any CPU.Build.0 = dhw_WideWorldImporters-test|Any CPU
+		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.dhw_WideWorldImporters-test|Any CPU.Deploy.0 = dhw_WideWorldImporters-test|Any CPU
 		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C9D2678-85D0-4326-A997-A7EBB0722A14}.Release|Any CPU.Deploy.0 = Release|Any CPU

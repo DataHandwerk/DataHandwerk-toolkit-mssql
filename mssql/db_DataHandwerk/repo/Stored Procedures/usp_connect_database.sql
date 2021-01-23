@@ -1,37 +1,39 @@
-﻿
-CREATE PROCEDURE [repo].[usp_connect_database]
-(
-     @dwh_database_name NVARCHAR(128)
-)
+﻿/*
+example
+
+[repo].[usp_connect_database]
+@dwh_database_name = 'dwh_PerformanceAnalytics'
+
+[repo].[usp_connect_database]
+@dwh_database_name = 'WideWorldImporters-test'
+
+
+*/
+
+
+CREATE PROCEDURE [repo].[usp_connect_database] (@dwh_database_name NVARCHAR(128))
 AS
---
---ensure existence of required parameters like 'dwh_database_name'
-EXEC [repo].[usp_init_parameter]
+	--
+	--ensure existence of required parameters like 'dwh_database_name'
+	EXEC [repo].[usp_init_parameter]
 
---ensure [repo].[spt_values] is filled, otherwise extended properties will not be written into database
-EXEC [repo].[usp_init_spt_values]
+	--ensure [repo].[spt_values] is filled, otherwise extended properties will not be written into database
+	EXEC [repo].[usp_init_spt_values]
 
-DECLARE
-     @dwh_database_name_old NVARCHAR(128) =
-(
-    SELECT
-           [repo].[fs_dwh_database_name]()
-)
+	DECLARE @dwh_database_name_old NVARCHAR(128) = (SELECT
+			[repo].[fs_dwh_database_name]())
 
-EXEC [repo].[usp_parameter__insert_update]
-     @Parameter_name = 'dwh_database_name'
-   , @Parameter_value = @dwh_database_name
+	EXEC [repo].[usp_parameter__insert_update] @Parameter_name = 'dwh_database_name'
+											  ,@Parameter_value = @dwh_database_name
 
---this required every time, in case synonyms are corrupt or new synonyms have been added
---IF @dwh_database_name <> ISNULL(@dwh_database_name_old , '')
-    BEGIN
+	--this required every time, in case synonyms are corrupt or new synonyms have been added
+	--IF @dwh_database_name <> ISNULL(@dwh_database_name_old , '')
+	BEGIN
 
-        DECLARE
-             @SQLString NVARCHAR(4000)
-        DECLARE
-             @ParmDefinition NVARCHAR(500)
+		DECLARE @SQLString NVARCHAR(4000)
+		DECLARE @ParmDefinition NVARCHAR(500)
 
-        SET @SQLString = '
+		SET @SQLString = '
 DROP SYNONYM  IF EXISTS [sys_dwh].[columns]
 DROP SYNONYM  IF EXISTS [sys_dwh].[computed_columns]
 DROP SYNONYM  IF EXISTS [sys_dwh].[default_constraints]
@@ -72,6 +74,5 @@ CREATE SYNONYM [sys_dwh].[types] FOR [' + @dwh_database_name + '].[sys].[types]
 
 '
 
-        EXECUTE sp_executesql
-                @SQLString
-    END
+		EXECUTE sp_executesql @SQLString
+	END
