@@ -1,4 +1,7 @@
-﻿-- Alter Procedure usp_RepoObject__update_SysObject_query_plan
+﻿
+-- Create Procedure usp_RepoObject__update_SysObject_query_plan
+
+-- Alter Procedure usp_RepoObject__update_SysObject_query_plan
 /*
 references on column level
 target: repo.RepoObjectSource_from_query_plan
@@ -16,7 +19,6 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-
 CREATE PROCEDURE [repo_sys].[usp_RepoObject__update_SysObject_query_plan]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
@@ -53,7 +55,7 @@ SET @step_id = @step_id + 1
 SET @step_name = 'start'
 --SET @source_object = NULL
 --SET @target_object = NULL
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -202,7 +204,7 @@ WHILE @@fetch_status <> -1
                 SET @rows = @@ROWCOUNT;
                 SET @step_id = @step_id + 1;
 
-                EXEC repo.usp_execution_log__insert
+                EXEC repo.usp_ExecutionLog_insert
                      @execution_instance_guid = @execution_instance_guid
                    , @ssis_execution_id = @ssis_execution_id
                    , @sub_execution_id = @sub_execution_id
@@ -247,7 +249,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id

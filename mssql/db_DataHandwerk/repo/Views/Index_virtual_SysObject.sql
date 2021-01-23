@@ -1,5 +1,6 @@
 ﻿
-CREATE VIEW [repo].[Index__virtual_SysObject]
+-- Alter View Index_virtual_SysObject
+CREATE VIEW [repo].[Index_virtual_SysObject]
 AS
 --
 SELECT
@@ -26,66 +27,3 @@ FROM
      INNER JOIN
      [repo].[Index_IndexSemanticGroup] AS isg
      ON isg.[index_guid] = [iv].[index_guid]
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

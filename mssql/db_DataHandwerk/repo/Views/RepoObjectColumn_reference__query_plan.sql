@@ -1,5 +1,7 @@
 ﻿
 -- Alter View RepoObjectColumn_reference__query_plan
+
+-- Alter View RepoObjectColumn_reference__query_plan
 CREATE VIEW [repo].[RepoObjectColumn_reference__query_plan]
 AS
 --
@@ -52,7 +54,7 @@ SELECT
            AND [ro_r].[referenced_RepoObject_guid] = [roc2].[RepoObject_guid]
 )
 FROM
-     repo.RepoObjectSource__query_plan AS ros
+     repo.RepoObjectSource_QueryPlan AS ros
      INNER JOIN
      repo.RepoObject AS ro
      ON ros.RepoObject_guid = ro.RepoObject_guid

@@ -1,5 +1,7 @@
 ﻿
-CREATE PROCEDURE [repo].[usp_Index_IndexSemanticGroup__merge]
+-- Alter Procedure usp_Index_IndexSemanticGroup
+-- Create Procedure usp_Index_IndexSemanticGroup__merge
+CREATE PROCEDURE [repo].[usp_Index_IndexSemanticGroup]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
    , @ssis_execution_id       BIGINT           = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -35,7 +37,7 @@ SET @step_id = @step_id + 1
 SET @step_name = 'start'
 --SET @source_object = NULL
 --SET @target_object = NULL
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -83,7 +85,7 @@ SET @step_name = 'DELETE'
 SET @source_object = '[repo].[Index_IndexPattern]'
 SET @target_object = '[repo].[Index_IndexSemanticGroup]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -137,7 +139,7 @@ SET @step_name = 'INSERT'
 SET @source_object = '[repo].[Index_IndexPattern]'
 SET @target_object = '[repo].[Index_IndexSemanticGroup]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -182,7 +184,7 @@ SET @step_name = 'UPDATE'
 SET @source_object = '[repo].[Index_IndexPattern]'
 SET @target_object = '[repo].[Index_IndexSemanticGroup]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -217,7 +219,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -243,6 +245,3 @@ EXEC repo.usp_execution_log__insert
    , @info_07 = NULL
    , @info_08 = NULL
    , @info_09 = NULL
-GO
-
-

@@ -1,4 +1,5 @@
 ﻿
+-- Create Procedure usp_sync_guid_RepoObjectColumn
 CREATE PROCEDURE [repo].[usp_sync_guid_RepoObjectColumn]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
@@ -35,7 +36,7 @@ SET @step_id = @step_id + 1
 SET @step_name = 'start'
 --SET @source_object = NULL
 --SET @target_object = NULL
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -106,7 +107,7 @@ WHERE
 SET @rows = @@ROWCOUNT;
 SET @step_id = @step_id + 1;
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -169,7 +170,7 @@ SET @step_name = 'SET [SysObjectColumn_name] = [RepoObjectColumn_guid] (to avoid
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -264,7 +265,7 @@ SET @step_name = '[SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] (
 SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -311,7 +312,7 @@ SET @step_name = 'DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1)'
 SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_name]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -403,7 +404,7 @@ SET @step_name = 'INSERT still missing Column'
 SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_name]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -479,7 +480,7 @@ SET @step_name = 'WHERE (has_different_sys_names = 1) AND (ISNULL(is_repo_manage
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -615,7 +616,7 @@ SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0)'
 SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
 SET @target_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -755,7 +756,7 @@ SET @step_name = 'persistence: update RepoObjectColumn_name and repo attributes 
 SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -863,7 +864,7 @@ SET @step_name = 'write RepoObjectColumn_guid into extended properties of SysObj
 SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_name]'
 SET @target_object = '[repo_sys].[usp_AddOrUpdateExtendedproperty]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -918,7 +919,7 @@ SET @step_name = 'SET [is_SysObjectColumn_missing] = 1'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -969,7 +970,7 @@ SET @step_name = 'where is_SysObjectColumn_missing = 1, but not in objects which
 SET @source_object = '[repo_sys].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -1016,7 +1017,7 @@ SET @step_name = 'INSERT missing'
 SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
 SET @target_object = '[repo].[RepoObjectColumnProperty]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -1057,7 +1058,7 @@ SET @step_name = 'SET [RepoObjectColumnProperty_property_value] = [property_valu
 SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
 SET @target_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -1105,7 +1106,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id

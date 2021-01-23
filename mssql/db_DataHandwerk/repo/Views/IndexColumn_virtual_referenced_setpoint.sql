@@ -1,4 +1,6 @@
 ﻿
+-- Alter View IndexColumn_virtual_referenced_setpoint
+
 /*
 Sollwert
 jeder Index in [repo].[Index__virtual], der einen [referenced_index_guid] hat, der also geerbt wird
@@ -25,7 +27,7 @@ but this is wrong, only one referencing_RepoObjectColumn_guid is possible per [i
 
 
 */
-CREATE VIEW [repo].[IndexColumn__virtual_referenced_setpoint]
+CREATE VIEW [repo].[IndexColumn_virtual_referenced_setpoint]
 AS
 --
 SELECT
@@ -47,42 +49,3 @@ FROM
         --ic.index_guid is the referenced index (source index)
         AND ic.index_guid = i.referenced_index_guid
         AND ic.[RowNumberInReferencing] = i.[RowNumberInReferencing]
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

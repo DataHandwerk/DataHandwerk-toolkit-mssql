@@ -1,5 +1,9 @@
 ﻿
 -- Create Procedure usp_aaa_all
+-- Create Procedure usp_aaa_all
+-- Create Procedure usp_aaa_all
+
+-- Create Procedure usp_aaa_all
 /*
 check log
 [repo].[execution_log]
@@ -47,7 +51,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -101,7 +105,7 @@ EXEC [repo_sys].[usp_RepoObject__update_SysObject_query_plan]
 
 ----in case of errors mark the RepoObjects with [repo].[RepoObject].[has_execution_plan_issue]
 ----and they will not investigated
-EXEC [repo].[usp_RepoObjectSource__query_plan__update]
+EXEC [repo].[usp_RepoObjectSource_QueryPlan]
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -130,7 +134,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id

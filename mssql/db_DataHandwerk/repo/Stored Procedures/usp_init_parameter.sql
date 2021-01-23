@@ -1,4 +1,5 @@
 ﻿
+-- Create Procedure usp_init_parameter
 CREATE PROCEDURE [repo].[usp_init_parameter]
 AS
 --
@@ -15,7 +16,7 @@ SELECT
      , [Parameter_desciption]
      , [Parameter_default_value]
 FROM
-     [repo].[Parameter__default] AS T1
+     [repo].[Parameter_default] AS T1
 WHERE  NOT EXISTS
 (
     SELECT
@@ -32,7 +33,7 @@ UPDATE T2
     , [T2].[Parameter_default_value] = [source].[Parameter_default_value]
 FROM   [repo].[Parameter] AS [T2]
        INNER JOIN
-       [repo].[Parameter__default] AS [source]
+       [repo].[Parameter_default] AS [source]
        ON [source].[Parameter_name] = [T2].[Parameter_name]
           AND [source].[sub_Parameter] = [T2].[sub_Parameter]
 WHERE

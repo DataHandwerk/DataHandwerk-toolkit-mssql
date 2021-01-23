@@ -1,6 +1,6 @@
 ﻿
-
-CREATE VIEW [repo].[RepoObject__sql_modules_25_obsolet]
+-- Alter View RepoObject__sql_modules_990_obsolet
+CREATE VIEW [repo].[RepoObject__sql_modules_990_obsolet]
 AS
 --
 SELECT
@@ -136,4 +136,4 @@ SELECT
 --           AND [T21].[class] = 'Where'
 --)
 FROM
-     [repo].[RepoObject__sql_modules] AS T10
+     [repo].[RepoObject_SqlModules] AS T10

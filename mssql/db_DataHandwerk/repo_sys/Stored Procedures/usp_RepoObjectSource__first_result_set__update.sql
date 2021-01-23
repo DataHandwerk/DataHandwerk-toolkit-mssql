@@ -1,4 +1,7 @@
 ﻿
+-- Create Procedure usp_RepoObjectSource__first_result_set__update
+-- Alter Procedure usp_RepoObjectSource__first_result_set__update
+
 -- Alter Procedure usp_RepoObjectSource__first_result_set__update
 -- Alter Procedure usp_RepoObjectSource__dm_exec_describe_first_result_set__update
 -- Alter Procedure usp_RepoObjectSource__dm_exec_describe_first_result_set__update
@@ -49,7 +52,7 @@ SET @step_id = @step_id + 1
 SET @step_name = 'start'
 --SET @source_object = NULL
 --SET @target_object = NULL
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -87,13 +90,13 @@ EXEC repo.usp_execution_log__insert
 --   , @parent_execution_log_id = @current_execution_log_id
 
 --delete FROM repo.RepoObjectSource where query_sql was updated
-DELETE FROM repo.RepoObjectSource__first_result_set
-FROM [repo].[RepoObjectSource__first_result_set]
+DELETE FROM repo.RepoObjectSource_FirstResultSet
+FROM [repo].[RepoObjectSource_FirstResultSet]
      LEFT OUTER JOIN
      [repo].[RepoObject] AS [ro]
-     ON [repo].[RepoObjectSource__first_result_set].[RepoObject_guid] = [ro].[RepoObject_guid]
+     ON [repo].[RepoObjectSource_FirstResultSet].[RepoObject_guid] = [ro].[RepoObject_guid]
 WHERE
-      [repo].[RepoObjectSource__first_result_set].[created_dt] < [ro].[SysObject_modify_date]
+      [repo].[RepoObjectSource_FirstResultSet].[created_dt] < [ro].[SysObject_modify_date]
       OR [ro].[SysObject_modify_date] IS NULL
       --wrong inserts from prev execution
       OR [target_column_name] IS NULL
@@ -104,7 +107,7 @@ SET @step_name = 'DELETE modified after last created:dt'
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObjectSource__dm_exec_describe_first_result_set]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -131,7 +134,7 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 
-INSERT INTO repo.RepoObjectSource__first_result_set
+INSERT INTO repo.RepoObjectSource_FirstResultSet
 (
        [RepoObject_guid]
      , [column_ordinal]
@@ -172,7 +175,7 @@ FROM
                [RepoObject_guid]
              , MIN([created_dt]) AS [created_dt_min]
         FROM
-             repo.RepoObjectSource__first_result_set AS ros
+             repo.RepoObjectSource_FirstResultSet AS ros
         GROUP BY
                  [RepoObject_guid]
     ) AS ros
@@ -200,7 +203,7 @@ SET @step_name = 'CROSS APPLY sys.dm_exec_describe_first_result_set(ro_filtered.
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObjectSource__dm_exec_describe_first_result_set]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -236,7 +239,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id

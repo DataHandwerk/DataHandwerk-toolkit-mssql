@@ -1,5 +1,6 @@
 ﻿
-CREATE VIEW [repo].[IndexColumn__virtual_gross]
+-- Alter View IndexColumn_virtual_gross
+CREATE VIEW [repo].[IndexColumn_virtual_gross]
 AS
 --
 SELECT
@@ -30,62 +31,3 @@ FROM
      ON sc_ro.RepoObject_guid = iv.parent_RepoObject_guid
 
 --WHERE  [iv].[is_index_unique] = 1
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

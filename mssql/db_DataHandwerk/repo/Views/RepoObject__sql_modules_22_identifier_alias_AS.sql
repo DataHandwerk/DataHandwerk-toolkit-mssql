@@ -1,10 +1,13 @@
 ﻿
 /*
-it looks like an identifier has only one child and inside this one child only one child identifier which is the alias
-but currently we do not force one entry by ([RepoObject_guid], [key])
-we coul add a Row_number to enable filtering for the first alias
-*/
+this works good for identifier, used in the FROM block of a statement:
+it looks like these identifiers have only one child and inside this one child only one child identifier which is the alias
+we also add a Row_number to enable filtering for the first alias (there should only be one, but who knows...)
+by filtering ([RowNumber] = 1) in some next steps we ensure one entry per ([RepoObject_guid], [key])
 
+But we have also a lot of other representations of tables, especially because of the (NOLOCK)
+and we need some extra handling to extract them
+*/
 CREATE VIEW [repo].[RepoObject__sql_modules_22_identifier_alias_AS]
 AS
 --

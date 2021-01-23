@@ -1,5 +1,6 @@
 ﻿
-CREATE VIEW [repo].[IndexColumn__union]
+-- Alter View IndexColumn_union
+CREATE VIEW [repo].[IndexColumn_union]
 AS
 --
 SELECT
@@ -36,63 +37,4 @@ SELECT
      , [is_index_real]
      , [parent_SysObject_fullname]
 FROM
-     repo.IndexColumn__virtual_gross AS T2
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
+     repo.IndexColumn_virtual_gross AS T2

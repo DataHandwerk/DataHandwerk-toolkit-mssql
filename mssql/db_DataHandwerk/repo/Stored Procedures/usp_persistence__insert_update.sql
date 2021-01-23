@@ -1,4 +1,6 @@
 ﻿
+-- Create Procedure usp_persistence__insert_update
+
 -- Alter Procedure usp_persistence__insert_update
 -- Alter Procedure usp_persistence_insert_update
 -- Create Procedure usp_persistence_insert_update
@@ -168,7 +170,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -269,7 +271,7 @@ IF NOT @persistence_RepoObject_guid IS NULL
                 SET @source_object = '[repo].[RepoObject_persistence]'
                 SET @target_object = NULL
 
-                EXEC repo.usp_execution_log__insert
+                EXEC repo.usp_ExecutionLog_insert
                      @execution_instance_guid = @execution_instance_guid
                    , @ssis_execution_id = @ssis_execution_id
                    , @sub_execution_id = @sub_execution_id
@@ -328,7 +330,7 @@ IF NOT @source_RepoObject_guid IS NULL
                 SET @source_object = '[repo].[RepoObject]'
                 SET @target_object = NULL
 
-                EXEC repo.usp_execution_log__insert
+                EXEC repo.usp_ExecutionLog_insert
                      @execution_instance_guid = @execution_instance_guid
                    , @ssis_execution_id = @ssis_execution_id
                    , @sub_execution_id = @sub_execution_id
@@ -382,7 +384,7 @@ IF NOT @source_RepoObject_guid IS NULL
                 SET @source_object = '[repo].[RepoObject]'
                 SET @target_object = NULL
 
-                EXEC repo.usp_execution_log__insert
+                EXEC repo.usp_ExecutionLog_insert
                      @execution_instance_guid = @execution_instance_guid
                    , @ssis_execution_id = @ssis_execution_id
                    , @sub_execution_id = @sub_execution_id
@@ -474,7 +476,7 @@ IF NOT EXISTS
         SET @source_object = '[repo].[RepoObject]'
         SET @target_object = NULL
 
-        EXEC repo.usp_execution_log__insert
+        EXEC repo.usp_ExecutionLog_insert
              @execution_instance_guid = @execution_instance_guid
            , @ssis_execution_id = @ssis_execution_id
            , @sub_execution_id = @sub_execution_id
@@ -533,7 +535,7 @@ SET @step_name = 'INSERT SELECT @persistence_RepoObject_guid, @source_RepoObject
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObject_persistence]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -583,7 +585,7 @@ SET @step_name = 'SET parameters from procedure call'
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObject_persistence]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -624,7 +626,7 @@ SET @step_name = 'SET [is_repo_managed] = 1 (WHERE [RepoObject_guid] = @persiste
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -714,7 +716,7 @@ SET @step_name = '[roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -782,7 +784,7 @@ SET @step_name = 'add missing persistence columns existing in source'
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -881,7 +883,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id

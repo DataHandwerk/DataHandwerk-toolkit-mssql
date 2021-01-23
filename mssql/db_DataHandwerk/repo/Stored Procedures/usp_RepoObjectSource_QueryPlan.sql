@@ -1,4 +1,9 @@
 ﻿
+-- Create Procedure usp_RepoObjectSource_QueryPlan
+-- Alter Procedure usp_RepoObjectSource_QueryPlan
+-- Alter Procedure usp_RepoObjectSource__update_query_plan
+-- Alter Procedure usp_RepoObjectSource__update_query_plan
+
 -- Create Procedure usp_RepoObjectSource__query_plan__update
 -- Create Procedure usp_RepoObjectSource__query_plan__update
 -- Create Procedure usp_RepoObjectSource__query_plan__update
@@ -10,7 +15,7 @@
 -- Create Procedure usp_RepoObjectSource_from_query_plan__update
 /*
 references on column level
-target: repo.RepoObjectSource_from_query_plan
+target: repo.RepoObjectSource__QueryPlan
 source: query plan analysis of the execution of a query like
 `Vselect top (1) * into #foo from (SELECT * FROM sss.aaa)`
 
@@ -25,7 +30,7 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-CREATE PROCEDURE [repo].[usp_RepoObjectSource__query_plan__update]
+CREATE PROCEDURE [repo].[usp_RepoObjectSource_QueryPlan]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
    , @ssis_execution_id       BIGINT           = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -62,7 +67,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -96,12 +101,12 @@ EXEC repo.usp_execution_log__insert
 DECLARE
      @message NVARCHAR(1000)
 -- delete outdated entries, which need to be analyzed again
-DELETE FROM repo.RepoObjectSource__query_plan
+DELETE FROM repo.RepoObjectSource_QueryPlan
 FROM [repo].[RepoObject] AS [ro]
      INNER JOIN
-     [repo].[RepoObjectSource__query_plan]
-     ON [ro].[RepoObject_guid] = [repo].[RepoObjectSource__query_plan].[RepoObject_guid]
-        AND [ro].[SysObject_query_executed_dt] > [repo].[RepoObjectSource__query_plan].[SysObject_query_executed_dt]
+     [repo].[RepoObjectSource_QueryPlan]
+     ON [ro].[RepoObject_guid] = [repo].[RepoObjectSource_QueryPlan].[RepoObject_guid]
+        AND [ro].[SysObject_query_executed_dt] > [repo].[RepoObjectSource_QueryPlan].[SysObject_query_executed_dt]
 
 SET @rows = @@ROWCOUNT;
 SET @step_id = @step_id + 1
@@ -109,7 +114,7 @@ SET @step_name = 'DELETE outdated entries, which need to be analyzed again'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObjectSource__query_plan]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -156,7 +161,7 @@ FOR
         SELECT
                [RepoObject_guid]
         FROM
-             [repo].[RepoObjectSource__query_plan] AS [TFilter]
+             [repo].[RepoObjectSource_QueryPlan] AS [TFilter]
         WHERE  [ro].[RepoObject_guid] = [TFilter].[RepoObject_guid]
                AND [ro].[SysObject_query_executed_dt] = [TFilter].[SysObject_query_executed_dt]
     )
@@ -187,7 +192,7 @@ WHILE @@fetch_status <> -1
 
                 BEGIN TRY
 
-                    INSERT INTO repo.RepoObjectSource__query_plan
+                    INSERT INTO repo.RepoObjectSource_QueryPlan
                     (
                            [RepoObject_guid]
                          , [SysObject_query_executed_dt]
@@ -252,7 +257,7 @@ WHILE @@fetch_status <> -1
                 SET @source_object = '[repo].[RepoObject]'
                 SET @target_object = '[repo].[RepoObjectSource__query_plan]'
 
-                EXEC repo.usp_execution_log__insert
+                EXEC repo.usp_ExecutionLog_insert
                      @execution_instance_guid = @execution_instance_guid
                    , @ssis_execution_id = @ssis_execution_id
                    , @sub_execution_id = @sub_execution_id
@@ -319,7 +324,7 @@ SET @step_name = 'INSERT missing'
 SET @source_object = '[repo].[SysObjectColumn__query_plan_expression]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -366,7 +371,7 @@ SET @step_name = 'DELETE not existing'
 SET @source_object = '[repo].[SysObjectColumn__query_plan_expression]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -402,7 +407,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -428,6 +433,3 @@ EXEC repo.usp_execution_log__insert
    , @info_07 = NULL
    , @info_08 = NULL
    , @info_09 = NULL
-GO
-
-

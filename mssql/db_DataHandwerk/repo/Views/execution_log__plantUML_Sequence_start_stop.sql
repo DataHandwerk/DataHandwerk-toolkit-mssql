@@ -124,9 +124,9 @@ SELECT
      , [T1].[proc_fullname]
      , [parent].[parent_proc_fullname]
 FROM
-     [repo].[execution_log] AS T1
+     [repo].[ExecutionLog] AS T1
      LEFT JOIN
-     [repo].[execution_log__parent] AS parent
+     [repo].[ExecutionLog_parent] AS parent
      ON parent.ID = T1.ID
 WHERE  [T1].[step_name] IN
                            (

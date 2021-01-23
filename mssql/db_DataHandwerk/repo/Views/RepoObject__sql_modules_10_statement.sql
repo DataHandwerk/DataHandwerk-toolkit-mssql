@@ -1,6 +1,7 @@
 ﻿
-/*extract class Statement, it should be the one and only node on first level*/
+-- Alter View RepoObject__sql_modules_10_statement
 
+/*extract class Statement, it should be the one and only node on first level*/
 CREATE VIEW [repo].[RepoObject__sql_modules_10_statement]
 AS
 --
@@ -10,7 +11,7 @@ SELECT
      , [T1].[sql_modules_json]
      , [j2].*
 FROM
-     [repo].[RepoObject__sql_modules] AS T1
+     [repo].[RepoObject_SqlModules] AS T1
      CROSS APPLY
      OPENJSON(T1.[sql_modules_json]) 
 	 WITH(
