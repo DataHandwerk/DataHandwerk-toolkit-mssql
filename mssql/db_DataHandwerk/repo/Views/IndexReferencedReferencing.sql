@@ -43,7 +43,7 @@ FROM
      repo.RepoObject_reference__union AS ror
      ON ror.referenced_RepoObject_guid = i_s.parent_RepoObject_guid
      LEFT JOIN
-     repo.Index__virtual AS i_v
+     repo.[Index_virtual] AS i_v
      ON i_v.referenced_index_guid = i_s.index_guid
         AND i_v.parent_RepoObject_guid = ror.referencing_RepoObject_guid
 GO

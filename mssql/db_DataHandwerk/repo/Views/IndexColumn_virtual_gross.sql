@@ -21,7 +21,7 @@ SELECT
 FROM
      repo.IndexColumn__virtual AS icv
      INNER JOIN
-     repo.Index__virtual AS iv
+     repo.[Index_virtual] AS iv
      ON icv.index_guid = iv.index_guid
      INNER JOIN
      repo.SysColumn_RepoObjectColumn_via_guid AS sc_roc

@@ -42,7 +42,7 @@ SELECT
      , [ic].[referenced_RepoObject_guid]
      , [ic].[referencing_RepoObject_guid]
 FROM
-     repo.Index__virtual AS i
+     repo.[Index_virtual] AS i
      INNER JOIN
      repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing AS ic --setpoint belongs to the parent_RepoObject of the index
      ON ic.referencing_RepoObject_guid = i.parent_RepoObject_guid
