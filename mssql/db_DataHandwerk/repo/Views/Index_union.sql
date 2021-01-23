@@ -25,4 +25,4 @@ SELECT
      , [is_index_disabled]
      , [is_index_real] = CAST(0 AS BIT)
 FROM
-     repo.Index__virtual
+     repo.[Index_virtual]

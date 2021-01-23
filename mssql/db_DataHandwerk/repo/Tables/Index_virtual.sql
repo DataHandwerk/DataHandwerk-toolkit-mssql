@@ -1,4 +1,4 @@
-﻿CREATE TABLE [repo].[Index__virtual] (
+﻿CREATE TABLE [repo].[Index_virtual] (
     [index_guid]             UNIQUEIDENTIFIER CONSTRAINT [DF_IndexUnique__virtual_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
     [parent_RepoObject_guid] UNIQUEIDENTIFIER NOT NULL,
     [index_name]             NVARCHAR (128)   NULL,

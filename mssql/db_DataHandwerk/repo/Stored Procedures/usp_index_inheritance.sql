@@ -76,7 +76,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----START
 --
 --delete Index which are marked as referenced_index_guid, but the referenced index is missing 
-DELETE FROM repo.Index__virtual
+DELETE FROM repo.[Index_virtual]
 WHERE
       NOT [referenced_index_guid] IS NULL
       AND ([RowNumberInReferencing] IS NULL
@@ -123,7 +123,7 @@ EXEC repo.usp_ExecutionLog_insert
 
 --insert Index which should be inherited in referenced, but not yet referenced
 --todo WHERE Bedingung ist noch falsch, oder Quellsicht ändern
-INSERT INTO repo.Index__virtual
+INSERT INTO repo.[Index_virtual]
 (
        [parent_RepoObject_guid]
      , [referenced_index_guid]
@@ -174,7 +174,7 @@ EXEC repo.usp_ExecutionLog_insert
 DELETE FROM repo.IndexColumn__virtual
 FROM [repo].[IndexColumn__virtual]
      INNER JOIN
-     [repo].[Index__virtual] AS [i]
+     [repo].[Index_virtual] AS [i]
      ON [repo].[IndexColumn__virtual].[Index_guid] = [i].[index_guid]
      LEFT OUTER JOIN
      [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
@@ -340,7 +340,7 @@ EXEC repo.usp_Index_IndexSemanticGroup
 UPDATE repo.Index_IndexSemanticGroup
   SET
       [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]
-FROM   [repo].[Index__virtual] AS [T1]
+FROM   [repo].[Index_virtual] AS [T1]
        INNER JOIN
        [repo].[Index_IndexSemanticGroup] AS [TSource]
        ON [T1].[referenced_index_guid] = [TSource].[index_guid]
@@ -399,7 +399,7 @@ UPDATE iv
   SET
       [is_index_primary_key] = 1
     , [is_index_unique] = 1
-FROM   [repo].[Index__virtual] [iv]
+FROM   [repo].[Index_virtual] [iv]
 WHERE
       [iv].[is_index_primary_key] = 0
       AND EXISTS
@@ -449,7 +449,7 @@ EXEC repo.usp_ExecutionLog_insert
 UPDATE iv
   SET
       [is_index_unique] = 1
-FROM   [repo].[Index__virtual] [iv]
+FROM   [repo].[Index_virtual] [iv]
 WHERE
       [iv].[is_index_primary_key] = 1
       AND [iv].[is_index_unique] = 0
@@ -551,7 +551,7 @@ EXEC repo.usp_ExecutionLog_insert
 UPDATE iv
   SET
       [is_index_primary_key] = 0
-FROM   [repo].[Index__virtual] [iv]
+FROM   [repo].[Index_virtual] [iv]
 WHERE
       [iv].[is_index_primary_key] = 1
       AND NOT EXISTS

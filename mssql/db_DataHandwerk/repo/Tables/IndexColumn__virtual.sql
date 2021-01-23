@@ -4,7 +4,7 @@
     [RepoObjectColumn_guid] UNIQUEIDENTIFIER NOT NULL,
     [is_descending_key]     BIT              CONSTRAINT [DF_IndexColumn__virtual_is_descending_key] DEFAULT ((0)) NOT NULL,
     CONSTRAINT [PK_IndexColumn__unique] PRIMARY KEY CLUSTERED ([Index_guid] ASC, [index_column_id] ASC),
-    CONSTRAINT [FK_IndexColumn__virtual_Index__virtual] FOREIGN KEY ([Index_guid]) REFERENCES [repo].[Index__virtual] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT [FK_IndexColumn__virtual_Index__virtual] FOREIGN KEY ([Index_guid]) REFERENCES [repo].[Index_virtual] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

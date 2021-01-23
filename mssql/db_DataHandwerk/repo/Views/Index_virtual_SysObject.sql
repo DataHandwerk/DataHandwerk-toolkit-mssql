@@ -20,7 +20,7 @@ SELECT
      , [ro].[SysObject_type]
      , [ro].[pk_index_guid]
 FROM
-     repo.Index__virtual AS iv
+     repo.[Index_virtual] AS iv
      INNER JOIN
      repo.RepoObject AS ro
      ON iv.parent_RepoObject_guid = ro.RepoObject_guid
