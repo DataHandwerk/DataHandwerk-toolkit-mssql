@@ -7,37 +7,6 @@
     [status] INT           NULL
 );
 
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'How to fill from undocumented table in master:
 

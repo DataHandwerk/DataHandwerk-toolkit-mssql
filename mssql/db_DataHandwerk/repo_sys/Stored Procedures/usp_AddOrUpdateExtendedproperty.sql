@@ -48,7 +48,7 @@ Operations that require a change to the schema version, for example renaming, ar
 
 => todo
 */
-CREATE PROCEDURE [repo_sys].[usp_AddOrUpdateExtendedproperty]
+CREATE PROCEDURE [repo_sys].[usp_AddOrUpdateExtendedProperty]
      @name       SYSNAME
    , @value      SQL_VARIANT  = NULL
    , @level0type VARCHAR(128) = NULL

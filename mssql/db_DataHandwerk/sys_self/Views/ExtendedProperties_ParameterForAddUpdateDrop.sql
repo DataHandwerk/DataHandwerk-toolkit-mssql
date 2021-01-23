@@ -1,5 +1,5 @@
 ﻿
-CREATE VIEW [sys_self].[extended_properties__parameter_for_add_update_drop]
+CREATE VIEW [sys_self].[ExtendedProperties_ParameterForAddUpdateDrop]
 AS
 --
 SELECT
@@ -18,10 +18,10 @@ SELECT
      , [type_level1type] = [stl].[level1type]
      , [type_level2type] = [stl].[level2type]
 FROM
-     sys_self.extended_properties AS sep
+     sys_self.[ExtendedProperties] AS sep
      INNER JOIN
      sys.objects AS so
      ON sep.major_id = so.object_id
      INNER JOIN
      repo.[type_level1type_level2type] AS stl
-     ON so.type = stl.type COLLATE Latin1_General_CI_AS_KS_WS
+     ON so.type COLLATE DATABASE_DEFAULT = stl.type

@@ -13,7 +13,7 @@ SELECT
      , [is_index_disabled]
      , [is_index_real] = CAST(1 AS BIT)
 FROM
-     repo_sys.Index__real_unique
+     repo_sys.[Index_real_unique]
 UNION ALL
 SELECT
        [index_guid]

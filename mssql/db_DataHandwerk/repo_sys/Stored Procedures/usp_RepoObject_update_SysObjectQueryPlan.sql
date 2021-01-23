@@ -19,7 +19,7 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-CREATE PROCEDURE [repo_sys].[usp_RepoObject__update_SysObject_query_plan]
+CREATE PROCEDURE [repo_sys].[usp_RepoObject_update_SysObjectQueryPlan]
 -- some optional parameters, used for logging
      @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
    , @ssis_execution_id       BIGINT           = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix

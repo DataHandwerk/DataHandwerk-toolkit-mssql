@@ -1,5 +1,5 @@
 ﻿
-CREATE VIEW [sys_self].[extended_properties]
+CREATE VIEW [sys_self].[ExtendedProperties]
 AS
 --
 SELECT

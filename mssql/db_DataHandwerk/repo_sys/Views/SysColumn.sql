@@ -82,12 +82,12 @@ SELECT
 FROM
      sys_dwh.columns AS sc
      LEFT OUTER JOIN
-     repo_sys.extended_properties AS ep
+     repo_sys.[ExtendedProperties] AS ep
      ON ep.major_id = sc.object_id
         AND ep.minor_id = 0
         AND ep.property_name = N'RepoObject_guid'
      LEFT OUTER JOIN
-     repo_sys.extended_properties AS ep2
+     repo_sys.[ExtendedProperties] AS ep2
      ON ep2.major_id = sc.object_id
         AND ep2.minor_id = sc.column_id
         AND ep2.property_name = N'RepoObjectColumn_guid'

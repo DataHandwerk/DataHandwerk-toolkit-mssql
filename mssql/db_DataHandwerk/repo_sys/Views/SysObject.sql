@@ -45,7 +45,7 @@ FROM
      [sys_dwh].schemas AS sch
      ON sch.schema_id = [so].schema_id
      LEFT OUTER JOIN
-     repo_sys.extended_properties AS ep
+     repo_sys.[ExtendedProperties] AS ep
      ON ep.major_id = so.object_id
         AND ep.minor_id = 0
         AND ep.property_name = N'RepoObject_guid'

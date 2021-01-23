@@ -88,7 +88,7 @@ EXEC [repo].[usp_sync_guid]
    , @parent_execution_log_id = @current_execution_log_id
 --
 --
-EXEC [repo_sys].[usp_RepoObjectSource__first_result_set__update]
+EXEC [repo_sys].[usp_RepoObjectSource_FirstResultSet]
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -97,7 +97,7 @@ EXEC [repo_sys].[usp_RepoObjectSource__first_result_set__update]
 ----benefit from query plan: we get some informations about column dependencies in views if they are used in expressions
 ----in case of errors mark the RepoObjects with [repo].[RepoObject].[has_execution_plan_issue]
 ----and they will not investigated
-EXEC [repo_sys].[usp_RepoObject__update_SysObject_query_plan]
+EXEC [repo_sys].[usp_RepoObject_update_SysObjectQueryPlan]
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
