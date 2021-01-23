@@ -19,7 +19,7 @@ AS SELECT
    --, [roc_s].[RepoObjectColumn_name] AS [RepoObjectColumn_name_s]
    --, [roc_t].[RepoObjectColumn_name] AS [RepoObjectColumn_name_t]
    FROM
-        repo.IndexColumn__virtual_referenced_setpoint AS T1
+        repo.IndexColumn_virtual_referenced_setpoint AS T1
         LEFT OUTER JOIN
         repo.RepoObjectColumn AS roc_t
         ON T1.referencing_RepoObjectColumn_guid = roc_t.RepoObjectColumn_guid

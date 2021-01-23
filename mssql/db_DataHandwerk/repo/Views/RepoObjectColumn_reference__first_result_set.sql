@@ -1,5 +1,7 @@
 ﻿
 -- Alter View RepoObjectColumn_reference__first_result_set
+
+-- Alter View RepoObjectColumn_reference__first_result_set
 --"common" references
 --these should be "common" columns in views, not containing expressions
 --Attention: views on views are "resolved" like views on the underlaying tables!
@@ -44,7 +46,7 @@ SELECT
 )
      , [ros].[is_hidden]
 FROM
-     repo.RepoObjectSource__first_result_set AS ros
+     repo.RepoObjectSource_FirstResultSet AS ros
      INNER JOIN
      repo.RepoObject AS ro
      ON ros.RepoObject_guid = ro.RepoObject_guid

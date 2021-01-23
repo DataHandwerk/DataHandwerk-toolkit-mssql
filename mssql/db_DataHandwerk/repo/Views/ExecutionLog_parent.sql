@@ -1,5 +1,7 @@
 ﻿
-CREATE   VIEW [repo].[execution_log__parent]
+-- Alter View ExecutionLog_parent
+-- Alter View execution_log__parent
+CREATE VIEW [repo].[ExecutionLog_parent]
 AS
 --
 SELECT
@@ -34,8 +36,8 @@ SELECT
      , [parent].[parameter_20] AS           [parent_parameter_20]
      , [parent].[proc_fullname] AS          [parent_proc_fullname]
 FROM
-     repo.execution_log AS T1
+     repo.ExecutionLog AS T1
      LEFT JOIN
-     repo.execution_log AS parent
+     repo.ExecutionLog AS parent
      ON parent.id = T1.parent_execution_log_id
 WHERE  NOT [parent].[id] IS NULL

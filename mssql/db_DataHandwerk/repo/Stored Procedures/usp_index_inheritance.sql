@@ -1,5 +1,10 @@
 ﻿
 -- Create Procedure usp_index_inheritance
+-- Create Procedure usp_index_inheritance
+-- Create Procedure usp_index_inheritance
+-- Create Procedure usp_index_inheritance
+
+-- Create Procedure usp_index_inheritance
 CREATE PROCEDURE [repo].[usp_index_inheritance]
 --by default the source schema is used and the source name with prefix '_T' for table
 --todo: use general parameters to define this
@@ -40,7 +45,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -89,7 +94,7 @@ SET @step_name = 'DELETE (referenced index is missing)'
 SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
 SET @target_object = '[repo].[Index__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -139,7 +144,7 @@ SET @step_name = 'INSERT (Index which should be inherited in referenced, but not
 SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
 SET @target_object = '[repo].[Index__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -172,7 +177,7 @@ FROM [repo].[IndexColumn__virtual]
      [repo].[Index__virtual] AS [i]
      ON [repo].[IndexColumn__virtual].[Index_guid] = [i].[index_guid]
      LEFT OUTER JOIN
-     [repo].[IndexColumn__virtual_referenced_setpoint] AS [setpoint]
+     [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
      ON [repo].[IndexColumn__virtual].[index_column_id] = [setpoint].[index_column_id]
         AND [repo].[IndexColumn__virtual].[Index_guid] = [setpoint].[index_guid]
 WHERE
@@ -187,7 +192,7 @@ SET @step_name = 'DELETE (where entries are missing in setpoint)'
 SET @source_object = '[repo].[IndexColumn__virtual_referenced_setpoint]'
 SET @target_object = '[repo].[IndexColumn__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -229,7 +234,7 @@ SELECT
      , [is_descending_key]
      , [referencing_RepoObjectColumn_guid]
 FROM
-     repo.IndexColumn__virtual_referenced_setpoint AS setpoint
+     repo.IndexColumn_virtual_referenced_setpoint AS setpoint
 WHERE  NOT EXISTS
 (
     SELECT
@@ -246,7 +251,7 @@ SET @step_name = 'INSERT missing'
 SET @source_object = '[repo].[IndexColumn__virtual_referenced_setpoint]'
 SET @target_object = '[repo].[IndexColumn__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -279,7 +284,7 @@ UPDATE icv
     , [is_descending_key] = [setpoint].[is_descending_key]
 FROM   [repo].[IndexColumn__virtual] [icv]
        INNER JOIN
-       [repo].[IndexColumn__virtual_referenced_setpoint] AS [setpoint]
+       [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
        ON [icv].[index_column_id] = [setpoint].[index_column_id]
           AND [icv].[Index_guid] = [setpoint].[index_guid]
           AND --
@@ -294,7 +299,7 @@ SET @step_name = 'SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObje
 SET @source_object = '[repo].[IndexColumn__virtual_referenced_setpoint]'
 SET @target_object = '[repo].[IndexColumn__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -321,7 +326,7 @@ EXEC repo.usp_execution_log__insert
    , @info_08 = NULL
    , @info_09 = NULL
 
-EXEC repo.usp_Index_IndexSemanticGroup__merge
+EXEC repo.usp_Index_IndexSemanticGroup
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -352,7 +357,7 @@ SET @step_name = 'SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]'
 SET @source_object = '[repo].[Index_IndexSemanticGroup]'
 SET @target_object = '[repo].[Index_IndexSemanticGroup]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -413,7 +418,7 @@ SET @step_name = 'SET [is_index_primary_key] = 1, , [is_index_unique] = 1 (propa
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -455,7 +460,7 @@ SET @step_name = 'SET [is_index_unique] = 1 (each PK is also [is_index_unique])'
 SET @source_object = '[repo].[Index__virtual]'
 SET @target_object = '[repo].[Index__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -496,7 +501,7 @@ FROM      [repo].[RepoObject] [ro]
            [index_guid]
          , [parent_RepoObject_guid]
     FROM
-         [repo].[Index__gross] AS [T1]
+         [repo].[Index_gross] AS [T1]
     WHERE  [is_index_primary_key] = 1
            AND [RowNumber_PkPerParentObject] = 1
 ) [pk]
@@ -514,7 +519,7 @@ SET @step_name = 'SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_prima
 SET @source_object = '[repo].[Index__gross]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -565,7 +570,7 @@ SET @step_name = 'SET [is_index_primary_key] = 0 (where it is not a PK in [repo]
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index__virtual]'
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
@@ -601,7 +606,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_execution_log__insert
+EXEC repo.usp_ExecutionLog_insert
      @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id

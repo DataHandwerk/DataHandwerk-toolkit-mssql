@@ -1,4 +1,7 @@
 ﻿
+-- Alter Procedure usp_ExecutionLog_insert
+-- Alter Procedure usp_execution_log__insert
+
 -- Alter Procedure usp_execution_log__insert
 -- Create Procedure usp_execution_log_insert
 /*
@@ -18,7 +21,7 @@ if a procedure is called several times per ssis_execution, for example the @ssis
 it is also possible to use the @execution_log_id output parameter ad to store it back as @parent_execution_log_id
 
 */
-CREATE PROCEDURE [repo].[usp_execution_log__insert]
+CREATE PROCEDURE [repo].[usp_ExecutionLog_insert]
      @execution_instance_guid UNIQUEIDENTIFIER
    , @ssis_execution_id       BIGINT           = NULL
    , @sub_execution_id        INT              = NULL
@@ -69,7 +72,7 @@ AS
 DECLARE
      @start_dt DATETIME = GETDATE();
 
-INSERT INTO repo.execution_log
+INSERT INTO repo.ExecutionLog
 (
        [execution_instance_guid]
      , [parent_execution_log_id]
@@ -169,6 +172,3 @@ VALUES
 );
 
 SET @execution_log_id = SCOPE_IDENTITY();
-GO
-
-

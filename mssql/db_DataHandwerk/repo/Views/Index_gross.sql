@@ -1,5 +1,6 @@
 ﻿
-CREATE VIEW [repo].[Index__gross]
+-- Alter View Index_gross
+CREATE VIEW [repo].[Index_gross]
 AS
 --
 SELECT
@@ -32,83 +33,8 @@ SELECT
 FROM
      repo.Index_IndexSemanticGroup AS T1
      INNER JOIN
-     repo.Index__union AS T2
+     repo.Index_union AS T2
      ON T1.index_guid = T2.index_guid
      INNER JOIN
-     repo.RepoObject__gross AS T3
+     repo.RepoObject_gross AS T3
      ON T2.parent_RepoObject_guid = T3.RepoObject_guid
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

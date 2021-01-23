@@ -38,7 +38,7 @@ SELECT
      , [i_v].[referenced_index_guid] AS [referenced_index_guid]
      , [i_v].[RowNumberInReferencing] AS RowNumberInReferencing_Target
 FROM
-     repo.Index__union AS i_s --index source: index in referenced source object(s)
+     repo.Index_union AS i_s --index source: index in referenced source object(s)
      INNER JOIN
      repo.RepoObject_reference__union AS ror
      ON ror.referenced_RepoObject_guid = i_s.parent_RepoObject_guid

@@ -1,4 +1,5 @@
 ﻿
+-- Alter View RepoObject__sql_modules_Repo_Sys
 CREATE VIEW [repo].[RepoObject__sql_modules_Repo_Sys]
 AS
 --
@@ -24,6 +25,6 @@ FROM
      repo_sys.SysObject AS so
      ON ro.RepoObject_guid = so.SysObject_RepoObject_guid
      LEFT JOIN
-     [repo].[RepoObject__sql_modules] AS ros
+     [repo].[RepoObject_SqlModules] AS ros
      ON ros.[RepoObject_guid] = ro.[RepoObject_guid]
 WHERE  NOT [so].[sql_modules_definition] IS NULL

@@ -1,5 +1,6 @@
 ﻿
-CREATE VIEW [repo].[Index__union]
+-- Alter View Index_union
+CREATE VIEW [repo].[Index_union]
 AS
 --
 SELECT
@@ -25,38 +26,3 @@ SELECT
      , [is_index_real] = CAST(0 AS BIT)
 FROM
      repo.Index__virtual
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

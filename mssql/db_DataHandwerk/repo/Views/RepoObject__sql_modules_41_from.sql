@@ -1,12 +1,14 @@
 ﻿
 /*
 rows in [repo].[RepoObject__sql_modules_20_statement_children]
-which define the first Block between FROM and WHERE
+which define the first Block 
+- between FROM and WHERE
+- or between FROM and GROUP BY
+
 Attention, this will not work for UNION to analyze all parts of the UNION
 - we could get the first part
 - we could get the part from the first from to a first where in another part of the UNION
 */
-
 CREATE VIEW [repo].[RepoObject__sql_modules_41_from]
 AS
 --
@@ -24,6 +26,7 @@ SELECT
      , [normalized_wo_nolock] = TRIM(REPLACE([T1].[normalized] , '(NOLOCK)' , ''))
        --, [T23_normalized_wo_nolock] = [T23].[normalized_wo_nolock]
      , [T2].[Min_RowNumber_From]
+     , [T2].[Min_RowNumber_GroupBy]
      , [T2].[Min_RowNumber_Where]
      , [T22].[identifier_name]
      , [T22].[identifier_alias]
@@ -50,10 +53,15 @@ FROM
      ON T4.[join_type_variant] = T1.normalized
         AND T1.is_keyword = 1
 WHERE
---extract the FROM part between [Min_RowNumber_From] and [Min_RowNumber_Where]
+--extract the FROM part:
+--start: [Min_RowNumber_From]
 [T2].[Min_RowNumber_From] <= [T1].[RowNumber_per_Object]
+--ende: [Min_RowNumber_Where] or [Min_RowNumber_GroupBy]
 AND ([T2].[Min_RowNumber_Where] IS NULL
      OR [T2].[Min_RowNumber_Where] > [T1].[RowNumber_per_Object])
+AND ([T2].[Min_RowNumber_GroupBy] IS NULL
+     OR [T2].[Min_RowNumber_GroupBy] > [T1].[RowNumber_per_Object])
+
 --ORDER BY
 --         [T1].[RepoObject_guid]
 --       , [T1].[RowNumber_per_Object]

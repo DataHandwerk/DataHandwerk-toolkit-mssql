@@ -65,7 +65,7 @@ SELECT
 
 --, roc.[RepoObjectColumn_guid]
 FROM
-     repo.IndexColumn__union AS ic
+     repo.IndexColumn_union AS ic
      LEFT JOIN --todo: maybe use another source for RepoObject references 
      repo.RepoObjectColumn_reference__first_result_set AS ref
      ON ref.referenced_RepoObjectColumn_guid = ic.RepoObjectColumn_guid

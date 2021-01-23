@@ -1,4 +1,6 @@
-﻿create   FUNCTION [repo].[ftv_sqlparse](@jsonstr nvarchar(max))
+﻿
+-- Alter Function ftv_sqlparse
+CREATE FUNCTION [repo].[ftv_sqlparse] (@json_array nvarchar(max))
 RETURNS TABLE
 AS RETURN
 (
@@ -6,7 +8,7 @@ SELECT
        j1.[key] as json_key
 	   , j2.*
 FROM
-     OPENJSON(@jsonstr) j1 
+     OPENJSON(@json_array) j1 
 CROSS APPLY
 	OPENJSON(j1.[value])
 WITH

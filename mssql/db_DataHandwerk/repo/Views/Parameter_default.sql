@@ -1,12 +1,14 @@
 ﻿
+-- Alter View Parameter_default
+
+
 /*
 merge this view into [repo].[Parameter]:
 
 EXEC [repo].[usp_init_parameter]
 
 */
-
-CREATE VIEW [repo].[Parameter__default]
+CREATE VIEW [repo].[Parameter_default]
 AS
 --
 SELECT
@@ -40,20 +42,28 @@ SELECT
      , [Parameter_default_value] = CAST(0 AS TINYINT)
 UNION ALL
 SELECT
+       [Parameter_name] = 'RepoObjectColumn_column_id_OrderBy'
+     , [sub_Parameter] = N''
+     , [Parameter_desciption] = N'used in repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id to define the order of columns'
+     , [Parameter_default_value] = CAST(N'[roc].[Repo_is_identity]
+, [roc].[Repo_is_computed]
+, ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other columns
+, [roc].[Repo_generated_always_type]
+, [roc].[RepoObjectColumn_name]
+' AS NVARCHAR(4000))
+--
+--the following parameters can have [sub_Parameter]
+UNION ALL
+SELECT
        [Parameter_name] = 'inherit_property_object_type_u'
      , [sub_Parameter] = N'MS_Description'
      , [Parameter_desciption] = N'TINYINT; inherit property for object type U (user table): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
      , [Parameter_default_value] = CAST(0 AS TINYINT)
+--
 UNION ALL
 SELECT
        [Parameter_name] = 'inherit_property_object_type_v'
      , [sub_Parameter] = N''
-     , [Parameter_desciption] = N'TINYINT; inherit property for object type V (view): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
-     , [Parameter_default_value] = CAST(0 AS TINYINT)
-UNION ALL
-SELECT
-       [Parameter_name] = 'inherit_property_object_type_v'
-     , [sub_Parameter] = N'MS_Description'
      , [Parameter_desciption] = N'TINYINT; inherit property for object type V (view): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
      , [Parameter_default_value] = CAST(0 AS TINYINT)
 UNION ALL
@@ -62,6 +72,13 @@ SELECT
      , [sub_Parameter] = N''
      , [Parameter_desciption] = N'TINYINT; inherit property for column: 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
      , [Parameter_default_value] = CAST(0 AS TINYINT)
+UNION ALL
+SELECT
+       [Parameter_name] = 'inherit_property_object_type_v'
+     , [sub_Parameter] = N'MS_Description'
+     , [Parameter_desciption] = N'TINYINT; inherit property for object type V (view): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
+     , [Parameter_default_value] = CAST(0 AS TINYINT)
+--
 UNION ALL
 SELECT
        [Parameter_name] = 'inherit_property_column'
@@ -74,18 +91,3 @@ SELECT
      , [sub_Parameter] = N'MS_Description'
      , [Parameter_desciption] = N'use with "inherit_property_column" = 31 inherit (use pattern). todo: define possible values'
      , [Parameter_default_value] = CAST(N'' AS NVARCHAR(4000))
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-

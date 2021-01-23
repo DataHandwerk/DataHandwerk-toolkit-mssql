@@ -1,4 +1,4 @@
-﻿CREATE TABLE [repo].[RepoObjectSource__query_plan] (
+﻿CREATE TABLE [repo].[RepoObjectSource_QueryPlan] (
     [RepoObject_guid]                  UNIQUEIDENTIFIER NOT NULL,
     [target_column_name]               NVARCHAR (128)   NULL,
     [source_server_name]               NVARCHAR (128)   NULL,
@@ -13,66 +13,8 @@
     [const_info]                       XML              NULL,
     [is_target_column_name_expression] AS               (CONVERT([bit],case when [target_column_name] like 'EXPR[0-9][0-9][0-9][0-9]' then (1) else (0) end)),
     [is_source_column_name_expression] AS               (CONVERT([bit],case when [source_column_name] like 'EXPR[0-9][0-9][0-9][0-9]' then (1) else (0) end)),
-    CONSTRAINT [FK_RepoObjectSource_from_query_plan_RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT [FK_RepoObjectSource_from_query_plan_RepoObject1] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
 
 
 GO
@@ -89,5 +31,5 @@ EXEC [repo].[usp_RepoObjectSource_from_query_plan__update]
 
 some query plans can''t be extracted, some can be extracted but not analyzed
 in this case mark the RepoObject in repo.RepoObject
-SET [has_execution_plan_issue] = 1', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource__query_plan';
+SET [has_execution_plan_issue] = 1', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan';
 
