@@ -329,4 +329,16 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[usp_AddOrUpdateExtendedProperty]" />
   </Operation>
+  <Operation Name="Move Schema" Key="3f20cc3c-d527-4035-8d34-fbf5439af717" ChangeDateTime="01/24/2021 09:12:41">
+    <Property Name="ElementName" Value="[repo_sys].[usp_RepoObject_update_SysObjectQueryPlan]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="repo" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="157fefd5-f12c-4b09-aa77-ff73e0bc63b8" ChangeDateTime="01/24/2021 09:13:57">
+    <Property Name="ElementName" Value="[repo_sys].[usp_RepoObjectSource_FirstResultSet]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="repo" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>
