@@ -11,8 +11,8 @@
     [system_type_name]     NVARCHAR (128)   NULL,
     [created_dt]           DATETIME         NOT NULL,
     [is_hidden]            BIT              NULL,
-    CONSTRAINT [PK_RepoObjectSource1] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [column_ordinal] ASC),
-    CONSTRAINT [FK_RepoObjectSource_RepoObject1] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT [PK_RepoObjectSource_FirstResultSet] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [column_ordinal] ASC),
+    CONSTRAINT [FK_RepoObjectSource_FirstResultSet__RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

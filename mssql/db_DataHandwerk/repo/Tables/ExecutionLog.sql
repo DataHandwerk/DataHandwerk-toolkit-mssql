@@ -47,6 +47,6 @@
     [parameter_19]            SQL_VARIANT      NULL,
     [parameter_20]            SQL_VARIANT      NULL,
     [proc_fullname]           AS               (concat(quotename([proc_schema_name]),'.',quotename([proc_name]))),
-    CONSTRAINT [PK_execution_log1] PRIMARY KEY CLUSTERED ([id] ASC)
+    CONSTRAINT [PK_ExecutionLog] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 

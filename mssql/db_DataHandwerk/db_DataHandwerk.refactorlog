@@ -341,4 +341,18 @@
     <Property Name="NewSchema" Value="repo" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="76735498-35c1-4bfc-ae95-137be682b0c8" ChangeDateTime="01/24/2021 10:11:37">
+    <Property Name="ElementName" Value="[repo].[Index_IndexSemanticGroup]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Index_Settings]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4f958088-20e8-474c-a9f4-2971f6c4a499" ChangeDateTime="01/24/2021 10:12:56">
+    <Property Name="ElementName" Value="[repo].[usp_Index_IndexSemanticGroup]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_Index_Settings]" />
+  </Operation>
 </Operations>

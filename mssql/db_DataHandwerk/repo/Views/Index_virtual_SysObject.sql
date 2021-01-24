@@ -19,5 +19,5 @@ SELECT [iv].[Index_guid]
 FROM repo.[Index_virtual] AS iv
 INNER JOIN repo.RepoObject AS ro
  ON iv.parent_RepoObject_guid = ro.RepoObject_guid
-INNER JOIN [repo].[Index_IndexSemanticGroup] AS isg
+INNER JOIN [repo].[Index_Settings] AS isg
  ON isg.[Index_guid] = [iv].[Index_guid]

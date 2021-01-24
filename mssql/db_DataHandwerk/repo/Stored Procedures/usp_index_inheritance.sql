@@ -113,10 +113,12 @@ INSERT INTO repo.[Index_virtual] (
  [parent_RepoObject_guid]
  , [referenced_index_guid]
  , [RowNumberInReferencing]
+ , [index_type]
  )
 SELECT [referencing_RepoObject_guid]
  , [source_index_guid] AS [Index_guid]
  , [RowNumberInReferencing]
+ , [source_index_type]
 FROM repo.IndexReferencedReferencing_HasFullColumnsInReferencing AS T1
 WHERE [referenced_index_guid] IS NULL
  OR [RowNumberInReferencing_Target] IS NULL
@@ -297,7 +299,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
-EXEC repo.usp_Index_IndexSemanticGroup @execution_instance_guid = @execution_instance_guid
+EXEC repo.[usp_Index_Settings] @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id
@@ -307,15 +309,15 @@ EXEC repo.usp_Index_IndexSemanticGroup @execution_instance_guid = @execution_ins
 --repo.Index_IndexSemanticGroup.[IndexSemanticGroup] could also be set to NULL where it was assigned before
 --maybe this should be avoided?
 --but the strict inheritance is consequent
-UPDATE repo.Index_IndexSemanticGroup
+UPDATE repo.[Index_Settings]
 SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]
 FROM [repo].[Index_virtual] AS [T1]
-INNER JOIN [repo].[Index_IndexSemanticGroup] AS [TSource]
+INNER JOIN [repo].[Index_Settings] AS [TSource]
  ON [T1].[referenced_index_guid] = [TSource].[Index_guid]
-INNER JOIN [repo].[Index_IndexSemanticGroup]
- ON [T1].[Index_guid] = [repo].[Index_IndexSemanticGroup].[Index_guid]
-  AND [TSource].[IndexPatternColumnDatatype] = [repo].[Index_IndexSemanticGroup].[IndexPatternColumnDatatype]
-WHERE ISNULL([repo].[Index_IndexSemanticGroup].[IndexSemanticGroup], '') <> ISNULL([TSource].[IndexSemanticGroup], '')
+INNER JOIN [repo].[Index_Settings]
+ ON [T1].[Index_guid] = [repo].[Index_Settings].[Index_guid]
+  AND [TSource].[IndexPatternColumnDatatype] = [repo].[Index_Settings].[IndexPatternColumnDatatype]
+WHERE ISNULL([repo].[Index_Settings].[IndexSemanticGroup], '') <> ISNULL([TSource].[IndexSemanticGroup], '')
 
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1
