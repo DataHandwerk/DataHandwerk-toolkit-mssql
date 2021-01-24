@@ -1,7 +1,7 @@
-﻿CREATE VIEW [repo].[RepoObject_SqlCreateTable]
+﻿
+CREATE VIEW [repo].[RepoObject_SqlCreateTable]
 AS
-SELECT roc.[RepoObject_guid]
- --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+SELECT ro.[RepoObject_guid]
  , SqlCreateTable = CONCAT (
   'CREATE TABLE '
   , MAX(ro.[RepoObject_fullname])
@@ -10,6 +10,7 @@ SELECT roc.[RepoObject_guid]
   , CHAR(10)
   --COLUMNS:
   , STRING_AGG(CONCAT (
+    --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
     CAST(' ' AS NVARCHAR(MAX))
     , QUOTENAME(roc.[RepoObjectColumn_name])
     , ' '
@@ -88,12 +89,36 @@ SELECT roc.[RepoObject_guid]
     ORDER BY roc.RepoObjectColumn_column_id
     )
    --todo:
+   --evtl noch ein Komma
+   , CASE 
+    WHEN EXISTS (
+      SELECT 1
+      FROM [repo].[Index_SqlConstraint_PkUq] ConList
+      WHERE ConList.[parent_RepoObject_guid] = ro.[RepoObject_guid]
+      )
+     THEN ','
+    END
    --CONSTRAINT PK, FK, depending on some settings
+   , MAX(ConList.ConList)
    , ')'
   )
-FROM [repo].[RepoObjectColumn] AS roc
-LEFT JOIN repo.RepoObject ro
- ON ro.[RepoObject_guid] = roc.[RepoObject_guid]
+FROM repo.RepoObject ro
+LEFT JOIN [repo].[RepoObjectColumn] AS roc
+ ON roc.[RepoObject_guid] = ro.[RepoObject_guid]
+LEFT JOIN (
+ SELECT [parent_RepoObject_guid]
+  , ConList = STRING_AGG(CONCAT (
+    --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+    CAST(' ' AS NVARCHAR(MAX))
+    , con.[SqlConstraint]
+    , ')'
+    , CHAR(13)
+    , CHAR(10)
+    ), ',')
+ FROM [repo].[Index_SqlConstraint_PkUq] Con
+ GROUP BY [parent_RepoObject_guid]
+ ) ConList
+ ON ConList.[parent_RepoObject_guid] = ro.[RepoObject_guid]
 WHERE
  --not [is_query_plan_expression]
  roc.[is_query_plan_expression] IS NULL
@@ -102,4 +127,4 @@ WHERE
   NOT roc.[Repo_user_type_fullname] IS NULL
   OR roc.Repo_is_computed = 1
   )
-GROUP BY roc.[RepoObject_guid]
+GROUP BY ro.[RepoObject_guid]

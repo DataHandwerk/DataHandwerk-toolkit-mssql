@@ -77,7 +77,7 @@
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
     <Build Include="repo\Tables\Index_virtual.sql" />
     <Build Include="repo\Tables\RepoObject.sql" />
-    <Build Include="repo\Tables\Index_IndexSemanticGroup.sql" />
+    <Build Include="repo\Tables\Index_Settings.sql" />
     <Build Include="repo\Tables\RepoObject_persistence.sql" />
     <Build Include="repo\Tables\spt_values.sql" />
     <Build Include="repo\Tables\RepoObjectColumnProperty.sql" />
@@ -206,11 +206,12 @@
     <Build Include="repo\Views\ExecutionLog_gross.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_QueryPlan.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumn__update_RepoObjectColumn_column_id.sql" />
-    <Build Include="repo\Stored Procedures\usp_Index_IndexSemanticGroup.sql" />
+    <Build Include="repo\Stored Procedures\usp_Index_Settings.sql" />
     <Build Include="repo\Stored Procedures\usp_ExecutionLog_insert.sql" />
     <Build Include="repo\Views\RepoObject_SqlCreateTable.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObject_update_SysObjectQueryPlan.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_FirstResultSet.sql" />
+    <Build Include="repo\Views\Index_SqlConstraint_PkUq.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -39,6 +39,8 @@ DROP SYNONYM  IF EXISTS [sys_dwh].[default_constraints]
 DROP SYNONYM  IF EXISTS [sys_dwh].[dm_exec_describe_first_result_set]
 DROP SYNONYM  IF EXISTS [sys_dwh].[dm_sql_referenced_entities]
 DROP SYNONYM  IF EXISTS [sys_dwh].[extended_properties]
+DROP SYNONYM  IF EXISTS [sys_dwh].[foreign_key_columns]
+DROP SYNONYM  IF EXISTS [sys_dwh].[foreign_keys]
 DROP SYNONYM  IF EXISTS [sys_dwh].[identity_columns]
 DROP SYNONYM  IF EXISTS [sys_dwh].[indexes]
 DROP SYNONYM  IF EXISTS [sys_dwh].[index_columns]
@@ -59,6 +61,8 @@ CREATE SYNONYM [sys_dwh].[default_constraints] FOR [' + @dwh_database_name + '].
 CREATE SYNONYM [sys_dwh].[dm_exec_describe_first_result_set] FOR [' + @dwh_database_name + '].[sys].[dm_exec_describe_first_result_set]
 CREATE SYNONYM [sys_dwh].[dm_sql_referenced_entities] FOR [' + @dwh_database_name + '].[sys].[dm_sql_referenced_entities]
 CREATE SYNONYM [sys_dwh].[extended_properties] FOR [' + @dwh_database_name + '].[sys].[extended_properties]
+CREATE SYNONYM [sys_dwh].[foreign_key_columns] FOR [' + @dwh_database_name + '].[sys].[foreign_key_columns]
+CREATE SYNONYM [sys_dwh].[foreign_keys] FOR [' + @dwh_database_name + '].[sys].[foreign_keys]
 CREATE SYNONYM [sys_dwh].[identity_columns] FOR [' + @dwh_database_name + '].[sys].[identity_columns]
 CREATE SYNONYM [sys_dwh].[indexes] FOR [' + @dwh_database_name + '].[sys].[indexes]
 CREATE SYNONYM [sys_dwh].[index_columns] FOR [' + @dwh_database_name + '].[sys].[index_columns]
@@ -72,7 +76,6 @@ CREATE SYNONYM [sys_dwh].[sql_expression_dependencies] FOR [' + @dwh_database_na
 CREATE SYNONYM [sys_dwh].[sql_modules] FOR [' + @dwh_database_name + '].[sys].[sql_modules]
 CREATE SYNONYM [sys_dwh].[tables] FOR [' + @dwh_database_name + '].[sys].[tables]
 CREATE SYNONYM [sys_dwh].[types] FOR [' + @dwh_database_name + '].[sys].[types]
-
 '
 
  EXECUTE sp_executesql @SQLString
