@@ -1,4 +1,5 @@
-﻿-- Alter View Parameter_default
+﻿
+-- Alter View Parameter_default
 /*
 merge this view into [repo].[Parameter]:
 
@@ -46,9 +47,10 @@ UNION ALL
 SELECT [Parameter_name] = 'RepoObjectColumn_column_id_OrderBy'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'used in repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id to define the order of columns'
- , [Parameter_default_value] = CAST(N'[roc].[Repo_is_identity]
-, [roc].[Repo_is_computed]
-, ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other columns
+ , [Parameter_default_value] = CAST(N'
+ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other columns
+, [roc].[Repo_is_computed] --computed columns after normal columns
+, [roc].[Repo_is_identity] --IDENTITY columns after normal columns, because nothing should be inserted (they are like computed columns)
 , [roc].[Repo_generated_always_type]
 , [roc].[RepoObjectColumn_name]
 ' AS NVARCHAR(4000))
