@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 EXEC repo_sys.sp_AddOrUpdateExtendedProperty   
     @name = N'repo_guid'  
     ,@value = N'Employee ID'  
@@ -48,50 +47,69 @@ Operations that require a change to the schema version, for example renaming, ar
 => todo
 */
 CREATE PROCEDURE [repo_sys].[usp_AddOrUpdateExtendedProperty] @name SYSNAME
-, @value SQL_VARIANT = NULL
-, @level0type VARCHAR(128) = NULL
-, @level0name SYSNAME = NULL
-, @level1type VARCHAR(128) = NULL
-, @level1name SYSNAME = NULL
-, @level2type VARCHAR(128) = NULL
-, @level2name SYSNAME = NULL
+ , @value SQL_VARIANT = NULL
+ , @level0type VARCHAR(128) = NULL
+ , @level0name SYSNAME = NULL
+ , @level1type VARCHAR(128) = NULL
+ , @level1name SYSNAME = NULL
+ , @level2type VARCHAR(128) = NULL
+ , @level2name SYSNAME = NULL
 AS
-	DECLARE @DbName SYSNAME = [repo].[fs_dwh_database_name]()
-	DECLARE @module_name_var_update NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_updateextendedproperty'
-		   ,@module_name_var_add NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_addextendedproperty'
+DECLARE @DbName SYSNAME = [repo].[fs_dwh_database_name]()
+DECLARE @module_name_var_update NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_updateextendedproperty'
+ , @module_name_var_add NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_addextendedproperty'
 
-	----DEBUG
-	--PRINT CONCAT(@name , ';' , CAST(@value AS NVARCHAR(4000)) , ';' , @level0type , ';' , @level0name , ';' , @level1type , ';' , @level1name , ';' , @level2type , ';' , @level2name , ';')
-	----DEBUG
-	--
-	BEGIN TRY
-		--EXEC [sys].sp_updateextendedproperty
-		EXEC @module_name_var_update @name = @name
-									,@value = @value
-									,@level0type = @level0type
-									,@level0name = @level0name
-									,@level1type = @level1type
-									,@level1name = @level1name
-									,@level2type = @level2type
-									,@level2name = @level2name
-	END TRY
-	BEGIN CATCH
-		BEGIN TRY
-			--EXEC [sys].sp_addextendedproperty
-			EXEC @module_name_var_add @name = @name
-									 ,@value = @value
-									 ,@level0type = @level0type
-									 ,@level0name = @level0name
-									 ,@level1type = @level1type
-									 ,@level1name = @level1name
-									 ,@level2type = @level2type
-									 ,@level2name = @level2name
-		END TRY
-		BEGIN CATCH
-			PRINT 'Can''t insert extended property:'
-			PRINT CONCAT(@name, ';', CAST(@value AS NVARCHAR(4000)), ';', @level0type, ';', @level0name, ';', @level1type, ';', @level1name, ';', @level2type, ';', @level2name, ';')
-		END CATCH
-	END CATCH
+----DEBUG
+--PRINT CONCAT(@name , ';' , CAST(@value AS NVARCHAR(4000)) , ';' , @level0type , ';' , @level0name , ';' , @level1type , ';' , @level1name , ';' , @level2type , ';' , @level2name , ';')
+----DEBUG
+--
+BEGIN TRY
+ --EXEC [sys].sp_updateextendedproperty
+ EXEC @module_name_var_update @name = @name
+  , @value = @value
+  , @level0type = @level0type
+  , @level0name = @level0name
+  , @level1type = @level1type
+  , @level1name = @level1name
+  , @level2type = @level2type
+  , @level2name = @level2name
+END TRY
+
+BEGIN CATCH
+ BEGIN TRY
+  --EXEC [sys].sp_addextendedproperty
+  EXEC @module_name_var_add @name = @name
+   , @value = @value
+   , @level0type = @level0type
+   , @level0name = @level0name
+   , @level1type = @level1type
+   , @level1name = @level1name
+   , @level2type = @level2type
+   , @level2name = @level2name
+ END TRY
+
+ BEGIN CATCH
+  PRINT 'Can''t insert extended property:'
+  PRINT CONCAT (
+    @name
+    , ';'
+    , CAST(@value AS NVARCHAR(4000))
+    , ';'
+    , @level0type
+    , ';'
+    , @level0name
+    , ';'
+    , @level1type
+    , ';'
+    , @level1name
+    , ';'
+    , @level2type
+    , ';'
+    , @level2name
+    , ';'
+    )
+ END CATCH
+END CATCH
 GO
 
 

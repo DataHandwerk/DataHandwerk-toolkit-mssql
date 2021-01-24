@@ -22,6 +22,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>True</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -123,7 +124,6 @@
     <Build Include="repo\Views\RepoObjectColumn_reference_BySamePredecessors.sql" />
     <Build Include="repo\Views\RepoObject_reference_union.sql" />
     <Build Include="repo\Views\RepoObjectColumn_reference_Persistence.sql" />
-    <Build Include="repo\Views\aa_test_RepoObject__column_list_common.sql" />
     <Build Include="repo\Views\visjs_nodelist_object_test01.sql" />
     <Build Include="repo\Views\visjs_EdgeList_object_test01.sql" />
     <Build Include="repo\Views\SysObjectColumn_QueryPlanExpression.sql" />
@@ -210,6 +210,7 @@
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumn__update_RepoObjectColumn_column_id.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_IndexSemanticGroup.sql" />
     <Build Include="repo\Stored Procedures\usp_ExecutionLog_insert.sql" />
+    <Build Include="repo\Views\RepoObject_SqlCreateTable.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

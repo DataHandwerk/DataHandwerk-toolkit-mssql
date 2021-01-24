@@ -1,30 +1,13 @@
-﻿
--- Alter View type
--- Alter View type
-
-/*
+﻿/*
 master.dbo.spt_values is an undocumemted hidden view or table, containing useful entries 
 it's copy should be in in repo_config.spt_values
 */
 CREATE VIEW [repo].[type]
---WITH SCHEMABINDING
-As
+ --WITH SCHEMABINDING
+AS
 --
-Select
-       PARSENAME(REPLACE([name] , ':' , '.') , 2) As 'type'
-     , PARSENAME(REPLACE([name] , ':' , '.') , 1) As 'type_desc'
-From
-     repo.spt_values
-Where  [type] = 'O9T'
-       And [number] = -1;
-GO
-
-
-
-GO
-
-
-
-GO
-
-
+SELECT PARSENAME(REPLACE([name], ':', '.'), 2) AS 'type'
+ , PARSENAME(REPLACE([name], ':', '.'), 1) AS 'type_desc'
+FROM repo.spt_values
+WHERE [type] = 'O9T'
+ AND [number] = - 1;

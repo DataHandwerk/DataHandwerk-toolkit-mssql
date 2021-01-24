@@ -1,25 +1,15 @@
-﻿
-CREATE VIEW [repo].[Index_IndexPattern]
+﻿CREATE VIEW [repo].[Index_IndexPattern]
 AS
 --
-Select [index_guid]
-     , IndexPatternColumnName     = String_Agg (SysObject_column_name, ';') WITHIN Group(Order By [index_column_id])
-     , IndexPatternColumnDatatype = String_Agg ([SysObject_column_user_type_fullname], ';') WITHIN Group(Order By [index_column_id])
-From [repo].[IndexColumn_union]
-Where Not [index_guid] Is Null
-Group By [index_guid]
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
+SELECT [index_guid]
+ , IndexPatternColumnName = String_Agg(SysObject_column_name, ';') WITHIN
+GROUP (
+  ORDER BY [index_column_id]
+  )
+ , IndexPatternColumnDatatype = String_Agg([SysObject_column_user_type_fullname], ';') WITHIN
+GROUP (
+  ORDER BY [index_column_id]
+  )
+FROM [repo].[IndexColumn_union]
+WHERE NOT [index_guid] IS NULL
+GROUP BY [index_guid]

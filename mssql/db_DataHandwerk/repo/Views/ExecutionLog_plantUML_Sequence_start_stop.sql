@@ -1,5 +1,4 @@
-﻿
-CREATE VIEW [repo].[ExecutionLog_plantUML_Sequence_start_stop]
+﻿CREATE VIEW [repo].[ExecutionLog_plantUML_Sequence_start_stop]
 AS
 --
 --, [plantUML_Sequence] = --
@@ -88,49 +87,56 @@ AS
 --, [parameter_18]
 --, [parameter_19]
 --, [parameter_20]
-SELECT
-       [T1].[id]
-     , [plantUML_Sequence_start_stop] = --
-       --
-       CONCAT(
-       --
-       CASE
-           WHEN [parent].[parent_proc_fullname] <> ''
-           THEN CONCAT('"' , [parent].[parent_proc_fullname] , '"')
-       --ELSE CONCAT('"' , [T1].[execution_instance_guid] , '"')
-       END
-       --
-       ,CASE [T1].[step_name]
-            WHEN 'start'
-            THEN ' -> '
-            WHEN 'end'
-            THEN ' <- '
-        END
-       --
-       , '"' , [T1].[proc_fullname] , '"'
-       --
-       , CHAR(13) , CHAR(10)
-       --
-       ,CASE [T1].[step_name]
-            WHEN 'start'
-            THEN 'activate '
-            WHEN 'end'
-            THEN 'deactivate '
-        END
-       --
-       , '"' , [T1].[proc_fullname] , '"')
-       --
-       --
-     , [T1].[proc_fullname]
-     , [parent].[parent_proc_fullname]
-FROM
-     [repo].[ExecutionLog] AS T1
-     LEFT JOIN
-     [repo].[ExecutionLog_parent] AS parent
-     ON parent.ID = T1.ID
-WHERE  [T1].[step_name] IN
-                           (
-                           'start' , 'end'
-                           )
---ORDER BY
---         [T1].[id]
+SELECT [T1].[id]
+ , [plantUML_Sequence_start_stop] = --
+ --
+ CONCAT (
+  --
+  CASE 
+   WHEN [parent].[parent_proc_fullname] <> ''
+    THEN CONCAT (
+      '"'
+      , [parent].[parent_proc_fullname]
+      , '"'
+      )
+     --ELSE CONCAT('"' , [T1].[execution_instance_guid] , '"')
+   END
+  --
+  , CASE [T1].[step_name]
+   WHEN 'start'
+    THEN ' -> '
+   WHEN 'end'
+    THEN ' <- '
+   END
+  --
+  , '"'
+  , [T1].[proc_fullname]
+  , '"'
+  --
+  , CHAR(13)
+  , CHAR(10)
+  --
+  , CASE [T1].[step_name]
+   WHEN 'start'
+    THEN 'activate '
+   WHEN 'end'
+    THEN 'deactivate '
+   END
+  --
+  , '"'
+  , [T1].[proc_fullname]
+  , '"'
+  )
+ --
+ --
+ , [T1].[proc_fullname]
+ , [parent].[parent_proc_fullname]
+FROM [repo].[ExecutionLog] AS T1
+LEFT JOIN [repo].[ExecutionLog_parent] AS parent
+ ON parent.id = T1.id
+WHERE [T1].[step_name] IN (
+  'start'
+  , 'end'
+  )
+ --ORDER BY
+ --         [T1].[id]

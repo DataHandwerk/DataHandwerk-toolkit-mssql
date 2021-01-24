@@ -2,6 +2,9 @@
 AS
 --
 truncate table [repo].[spt_values]
+
+-- [noformat] don't want any formatting here, because this is created in ADS
+
 ----data script created in Azure Data Studio
 --
 --create table [#tempspt_values] (
@@ -2566,3 +2569,4 @@ select 'backup device',16,'V  ',NULL,NULL,0 UNION ALL
 select 'serial writes',32,'V  ',NULL,NULL,0 UNION ALL
 select 'read only',4096,'V  ',0,1,0 UNION ALL
 select 'deferred',8192,'V  ',0,1,0;
+--[/noformat] 
