@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [repo].[Parameter] (
     [Parameter_name]                   VARCHAR (100)   NOT NULL,
-    [sub_Parameter]                    NVARCHAR (128)  CONSTRAINT [DF_Parameter_sub_Parameter] DEFAULT ('') NOT NULL,
+    [sub_Parameter]                    NVARCHAR (128)  DEFAULT ('') NOT NULL,
     [Parameter_desciption]             NVARCHAR (1000) NULL,
     [Parameter_default_value]          SQL_VARIANT     NULL,
     [Parameter_value]                  SQL_VARIANT     NULL,

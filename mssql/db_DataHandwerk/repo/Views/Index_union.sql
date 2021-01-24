@@ -1,9 +1,11 @@
-﻿CREATE VIEW [repo].[Index_union]
+﻿
+CREATE VIEW [repo].[Index_union]
 AS
 --
 SELECT [Index_guid]
  , [parent_RepoObject_guid]
  , [index_name]
+ , [index_type]
  , [is_index_unique]
  , [is_index_primary_key]
  , [referenced_index_guid] = NULL
@@ -16,6 +18,7 @@ UNION ALL
 SELECT [Index_guid]
  , [parent_RepoObject_guid]
  , [index_name]
+ , [index_type]
  , [is_index_unique]
  , [is_index_primary_key]
  , [referenced_index_guid]

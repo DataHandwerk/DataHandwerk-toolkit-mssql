@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [repo].[usp_Index_IndexSemanticGroup]
+﻿CREATE PROCEDURE [repo].[usp_Index_Settings]
  -- some optional parameters, used for logging
  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
  , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -61,7 +61,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 ----START
 --
 DELETE T2
-FROM [repo].[Index_IndexSemanticGroup] [T2]
+FROM [repo].[Index_Settings] [T2]
 WHERE NOT EXISTS (
   SELECT [index_guid]
   FROM [repo].[Index_IndexPattern] AS [T1]
@@ -72,7 +72,7 @@ SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'DELETE'
 SET @source_object = '[repo].[Index_IndexPattern]'
-SET @target_object = '[repo].[Index_IndexSemanticGroup]'
+SET @target_object = '[repo].[Index_Settings]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -100,7 +100,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
-INSERT INTO repo.Index_IndexSemanticGroup (
+INSERT INTO repo.[Index_Settings] (
  [index_guid]
  , [IndexPatternColumnName]
  , [IndexPatternColumnDatatype]
@@ -111,7 +111,7 @@ SELECT [index_guid]
 FROM repo.Index_IndexPattern AS T1
 WHERE NOT EXISTS (
   SELECT [index_guid]
-  FROM [repo].[Index_IndexSemanticGroup] AS [T2]
+  FROM [repo].[Index_Settings] AS [T2]
   WHERE [T2].[index_guid] = [T1].[index_guid]
   )
 
@@ -119,7 +119,7 @@ SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'INSERT'
 SET @source_object = '[repo].[Index_IndexPattern]'
-SET @target_object = '[repo].[Index_IndexSemanticGroup]'
+SET @target_object = '[repo].[Index_Settings]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -147,10 +147,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
-UPDATE repo.Index_IndexSemanticGroup
+UPDATE repo.[Index_Settings]
 SET [IndexPatternColumnName] = [T1].[IndexPatternColumnName]
  , [IndexPatternColumnDatatype] = [T1].[IndexPatternColumnDatatype]
-FROM [repo].[Index_IndexSemanticGroup] [T2]
+FROM [repo].[Index_Settings] [T2]
 LEFT JOIN [repo].[Index_IndexPattern] AS [T1]
  ON [T2].[index_guid] = [T1].[index_guid]
 WHERE [T1].[IndexPatternColumnName] <> ISNULL([T2].[IndexPatternColumnName], '')
@@ -160,7 +160,7 @@ SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'UPDATE'
 SET @source_object = '[repo].[Index_IndexPattern]'
-SET @target_object = '[repo].[Index_IndexSemanticGroup]'
+SET @target_object = '[repo].[Index_Settings]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
