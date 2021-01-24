@@ -7,7 +7,7 @@ source: sys.dm_exec_describe_first_result_set
 sometimes required
 truncate table [repo].[RepoObjectSource__dm_exec_describe_first_result_set]
 */
-CREATE PROCEDURE [repo_sys].[usp_RepoObjectSource_FirstResultSet]
+CREATE PROCEDURE [repo].[usp_RepoObjectSource_FirstResultSet]
  -- some optional parameters, used for logging
  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
  , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
