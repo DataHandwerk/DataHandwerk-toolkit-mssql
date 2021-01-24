@@ -212,6 +212,7 @@
     <Build Include="repo\Stored Procedures\usp_RepoObject_update_SysObjectQueryPlan.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_FirstResultSet.sql" />
     <Build Include="repo\Views\Index_SqlConstraint_PkUq.sql" />
+    <Build Include="repo\Views\RepoObject_SqlColumnList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
