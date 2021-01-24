@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 <script type="text/javascript">
     // create an array with nodes
     var nodes = new vis.DataSet([
@@ -20,25 +19,14 @@
 
 */
 CREATE VIEW [repo].[visjs_EdgeList_object_test01]
-as
-SELECT
-       [referencing_node_id]
-     , [referenced_node_id]
-     , EdgeListElement = concat('{ from: ' , [referenced_node_id] , ', to:' , [referencing_node_id] , ' },')
-FROM
-     repo.[RepoObject_reference_SqlExpressionDependencies]
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
+AS
+SELECT [referencing_node_id]
+ , [referenced_node_id]
+ , EdgeListElement = CONCAT (
+  '{ from: '
+  , [referenced_node_id]
+  , ', to:'
+  , [referencing_node_id]
+  , ' },'
+  )
+FROM repo.[RepoObject_reference_SqlExpressionDependencies]

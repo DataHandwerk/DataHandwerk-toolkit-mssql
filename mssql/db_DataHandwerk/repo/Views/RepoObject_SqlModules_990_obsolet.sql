@@ -1,10 +1,7 @@
-﻿
--- Alter View RepoObject__sql_modules_990_obsolet
-CREATE VIEW [repo].[RepoObject_SqlModules_990_obsolet]
+﻿CREATE VIEW [repo].[RepoObject_SqlModules_990_obsolet]
 AS
 --
-SELECT
-       [RepoObject_guid]
+SELECT [RepoObject_guid]
 --     , [is_create_view_as_Identifier_select] = CASE
 --                                                   WHEN EXISTS
 --(
@@ -135,5 +132,4 @@ SELECT
 --    WHERE  [T21].[RepoObject_guid] = [T10].[RepoObject_guid]
 --           AND [T21].[class] = 'Where'
 --)
-FROM
-     [repo].[RepoObject_SqlModules] AS T10
+FROM [repo].[RepoObject_SqlModules] AS T10

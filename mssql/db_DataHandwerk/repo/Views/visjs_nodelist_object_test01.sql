@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 <script type="text/javascript">
     // create an array with nodes
     var nodes = new vis.DataSet([
@@ -20,39 +19,21 @@
 
 */
 CREATE VIEW [repo].[visjs_nodelist_object_test01]
-as
-SELECT
-       [RepoObject_guid]
-     , [SysObject_fullname]
-     , [SysObject_type]
-     , [node_id]
-     , NodeListElement = CONCAT('{id: ' , [node_id] , ', label: ''' , [SysObject_fullname] , '''},')
-FROM
-     repo.RepoObject
-WHERE  [SysObject_type] IN
-                           (
-                           'U' , 'V' , 'P'
-                           )
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
+AS
+SELECT [RepoObject_guid]
+ , [SysObject_fullname]
+ , [SysObject_type]
+ , [node_id]
+ , NodeListElement = CONCAT (
+  '{id: '
+  , [node_id]
+  , ', label: '''
+  , [SysObject_fullname]
+  , '''},'
+  )
+FROM repo.RepoObject
+WHERE [SysObject_type] IN (
+  'U'
+  , 'V'
+  , 'P'
+  )

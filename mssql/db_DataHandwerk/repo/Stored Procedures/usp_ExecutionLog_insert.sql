@@ -1,8 +1,4 @@
-﻿-- Alter Procedure usp_ExecutionLog_insert
--- Alter Procedure usp_execution_log__insert
--- Alter Procedure usp_execution_log__insert
--- Create Procedure usp_execution_log_insert
-/*
+﻿/*
 only insert, no update
 
 to get duration and grouping, use unique combinations of keys,for example

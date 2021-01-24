@@ -1,5 +1,4 @@
-﻿
--- Create Procedure usp_dropextendedproperty_level_1
+﻿-- Create Procedure usp_dropextendedproperty_level_1
 /*
 this procedure will drop extended property with property_name = @name used in all "level 1 objects"
 level 1 objects are:
@@ -12,70 +11,84 @@ EXEC repo_sys.usp_dropextendedproperty_level_1
      @name = 'RepoObject_guid'
 
 */
-
 CREATE PROCEDURE [repo_sys].[usp_dropextendedproperty_level_1] @name VARCHAR(128)
 AS
-	DECLARE @DbName SYSNAME = [repo].[fs_dwh_database_name]()
-	PRINT @DbName
+DECLARE @DbName SYSNAME = [repo].[fs_dwh_database_name]()
 
-	DECLARE @module_name_var_drop NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_dropextendedproperty'
+PRINT @DbName
 
-	DECLARE delete_cursor CURSOR READ_ONLY FOR SELECT
-		[property_name]
-	   ,[property_value]
-	   ,[level0type]
-	   ,[level0name]
-	   ,[level1type]
-	   ,[level1name]
-	FROM repo_sys.[ExtendedProperties_ParameterForAddUpdateDrop]
-	WHERE [property_name] = @name
-	AND NOT [level1type] IS NULL
-	AND NOT [level1name] IS NULL
-	AND [level2type] IS NULL
-	AND [level2name] IS NULL
+DECLARE @module_name_var_drop NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_dropextendedproperty'
 
-	DECLARE @property_name VARCHAR(128)
-		   ,@property_value SQL_VARIANT
-		   ,@level0type VARCHAR(128)
-		   ,@level0name VARCHAR(128)
-		   ,@level1type VARCHAR(128)
-		   ,@level1name VARCHAR(128)
+DECLARE delete_cursor CURSOR READ_ONLY
+FOR
+SELECT [property_name]
+ , [property_value]
+ , [level0type]
+ , [level0name]
+ , [level1type]
+ , [level1name]
+FROM repo_sys.[ExtendedProperties_ParameterForAddUpdateDrop]
+WHERE [property_name] = @name
+ AND NOT [level1type] IS NULL
+ AND NOT [level1name] IS NULL
+ AND [level2type] IS NULL
+ AND [level2name] IS NULL
 
-	OPEN delete_cursor
+DECLARE @property_name VARCHAR(128)
+ , @property_value SQL_VARIANT
+ , @level0type VARCHAR(128)
+ , @level0name VARCHAR(128)
+ , @level1type VARCHAR(128)
+ , @level1name VARCHAR(128)
 
-	FETCH NEXT FROM delete_cursor INTO
-	@property_name
-	, @property_value
-	, @level0type
-	, @level0name
-	, @level1type
-	, @level1name
+OPEN delete_cursor
 
-	WHILE @@fetch_status <> -1
-	BEGIN
-	IF @@fetch_status <> -2
-	BEGIN
-		--EXEC sp_dropextendedproperty
-		EXEC @module_name_var_drop @name = @property_name
-								  ,@level0type = @level0type
-								  ,@level0name = @level0name
-								  ,@level1type = @level1type
-								  ,@level1name = @level1name
+FETCH NEXT
+FROM delete_cursor
+INTO @property_name
+ , @property_value
+ , @level0type
+ , @level0name
+ , @level1type
+ , @level1name
 
-		PRINT CONCAT(@module_name_var_drop, ';', @name, ';', @level0type, ';', @level0name, ';', @level1type, ';', @level1name)
-	END
-	FETCH NEXT FROM delete_cursor INTO
-	@property_name
-	, @property_value
-	, @level0type
-	, @level0name
-	, @level1type
-	, @level1name
-	END
+WHILE @@fetch_status <> - 1
+BEGIN
+ IF @@fetch_status <> - 2
+ BEGIN
+  --EXEC sp_dropextendedproperty
+  EXEC @module_name_var_drop @name = @property_name
+   , @level0type = @level0type
+   , @level0name = @level0name
+   , @level1type = @level1type
+   , @level1name = @level1name
 
-	CLOSE delete_cursor
+  PRINT CONCAT (
+    @module_name_var_drop
+    , ';'
+    , @name
+    , ';'
+    , @level0type
+    , ';'
+    , @level0name
+    , ';'
+    , @level1type
+    , ';'
+    , @level1name
+    )
+ END
 
-	DEALLOCATE delete_cursor
-GO
+ FETCH NEXT
+ FROM delete_cursor
+ INTO @property_name
+  , @property_value
+  , @level0type
+  , @level0name
+  , @level1type
+  , @level1name
+END
 
+CLOSE delete_cursor
+
+DEALLOCATE delete_cursor
 

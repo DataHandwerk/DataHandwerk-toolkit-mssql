@@ -5,30 +5,3 @@
     [IndexSemanticGroup]         NVARCHAR (512)   NULL,
     CONSTRAINT [PK_Index_IndexSemanticGroup] PRIMARY KEY CLUSTERED ([index_guid] ASC)
 );
-
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
