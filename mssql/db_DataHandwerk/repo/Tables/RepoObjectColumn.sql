@@ -1,5 +1,7 @@
 CREATE TABLE [repo].[RepoObjectColumn] (
     [RepoObjectColumn_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_guid] DEFAULT (newsequentialid()) NOT NULL,
+    [is_persistence_no_check]                   BIT              NULL,
+    [is_persistence_no_update]                  BIT              NULL,
     [is_query_plan_expression]                  BIT              NULL,
     [is_SysObjectColumn_missing]                BIT              NULL,
     [persistence_source_RepoObjectColumn_guid]  UNIQUEIDENTIFIER NULL,

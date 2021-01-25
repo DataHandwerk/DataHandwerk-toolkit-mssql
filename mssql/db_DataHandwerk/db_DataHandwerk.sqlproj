@@ -213,6 +213,8 @@
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_FirstResultSet.sql" />
     <Build Include="repo\Views\Index_SqlConstraint_PkUq.sql" />
     <Build Include="repo\Views\RepoObject_SqlColumnList.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_HistValidColums_setpoint.sql" />
+    <Build Include="repo\Functions\ftv_get_parameter_value.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
