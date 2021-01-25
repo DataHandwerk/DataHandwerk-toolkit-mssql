@@ -104,6 +104,7 @@ EXEC repo.[usp_persistence_insert_update]
 CREATE PROCEDURE [repo].[usp_persistence__insert_update] @source_RepoObject_guid UNIQUEIDENTIFIER = NULL --
  , @persistence_RepoObject_guid UNIQUEIDENTIFIER = NULL OUTPUT --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created
  , @persistence_table_name NVARCHAR(128) = NULL --default: @source_table_name + @persistence_name_suffix; default schema is @source_schema_name
+ , @is_persistence_check_for_empty_source BIT = NULL
  , @is_persistence_truncate BIT = NULL
  , @is_persistence_delete_missing BIT = NULL
  , @is_persistence_delete_changed BIT = NULL
@@ -111,7 +112,6 @@ CREATE PROCEDURE [repo].[usp_persistence__insert_update] @source_RepoObject_guid
  , @is_persistence_insert BIT = NULL
  , @has_history_columns BIT = NULL
  , @has_history BIT = NULL
- , @is_history_table_same_schema BIT = NULL
  , @history_schema_name NVARCHAR(128) = NULL
  , @history_table_name NVARCHAR(128) = NULL
  --todo:
@@ -184,14 +184,14 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @parameter_01 = @source_RepoObject_guid
  , @parameter_02 = @persistence_RepoObject_guid
  , @parameter_03 = @persistence_table_name
- , @parameter_04 = @is_persistence_truncate
- , @parameter_05 = @is_persistence_delete_missing
- , @parameter_06 = @is_persistence_delete_changed
- , @parameter_07 = @is_persistence_update_changed
- , @parameter_08 = @is_persistence_insert
- , @parameter_09 = @has_history_columns
- , @parameter_10 = @has_history
- , @parameter_11 = @is_history_table_same_schema
+ , @parameter_04 = @is_persistence_check_for_empty_source
+ , @parameter_05 = @is_persistence_truncate
+ , @parameter_06 = @is_persistence_delete_missing
+ , @parameter_07 = @is_persistence_delete_changed
+ , @parameter_08 = @is_persistence_update_changed
+ , @parameter_09 = @is_persistence_insert
+ , @parameter_10 = @has_history_columns
+ , @parameter_11 = @has_history
  , @parameter_12 = @history_schema_name
  , @parameter_13 = @history_table_name
 
@@ -526,7 +526,7 @@ SET [source_RepoObject_guid] = @source_RepoObject_guid
  , [is_persistence_insert] = ISNULL(@is_persistence_insert, [is_persistence_insert])
  , [has_history_columns] = ISNULL(@has_history_columns, [has_history_columns])
  , [has_history] = ISNULL(@has_history, [has_history])
- , [is_history_table_same_schema] = ISNULL(@is_history_table_same_schema, [is_history_table_same_schema])
+ , [is_persistence_check_for_empty_source] = ISNULL(@is_persistence_check_for_empty_source, [is_persistence_check_for_empty_source])
  , [history_schema_name] = ISNULL(@history_schema_name, [history_schema_name])
  , [history_table_name] = ISNULL(@history_table_name, [history_table_name])
 WHERE [target_RepoObject_guid] = @persistence_RepoObject_guid

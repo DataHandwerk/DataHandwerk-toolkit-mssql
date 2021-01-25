@@ -4,7 +4,7 @@
     [has_history_columns]           BIT              DEFAULT ((0)) NOT NULL,
     [history_schema_name]           NVARCHAR (128)   NULL,
     [history_table_name]            NVARCHAR (128)   NULL,
-    [is_history_table_same_schema]  BIT              DEFAULT ((1)) NOT NULL,
+    [is_persistence_check_for_empty_source]  BIT              DEFAULT ((1)) NOT NULL,
     [is_persistence]                AS               (CONVERT([bit],(1))),
     [is_persistence_delete_changed] BIT              DEFAULT ((0)) NOT NULL,
     [is_persistence_delete_missing] BIT              DEFAULT ((0)) NOT NULL,

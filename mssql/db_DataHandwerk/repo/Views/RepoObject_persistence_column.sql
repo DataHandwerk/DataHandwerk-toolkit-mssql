@@ -23,7 +23,7 @@ SELECT [rop].[target_RepoObject_guid]
  , [rop].[is_persistence_insert]
  , [rop].has_history AS has_history
  , [rop].has_history_columns AS has_history_columns
- , [rop].[is_history_table_same_schema]
+ , [rop].[is_persistence_check_for_empty_source]
  , [rop].[history_schema_name]
  , [rop].[history_table_name]
  , [rop].[is_persistence]
