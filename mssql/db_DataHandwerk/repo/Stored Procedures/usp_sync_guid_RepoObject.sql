@@ -762,6 +762,50 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
+--set temporal_type
+--0 = NON_TEMPORAL_TABLE
+--1 = HISTORY_TABLE
+--2 = SYSTEM_VERSIONED_TEMPORAL_TABLE
+UPDATE ro
+SET [Repo_temporal_type] = rop.temporal_type
+FROM [repo].[RepoObject] ro
+INNER JOIN [repo].[RepoObject_persistence] rop
+ ON rop.[target_RepoObject_guid] = ro.[RepoObject_guid]
+WHERE ro.[Repo_temporal_type] <> rop.temporal_type
+ OR ro.[Repo_temporal_type] IS NULL
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [Repo_temporal_type]'
+SET @source_object = '[repo].[RepoObject_persistence]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = NULL
+ , @updated = @rows
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
 /*
 	
 todo

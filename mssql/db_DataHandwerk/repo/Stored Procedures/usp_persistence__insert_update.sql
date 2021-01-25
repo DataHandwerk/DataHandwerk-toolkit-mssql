@@ -2,7 +2,7 @@
 create or update persistence:
 
 create RepoObject for a new persistence table, based on a given source view or table
-or
+
 - source NULL, persistence NULL
   - error
 - source NULL, persistence NOT NULL
@@ -12,23 +12,21 @@ or
   - create new persistence
 - source not NULL, persistence not NULL
   - insert or update [repo].[RepoObject_persistence] for (target_RepoObject_guid, [source_RepoObject_guid])
-update existing RepoObject which is a persitance table
-
-create procedure to fill persistence table
+update existing RepoObject which is a persistence table
 
 
 in any case:
 - update attributes in [repo].[RepoObject_persistence]
 - refresh columns in [repo].[RepoObjectColumn]
-- sql for persistence table
-- sql for persistence procedure
+- sql for persistence table => repo.RepoObject_SqlCreateTable
+- sql for persistence procedure => todo
 
 
 test
 
 --1)
 
-exec repo.[usp_persistence_insert_update]
+exec repo.[usp_persistence__insert_update]
 --=> error
 
 --2)
@@ -48,7 +46,7 @@ SET @source_RepoObject_guid =
 
 PRINT @source_RepoObject_guid
 
-EXEC repo.[usp_persistence_insert_update]
+EXEC repo.[usp_persistence__insert_update]
      @source_RepoObject_guid = @source_RepoObject_guid
 
 
@@ -93,7 +91,7 @@ SET @persistence_RepoObject_guid =
 
 PRINT @persistence_RepoObject_guid
 
-EXEC repo.[usp_persistence_insert_update]
+EXEC repo.[usp_persistence__insert_update]
      @source_RepoObject_guid = @source_RepoObject_guid
    , @persistence_RepoObject_guid = @persistence_RepoObject_guid
 
@@ -212,67 +210,79 @@ SET @persistence_name_suffix = (
   FROM [repo].[Parameter]
   WHERE [Parameter_name] = 'persistence_name_suffix'
   )
-SET @persistence_name_suffix = (
-  SELECT ISNULL(@persistence_name_suffix, '_T')
-  )
+
+----the following should not happen
+--SET @persistence_name_suffix = (
+--  SELECT ISNULL(@persistence_name_suffix, '_T')
+--  )
+IF @persistence_name_suffix IS NULL
+BEGIN
+ THROW 51001
+  , '@persistence_name_suffix is null, check repo.Parameter, EXEC [repo].[usp_init_parameter]'
+  , 1;
+END
 
 IF @source_RepoObject_guid IS NULL
- AND @persistence_RepoObject_guid IS NULL THROW 51001
- , '@source_RepoObject_guid is null and @persistence_RepoObject_guid is null'
- , 1;
- IF NOT @persistence_RepoObject_guid IS NULL
-  AND @source_RepoObject_guid IS NULL
+ AND @persistence_RepoObject_guid IS NULL
+BEGIN
+ THROW 51002
+  , '@source_RepoObject_guid is null and @persistence_RepoObject_guid is null'
+  , 1;
+END
+
+IF NOT @persistence_RepoObject_guid IS NULL
+ AND @source_RepoObject_guid IS NULL
+BEGIN
+ --try to get @source_RepoObject_guid
+ SET @source_RepoObject_guid = (
+   SELECT [source_RepoObject_guid]
+   FROM [repo].[RepoObject_persistence] AS ro
+   WHERE [target_RepoObject_guid] = @persistence_RepoObject_guid
+   )
+
+ IF @source_RepoObject_guid IS NULL
  BEGIN
-  --try to get @source_RepoObject_guid
-  SET @source_RepoObject_guid = (
-    SELECT [source_RepoObject_guid]
-    FROM [repo].[RepoObject_persistence] AS ro
-    WHERE [target_RepoObject_guid] = @persistence_RepoObject_guid
-    )
+  SET @info_01_message = '@source_RepoObject_guid IS NULL; @persistence_RepoObject_guid is not NULL but [source_RepoObject_guid] can''t be obtained'
+  --SET @rows = @@ROWCOUNT;
+  SET @step_id = @step_id + 1
+  SET @step_name = 'error'
+  SET @source_object = '[repo].[RepoObject_persistence]'
+  SET @target_object = NULL
 
-  IF @source_RepoObject_guid IS NULL
-  BEGIN
-   SET @info_01_message = '@source_RepoObject_guid IS NULL; @persistence_RepoObject_guid is not NULL but [source_RepoObject_guid] can''t be obtained'
-   --SET @rows = @@ROWCOUNT;
-   SET @step_id = @step_id + 1
-   SET @step_name = 'error'
-   SET @source_object = '[repo].[RepoObject_persistence]'
-   SET @target_object = NULL
+  EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+   , @ssis_execution_id = @ssis_execution_id
+   , @sub_execution_id = @sub_execution_id
+   , @parent_execution_log_id = @parent_execution_log_id
+   , @current_execution_guid = @current_execution_guid
+   , @proc_id = @proc_id
+   , @proc_schema_name = @proc_schema_name
+   , @proc_name = @proc_name
+   , @event_info = @event_info
+   , @step_id = @step_id
+   , @step_name = @step_name
+   , @source_object = @source_object
+   , @target_object = @target_object
+   , @inserted = NULL
+   , @updated = NULL
+   , @deleted = NULL
+   , @info_01 = @info_01_message
+   , @info_02 = @persistence_RepoObject_guid
+   , @info_03 = NULL
+   , @info_04 = NULL
+   , @info_05 = NULL
+   , @info_06 = NULL
+   , @info_07 = NULL
+   , @info_08 = NULL
+   , @info_09 = NULL;
 
-   EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
-    , @ssis_execution_id = @ssis_execution_id
-    , @sub_execution_id = @sub_execution_id
-    , @parent_execution_log_id = @parent_execution_log_id
-    , @current_execution_guid = @current_execution_guid
-    , @proc_id = @proc_id
-    , @proc_schema_name = @proc_schema_name
-    , @proc_name = @proc_name
-    , @event_info = @event_info
-    , @step_id = @step_id
-    , @step_name = @step_name
-    , @source_object = @source_object
-    , @target_object = @target_object
-    , @inserted = NULL
-    , @updated = NULL
-    , @deleted = NULL
-    , @info_01 = @info_01_message
-    , @info_02 = @persistence_RepoObject_guid
-    , @info_03 = NULL
-    , @info_04 = NULL
-    , @info_05 = NULL
-    , @info_06 = NULL
-    , @info_07 = NULL
-    , @info_08 = NULL
-    , @info_09 = NULL;
+  --RETURN 3
+  THROW 51003
+   , @info_01_message
+   , 1;
+ END --IF @source_RepoObject_guid IS NULL
+END --IF NOT @persistence_RepoObject_guid IS NULL IF NOT @persistence_RepoObject_guid IS NULL AND @source_RepoObject_guid IS NULL 
 
-   --RETURN 3
-   THROW 51003
-    , @info_01_message
-    , 1;
-  END --IF @source_RepoObject_guid IS NULL
- END --IF NOT @persistence_RepoObject_guid IS NULL IF NOT @persistence_RepoObject_guid IS NULL AND @source_RepoObject_guid IS NULL 
-   --now @source_RepoObject_guid should not be NULL, because it was assigned before
-
+--now @source_RepoObject_guid should not be NULL, because it was assigned before
 IF NOT @source_RepoObject_guid IS NULL
  AND @persistence_RepoObject_guid IS NULL
 BEGIN
@@ -330,8 +340,11 @@ BEGIN
    , @info_01_message
    , 1;
  END --IF @source_schema_name IS NULL
-   --insert new entry for persistence table into [repo].[RepoObject]
 
+ --insert new entry for persistence table into [repo].[RepoObject]
+ --@source_schema_name is used also as @persistence_schema_name
+ --but if required this can be changed later in repo.RepoObject
+ --todo: if required, we could implement a procedure parameter @persistence_schema_name
  SET @persistence_schema_name = @source_schema_name
  SET @persistence_table_name = ISNULL(@persistence_table_name, CONCAT (
     @source_table_name
@@ -410,68 +423,70 @@ BEGIN
    FROM @ids
    )
 END --IF NOT @source_RepoObject_guid IS NULL AND @persistence_RepoObject_guid IS NULL
-  --
-  --now both @source_RepoObject_guid and @persistence_RepoObject_guid should be nnot empty and exists in [repo].[RepoObject]
 
+--now both @source_RepoObject_guid and @persistence_RepoObject_guid should be not empty and exists in [repo].[RepoObject]
 IF @source_RepoObject_guid IS NULL
- OR @persistence_RepoObject_guid IS NULL THROW 51011
- , 'source and persistence not matching, still: @source_RepoObject_guid is null OR @persistence_RepoObject_guid is null'
- , 1;
- --
- --now [repo].[RepoObject] should contain the @persistence_RepoObject_guid
- --
- --check if @persistence_RepoObject_guid is a table
- IF NOT EXISTS (
-   SELECT [RepoObject_type]
-   FROM [repo].[RepoObject]
-   WHERE [RepoObject_guid] = @persistence_RepoObject_guid
-    AND [RepoObject_type] = 'U'
-   )
- BEGIN
-  SET @info_01_message = '@persistence_RepoObject_guid has not [RepoObject_type] = ''U'''
-  --SET @rows = @@ROWCOUNT;
-  SET @step_id = @step_id + 1
-  SET @step_name = 'error'
-  SET @source_object = '[repo].[RepoObject]'
-  SET @target_object = NULL
+ OR @persistence_RepoObject_guid IS NULL
+BEGIN
+ THROW 51011
+  , 'source and persistence not matching, still: @source_RepoObject_guid is null OR @persistence_RepoObject_guid is null'
+  , 1;
+END
 
-  EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
-   , @ssis_execution_id = @ssis_execution_id
-   , @sub_execution_id = @sub_execution_id
-   , @parent_execution_log_id = @parent_execution_log_id
-   , @current_execution_guid = @current_execution_guid
-   , @proc_id = @proc_id
-   , @proc_schema_name = @proc_schema_name
-   , @proc_name = @proc_name
-   , @event_info = @event_info
-   , @step_id = @step_id
-   , @step_name = @step_name
-   , @source_object = @source_object
-   , @target_object = @target_object
-   , @inserted = NULL
-   , @updated = NULL
-   , @deleted = NULL
-   , @info_01 = @info_01_message
-   , @info_02 = @persistence_RepoObject_guid
-   , @info_03 = NULL
-   , @info_04 = NULL
-   , @info_05 = NULL
-   , @info_06 = NULL
-   , @info_07 = NULL
-   , @info_08 = NULL
-   , @info_09 = NULL;
+--now [repo].[RepoObject] should contain the @persistence_RepoObject_guid
+--
+--check if @persistence_RepoObject_guid is a table
+IF NOT EXISTS (
+  SELECT [RepoObject_type]
+  FROM [repo].[RepoObject]
+  WHERE [RepoObject_guid] = @persistence_RepoObject_guid
+   AND [RepoObject_type] = 'U'
+  )
+BEGIN
+ SET @info_01_message = '@persistence_RepoObject_guid has not [RepoObject_type] = ''U'''
+ --SET @rows = @@ROWCOUNT;
+ SET @step_id = @step_id + 1
+ SET @step_name = 'error'
+ SET @source_object = '[repo].[RepoObject]'
+ SET @target_object = NULL
 
-  --RETURN 6
-  THROW 51006
-   , @info_01_message
-   , 1;
- END
+ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+  , @ssis_execution_id = @ssis_execution_id
+  , @sub_execution_id = @sub_execution_id
+  , @parent_execution_log_id = @parent_execution_log_id
+  , @current_execution_guid = @current_execution_guid
+  , @proc_id = @proc_id
+  , @proc_schema_name = @proc_schema_name
+  , @proc_name = @proc_name
+  , @event_info = @event_info
+  , @step_id = @step_id
+  , @step_name = @step_name
+  , @source_object = @source_object
+  , @target_object = @target_object
+  , @inserted = NULL
+  , @updated = NULL
+  , @deleted = NULL
+  , @info_01 = @info_01_message
+  , @info_02 = @persistence_RepoObject_guid
+  , @info_03 = NULL
+  , @info_04 = NULL
+  , @info_05 = NULL
+  , @info_06 = NULL
+  , @info_07 = NULL
+  , @info_08 = NULL
+  , @info_09 = NULL;
+
+ --RETURN 6
+ THROW 51006
+  , @info_01_message
+  , 1;
+END
 
 --
 --[repo].[RepoObject_persistence]
 --ensure @persistence_RepoObject_guid is in [repo].[RepoObject_persistence]
 --we will not insert other parameters because they can be NULL
---instead of the defaults from the table will be used and we will update in another step
+--instead of the defaults from the table will be used and we will update later in a separate step
 INSERT INTO [repo].[RepoObject_persistence] (
  [target_RepoObject_guid]
  , [source_RepoObject_guid]
@@ -601,6 +616,53 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
+--set temporal_type
+--0 = NON_TEMPORAL_TABLE
+--1 = HISTORY_TABLE
+--2 = SYSTEM_VERSIONED_TEMPORAL_TABLE
+UPDATE ro
+SET [Repo_temporal_type] = rop.temporal_type
+FROM [repo].[RepoObject] ro
+INNER JOIN [repo].[RepoObject_persistence] rop
+ ON rop.[target_RepoObject_guid] = ro.[RepoObject_guid]
+WHERE ro.[RepoObject_guid] = @persistence_RepoObject_guid
+ AND (
+  ro.[Repo_temporal_type] <> rop.temporal_type
+  OR ro.[Repo_temporal_type] IS NULL
+  )
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [Repo_temporal_type]'
+SET @source_object = '[repo].[RepoObject_persistence]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = NULL
+ , @updated = @rows
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
 -------------------------------------------------
 -------------  COLUMNS  -------------------------
 -------------------------------------------------
@@ -609,37 +671,37 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --the following already happens in [repo].[usp_sync_guid_RepoObjectColumn] and we don't need to repeat it here:
 --
 /*
-	--persistence: update RepoObjectColumn_name from SysObjecColumn_name of persistence_source_RepoObjectColumn_guid
-	UPDATE roc_p
-	  SET
-	      [RepoObjectColumn_name] = [roc_s].[SysObjectColumn_name]
-	    , [Repo_user_type_name] = [roc_s].[Sys_user_type_name]
-	    , [Repo_user_type_fullname] = [roc_s].[Sys_user_type_fullname]
-	FROM   [repo].[RepoObjectColumn] [roc_p]
-	       INNER JOIN
-	       [repo].[RepoObjectColumn] [roc_s]
-	       ON [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
-	       INNER JOIN
-	       [repo].[RepoObject] [ro_p]
-	       ON [roc_p].[RepoObject_guid] = [ro_p].[RepoObject_guid]
-	WHERE
-	      [ro_p].[is_repo_managed] = 1
-	      AND ([roc_p].[RepoObjectColumn_name] <> [roc_s].[SysObjectColumn_name]
-	           OR [roc_p].[Repo_user_type_fullname] <> [roc_s].[Sys_user_type_fullname]
-	           OR ([roc_p].[Repo_user_type_fullname] IS NULL
-	               AND NOT [roc_s].[Sys_user_type_fullname] IS NULL)
-	           OR (NOT [roc_p].[Repo_user_type_fullname] IS NULL
-	               AND [roc_s].[Sys_user_type_fullname] IS NULL)
-	      --we don't need to check user_type_name, it is included in user_type_fullname
-	      --OR [roc_p].[Repo_user_type_name] <> [roc_s].[Sys_user_type_name]
-	      --
-	      )
-	*/
+--persistence: update RepoObjectColumn_name from SysObjecColumn_name of persistence_source_RepoObjectColumn_guid
+UPDATE roc_p
+	SET
+	    [RepoObjectColumn_name] = [roc_s].[SysObjectColumn_name]
+	, [Repo_user_type_name] = [roc_s].[Sys_user_type_name]
+	, [Repo_user_type_fullname] = [roc_s].[Sys_user_type_fullname]
+FROM   [repo].[RepoObjectColumn] [roc_p]
+	    INNER JOIN
+	    [repo].[RepoObjectColumn] [roc_s]
+	    ON [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
+	    INNER JOIN
+	    [repo].[RepoObject] [ro_p]
+	    ON [roc_p].[RepoObject_guid] = [ro_p].[RepoObject_guid]
+WHERE
+	    [ro_p].[is_repo_managed] = 1
+	    AND ([roc_p].[RepoObjectColumn_name] <> [roc_s].[SysObjectColumn_name]
+	        OR [roc_p].[Repo_user_type_fullname] <> [roc_s].[Sys_user_type_fullname]
+	        OR ([roc_p].[Repo_user_type_fullname] IS NULL
+	            AND NOT [roc_s].[Sys_user_type_fullname] IS NULL)
+	        OR (NOT [roc_p].[Repo_user_type_fullname] IS NULL
+	            AND [roc_s].[Sys_user_type_fullname] IS NULL)
+	    --we don't need to check user_type_name, it is included in user_type_fullname
+	    --OR [roc_p].[Repo_user_type_name] <> [roc_s].[Sys_user_type_name]
+	    --
+	    )
+*/
 --
 --try to find [persistence_source_RepoObjectColumn_guid] for existing persistence columns by Column name
 UPDATE roc_p
 SET [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
---update attributes in a separate step:
+--update attributes later in a separate step:
 --, [roc_p].[Repo_user_type_name] = [roc_s].[Sys_user_type_name]
 --, [roc_p].[Repo_user_type_fullname] = [roc_s].[Sys_user_type_fullname]
 FROM [repo].[RepoObjectColumn] AS [roc_p]
@@ -648,7 +710,7 @@ INNER JOIN [repo].[RepoObjectColumn] AS [roc_s]
 WHERE [roc_p].[persistence_source_RepoObjectColumn_guid] IS NULL
  AND [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
  AND [roc_s].[RepoObject_guid] = @source_RepoObject_guid
- --skip temporal table columns in target
+ --skip special table columns (ValidFrom, ValidTo) in target (= persistence)
  AND (
   [roc_p].[Repo_generated_always_type] = 0
   OR [roc_p].[Repo_generated_always_type] IS NULL
@@ -691,7 +753,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
---add missing persistence columns existing in source
+--add missing (in target) persistence columns, existing in source
 INSERT INTO [repo].[RepoObjectColumn] (
  [RepoObject_guid]
  , [RepoObjectColumn_name]
@@ -713,7 +775,7 @@ WHERE [roc_s].[RepoObject_guid] = @source_RepoObject_guid
   WHERE [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
    AND [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
   )
- --skip temporal table columns in source
+ --skip special table columns (ValidFrom, ValidTo) in source
  AND (
   [roc_s].[Repo_generated_always_type] = 0
   OR [roc_s].[Repo_generated_always_type] IS NULL

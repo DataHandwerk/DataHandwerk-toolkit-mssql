@@ -1,5 +1,6 @@
 ﻿
 
+
 -- Alter View Parameter_default
 /*
 merge this view into [repo].[Parameter]:
@@ -35,7 +36,7 @@ UNION ALL
 SELECT [Parameter_name] = 'Hist_ValidTo_column_name'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'default column name for column - datetime2 GENERATED ALWAYS AS ROW END'
- , [Parameter_default_value] = CAST(N'ValidFrom' AS SYSNAME)
+ , [Parameter_default_value] = CAST(N'ValidTo' AS SYSNAME)
 
 UNION ALL
 

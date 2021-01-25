@@ -3,6 +3,8 @@ AS
 --
 SELECT [roc].[RepoObjectColumn_guid]
  , [roc].[has_different_sys_names]
+ , [roc].[is_persistence_no_check]
+ , [roc].[is_persistence_no_update]
  , [roc].[is_query_plan_expression]
  , [roc].[is_RepoObjectColumn_name_uniqueidentifier]
  , [roc].[is_SysObjectColumn_missing]

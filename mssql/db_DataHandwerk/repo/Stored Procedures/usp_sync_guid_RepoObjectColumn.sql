@@ -850,6 +850,64 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
+--persistence: insert missing HistValidColumns
+--currently we only insert missing but not delete not required
+-- maybe we should delete them?
+INSERT INTO [repo].[RepoObjectColumn] (
+ [Repo_generated_always_type]
+ , [Repo_user_type_name]
+ , [Repo_user_type_fullname]
+ , [RepoObjectColumn_name]
+ , [RepoObject_guid]
+ )
+SELECT [Repo_generated_always_type]
+ , [Repo_user_type_name]
+ , [Repo_user_type_fullname]
+ , [RepoObjectColumn_name]
+ , [RepoObject_guid]
+FROM [repo].[RepoObjectColumn_HistValidColums_setpoint] AS setpoint
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [repo].[RepoObjectColumn] AS [roc]
+  WHERE [roc].[RepoObject_guid] = [setpoint].[RepoObject_guid]
+   --we link not by ColumnName, but by [Repo_generated_always_type]
+   --this way it is possible to change the name in [repo].[RepoObjectColumn], if required
+   AND [roc].[Repo_generated_always_type] = [setpoint].[Repo_generated_always_type]
+  )
+
+--
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1;
+SET @step_name = 'persistence: insert missing HistValidColumns'
+SET @source_object = '[repo].[RepoObject_persistence]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+ , @updated = NULL
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
 /*
 	
 write RepoObject_guid in extended properties of SysObjectColumn
