@@ -38,7 +38,7 @@ SELECT [ro].[RepoObject_guid]
  , [rot].[history_schema_name] AS [temporal_table_schema_name]
  , [rot].[history_table_name] AS [temporal_table_table_name]
  , [rot].[is_persistence_insert]
- , [rot].[is_history_table_same_schema]
+ , [rot].[is_persistence_check_for_empty_source]
 FROM repo.RepoObject AS ro
 LEFT OUTER JOIN repo.RepoObject_persistence AS rot
  ON ro.RepoObject_guid = rot.target_RepoObject_guid

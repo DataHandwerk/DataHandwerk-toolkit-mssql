@@ -355,4 +355,11 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[usp_Index_Settings]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="432ceeb6-8041-402b-bf75-f3314d342887" ChangeDateTime="01/25/2021 09:20:42">
+    <Property Name="ElementName" Value="[repo].[RepoObject_persistence].[is_history_table_same_schema]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[RepoObject_persistence]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[is_persistence_check_for_empty_source]" />
+  </Operation>
 </Operations>
