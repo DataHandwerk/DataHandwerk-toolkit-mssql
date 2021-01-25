@@ -1,4 +1,5 @@
 ﻿
+
 -- Alter View Parameter_default
 /*
 merge this view into [repo].[Parameter]:
@@ -9,6 +10,7 @@ EXEC [repo].[usp_init_parameter]
 CREATE VIEW [repo].[Parameter_default]
 AS
 --
+--first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
 SELECT [Parameter_name] = 'persistence_name_suffix'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'default suffix for persistence table which will be added to source object name'
@@ -34,6 +36,20 @@ SELECT [Parameter_name] = 'Hist_ValidTo_column_name'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'default column name for column - datetime2 GENERATED ALWAYS AS ROW END'
  , [Parameter_default_value] = CAST(N'ValidFrom' AS SYSNAME)
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Hist_Table_schema'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'default: NULL - The historization table uses the same schema as the table to be historized. otherwise the given schema is used'
+ , [Parameter_default_value] = NULL
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Hist_Table_name_suffix'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'default suffix for historization table which will be added to historized object name'
+ , [Parameter_default_value] = CAST(N'_hist' AS SYSNAME)
 
 UNION ALL
 

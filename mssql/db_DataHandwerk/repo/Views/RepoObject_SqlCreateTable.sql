@@ -21,7 +21,74 @@ SELECT ro.[RepoObject_guid]
    END
   --CONSTRAINT PK, FK, depending on some settings
   , ConList.ConList
+  --PERIOD FOR SYSTEM_TIME ([ValidFrom], [ValidTo])
+  , CASE 
+   WHEN EXISTS (
+     SELECT 1
+     FROM [repo].[RepoObjectColumn] roc
+     WHERE roc.RepoObject_guid = ro.RepoObject_guid
+      AND roc.[Repo_generated_always_type] = 1
+     )
+    AND EXISTS (
+     SELECT 1
+     FROM [repo].[RepoObjectColumn] roc
+     WHERE roc.RepoObject_guid = ro.RepoObject_guid
+      AND roc.[Repo_generated_always_type] = 2
+     )
+    THEN CONCAT (
+      ', PERIOD FOR SYSTEM_TIME ('
+      , QUOTENAME((
+        SELECT [RepoObjectColumn_name]
+        FROM [repo].[RepoObjectColumn] roc
+        WHERE roc.RepoObject_guid = ro.RepoObject_guid
+         AND roc.[Repo_generated_always_type] = 1
+        ))
+      , ', '
+      , QUOTENAME((
+        SELECT [RepoObjectColumn_name]
+        FROM [repo].[RepoObjectColumn] roc
+        WHERE roc.RepoObject_guid = ro.RepoObject_guid
+         AND roc.[Repo_generated_always_type] = 2
+        ))
+      , ')'
+      , CHAR(13)
+      , CHAR(10)
+      )
+   END
   , ')'
+  --WITH
+  --(
+  --SYSTEM_VERSIONING = ON ( HISTORY_TABLE = [Application].[Cities_Archive] )
+  --)
+  , CASE ro.[Repo_temporal_type]
+   WHEN 2
+    THEN CONCAT (
+      CHAR(13)
+      , CHAR(10)
+      , 'WITH'
+      , CHAR(13)
+      , CHAR(10)
+      , '('
+      , CHAR(13)
+      , CHAR(10)
+      , 'SYSTEM_VERSIONING = ON ( HISTORY_TABLE = '
+      --, '[Application].[Cities_Archive]'
+      , COALESCE(ro_hist.[RepoObject_fullname], CONCAT (
+        QUOTENAME(ISNULL(CAST([repo].[fs_get_parameter_value]('Hist_Table_schema', DEFAULT) AS NVARCHAR(128)), ro.[RepoObject_schema_name]))
+        , '.'
+        , QUOTENAME(CONCAT (
+          ro.[RepoObject_name]
+          , CAST([repo].[fs_get_parameter_value]('Hist_Table_name_suffix', DEFAULT) AS NVARCHAR(128))
+          ))
+        ))
+      , ' )'
+      , CHAR(13)
+      , CHAR(10)
+      , ')'
+      , CHAR(13)
+      , CHAR(10)
+      )
+   END
   )
 FROM repo.RepoObject ro
 --column list should exist, otherwise CREATE statement will be invalid
@@ -41,3 +108,5 @@ LEFT JOIN (
  GROUP BY [parent_RepoObject_guid]
  ) ConList
  ON ConList.[parent_RepoObject_guid] = ro.[RepoObject_guid]
+LEFT JOIN repo.RepoObject ro_hist
+ ON ro_hist.RepoObject_guid = ro.Repo_history_table_guid

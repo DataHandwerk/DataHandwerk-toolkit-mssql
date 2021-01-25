@@ -1,16 +1,21 @@
-﻿CREATE VIEW [repo].[SysObject_RepoObject_via_guid]
+﻿
+CREATE VIEW [repo].[SysObject_RepoObject_via_guid]
 AS
 --
 SELECT [so].[SysObject_id]
+ , [ro].[is_repo_managed]
  , [so].[SysObject_schema_name]
  , [so].[SysObject_name]
  , [so].[type] AS [SysObject_type]
  , [so].[modify_date] AS [modify_date]
  , [so].[parent_object_id] AS [parent_object_id]
  , [so].[SysObject_RepoObject_guid] AS [SysObject_RepoObject_guid]
- --, [so].[temporal_type] AS              [SysObject_temporal_type]
- --, [so].[history_table_id] AS           [SysObject_history_table_id]
+ , [ro_hist].[RepoObject_guid] AS [history_table_guid]
+ , [so].[history_table_id]
+ , [so].[temporal_type]
  --, [so].[max_column_id_used] AS         [SysObject_max_column_id_used]
+ , [ro].[Repo_history_table_guid]
+ , [ro].[Repo_temporal_type]
  , [ro].[RepoObject_guid] AS [RepoObject_guid]
  , [ro].[RepoObject_schema_name]
  , [ro].[RepoObject_name]
@@ -31,3 +36,5 @@ SELECT [so].[SysObject_id]
 FROM repo_sys.SysObject AS so
 LEFT OUTER JOIN repo.RepoObject AS ro
  ON so.SysObject_RepoObject_guid = ro.RepoObject_guid
+LEFT OUTER JOIN repo.RepoObject AS ro_hist
+ ON so.[history_table_id] = ro_hist.[SysObject_id]

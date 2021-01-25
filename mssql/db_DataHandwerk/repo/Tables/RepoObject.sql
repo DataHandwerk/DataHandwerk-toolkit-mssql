@@ -1,4 +1,4 @@
-﻿CREATE TABLE [repo].[RepoObject] (
+CREATE TABLE [repo].[RepoObject] (
     [RepoObject_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObject_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
     [has_different_sys_names]             AS               (CONVERT([bit],case when [RepoObject_schema_name]<>[SysObject_schema_name] OR [RepoObject_name]<>[SysObject_name] OR [RepoObject_type]<>[SysObject_type] then (1) else (0) end)),
     [has_execution_plan_issue]            BIT              NULL,
@@ -7,6 +7,8 @@
     [is_SysObject_missing]                BIT              NULL,
     [modify_dt]                           DATETIME         CONSTRAINT [DF_RepoObject_modify_dt] DEFAULT (getdate()) NOT NULL,
     [pk_index_guid]                       UNIQUEIDENTIFIER NULL,
+    [Repo_history_table_guid]             UNIQUEIDENTIFIER NULL,
+    [Repo_temporal_type]                  TINYINT          NULL,
     [RepoObject_name]                     NVARCHAR (128)   CONSTRAINT [DF_RepoObject_RepoObject_name] DEFAULT (newid()) NOT NULL,
     [RepoObject_Referencing_Count]        INT              NULL,
     [RepoObject_schema_name]              NVARCHAR (128)   NOT NULL,
@@ -30,6 +32,8 @@
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 
@@ -218,5 +222,5 @@ GO
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'reference in [repo_sys].[type]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'Repo_temporal_type';
 
