@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [repo].[usp_sync_guid_RepoObjectColumn]
+﻿
+CREATE PROCEDURE [repo].[usp_sync_guid_RepoObjectColumn]
  -- some optional parameters, used for logging
  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
  , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -62,23 +63,23 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --
 /*
 	
-	ATTENTION!
-	Column guid syncronization requires existing RepoObject guid synchronization (all RepoObject in the database need a RepoObject_guid)
-	because RepoObject_guid is used to join
+ATTENTION!
+Column guid syncronization requires existing RepoObject guid synchronization (all RepoObject in the database need a RepoObject_guid)
+because RepoObject_guid is used to join
 	
-	=>
-	[repo_sys].[usp_sync_guid_RepoObject]
-	must be executed _before_ to ensure all RepoObject guid are synchronized
-	*/
+=>
+[repo_sys].[usp_sync_guid_RepoObject]
+must be executed _before_ to ensure all RepoObject guid are synchronized
+*/
 /*
 	
-	use objects with [RepoObjectColumn_guid] stored in extended properties
+use objects with [RepoObjectColumn_guid] stored in extended properties
 	
-	- SysObjectColumn could be renamed after previous sync
-	  - => update SysObjectColum properties in RepoObjectColumn
-	  - don't change RepoObjectColumn names
+- SysObjectColumn could be renamed after previous sync
+	- => update SysObjectColum properties in RepoObjectColumn
+	- don't change RepoObjectColumn names
 	
-	*/
+*/
 UPDATE repo.SysColumn_RepoObjectColumn_via_guid
 SET [SysObjectColumn_name] = [SysObject_column_name]
  , [SysObjectColumn_column_id] = [SysObject_column_id]
@@ -96,17 +97,23 @@ WHERE NOT [RepoObjectColumn_guid] IS NULL
 
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
+SET @step_name = 'UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColumn_guid'
+SET @source_object = '[repo_sys].[SysColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
  , @proc_id = @proc_id
  , @proc_schema_name = @proc_schema_name
  , @proc_name = @proc_name
  , @event_info = @event_info
  , @step_id = @step_id
- , @step_name = 'UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColumn_guid'
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
  , @inserted = NULL
  , @updated = @rows
  , @deleted = NULL
@@ -121,10 +128,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_09 = NULL
 
 /*
-	in case of possible conflict when inserting missing guid because auf [UK_RepoObjectColumn__SysNames] conflicting entries get 
-	[SysObjectColumn_name] = [repo].[RepoObjectColumn].[RepoObjectColumn_guid]
-	this will allow INSERT in the next step without issues
-	*/
+in case of possible conflict when inserting missing guid because auf [UK_RepoObjectColumn__SysNames] conflicting entries get 
+[SysObjectColumn_name] = [repo].[RepoObjectColumn].[RepoObjectColumn_guid]
+this will allow INSERT in the next step without issues
+*/
 UPDATE repo.RepoObjectColumn
 SET [SysObjectColumn_name] = [repo].[RepoObjectColumn].[RepoObjectColumn_guid]
 FROM [repo].[RepoObjectColumn]
@@ -182,16 +189,16 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	if a [RepoObjectColumn_guid] is stored in extended properties but missing in RepoObjectColumn, it should be restored
-	use columns with [RepoObjectColumn_guid] stored in extended properties
+if a [RepoObjectColumn_guid] is stored in extended properties but missing in RepoObjectColumn, it should be restored
+use columns with [RepoObjectColumn_guid] stored in extended properties
 	
-	- restore / insert RepoObjectColumn_guid from [SysObject_RepoObjectColumn_guid]
-	- SysObjectColumn names are restored as SysObject names
-	- a conflict could happen when some RepoObjectColumn have been renamed and when they now conflict with SysObjectColumn names  
-	  [UK_RepoObject_Names] was defined to raise an error
-	  => thats way we use [RepoObjectColumn_guid] as [RepoObjectColumn_name] to avoid conflicts we will later rename [RepoObjectColumn_name] to [SysObjectColumn_name] where this is possible
+- restore / insert RepoObjectColumn_guid from [SysObject_RepoObjectColumn_guid]
+- SysObjectColumn names are restored as SysObject names
+- a conflict could happen when some RepoObjectColumn have been renamed and when they now conflict with SysObjectColumn names  
+	[UK_RepoObject_Names] was defined to raise an error
+	=> thats way we use [RepoObjectColumn_guid] as [RepoObjectColumn_name] to avoid conflicts we will later rename [RepoObjectColumn_name] to [SysObjectColumn_name] where this is possible
 	
-	*/
+*/
 INSERT INTO repo.RepoObjectColumn (
  [RepoObjectColumn_guid]
  , [RepoObject_guid]
@@ -241,7 +248,7 @@ WHERE [RepoObjectColumn_guid] IS NULL
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = '[SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] ([RepoObjectColumn_guid] is stored in extended properties)'
-SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
+SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -270,6 +277,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
+--in case we have more then one [RepoObjectColumn_guid] per Schema.Object.Column
 DELETE roc
 FROM [repo].[RepoObjectColumn] [roc]
 WHERE EXISTS (
@@ -282,8 +290,8 @@ WHERE EXISTS (
 
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
-SET @step_name = 'DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1)'
-SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_name]'
+SET @step_name = 'DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1); via [repo].[SysColumn_RepoObjectColumn_via_name]'
+SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -314,15 +322,15 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	ensure all object columns existing in database (as SysObjectColumn) are also included into [repo].[RepoObjectColumn]
+ensure all object columns existing in database (as SysObjectColumn) are also included into [repo].[RepoObjectColumn]
 	
-	- this should be SysObjectColm without RepoObjectColumn_guid in extended properties
-	- when inserting they get a RepoObjectColumn_guid
-	- we should use this new RepoObjectColumn_guid as [RepoObjectColumn_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()  
-	  or we don't insert the RepoObjectColumn_name and they get a NEWID() as default, defined in repo.RepoObjectColumn
+- this should be SysObjectColm without RepoObjectColumn_guid in extended properties
+- when inserting they get a RepoObjectColumn_guid
+- we should use this new RepoObjectColumn_guid as [RepoObjectColumn_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()  
+	or we don't insert the RepoObjectColumn_name and they get a NEWID() as default, defined in repo.RepoObjectColumn
 	
-	[SysObject_RepoObject_guid] must exists, because it is required to link to repo.RepoObject
-	*/
+[SysObject_RepoObject_guid] must exists, because it is required to link to repo.RepoObject
+*/
 INSERT INTO repo.RepoObjectColumn (
  [RepoObject_guid]
  , [SysObjectColumn_name]
@@ -370,7 +378,7 @@ WHERE [RepoObjectColumn_guid] IS NULL
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'INSERT still missing Column'
-SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_name]'
+SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -401,17 +409,17 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
-	remaining [RepoObject_name] still have some guid and this needs to solved separately
+now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
+remaining [RepoObject_name] still have some guid and this needs to solved separately
 	
-	poosible issue
+poosible issue
 	
-	Msg 2627, Level 14, State 1, Procedure repo.usp_sync_guid_RepoObjectColumn, Line 392 [Batch Start Line 5]
-	Violation of UNIQUE KEY constraint 'UK_RepoObjectColumn__RepoNames'. Cannot insert duplicate key in object 'repo.RepoObjectColumn'. The duplicate key value is (e7968530-e846-eb11-84d1-a81e8446d5b0, Repo_default_definition).
+Msg 2627, Level 14, State 1, Procedure repo.usp_sync_guid_RepoObjectColumn, Line 392 [Batch Start Line 5]
+Violation of UNIQUE KEY constraint 'UK_RepoObjectColumn__RepoNames'. Cannot insert duplicate key in object 'repo.RepoObjectColumn'. The duplicate key value is (e7968530-e846-eb11-84d1-a81e8446d5b0, Repo_default_definition).
 	
-	there was an issue in [repo].[SysColumn] with some column duplicating
+there was an issue in [repo].[SysColumn] with some column duplicating
 	
-	*/
+*/
 UPDATE repo.RepoObjectColumn
 SET [RepoObjectColumn_name] = [repo].[RepoObjectColumn].[SysObjectColumn_name]
 FROM [repo].[RepoObjectColumn]
@@ -438,7 +446,7 @@ WHERE
 
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
-SET @step_name = 'WHERE (has_different_sys_names = 1) AND (ISNULL(is_repo_managed, 0) = 0)'
+SET @step_name = 'SET [RepoObjectColumn_name] = [SysObjectColumn_name] WHERE (has_different_sys_names = 1) AND (ISNULL(is_repo_managed, 0) = 0)'
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
@@ -629,8 +637,8 @@ WHERE
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0)'
-SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
-SET @target_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
+SET @source_object = '[repo_sys].[SysColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -813,7 +821,7 @@ WHERE
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid'
-SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_guid]'
+SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -844,8 +852,8 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	write RepoObject_guid in extended properties of SysObjectColumn
-	*/
+write RepoObject_guid in extended properties of SysObjectColumn
+*/
 DECLARE property_cursor CURSOR READ_ONLY
 FOR
 --
@@ -917,8 +925,8 @@ DEALLOCATE property_cursor;
 --SET @rows = @@ROWCOUNT;
 SET @step_id = @step_id + 1;
 SET @step_name = 'write RepoObjectColumn_guid into extended properties of SysObjectColumn, Level2'
-SET @source_object = '[repo].[SysColumn_RepoObjectColumn_via_name]'
-SET @target_object = '[repo_sys].[usp_AddOrUpdateExtendedproperty]'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo_sys].[SysColumn]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -948,9 +956,9 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	columns deleted or renamed in database but still referenced in [repo].[RepoObjectColumn] should be marked: [is_SysObjectColumn_missing] = 1
+columns deleted or renamed in database but still referenced in [repo].[RepoObjectColumn] should be marked: [is_SysObjectColumn_missing] = 1
 	
-	*/
+*/
 UPDATE repo.RepoObjectColumn
 SET [is_SysObjectColumn_missing] = 1
 FROM [repo].[RepoObjectColumn] [T1]
@@ -996,10 +1004,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	delete columns, marked as missing in [repo_sys].SysColumn
-	which are not [is_repo_managed]
+delete columns, marked as missing in [repo_sys].SysColumn
+which are not [is_repo_managed]
 	
-	*/
+*/
 DELETE
 FROM repo.RepoObjectColumn
 FROM [repo].[RepoObjectColumn]
@@ -1125,7 +1133,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	todo
+todo
 - Persistence aus [repo].[RepoObjectProperty] mit [repo].[RepoObject_persistence] synchronisieren
 - allerdings mit den richtigen Einstellungen, also müssen auch diese erst mal irgendwo in ep abgelegt werden
 

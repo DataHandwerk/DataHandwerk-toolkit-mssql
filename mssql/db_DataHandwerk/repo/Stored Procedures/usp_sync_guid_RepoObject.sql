@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [repo].[usp_sync_guid_RepoObject]
+﻿
+CREATE PROCEDURE [repo].[usp_sync_guid_RepoObject]
  -- some optional parameters, used for logging
  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
  , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -62,12 +63,12 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --
 /*
 	
-	use objects with [RepoObject_guid] stored in extended properties
+use objects with [RepoObject_guid] stored in extended properties
 	
-	- SysObject could be renamed after previous sync
-	  - => update SysObject properties in RepoObject
-	  - don't change RepoObject names
-	*/
+- SysObject could be renamed after previous sync
+	- => update SysObject properties in RepoObject
+	- don't change RepoObject names
+*/
 UPDATE repo.SysObject_RepoObject_via_guid
 SET [RepoObject_SysObject_id] = [SysObject_id]
  , [RepoObject_SysObject_schema_name] = [SysObject_schema_name]
@@ -110,8 +111,8 @@ WHERE NOT [RepoObject_guid] IS NULL
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'SET several RepoObject_SysObject_...'
-SET @source_object = NULL
-SET @target_object = '[repo].[SysObject_RepoObject_via_guid]'
+SET @source_object = '[repo_sys].[SysObject]'
+SET @target_object = '[repo].[RepoObject]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -140,10 +141,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_09 = NULL
 
 /*
-	in case of possible conflict when inserting missing guid because auf [UK_RepoObject__SysNames] conflicting entries get 
-	[SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
-	this will allow INSERT in the next step without issues
-	*/
+in case of possible conflict when inserting missing guid because auf [UK_RepoObject__SysNames] conflicting entries get 
+[SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
+this will allow INSERT in the next step without issues
+*/
 UPDATE repo.RepoObject
 SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
 FROM [repo].[RepoObject]
@@ -165,7 +166,7 @@ INNER JOIN (
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]'
-SET @source_object = '[repo].[SysObject_RepoObject_via_guid]'
+SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -196,14 +197,14 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	if a [RepoObject_guid] is stored in extended properties but missing in RepoObject, it should be restored
-	use objects with [RepoObject_guid] stored in extended properties
+if a [RepoObject_guid] is stored in extended properties but missing in RepoObject, it should be restored
+use objects with [RepoObject_guid] stored in extended properties
 	
-	- restore / insert RepoObject_guid from [SysObject_RepoObject_guid]
-	- SysObject names are restored as SysObject names
-	- a conflict could happen when some RepoObject have been renamed and when they now conflict with existing RepoObject names  
-	  [UK_RepoObject_Names]
-	  => thats way we use [RepoObject_guid] as [RepoObject_name] to avoid conflicts we will later rename [RepoObject_name] to [SysObject_name] where this is possible
+- restore / insert RepoObject_guid from [SysObject_RepoObject_guid]
+- SysObject names are restored as SysObject names
+- a conflict could happen when some RepoObject have been renamed and when they now conflict with existing RepoObject names  
+	[UK_RepoObject_Names]
+	=> thats way we use [RepoObject_guid] as [RepoObject_name] to avoid conflicts we will later rename [RepoObject_name] to [SysObject_name] where this is possible
 	
 */
 INSERT INTO repo.RepoObject (
@@ -235,7 +236,7 @@ WHERE NOT [SysObject_RepoObject_guid] IS NULL
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = '[SysObject_RepoObject_guid] -> [RepoObject_guid]; some name, type, ...'
-SET @source_object = '[repo].[SysObject_RepoObject_via_guid]'
+SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -266,11 +267,11 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	ensure all objects existing in database (as SysObject) are also included into [repo].[RepoObject]
+ensure all objects existing in database (as SysObject) are also included into [repo].[RepoObject]
 	
-	- this should be SysObject without RepoObject_guid in extended properties
-	- when inserting they get a RepoObject_guid
-	- we should use this new RepoObject_guid as [RepoObject_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()
+- this should be SysObject without RepoObject_guid in extended properties
+- when inserting they get a RepoObject_guid
+- we should use this new RepoObject_guid as [RepoObject_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()
 	
 */
 INSERT INTO repo.RepoObject (
@@ -299,7 +300,7 @@ WHERE [RepoObject_guid] IS NULL;
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'INSERT still missing Object'
-SET @source_object = '[repo].[SysObject_RepoObject_via_name]'
+SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -330,8 +331,8 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
-	remaining [RepoObject_name] still have some guid and this needs to solved separately
+now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
+remaining [RepoObject_name] still have some guid and this needs to solved separately
 	
 */
 UPDATE repo.RepoObject
@@ -388,7 +389,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	write RepoObject_guid into extended properties of SysObject
+write RepoObject_guid into extended properties of SysObject
 	
 */
 DECLARE property_cursor CURSOR READ_ONLY
@@ -496,8 +497,8 @@ DEALLOCATE property_cursor;
 --SET @rows = @@ROWCOUNT;
 SET @step_id = @step_id + 1;
 SET @step_name = 'write RepoObject_guid into extended properties of SysObject, Level1'
-SET @source_object = '[repo].[SysObject_RepoObject_via_name]'
-SET @target_object = '[repo_sys].[usp_AddOrUpdateExtendedproperty]'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[repo_sys].[SysObject]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -527,10 +528,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	objects deleted or renamed in database but still referenced in [repo].[RepoObject] will be marked in RepoObject with is_SysObject_missing = 1
-	check is reuqired by `schema_name` and `name` but not by SysObject_ID, because SysObject_ID can change when objects are recreated
+objects deleted or renamed in database but still referenced in [repo].[RepoObject] will be marked in RepoObject with is_SysObject_missing = 1
+check is reuqired by `schema_name` and `name` but not by SysObject_ID, because SysObject_ID can change when objects are recreated
 	
-	*/
+*/
 UPDATE repo.RepoObject
 SET [is_SysObject_missing] = 1
 FROM [repo].[RepoObject] [T1]
@@ -544,7 +545,7 @@ WHERE NOT EXISTS (
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'SET is_SysObject_missing = 1'
-SET @source_object = NULL
+SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObject]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -575,9 +576,9 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	delete objects, missing in SysObjects, if they are not is_repo_managed
-	if they are is_repo_managed we don't want to delete them but there should be some handling
-	*/
+delete objects, missing in SysObjects, if they are not is_repo_managed
+if they are is_repo_managed we don't want to delete them but there should be some handling
+*/
 DELETE repo.RepoObject
 WHERE ISNULL([is_repo_managed], 0) = 0
  AND [is_SysObject_missing] = 1;
@@ -585,7 +586,7 @@ WHERE ISNULL([is_repo_managed], 0) = 0
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1;
 SET @step_name = 'DELETE; marked missing SysObject, but not is_repo_managed  = 1'
-SET @source_object = NULL
+SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObject]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
@@ -604,6 +605,72 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @inserted = NULL
  , @updated = NULL
  , @deleted = @rows
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
+--update other properties for RepoObject which are not is_repo_managed
+--we do this after updating guid in SysObjects to ensure the guid can be used to get [history_table_guid]
+UPDATE ro
+SET [Repo_history_table_guid] = [history_table_guid]
+ , [Repo_temporal_type] = [temporal_type]
+FROM [repo].[SysObject_RepoObject_via_guid] [ro]
+WHERE
+ --not is_repo_managed 
+ ISNULL([ro].[is_repo_managed], 0) = 0
+ AND (
+  --
+  1 = 0
+  --
+  OR [Repo_history_table_guid] <> [history_table_guid]
+  OR (
+   [Repo_history_table_guid] IS NULL
+   AND NOT [history_table_guid] IS NULL
+   )
+  OR (
+   [history_table_guid] IS NULL
+   AND NOT [Repo_history_table_guid] IS NULL
+   )
+  OR [Repo_temporal_type] <> [temporal_type]
+  OR (
+   [Repo_temporal_type] IS NULL
+   AND NOT [temporal_type] IS NULL
+   )
+  OR (
+   [temporal_type] IS NULL
+   AND NOT [Repo_temporal_type] IS NULL
+   )
+  --
+  );
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1;
+SET @step_name = 'UPDATE other properties, where not is_repo_managed  = 1'
+SET @source_object = '[repo_sys].[SysObject]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = NULL
+ , @updated = @rows
+ , @deleted = NULL
  , @info_01 = NULL
  , @info_02 = NULL
  , @info_03 = NULL
@@ -697,7 +764,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 
 /*
 	
-	todo
+todo
 - Persistence aus [repo].[RepoObjectProperty] mit [repo].[RepoObject_persistence] synchronisieren
 - allerdings mit den richtigen Einstellungen, also müssen auch diese erst mal irgendwo in ep abgelegt werden
 
