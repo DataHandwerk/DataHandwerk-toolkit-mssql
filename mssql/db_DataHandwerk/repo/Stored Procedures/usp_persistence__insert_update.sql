@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 create or update persistence:
 
 create RepoObject for a new persistence table, based on a given source view or table
@@ -94,6 +95,7 @@ PRINT @persistence_RepoObject_guid
 EXEC repo.[usp_persistence__insert_update]
      @source_RepoObject_guid = @source_RepoObject_guid
    , @persistence_RepoObject_guid = @persistence_RepoObject_guid
+   , @has_history = 1
 
 
 
@@ -198,7 +200,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --
 DECLARE @info_01_message NVARCHAR(1000)
 --this table is used for OUTPUT to get the new assigned [RepoObject_guid] when inserting new values
-DECLARE @ids TABLE ([guid] UNIQUEIDENTIFIER)
+DECLARE @table TABLE ([guid] UNIQUEIDENTIFIER)
 DECLARE @source_schema_name NVARCHAR(128)
  , @source_table_name NVARCHAR(128)
  , @persistence_schema_name NVARCHAR(128)
@@ -398,8 +400,8 @@ BEGIN
  END
 
  --finaly create new @persistence_RepoObject_guid
- --make sure the @ids table is empty
- DELETE @ids
+ --make sure the @table table is empty
+ DELETE @table
 
  INSERT INTO repo.RepoObject (
   [RepoObject_schema_name]
@@ -409,7 +411,7 @@ BEGIN
   , [is_repo_managed]
   )
  OUTPUT [INSERTED].[RepoObject_guid]
- INTO @ids
+ INTO @table
  VALUES (
   @persistence_schema_name
   , @persistence_table_name
@@ -420,7 +422,7 @@ BEGIN
 
  SET @persistence_RepoObject_guid = (
    SELECT [guid]
-   FROM @ids
+   FROM @table
    )
 END --IF NOT @source_RepoObject_guid IS NULL AND @persistence_RepoObject_guid IS NULL
 
@@ -697,126 +699,126 @@ WHERE
 	    --
 	    )
 */
---
---try to find [persistence_source_RepoObjectColumn_guid] for existing persistence columns by Column name
-UPDATE roc_p
-SET [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
---update attributes later in a separate step:
---, [roc_p].[Repo_user_type_name] = [roc_s].[Sys_user_type_name]
---, [roc_p].[Repo_user_type_fullname] = [roc_s].[Sys_user_type_fullname]
-FROM [repo].[RepoObjectColumn] AS [roc_p]
-INNER JOIN [repo].[RepoObjectColumn] AS [roc_s]
- ON [roc_p].[RepoObjectColumn_name] = [roc_s].[RepoObjectColumn_name]
-WHERE [roc_p].[persistence_source_RepoObjectColumn_guid] IS NULL
- AND [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
- AND [roc_s].[RepoObject_guid] = @source_RepoObject_guid
- --skip special table columns (ValidFrom, ValidTo) in target (= persistence)
- AND (
-  [roc_p].[Repo_generated_always_type] = 0
-  OR [roc_p].[Repo_generated_always_type] IS NULL
-  )
- --skip [is_query_plan_expression] in target
- AND (
-  [roc_p].[is_query_plan_expression] = 0
-  OR [roc_p].[is_query_plan_expression] IS NULL
-  )
+----
+----try to find [persistence_source_RepoObjectColumn_guid] for existing persistence columns by Column name
+--UPDATE roc_p
+--SET [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
+----update attributes later in a separate step:
+----, [roc_p].[Repo_user_type_name] = [roc_s].[Sys_user_type_name]
+----, [roc_p].[Repo_user_type_fullname] = [roc_s].[Sys_user_type_fullname]
+--FROM [repo].[RepoObjectColumn] AS [roc_p]
+--INNER JOIN [repo].[RepoObjectColumn] AS [roc_s]
+-- ON [roc_p].[RepoObjectColumn_name] = [roc_s].[RepoObjectColumn_name]
+--WHERE [roc_p].[persistence_source_RepoObjectColumn_guid] IS NULL
+-- AND [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
+-- AND [roc_s].[RepoObject_guid] = @source_RepoObject_guid
+-- --skip special table columns (ValidFrom, ValidTo) in target (= persistence)
+-- AND (
+--  [roc_p].[Repo_generated_always_type] = 0
+--  OR [roc_p].[Repo_generated_always_type] IS NULL
+--  )
+-- --skip [is_query_plan_expression] in target
+-- AND (
+--  [roc_p].[is_query_plan_expression] = 0
+--  OR [roc_p].[is_query_plan_expression] IS NULL
+--  )
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = '[roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name)'
-SET @source_object = '[repo].[RepoObjectColumn]'
-SET @target_object = '[repo].[RepoObjectColumn]'
+--SET @rows = @@rowcount;
+--SET @step_id = @step_id + 1
+--SET @step_name = '[roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name)'
+--SET @source_object = '[repo].[RepoObjectColumn]'
+--SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+--EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+-- , @ssis_execution_id = @ssis_execution_id
+-- , @sub_execution_id = @sub_execution_id
+-- , @parent_execution_log_id = @parent_execution_log_id
+-- , @current_execution_guid = @current_execution_guid
+-- , @proc_id = @proc_id
+-- , @proc_schema_name = @proc_schema_name
+-- , @proc_name = @proc_name
+-- , @event_info = @event_info
+-- , @step_id = @step_id
+-- , @step_name = @step_name
+-- , @source_object = @source_object
+-- , @target_object = @target_object
+-- , @inserted = NULL
+-- , @updated = @rows
+-- , @deleted = NULL
+-- , @info_01 = NULL
+-- , @info_02 = NULL
+-- , @info_03 = NULL
+-- , @info_04 = NULL
+-- , @info_05 = NULL
+-- , @info_06 = NULL
+-- , @info_07 = NULL
+-- , @info_08 = NULL
+-- , @info_09 = NULL
 
---add missing (in target) persistence columns, existing in source
-INSERT INTO [repo].[RepoObjectColumn] (
- [RepoObject_guid]
- , [RepoObjectColumn_name]
- , [persistence_source_RepoObjectColumn_guid]
- )
---do this in a separate step:
---, [Repo_user_type_name]
---, [Repo_user_type_fullname]
-SELECT @persistence_RepoObject_guid
- , [roc_s].[RepoObjectColumn_name]
- , [roc_s].[RepoObjectColumn_guid]
---, [roc_s].[Sys_user_type_name]
---, [roc_s].[Sys_user_type_fullname]
-FROM [repo].[RepoObjectColumn] AS [roc_s]
-WHERE [roc_s].[RepoObject_guid] = @source_RepoObject_guid
- AND NOT EXISTS (
-  SELECT 1
-  FROM [repo].[RepoObjectColumn] AS [roc_p]
-  WHERE [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
-   AND [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
-  )
- --skip special table columns (ValidFrom, ValidTo) in source
- AND (
-  [roc_s].[Repo_generated_always_type] = 0
-  OR [roc_s].[Repo_generated_always_type] IS NULL
-  )
- --skip [is_query_plan_expression] in source
- AND (
-  [roc_s].[is_query_plan_expression] = 0
-  OR [roc_s].[is_query_plan_expression] IS NULL
-  )
+----add missing (in target) persistence columns, existing in source
+--INSERT INTO [repo].[RepoObjectColumn] (
+-- [RepoObject_guid]
+-- , [RepoObjectColumn_name]
+-- , [persistence_source_RepoObjectColumn_guid]
+-- )
+----do this in a separate step:
+----, [Repo_user_type_name]
+----, [Repo_user_type_fullname]
+--SELECT @persistence_RepoObject_guid
+-- , [roc_s].[RepoObjectColumn_name]
+-- , [roc_s].[RepoObjectColumn_guid]
+----, [roc_s].[Sys_user_type_name]
+----, [roc_s].[Sys_user_type_fullname]
+--FROM [repo].[RepoObjectColumn] AS [roc_s]
+--WHERE [roc_s].[RepoObject_guid] = @source_RepoObject_guid
+-- AND NOT EXISTS (
+--  SELECT 1
+--  FROM [repo].[RepoObjectColumn] AS [roc_p]
+--  WHERE [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
+--   AND [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
+--  )
+-- --skip special table columns (ValidFrom, ValidTo) in source
+-- AND (
+--  [roc_s].[Repo_generated_always_type] = 0
+--  OR [roc_s].[Repo_generated_always_type] IS NULL
+--  )
+-- --skip [is_query_plan_expression] in source
+-- AND (
+--  [roc_s].[is_query_plan_expression] = 0
+--  OR [roc_s].[is_query_plan_expression] IS NULL
+--  )
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'add missing persistence columns existing in source'
-SET @source_object = '[repo].[RepoObjectColumn]'
-SET @target_object = '[repo].[RepoObjectColumn]'
+--SET @rows = @@rowcount;
+--SET @step_id = @step_id + 1
+--SET @step_name = 'add missing persistence columns existing in source'
+--SET @source_object = '[repo].[RepoObjectColumn]'
+--SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = @rows
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+--EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+-- , @ssis_execution_id = @ssis_execution_id
+-- , @sub_execution_id = @sub_execution_id
+-- , @parent_execution_log_id = @parent_execution_log_id
+-- , @current_execution_guid = @current_execution_guid
+-- , @proc_id = @proc_id
+-- , @proc_schema_name = @proc_schema_name
+-- , @proc_name = @proc_name
+-- , @event_info = @event_info
+-- , @step_id = @step_id
+-- , @step_name = @step_name
+-- , @source_object = @source_object
+-- , @target_object = @target_object
+-- , @inserted = @rows
+-- , @updated = NULL
+-- , @deleted = NULL
+-- , @info_01 = NULL
+-- , @info_02 = NULL
+-- , @info_03 = NULL
+-- , @info_04 = NULL
+-- , @info_05 = NULL
+-- , @info_06 = NULL
+-- , @info_07 = NULL
+-- , @info_08 = NULL
+-- , @info_09 = NULL
 
 --sync new columns, use existing procedure to manage the filling of Repo_... columns
 EXEC [repo].[usp_sync_guid] @execution_instance_guid = @execution_instance_guid

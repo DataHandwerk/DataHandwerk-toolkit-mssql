@@ -1,7 +1,5 @@
-﻿CREATE
- 
-
- VIEW repo.RepoObject_SqlColumnList
+﻿
+CREATE VIEW [repo].[RepoObject_SqlColumnList]
 AS
 SELECT roc.[RepoObject_guid]
  , ColumnList = STRING_AGG(CONCAT (
@@ -71,8 +69,9 @@ SELECT roc.[RepoObject_guid]
           , ')'
           )
        END
-      , CASE roc.[Repo_is_nullable]
-       WHEN 0
+      , CASE 
+       WHEN roc.[Repo_is_nullable] = 0
+        OR roc.[Repo_generated_always_type] >= 1
         THEN ' NOT'
        END
       , ' NULL '

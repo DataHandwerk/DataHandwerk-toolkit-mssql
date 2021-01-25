@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [repo].[usp_index_inheritance]
+﻿
+CREATE PROCEDURE [repo].[usp_index_inheritance]
  --by default the source schema is used and the source name with prefix '_T' for table
  --todo: use general parameters to define this
  -- some optional parameters, used for logging
@@ -6,7 +7,6 @@
  , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
  , @sub_execution_id INT = NULL
  , @parent_execution_log_id BIGINT = NULL
- --, @debug                   BIT              = 0
 AS
 DECLARE @current_execution_log_id BIGINT
  , @current_execution_guid UNIQUEIDENTIFIER = NEWID()
@@ -108,7 +108,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_09 = NULL
 
 --insert Index which should be inherited in referenced, but not yet referenced
---todo WHERE Bedingung ist noch falsch, oder Quellsicht ändern
+--todo WHERE Bedingung ist noch falsch, => Quellsicht noch weiter ändern
 INSERT INTO repo.[Index_virtual] (
  [parent_RepoObject_guid]
  , [referenced_index_guid]
@@ -202,7 +202,8 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_09 = NULL
 
 --some combinations of ([Index_guid], [index_column_id]) are not unique
---correct this in repo.IndexColumn__virtual_referenced_setpoint
+--=> correct this in repo.IndexColumn__virtual_referenced_setpoint
+--OK
 INSERT INTO repo.[IndexColumn_virtual] (
  [Index_guid]
  , [index_column_id]
@@ -361,7 +362,8 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --
 --PK could be defined in [repo].[RepoObject].[pk_index_guid] by using an index_guid in an manual process
 --first we need to propagate this PK into [repo].[Index__virtual]
---now there could have two or more PK defined in [repo].[Index__virtual]
+--atention, this will propagate only real existing PK from SysObject ("real PK")
+--now we could have two or more PK defined in [repo].[Index__virtual]
 UPDATE iv
 SET [is_index_primary_key] = 1
  , [is_index_unique] = 1
@@ -376,9 +378,125 @@ WHERE [iv].[is_index_primary_key] = 0
 
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_index_primary_key] = 1, , [is_index_unique] = 1 (propagate PK from [repo].[RepoObject] into [repo].[Index__virtual])'
+SET @step_name = 'SET [is_index_primary_key] = 1, [is_index_unique] = 1 (propagate PK from [repo].[RepoObject] into [repo].[Index__virtual])'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index__virtual]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = NULL
+ , @updated = @rows
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
+--persistence:
+--persistence with [has_history] = 1 require PK
+--default index inserting doesn't mark inherited index as PK or UK
+--[repo].[RepoObject_SqlCreateTable] will be invalid for these tables
+--
+/*
+SELECT iv_p.is_index_primary_key
+ , iv_p.is_index_unique
+ , iv_s.is_index_primary_key AS is_index_primary_key_s
+ , iv_s.is_index_unique AS is_index_unique_s
+ , rop.has_history
+ , rop.is_persistence
+ 
+ --, ro.RepoObject_fullname
+ --, iv_p.index_guid
+ --, iv_p.parent_RepoObject_guid
+FROM repo.Index_virtual AS iv_p
+INNER JOIN repo.RepoObject_persistence AS rop
+ ON rop.target_RepoObject_guid = iv_p.parent_RepoObject_guid
+INNER JOIN repo.Index_union AS iv_s
+ ON iv_p.referenced_index_guid = iv_s.Index_guid
+--INNER JOIN repo.RepoObject AS ro
+-- ON ro.RepoObject_guid = iv_p.parent_RepoObject_guid
+*/
+--
+UPDATE iv_p
+SET is_index_primary_key = iv_s.is_index_primary_key
+ , is_index_unique = iv_s.is_index_unique
+FROM repo.Index_virtual AS iv_p
+INNER JOIN repo.RepoObject_persistence AS rop
+ ON rop.target_RepoObject_guid = iv_p.parent_RepoObject_guid
+INNER JOIN repo.Index_union AS iv_s
+ ON iv_p.referenced_index_guid = iv_s.Index_guid
+WHERE rop.has_history = 1
+ AND iv_p.is_index_primary_key = 0
+ AND iv_s.is_index_primary_key = 1
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [is_index_primary_key] = 1 (WHERE rop.has_history = 1 and source-index is PK)'
+SET @source_object = '[repo].[Index_union]'
+SET @target_object = '[repo].[Index__virtual]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = NULL
+ , @updated = @rows
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
+--PK constraint creation needs to be enables in [repo].[Index_Settings]
+UPDATE iset
+SET [is_create_constraint] = 1
+FROM [repo].[Index_Settings] iset
+WHERE iset.[is_create_constraint] = 0
+ AND EXISTS (
+  SELECT 1
+  FROM [repo].[Index_union] i
+  INNER JOIN repo.RepoObject_persistence AS rop
+   ON rop.target_RepoObject_guid = i.parent_RepoObject_guid
+  WHERE rop.has_history = 1
+   AND i.is_index_primary_key = 1
+   AND i.Index_guid = iset.Index_guid
+  )
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [is_create_constraint] = 1 (WHERE persistence has_history = 1)'
+SET @source_object = '[repo].[Index_union]'
+SET @target_object = '[repo].[Index_Settings]'
 
 EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -518,6 +636,71 @@ WHERE [iv].[is_index_primary_key] = 1
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1
 SET @step_name = 'SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[repo].[Index__virtual]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = NULL
+ , @updated = @rows
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
+--index_name is required
+UPDATE iv
+SET [index_name] = T2.[index_name_new]
+FROM [repo].[Index_virtual] AS iv
+INNER JOIN (
+ SELECT [iv].[index_guid]
+  , [index_name_new] = CONCAT (
+   CASE 
+    WHEN [iv].[is_index_primary_key] = 1
+     THEN 'PK'
+    WHEN [iv].[is_index_unique] = 1
+     THEN 'UK'
+    ELSE 'idx'
+    END
+   , '_'
+   , [ro].[RepoObject_name]
+   , CASE 
+    WHEN [iv].[is_index_primary_key] = 0
+     THEN CONCAT (
+       '__'
+       , ROW_NUMBER() OVER (
+        PARTITION BY iv.parent_RepoObject_guid ORDER BY [iv].[index_guid]
+        )
+       )
+    END
+   )
+ FROM [repo].[Index_virtual] AS iv
+ INNER JOIN [repo].[RepoObject] AS ro
+  ON iv.parent_RepoObject_guid = ro.RepoObject_guid
+ WHERE [iv].[index_name] IS NULL
+ ) T2
+ ON T2.[index_guid] = iv.[index_guid]
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [iv].[index_name] WHERE [iv].[index_name] IS NULL'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index__virtual]'
 

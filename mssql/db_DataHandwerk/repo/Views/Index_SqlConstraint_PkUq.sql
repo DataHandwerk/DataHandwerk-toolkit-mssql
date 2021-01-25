@@ -1,4 +1,5 @@
 ﻿
+
 --contains only PK or UNIQUE
 --requirement:
 -- - repo.Index_Settings.is_create_constraint = 1
@@ -9,6 +10,7 @@ SELECT i.Index_guid
  , i.parent_RepoObject_guid
  , SqlConstraint = CONCAT (
   'CONSTRAINT '
+  --todo missing name?
   , QUOTENAME(i.index_name)
   , ' '
   , CASE 
