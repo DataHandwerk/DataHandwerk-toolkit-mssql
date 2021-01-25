@@ -1,4 +1,4 @@
-CREATE TABLE [repo].[RepoObjectColumn] (
+﻿CREATE TABLE [repo].[RepoObjectColumn] (
     [RepoObjectColumn_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_guid] DEFAULT (newsequentialid()) NOT NULL,
     [is_persistence_no_check]                   BIT              NULL,
     [is_persistence_no_update]                  BIT              NULL,
@@ -10,10 +10,10 @@ CREATE TABLE [repo].[RepoObjectColumn] (
     [Repo_default_is_system_named]              BIT              NULL,
     [Repo_default_name]                         NVARCHAR (128)   NULL,
     [Repo_definition]                           NVARCHAR (MAX)   NULL,
-    [Repo_generated_always_type]                TINYINT          NULL,
+    [Repo_generated_always_type]                TINYINT          CONSTRAINT [DF_RepoObjectColumn_Repo_generated_always_type] DEFAULT ((0)) NOT NULL,
     [Repo_graph_type]                           INT              NULL,
-    [Repo_is_computed]                          BIT              NULL,
-    [Repo_is_identity]                          BIT              NULL,
+    [Repo_is_computed]                          BIT              CONSTRAINT [DF_RepoObjectColumn_Repo_is_computed] DEFAULT ((0)) NOT NULL,
+    [Repo_is_identity]                          BIT              CONSTRAINT [DF_RepoObjectColumn_Repo_is_identity] DEFAULT ((0)) NOT NULL,
     [Repo_is_nullable]                          BIT              NULL,
     [Repo_is_persisted]                         BIT              NULL,
     [Repo_seed_value]                           SQL_VARIANT      NULL,
@@ -34,6 +34,8 @@ CREATE TABLE [repo].[RepoObjectColumn] (
     CONSTRAINT [UK_RepoObjectColumn__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC, [RepoObjectColumn_name] ASC),
     CONSTRAINT [UK_RepoObjectColumn__SysNames] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [SysObjectColumn_name] ASC)
 );
+
+
 
 
 

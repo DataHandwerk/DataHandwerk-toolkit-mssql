@@ -850,17 +850,137 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
+--
+--persistence: try to find [persistence_source_RepoObjectColumn_guid] for existing persistence columns by Column name
+UPDATE roc_p
+SET [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
+FROM [repo].[RepoObjectColumn] AS [roc_p]
+INNER JOIN [repo].[RepoObjectColumn] AS [roc_s]
+ ON [roc_p].[RepoObjectColumn_name] = [roc_s].[RepoObjectColumn_name]
+INNER JOIN [repo].[RepoObject_persistence] rop
+ ON rop.target_RepoObject_guid = [roc_p].[RepoObject_guid]
+  AND rop.source_RepoObject_guid = [roc_s].[RepoObject_guid]
+WHERE (
+  [roc_p].[persistence_source_RepoObjectColumn_guid] <> [roc_s].[RepoObjectColumn_guid]
+  OR [roc_p].[persistence_source_RepoObjectColumn_guid] IS NULL
+  )
+ --skip special table columns (ValidFrom, ValidTo) in target (= persistence)
+ AND (
+  [roc_p].[Repo_generated_always_type] = 0
+  OR [roc_p].[Repo_generated_always_type] IS NULL
+  )
+ --skip [is_query_plan_expression] in target
+ AND (
+  [roc_p].[is_query_plan_expression] = 0
+  OR [roc_p].[is_query_plan_expression] IS NULL
+  )
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1
+SET @step_name = '[roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name via [repo].[RepoObject_persistence])'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = NULL
+ , @updated = @rows
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
+--persistence: add missing (in target) persistence columns, existing in source
+INSERT INTO [repo].[RepoObjectColumn] (
+ [RepoObject_guid]
+ , [RepoObjectColumn_name]
+ , [persistence_source_RepoObjectColumn_guid]
+ )
+SELECT rop.[target_RepoObject_guid]
+ , [roc_s].[RepoObjectColumn_name]
+ , [roc_s].[RepoObjectColumn_guid]
+FROM [repo].[RepoObjectColumn] AS [roc_s]
+INNER JOIN [repo].[RepoObject_persistence] rop
+ ON rop.source_RepoObject_guid = [roc_s].[RepoObject_guid]
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [repo].[RepoObjectColumn] AS [roc_p]
+  WHERE [roc_p].[RepoObject_guid] = rop.[target_RepoObject_guid]
+   AND [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
+  )
+ --skip special table columns (ValidFrom, ValidTo) in source
+ AND (
+  [roc_s].[Repo_generated_always_type] = 0
+  OR [roc_s].[Repo_generated_always_type] IS NULL
+  )
+ --skip [is_query_plan_expression] in source
+ AND (
+  [roc_s].[is_query_plan_expression] = 0
+  OR [roc_s].[is_query_plan_expression] IS NULL
+  )
+
+SET @rows = @@rowcount;
+SET @step_id = @step_id + 1
+SET @step_name = 'add missing persistence columns existing in source'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+ , @updated = NULL
+ , @deleted = NULL
+ , @info_01 = NULL
+ , @info_02 = NULL
+ , @info_03 = NULL
+ , @info_04 = NULL
+ , @info_05 = NULL
+ , @info_06 = NULL
+ , @info_07 = NULL
+ , @info_08 = NULL
+ , @info_09 = NULL
+
 --persistence: insert missing HistValidColumns
 --currently we only insert missing but not delete not required
 -- maybe we should delete them?
 INSERT INTO [repo].[RepoObjectColumn] (
  [Repo_generated_always_type]
+ , [Repo_is_nullable]
  , [Repo_user_type_name]
  , [Repo_user_type_fullname]
  , [RepoObjectColumn_name]
  , [RepoObject_guid]
  )
 SELECT [Repo_generated_always_type]
+ , [Repo_is_nullable]
  , [Repo_user_type_name]
  , [Repo_user_type_fullname]
  , [RepoObjectColumn_name]

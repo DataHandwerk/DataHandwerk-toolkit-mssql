@@ -1,25 +1,28 @@
-﻿CREATE VIEW [repo].[IndexColumn_virtual_gross]
+﻿
+CREATE VIEW [repo].[IndexColumn_virtual_gross]
 AS
 --
 SELECT [icv].[Index_guid]
  , [icv].[index_column_id]
  , [icv].[is_descending_key]
- , [sc_roc].[RepoObjectColumn_guid] --could by empty for new Objects, execute [repo].[usp_sync_guid]
+ , icv.[RepoObjectColumn_guid]
  , [iv].[parent_RepoObject_guid]
  , [iv].[index_name]
- , [parent_schema_name] = [sc_roc].[SysObject_schema_name]
- , [parent_SysObject_name] = [sc_roc].[SysObject_name]
- , [sc_roc].[SysObject_column_name]
- , [sc_roc].[user_type_fullname] AS [SysObject_column_user_type_fullname]
+ , [parent_schema_name] = COALESCE(ro.SysObject_schema_name, ro.[RepoObject_schema_name])
+ , [parent_Object_name] = iif(NOT ro.[SysObject_name] IS NULL
+  AND ro.[is_SysObject_name_uniqueidentifier] = 0, ro.[SysObject_name], ro.[RepoObject_name])
+ , [Object_column_name] = iif(NOT roc.[SysObjectColumn_name] IS NULL
+  AND roc.[is_SysObjectColumn_name_uniqueidentifier] = 0, roc.[SysObjectColumn_name], roc.[RepoObjectColumn_name])
+ , [column_user_type_fullname] = roc.[Repo_user_type_fullname]
  , [iv].[is_index_unique]
  , [iv].[is_index_primary_key]
- , [parent_SysObject_fullname] = [sc_roc].[SysObject_fullname]
+ , [parent_Object_fullname] = iif(NOT ro.[SysObject_fullname] IS NULL
+  AND ro.[is_SysObject_name_uniqueidentifier] = 0, ro.[SysObject_fullname], ro.[RepoObject_fullname])
  , [is_index_real] = CAST(0 AS BIT)
 FROM repo.[IndexColumn_virtual] AS icv
 INNER JOIN repo.[Index_virtual] AS iv
  ON icv.index_guid = iv.index_guid
-INNER JOIN repo.SysColumn_RepoObjectColumn_via_guid AS sc_roc
- ON icv.RepoObjectColumn_guid = sc_roc.RepoObjectColumn_guid
-LEFT JOIN repo.SysObject_RepoObject_via_guid AS sc_ro
- ON sc_ro.RepoObject_guid = iv.parent_RepoObject_guid
-  --WHERE  [iv].[is_index_unique] = 1
+INNER JOIN [repo].[RepoObjectColumn] roc
+ ON roc.[RepoObjectColumn_guid] = icv.[RepoObjectColumn_guid]
+LEFT JOIN repo.RepoObject AS ro
+ ON ro.RepoObject_guid = [iv].[parent_RepoObject_guid]

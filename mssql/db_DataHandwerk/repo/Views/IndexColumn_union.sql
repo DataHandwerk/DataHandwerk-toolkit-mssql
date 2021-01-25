@@ -1,4 +1,5 @@
-﻿CREATE VIEW [repo].[IndexColumn_union]
+﻿
+CREATE VIEW [repo].[IndexColumn_union]
 AS
 --
 SELECT [Index_guid]
@@ -26,11 +27,11 @@ SELECT [Index_guid]
  , [parent_RepoObject_guid]
  , [index_name]
  , [parent_schema_name]
- , [parent_SysObject_name]
- , [SysObject_column_name]
- , [SysObject_column_user_type_fullname]
+ , [parent_Object_name]
+ , [Object_column_name]
+ , [column_user_type_fullname]
  , [is_index_unique]
  , [is_index_primary_key]
  , [is_index_real]
- , [parent_SysObject_fullname]
+ , [parent_Object_fullname]
 FROM repo.IndexColumn_virtual_gross AS T2

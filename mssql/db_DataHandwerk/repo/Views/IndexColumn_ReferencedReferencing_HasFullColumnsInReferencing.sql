@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 we use all Index from repo.IndexColumn__union (real and virtual)
 and we use Object references
 - currently from repo.RepoObjectColumn_reference__dm_exec_describe_first_result_set AS ref  
@@ -63,7 +64,8 @@ SELECT [ic].[Index_guid]
 --, roc.[RepoObjectColumn_guid]
 FROM repo.IndexColumn_union AS ic
 LEFT JOIN --todo: maybe use another source for RepoObject references 
- repo.[RepoObjectColumn_reference_FirstResultSet] AS ref
+ --repo.[RepoObjectColumn_reference_FirstResultSet] AS ref
+ [repo].[RepoObjectColumn_reference_union] ref
  ON ref.referenced_RepoObjectColumn_guid = ic.RepoObjectColumn_guid
 WHERE
  --first condition: any column of the referenced index should be a referencing column in the referencing objekt

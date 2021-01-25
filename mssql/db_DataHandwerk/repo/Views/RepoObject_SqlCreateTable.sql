@@ -90,6 +90,7 @@ SELECT ro.[RepoObject_guid]
       )
    END
   )
+ , ConList.ConList
 FROM repo.RepoObject ro
 --column list should exist, otherwise CREATE statement will be invalid
 INNER JOIN [repo].[RepoObject_SqlColumnList] AS ColList
@@ -100,7 +101,6 @@ LEFT JOIN (
     --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
     CAST(' ' AS NVARCHAR(MAX))
     , con.[SqlConstraint]
-    , ')'
     , CHAR(13)
     , CHAR(10)
     ), ',')
