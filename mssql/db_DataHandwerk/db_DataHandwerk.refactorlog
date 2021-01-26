@@ -362,4 +362,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[is_persistence_check_for_empty_source]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="fb3fbf2a-4e0c-44fe-9422-9eaaa226af76" ChangeDateTime="01/26/2021 09:03:02">
+    <Property Name="ElementName" Value="[repo].[usp_parameter__insert_update]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_parameter_insert_update]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e87668d4-5b91-45af-9146-a6528d779bf9" ChangeDateTime="01/26/2021 09:03:38">
+    <Property Name="ElementName" Value="[repo].[usp_persistence__insert_update]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_persistence_insert_update]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e789267a-4030-4687-a3bb-6baf37309d35" ChangeDateTime="01/26/2021 09:04:15">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObjectColumn__update_RepoObjectColumn_column_id]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]" />
+  </Operation>
 </Operations>

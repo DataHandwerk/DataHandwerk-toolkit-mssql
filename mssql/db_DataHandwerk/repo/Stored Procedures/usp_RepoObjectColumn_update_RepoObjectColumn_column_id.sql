@@ -8,7 +8,7 @@ exec repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id
 */
 --if @RepoObject_guid = NULL then all RepoObject will be updated
 --@OrderBy is defined by a parameter: 'RepoObjectColumn_column_id_OrderBy'
-CREATE PROCEDURE [repo].[usp_RepoObjectColumn__update_RepoObjectColumn_column_id]
+CREATE PROCEDURE [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
  --
  @RepoObject_guid UNIQUEIDENTIFIER = NULL
  ,

@@ -22,7 +22,7 @@ DECLARE @dwh_database_name_old NVARCHAR(128) = (
   SELECT [repo].[fs_dwh_database_name]()
   )
 
-EXEC [repo].[usp_parameter__insert_update] @Parameter_name = 'dwh_database_name'
+EXEC [repo].[usp_parameter_insert_update] @Parameter_name = 'dwh_database_name'
  , @Parameter_value = @dwh_database_name
 
 --this required every time, in case synonyms are corrupt or new synonyms have been added

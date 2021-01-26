@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [repo].[usp_parameter__insert_update] (
+﻿CREATE PROCEDURE [repo].[usp_parameter_insert_update] (
  @Parameter_name VARCHAR(100)
  , @sub_Parameter NVARCHAR(128) = ''
  , @Parameter_value SQL_VARIANT
