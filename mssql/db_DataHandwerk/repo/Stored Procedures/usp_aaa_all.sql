@@ -110,7 +110,7 @@ EXEC [repo].[usp_index_inheritance] @execution_instance_guid = @execution_instan
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id
 
-EXEC [repo].[usp_RepoObjectColumn__update_RepoObjectColumn_column_id] @execution_instance_guid = @execution_instance_guid
+EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id] @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id

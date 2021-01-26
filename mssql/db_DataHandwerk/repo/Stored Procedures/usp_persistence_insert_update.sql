@@ -101,7 +101,7 @@ EXEC repo.[usp_persistence__insert_update]
 
 */
 --todo: überlegen, ob @source_RepoObject_guid NULL sein darf, wenn @persistence_RepoObject_guid NOT NULL
-CREATE PROCEDURE [repo].[usp_persistence__insert_update] @source_RepoObject_guid UNIQUEIDENTIFIER = NULL --
+CREATE PROCEDURE [repo].[usp_persistence_insert_update] @source_RepoObject_guid UNIQUEIDENTIFIER = NULL --
  , @persistence_RepoObject_guid UNIQUEIDENTIFIER = NULL OUTPUT --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created
  , @persistence_table_name NVARCHAR(128) = NULL --default: @source_table_name + @persistence_name_suffix; default schema is @source_schema_name
  , @is_persistence_check_for_empty_source BIT = NULL
