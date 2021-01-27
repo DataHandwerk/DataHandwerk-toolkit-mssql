@@ -154,9 +154,9 @@
     <Build Include="repo\Stored Procedures\usp_index_inheritance.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_guid.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObjectColumn.sql" />
-    <Build Include="repo\Stored Procedures\usp_persistence__insert_update.sql" />
+    <Build Include="repo\Stored Procedures\usp_persistence_insert_update.sql" />
     <Build Include="repo\Stored Procedures\usp_connect_database.sql" />
-    <Build Include="repo\Stored Procedures\usp_parameter__insert_update.sql" />
+    <Build Include="repo\Stored Procedures\usp_parameter_insert_update.sql" />
     <Build Include="Security\sys_dwh.sql" />
     <Build Include="Security\repo_sys.sql" />
     <Build Include="Security\repo.sql" />
@@ -205,7 +205,7 @@
     <Build Include="repo\Views\ExecutionLog_parent.sql" />
     <Build Include="repo\Views\ExecutionLog_gross.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_QueryPlan.sql" />
-    <Build Include="repo\Stored Procedures\usp_RepoObjectColumn__update_RepoObjectColumn_column_id.sql" />
+    <Build Include="repo\Stored Procedures\usp_RepoObjectColumn_update_RepoObjectColumn_column_id.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_Settings.sql" />
     <Build Include="repo\Stored Procedures\usp_ExecutionLog_insert.sql" />
     <Build Include="repo\Views\RepoObject_SqlCreateTable.sql" />
@@ -216,6 +216,15 @@
     <Build Include="repo\Views\RepoObjectColumn_HistValidColums_setpoint.sql" />
     <Build Include="repo\Functions\ftv_get_parameter_value.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_insert.sql" />
+    <Build Include="repo\Tables\GeneratorUspStep.sql" />
+    <Build Include="repo\Tables\GeneratorUspParameter.sql" />
+    <Build Include="repo\Tables\GeneratorUsp.sql" />
+    <Build Include="repo\Views\GeneratorUspStep_Sql.sql" />
+    <Build Include="repo\Functions\ftv_GeneratorUspStep_tree.sql" />
+    <Build Include="repo\Functions\ftv_GeneratorUspStep_sql.sql" />
+    <Build Include="repo\Views\GeneratorUsp_StepList.sql" />
+    <Build Include="repo\Views\GeneratorUsp_SqlUsp.sql" />
+    <Build Include="repo\Views\GeneratorUsp_ParameterList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
