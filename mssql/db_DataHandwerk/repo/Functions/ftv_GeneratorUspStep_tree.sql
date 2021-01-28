@@ -4,7 +4,7 @@
 here we try to get the numbers in the right order
 
 it is not perfect if the tree is to deep and some "deep" numbers are lower
-check the result per [Usp_id]
+check the result per [usp_id]
 and if it not fits try to use better sorted numbers
 
 
@@ -24,7 +24,7 @@ ORDER BY [u].id
 ----but need to explore the first and last step per condition THEN- or ELSE-block
 --
 --get all (is_condition = 1) statements and their recursive children
-SELECT [s].[Usp_id]
+SELECT [s].[usp_id]
  , [s].[Number] AS [Condition_Number]
  --, [s].[Parent_Number]
  --, [s].[Name]
@@ -45,7 +45,7 @@ SELECT [s].[Usp_id]
  --, [s].[info_07]
  --, [s].[info_08]
  --, [s].[info_09]
- --, [t].[Usp_id]
+ --, [t].[usp_id]
  , [t].[child_PerParent]
  , [t].[RowNumber_PerUsp] AS [RowNumber_PerUspAndCondition]
  , [t].[Number]
@@ -59,9 +59,9 @@ SELECT [s].[Usp_id]
 --, [t].[Parent_Sort]
 --, [t].[Sort]
 FROM [repo].[GeneratorUspStep] AS s
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([Usp_id], [Number]) AS t
+CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
 WHERE [s].[is_condition] = 1
-ORDER BY [s].[Usp_id]
+ORDER BY [s].[usp_id]
  , [Condition_Number]
  , [t].[child_PerParent]
  , [RowNumber_PerUspAndCondition]
@@ -73,15 +73,15 @@ ORDER BY [s].[Usp_id]
 --([t].[Asc_PerParentChild] = 1) indicates a required BEGIN, these are first children of conditions
 --([t].[Desc_PerParentChild] = 1) indicates a required BEGIN, these are last children of condition steps
 
-SELECT [s].[Usp_id]
+SELECT [s].[usp_id]
  , [t].[Number]
  , required_Begin_count = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
  , required_End_count = sum(iif([t].[Desc_PerParentChild] = 1, 1, 0))
  , [is_required_ELSE] = MAX([t].[is_required_ELSE])
 FROM [repo].[GeneratorUspStep] AS s
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([Usp_id], [Number]) AS t
+CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
 WHERE [s].[is_condition] = 1
-GROUP BY [s].[Usp_id]
+GROUP BY [s].[usp_id]
  , [t].[Number]
 
 
@@ -93,7 +93,7 @@ SELECT [u].[id]
  , [u].[has_logging]
  --, [u].[usp_Comment]
  , [u].[usp_fullname]
- --, [t].[Usp_id]
+ --, [t].[usp_id]
  , [t].[Number]
  , [t].[RowNumber_PerUsp]
  , [t].[Depth]
@@ -111,18 +111,18 @@ SELECT [u].[id]
 FROM [repo].[GeneratorUsp] AS u
 CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
 LEFT JOIN (
- SELECT [s].[Usp_id]
+ SELECT [s].[usp_id]
   , [t].[Number]
   , [required_Begin_count] = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
   , [required_End_count] = SUM(IIF([t].[Desc_PerParentChild] = 1, 1, 0))
   , [is_required_ELSE] = MAX([t].[is_required_ELSE])
  FROM [repo].[GeneratorUspStep] AS s
- CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([Usp_id], [Number]) AS t
+ CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
  WHERE [s].[is_condition] = 1
- GROUP BY [s].[Usp_id]
+ GROUP BY [s].[usp_id]
   , [t].[Number]
  ) AS BeginEnd
- ON BeginEnd.Usp_id = u.id
+ ON BeginEnd.usp_id = u.id
   AND BeginEnd.Number = t.Number
 ORDER BY [u].[id]
  , [t].[RowNumber_PerUsp]
@@ -151,18 +151,18 @@ SELECT [u].[id]
 FROM [repo].[GeneratorUsp] AS u
 CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
 LEFT JOIN (
- SELECT [s].[Usp_id]
+ SELECT [s].[usp_id]
   , [t].[Number]
   , [required_Begin_count] = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
   , [required_End_count] = SUM(IIF([t].[Desc_PerParentChild] = 1, 1, 0))
   , [is_required_ELSE] = MAX([t].[is_required_ELSE])
  FROM [repo].[GeneratorUspStep] AS s
- CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([Usp_id], [Number]) AS t
+ CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
  WHERE [s].[is_condition] = 1
- GROUP BY [s].[Usp_id]
+ GROUP BY [s].[usp_id]
   , [t].[Number]
  ) AS BeginEnd
- ON BeginEnd.Usp_id = u.id
+ ON BeginEnd.usp_id = u.id
   AND BeginEnd.Number = t.Number
 CROSS APPLY [repo].[ftv_GeneratorUspStep_sql]([u].[id], [t].[Number], [u].[has_logging], [BeginEnd].[required_Begin_count], [BeginEnd].[required_End_count], [BeginEnd].[is_required_ELSE]) sql
 ORDER BY [u].[id]
@@ -181,7 +181,7 @@ RETURN (
   WITH tree AS
    --tree is recursive to solve parent child hierarchies
    (
-    SELECT [Usp_id]
+    SELECT [usp_id]
      , [Number]
      , [Parent_Number]
      , 0 AS [Depth]
@@ -190,10 +190,10 @@ RETURN (
      , [Number] AS [Root_Sort]
      , [is_condition]
      , [child_PerParent] = IIF(NOT [Parent_Number] IS NULL, ROW_NUMBER() OVER (
-       PARTITION BY [Usp_id]
+       PARTITION BY [usp_id]
        , [Parent_Number] ORDER BY [Number]
        ), NULL)
-    --ROW_NUMBER() OVER(Partition by [Usp_id], [Parent_Number] ORDER BY [Number])
+    --ROW_NUMBER() OVER(Partition by [usp_id], [Parent_Number] ORDER BY [Number])
     FROM [repo].[GeneratorUspStep]
     WHERE (
       [Parent_Number] = @Parent_Number
@@ -204,7 +204,7 @@ RETURN (
     
     UNION ALL
     
-    SELECT [child].[Usp_id]
+    SELECT [child].[usp_id]
      , [child].[Number]
      , [child].[Parent_Number]
      , [parent].[Depth] + 1
@@ -223,10 +223,10 @@ RETURN (
    (
     SELECT
      --
-     [tree].[Usp_id]
+     [tree].[usp_id]
      , [tree].[Number]
      , [RowNumber_PerUsp] = ROW_NUMBER() OVER (
-      PARTITION BY [tree].[Usp_id] ORDER BY [tree].[Root_Sort]
+      PARTITION BY [tree].[usp_id] ORDER BY [tree].[Root_Sort]
        , [tree].[Parent_Number]
        , [tree].[Parent_Sort]
        , [tree].[Sort]
@@ -253,11 +253,11 @@ RETURN (
      --
      *
      , [Asc_PerParentChild] = ROW_NUMBER() OVER (
-      PARTITION BY [Usp_id]
+      PARTITION BY [usp_id]
       , [child_PerParent] ORDER BY [RowNumber_PerUsp]
       )
      , [Desc_PerParentChild] = ROW_NUMBER() OVER (
-      PARTITION BY [Usp_id]
+      PARTITION BY [usp_id]
       , [child_PerParent] ORDER BY [RowNumber_PerUsp] DESC
       )
     FROM tree_2
