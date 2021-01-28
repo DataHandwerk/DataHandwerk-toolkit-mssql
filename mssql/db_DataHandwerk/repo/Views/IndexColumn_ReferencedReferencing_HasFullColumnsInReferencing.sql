@@ -45,7 +45,7 @@ AS
 --
 --columns, that inherit an index
 --only RepoObjects are included which inherit ALL columns of a source index
-SELECT [ic].[Index_guid]
+SELECT [ic].[index_guid]
  , [ic].[index_column_id]
  , [ic].[is_descending_key]
  , [ic].[RepoObjectColumn_guid]
@@ -54,7 +54,7 @@ SELECT [ic].[Index_guid]
  , [ref].[referencing_RepoObjectColumn_guid]
  , [ref].[referencing_RepoObject_guid]
  , [RowNumberInReferencing] = ROW_NUMBER() OVER (
-  PARTITION BY [ic].[Index_guid]
+  PARTITION BY [ic].[index_guid]
   , [ic].[index_column_id]
   , [ic].[RepoObjectColumn_guid]
   , [ref].[referenced_RepoObject_guid]

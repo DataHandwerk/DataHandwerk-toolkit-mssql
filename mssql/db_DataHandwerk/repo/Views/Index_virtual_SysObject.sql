@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [repo].[Index_virtual_SysObject]
 AS
 --
-SELECT [iv].[Index_guid]
+SELECT [iv].[index_guid]
  , [iv].[parent_RepoObject_guid]
  , [iv].[index_name]
  , [iv].[is_index_disabled]
@@ -20,4 +20,4 @@ FROM repo.[Index_virtual] AS iv
 INNER JOIN repo.RepoObject AS ro
  ON iv.parent_RepoObject_guid = ro.RepoObject_guid
 INNER JOIN [repo].[Index_Settings] AS isg
- ON isg.[Index_guid] = [iv].[Index_guid]
+ ON isg.[index_guid] = [iv].[index_guid]

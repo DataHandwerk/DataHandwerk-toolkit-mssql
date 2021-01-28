@@ -212,7 +212,7 @@
     <Build Include="repo\Stored Procedures\usp_RepoObject_update_SysObjectQueryPlan.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_FirstResultSet.sql" />
     <Build Include="repo\Views\Index_SqlConstraint_PkUq.sql" />
-    <Build Include="repo\Views\RepoObject_SqlColumnList.sql" />
+    <Build Include="repo\Views\RepoObject_ColumnList.sql" />
     <Build Include="repo\Views\RepoObjectColumn_HistValidColums_setpoint.sql" />
     <Build Include="repo\Functions\ftv_get_parameter_value.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_insert.sql" />
@@ -225,6 +225,11 @@
     <Build Include="repo\Views\GeneratorUsp_StepList.sql" />
     <Build Include="repo\Views\GeneratorUsp_SqlUsp.sql" />
     <Build Include="repo\Views\GeneratorUsp_ParameterList.sql" />
+    <Build Include="repo\Views\Index_ColumList.sql" />
+    <Build Include="repo\Views\GeneratorUspStep_Persistence.sql" />
+    <Build Include="repo\Stored Procedures\usp_GeneratorUsp_insert_update_persistence.sql" />
+    <Build Include="repo\Views\GeneratorUspStep_Persistence_IsInactive_setpoint.sql" />
+    <Build Include="repo\Views\GeneratorUsp_filter_persistence.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

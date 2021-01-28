@@ -1,4 +1,5 @@
 ﻿
+
 /*
 SQL for the list of all steps
 */
@@ -9,7 +10,7 @@ CREATE
 AS
 SELECT [Usp_id]
  , StepList = STRING_AGG(CONCAT (
-   CAST('@' AS NVARCHAR(max))
+   CAST('' AS NVARCHAR(max))
    , [SqlStep]
    , CHAR(13)
    , CHAR(10)

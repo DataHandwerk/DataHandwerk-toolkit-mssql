@@ -919,11 +919,18 @@ SELECT rop.[target_RepoObject_guid]
 FROM [repo].[RepoObjectColumn] AS [roc_s]
 INNER JOIN [repo].[RepoObject_persistence] rop
  ON rop.source_RepoObject_guid = [roc_s].[RepoObject_guid]
-WHERE NOT EXISTS (
+WHERE
+ --
+ NOT EXISTS (
   SELECT 1
   FROM [repo].[RepoObjectColumn] AS [roc_p]
   WHERE [roc_p].[RepoObject_guid] = rop.[target_RepoObject_guid]
    AND [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
+  )
+ --skip is_persistence_no_include
+ AND (
+  [roc_s].is_persistence_no_include = 0
+  OR [roc_s].is_persistence_no_include IS NULL
   )
  --skip special table columns (ValidFrom, ValidTo) in source
  AND (

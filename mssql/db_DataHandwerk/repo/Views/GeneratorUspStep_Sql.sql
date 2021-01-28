@@ -12,7 +12,7 @@ ORDER BY [id]
 */
 CREATE VIEW [repo].[GeneratorUspStep_Sql]
 AS
-SELECT [u].[id] AS usp_id
+SELECT [u].[id] AS Usp_id
  , [t].[Number]
  , [u].[has_logging]
  , [BeginEnd].[required_Begin_count]

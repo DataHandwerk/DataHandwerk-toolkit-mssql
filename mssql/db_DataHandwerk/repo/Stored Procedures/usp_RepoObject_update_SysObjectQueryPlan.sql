@@ -166,7 +166,7 @@ BEGIN
     FROM sys.dm_exec_query_stats AS qry
     CROSS APPLY sys.dm_exec_sql_text(qry.sql_handle) AS txt
     CROSS APPLY sys.dm_exec_query_plan(qry.plan_handle) AS pln
-    WHERE [txt].TEXT = @select_into_query;
+    WHERE [txt].text = @select_into_query;
    END TRY
 
    BEGIN CATCH

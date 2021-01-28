@@ -1,5 +1,4 @@
-﻿
-CREATE VIEW [repo].[RepoObject_SqlCreateTable]
+﻿CREATE   VIEW [repo].[RepoObject_SqlCreateTable]
 AS
 SELECT ro.[RepoObject_guid]
  , SqlCreateTable = CONCAT (
@@ -8,7 +7,7 @@ SELECT ro.[RepoObject_guid]
   , ' ('
   , CHAR(13)
   , CHAR(10)
-  , ColList.[ColumnList]
+  , ColList.CreateColumnList
   --todo:
   --evtl noch ein Komma
   , CASE 
@@ -93,7 +92,7 @@ SELECT ro.[RepoObject_guid]
  , ConList.ConList
 FROM repo.RepoObject ro
 --column list should exist, otherwise CREATE statement will be invalid
-INNER JOIN [repo].[RepoObject_SqlColumnList] AS ColList
+INNER JOIN [repo].[RepoObject_ColumnList] AS ColList
  ON ColList.[RepoObject_guid] = ro.[RepoObject_guid]
 LEFT JOIN (
  SELECT [parent_RepoObject_guid]

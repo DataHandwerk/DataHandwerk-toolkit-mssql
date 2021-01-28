@@ -2,7 +2,7 @@
 CREATE VIEW [repo].[Index_union]
 AS
 --
-SELECT [Index_guid]
+SELECT [index_guid]
  , [parent_RepoObject_guid]
  , [index_name]
  , [index_type]
@@ -15,7 +15,7 @@ FROM repo_sys.[Index_real_unique]
 
 UNION ALL
 
-SELECT [Index_guid]
+SELECT [index_guid]
  , [parent_RepoObject_guid]
  , [index_name]
  , [index_type]

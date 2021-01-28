@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [repo].[check_IndexColumn_virtual_referenced_setpoint]
 AS
-SELECT [T1].[Index_guid]
+SELECT [T1].[index_guid]
  , [T1].[index_column_id]
  , [T1].[referencing_RepoObjectColumn_guid]
  , [T1].[referenced_index_guid]

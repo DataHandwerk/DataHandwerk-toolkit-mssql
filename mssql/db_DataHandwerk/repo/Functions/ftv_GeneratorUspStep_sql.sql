@@ -1,8 +1,5 @@
 ﻿
-CREATE
- 
-
- FUNCTION [repo].[ftv_GeneratorUspStep_sql] (
+CREATE FUNCTION [repo].[ftv_GeneratorUspStep_sql] (
  @usp_id INT
  , @number INT
  , @usp_has_logging TINYINT = 0

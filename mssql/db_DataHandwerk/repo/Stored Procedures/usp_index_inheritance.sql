@@ -70,7 +70,7 @@ WHERE NOT [referenced_index_guid] IS NULL
  AND (
   [RowNumberInReferencing] IS NULL
   OR [referenced_index_guid] NOT IN (
-   SELECT [source_index_guid] AS [Index_guid]
+   SELECT [source_index_guid] AS [index_guid]
    FROM [repo].[IndexReferencedReferencing_HasFullColumnsInReferencing] AS [T1]
    )
   )
@@ -116,7 +116,7 @@ INSERT INTO repo.[Index_virtual] (
  , [index_type]
  )
 SELECT [referencing_RepoObject_guid]
- , [source_index_guid] AS [Index_guid]
+ , [source_index_guid] AS [index_guid]
  , [RowNumberInReferencing]
  , [source_index_type]
 FROM repo.IndexReferencedReferencing_HasFullColumnsInReferencing AS T1
@@ -159,10 +159,10 @@ DELETE
 FROM repo.[IndexColumn_virtual]
 FROM [repo].[IndexColumn_virtual]
 INNER JOIN [repo].[Index_virtual] AS [i]
- ON [repo].[IndexColumn_virtual].[Index_guid] = [i].[Index_guid]
+ ON [repo].[IndexColumn_virtual].[index_guid] = [i].[index_guid]
 LEFT OUTER JOIN [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
  ON [repo].[IndexColumn_virtual].[index_column_id] = [setpoint].[index_column_id]
-  AND [repo].[IndexColumn_virtual].[Index_guid] = [setpoint].[Index_guid]
+  AND [repo].[IndexColumn_virtual].[index_guid] = [setpoint].[index_guid]
 WHERE
  --only referenced_index_guid
  NOT [i].[referenced_index_guid] IS NULL
@@ -201,24 +201,24 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 
---some combinations of ([Index_guid], [index_column_id]) are not unique
+--some combinations of ([index_guid], [index_column_id]) are not unique
 --=> correct this in repo.IndexColumn__virtual_referenced_setpoint
 --OK
 INSERT INTO repo.[IndexColumn_virtual] (
- [Index_guid]
+ [index_guid]
  , [index_column_id]
  , [is_descending_key]
  , [RepoObjectColumn_guid]
  )
-SELECT [Index_guid]
+SELECT [index_guid]
  , [index_column_id]
  , [is_descending_key]
  , [referencing_RepoObjectColumn_guid]
 FROM repo.IndexColumn_virtual_referenced_setpoint AS setpoint
 WHERE NOT EXISTS (
-  SELECT [ic].[Index_guid]
+  SELECT [ic].[index_guid]
   FROM [repo].[IndexColumn_virtual] AS [ic]
-  WHERE [ic].[Index_guid] = [setpoint].[Index_guid]
+  WHERE [ic].[index_guid] = [setpoint].[index_guid]
    AND [ic].[index_column_id] = [setpoint].[index_column_id]
   )
 
@@ -260,7 +260,7 @@ SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid]
 FROM [repo].[IndexColumn_virtual] [icv]
 INNER JOIN [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
  ON [icv].[index_column_id] = [setpoint].[index_column_id]
-  AND [icv].[Index_guid] = [setpoint].[Index_guid]
+  AND [icv].[index_guid] = [setpoint].[index_guid]
   AND --
   (
    [icv].[RepoObjectColumn_guid] <> [setpoint].[referencing_RepoObjectColumn_guid]
@@ -314,9 +314,9 @@ UPDATE repo.[Index_Settings]
 SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]
 FROM [repo].[Index_virtual] AS [T1]
 INNER JOIN [repo].[Index_Settings] AS [TSource]
- ON [T1].[referenced_index_guid] = [TSource].[Index_guid]
+ ON [T1].[referenced_index_guid] = [TSource].[index_guid]
 INNER JOIN [repo].[Index_Settings]
- ON [T1].[Index_guid] = [repo].[Index_Settings].[Index_guid]
+ ON [T1].[index_guid] = [repo].[Index_Settings].[index_guid]
   AND [TSource].[IndexPatternColumnDatatype] = [repo].[Index_Settings].[IndexPatternColumnDatatype]
 WHERE ISNULL([repo].[Index_Settings].[IndexSemanticGroup], '') <> ISNULL([TSource].[IndexSemanticGroup], '')
 
@@ -373,7 +373,7 @@ WHERE [iv].[is_index_primary_key] = 0
   SELECT [pk_index_guid]
   FROM [repo].[RepoObject] AS [ro]
   WHERE [ro].[RepoObject_guid] = [iv].[parent_RepoObject_guid]
-   AND [ro].[pk_index_guid] = [iv].[Index_guid]
+   AND [ro].[pk_index_guid] = [iv].[index_guid]
   )
 
 SET @rows = @@rowcount;
@@ -428,7 +428,7 @@ FROM repo.Index_virtual AS iv_p
 INNER JOIN repo.RepoObject_persistence AS rop
  ON rop.target_RepoObject_guid = iv_p.parent_RepoObject_guid
 INNER JOIN repo.Index_union AS iv_s
- ON iv_p.referenced_index_guid = iv_s.Index_guid
+ ON iv_p.referenced_index_guid = iv_s.index_guid
 --INNER JOIN repo.RepoObject AS ro
 -- ON ro.RepoObject_guid = iv_p.parent_RepoObject_guid
 */
@@ -440,7 +440,7 @@ FROM repo.Index_virtual AS iv_p
 INNER JOIN repo.RepoObject_persistence AS rop
  ON rop.target_RepoObject_guid = iv_p.parent_RepoObject_guid
 INNER JOIN repo.Index_union AS iv_s
- ON iv_p.referenced_index_guid = iv_s.Index_guid
+ ON iv_p.referenced_index_guid = iv_s.index_guid
 WHERE rop.has_history = 1
  AND iv_p.is_index_primary_key = 0
  AND iv_s.is_index_primary_key = 1
@@ -489,7 +489,7 @@ WHERE iset.[is_create_constraint] = 0
    ON rop.target_RepoObject_guid = i.parent_RepoObject_guid
   WHERE rop.has_history = 1
    AND i.is_index_primary_key = 1
-   AND i.Index_guid = iset.Index_guid
+   AND i.index_guid = iset.index_guid
   )
 
 SET @rows = @@rowcount;
@@ -568,24 +568,24 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --we use some priority in [RowNumber_PkPerParentObject] in case that several PK are defined per RepoObject
 --noch mal prüfen, wann werden die nicht-PK auf Null gesetzt?
 UPDATE ro
-SET [pk_index_guid] = [pk].[Index_guid]
+SET [pk_index_guid] = [pk].[index_guid]
 FROM [repo].[RepoObject] [ro]
 LEFT JOIN (
- SELECT [Index_guid]
+ SELECT [index_guid]
   , [parent_RepoObject_guid]
  FROM [repo].[Index_gross] AS [T1]
  WHERE [is_index_primary_key] = 1
   AND [RowNumber_PkPerParentObject] = 1
  ) [pk]
  ON [ro].[RepoObject_guid] = [pk].[parent_RepoObject_guid]
-WHERE [ro].[pk_index_guid] <> [pk].[Index_guid]
+WHERE [ro].[pk_index_guid] <> [pk].[index_guid]
  OR (
   [ro].[pk_index_guid] IS NULL
-  AND NOT [pk].[Index_guid] IS NULL
+  AND NOT [pk].[index_guid] IS NULL
   )
  OR (
   NOT [ro].[pk_index_guid] IS NULL
-  AND [pk].[Index_guid] IS NULL
+  AND [pk].[index_guid] IS NULL
   )
 
 SET @rows = @@rowcount;
@@ -630,7 +630,7 @@ WHERE [iv].[is_index_primary_key] = 1
   SELECT [pk_index_guid]
   FROM [repo].[RepoObject] AS [ro]
   WHERE [ro].[RepoObject_guid] = [iv].[parent_RepoObject_guid]
-   AND [ro].[pk_index_guid] = [iv].[Index_guid]
+   AND [ro].[pk_index_guid] = [iv].[index_guid]
   )
 
 SET @rows = @@rowcount;
