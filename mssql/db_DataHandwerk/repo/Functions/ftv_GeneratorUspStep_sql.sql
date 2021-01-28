@@ -113,6 +113,6 @@ RETURN (
 	, Number
 	, [Statement]
 	FROM [repo].[GeneratorUspStep] s
-	WHERE s.[Usp_id] = @Usp_id
+	WHERE s.[usp_id] = @usp_id
 		AND s.Number = @number
 )

@@ -9,7 +9,7 @@ CREATE
 
  VIEW [repo].[GeneratorUsp_SqlUsp]
 AS
-SELECT [u].[id] AS [Usp_id]
+SELECT [u].[id] AS [usp_id]
  , [SqlUsp] = CONCAT (
   --todo - maybe add description as comment
   'CREATE PROCEDURE '
@@ -132,6 +132,6 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , [StepList].[StepList]
 FROM [repo].[GeneratorUsp] AS u
 LEFT JOIN [repo].[GeneratorUsp_ParameterList] AS ParameterList
- ON ParameterList.Usp_id = u.id
+ ON ParameterList.usp_id = u.id
 LEFT JOIN [repo].[GeneratorUsp_StepList] AS StepList
- ON StepList.Usp_id = u.id
+ ON StepList.usp_id = u.id

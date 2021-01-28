@@ -4,7 +4,7 @@ CREATE VIEW [repo].[GeneratorUspStep_Persistence]
 AS
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 100
  , [Parent_Number] = NULL
  , [Name] = 'check for empty source'
@@ -29,7 +29,7 @@ UNION ALL
 
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 110
  , [Parent_Number] = 100
  , [Name] = 'ERROR 50110: persistence source is empty'
@@ -56,7 +56,7 @@ UNION ALL
 
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 300
  , [Parent_Number] = NULL
  , [Name] = 'check duplicate per PK'
@@ -86,7 +86,7 @@ UNION ALL
 
 SELECT
  --we create 310 also, if 300 not exist, it will not be used in this case
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 310
  , [Parent_Number] = 300
  , [Name] = 'ERROR 50310: persistence source PK not unique'
@@ -118,7 +118,7 @@ UNION ALL
 
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 400
  , [Parent_Number] = NULL
  , [Name] = 'truncate persistence target'
@@ -143,7 +143,7 @@ UNION ALL
 
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 500
  , [Parent_Number] = NULL
  , [Name] = 'delete persistence target missing in source'
@@ -180,7 +180,7 @@ UNION ALL
 
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 550
  , [Parent_Number] = NULL
  , [Name] = 'delete persistence target changed'
@@ -216,7 +216,7 @@ UNION ALL
 
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 600
  , [Parent_Number] = NULL
  , [Name] = 'update changed'
@@ -254,7 +254,7 @@ UNION ALL
 
 SELECT
  --
- [Usp_id] = [gu].[id]
+ [usp_id] = [gu].[id]
  , [Number] = 700
  , [Parent_Number] = NULL
  , [Name] = 'insert missing'

@@ -398,14 +398,14 @@
     <Property Name="NewName" Value="index_guid" />
   </Operation>
   <Operation Name="Rename Refactor" Key="2f4a1c1c-4160-446d-bf25-a9fbb9fcf98e" ChangeDateTime="01/28/2021 16:30:23">
-    <Property Name="ElementName" Value="[repo].[GeneratorUspParameter].[Usp_id]" />
+    <Property Name="ElementName" Value="[repo].[GeneratorUspParameter].[usp_id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[repo].[GeneratorUspParameter]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="usp_id" />
   </Operation>
   <Operation Name="Rename Refactor" Key="577afe5b-b5d5-4a56-a6a4-f5a63ff32eda" ChangeDateTime="01/28/2021 16:30:42">
-    <Property Name="ElementName" Value="[repo].[GeneratorUspStep].[Usp_id]" />
+    <Property Name="ElementName" Value="[repo].[GeneratorUspStep].[usp_id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[repo].[GeneratorUspStep]" />
     <Property Name="ParentElementType" Value="SqlTable" />

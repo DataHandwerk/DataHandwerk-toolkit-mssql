@@ -5,7 +5,7 @@ List of parameters without trailing comma
 */
 CREATE VIEW [repo].[GeneratorUsp_ParameterList]
 AS
-SELECT [up].[Usp_id]
+SELECT [up].[usp_id]
  , ParameterList = STRING_AGG(CONCAT (
    CAST('@' AS NVARCHAR(max))
    , [up].[Name]
@@ -37,7 +37,7 @@ GROUP (
   ORDER BY [up].[Number]
   )
 FROM (
- SELECT [par].[Usp_id]
+ SELECT [par].[usp_id]
   , [par].[Number]
   , [par].[Name]
   , [par].[UserTypeFullname]
@@ -46,9 +46,9 @@ FROM (
   , [par].[has_DefaultValue]
   , [par].[DefaultValue]
   , RowNumber_PerUsp = ROW_NUMBER() OVER (
-   PARTITION BY [Usp_id] ORDER BY [Number]
+   PARTITION BY [usp_id] ORDER BY [Number]
    )
  FROM [repo].[GeneratorUspParameter] AS par
  ) AS up
 WHERE [up].[is_inactive] = 0
-GROUP BY [up].[Usp_id]
+GROUP BY [up].[usp_id]

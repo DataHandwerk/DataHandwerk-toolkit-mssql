@@ -51,7 +51,7 @@ SET [Parent_Number] = [S].[Parent_Number]
  , [log_flag_InsertUpdateDelete] = [S].[log_flag_InsertUpdateDelete]
 FROM [repo].[GeneratorUspStep] [T]
 LEFT JOIN [repo].[GeneratorUspStep_Persistence] AS [S]
- ON [T].[Usp_id] = [S].[Usp_id]
+ ON [T].[usp_id] = [S].[usp_id]
   AND [T].[Number] = [S].[Number]
 WHERE
  --
@@ -112,7 +112,7 @@ WHERE
 --
 --
 INSERT INTO [repo].[GeneratorUspStep] (
- [Usp_id]
+ [usp_id]
  , [Number]
  , [Parent_Number]
  , [Name]
@@ -134,7 +134,7 @@ INSERT INTO [repo].[GeneratorUspStep] (
 --,[info_07]
 --,[info_08]
 --,[info_09]
-SELECT [Usp_id]
+SELECT [usp_id]
  , [Number]
  , [Parent_Number]
  , [Name]
@@ -150,7 +150,7 @@ FROM [repo].[GeneratorUspStep_Persistence] AS S
 WHERE NOT EXISTS (
   SELECT 1
   FROM [repo].[GeneratorUspStep] AS [T]
-  WHERE [T].[Usp_id] = [S].[Usp_id]
+  WHERE [T].[usp_id] = [S].[usp_id]
    AND [T].[Number] = [S].[Number]
   )
 
@@ -158,6 +158,6 @@ UPDATE step
 SET [is_inactive] = [setpoint].[is_inactive]
 FROM [repo].[GeneratorUspStep] [step]
 INNER JOIN [repo].[GeneratorUspStep_Persistence_IsInactive_setpoint] [setpoint]
- ON [setpoint].[Usp_id] = [step].[Usp_id]
+ ON [setpoint].[usp_id] = [step].[usp_id]
   AND [setpoint].[Number] = [step].[Number]
 WHERE [setpoint].[is_inactive] <> [step].[is_inactive]

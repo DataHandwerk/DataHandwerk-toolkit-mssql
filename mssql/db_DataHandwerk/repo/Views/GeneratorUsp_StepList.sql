@@ -8,7 +8,7 @@ CREATE
 
  VIEW [repo].[GeneratorUsp_StepList]
 AS
-SELECT [Usp_id]
+SELECT [usp_id]
  , StepList = STRING_AGG(CONCAT (
    CAST('' AS NVARCHAR(max))
    , [SqlStep]
@@ -19,4 +19,4 @@ GROUP (
   ORDER BY [RowNumber_PerUsp]
   )
 FROM [repo].[GeneratorUspStep_Sql] AS us
-GROUP BY [us].[Usp_id]
+GROUP BY [us].[usp_id]

@@ -12,7 +12,7 @@ ORDER BY [id]
 */
 CREATE VIEW [repo].[GeneratorUspStep_Sql]
 AS
-SELECT [u].[id] AS Usp_id
+SELECT [u].[id] AS usp_id
  , [t].[Number]
  , [u].[has_logging]
  , [BeginEnd].[required_Begin_count]
@@ -34,17 +34,17 @@ SELECT [u].[id] AS Usp_id
 FROM [repo].[GeneratorUsp] AS u
 CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
 LEFT JOIN (
- SELECT [s].[Usp_id]
+ SELECT [s].[usp_id]
   , [t].[Number]
   , [required_Begin_count] = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
   , [required_End_count] = SUM(IIF([t].[Desc_PerParentChild] = 1, 1, 0))
   , [is_required_ELSE] = MAX([t].[is_required_ELSE])
  FROM [repo].[GeneratorUspStep] AS s
- CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([Usp_id], [Number]) AS t
+ CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
  WHERE [s].[is_condition] = 1
- GROUP BY [s].[Usp_id]
+ GROUP BY [s].[usp_id]
   , [t].[Number]
  ) AS BeginEnd
- ON BeginEnd.Usp_id = u.id
+ ON BeginEnd.usp_id = u.id
   AND BeginEnd.Number = t.Number
 CROSS APPLY [repo].[ftv_GeneratorUspStep_sql]([u].[id], [t].[Number], [u].[has_logging], [BeginEnd].[required_Begin_count], [BeginEnd].[required_End_count], [BeginEnd].[is_required_ELSE]) sql
