@@ -180,7 +180,7 @@ FROM STRING_SPLIT(@IndexPatternColumnName, ';')
 --todo: concept to insert [is_descending_key]
 --or update manually if required
 INSERT INTO [repo].[IndexColumn_virtual] (
- [Index_guid]
+ [index_guid]
  , [index_column_id]
  , [RepoObjectColumn_guid]
  , [is_descending_key]

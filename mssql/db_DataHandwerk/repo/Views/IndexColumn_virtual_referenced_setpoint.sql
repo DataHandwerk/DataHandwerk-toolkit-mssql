@@ -14,7 +14,7 @@ all these columns should exists in [repo].[IndexColumn__virtual]
 
 
 isue:
-some combinations of ([Index_guid], [index_column_id]) are not unique
+some combinations of ([index_guid], [index_column_id]) are not unique
 why?
 because they have multiple [referencing_RepoObjectColumn_guid]
 but this is wrong, only one referencing_RepoObjectColumn_guid is possible per [index_column_id]

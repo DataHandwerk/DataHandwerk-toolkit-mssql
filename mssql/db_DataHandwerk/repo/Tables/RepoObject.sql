@@ -1,4 +1,4 @@
-CREATE TABLE [repo].[RepoObject] (
+﻿CREATE TABLE [repo].[RepoObject] (
     [RepoObject_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObject_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
     [has_different_sys_names]             AS               (CONVERT([bit],case when [RepoObject_schema_name]<>[SysObject_schema_name] OR [RepoObject_name]<>[SysObject_name] OR [RepoObject_type]<>[SysObject_type] then (1) else (0) end)),
     [has_execution_plan_issue]            BIT              NULL,
@@ -27,11 +27,14 @@ CREATE TABLE [repo].[RepoObject] (
     [RepoObject_fullname]                 AS               (concat('[',[RepoObject_schema_name],'].[',[RepoObject_name],']')),
     [SysObject_fullname]                  AS               (concat('[',[SysObject_schema_name],'].[',[SysObject_name],']')),
     [SysObject_query_sql]                 AS               (concat('SELECT * FROM [',[repo].[fs_dwh_database_name](),'].[',[SysObject_schema_name],'].[',[SysObject_name],']')),
+    [usp_persistence_name]                AS               ('usp_PERSIST_'+[RepoObject_name]),
     CONSTRAINT [PK_RepoObject] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_Index_IndexSemanticGroup__pk_index_guid] FOREIGN KEY ([pk_index_guid]) REFERENCES [repo].[Index_Settings] ([index_guid]) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 

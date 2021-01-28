@@ -4,6 +4,7 @@
     [has_history_columns]                   BIT              CONSTRAINT [DF__RepoObjec__has_h__2AA05119] DEFAULT ((0)) NOT NULL,
     [history_schema_name]                   NVARCHAR (128)   NULL,
     [history_table_name]                    NVARCHAR (128)   NULL,
+    [is_persistence_check_duplicate_per_pk] BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_check_for_empty_source1] DEFAULT ((1)) NOT NULL,
     [is_persistence_check_for_empty_source] BIT              CONSTRAINT [DF__RepoObjec__is_hi__2B947552] DEFAULT ((1)) NOT NULL,
     [is_persistence_delete_changed]         BIT              CONSTRAINT [DF__RepoObjec__is_pe__2C88998B] DEFAULT ((0)) NOT NULL,
     [is_persistence_delete_missing]         BIT              CONSTRAINT [DF__RepoObjec__is_pe__2D7CBDC4] DEFAULT ((0)) NOT NULL,
@@ -16,6 +17,8 @@
     CONSTRAINT [PK_RepoObject_table] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 

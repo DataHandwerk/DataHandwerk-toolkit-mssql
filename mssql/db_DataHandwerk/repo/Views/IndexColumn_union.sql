@@ -2,7 +2,7 @@
 CREATE VIEW [repo].[IndexColumn_union]
 AS
 --
-SELECT [Index_guid]
+SELECT [index_guid]
  , [index_column_id]
  , [is_descending_key]
  , [RepoObjectColumn_guid]
@@ -20,7 +20,7 @@ FROM repo_sys.[IndexColumn_real_unique] AS T1
 
 UNION ALL
 
-SELECT [Index_guid]
+SELECT [index_guid]
  , [index_column_id]
  , [is_descending_key]
  , [RepoObjectColumn_guid]

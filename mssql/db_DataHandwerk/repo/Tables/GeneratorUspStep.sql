@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [repo].[GeneratorUspStep] (
     [id]                          INT            IDENTITY (1, 1) NOT NULL,
-    [Usp_id]                      INT            NOT NULL,
+    [usp_id]                      INT            NOT NULL,
     [Number]                      INT            NOT NULL,
     [Parent_Number]               INT            NULL,
     [Name]                        NVARCHAR (128) NULL,
@@ -22,8 +22,8 @@
     [info_08]                     NVARCHAR (MAX) NULL,
     [info_09]                     NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_GeneratorUspStep] PRIMARY KEY CLUSTERED ([id] ASC),
-    CONSTRAINT [FK_GeneratorUspStep_GeneratorUsp] FOREIGN KEY ([Usp_id]) REFERENCES [repo].[GeneratorUsp] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT [UK_GeneratorUspStep_Number] UNIQUE NONCLUSTERED ([Usp_id] ASC, [Number] ASC)
+    CONSTRAINT [FK_GeneratorUspStep_GeneratorUsp] FOREIGN KEY ([usp_id]) REFERENCES [repo].[GeneratorUsp] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [UK_GeneratorUspStep_Number] UNIQUE NONCLUSTERED ([usp_id] ASC, [Number] ASC)
 );
 
 

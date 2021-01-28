@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [repo].[IndexColumn_virtual] (
-    [Index_guid]            UNIQUEIDENTIFIER NOT NULL,
+    [index_guid]            UNIQUEIDENTIFIER NOT NULL,
     [index_column_id]       INT              NOT NULL,
     [RepoObjectColumn_guid] UNIQUEIDENTIFIER NOT NULL,
     [is_descending_key]     BIT              DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_IndexColumn_unique] PRIMARY KEY CLUSTERED ([Index_guid] ASC, [index_column_id] ASC),
-    CONSTRAINT [FK_IndexColumn_virtual__Index_virtual] FOREIGN KEY ([Index_guid]) REFERENCES [repo].[Index_virtual] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT [PK_IndexColumn_unique] PRIMARY KEY CLUSTERED ([index_guid] ASC, [index_column_id] ASC),
+    CONSTRAINT [FK_IndexColumn_virtual__Index_virtual] FOREIGN KEY ([index_guid]) REFERENCES [repo].[Index_virtual] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

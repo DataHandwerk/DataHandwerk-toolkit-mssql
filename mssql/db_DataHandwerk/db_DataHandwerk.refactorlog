@@ -383,4 +383,32 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="4ae36ed6-89d4-4d64-b58a-31b05552a590" ChangeDateTime="01/28/2021 10:15:23">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlColumnList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_ColumnList]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="95a4302f-e93f-4084-a47e-6bdcdcc34525" ChangeDateTime="01/28/2021 16:22:39">
+    <Property Name="ElementName" Value="[repo].[IndexColumn_virtual].[index_guid]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[IndexColumn_virtual]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="index_guid" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2f4a1c1c-4160-446d-bf25-a9fbb9fcf98e" ChangeDateTime="01/28/2021 16:30:23">
+    <Property Name="ElementName" Value="[repo].[GeneratorUspParameter].[Usp_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[GeneratorUspParameter]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="usp_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="577afe5b-b5d5-4a56-a6a4-f5a63ff32eda" ChangeDateTime="01/28/2021 16:30:42">
+    <Property Name="ElementName" Value="[repo].[GeneratorUspStep].[Usp_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[GeneratorUspStep]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="usp_id" />
+  </Operation>
 </Operations>

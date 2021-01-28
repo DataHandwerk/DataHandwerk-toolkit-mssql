@@ -2,7 +2,7 @@
 CREATE VIEW [repo].[IndexColumn_virtual_gross]
 AS
 --
-SELECT [icv].[Index_guid]
+SELECT [icv].[index_guid]
  , [icv].[index_column_id]
  , [icv].[is_descending_key]
  , icv.[RepoObjectColumn_guid]
