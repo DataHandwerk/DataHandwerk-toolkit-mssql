@@ -154,7 +154,7 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreSemicolonBetweenStatements</Name>
-        <Value>True</Value>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnorePartitionSchemes</Name>

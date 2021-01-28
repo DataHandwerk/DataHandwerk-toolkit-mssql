@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE VIEW [repo].[GeneratorUspStep_Persistence]
 AS
 SELECT
@@ -16,7 +17,7 @@ SELECT
  (SELECT count(*) FROM ' + [ro].[persistence_source_SysObject_fullname] + ') = 0'
  , [log_source_object] = [ro].[persistence_source_SysObject_fullname]
  , [log_target_object] = CAST(NULL AS NVARCHAR(261))
- , [log_flag_InsertUpdateDelete] = ''
+ , [log_flag_InsertUpdateDelete] = CAST(NULL as char(1))
  --
  , [gu].[usp_fullname]
  , [ro].[RepoObject_guid]
@@ -43,7 +44,7 @@ SELECT
 '
  , [log_source_object] = CAST(NULL AS NVARCHAR(261))
  , [log_target_object] = CAST(NULL AS NVARCHAR(261))
- , [log_flag_InsertUpdateDelete] = ''
+ , [log_flag_InsertUpdateDelete] = CAST(NULL as char(1))
  --
  , [gu].[usp_fullname]
  , [ro].[RepoObject_guid]
@@ -68,7 +69,7 @@ SELECT
  EXISTS(SELECT TOP 1 1 FROM ' + [ro].[persistence_source_SysObject_fullname] + ' GROUP BY ' + [i].[ColumnList] + ' HAVING COUNT(*) > 1)'
  , [log_source_object] = [ro].[persistence_source_SysObject_fullname]
  , [log_target_object] = CAST(NULL AS NVARCHAR(261))
- , [log_flag_InsertUpdateDelete] = ''
+ , [log_flag_InsertUpdateDelete] = CAST(NULL as char(1))
  --
  , [gu].[usp_fullname]
  , [ro].[RepoObject_guid]
@@ -100,7 +101,7 @@ SELECT
 '
  , [log_source_object] = CAST(NULL AS NVARCHAR(261))
  , [log_target_object] = CAST(NULL AS NVARCHAR(261))
- , [log_flag_InsertUpdateDelete] = ''
+ , [log_flag_InsertUpdateDelete] = CAST(NULL as char(1))
  --
  , [gu].[usp_fullname]
  , [ro].[RepoObject_guid]
