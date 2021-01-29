@@ -231,7 +231,7 @@ RETURN (
            , 'SET @step_name = '
            , CASE 
             WHEN NOT [Name] IS NULL
-             THEN '''' + [Name] + ''''
+             THEN '''' + REPLACE([Name], '''', '''''') + ''''
             ELSE 'NULL'
             END
            , CHAR(13)

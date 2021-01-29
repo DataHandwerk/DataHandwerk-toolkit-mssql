@@ -1,4 +1,5 @@
-﻿CREATE
+﻿
+CREATE
  
 
  VIEW [repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]
@@ -111,6 +112,22 @@ SELECT
  , Number = 700
  , [is_inactive] = CASE [is_persistence_insert]
   WHEN 1
+   THEN 0
+  ELSE 1
+  END
+FROM ro_u
+
+UNION ALL
+
+SELECT
+ --insert all
+ --only in combination with truncate
+ --possible enhancement: maybe some delete all is required, if truncate is not possible?
+ [usp_id]
+ , Number = 800
+ , [is_inactive] = CASE 
+  WHEN [is_persistence_truncate] = 1
+  AND [is_persistence_insert] = 1
    THEN 0
   ELSE 1
   END

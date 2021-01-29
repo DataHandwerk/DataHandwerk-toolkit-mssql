@@ -1,6 +1,8 @@
-﻿CREATE   VIEW [repo].[RepoObject_SqlCreateTable]
+﻿
+CREATE VIEW [repo].[RepoObject_SqlCreateTable]
 AS
 SELECT ro.[RepoObject_guid]
+ , ro.RepoObject_fullname
  , SqlCreateTable = CONCAT (
   'CREATE TABLE '
   , ro.[RepoObject_fullname]
@@ -89,8 +91,12 @@ SELECT ro.[RepoObject_guid]
       )
    END
   )
+ --ConstraintList
  , ConList.ConList
-FROM repo.RepoObject ro
+ , ro.persistence_source_RepoObject_fullname
+ , ro.persistence_source_RepoObject_guid
+ , ro.persistence_source_SysObject_fullname
+FROM repo.[RepoObject_gross] ro
 --column list should exist, otherwise CREATE statement will be invalid
 INNER JOIN [repo].[RepoObject_ColumnList] AS ColList
  ON ColList.[RepoObject_guid] = ro.[RepoObject_guid]
@@ -124,4 +130,20 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e8f67
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eaf67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'ConList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4f4cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '524cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'persistence_source_SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '514cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '504cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_fullname';
 

@@ -1,7 +1,69 @@
-﻿
-CREATE PROCEDURE [repo].[usp_GeneratorUsp_insert_update_persistence]
+﻿CREATE   PROCEDURE [repo].[usp_GeneratorUsp_insert_update_persistence]
+----keep the code between logging parameters and "START" unchanged!
+---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
+  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
+, @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
+, @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
+, @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
 AS
---delete old entries
+DECLARE
+ --
+   @current_execution_log_id BIGINT --this variable should be filled only once per procedure call, it contains the first logging call for the step 'start'.
+ , @current_execution_guid UNIQUEIDENTIFIER = NEWID() --a unique guid for any procedure call. It should be propagated to sub procedures using "@parent_execution_log_id = @current_execution_log_id"
+ , @source_object NVARCHAR(261) = NULL --use it like '[schema].[object]', this allows data flow vizualizatiuon (include square brackets)
+ , @target_object NVARCHAR(261) = NULL --use it like '[schema].[object]', this allows data flow vizualizatiuon (include square brackets)
+ , @proc_id INT = @@procid
+ , @proc_schema_name NVARCHAR(128) = OBJECT_SCHEMA_NAME(@@procid) --schema ande name of the current procedure should be automatically logged
+ , @proc_name NVARCHAR(128) = OBJECT_NAME(@@procid)               --schema ande name of the current procedure should be automatically logged
+ , @event_info NVARCHAR(MAX)
+ , @step_id INT = 0
+ , @step_name NVARCHAR(1000) = NULL
+ , @rows INT
+
+--[event_info] get's only the information about the "outer" calling process
+--wenn the procedure calls sub procedures, the [event_info] will not change
+SET @event_info = (
+  SELECT [event_info]
+  FROM sys.dm_exec_input_buffer(@@spid, CURRENT_REQUEST_ID())
+  )
+
+IF @execution_instance_guid IS NULL
+ SET @execution_instance_guid = NEWID();
+--
+--SET @rows = @@ROWCOUNT;
+SET @step_id = @step_id + 1
+SET @step_name = 'start'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC repo.usp_ExecutionLog_insert
+ --these parameters should be the same for all logging execution
+   @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ --the following parameters are individual for each call
+ , @step_id = @step_id --@step_id should be incremented before each call
+ , @step_name = @step_name --assign individual step names for each call
+ --only the "start" step should return the log id into @current_execution_log_id
+ --all other calls should not overwrite @current_execution_log_id
+ , @execution_log_id = @current_execution_log_id OUTPUT
+----you can log the content of your own parameters, do this only in the start-step
+----data type is sql_variant
+
+--
+--keep the code between logging parameters and "START" unchanged!
+--
+----START
+--
+----- start here with your own code
+--
+/*{"ReportUspStep":[{"Number":210,"Name":"delete old usp, which doesn't exist anymore","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":" [repo].[GeneratorUsp]","log_flag_InsertUpdateDelete":"d"}]}*/
 --ATTENTION, destructive!
 --we should delete only usp definitions for persistence!
 DELETE u
@@ -14,7 +76,31 @@ WHERE LEFT([u].[usp_name], 12) = 'usp_PERSIST_'
    AND [u].[usp_name] = [ro].[usp_persistence_name]
   )
 
---insert new entries
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'delete old usp, which doesn''t exist anymore'
+SET @source_object = '[repo].[RepoObject_gross]'
+SET @target_object = ' [repo].[GeneratorUsp]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":310,"Name":"insert new usp","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[GeneratorUsp]","log_flag_InsertUpdateDelete":"i"}]}*/
 INSERT INTO [repo].[GeneratorUsp] (
  [usp_schema]
  , [usp_name]
@@ -32,13 +118,31 @@ WHERE [is_persistence] = 1
    AND [u].[usp_name] = [ro].[usp_persistence_name]
   )
 
---
---do we need parameters?
---I think we don't need them but we will create static procedures
---
---steps
---we will create all possible required steps and later only activate and deaktivate them
---
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'insert new usp'
+SET @source_object = '[repo].[RepoObject_gross]'
+SET @target_object = '[repo].[GeneratorUsp]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":510,"Name":"update steps, changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"u"}]}*/
 UPDATE T
 SET [Parent_Number] = [S].[Parent_Number]
  , [Name] = [S].[Name]
@@ -50,7 +154,7 @@ SET [Parent_Number] = [S].[Parent_Number]
  , [log_target_object] = [S].[log_target_object]
  , [log_flag_InsertUpdateDelete] = [S].[log_flag_InsertUpdateDelete]
 FROM [repo].[GeneratorUspStep] [T]
-LEFT JOIN [repo].[GeneratorUspStep_Persistence] AS [S]
+INNER JOIN [repo].[GeneratorUspStep_Persistence] AS [S]
  ON [T].[usp_id] = [S].[usp_id]
   AND [T].[Number] = [S].[Number]
 WHERE
@@ -109,8 +213,31 @@ WHERE
  OR NOT [T].[log_flag_InsertUpdateDelete] IS NULL
  AND [S].[log_flag_InsertUpdateDelete] IS NULL
 
---
---
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'update steps, changed'
+SET @source_object = '[repo].[GeneratorUspStep_Persistence]'
+SET @target_object = '[repo].[GeneratorUspStep]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":610,"Name":"insert steps, not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"i"}]}*/
 INSERT INTO [repo].[GeneratorUspStep] (
  [usp_id]
  , [Number]
@@ -154,6 +281,31 @@ WHERE NOT EXISTS (
    AND [T].[Number] = [S].[Number]
   )
 
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'insert steps, not existing'
+SET @source_object = '[repo].[GeneratorUspStep_Persistence]'
+SET @target_object = '[repo].[GeneratorUspStep]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":710,"Name":"update steps; SET [is_inactive] = [setpoint].[is_inactive]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"u"}]}*/
 UPDATE step
 SET [is_inactive] = [setpoint].[is_inactive]
 FROM [repo].[GeneratorUspStep] [step]
@@ -161,6 +313,58 @@ INNER JOIN [repo].[GeneratorUspStep_Persistence_IsInactive_setpoint] [setpoint]
  ON [setpoint].[usp_id] = [step].[usp_id]
   AND [setpoint].[Number] = [step].[Number]
 WHERE [setpoint].[is_inactive] <> [step].[is_inactive]
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'update steps; SET [is_inactive] = [setpoint].[is_inactive]'
+SET @source_object = '[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]'
+SET @target_object = '[repo].[GeneratorUspStep]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+
+--
+--finish your own code here
+--keep the code between "END" and the end of the procedure unchanged!
+--
+--END
+--
+--SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'end'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC repo.usp_ExecutionLog_insert
+   @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 

@@ -5,5 +5,3 @@ doctoolchain.bat . generateHTML
 to use another folder:
 
 doctoolchain.bat <docDir> generateHTML
-
-
