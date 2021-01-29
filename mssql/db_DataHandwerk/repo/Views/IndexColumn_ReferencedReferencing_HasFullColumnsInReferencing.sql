@@ -92,3 +92,43 @@ WHERE
    --this is possible in case of a composed key where not all columns of the source are referenced in the target
    AND [ref].[referencing_RepoObjectColumn_guid] IS NULL
   )
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7b90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f3f67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eef67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f1f67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referencing_RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f2f67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f0f67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referenced_RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eff67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'edf67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'is_descending_key';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ebf67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'index_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ecf67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'index_column_id';
+

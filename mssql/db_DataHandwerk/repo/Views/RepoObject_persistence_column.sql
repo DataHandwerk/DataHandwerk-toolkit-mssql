@@ -63,3 +63,99 @@ LEFT OUTER JOIN repo.RepoObjectColumn AS roc_s
 LEFT JOIN repo.RepoObjectColumn AS roc_t
  ON roc_t.RepoObject_guid = rop.target_RepoObject_guid
   AND roc_t.[persistence_source_RepoObjectColumn_guid] = roc_s.RepoObjectColumn_guid
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0490291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '45f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'target_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4af27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_name_s';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4bf27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'SysObject_type_s';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '48f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'SysObject_schema_name_s';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '49f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'SysObject_name_s';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '46f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'source_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4ef27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name_t';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '47f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid_s';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4ff27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'RepoObject_type_t';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4cf27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'RepoObject_schema_name_t';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4df27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'RepoObject_name_t';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '50f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_repo_managed_t';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '54f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_persistence_update_changed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '51f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_persistence_truncate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '55f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_persistence_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '52f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_persistence_delete_missing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '53f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_persistence_delete_changed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_persistence_check_for_empty_source';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5bf27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'is_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5af27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'history_table_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'history_schema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'has_history_columns';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column', @level2type = N'COLUMN', @level2name = N'has_history';
+

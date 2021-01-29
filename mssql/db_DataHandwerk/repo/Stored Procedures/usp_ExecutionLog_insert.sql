@@ -162,3 +162,7 @@ VALUES (
  );
 
 SET @execution_log_id = SCOPE_IDENTITY();
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8b90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_ExecutionLog_insert';
+

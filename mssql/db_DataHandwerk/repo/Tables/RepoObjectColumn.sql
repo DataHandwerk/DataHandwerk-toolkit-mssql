@@ -45,6 +45,8 @@
 
 
 
+
+
 GO
 
 
@@ -211,4 +213,172 @@ For more information, see Temporal Tables (Relational databases).', @level0type 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'ID of the column. Is unique within the object.
 Column IDs might not be sequential.', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_column_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4290291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'UK_RepoObjectColumn__SysNames';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4490291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'UK_RepoObjectColumn__RepoNames';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4090291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '1190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumn_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8a90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_SysObjectColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8890291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_RepoObjectColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8090291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8690291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_Repo_is_identity';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8490291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_Repo_is_computed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8290291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_Repo_generated_always_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3e90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f5f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f4f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_column_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f2f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'daf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f1f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_column_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f3f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f0f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_uses_database_collation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eef37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_user_type_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eff37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_user_type_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ecf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_seed_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ebf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_is_persisted';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eaf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_is_nullable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e9f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_is_identity';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e8f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_is_computed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'edf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_increment_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e7f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_graph_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e6f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_generated_always_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e5f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_definition';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e4f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_default_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e3f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_default_is_system_named';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e2f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_default_definition';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e1f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Referencing_Count';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e0f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dff37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_SysObjectColumn_missing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'def37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_query_plan_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ddf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_no_update';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dcf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_no_include';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dbf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_no_check';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f8f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_SysObjectColumn_name_uniqueidentifier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f7f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_RepoObjectColumn_name_uniqueidentifier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f6f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'has_different_sys_names';
 

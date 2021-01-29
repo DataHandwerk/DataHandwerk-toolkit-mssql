@@ -1,4 +1,4 @@
-﻿/*
+/*
 
 OPTION(MAXRECURSION 100) should be used from outer
 it is not possible to include this into the table valued function
@@ -217,5 +217,5 @@ FROM cte_column_dependencies AS col_dep
  --
  --OPTION(MAXRECURSION 100) -- It's an assurance from infinite loop.
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2990291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_query_plan_extract_source';
 

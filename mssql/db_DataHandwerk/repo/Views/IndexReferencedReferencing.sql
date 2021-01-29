@@ -40,3 +40,31 @@ INNER JOIN repo.[RepoObject_reference_union] AS ror
 LEFT JOIN repo.[Index_virtual] AS i_v
  ON i_v.referenced_index_guid = i_s.index_guid
   AND i_v.parent_RepoObject_guid = ror.referencing_RepoObject_guid
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6690291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fcf57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'source_index_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fbf57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'source_index_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '00f67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing_Target';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fef57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fdf57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fff57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_index_guid';
+

@@ -8,11 +8,27 @@ include::_feedback.adoc[]
 
 === Business Context
 
+[plantuml, business-content, svg]
+....
+left to right direction
+
+actor "DWH Developer" as dwh_dev
+actor "DWH User" as dwh_user
+
+package "MS SQL" {
+  database "Repository DB" as repo 
+  database  "DWH DB" as dwh 
+}
+
+dwh_dev --> repo
+dwh_dev --> dwh
+dwh <-- dwh_user
+....
 
 
-**<Diagram or Table>**
+DWH Developer:: Database developer for whom this toolkit is created
+DWH User:: User working with the DWH database
 
-**<optionally: Explanation of external domain interfaces>**
 
 === Technical Context
 

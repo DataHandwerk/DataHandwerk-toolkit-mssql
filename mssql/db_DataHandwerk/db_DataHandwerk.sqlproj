@@ -230,6 +230,7 @@
     <Build Include="repo\Stored Procedures\usp_GeneratorUsp_insert_update_persistence.sql" />
     <Build Include="repo\Views\GeneratorUspStep_Persistence_IsInactive_setpoint.sql" />
     <Build Include="repo\Views\GeneratorUsp_filter_persistence.sql" />
+    <Build Include="repo\Stored Procedures\usp_main.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

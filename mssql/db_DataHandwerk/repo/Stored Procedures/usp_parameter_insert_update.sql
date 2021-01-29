@@ -34,3 +34,7 @@ WHERE NOT EXISTS (
   WHERE [p].[Parameter_name] = @Parameter_name
    AND [p].[sub_Parameter] = @sub_Parameter
   )
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9990291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_parameter_insert_update';
+
