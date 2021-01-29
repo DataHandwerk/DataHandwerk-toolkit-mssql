@@ -1,4 +1,6 @@
-﻿/*
+﻿
+
+/*
 Sollwert
 jeder Index in [repo].[Index__virtual], der einen [referenced_index_guid] hat, der also geerbt wird
 benötigt für diesen geerbten Index auch geerbte Spalten
@@ -38,7 +40,7 @@ SELECT [i].[index_guid] --referencing index, which inherits columns from referen
  , [ic].[referenced_RepoObject_guid]
  , [ic].[referencing_RepoObject_guid]
 FROM repo.[Index_virtual] AS i
-INNER JOIN repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing AS ic --setpoint belongs to the parent_RepoObject of the index
+INNER JOIN repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T AS ic --setpoint belongs to the parent_RepoObject of the index
  ON ic.referencing_RepoObject_guid = i.parent_RepoObject_guid
   --ic.index_guid is the referenced index (source index)
   AND ic.index_guid = i.referenced_index_guid

@@ -1,4 +1,5 @@
-﻿--todo exclude union
+﻿
+--todo exclude union
 --todo IdentifierList
 --todo bad performance
 CREATE VIEW [repo].[RepoObject_SqlModules_42_from_Identifier]
@@ -65,7 +66,7 @@ LEFT OUTER JOIN (
  --, [T1].[is_join]
  --, [T1].[is_from]
  --, [T1].[patindex_nolock]
- FROM [repo].[RepoObject_SqlModules_41_from] AS T1
+ FROM [repo].[RepoObject_SqlModules_41_from_T] AS T1
  WHERE [T1].[patindex_nolock] > 0
  ) AS [lag]
  ON [lag].[RepoObject_guid] = T1.[RepoObject_guid]

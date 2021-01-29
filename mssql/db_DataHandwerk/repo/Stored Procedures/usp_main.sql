@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [repo].[usp_main]
+﻿CREATE   PROCEDURE [repo].[usp_main]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -155,6 +155,16 @@ EXEC [repo].[usp_index_inheritance]
 
 /*{"ReportUspStep":[{"Number":810,"Name":"[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":910,"Name":"[repo].[usp_GeneratorUsp_insert_update_persistence]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_GeneratorUsp_insert_update_persistence]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

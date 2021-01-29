@@ -2,7 +2,7 @@
 /*
 we use all Index from repo.IndexColumn__union (real and virtual)
 and we use Object references
-- currently from repo.RepoObjectColumn_reference__dm_exec_describe_first_result_set AS ref  
+- currently from [repo].[RepoObjectColumn_reference_union] AS ref  
   but mabe this should be changed
 
 so we get all possible index inheritence into any referencing object
@@ -45,25 +45,33 @@ AS
 --
 --columns, that inherit an index
 --only RepoObjects are included which inherit ALL columns of a source index
-SELECT [ic].[index_guid]
+SELECT
+ --[index_guid] is referenced index, [index_column_id] is the column of a referenced index
+ [ic].[index_guid]
  , [ic].[index_column_id]
  , [ic].[is_descending_key]
- , [ic].[RepoObjectColumn_guid]
+ --, [ic].[RepoObjectColumn_guid] --referenced RepoObjectColumn; redundant; remove it, if not used
  , [ref].[referenced_RepoObject_guid]
- , [ref].[referenced_RepoObjectColumn_guid]
- , [ref].[referencing_RepoObjectColumn_guid]
+ , [ref].[referenced_RepoObjectColumn_guid] --also referenced RepoObjectColumn (as above), left join; but is it possible that it is NULL? No, because of the first EXISTS condition
  , [ref].[referencing_RepoObject_guid]
+ , [ref].[referencing_RepoObjectColumn_guid]
+ --the same index can be inherited several times into the same referenced object, if a source is used several times
+ --for example
+ --SELECT A_A = A.A, B_A = B.A from source_1 as A LEFT JOIN source_1 as B ON ... 
+ --normaly these indexes should have different columns
  , [RowNumberInReferencing] = ROW_NUMBER() OVER (
-  PARTITION BY [ic].[index_guid]
+  PARTITION BY
+  --soure index column
+  [ic].[index_guid]
   , [ic].[index_column_id]
-  , [ic].[RepoObjectColumn_guid]
   , [ref].[referenced_RepoObject_guid]
   , [ref].[referenced_RepoObjectColumn_guid]
+  --taget index, if the same source index column is inherited several times into a target object
   , [ref].[referencing_RepoObject_guid] ORDER BY [ref].[referenced_RepoObjectColumn_guid]
   )
 --, roc.[RepoObjectColumn_guid]
 FROM repo.IndexColumn_union AS ic
-LEFT JOIN --todo: maybe use another source for RepoObject references 
+INNER JOIN --todo: maybe use another source for RepoObject references 
  --repo.[RepoObjectColumn_reference_FirstResultSet] AS ref
  [repo].[RepoObjectColumn_reference_union] ref
  ON ref.referenced_RepoObjectColumn_guid = ic.RepoObjectColumn_guid
@@ -102,7 +110,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f3f67
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eef67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
 
 
 GO

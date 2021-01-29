@@ -63,6 +63,17 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --
 ----START
 --
+EXEC [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+
+
 --delete Index which are marked as referenced_index_guid, but the referenced index is missing 
 DELETE
 FROM repo.[Index_virtual]
@@ -120,8 +131,17 @@ SELECT [referencing_RepoObject_guid]
  , [RowNumberInReferencing]
  , [source_index_type]
 FROM repo.IndexReferencedReferencing_HasFullColumnsInReferencing AS T1
-WHERE [referenced_index_guid] IS NULL
- OR [RowNumberInReferencing_Target] IS NULL
+WHERE (
+  [referenced_index_guid] IS NULL
+  OR [RowNumberInReferencing_Target] IS NULL
+  )
+ --avoid duplicate index per [IndexPatternColumnGuid] and RepoObject
+ AND NOT EXISTS (
+  SELECT 1
+  FROM [repo].[Index_virtual_IndexPatternColumnGuid] T2
+  WHERE T2.[parent_RepoObject_guid] = T1.[referencing_RepoObject_guid]
+   AND T2.[IndexPatternColumnGuid] = T1.[referencing_IndexPatternColumnGuid]
+  )
 
 SET @rows = @@rowcount;
 SET @step_id = @step_id + 1

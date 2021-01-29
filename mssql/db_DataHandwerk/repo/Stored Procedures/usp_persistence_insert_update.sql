@@ -27,28 +27,14 @@ test
 
 --1)
 
-exec repo.[usp_persistence__insert_update]
+exec repo.[usp_persistence_insert_update]
 --=> error
 
 --2)
 --create new default persistence
 
-DECLARE
-     @source_RepoObject_guid UNIQUEIDENTIFIER
-
-SET @source_RepoObject_guid =
-(
-    SELECT
-           [RepoObject_guid]
-    FROM
-         [repo].[RepoObject]
-    WHERE  [SysObject_fullname] = '[dbo].[view_1]'
-)
-
-PRINT @source_RepoObject_guid
-
-EXEC repo.[usp_persistence__insert_update]
-     @source_RepoObject_guid = @source_RepoObject_guid
+EXEC repo.[usp_persistence_insert_update]
+     @source_fullname = '[dbo].[view_1]'
 
 
 --3)
@@ -92,7 +78,7 @@ SET @persistence_RepoObject_guid =
 
 PRINT @persistence_RepoObject_guid
 
-EXEC repo.[usp_persistence__insert_update]
+EXEC repo.[usp_persistence_insert_update]
      @source_RepoObject_guid = @source_RepoObject_guid
    , @persistence_RepoObject_guid = @persistence_RepoObject_guid
    , @has_history = 1
@@ -102,6 +88,7 @@ EXEC repo.[usp_persistence__insert_update]
 */
 --todo: überlegen, ob @source_RepoObject_guid NULL sein darf, wenn @persistence_RepoObject_guid NOT NULL
 CREATE PROCEDURE [repo].[usp_persistence_insert_update] @source_RepoObject_guid UNIQUEIDENTIFIER = NULL --
+ , @source_fullname NVARCHAR(261) = NULL --it is possible to use @source_RepoObject_guid OR @source_fullname; use: "[schema].[object_name]"
  , @persistence_RepoObject_guid UNIQUEIDENTIFIER = NULL OUTPUT --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created
  , @persistence_table_name NVARCHAR(128) = NULL --default: @source_table_name + @persistence_name_suffix; default schema is @source_schema_name
  , @is_persistence_check_for_empty_source BIT = NULL
@@ -182,18 +169,19 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_09 = NULL
  , @execution_log_id = @current_execution_log_id OUTPUT
  , @parameter_01 = @source_RepoObject_guid
- , @parameter_02 = @persistence_RepoObject_guid
- , @parameter_03 = @persistence_table_name
- , @parameter_04 = @is_persistence_check_for_empty_source
- , @parameter_05 = @is_persistence_truncate
- , @parameter_06 = @is_persistence_delete_missing
- , @parameter_07 = @is_persistence_delete_changed
- , @parameter_08 = @is_persistence_update_changed
- , @parameter_09 = @is_persistence_insert
- , @parameter_10 = @has_history_columns
- , @parameter_11 = @has_history
- , @parameter_12 = @history_schema_name
- , @parameter_13 = @history_table_name
+ , @parameter_02 = @source_fullname
+ , @parameter_03 = @persistence_RepoObject_guid
+ , @parameter_04 = @persistence_table_name
+ , @parameter_05 = @is_persistence_check_for_empty_source
+ , @parameter_06 = @is_persistence_truncate
+ , @parameter_07 = @is_persistence_delete_missing
+ , @parameter_08 = @is_persistence_delete_changed
+ , @parameter_09 = @is_persistence_update_changed
+ , @parameter_10 = @is_persistence_insert
+ , @parameter_11 = @has_history_columns
+ , @parameter_12 = @has_history
+ , @parameter_13 = @history_schema_name
+ , @parameter_14 = @history_table_name
 
 --
 ----START
@@ -225,10 +213,19 @@ BEGIN
 END
 
 IF @source_RepoObject_guid IS NULL
+ --try to get @source_RepoObject_guid from @source_fullname
+ SET @source_RepoObject_guid = (
+   SELECT TOP 1 [RepoObject_guid]
+   FROM [repo].[RepoObject]
+   WHERE [SysObject_fullname] = @source_fullname
+    OR [RepoObject_fullname] = @source_fullname
+   )
+
+IF @source_RepoObject_guid IS NULL
  AND @persistence_RepoObject_guid IS NULL
 BEGIN
  THROW 51002
-  , '@source_RepoObject_guid is null and @persistence_RepoObject_guid is null'
+  , '@source_RepoObject_guid is null and @persistence_RepoObject_guid is null, @source_fullname can''t be solved'
   , 1;
 END
 
@@ -722,13 +719,11 @@ WHERE
 --  [roc_p].[is_query_plan_expression] = 0
 --  OR [roc_p].[is_query_plan_expression] IS NULL
 --  )
-
 --SET @rows = @@rowcount;
 --SET @step_id = @step_id + 1
 --SET @step_name = '[roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name)'
 --SET @source_object = '[repo].[RepoObjectColumn]'
 --SET @target_object = '[repo].[RepoObjectColumn]'
-
 --EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
 -- , @ssis_execution_id = @ssis_execution_id
 -- , @sub_execution_id = @sub_execution_id
@@ -754,7 +749,6 @@ WHERE
 -- , @info_07 = NULL
 -- , @info_08 = NULL
 -- , @info_09 = NULL
-
 ----add missing (in target) persistence columns, existing in source
 --INSERT INTO [repo].[RepoObjectColumn] (
 -- [RepoObject_guid]
@@ -787,13 +781,11 @@ WHERE
 --  [roc_s].[is_query_plan_expression] = 0
 --  OR [roc_s].[is_query_plan_expression] IS NULL
 --  )
-
 --SET @rows = @@rowcount;
 --SET @step_id = @step_id + 1
 --SET @step_name = 'add missing persistence columns existing in source'
 --SET @source_object = '[repo].[RepoObjectColumn]'
 --SET @target_object = '[repo].[RepoObjectColumn]'
-
 --EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
 -- , @ssis_execution_id = @ssis_execution_id
 -- , @sub_execution_id = @sub_execution_id
@@ -819,7 +811,6 @@ WHERE
 -- , @info_07 = NULL
 -- , @info_08 = NULL
 -- , @info_09 = NULL
-
 --sync new columns, use existing procedure to manage the filling of Repo_... columns
 EXEC [repo].[usp_sync_guid] @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id

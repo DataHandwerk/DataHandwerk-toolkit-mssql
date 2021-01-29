@@ -1,9 +1,15 @@
 ﻿
+
 /*
 Was ist der Sinn dieser Sicht?
 
 Es muss bedacht werden, dass der gleiche Quell-Index im Zielobjekt mehrere Vererbungen haben kann,
 wenn die Quelle mehrfach verwendet wird und der Quell-Index somit auch mehrfach im Ziel vorhanden sein kann
+Das ist so lange OK, wie es im referenced unterschiedliche Spalten sind.
+
+Wir müssten noch irgendwo prüfen, ob die gleiche Spalten-Kombination aus verschiedenen Quellen geerbt wird
+Und dann dürfte es den Index nur einmal geben, aber möglicherweise mit mehrfachen Quellen?
+Oder brauchen wir nur eine Quelle und ignorieren einfach weitere Quellen?
 
 repo.RepoObject_reference__union
 fasst aber alle Referenzen zwischen Objekten zusammen, auch wenn es da mehrere Ausprägungen gibt

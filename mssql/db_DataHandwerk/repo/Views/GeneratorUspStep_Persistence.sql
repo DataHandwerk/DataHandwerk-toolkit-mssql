@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE VIEW [repo].[GeneratorUspStep_Persistence]
 AS
 SELECT
@@ -13,8 +14,7 @@ SELECT
  , [is_condition] = 1
  , [is_inactive] = 0
  , [is_SubProcedure] = 0
- , [Statement] = '--check for empty source
- (SELECT count(*) FROM ' + [ro].[persistence_source_SysObject_fullname] + ') = 0'
+ , [Statement] = '(SELECT count(*) FROM ' + [ro].[persistence_source_SysObject_fullname] + ') = 0'
  , [log_source_object] = [ro].[persistence_source_SysObject_fullname]
  , [log_target_object] = CAST(NULL AS NVARCHAR(261))
  , [log_flag_InsertUpdateDelete] = CAST(NULL as char(1))
@@ -56,7 +56,7 @@ INNER JOIN repo.GeneratorUsp AS gu
 UNION ALL
 
 SELECT
- --
+ --will be empty if PK doesn't exist
  [usp_id] = [gu].[id]
  , [Number] = 300
  , [Parent_Number] = NULL
@@ -65,8 +65,7 @@ SELECT
  , [is_condition] = 1
  , [is_inactive] = 0
  , [is_SubProcedure] = 0
- , [Statement] = '--check duplicate per PK
- EXISTS(SELECT TOP 1 1 FROM ' + [ro].[persistence_source_SysObject_fullname] + ' GROUP BY ' + [i].[ColumnList] + ' HAVING COUNT(*) > 1)'
+ , [Statement] = 'EXISTS(SELECT TOP 1 1 FROM ' + [ro].[persistence_source_SysObject_fullname] + ' GROUP BY ' + [i].[ColumnList] + ' HAVING COUNT(*) > 1)'
  , [log_source_object] = [ro].[persistence_source_SysObject_fullname]
  , [log_target_object] = CAST(NULL AS NVARCHAR(261))
  , [log_flag_InsertUpdateDelete] = CAST(NULL as char(1))
@@ -86,7 +85,7 @@ INNER JOIN [repo].[Index_ColumList] AS i
 UNION ALL
 
 SELECT
- --we create 310 also, if 300 not exist, it will not be used in this case
+ --will be empty if PK doesn't exist
  [usp_id] = [gu].[id]
  , [Number] = 310
  , [Parent_Number] = 300
@@ -127,8 +126,7 @@ SELECT
  , [is_condition] = 0
  , [is_inactive] = 0
  , [is_SubProcedure] = 0
- , [Statement] = '--truncate persistence target
-TRUNCATE TABLE ' + [ro].[RepoObject_fullname]
+ , [Statement] = 'TRUNCATE TABLE ' + [ro].[RepoObject_fullname]
  , [log_source_object] = CAST(NULL AS NVARCHAR(261))
  , [log_target_object] = [ro].[RepoObject_fullname]
  , [log_flag_InsertUpdateDelete] = 'D'
@@ -143,7 +141,7 @@ INNER JOIN repo.GeneratorUsp AS gu
 UNION ALL
 
 SELECT
- --
+ --will be empty if PK doesn't exist
  [usp_id] = [gu].[id]
  , [Number] = 500
  , [Parent_Number] = NULL
@@ -152,8 +150,7 @@ SELECT
  , [is_condition] = 0
  , [is_inactive] = 0
  , [is_SubProcedure] = 0
- , [Statement] = '--delete persistence target missing in source
-DELETE T
+ , [Statement] = 'DELETE T
 FROM ' + [ro].[RepoObject_fullname] + ' AS T
 WHERE
 NOT EXISTS
@@ -180,7 +177,7 @@ INNER JOIN [repo].[Index_ColumList] AS i
 UNION ALL
 
 SELECT
- --
+ --will be empty if PK doesn't exist
  [usp_id] = [gu].[id]
  , [Number] = 550
  , [Parent_Number] = NULL
@@ -189,8 +186,7 @@ SELECT
  , [is_condition] = 0
  , [is_inactive] = 0
  , [is_SubProcedure] = 0
- , [Statement] = '--delete persistence target changed
-DELETE T
+ , [Statement] = 'DELETE T
 FROM ' + [ro].[RepoObject_fullname] + ' AS T
 INNER JOIN ' + [ro].[persistence_source_SysObject_fullname] + ' AS S
 ON
@@ -216,7 +212,7 @@ INNER JOIN [repo].[Index_ColumList] AS i
 UNION ALL
 
 SELECT
- --
+ --will be empty if PK doesn't exist
  [usp_id] = [gu].[id]
  , [Number] = 600
  , [Parent_Number] = NULL
@@ -225,8 +221,7 @@ SELECT
  , [is_condition] = 0
  , [is_inactive] = 0
  , [is_SubProcedure] = 0
- , [Statement] = '--update changed
-UPDATE T
+ , [Statement] = 'UPDATE T
 SET
 ' + ro.[PersistenceUpdateColumnList] + '
 FROM ' + [ro].[RepoObject_fullname] + ' AS T
@@ -254,7 +249,7 @@ INNER JOIN [repo].[Index_ColumList] AS i
 UNION ALL
 
 SELECT
- --
+ --will be empty if PK doesn't exist
  [usp_id] = [gu].[id]
  , [Number] = 700
  , [Parent_Number] = NULL
@@ -263,8 +258,7 @@ SELECT
  , [is_condition] = 0
  , [is_inactive] = 0
  , [is_SubProcedure] = 0
- , [Statement] = '--insert missing
-INSERT INTO 
+ , [Statement] = 'INSERT INTO 
  ' + [ro].[RepoObject_fullname] + '
  (
 ' + ro.[PersistenceInsertColumnList] + ')
@@ -292,6 +286,36 @@ INNER JOIN repo.RepoObject_gross AS ro_s
  ON ro_s.[RepoObject_guid] = ro.[persistence_source_RepoObject_guid]
 INNER JOIN [repo].[Index_ColumList] AS i
  ON i.[index_guid] = ro_s.[pk_index_guid]
+
+UNION ALL
+
+SELECT
+ --should be used in combination with truncate
+ [usp_id] = [gu].[id]
+ , [Number] = 800
+ , [Parent_Number] = NULL
+ , [Name] = 'insert all'
+ , [has_logging] = 1
+ , [is_condition] = 0
+ , [is_inactive] = 0
+ , [is_SubProcedure] = 0
+ , [Statement] = 'INSERT INTO 
+ ' + [ro].[RepoObject_fullname] + '
+ (
+' + ro.[PersistenceInsertColumnList] + ')
+SELECT
+' + ro.[PersistenceInsertColumnList] + '
+FROM ' + [ro].[persistence_source_SysObject_fullname] + ' AS S'
+ , [log_source_object] = [ro].[persistence_source_SysObject_fullname]
+ , [log_target_object] = [ro].[RepoObject_fullname]
+ , [log_flag_InsertUpdateDelete] = 'I'
+ --
+ , [gu].[usp_fullname]
+ , [ro].[RepoObject_guid]
+FROM repo.RepoObject_gross AS ro
+INNER JOIN repo.GeneratorUsp AS gu
+ ON ro.RepoObject_schema_name = gu.usp_schema
+  AND ro.usp_persistence_name = gu.usp_name
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
