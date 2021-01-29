@@ -104,7 +104,7 @@ def main():
         [RepoObject_guid]
         , [sql_modules_definition]
     FROM
-        [repo].[RepoObject__sql_modules_Repo_Sys]
+        [repo].[RepoObject_SqlModules_Repo_Sys]
     WHERE
         is_outdated = 1
         AND sysobject_type = 'V'
@@ -156,11 +156,11 @@ def main():
             # # jsonStr = json.dumps(flattened)
             # sql_modules_json = jsonpickle.encode(flattened, keys=True, indent=1)
 
-            tsqldelete = "DELETE [repo].[RepoObject__sql_modules] WHERE RepoObject_guid = ?"
+            tsqldelete = "DELETE [repo].[RepoObject_SqlModules] WHERE RepoObject_guid = ?"
             with cursor2.execute(tsqldelete, RepoObject_guid):
                 print('Successfully deleted: ' + RepoObject_guid)
             tsqlinsert = """\
-            INSERT INTO [repo].[RepoObject__sql_modules]
+            INSERT INTO [repo].[RepoObject_SqlModules]
             ([RepoObject_guid]
             ,[sql_modules_formatted]
             ,[sql_modules_formatted2]

@@ -412,3 +412,6 @@ RETURN (
   WHERE s.[usp_id] = @usp_id
    AND s.Number = @number
   )
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_sql';
+

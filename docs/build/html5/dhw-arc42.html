@@ -922,23 +922,32 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>a minimally invasive <strong>repository database</strong> supplements DWH database metadata</p>
+<p>The project is based on Microsoft SQL Server (mssql)</p>
+</li>
+<li>
+<p>It must <strong>always</strong> be possible for BI developers to use <strong>all</strong> mssql and Azure features in DWH databases.</p>
+</li>
+<li>
+<p>a minimally invasive <strong>repository database</strong> <em>supplements</em> DWH database metadata</p>
 <div class="ulist">
 <ul>
 <li>
 <p>A repository database is externally connected to a DWH database via <strong>synonyms to system catalog views</strong> of the DWH database.</p>
 </li>
 <li>
-<p>for additional <em>minimal invasive interventions</em> <code>extended properties</code> are used, which can be assigned to many database objects and also columns, parameters etc. and also removed again.</p>
+<p>Changes can be made both in repository and in DWH database. Synchronization is required for this.</p>
+</li>
+<li>
+<p>for additional <em>minimal invasive interventions</em> <code>extended properties</code> are used, which can be assigned to many database objects and also columns, parameters etc.</p>
+</li>
+<li>
+<p>The synchronization concept takes into account that renaming and refactoring can be performed in the repository as well as in the DWH database.</p>
 </li>
 <li>
 <p>The DWH database works without the repository and all traces of a repository can be removed (extended properties can be dropped).</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>It must <strong>always</strong> be possible for BI developers to use <strong>all</strong> mssql and Azure features in DWH databases.</p>
 </li>
 </ol>
 </div>
@@ -960,11 +969,22 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 </div>
 <div class="sect2">
 <h3 id="_business_context">3.1. Business Context</h3>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/business-content.svg" alt="business content" width="415" height="218">
 </div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">DWH Developer</dt>
+<dd>
+<p>Database developer for whom this toolkit is created</p>
+</dd>
+<dt class="hdlist1">DWH user</dt>
+<dd>
+<p>User working with the DWH database</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect2">

@@ -240,3 +240,7 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_07 = NULL
  , @info_08 = NULL
  , @info_09 = NULL
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource_FirstResultSet';
+

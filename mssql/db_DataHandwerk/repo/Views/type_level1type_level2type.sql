@@ -59,3 +59,23 @@ SELECT [type]
    THEN 'CONSTRAINT' --UNIQUE_CONSTRAINT
   END
 FROM repo.type
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'db8f291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7ff17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'type_level1type_level2type', @level2type = N'COLUMN', @level2name = N'type_desc';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7ef17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'type_level1type_level2type', @level2type = N'COLUMN', @level2name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '81f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'type_level1type_level2type', @level2type = N'COLUMN', @level2name = N'level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '80f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'type_level1type_level2type', @level2type = N'COLUMN', @level2name = N'level1type';
+

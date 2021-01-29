@@ -1,0 +1,9 @@
+if doctoolchain is installed and included into the path, just call it from here:
+
+doctoolchain.bat . generateHTML
+
+to use another folder:
+
+doctoolchain.bat <docDir> generateHTML
+
+

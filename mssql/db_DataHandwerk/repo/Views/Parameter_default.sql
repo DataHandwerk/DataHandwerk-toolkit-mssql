@@ -1,6 +1,8 @@
 ﻿
 
 
+
+
 -- Alter View Parameter_default
 /*
 merge this view into [repo].[Parameter]:
@@ -12,10 +14,10 @@ CREATE VIEW [repo].[Parameter_default]
 AS
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
-SELECT [Parameter_name] = 'persistence_name_suffix'
+SELECT [Parameter_name] = 'DUMMY'
  , [sub_Parameter] = N''
- , [Parameter_desciption] = N'default suffix for persistence table which will be added to source object name'
- , [Parameter_default_value] = CAST(N'_T' AS SQL_VARIANT)
+ , [Parameter_desciption] = N'dummy parameter, data type SQL_Variant'
+ , [Parameter_default_value] = CAST(N'' AS SQL_VARIANT)
 
 UNION ALL
 
@@ -23,6 +25,34 @@ SELECT [Parameter_name] = 'dwh_database_name'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'The database name must be the same as the one used in the synonyms'
  , [Parameter_default_value] = CAST(N'master' AS SYSNAME)
+
+UNION ALL
+
+SELECT [Parameter_name] = 'main enable usp_RepoObjectSource_FirstResultSet'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'execute (or not) usp_RepoObjectSource_FirstResultSet'
+ , [Parameter_default_value] = 0
+
+UNION ALL
+
+SELECT [Parameter_name] = 'main enable usp_RepoObject_update_SysObjectQueryPlan'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'execute (or not) usp_RepoObject_update_SysObjectQueryPlan'
+ , [Parameter_default_value] = 0
+
+UNION ALL
+
+SELECT [Parameter_name] = 'main enable usp_RepoObjectSource_QueryPlan'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'execute (or not) usp_RepoObjectSource_QueryPlan'
+ , [Parameter_default_value] = 0
+
+UNION ALL
+
+SELECT [Parameter_name] = 'persistence_name_suffix'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'default suffix for persistence table which will be added to source object name'
+ , [Parameter_default_value] = CAST(N'_T' AS SYSNAME)
 
 UNION ALL
 
@@ -117,3 +147,23 @@ SELECT [Parameter_name] = 'inherit_property_column_pattern'
  , [sub_Parameter] = N'MS_Description'
  , [Parameter_desciption] = N'use with "inherit_property_column" = 31 inherit (use pattern). todo: define possible values'
  , [Parameter_default_value] = CAST(N'' AS NVARCHAR(4000))
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'dd8f291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '83f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'sub_Parameter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '82f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'Parameter_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '84f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'Parameter_desciption';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '85f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'Parameter_default_value';
+

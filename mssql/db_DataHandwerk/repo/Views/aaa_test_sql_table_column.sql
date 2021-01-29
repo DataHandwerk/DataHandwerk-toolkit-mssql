@@ -80,3 +80,43 @@ FROM [repo].[RepoObjectColumn] AS roc
  ----
  --ORDER BY
  --         [RepoObjectColumn_name]
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b990291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'sql_table_column_identity';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'sql_table_column_computed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'sql_table_column_common';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '55f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5cf77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_seed_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5af77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_is_persisted';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5bf77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_is_identity';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_is_computed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5df77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_increment_value';
+

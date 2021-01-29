@@ -195,12 +195,15 @@ RETURN (
        ), NULL)
     --ROW_NUMBER() OVER(Partition by [usp_id], [Parent_Number] ORDER BY [Number])
     FROM [repo].[GeneratorUspStep]
-    WHERE (
+    WHERE
+     --
+     [usp_id] = @usp_id
+     AND [is_inactive] = 0
+     AND (
       [Parent_Number] = @Parent_Number
       OR @Parent_Number IS NULL
       AND [Parent_Number] IS NULL
       )
-     AND [is_inactive] = 0
     
     UNION ALL
     
@@ -216,7 +219,10 @@ RETURN (
     FROM [repo].[GeneratorUspStep] AS child
     INNER JOIN tree AS parent
      ON child.[Parent_Number] = parent.Number
-    WHERE [child].[is_inactive] = 0
+    WHERE
+     --
+     [child].[usp_id] = @usp_id
+     AND [child].[is_inactive] = 0
     )
    , tree_2 AS
    --tree_2 is required to calculate the correct step order: [RowNumber_PerUsp]
@@ -271,3 +277,6 @@ RETURN (
     AND [Asc_PerParentChild] = 1, 1, 0)
   FROM tree_3
   )
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_tree';
+
