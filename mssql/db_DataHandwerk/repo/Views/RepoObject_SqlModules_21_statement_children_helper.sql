@@ -1,4 +1,7 @@
-﻿/*helpers are required in next steps to check several conditions*/
+﻿/*helpers are required in next steps to check several conditions
+here we prepare the check if the parsed statement will follow some required logic, for example
+CREATE;VIEW;Identifier;AS;SELECT;IdentifierList;FROM
+*/
 CREATE VIEW [repo].[RepoObject_SqlModules_21_statement_children_helper]
 AS
 --
@@ -12,8 +15,10 @@ SELECT [T1].[RepoObject_guid]
  , [T1].[is_whitespace]
  , [T1].[normalized]
  , [T1].[children]
+ --the entry 1 in the parsed sql is 'CREATE'
  , is_1_create = IIF([RowNumber_per_Object] = 1
   AND [normalized] = 'CREATE', 1, 0)
+ --the entry 2 in the parsed sql is 'VIEW'
  , is_2_view = IIF([RowNumber_per_Object] = 2
   AND [normalized] = 'VIEW', 1, 0)
  , is_3_Identifier = IIF([RowNumber_per_Object] = 3

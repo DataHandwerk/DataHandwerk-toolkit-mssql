@@ -75,7 +75,7 @@ WHERE [T1].[class] = 'Identifier'
  --exclude UNION
  AND NOT EXISTS (
   SELECT 1
-  FROM [repo].[RepoObject_SqlModules_26_object__union] AS [filter]
+  FROM [repo].[RepoObject_SqlModules_26_object_is_union] AS [filter]
   WHERE [filter].[RepoObject_guid] = [T1].[RepoObject_guid]
   )
 
