@@ -411,4 +411,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="usp_id" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="90e60d68-17a5-49d9-9b31-5e9dcea6dc98" ChangeDateTime="01/31/2021 16:59:24">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_26_object__union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_26_object_is_union]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3add64dd-400d-4fa6-ac16-c73bc53b30e9" ChangeDateTime="01/31/2021 17:00:06">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_27_object__GroupBy]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_27_object_is_GroupBy]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="89b45bf9-ff56-4bc7-be64-5b88f5fb7411" ChangeDateTime="01/31/2021 17:09:35">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_32_object_class]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_32_ObjectClass]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bcbd1275-4d47-492f-8248-0e681e5ed88f" ChangeDateTime="01/31/2021 17:11:00">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_33_object_normalized]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_33_ObjectNormalized]" />
+  </Operation>
 </Operations>

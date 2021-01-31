@@ -26,21 +26,21 @@ LEFT OUTER JOIN repo.RepoObject AS ro
  ON ro.RepoObject_guid = T1.RepoObject_guid
 LEFT OUTER JOIN repo.[RepoObject_SqlModules_31_object] AS T31
  ON T31.RepoObject_guid = T1.RepoObject_guid
-LEFT OUTER JOIN repo.[RepoObject_SqlModules_32_object_class] AS T32_1
+LEFT OUTER JOIN repo.[RepoObject_SqlModules_32_ObjectClass] AS T32_1
  ON T32_1.RepoObject_guid = T1.RepoObject_guid
   AND T32_1.class = 'IdentifierList'
-LEFT OUTER JOIN repo.[RepoObject_SqlModules_32_object_class] AS T32_2
+LEFT OUTER JOIN repo.[RepoObject_SqlModules_32_ObjectClass] AS T32_2
  ON T32_2.RepoObject_guid = T1.RepoObject_guid
   AND T32_2.class = 'WHERE'
-LEFT OUTER JOIN repo.[RepoObject_SqlModules_33_object_normalized] AS T33_1
+LEFT OUTER JOIN repo.[RepoObject_SqlModules_33_ObjectNormalized] AS T33_1
  ON T33_1.RepoObject_guid = T1.RepoObject_guid
   AND T33_1.normalized = 'FROM'
-LEFT OUTER JOIN repo.[RepoObject_SqlModules_33_object_normalized] AS T33_2
+LEFT OUTER JOIN repo.[RepoObject_SqlModules_33_ObjectNormalized] AS T33_2
  ON T33_2.RepoObject_guid = T1.RepoObject_guid
   AND T33_2.normalized = 'GROUP BY'
-LEFT OUTER JOIN [repo].[RepoObject_SqlModules_26_object__union] AS T26
+LEFT OUTER JOIN [repo].[RepoObject_SqlModules_26_object_is_union] AS T26
  ON T26.RepoObject_guid = T1.RepoObject_guid
-LEFT OUTER JOIN [repo].[RepoObject_SqlModules_27_object__GroupBy] AS T27
+LEFT OUTER JOIN [repo].[RepoObject_SqlModules_27_object_is_GroupBy] AS T27
  ON T27.RepoObject_guid = T1.RepoObject_guid
 
 GO

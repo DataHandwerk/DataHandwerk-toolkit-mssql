@@ -8,7 +8,7 @@ include::_feedback.adoc[]
 
 === Business Context
 
-[plantuml, business-content, svg]
+[plantuml, business-context, svg]
 ....
 left to right direction
 
@@ -32,6 +32,52 @@ DWH User:: User working with the DWH database
 
 === Technical Context
 
+[plantuml, technical-context, svg]
+....
+left to right direction
+skinparam componentStyle uml2
+
+package "MS SQL" as ms_sql {
+  database "Repository DB" as repo_db {
+    [Synonyms] as repo_syn
+    [RepoObjects] as repo_object
+'    [Index virtual]
+'    [Reference virtual]
+'    [other tools]
+  }
+  database  "DWH DB" as dwh_db {
+    [System views and procedures] as dwh_sys
+    [extended properties] as dwh_ep
+    frame "optional" {
+      [Logging] as dwh_logging
+    }
+  }
+}
+package "generated SQL Scripts" as scripts {
+  [tables]
+  [procedures]
+  [views]
+}
+
+package "GUI tools" as gui_tools {
+  component tools [
+    SSMS
+    Azure Data Studio
+    Visual Studio - SSDT
+    other tools
+  ]
+}
+
+repo_syn --> dwh_sys : link to
+repo_object <--> dwh_ep    : correspond to each other
+scripts --> repo_db        : are generated based on
+scripts --> dwh_db         : can be executed to create or change objects in
+procedures <.. dwh_logging : can be used by
+tools --> ms_sql           : configure, manage, and administer components within
+'tools --> repo_db         : configure, manage, and administer components within
+'tools --> dwh_db          : configure, manage, and administer components within
+tools <-- scripts          : can be executed, using
+....
 
 
 **<Diagram or Table>**
