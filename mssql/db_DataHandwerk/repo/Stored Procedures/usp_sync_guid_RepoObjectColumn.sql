@@ -1228,6 +1228,73 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":5010,"Name":"DELETE not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[graph].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"d"}]}*/
+DELETE t
+FROM [graph].[RepoObjectColumn] [t]
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [repo].[RepoObjectColumn] AS [ro]
+  WHERE [ro].[RepoObjectColumn_guid] = [t].[RepoObjectColumn_guid]
+  )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'DELETE not existing'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[graph].[RepoObjectColumn]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":5110,"Name":"INSERT missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[graph].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
+INSERT INTO [graph].[RepoObjectColumn] ([RepoObjectColumn_guid])
+SELECT [RepoObjectColumn_guid]
+FROM [repo].[RepoObjectColumn] AS [ro]
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [graph].[RepoObjectColumn] AS [t]
+  WHERE [ro].[RepoObjectColumn_guid] = [t].[RepoObjectColumn_guid]
+  )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'INSERT missing'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[graph].[RepoObjectColumn]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+
 
 --
 --finish your own code here

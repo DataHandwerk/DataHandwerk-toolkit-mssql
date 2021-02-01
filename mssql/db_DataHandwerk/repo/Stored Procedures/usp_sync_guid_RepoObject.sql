@@ -1,23 +1,27 @@
-﻿
-CREATE PROCEDURE [repo].[usp_sync_guid_RepoObject]
- -- some optional parameters, used for logging
- @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
- , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
- , @sub_execution_id INT = NULL
- , @parent_execution_log_id BIGINT = NULL
+﻿CREATE   PROCEDURE [repo].[usp_sync_guid_RepoObject]
+----keep the code between logging parameters and "START" unchanged!
+---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
+  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
+, @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
+, @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
+, @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
 AS
-DECLARE @current_execution_log_id BIGINT
- , @current_execution_guid UNIQUEIDENTIFIER = NEWID()
- , @source_object NVARCHAR(261) = NULL
- , @target_object NVARCHAR(261) = NULL
+DECLARE
+ --
+   @current_execution_log_id BIGINT --this variable should be filled only once per procedure call, it contains the first logging call for the step 'start'.
+ , @current_execution_guid UNIQUEIDENTIFIER = NEWID() --a unique guid for any procedure call. It should be propagated to sub procedures using "@parent_execution_log_id = @current_execution_log_id"
+ , @source_object NVARCHAR(261) = NULL --use it like '[schema].[object]', this allows data flow vizualizatiuon (include square brackets)
+ , @target_object NVARCHAR(261) = NULL --use it like '[schema].[object]', this allows data flow vizualizatiuon (include square brackets)
  , @proc_id INT = @@procid
- , @proc_schema_name NVARCHAR(128) = OBJECT_SCHEMA_NAME(@@procid)
- , @proc_name NVARCHAR(128) = OBJECT_NAME(@@procid)
+ , @proc_schema_name NVARCHAR(128) = OBJECT_SCHEMA_NAME(@@procid) --schema ande name of the current procedure should be automatically logged
+ , @proc_name NVARCHAR(128) = OBJECT_NAME(@@procid)               --schema ande name of the current procedure should be automatically logged
  , @event_info NVARCHAR(MAX)
  , @step_id INT = 0
  , @step_name NVARCHAR(1000) = NULL
  , @rows INT
 
+--[event_info] get's only the information about the "outer" calling process
+--wenn the procedure calls sub procedures, the [event_info] will not change
 SET @event_info = (
   SELECT [event_info]
   FROM sys.dm_exec_input_buffer(@@spid, CURRENT_REQUEST_ID())
@@ -25,13 +29,16 @@ SET @event_info = (
 
 IF @execution_instance_guid IS NULL
  SET @execution_instance_guid = NEWID();
+--
 --SET @rows = @@ROWCOUNT;
 SET @step_id = @step_id + 1
 SET @step_name = 'start'
+SET @source_object = NULL
+SET @target_object = NULL
 
---SET @source_object = NULL
---SET @target_object = NULL
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert
+ --these parameters should be the same for all logging execution
+   @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -40,29 +47,24 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @proc_schema_name = @proc_schema_name
  , @proc_name = @proc_name
  , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
- , @execution_log_id = @current_execution_log_id OUTPUT;
+ --the following parameters are individual for each call
+ , @step_id = @step_id --@step_id should be incremented before each call
+ , @step_name = @step_name --assign individual step names for each call
+ --only the "start" step should return the log id into @current_execution_log_id
+ --all other calls should not overwrite @current_execution_log_id
+ , @execution_log_id = @current_execution_log_id OUTPUT
+----you can log the content of your own parameters, do this only in the start-step
+----data type is sql_variant
 
+--
+--keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
+----- start here with your own code
+--
+/*{"ReportUspStep":[{"Number":210,"Name":"SET several RepoObject_SysObject_...","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 /*
-	
 use objects with [RepoObject_guid] stored in extended properties
 	
 - SysObject could be renamed after previous sync
@@ -106,15 +108,17 @@ WHERE NOT [RepoObject_guid] IS NULL
   --OR (NOT [RepoObject_SysObject_max_column_id_used] IS NULL
   --    AND [SysObject_max_column_id_used] IS NULL)
   --
-  );
+  )
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'SET several RepoObject_SysObject_...'
 SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -127,19 +131,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":310,"Name":"SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 /*
 in case of possible conflict when inserting missing guid because auf [UK_RepoObject__SysNames] conflicting entries get 
 [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
@@ -163,13 +158,15 @@ INNER JOIN (
  ON [repo].[RepoObject].[SysObject_schema_name] = [missing_guid].[SysObject_schema_name]
   AND [repo].[RepoObject].[SysObject_name] = [missing_guid].[SysObject_name]
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]'
 SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -182,21 +179,11 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":410,"Name":"[SysObject_RepoObject_guid] -> [RepoObject_guid]; some name, type, …","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"i"}]}*/
 /*
-	
 if a [RepoObject_guid] is stored in extended properties but missing in RepoObject, it should be restored
 use objects with [RepoObject_guid] stored in extended properties
 	
@@ -205,7 +192,6 @@ use objects with [RepoObject_guid] stored in extended properties
 - a conflict could happen when some RepoObject have been renamed and when they now conflict with existing RepoObject names  
 	[UK_RepoObject_Names]
 	=> thats way we use [RepoObject_guid] as [RepoObject_name] to avoid conflicts we will later rename [RepoObject_name] to [SysObject_name] where this is possible
-	
 */
 INSERT INTO repo.RepoObject (
  [RepoObject_guid]
@@ -233,13 +219,15 @@ FROM repo.SysObject_RepoObject_via_guid
 WHERE NOT [SysObject_RepoObject_guid] IS NULL
  AND [RepoObject_guid] IS NULL
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
-SET @step_name = '[SysObject_RepoObject_guid] -> [RepoObject_guid]; some name, type, ...'
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = '[SysObject_RepoObject_guid] -> [RepoObject_guid]; some name, type, …'
 SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -253,26 +241,15 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @source_object = @source_object
  , @target_object = @target_object
  , @inserted = @rows
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":510,"Name":"INSERT still missing Object","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"i"}]}*/
 /*
-	
 ensure all objects existing in database (as SysObject) are also included into [repo].[RepoObject]
 	
 - this should be SysObject without RepoObject_guid in extended properties
 - when inserting they get a RepoObject_guid
 - we should use this new RepoObject_guid as [RepoObject_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()
-	
 */
 INSERT INTO repo.RepoObject (
  [SysObject_id]
@@ -297,13 +274,15 @@ SELECT [SysObject_id]
 FROM repo.SysObject_RepoObject_via_name
 WHERE [RepoObject_guid] IS NULL;
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'INSERT still missing Object'
 SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -317,23 +296,12 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @source_object = @source_object
  , @target_object = @target_object
  , @inserted = @rows
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":610,"Name":"SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 /*
-	
 now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
 remaining [RepoObject_name] still have some guid and this needs to solved separately
-	
 */
 UPDATE repo.RepoObject
 SET [RepoObject_schema_name] = [SysObject_schema_name]
@@ -355,13 +323,15 @@ WHERE
    AND [repo].[RepoObject].[SysObject_name] = [ro2].[RepoObject_name]
   )
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
-SET @step_name = 'SET [RepoObject_schema_name] = [SysObject_schema_name], [RepoObject_name] = [SysObject_name]'
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -374,24 +344,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
-/*
-	
-write RepoObject_guid into extended properties of SysObject
-	
-*/
+/*{"ReportUspStep":[{"Number":1010,"Name":"write RepoObject_guid into extended properties of SysObject","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo_sys].[SysObject]"}]}*/
 DECLARE property_cursor CURSOR READ_ONLY
 FOR
 --
@@ -492,15 +448,17 @@ END
 
 CLOSE property_cursor;
 
-DEALLOCATE property_cursor;
+DEALLOCATE property_cursor
 
---SET @rows = @@ROWCOUNT;
-SET @step_id = @step_id + 1;
-SET @step_name = 'write RepoObject_guid into extended properties of SysObject, Level1'
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'write RepoObject_guid into extended properties of SysObject'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo_sys].[SysObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -513,24 +471,13 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
 
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":2010,"Name":"SET is_SysObject_missing = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 /*
-	
 objects deleted or renamed in database but still referenced in [repo].[RepoObject] will be marked in RepoObject with is_SysObject_missing = 1
 check is reuqired by `schema_name` and `name` but not by SysObject_ID, because SysObject_ID can change when objects are recreated
-	
 */
 UPDATE repo.RepoObject
 SET [is_SysObject_missing] = 1
@@ -540,15 +487,17 @@ WHERE NOT EXISTS (
   FROM [repo_sys].[SysObject] AS [Filter]
   WHERE [t1].[SysObject_schema_name] = [Filter].[SysObject_schema_name]
    AND [T1].[SysObject_name] = [Filter].[SysObject_name]
-  );
+  )
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'SET is_SysObject_missing = 1'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -561,35 +510,27 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":2110,"Name":"DELETE; marked missing SysObject, but not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
 /*
-	
 delete objects, missing in SysObjects, if they are not is_repo_managed
 if they are is_repo_managed we don't want to delete them but there should be some handling
 */
 DELETE repo.RepoObject
 WHERE ISNULL([is_repo_managed], 0) = 0
- AND [is_SysObject_missing] = 1;
+ AND [is_SysObject_missing] = 1
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'DELETE; marked missing SysObject, but not is_repo_managed  = 1'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -602,19 +543,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
  , @deleted = @rows
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":2210,"Name":"UPDATE other properties, where not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 --update other properties for RepoObject which are not is_repo_managed
 --we do this after updating guid in SysObjects to ensure the guid can be used to get [history_table_guid]
 UPDATE ro
@@ -647,15 +579,17 @@ WHERE
    AND NOT [Repo_temporal_type] IS NULL
    )
   --
-  );
+  )
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'UPDATE other properties, where not is_repo_managed  = 1'
 SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -668,19 +602,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":3010,"Name":"INSERT missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_sys_repo]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
 INSERT INTO repo.RepoObjectProperty (
  [RepoObject_guid]
  , [property_name]
@@ -692,13 +617,15 @@ SELECT DISTINCT [RepoObject_guid]
 FROM repo.RepoObjectProperty_sys_repo AS T1
 WHERE [RepoObjectProperty_id] IS NULL
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'INSERT missing'
 SET @source_object = '[repo].[RepoObjectProperty_sys_repo]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -712,31 +639,24 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @source_object = @source_object
  , @target_object = @target_object
  , @inserted = @rows
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":3110,"Name":"SET [RepoObjectProperty_property_value] = [property_value]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_sys_repo]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 --update link table [repo].[RepoObjectProperty] via view
 UPDATE repo.RepoObjectProperty_sys_repo
 SET [RepoObjectProperty_property_value] = [property_value]
 WHERE NOT [RepoObjectProperty_id] IS NULL
  AND [RepoObjectProperty_property_value] <> [property_value]
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'SET [RepoObjectProperty_property_value] = [property_value]'
 SET @source_object = '[repo].[RepoObjectProperty_sys_repo]'
-SET @target_object = '[repo].[RepoObjectProperty_sys_repo]'
+SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -749,19 +669,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":4010,"Name":"SET [Repo_temporal_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 --set temporal_type
 --0 = NON_TEMPORAL_TABLE
 --1 = HISTORY_TABLE
@@ -774,13 +685,15 @@ INNER JOIN [repo].[RepoObject_persistence] rop
 WHERE ro.[Repo_temporal_type] <> rop.temporal_type
  OR ro.[Repo_temporal_type] IS NULL
 
-SET @rows = @@rowcount;
+-- Logging START --
+SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'SET [Repo_temporal_type]'
 SET @source_object = '[repo].[RepoObject_persistence]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -793,53 +706,91 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
-/*
-	
-todo
-- Persistence aus [repo].[RepoObjectProperty] mit [repo].[RepoObject_persistence] synchronisieren
-- allerdings mit den richtigen Einstellungen, also müssen auch diese erst mal irgendwo in ep abgelegt werden
+/*{"ReportUspStep":[{"Number":5010,"Name":"DELETE not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[graph].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
+DELETE t
+FROM [graph].[RepoObject] [t]
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [repo].[RepoObject] AS [ro]
+  WHERE [ro].[RepoObject_guid] = [t].[RepoObject_guid]
+  )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'DELETE not existing'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[graph].[RepoObject]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":5110,"Name":"INSERT missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[graph].[RepoObject]","log_flag_InsertUpdateDelete":"i"}]}*/
+INSERT INTO [graph].[RepoObject] ([RepoObject_guid])
+SELECT [RepoObject_guid]
+FROM [repo].[RepoObject] AS [ro]
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [graph].[RepoObject] AS [t]
+  WHERE [ro].[RepoObject_guid] = [t].[RepoObject_guid]
+  )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'INSERT missing'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[graph].[RepoObject]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
 
 
-Einträge in [repo].[RepoObjectProperty] synchronisieren, also letztendlich mit extend properties
-
-aus [repo].[RepoObjectProperty] temporal table machen
-
-
-some more handling is required for differences between RepoObject and SysObject:
-
-Why this happens?
-- SysObjects deleted but still in RepoObjects
-- SysObjects renamed, but not linked to RepoObject_guid
-- RepoObjects added but not yet in SysObjects
-- RepoObjects renamed and linked to SysObjects
-
-	todo
-concept for Objects, which can't have extended properties
-
-*/
+--
+--finish your own code here
+--keep the code between "END" and the end of the procedure unchanged!
 --
 --END
 --
---SET @rows = @@ROWCOUNT;
-SET @step_id = @step_id + 1;
+--SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert
+   @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -852,18 +803,6 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b090291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
