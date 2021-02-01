@@ -173,6 +173,122 @@ EXEC [repo].[usp_GeneratorUsp_insert_update_persistence]
  , @parent_execution_log_id = @current_execution_log_id
 
 
+/*{"ReportUspStep":[{"Number":2110,"Name":"MERGE [graph].[ReferencedObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencedObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+MERGE [graph].[ReferencedObject]
+USING (
+ (
+  SELECT DISTINCT
+   --
+   [referencing_RepoObject_guid]
+   , [referenced_RepoObject_guid]
+  FROM [repo].[RepoObject_reference_union]
+  ) AS S
+ --
+ JOIN [graph].[RepoObject] referencing
+  ON S.[referencing_RepoObject_guid] = referencing.[RepoObject_guid]
+ JOIN [graph].[RepoObject] referenced
+  ON S.[referenced_RepoObject_guid] = referenced.[RepoObject_guid]
+ )
+ ON MATCH(referencing - (ReferencedObject) - > referenced)
+WHEN NOT MATCHED BY TARGET
+ THEN
+  INSERT (
+   $FROM_ID
+   , $TO_ID
+   )
+  VALUES (
+   referencing.$NODE_ID
+   , referenced.$NODE_ID
+   )
+WHEN NOT MATCHED BY SOURCE
+ THEN
+  DELETE
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'MERGE [graph].[ReferencedObject]'
+SET @source_object = '[repo].[RepoObject_reference_union]'
+SET @target_object = '[graph].[ReferencedObject]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":2120,"Name":"MERGE [graph].[ReferencingObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencingObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+MERGE [graph].[ReferencingObject]
+USING (
+ (
+  SELECT DISTINCT
+   --
+   [referencing_RepoObject_guid]
+   , [referenced_RepoObject_guid]
+  FROM [repo].[RepoObject_reference_union]
+  ) AS S
+ --
+ JOIN [graph].[RepoObject] referencing
+  ON S.[referencing_RepoObject_guid] = referencing.[RepoObject_guid]
+ JOIN [graph].[RepoObject] referenced
+  ON S.[referenced_RepoObject_guid] = referenced.[RepoObject_guid]
+ )
+ ON MATCH(referenced - (ReferencingObject) - > referencing)
+WHEN NOT MATCHED BY TARGET
+ THEN
+  INSERT (
+   $FROM_ID
+   , $TO_ID
+   )
+  VALUES (
+   referenced.$NODE_ID
+   , referencing.$NODE_ID
+   )
+WHEN NOT MATCHED BY SOURCE
+ THEN
+  DELETE
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'MERGE [graph].[ReferencingObject]'
+SET @source_object = '[repo].[RepoObject_reference_union]'
+SET @target_object = '[graph].[ReferencingObject]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 
 --
 --finish your own code here
