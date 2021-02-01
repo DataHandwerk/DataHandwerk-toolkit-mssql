@@ -1,25 +1,30 @@
 ﻿CREATE TABLE [repo].[RepoObject_SqlModules_41_from_T] (
-    [children]              NVARCHAR (MAX)   NULL,
-    [class]                 NVARCHAR (500)   NULL,
-    [identifier_alias]      NVARCHAR (MAX)   NULL,
-    [identifier_name]       NVARCHAR (MAX)   NULL,
-    [is_from]               INT              NOT NULL,
-    [is_group]              BIT              NULL,
-    [is_join]               INT              NOT NULL,
-    [is_keyword]            BIT              NULL,
-    [is_whitespace]         BIT              NULL,
-    [join_type]             VARCHAR (16)     NULL,
-    [key]                   NVARCHAR (4000)  NOT NULL,
-    [Min_RowNumber_From]    BIGINT           NULL,
-    [Min_RowNumber_GroupBy] BIGINT           NULL,
-    [Min_RowNumber_Where]   BIGINT           NULL,
-    [normalized]            NVARCHAR (MAX)   NULL,
-    [normalized_wo_nolock]  NVARCHAR (MAX)   NULL,
-    [patindex_nolock]       BIGINT           NULL,
-    [RepoObject_guid]       UNIQUEIDENTIFIER NOT NULL,
-    [RowNumber_per_Object]  BIGINT           NULL,
-    [SysObject_fullname]    NVARCHAR (261)   NULL
+    [children]                   NVARCHAR (MAX)   NULL,
+    [class]                      NVARCHAR (500)   NULL,
+    [identifier_alias]           NVARCHAR (MAX)   NULL,
+    [identifier_name]            NVARCHAR (MAX)   NULL,
+    [is_from]                    INT              NOT NULL,
+    [is_group]                   BIT              NULL,
+    [is_join]                    INT              NOT NULL,
+    [is_keyword]                 BIT              NULL,
+    [is_whitespace]              BIT              NULL,
+    [join_type]                  VARCHAR (16)     NULL,
+    [json_key]                   NVARCHAR (4000)  NOT NULL,
+    [Min_RowNumber_From]         BIGINT           NULL,
+    [Min_RowNumber_GroupBy]      BIGINT           NULL,
+    [Min_RowNumber_Where]        BIGINT           NULL,
+    [normalized]                 NVARCHAR (MAX)   NULL,
+    [normalized_PatIndex_Select] BIGINT           NULL,
+    [normalized_wo_nolock]       NVARCHAR (MAX)   NULL,
+    [patindex_nolock]            BIGINT           NULL,
+    [RepoObject_guid]            UNIQUEIDENTIFIER NOT NULL,
+    [RowNumber_per_Object]       BIGINT           NULL,
+    [SysObject_fullname]         NVARCHAR (261)   NULL
 );
+
+
+
+
 
 
 GO
@@ -59,7 +64,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5e4cb
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5d4cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_41_from_T', @level2type = N'COLUMN', @level2name = N'key';
+
 
 
 GO
@@ -104,4 +109,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '534cb
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4e4cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_41_from_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5d4241cb-fb63-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_41_from_T', @level2type = N'COLUMN', @level2name = N'normalized_PatIndex_Select';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5d4cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_41_from_T', @level2type = N'COLUMN', @level2name = N'json_key';
 

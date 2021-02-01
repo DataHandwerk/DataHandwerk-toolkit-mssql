@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE VIEW [repo].[RepoObject_ColumnList]
 AS
 SELECT roc.[RepoObject_guid]
@@ -90,12 +88,15 @@ GROUP (
     CAST('' AS NVARCHAR(MAX))
     , ''
     , CASE 
-     WHEN IsNull(roc.[is_persistence_no_include], 0) = 0
+     WHEN
+      --source should exists
+      NOT roc.[persistence_source_RepoObjectColumn_guid] IS NULL
+      AND IsNull(roc.[is_persistence_no_include], 0) = 0
       AND IsNull(roc.[is_persistence_no_check], 0) = 0
       AND IsNull(roc.is_query_plan_expression, 0) = 0
       AND roc.Repo_generated_always_type = 0
       AND roc.Repo_is_computed = 0
-	  AND roc.Repo_is_identity = 0
+      AND roc.Repo_is_identity = 0
       --do not compare PK
       AND roc.[is_index_primary_key] IS NULL
       THEN CONCAT (
@@ -130,11 +131,14 @@ GROUP (
     CAST('' AS NVARCHAR(MAX))
     , ''
     , CASE 
-     WHEN IsNull(roc.[is_persistence_no_include], 0) = 0
+     WHEN
+      --source should exists
+      NOT roc.[persistence_source_RepoObjectColumn_guid] IS NULL
+      AND IsNull(roc.[is_persistence_no_include], 0) = 0
       AND IsNull(roc.is_query_plan_expression, 0) = 0
       AND roc.Repo_generated_always_type = 0
       AND roc.Repo_is_computed = 0
-	  AND roc.Repo_is_identity = 0
+      AND roc.Repo_is_identity = 0
       THEN CONCAT (
         ', '
         , QuoteName(roc.[RepoObjectColumn_name])
@@ -150,12 +154,15 @@ GROUP (
     CAST('' AS NVARCHAR(MAX))
     , ''
     , CASE 
-     WHEN IsNull(roc.[is_persistence_no_include], 0) = 0
+     WHEN
+      --source should exists
+      NOT roc.[persistence_source_RepoObjectColumn_guid] IS NULL
+      AND IsNull(roc.[is_persistence_no_include], 0) = 0
       AND IsNull(roc.[is_persistence_no_check], 0) = 0
       AND IsNull(roc.is_query_plan_expression, 0) = 0
       AND roc.Repo_generated_always_type = 0
       AND roc.Repo_is_computed = 0
-	  AND roc.Repo_is_identity = 0
+      AND roc.Repo_is_identity = 0
       THEN CONCAT (
         ', T.'
         , QuoteName(roc.[RepoObjectColumn_name])

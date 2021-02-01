@@ -1,4 +1,5 @@
-﻿/*
+
+/*
 resolve Function 'T1 (NOLOCK)'
 => normalized_wo_nolock = 'T1'
 
@@ -8,7 +9,7 @@ CREATE VIEW [repo].[RepoObject_SqlModules_23_normalized_wo_nolock]
 AS
 --
 SELECT [T1].[RepoObject_guid]
- , [T1].[key]
+ , [T1].[json_key]
  , [T1].[SysObject_fullname]
  , [T1].[normalized]
  , [normalized_wo_nolock] = [T2].[child0_normalized]
@@ -65,5 +66,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c0f37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bef37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_23_normalized_wo_nolock', @level2type = N'COLUMN', @level2name = N'key';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '34813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_23_normalized_wo_nolock', @level2type = N'COLUMN', @level2name = N'json_key';
 

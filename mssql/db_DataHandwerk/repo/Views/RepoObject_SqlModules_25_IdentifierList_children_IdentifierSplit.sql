@@ -1,10 +1,11 @@
-﻿--in case of an simple identifier like [T1].[aaa]
+﻿
+--in case of an simple identifier like [T1].[aaa]
 --get the table part [Identifier_source_table] (before dot) and the column part [Identifier_source_column] (after dot)
 CREATE VIEW [repo].[RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit]
 AS
 --
 SELECT [t1].[RepoObject_guid]
- , [t1].[key]
+ , [t1].[json_key]
  , [t1].[SysObject_fullname]
  , [t1].[RowNumber_per_Object]
  , [t1].[class]
@@ -88,7 +89,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd2f37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cef37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit', @level2type = N'COLUMN', @level2name = N'key';
+
 
 
 GO
@@ -117,4 +118,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd4f37
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd1f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit', @level2type = N'COLUMN', @level2name = N'class';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '36813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit', @level2type = N'COLUMN', @level2name = N'json_key';
 

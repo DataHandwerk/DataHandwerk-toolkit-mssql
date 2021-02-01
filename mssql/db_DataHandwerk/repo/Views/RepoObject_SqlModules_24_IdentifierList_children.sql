@@ -1,8 +1,10 @@
-﻿CREATE VIEW [repo].[RepoObject_SqlModules_24_IdentifierList_children]
+﻿
+
+CREATE VIEW [repo].[RepoObject_SqlModules_24_IdentifierList_children]
 AS
 --
 SELECT [T1].[RepoObject_guid]
- , [T1].[key]
+ , [T1].[json_key]
  , [T1].[SysObject_fullname]
  , [T1].[RowNumber_per_Object]
  , [T1].[class]
@@ -15,7 +17,11 @@ SELECT [T1].[RepoObject_guid]
  , [Identifier_alias] = CASE [T2].[class]
   WHEN 'Identifier'
    THEN CASE 
+     WHEN [T2].[child1_normalized] IS NULL
+      THEN [T2].[child0_normalized]
      WHEN [T2].[child1_normalized] = 'AS'
+      THEN [T2].[child2_normalized]
+     WHEN [T2].[child1_normalized] = '.'
       THEN [T2].[child2_normalized]
      WHEN [T2].[child3_normalized] = 'AS'
       THEN [T2].[child4_normalized]
@@ -111,7 +117,9 @@ WHERE [T1].[class] = 'IdentifierList'
   'Identifier'
   , 'Comparison'
   )
- AND [T2].[class] = 'Comparison'
+----there was any reason for this filter
+----now we remove it, but we need to check the case of 'Identifier'
+-- AND [T2].[class] = 'Comparison'
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3b90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_24_IdentifierList_children';
@@ -138,7 +146,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c7f37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c3f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_24_IdentifierList_children', @level2type = N'COLUMN', @level2name = N'key';
+
 
 
 GO
@@ -159,4 +167,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c9f37
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c6f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_24_IdentifierList_children', @level2type = N'COLUMN', @level2name = N'class';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '35813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_24_IdentifierList_children', @level2type = N'COLUMN', @level2name = N'json_key';
 

@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_PERSIST_RepoObject_SqlModules_41_from_T]
+﻿CREATE   PROCEDURE [repo].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -63,15 +63,15 @@ EXEC repo.usp_ExecutionLog_insert
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_SqlModules_41_from_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-TRUNCATE TABLE [repo].[RepoObject_SqlModules_41_from_T]
+/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+TRUNCATE TABLE [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'truncate persistence target'
 SET @source_object = NULL
-SET @target_object = '[repo].[RepoObject_SqlModules_41_from_T]'
+SET @target_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
 
 EXEC repo.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -90,63 +90,37 @@ EXEC repo.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_SqlModules_41_from]","log_target_object":"[repo].[RepoObject_SqlModules_41_from_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]","log_target_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]","log_flag_InsertUpdateDelete":"I"}]}*/
 INSERT INTO 
- [repo].[RepoObject_SqlModules_41_from_T]
+ [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
  (
-  [children]
+  [alias_QuoteName]
 , [class]
-, [identifier_alias]
-, [identifier_name]
-, [is_from]
-, [is_group]
-, [is_join]
-, [is_keyword]
-, [is_whitespace]
-, [join_type]
-, [json_key]
-, [Min_RowNumber_From]
-, [Min_RowNumber_GroupBy]
-, [Min_RowNumber_Where]
 , [normalized]
-, [normalized_PatIndex_Select]
-, [normalized_wo_nolock]
-, [patindex_nolock]
 , [RepoObject_guid]
 , [RowNumber_per_Object]
+, [source_column_QuoteName]
+, [source_table_QuoteName]
 , [SysObject_fullname]
 )
 SELECT
-  [children]
+  [alias_QuoteName]
 , [class]
-, [identifier_alias]
-, [identifier_name]
-, [is_from]
-, [is_group]
-, [is_join]
-, [is_keyword]
-, [is_whitespace]
-, [join_type]
-, [json_key]
-, [Min_RowNumber_From]
-, [Min_RowNumber_GroupBy]
-, [Min_RowNumber_Where]
 , [normalized]
-, [normalized_PatIndex_Select]
-, [normalized_wo_nolock]
-, [patindex_nolock]
 , [RepoObject_guid]
 , [RowNumber_per_Object]
+, [source_column_QuoteName]
+, [source_table_QuoteName]
 , [SysObject_fullname]
 
-FROM [repo].[RepoObject_SqlModules_41_from] AS S
+FROM [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union] AS S
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'insert all'
-SET @source_object = '[repo].[RepoObject_SqlModules_41_from]'
-SET @target_object = '[repo].[RepoObject_SqlModules_41_from_T]'
+SET @source_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]'
+SET @target_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
 
 EXEC repo.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -192,6 +166,3 @@ EXEC repo.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4d4cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
-

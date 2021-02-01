@@ -1,4 +1,5 @@
-﻿CREATE VIEW [repo].[RepoObject_SqlModules_39_object]
+﻿
+CREATE VIEW [repo].[RepoObject_SqlModules_39_object]
 AS
 --
 SELECT [T1].[RepoObject_guid]
@@ -15,6 +16,7 @@ SELECT [T1].[RepoObject_guid]
  , [T31].[is_3_Identifier]
  , [T31].[is_4_as]
  , [T31].[is_5_select]
+ , [T31].[is_6_Identifier]
  , [T31].[is_6_IdentifierList]
  , [T31].[is_7_from]
  , [T31].[is_7_IdentifierList]
@@ -38,9 +40,9 @@ LEFT OUTER JOIN repo.[RepoObject_SqlModules_33_ObjectNormalized] AS T33_1
 LEFT OUTER JOIN repo.[RepoObject_SqlModules_33_ObjectNormalized] AS T33_2
  ON T33_2.RepoObject_guid = T1.RepoObject_guid
   AND T33_2.normalized = 'GROUP BY'
-LEFT OUTER JOIN [repo].[RepoObject_SqlModules_26_object_is_union] AS T26
+LEFT OUTER JOIN [repo].[RepoObject_SqlModules_29_1_object_is_union] AS T26
  ON T26.RepoObject_guid = T1.RepoObject_guid
-LEFT OUTER JOIN [repo].[RepoObject_SqlModules_27_object_is_GroupBy] AS T27
+LEFT OUTER JOIN [repo].[RepoObject_SqlModules_29_2_object_is_GroupBy] AS T27
  ON T27.RepoObject_guid = T1.RepoObject_guid
 
 GO
@@ -121,4 +123,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1ef27
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '28f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object', @level2type = N'COLUMN', @level2name = N'has_GroupBy';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '32813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object', @level2type = N'COLUMN', @level2name = N'is_6_Identifier';
 
