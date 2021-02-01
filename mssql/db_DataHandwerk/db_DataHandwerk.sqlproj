@@ -71,6 +71,8 @@
     <Folder Include="sys_self\" />
     <Folder Include="sys_self\Views\" />
     <Folder Include="sys_self\Stored Procedures\" />
+    <Folder Include="graph\" />
+    <Folder Include="graph\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -249,6 +251,13 @@
     <Build Include="repo\Tables\RepoObject_SqlModules_61_SelectIdentifier_Union_T.sql" />
     <Build Include="repo\Views\RepoObject_SqlModules_72_reference_NoTableAlias.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.sql" />
+    <Build Include="graph\Tables\ReferencedObjectColumn.sql" />
+    <Build Include="graph\Tables\ReferencingObjectColumn.sql" />
+    <Build Include="graph\Tables\ReferencingObject.sql" />
+    <Build Include="graph\Tables\ReferencedObject.sql" />
+    <Build Include="graph\Tables\RepoObjectColumn.sql" />
+    <Build Include="graph\Tables\RepoObject.sql" />
+    <Build Include="Security\graph.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
