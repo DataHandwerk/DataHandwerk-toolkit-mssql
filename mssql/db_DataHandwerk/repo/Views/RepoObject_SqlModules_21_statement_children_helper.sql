@@ -1,4 +1,6 @@
-﻿/*helpers are required in next steps to check several conditions
+﻿
+
+/*helpers are required in next steps to check several conditions
 here we prepare the check if the parsed statement will follow some required logic, for example
 CREATE;VIEW;Identifier;AS;SELECT;IdentifierList;FROM
 */
@@ -6,7 +8,7 @@ CREATE VIEW [repo].[RepoObject_SqlModules_21_statement_children_helper]
 AS
 --
 SELECT [T1].[RepoObject_guid]
- , [T1].[key]
+ , [T1].[json_key]
  , [T1].[SysObject_fullname]
  , [T1].[RowNumber_per_Object]
  , [T1].[class]
@@ -27,6 +29,8 @@ SELECT [T1].[RepoObject_guid]
   AND [normalized] = 'AS', 1, 0)
  , is_5_select = IIF([RowNumber_per_Object] = 5
   AND [normalized] = 'SELECT', 1, 0)
+ , is_6_Identifier = IIF([RowNumber_per_Object] = 6
+  AND [class] = 'Identifier', 1, 0)
  , is_6_IdentifierList = IIF([RowNumber_per_Object] = 6
   AND [class] = 'IdentifierList', 1, 0)
  , is_7_from = IIF([RowNumber_per_Object] = 7
@@ -58,7 +62,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f4f17
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'edf17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_21_statement_children_helper', @level2type = N'COLUMN', @level2name = N'key';
+
 
 
 GO
@@ -115,4 +119,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f0f17
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f5f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_21_statement_children_helper', @level2type = N'COLUMN', @level2name = N'children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2f813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_21_statement_children_helper', @level2type = N'COLUMN', @level2name = N'json_key';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '30813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_21_statement_children_helper', @level2type = N'COLUMN', @level2name = N'is_6_Identifier';
 

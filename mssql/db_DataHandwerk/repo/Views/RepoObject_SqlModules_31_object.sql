@@ -1,4 +1,5 @@
-﻿CREATE VIEW [repo].[RepoObject_SqlModules_31_object]
+﻿
+CREATE VIEW [repo].[RepoObject_SqlModules_31_object]
 AS
 --
 SELECT [RepoObject_guid]
@@ -8,6 +9,7 @@ SELECT [RepoObject_guid]
  , MAX([is_3_Identifier]) AS [is_3_Identifier]
  , MAX([is_4_as]) AS [is_4_as]
  , MAX([is_5_select]) AS [is_5_select]
+ , MAX([is_6_Identifier]) AS [is_6_Identifier]
  , MAX([is_6_IdentifierList]) AS [is_6_IdentifierList]
  , MAX([is_7_from]) AS [is_7_from]
  , MAX([is_7_IdentifierList]) AS [is_7_IdentifierList]
@@ -61,4 +63,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '06f27
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '05f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_31_object', @level2type = N'COLUMN', @level2name = N'is_1_create';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '31813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_31_object', @level2type = N'COLUMN', @level2name = N'is_6_Identifier';
 

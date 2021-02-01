@@ -439,4 +439,32 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[RepoObject_SqlModules_33_ObjectNormalized]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="c5e652ed-74c4-4345-a04d-764cd63d8951" ChangeDateTime="01/31/2021 19:52:37">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_26_object_is_union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_29_1_object_is_union]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="798a3cab-7304-4724-8445-24f5cbf5a72a" ChangeDateTime="01/31/2021 19:53:11">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_27_object_is_GroupBy]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_29_2_object_is_GroupBy]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4259426f-0c7c-4dd6-9cc3-581e138a0541" ChangeDateTime="02/01/2021 07:21:13">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_51_reference]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="RepoObject_SqlModules_71_reference" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dc4b9928-76da-4487-a818-929ee7b5246b" ChangeDateTime="02/01/2021 12:58:10">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_71_reference]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObject_SqlModules_71_reference_ExpliciteTableAlias]" />
+  </Operation>
 </Operations>
