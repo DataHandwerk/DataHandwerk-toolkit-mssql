@@ -83,13 +83,32 @@ EXEC repo.[usp_persistence_insert_update]
    , @persistence_RepoObject_guid = @persistence_RepoObject_guid
    , @has_history = 1
 
+--4)
+
+DECLARE	@return_value int,
+		@persistence_RepoObject_guid uniqueidentifier
+
+EXEC	@return_value = [repo].[usp_persistence_insert_update]
+		@source_fullname = N'[graph].[RepoObjectColumn_S]',
+		@persistence_RepoObject_guid = @persistence_RepoObject_guid OUTPUT,
+		@persistence_table_name = N'RepoObjectColumn',
+		@is_persistence_check_for_empty_source = 1,
+		@is_persistence_truncate = 0,
+		@is_persistence_delete_missing = 1,
+		@is_persistence_delete_changed = 0,
+		@is_persistence_update_changed = 1,
+		@is_persistence_insert = 1
+
+SELECT	@persistence_RepoObject_guid as N'@persistence_RepoObject_guid'
+
+SELECT	'Return Value' = @return_value
 
 
 */
 --todo: überlegen, ob @source_RepoObject_guid NULL sein darf, wenn @persistence_RepoObject_guid NOT NULL
 CREATE PROCEDURE [repo].[usp_persistence_insert_update] @source_RepoObject_guid UNIQUEIDENTIFIER = NULL --
  , @source_fullname NVARCHAR(261) = NULL --it is possible to use @source_RepoObject_guid OR @source_fullname; use: "[schema].[object_name]"
- , @persistence_RepoObject_guid UNIQUEIDENTIFIER = NULL OUTPUT --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created
+ , @persistence_RepoObject_guid UNIQUEIDENTIFIER = NULL OUTPUT --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created, don't use brackts: "object_name_T"
  , @persistence_table_name NVARCHAR(128) = NULL --default: @source_table_name + @persistence_name_suffix; default schema is @source_schema_name
  , @is_persistence_check_for_empty_source BIT = NULL
  , @is_persistence_truncate BIT = NULL
@@ -357,10 +376,10 @@ BEGIN
     AND [RepoObject_name] = @persistence_table_name
    )
  BEGIN
-  SET @info_01_message = 'Persistence Table already exists by ([RepoObject_schema_name], [RepoObject_name]) in repo.RepoObject'
+  SET @info_01_message = 'WARNING: Persistence Table already exists by ([RepoObject_schema_name], [RepoObject_name]) in repo.RepoObject'
   --SET @rows = @@ROWCOUNT;
   SET @step_id = @step_id + 1
-  SET @step_name = 'error'
+  SET @step_name = 'warning Persistence Table already exists'
   SET @source_object = '[repo].[RepoObject]'
   SET @target_object = NULL
 
@@ -390,45 +409,63 @@ BEGIN
    , @info_08 = NULL
    , @info_09 = NULL;
 
-  --RETURN 5
-  THROW 51005
-   , @info_01_message
-   , 1;
+  ----RETURN 5
+  --THROW 51005
+  -- , @info_01_message
+  -- , 1;
+  --
+  SET @persistence_RepoObject_guid = (
+    SELECT [RepoObject_guid]
+    FROM repo.RepoObject
+    WHERE [RepoObject_schema_name] = @persistence_schema_name
+     AND [RepoObject_name] = @persistence_table_name
+    )
  END
+ ELSE
+ BEGIN
+  --create new @persistence_RepoObject_guid
+  --make sure the @table table is empty
+  DELETE @table
 
- --finaly create new @persistence_RepoObject_guid
- --make sure the @table table is empty
- DELETE @table
-
- INSERT INTO repo.RepoObject (
-  [RepoObject_schema_name]
-  , [RepoObject_name]
-  , [RepoObject_type]
-  , [SysObject_schema_name] --can't be NULL
-  , [is_repo_managed]
-  )
- OUTPUT [INSERTED].[RepoObject_guid]
- INTO @table
- VALUES (
-  @persistence_schema_name
-  , @persistence_table_name
-  , 'U'
-  , @persistence_schema_name
-  , 1
-  )
-
- SET @persistence_RepoObject_guid = (
-   SELECT [guid]
-   FROM @table
+  INSERT INTO repo.RepoObject (
+   [RepoObject_schema_name]
+   , [RepoObject_name]
+   , [RepoObject_type]
+   , [SysObject_schema_name] --can't be NULL
+   , [is_repo_managed]
    )
+  OUTPUT [INSERTED].[RepoObject_guid]
+  INTO @table
+  VALUES (
+   @persistence_schema_name
+   , @persistence_table_name
+   , 'U'
+   , @persistence_schema_name
+   , 1
+   )
+
+  SET @persistence_RepoObject_guid = (
+    SELECT [guid]
+    FROM @table
+    )
+ END --IF Persistence Table exists
 END --IF NOT @source_RepoObject_guid IS NULL AND @persistence_RepoObject_guid IS NULL
 
 --now both @source_RepoObject_guid and @persistence_RepoObject_guid should be not empty and exists in [repo].[RepoObject]
+--check this to be sure
 IF @source_RepoObject_guid IS NULL
  OR @persistence_RepoObject_guid IS NULL
 BEGIN
+ SET @info_01_message = CONCAT (
+   'source and persistence not matching, still: @source_RepoObject_guid is null OR @persistence_RepoObject_guid is null: '
+   , @source_RepoObject_guid
+   , '; '
+   , @persistence_RepoObject_guid
+   , ';'
+   );
+
  THROW 51011
-  , 'source and persistence not matching, still: @source_RepoObject_guid is null OR @persistence_RepoObject_guid is null'
+  , @info_01_message
   , 1;
 END
 

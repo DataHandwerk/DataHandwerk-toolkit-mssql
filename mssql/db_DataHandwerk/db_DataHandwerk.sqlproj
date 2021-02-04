@@ -73,6 +73,8 @@
     <Folder Include="sys_self\Stored Procedures\" />
     <Folder Include="graph\" />
     <Folder Include="graph\Tables\" />
+    <Folder Include="graph\Views\" />
+    <Folder Include="graph\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -258,6 +260,23 @@
     <Build Include="graph\Tables\RepoObjectColumn.sql" />
     <Build Include="graph\Tables\RepoObject.sql" />
     <Build Include="Security\graph.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_reference_SqlModules.sql" />
+    <Build Include="repo\Views\RepoObject_SqlModules_79_reference_union.sql" />
+    <Build Include="graph\Views\RepoObjectColumn_S.sql" />
+    <Build Include="graph\Views\RepoObject_S.sql" />
+    <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObjectColumn.sql" />
+    <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObject.sql" />
+    <Build Include="repo\Tables\WorkflowStep.sql" />
+    <Build Include="repo\Tables\Workflow.sql" />
+    <Build Include="repo\Tables\ProcedureInstanceDependency.sql" />
+    <Build Include="repo\Tables\ProcedureInstance.sql" />
+    <Build Include="repo\Views\RepoObject_RequiredRepoObjectMerge.sql" />
+    <Build Include="repo\Views\Match_RepoObject_referenced_UspPersistence.sql" />
+    <Build Include="graph\Tables\ReferencingProcedureInstance.sql" />
+    <Build Include="graph\Tables\ReferencedProcedureInstance.sql" />
+    <Build Include="graph\Tables\ProcedureInstance.sql" />
+    <Build Include="graph\Views\ProcedureInstance_S.sql" />
+    <Build Include="graph\Stored Procedures\usp_PERSIST_ProcedureInstance.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [repo].[RepoObject_ColumnList]
 AS
 SELECT roc.[RepoObject_guid]
@@ -98,6 +99,9 @@ GROUP (
       AND roc.Repo_is_computed = 0
       AND roc.Repo_is_identity = 0
       --do not compare PK
+	  --issue: if the source column is marked as PK but the target column is not marked as PK, then this column is included
+	  --to avoid this we would need to analyze also the source column properties
+	  --or we could set [is_persistence_no_check] = 1
       AND roc.[is_index_primary_key] IS NULL
       THEN CONCAT (
         'OR T.'

@@ -1,4 +1,5 @@
-﻿CREATE VIEW [repo].[RepoObject_reference_persistence]
+﻿
+CREATE VIEW [repo].[RepoObject_reference_persistence]
 AS
 --
 SELECT [referencing_id] = [ro_t].[SysObject_id]
@@ -7,7 +8,7 @@ SELECT [referencing_id] = [ro_t].[SysObject_id]
  , [referenced_node_id] = [ro_s].[node_id]
  , [referencing_RepoObject_guid] = [rop].[target_RepoObject_guid]
  , [referenced_RepoObject_guid] = [rop].[source_RepoObject_guid]
- , [referencing_type] = [ro_t].[SysObject_type]
+ , [referencing_type] = COALESCE([ro_t].[SysObject_type], [ro_t].[RepoObject_type], 'U')
  , [referencing_schema_name] = [ro_t].[SysObject_schema_name]
  , [referencing_entity_name] = [ro_t].[SysObject_name]
  , [referenced_schema_name] = [ro_s].[SysObject_schema_name]

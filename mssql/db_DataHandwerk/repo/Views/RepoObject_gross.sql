@@ -1,8 +1,12 @@
 ﻿
+
+
 CREATE VIEW [repo].[RepoObject_gross]
 AS
 --
-SELECT [ro].[RepoObject_guid]
+SELECT
+ --
+ [ro].[RepoObject_guid]
  , [ro].[RepoObject_schema_name]
  , [ro].[RepoObject_name]
  , [ro].[RepoObject_type]
@@ -31,31 +35,35 @@ SELECT [ro].[RepoObject_guid]
  , [ro].[SysObject_schema_name]
  , [ro].[SysObject_type]
  , [ro].[usp_persistence_name]
- , [rot].[source_RepoObject_guid] AS [persistence_source_RepoObject_guid]
- , [rop_s].[RepoObject_fullname] AS [persistence_source_RepoObject_fullname]
- , [rop_s].[SysObject_fullname] AS [persistence_source_SysObject_fullname]
- , [rot].[has_history]
- , [rot].[has_history_columns]
- , [rot].[is_persistence]
- , [rot].[is_persistence_check_duplicate_per_pk]
- , [rot].[is_persistence_check_for_empty_source]
- , [rot].[is_persistence_delete_missing]
- , [rot].[is_persistence_delete_changed]
- , [rot].[is_persistence_insert]
- , [rot].[is_persistence_truncate]
- , [rot].[is_persistence_update_changed]
- , [rot].[history_schema_name]
- , [rot].[history_table_name]
- , [rot].[temporal_type]
+ , [ro_usp_p].[RepoObject_guid] AS [usp_persistence_RepoObject_guid]
+ , [ro_p].[source_RepoObject_guid] AS [persistence_source_RepoObject_guid]
+ , [ro_p_s].[RepoObject_fullname] AS [persistence_source_RepoObject_fullname]
+ , [ro_p_s].[SysObject_fullname] AS [persistence_source_SysObject_fullname]
+ , [ro_p].[has_history]
+ , [ro_p].[has_history_columns]
+ , [ro_p].[is_persistence]
+ , [ro_p].[is_persistence_check_duplicate_per_pk]
+ , [ro_p].[is_persistence_check_for_empty_source]
+ , [ro_p].[is_persistence_delete_missing]
+ , [ro_p].[is_persistence_delete_changed]
+ , [ro_p].[is_persistence_insert]
+ , [ro_p].[is_persistence_truncate]
+ , [ro_p].[is_persistence_update_changed]
+ , [ro_p].[history_schema_name]
+ , [ro_p].[history_table_name]
+ , [ro_p].[temporal_type]
  , [ColumnList].[CreateColumnList]
  , [ColumnList].[PersistenceCompareColumnList]
  , [ColumnList].[PersistenceInsertColumnList]
  , [ColumnList].[PersistenceUpdateColumnList]
 FROM repo.RepoObject AS ro
-LEFT OUTER JOIN repo.RepoObject_persistence AS rot
- ON rot.target_RepoObject_guid = ro.RepoObject_guid
-LEFT OUTER JOIN repo.RepoObject AS rop_s
- ON rop_s.RepoObject_guid = rot.source_RepoObject_guid
+LEFT OUTER JOIN repo.RepoObject_persistence AS ro_p
+ ON ro_p.target_RepoObject_guid = ro.RepoObject_guid
+LEFT OUTER JOIN repo.RepoObject AS ro_p_s
+ ON ro_p_s.RepoObject_guid = ro_p.source_RepoObject_guid
+LEFT OUTER JOIN repo.RepoObject AS ro_usp_p
+ ON ro_usp_p.[RepoObject_name] = ro.[usp_persistence_name]
+  AND ro_usp_p.[RepoObject_schema_name] = ro.[RepoObject_schema_name]
 LEFT OUTER JOIN repo.RepoObject_ColumnList AS ColumnList
  ON ColumnList.RepoObject_guid = ro.RepoObject_guid
 
@@ -257,4 +265,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bbf67
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e4f67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'CreateColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fa4a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'usp_persistence_RepoObject_guid';
 
