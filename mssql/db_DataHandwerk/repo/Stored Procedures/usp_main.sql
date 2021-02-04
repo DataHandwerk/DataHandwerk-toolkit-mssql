@@ -134,17 +134,7 @@ EXEC [repo].[usp_update_Referencing_Count]
 /*{"ReportUspStep":[{"Number":710,"Name":"[repo].[usp_index_inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_index_inheritance]
 --todo:
---should be executed several times until no new indexes are inherited
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
-/*{"ReportUspStep":[{"Number":720,"Name":"[repo].[usp_index_inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_index_inheritance]
+--should or could be executed several times until no new indexes are inherited
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -155,6 +145,7 @@ EXEC [repo].[usp_index_inheritance]
 
 /*{"ReportUspStep":[{"Number":810,"Name":"[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
+--This must happen later than the index logic, because the PK can change there. And this affects the order of the columns.
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -165,6 +156,7 @@ EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
 
 /*{"ReportUspStep":[{"Number":910,"Name":"[repo].[usp_GeneratorUsp_insert_update_persistence]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_GeneratorUsp_insert_update_persistence]
+--RepoObjectColumn_column_id is required and should be updated before
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

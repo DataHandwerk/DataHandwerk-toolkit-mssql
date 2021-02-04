@@ -77,10 +77,7 @@ SET [RepoObject_SysObject_id] = [SysObject_id]
  , [RepoObject_SysObject_name] = [SysObject_name]
  , [RepoObject_SysObject_type] = [SysObject_type]
  , [RepoObject_SysObject_modify_date] = [modify_date]
- --, [RepoObject_parent_SysObject_id] = [SysObject_parent_SysObject_id]
- --, [RepoObject_SysObject_temporal_type] = [SysObject_temporal_type]
- --, [RepoObject_SysObject_history_table_id] = [SysObject_history_table_id]
- --, [RepoObject_SysObject_max_column_id_used] = [SysObject_max_column_id_used]
+ , [RepoObject_SysObject_parent_object_id] = [parent_object_id]
  , [RepoObject_is_SysObject_missing] = NULL
 WHERE NOT [RepoObject_guid] IS NULL
  AND (
@@ -91,22 +88,7 @@ WHERE NOT [RepoObject_guid] IS NULL
   OR [RepoObject_SysObject_type] <> [SysObject_type]
   OR [RepoObject_SysObject_modify_date] <> [modify_date]
   OR [RepoObject_SysObject_modify_date] IS NULL
-  --OR [RepoObject_parent_SysObject_id] <> [SysObject_parent_SysObject_id]
-  --OR [RepoObject_SysObject_temporal_type] <> [SysObject_temporal_type]
-  --OR ([RepoObject_SysObject_temporal_type] IS NULL
-  --    AND NOT [SysObject_temporal_type] IS NULL)
-  --OR (NOT [RepoObject_SysObject_temporal_type] IS NULL
-  --    AND [SysObject_temporal_type] IS NULL)
-  --OR [RepoObject_SysObject_history_table_id] <> [SysObject_history_table_id]
-  --OR ([RepoObject_SysObject_history_table_id] IS NULL
-  --    AND NOT [SysObject_history_table_id] IS NULL)
-  --OR (NOT [RepoObject_SysObject_history_table_id] IS NULL
-  --    AND [SysObject_history_table_id] IS NULL)
-  --OR [RepoObject_SysObject_max_column_id_used] <> [SysObject_max_column_id_used]
-  --OR ([RepoObject_SysObject_max_column_id_used] IS NULL
-  --    AND NOT [SysObject_max_column_id_used] IS NULL)
-  --OR (NOT [RepoObject_SysObject_max_column_id_used] IS NULL
-  --    AND [SysObject_max_column_id_used] IS NULL)
+  OR [RepoObject_SysObject_parent_object_id] <> [parent_object_id]
   --
   )
 
@@ -298,21 +280,19 @@ EXEC repo.usp_ExecutionLog_insert
  , @inserted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":610,"Name":"SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
-/*
-now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
-remaining [RepoObject_name] still have some guid and this needs to solved separately
-*/
+/*{"ReportUspStep":[{"Number":610,"Name":"SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+--now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
+--remaining [RepoObject_name] still could have some guid, and this needs to solved separately
 UPDATE repo.RepoObject
 SET [RepoObject_schema_name] = [SysObject_schema_name]
  , [RepoObject_name] = [SysObject_name]
 WHERE
- --don't touch entries, which are managed by repo
- ISNULL([is_repo_managed], 0) = 0
- AND [has_different_sys_names] = 1
- --exclude surrogate [SysObject_name]
+ [has_different_sys_names] = 1
+ --exclude surrogate [SysObject_name] as source
  AND [is_SysObject_name_uniqueidentifier] = 0
- --avoid not unique entries
+ --update [is_repo_managed] RepoObjects only, if [is_RepoObject_name_uniqueidentifier], to get a real name
+ AND  (ISNULL([is_repo_managed], 0) = 0 OR [is_RepoObject_name_uniqueidentifier] = 1)
+  --avoid not unique entries
  --do not update, if the target entry ([RepoObject_schema_name], [RepoObject_name]) exists
  --The UK would prevent that
  AND NOT EXISTS (
@@ -326,7 +306,7 @@ WHERE
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]'
+SET @step_name = 'SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObject]'
 
@@ -346,6 +326,115 @@ EXEC repo.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @updated = @rows
 -- Logging END --
+
+/*{"ReportUspStep":[{"Number":700,"Name":"[repo].[RepoObject_RequiredRepoObjectMerge]","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]"}]}*/
+IF (SELECT COUNT(*) FROM [repo].[RepoObject_RequiredRepoObjectMerge]) > 1
+
+/*{"ReportUspStep":[{"Number":710,"Parent_Number":700,"Name":"merge RepoObject","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]"}]}*/
+BEGIN
+BEGIN TRY
+ UPDATE T
+ SET [target_RepoObject_guid] = [S].[ro2_RepoObject_guid]
+ FROM [repo].[RepoObject_persistence] [T]
+ INNER JOIN [repo].[RepoObject_RequiredRepoObjectMerge] [S]
+  ON [S].[RepoObject_guid] = [T].[target_RepoObject_guid]
+
+ UPDATE T
+ SET [source_RepoObject_guid] = [S].[ro2_RepoObject_guid]
+ FROM [repo].[RepoObject_persistence] [T]
+ INNER JOIN [repo].[RepoObject_RequiredRepoObjectMerge] [S]
+  ON [S].[RepoObject_guid] = [T].[source_RepoObject_guid]
+
+ UPDATE T
+ SET [Procedure_RepoObject_guid] = [S].[ro2_RepoObject_guid]
+ FROM [repo].[ProcedureInstance] [T]
+ INNER JOIN [repo].[RepoObject_RequiredRepoObjectMerge] [S]
+  ON [S].[RepoObject_guid] = [T].[Procedure_RepoObject_guid]
+
+ --now [T].[RepoObject_guid] has been replaced and can be deleted
+ DELETE T
+ FROM [repo].[RepoObject] T
+ INNER JOIN [repo].[RepoObject_RequiredRepoObjectMerge] [S]
+  ON [S].[RepoObject_guid] = [T].[RepoObject_guid]
+END TRY
+
+BEGIN CATCH
+ PRINT 'issue merging RepoObject';
+
+ THROW;
+END CATCH;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'merge RepoObject'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":720,"Parent_Number":710,"Name":"SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+--now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
+--remaining [RepoObject_name] still could have some guid, and this needs to solved separately
+UPDATE repo.RepoObject
+SET [RepoObject_schema_name] = [SysObject_schema_name]
+ , [RepoObject_name] = [SysObject_name]
+WHERE
+ [has_different_sys_names] = 1
+ --exclude surrogate [SysObject_name] as source
+ AND [is_SysObject_name_uniqueidentifier] = 0
+ --update [is_repo_managed] RepoObjects only, if [is_RepoObject_name_uniqueidentifier], to get a real name
+ AND  (ISNULL([is_repo_managed], 0) = 0 OR [is_RepoObject_name_uniqueidentifier] = 1)
+  --avoid not unique entries
+ --do not update, if the target entry ([RepoObject_schema_name], [RepoObject_name]) exists
+ --The UK would prevent that
+ AND NOT EXISTS (
+  SELECT [RepoObject_schema_name]
+   , [RepoObject_name]
+  FROM [repo].[RepoObject] AS [ro2]
+  WHERE [repo].[RepoObject].[SysObject_schema_name] = [ro2].[RepoObject_schema_name]
+   AND [repo].[RepoObject].[SysObject_name] = [ro2].[RepoObject_name]
+  )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+END;
 
 /*{"ReportUspStep":[{"Number":1010,"Name":"write RepoObject_guid into extended properties of SysObject","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo_sys].[SysObject]"}]}*/
 DECLARE property_cursor CURSOR READ_ONLY
@@ -709,21 +798,35 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":5010,"Name":"DELETE not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[graph].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
-DELETE t
-FROM [graph].[RepoObject] [t]
-WHERE NOT EXISTS (
-  SELECT 1
-  FROM [repo].[RepoObject] AS [ro]
-  WHERE [ro].[RepoObject_guid] = [t].[RepoObject_guid]
-  )
+/*{"ReportUspStep":[{"Number":4110,"Name":"MERGE INTO [repo].[ProcedureInstance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[ProcedureInstance]","log_flag_InsertUpdateDelete":"u"}]}*/
+MERGE INTO [repo].[ProcedureInstance] AS T
+USING (
+ SELECT [RepoObject_guid] AS [Procedure_RepoObject_guid]
+  , '' AS [Instance]
+ FROM [repo].[RepoObject]
+ WHERE [RepoObject_type] = 'P'
+ ) AS S
+ ON T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
+  AND T.[Instance] = S.[Instance]
+WHEN NOT MATCHED BY TARGET
+ THEN
+  INSERT (
+   [Procedure_RepoObject_guid]
+   , [Instance]
+   )
+  VALUES (
+   S.[Procedure_RepoObject_guid]
+   , S.[Instance]
+   )
+   --DELETE not required, FK is ON DELETE CASCADE
+   ;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'DELETE not existing'
+SET @step_name = 'MERGE INTO [repo].[ProcedureInstance]'
 SET @source_object = '[repo].[RepoObject]'
-SET @target_object = '[graph].[RepoObject]'
+SET @target_object = '[repo].[ProcedureInstance]'
 
 EXEC repo.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -739,42 +842,28 @@ EXEC repo.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @deleted = @rows
+ , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":5110,"Name":"INSERT missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[graph].[RepoObject]","log_flag_InsertUpdateDelete":"i"}]}*/
-INSERT INTO [graph].[RepoObject] ([RepoObject_guid])
-SELECT [RepoObject_guid]
-FROM [repo].[RepoObject] AS [ro]
-WHERE NOT EXISTS (
-  SELECT 1
-  FROM [graph].[RepoObject] AS [t]
-  WHERE [ro].[RepoObject_guid] = [t].[RepoObject_guid]
-  )
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'INSERT missing'
-SET @source_object = '[repo].[RepoObject]'
-SET @target_object = '[graph].[RepoObject]'
-
-EXEC repo.usp_ExecutionLog_insert 
+/*{"ReportUspStep":[{"Number":5200,"Name":"[graph].[usp_PERSIST_RepoObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [graph].[usp_PERSIST_RepoObject]
+--add your own parameters
+--logging parameters
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = @rows
--- Logging END --
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":5220,"Name":"[graph].[usp_PERSIST_ProcedureInstance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [graph].[usp_PERSIST_ProcedureInstance]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
 
 
 --

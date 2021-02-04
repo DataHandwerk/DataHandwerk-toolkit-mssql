@@ -9,7 +9,7 @@
   </SourceModelProvider>
   <TargetModelProvider>
     <ConnectionBasedModelProvider>
-      <ConnectionString>Data Source=ACER-F17\SQL2019;Initial Catalog=dhw_PerformanceAnalytics;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False</ConnectionString>
+      <ConnectionString>Data Source=ACER-F17\SQL2019;Initial Catalog=dhw_self;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False</ConnectionString>
     </ConnectionBasedModelProvider>
   </TargetModelProvider>
   <SchemaCompareSettingsService>
@@ -306,11 +306,11 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetDatabaseName</Name>
-        <Value>dhw_PerformanceAnalytics</Value>
+        <Value>dhw_self</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetConnectionString</Name>
-        <Value>Data Source=ACER-F17\SQL2019;Initial Catalog=dhw_PerformanceAnalytics;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</Value>
+        <Value>Data Source=ACER-F17\SQL2019;Initial Catalog=dhw_self;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TreatVerificationErrorsAsWarnings</Name>
@@ -939,6 +939,324 @@
     <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlView, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Name>repo</Name>
       <Name>GeneratorUsp_filter_persistence</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>from_id_7F3CEF660D794A2A81530928BC4B36F1</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>from_obj_id_A00C6316716D4F9DABE96A189F3A214A</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>graph_id_85ECDD019A4C46AF80CFD8DDFA08F479</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>to_id_45A2D6271B224A08B66CA0CF6A200A54</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>to_obj_id_F1F1771130674EE9A9DAE06330740E13</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>from_id_7E00AE91C08D4B1FA35C7A8270AC9E8C</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>from_obj_id_11EC88C0730D4B5993BF0DBC6FAC2E36</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>graph_id_E9F774DD8CA2460A924F6173983BE220</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>to_id_085F365914414A0AAB9A494884264043</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>to_obj_id_1AB5BC0BD7FD4956AA05F7CB026BC43D</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>from_id_472B24420B624B14BB7713C2D61A6825</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>from_obj_id_841F6E8E64074738851E57246A265384</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>graph_id_09F977CF6E984C91A3DCB80DFCA167DF</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>to_id_481A7B86C080421583F830CBBB2D1D40</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>to_obj_id_E20461DCDFE345938DA61BDA2DFCEDB6</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>from_id_AF95740FA51A459CAD5E73CCDA2BB9A1</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>from_obj_id_E30A518916BD429EAA4BC746BAB803B8</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>graph_id_33EABAD1D448423BA763A06B2E100A3D</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>to_id_BC6FD8D77D2B4F3292EFDF7454BE0A57</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>to_obj_id_B789CEA675414B248EC7F2E6F9E8738E</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObject</Name>
+      <Name>graph_id_60367FDA1A70430CA390F8144C223EC4</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObjectColumn</Name>
+      <Name>graph_id_58E017E29B684D7FBC6E4E880C609245</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlView, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>repo</Name>
+      <Name>RepoObject_reference_union_node_id</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>repo</Name>
+      <Name>RepoObject_reference_union_node_id</Name>
+      <Name>referencing_RepoObject_guid</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>repo</Name>
+      <Name>RepoObject_reference_union_node_id</Name>
+      <Name>referenced_RepoObject_guid</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>repo</Name>
+      <Name>RepoObject_reference_union_node_id</Name>
+      <Name>referencing_node_id</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>repo</Name>
+      <Name>RepoObject_reference_union_node_id</Name>
+      <Name>referenced_node_id</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlView</Name>
+      <Name>repo</Name>
+      <Name>RepoObject_reference_union_node_id</Name>
+      <Name>RepoObject_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>$edge_id_25B0DD35E10A49DE8B49228E6802F3EB</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>$from_id_F5982CB6A96041F69453F5D5DBE84FFB</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>$edge_id_7C154492F0954C769C843FC0BEA97AFC</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>$to_id_26820C41BE034B00BCBC470518101233</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObject</Name>
+      <Name>$from_id_7B1BEB60463741CAA681054A489A2714</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObjectColumn</Name>
+      <Name>$node_id_347F7C762E2642A98518838371CE6BB1</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObjectColumn</Name>
+      <Name>RepoObject_fullname</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObjectColumn</Name>
+      <Name>RepoObject_guid</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObjectColumn</Name>
+      <Name>RepoObject_type</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObjectColumn</Name>
+      <Name>RepoObjectColumn_name</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencedObjectColumn</Name>
+      <Name>$to_id_9D5378D2AACD4945A48693ABF17CD063</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>$edge_id_21A14F7820EC4E65A2181C77070E4599</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>$from_id_0076F61972EE4CFBAB773755DA860F3E</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObject</Name>
+      <Name>$to_id_24A0471B483E40D58582E894797FDBD5</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>$edge_id_DC70EA9971F145D9892721EBFAD6DA3B</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>$from_id_E02FBFD790F541C5888A72743EC0C66D</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>ReferencingObjectColumn</Name>
+      <Name>$to_id_82344FE7FA59415C82FF9A4D37C1712A</Name>
+      <Name>RepoObjectColumn_guid</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>SqlColumn</Name>
+      <Name>graph</Name>
+      <Name>RepoObject</Name>
+      <Name>$node_id_FAC3EF4690DB4CD6A98F097DAF0885CC</Name>
+      <Name>RepoObjectColumn_guid</Name>
     </SelectedItem>
   </ExcludedTargetElements>
 </SchemaComparison>

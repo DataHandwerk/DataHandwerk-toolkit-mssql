@@ -1,4 +1,5 @@
 ﻿
+
 /*
 explicit table alias:
 
@@ -24,7 +25,7 @@ SELECT T1.RepoObject_guid
  , T1.source_table_QuoteName
  , T1.source_column_QuoteName
  , T1.alias_QuoteName
- --, T1.[normalized]
+ , T1.[normalized]
 FROM [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T] AS T1
 INNER JOIN [repo].[RepoObject_SqlModules_44_from_Identifier_QuoteName] AS T44
  ON T44.RepoObject_guid = T1.RepoObject_guid
@@ -84,4 +85,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '157e4
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '167e4be1-8f64-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias', @level2type = N'COLUMN', @level2name = N'alias_QuoteName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd38f8f21-4265-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias', @level2type = N'COLUMN', @level2name = N'normalized';
 

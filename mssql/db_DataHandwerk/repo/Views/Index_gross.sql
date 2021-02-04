@@ -16,6 +16,20 @@ SELECT [T1].[index_guid]
  , [T3].[is_repo_managed]
  , [T2].[parent_RepoObject_guid]
  , [T2].[referenced_index_guid]
+ , [T3].[RepoObject_fullname]
+ --if [RowNumber_PatternPerParentObject] > 1 then these are duplicates by same ColumnPattern and normally should be deleted, at least in [repo].[Index_virtual] 
+ , [RowNumber_PatternPerParentObject] = ROW_NUMBER() OVER (
+  PARTITION BY [T2].[parent_RepoObject_guid]
+  , [T1].[IndexPatternColumnName] ORDER BY
+   --priority has real index
+   [T2].[is_index_real] DESC
+   --priority PK
+   , [T2].[is_index_primary_key] DESC
+   --priority not disabled
+   , [t2].[is_index_disabled]
+   --priority first added index
+   , [T2].[index_guid]
+  )
  , [RowNumber_PkPerParentObject] = ROW_NUMBER() OVER (
   PARTITION BY [T2].[parent_RepoObject_guid]
   , [T2].[is_index_primary_key] ORDER BY
@@ -26,6 +40,7 @@ SELECT [T1].[index_guid]
    --priority first added index
    , [T2].[index_guid]
   )
+ , [T3].[SysObject_fullname]
  , [T3].[SysObject_schema_name]
  , [T3].[SysObject_name]
  , [T3].[SysObject_type]
@@ -126,4 +141,16 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '46f77
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '45f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '11682e6a-3c65-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '517e36d5-5a65-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'RowNumber_PatternPerParentObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '10682e6a-3c65-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
 

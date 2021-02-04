@@ -1,4 +1,5 @@
 ﻿
+
 /*
 we use all Index from repo.IndexColumn__union (real and virtual)
 and we use Object references
@@ -43,8 +44,8 @@ ORDER BY
 CREATE VIEW [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
 AS
 --
---columns, that inherit an index
---only RepoObjects are included which inherit ALL columns of a source index
+--referencing columns, that inherit an index
+--the goal of this view is to include only RepoObjects, which inherit ALL referenced columns of a source index
 SELECT
  --[index_guid] is referenced index, [index_column_id] is the column of a referenced index
  [ic].[index_guid]
