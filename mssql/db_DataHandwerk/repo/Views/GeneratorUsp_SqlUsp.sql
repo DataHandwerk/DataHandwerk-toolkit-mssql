@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -123,6 +124,8 @@ EXEC repo.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
+
+GO
 '
    END --[u].[has_logging]
   )

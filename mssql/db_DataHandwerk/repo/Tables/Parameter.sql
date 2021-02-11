@@ -1,12 +1,15 @@
-CREATE TABLE [repo].[Parameter] (
+﻿CREATE TABLE [repo].[Parameter] (
     [Parameter_name]                   VARCHAR (100)   NOT NULL,
     [sub_Parameter]                    NVARCHAR (128)  CONSTRAINT [DF__Parameter__sub_P__18B6AB08] DEFAULT ('') NOT NULL,
     [Parameter_desciption]             NVARCHAR (1000) NULL,
     [Parameter_default_value]          SQL_VARIANT     NULL,
     [Parameter_value]                  SQL_VARIANT     NULL,
     [Parameter_value__result_nvarchar] AS              (TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [nvarchar](4000))),
+    [Parameter_value__result_int]      AS              (TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [int])),
     CONSTRAINT [PK_Parameter] PRIMARY KEY CLUSTERED ([Parameter_name] ASC, [sub_Parameter] ASC)
 );
+
+
 
 
 

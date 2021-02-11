@@ -281,6 +281,61 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":3110,"Name":"Merge Into [repo].[ProcedureInstanceDependency] (Persistence)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Match_RepoObject_referenced_UspPersistence]","log_target_object":"[repo].[ProcedureInstanceDependency]","log_flag_InsertUpdateDelete":"u"}]}*/
+Merge Into [repo].[ProcedureInstanceDependency] T
+USING
+(
+    Select TFirst.id As [referencing_id]
+         , TLast.id  As [referenced_id]
+         , 1         As [is_PersistenceDependency]
+    From repo.Match_RepoObject_referenced_UspPersistence T1
+        Inner Join [repo].[ProcedureInstance]            TFirst
+            On TFirst.[Procedure_RepoObject_guid] = T1.First_usp_persistence_RepoObject_guid
+               And TFirst.Instance = ''
+        Inner Join [repo].[ProcedureInstance]            TLast
+            On TLast.[Procedure_RepoObject_guid] = T1.Last_usp_persistence_RepoObject_guid
+               And TLast.Instance = ''
+) S
+On S.[referencing_id] = T.[referencing_id]
+   And S.[referenced_id] = T.[referenced_id]
+When MATCHED And T.[is_PersistenceDependency] = 0 Then
+    Update Set [is_PersistenceDependency] = 1
+When Not MATCHED By TARGET Then
+    Insert
+    (
+        [referencing_id]
+      , [referenced_id]
+      , [is_PersistenceDependency]
+    )
+    Values
+    (S.[referencing_id], S.[referenced_id], S.[is_PersistenceDependency])
+When Not MATCHED By SOURCE Then
+    Delete;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Merge Into [repo].[ProcedureInstanceDependency] (Persistence)'
+SET @source_object = '[repo].[Match_RepoObject_referenced_UspPersistence]'
+SET @target_object = '[repo].[ProcedureInstanceDependency]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 
 --
 --finish your own code here

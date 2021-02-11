@@ -3,6 +3,8 @@
     [has_different_sys_names]             AS               (CONVERT([bit],case when [RepoObject_schema_name]<>[SysObject_schema_name] OR [RepoObject_name]<>[SysObject_name] OR [RepoObject_type]<>[SysObject_type] then (1) else (0) end)),
     [has_execution_plan_issue]            BIT              NULL,
     [has_get_referenced_issue]            BIT              NULL,
+    [InheritanceDefinition]               NVARCHAR (4000)  NULL,
+    [InheritanceType]                     TINYINT          NULL,
     [is_repo_managed]                     BIT              NULL,
     [is_SysObject_missing]                BIT              NULL,
     [modify_dt]                           DATETIME         CONSTRAINT [DF_RepoObject_modify_dt] DEFAULT (getdate()) NOT NULL,
@@ -33,6 +35,8 @@
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 

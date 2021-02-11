@@ -48,7 +48,6 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 
 === Requirements Overview
 
-
 // . Kombination von Handarbeit und Werkzeugverwendung
 // ** Die Kombination von _Handarbeit ohne Tools_ und der _Verwendung von Tools_ ist einfach möglich. Es darf *keine Einbahnstraße* geben.
 // ** Ein *Entwickler wird nicht zum Sklaven* der Werkzeuge oder der Methoden, sondern kann jederzeit wie ein Handwerker selbst entscheiden kann, in welchem Umfang er welche Werkzeuge zu seiner Unterstützung verwenden will, oder eben nicht.
@@ -173,3 +172,16 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 |  
 | wants a well documented DWH
 |===
+
+=== Alternatives
+
+==== Repository based database generators
+
+// Es gibt kommerzielle Werkzeuge, mit denen Struktur und Funktion von relationalen und analytischen Datenbanken über ein Repository definiert werden, um daraus den Code dieser Datenbanken zu generieren. Bei diesen Werkzeugen handelt es sich um Einbahnstraßen Repository => Zieldatenbank. Man kann mit diesen Werkzeugen sehr erfolgreich arbeiten, wenn man die vorgesehenen Methoden und Ansätze akzeptiert. Mein subjektives Loblied auf den AnalyticsCreator gibt es hier (auf Deutsch): http://analyticscreator.aisberg.de/2020-04-26-warum-analyticscreator/[Warum ich seit 2017 den AnalyticsCreator verwende].
+
+There are commercial tools that define the structure and function of relational and analytical databases via a repository in order to generate the code of these databases. These tools are _one-way_: repository => target database. One can work very successfully with these tools if one accepts the methods and approaches provided. My subjective praise of AnalyticsCreator can be found here (in German): http://analyticscreator.aisberg.de/2020-04-26-warum-analyticscreator/[Warum ich seit 2017 den AnalyticsCreator verwende].
+
+- https://www.analyticscreator.com/[AnalyticsCreator]
+- Deltamaster Modeler (Additional program for the https://www.bissantz.de/software/?lang=en[Delta Master])
+- https://www.wherescape.com/[Wherescape]
+
