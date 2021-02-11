@@ -11,6 +11,7 @@ SELECT
  , [ro].[has_different_sys_names]
  , [ro].[has_execution_plan_issue]
  , [ro].[has_get_referenced_issue]
+ , [ro].[Inheritance_StringAggSeparatorSql]
  , [ro].[InheritanceDefinition]
  , [ro].[InheritanceType]
  , [ro].[is_repo_managed]
