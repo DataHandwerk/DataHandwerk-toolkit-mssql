@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE VIEW [repo].[RepoObject_gross]
 AS
 --
@@ -13,6 +11,8 @@ SELECT
  , [ro].[has_different_sys_names]
  , [ro].[has_execution_plan_issue]
  , [ro].[has_get_referenced_issue]
+ , [ro].[InheritanceDefinition]
+ , [ro].[InheritanceType]
  , [ro].[is_repo_managed]
  , [ro].[is_RepoObject_name_uniqueidentifier]
  , [ro].[is_SysObject_missing]
@@ -22,8 +22,8 @@ SELECT
  , [ro].[pk_index_guid]
  , [ro].[Repo_history_table_guid]
  , [ro].[Repo_temporal_type]
- , [ro].[RepoObject_Referencing_Count]
  , [ro].[RepoObject_fullname]
+ , [ro].[RepoObject_Referencing_Count]
  , [ro].[SysObject_fullname]
  , [ro].[SysObject_id]
  , [ro].[SysObject_modify_date]

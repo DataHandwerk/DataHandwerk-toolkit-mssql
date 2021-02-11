@@ -1006,6 +1006,8 @@ INNER JOIN repo.[type_level1type_level2type] AS T2
 WHERE NOT [T1].[RepoObjectColumn_guid] IS NULL
  AND [T1].[SysObject_RepoObjectColumn_guid] IS NULL
  AND NOT [T2].[level1type] IS NULL
+ --SchemaCompare has issues comparing extended properties for graph table columns, we exclude them
+ AND T1.Repo_graph_type IS NULL
  --the next is redundant, these kind of Objects should not exist in the database
  AND [T1].[is_SysObjectColumn_name_uniqueidentifier] = 0
 
@@ -1159,73 +1161,6 @@ EXEC repo.usp_ExecutionLog_insert
  , @source_object = @source_object
  , @target_object = @target_object
  , @deleted = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":2510,"Name":"INSERT missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[repo].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
-INSERT INTO repo.RepoObjectColumnProperty (
- [RepoObjectColumn_guid]
- , [property_name]
- , [property_value]
- )
-SELECT DISTINCT [RepoObjectColumn_guid]
- , [property_name]
- , [property_value]
-FROM repo.RepoObjectColumnProperty_sys_repo AS T1
-WHERE [RepoObjectColumnProperty_id] IS NULL
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'INSERT missing'
-SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
-SET @target_object = '[repo].[RepoObjectColumnProperty]'
-
-EXEC repo.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":2610,"Name":"SET [RepoObjectColumnProperty_property_value] = [property_value]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[repo].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
---update link table [repo].[RepoObjectColumnProperty] via view
-UPDATE repo.RepoObjectColumnProperty_sys_repo
-SET [RepoObjectColumnProperty_property_value] = [property_value]
-WHERE NOT [RepoObjectColumnProperty_id] IS NULL
- AND [RepoObjectColumnProperty_property_value] <> [property_value]
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [RepoObjectColumnProperty_property_value] = [property_value]'
-SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
-SET @target_object = '[repo].[RepoObjectColumnProperty]'
-
-EXEC repo.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":5200,"Name":"[graph].[usp_PERSIST_RepoObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/

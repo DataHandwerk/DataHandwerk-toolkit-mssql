@@ -3,9 +3,11 @@
 
 
 
+
+
 -- Alter View Parameter_default
 /*
-merge this view into [repo].[Parameter]:
+--merge this view into [repo].[Parameter]:
 
 EXEC [repo].[usp_init_parameter]
 
@@ -84,13 +86,6 @@ SELECT [Parameter_name] = 'Hist_Table_name_suffix'
 
 UNION ALL
 
-SELECT [Parameter_name] = 'inherit_property_object_type_u'
- , [sub_Parameter] = N''
- , [Parameter_desciption] = N'TINYINT; inherit property for object type U (user table): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
- , [Parameter_default_value] = CAST(0 AS TINYINT)
-
-UNION ALL
-
 SELECT [Parameter_name] = 'RepoObjectColumn_column_id_OrderBy'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'used in repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id to define the order of columns'
@@ -106,47 +101,89 @@ ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other 
 
 UNION ALL
 
-SELECT [Parameter_name] = 'inherit_property_object_type_u'
- , [sub_Parameter] = N'MS_Description'
- , [Parameter_desciption] = N'TINYINT; inherit property for object type U (user table): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
- , [Parameter_default_value] = CAST(0 AS TINYINT)
---
-
-UNION ALL
-
-SELECT [Parameter_name] = 'inherit_property_object_type_v'
+SELECT [Parameter_name] = 'InheritanceDefinition_column'
  , [sub_Parameter] = N''
- , [Parameter_desciption] = N'TINYINT; inherit property for object type V (view): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
- , [Parameter_default_value] = CAST(0 AS TINYINT)
+ , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+ , [Parameter_default_value] = CAST(NULL AS NVARCHAR(4000))
 
 UNION ALL
 
-SELECT [Parameter_name] = 'inherit_property_column'
+SELECT [Parameter_name] = 'InheritanceDefinition_column'
+ , [sub_Parameter] = N'MS_Description'
+ , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+ , [Parameter_default_value] = CAST('COALESCE(this.[Repo_definition], repo.fs_get_RepoObjectColumnProperty_nvarchar(predecessor.[RepoObjectColumn_guid], ''MS_Description''))' AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceDefinition_object'
  , [sub_Parameter] = N''
- , [Parameter_desciption] = N'TINYINT; inherit property for column: 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
+ , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+ , [Parameter_default_value] = CAST(NULL AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceDefinition_object'
+ , [sub_Parameter] = N'MS_Description'
+ , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+ , [Parameter_default_value] = CAST(NULL AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceType_column'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'TINYINT; InheritanceType for column: possible values in [repo].[InheritanceType]'
  , [Parameter_default_value] = CAST(0 AS TINYINT)
 
 UNION ALL
 
-SELECT [Parameter_name] = 'inherit_property_object_type_v'
+SELECT [Parameter_name] = 'InheritanceType_column'
  , [sub_Parameter] = N'MS_Description'
- , [Parameter_desciption] = N'TINYINT; inherit property for object type V (view): 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
- , [Parameter_default_value] = CAST(0 AS TINYINT)
---
-
-UNION ALL
-
-SELECT [Parameter_name] = 'inherit_property_column'
- , [sub_Parameter] = N'MS_Description'
- , [Parameter_desciption] = N'TINYINT; inherit property for column: 0 do not inherit, 11 inherit if NULL, 12 inherit if NULL or empty, 21 inherit common column pattern for other, 22 pattern for all, 31 inherit for all'
+ , [Parameter_desciption] = N'TINYINT; InheritanceType for column: possible values in [repo].[InheritanceType]'
  , [Parameter_default_value] = CAST(0 AS TINYINT)
 
 UNION ALL
 
-SELECT [Parameter_name] = 'inherit_property_column_pattern'
+SELECT [Parameter_name] = 'InheritanceType_object'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+ , [Parameter_default_value] = CAST(0 AS TINYINT)
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceType_object'
  , [sub_Parameter] = N'MS_Description'
- , [Parameter_desciption] = N'use with "inherit_property_column" = 31 inherit (use pattern). todo: define possible values'
- , [Parameter_default_value] = CAST(N'' AS NVARCHAR(4000))
+ , [Parameter_desciption] = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+ , [Parameter_default_value] = CAST(0 AS TINYINT)
+
+----todo: Warum sollte es eine Unterscheidung zwischen Sichten und Tabellen geben?
+--UNION ALL
+
+--SELECT [Parameter_name] = 'InheritanceType_object_type_u'
+-- , [sub_Parameter] = N''
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [repo].[InheritanceType]'
+-- , [Parameter_default_value] = CAST(0 AS TINYINT)
+
+--UNION ALL
+
+--SELECT [Parameter_name] = 'InheritanceType_object_type_u'
+-- , [sub_Parameter] = N'MS_Description'
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [repo].[InheritanceType]'
+-- , [Parameter_default_value] = CAST(0 AS TINYINT)
+----
+
+--UNION ALL
+
+--SELECT [Parameter_name] = 'InheritanceType_object_type_v'
+-- , [sub_Parameter] = N''
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [repo].[InheritanceType]'
+-- , [Parameter_default_value] = CAST(0 AS TINYINT)
+
+--UNION ALL
+
+--SELECT [Parameter_name] = 'InheritanceType_object_type_v'
+-- , [sub_Parameter] = N'MS_Description'
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [repo].[InheritanceType]'
+-- , [Parameter_default_value] = CAST(0 AS TINYINT)
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'dd8f291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Parameter_default';

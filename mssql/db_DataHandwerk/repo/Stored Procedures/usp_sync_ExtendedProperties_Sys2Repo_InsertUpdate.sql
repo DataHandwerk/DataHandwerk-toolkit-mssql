@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+﻿CREATE   PROCEDURE [repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -63,64 +63,37 @@ EXEC repo.usp_ExecutionLog_insert
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-TRUNCATE TABLE [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+/*{"ReportUspStep":[{"Number":100,"Name":"DECLARE","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+DECLARE
+ --
+ @property_name NVARCHAR(128)
+ , @property_value SQL_VARIANT
+ , @schema_name NVARCHAR(128)
+ , @level0type VARCHAR(128)
+ , @level0name NVARCHAR(128)
+ , @level1type VARCHAR(128)
+ , @level1name NVARCHAR(128)
+ , @level2type VARCHAR(128)
+ , @level2name NVARCHAR(128)
+
+/*{"ReportUspStep":[{"Number":310,"Name":"repo.RepoObjectProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_sys_repo]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
+INSERT INTO repo.RepoObjectProperty (
+ [RepoObject_guid]
+ , [property_name]
+ , [property_value]
+ )
+SELECT DISTINCT [RepoObject_guid]
+ , [property_name]
+ , [property_value]
+FROM repo.RepoObjectProperty_sys_repo AS T1
+WHERE [RepoObjectProperty_id] IS NULL
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'truncate persistence target'
-SET @source_object = NULL
-SET @target_object = '[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]'
-
-EXEC repo.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @deleted = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-INSERT INTO 
- [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
- (
-  [index_column_id]
-, [index_guid]
-, [is_descending_key]
-, [referenced_RepoObject_guid]
-, [referenced_RepoObjectColumn_guid]
-, [referencing_RepoObject_guid]
-, [referencing_RepoObjectColumn_guid]
-, [RowNumberInReferencing]
-)
-SELECT
-  [index_column_id]
-, [index_guid]
-, [is_descending_key]
-, [referenced_RepoObject_guid]
-, [referenced_RepoObjectColumn_guid]
-, [referencing_RepoObject_guid]
-, [referencing_RepoObjectColumn_guid]
-, [RowNumberInReferencing]
-
-FROM [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing] AS S
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'insert all'
-SET @source_object = '[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]'
-SET @target_object = '[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]'
+SET @step_name = 'repo.RepoObjectProperty - INSERT'
+SET @source_object = '[repo].[RepoObjectProperty_sys_repo]'
+SET @target_object = '[repo].[RepoObjectProperty]'
 
 EXEC repo.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -137,6 +110,104 @@ EXEC repo.usp_ExecutionLog_insert
  , @source_object = @source_object
  , @target_object = @target_object
  , @inserted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":320,"Name":"repo.RepoObjectProperty - UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_sys_repo]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+--update table [repo].[RepoObjectProperty] via view
+UPDATE repo.RepoObjectProperty_sys_repo
+SET [RepoObjectProperty_property_value] = [property_value]
+WHERE NOT [RepoObjectProperty_id] IS NULL
+ AND [RepoObjectProperty_property_value] <> [property_value]
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'repo.RepoObjectProperty - UPDATE'
+SET @source_object = '[repo].[RepoObjectProperty_sys_repo]'
+SET @target_object = '[repo].[RepoObjectProperty]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":410,"Name":"repo.RepoObjectColumnProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[repo].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
+INSERT INTO repo.RepoObjectColumnProperty (
+ [RepoObjectColumn_guid]
+ , [property_name]
+ , [property_value]
+ )
+SELECT DISTINCT [RepoObjectColumn_guid]
+ , [property_name]
+ , [property_value]
+FROM repo.RepoObjectColumnProperty_sys_repo AS T1
+WHERE [RepoObjectColumnProperty_id] IS NULL
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'repo.RepoObjectColumnProperty - INSERT'
+SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
+SET @target_object = '[repo].[RepoObjectColumnProperty]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":420,"Name":"repo.RepoObjectColumnProperty - UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[repo].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+--update table [repo].[RepoObjectColumnProperty] via view
+UPDATE repo.RepoObjectColumnProperty_sys_repo
+SET [RepoObjectColumnProperty_property_value] = [property_value]
+WHERE NOT [RepoObjectColumnProperty_id] IS NULL
+ AND [RepoObjectColumnProperty_property_value] <> [property_value]
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'repo.RepoObjectColumnProperty - UPDATE'
+SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
+SET @target_object = '[repo].[RepoObjectColumnProperty]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
 -- Logging END --
 
 
@@ -166,6 +237,3 @@ EXEC repo.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ac7ed154-6b62-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
-

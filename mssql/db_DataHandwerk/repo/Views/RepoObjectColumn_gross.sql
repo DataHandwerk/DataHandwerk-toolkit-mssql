@@ -1,10 +1,15 @@
 ﻿
+
+
+
 CREATE VIEW [repo].[RepoObjectColumn_gross]
 AS
 --
 SELECT
        [roc].[RepoObjectColumn_guid]
      , [roc].[has_different_sys_names]
+     , [roc].[InheritanceDefinition]
+     , [roc].[InheritanceType]
      , [roc].[is_persistence_no_check]
      , [roc].[is_persistence_no_include]
      , [roc].[is_persistence_no_update]
