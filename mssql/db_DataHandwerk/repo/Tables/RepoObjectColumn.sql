@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [repo].[RepoObjectColumn] (
     [RepoObjectColumn_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_guid] DEFAULT (newsequentialid()) NOT NULL,
+    [Inheritance_StringAggSeparatorSql]         NVARCHAR (4000)  NULL,
     [InheritanceDefinition]                     NVARCHAR (4000)  NULL,
     [InheritanceType]                           TINYINT          NULL,
     [is_persistence_no_check]                   BIT              NULL,
@@ -37,6 +38,8 @@
     CONSTRAINT [UK_RepoObjectColumn__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC, [RepoObjectColumn_name] ASC),
     CONSTRAINT [UK_RepoObjectColumn__SysNames] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [SysObjectColumn_name] ASC)
 );
+
+
 
 
 

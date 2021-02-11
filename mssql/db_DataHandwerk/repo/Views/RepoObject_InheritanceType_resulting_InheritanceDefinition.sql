@@ -1,21 +1,22 @@
 ﻿
+
 /*
 --The result must be grouped to determine all required calculation variants of an inheritance
 
 SELECT is_StringAggAllSources
  , resulting_InheritanceDefinition
-FROM repo.RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition
+FROM repo.RepoObject_InheritanceType_resulting_InheritanceDefinition
 GROUP BY is_StringAggAllSources
  , resulting_InheritanceDefinition
 HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 
 */
 
-CREATE VIEW [repo].[RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition]
+CREATE VIEW [repo].[RepoObject_InheritanceType_resulting_InheritanceDefinition]
 AS
 SELECT
  --
- [inh].[RepoObjectColumn_guid]
+ [inh].[RepoObject_guid]
  , [inh].[property_name]
  , [inh].[property_value]
  , [inh].[InheritanceType]
@@ -47,11 +48,12 @@ SELECT
     )
    OR [InheritanceType] = 13
    OR [InheritanceType] = 14
-   THEN ISNULL([InheritanceDefinition], '[repo].[fs_get_RepoObjectColumnProperty_nvarchar]([referenced].[RepoObjectColumn_guid], [referencing].[property_name])')
+   THEN ISNULL([InheritanceDefinition], '[repo].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], [referencing].[property_name])')
   END
  --normally the result from [resulting_InheritanceDefinition] should not be empty to be inherited
  --this will avoid existing property_value to be deleted
  --but inheritance can be forced (dangerous!)
  , [inh].[InheritanceDefinition]
- , [inh].[RepoObjectColumn_name]
-FROM [repo].[RepoObjectColumn_InheritanceType_InheritanceDefinition] AS inh
+ , [inh].[RepoObject_fullname]
+ , inh.RepoObject_type
+FROM [repo].[RepoObject_InheritanceType_InheritanceDefinition] AS inh

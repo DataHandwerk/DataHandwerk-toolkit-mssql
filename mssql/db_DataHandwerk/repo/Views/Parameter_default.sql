@@ -5,11 +5,29 @@
 
 
 
+
+
+
+
+
 -- Alter View Parameter_default
 /*
 --merge this view into [repo].[Parameter]:
 
 EXEC [repo].[usp_init_parameter]
+
+--remove, what not is defined here (Dangerous: possible data loss)
+--do not delete based on [sub_Parameter]!
+--they can always be added!
+
+DELETE T
+FROM [repo].[Parameter] T
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [repo].[Parameter_default] S
+  WHERE S.[Parameter_name] = T.[Parameter_name]
+  )
+
 
 */
 CREATE VIEW [repo].[Parameter_default]
@@ -101,6 +119,27 @@ ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other 
 
 UNION ALL
 
+SELECT [Parameter_name] = 'Inheritance_StringAggSeparatorSql_column'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
+ , [Parameter_default_value] = CAST(NULL AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Inheritance_StringAggSeparatorSql_object'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
+ , [Parameter_default_value] = CAST(NULL AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Inheritance_StringAggSeparatorSql_object'
+ , [sub_Parameter] = N'ReferencedObjectList'
+ , [Parameter_desciption] = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
+ , [Parameter_default_value] = CAST(CHAR(13)+CHAR(10) AS NVARCHAR(4000))
+
+UNION ALL
+
 SELECT [Parameter_name] = 'InheritanceDefinition_column'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
@@ -111,7 +150,7 @@ UNION ALL
 SELECT [Parameter_name] = 'InheritanceDefinition_column'
  , [sub_Parameter] = N'MS_Description'
  , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
- , [Parameter_default_value] = CAST('COALESCE(this.[Repo_definition], repo.fs_get_RepoObjectColumnProperty_nvarchar(predecessor.[RepoObjectColumn_guid], ''MS_Description''))' AS NVARCHAR(4000))
+ , [Parameter_default_value] = CAST('CAST(COALESCE(referencing.[Repo_definition], repo.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(4000))' AS NVARCHAR(4000))
 
 UNION ALL
 
@@ -126,6 +165,13 @@ SELECT [Parameter_name] = 'InheritanceDefinition_object'
  , [sub_Parameter] = N'MS_Description'
  , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
  , [Parameter_default_value] = CAST(NULL AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceDefinition_object'
+ , [sub_Parameter] = N'ReferencedObjectList'
+ , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+ , [Parameter_default_value] = CAST('referenced.[RepoObject_fullname]' AS NVARCHAR(4000))
 
 UNION ALL
 
@@ -154,6 +200,13 @@ SELECT [Parameter_name] = 'InheritanceType_object'
  , [sub_Parameter] = N'MS_Description'
  , [Parameter_desciption] = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
  , [Parameter_default_value] = CAST(0 AS TINYINT)
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceType_object'
+ , [sub_Parameter] = N'ReferencedObjectList'
+ , [Parameter_desciption] = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+ , [Parameter_default_value] = CAST(14 AS TINYINT)
 
 ----todo: Warum sollte es eine Unterscheidung zwischen Sichten und Tabellen geben?
 --UNION ALL
