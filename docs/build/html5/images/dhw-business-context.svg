@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="857px" preserveAspectRatio="none" style="width:574px;height:857px;" version="1.1" viewBox="0 0 574 857" width="574px" zoomAndPan="magnify"><defs><filter height="300%" id="fynonhpsuv1jm" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[f67af0e127f5eb5319ab50605a0767cb]
+cluster mssql_dhw--><polygon fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" points="22,157,119,157,126,180.6094,226,180.6094,226,422,22,422,22,157" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="22" x2="126" y1="180.6094" y2="180.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="91" x="26" y="173.5332">MS SQL DHW</text><!--MD5=[f53b2f8dece910fd17faac8a392a6e63]
+cluster mssql_dev--><polygon fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" points="254,323,346,323,353,346.6094,458,346.6094,458,549,254,549,254,323" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="254" x2="353" y1="346.6094" y2="346.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="86" x="258" y="339.5332">MS SQL Dev</text><!--MD5=[ca166401d3b621ccd9b8108c39f7fde6]
+cluster mssql_prod--><polygon fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" points="255,599,396,599,403,622.6094,457,622.6094,457,698,255,698,255,599" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="255" x2="403" y1="622.6094" y2="622.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="135" x="259" y="615.5332">MS SQL Production</text><!--MD5=[2f2e5e9d8a0fa6cdc05d457d8707c1da]
+entity project_a_repo_db--><path d="M38,203 C38,193 124,193 124,193 C124,193 210,193 210,203 L210,229.6094 C210,239.6094 124,239.6094 124,239.6094 C124,239.6094 38,239.6094 38,229.6094 L38,203 " fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M38,203 C38,213 124,213 124,213 C124,213 210,213 210,203 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="152" x="48" y="231.5332">Project A Repository DB</text><!--MD5=[726ba7196042ae04883594634835533c]
+entity project_a_dwh_db--><path d="M56,369 C56,359 124,359 124,359 C124,359 192,359 192,369 L192,395.6094 C192,405.6094 124,405.6094 124,405.6094 C124,405.6094 56,405.6094 56,395.6094 L56,369 " fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M56,369 C56,379 124,379 124,379 C124,379 192,379 192,369 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="116" x="66" y="397.5332">Project A DWH DB</text><!--MD5=[6a5c501ec469f487a76ffb38de3efab8]
+entity project_b_repo_db--><path d="M270,369 C270,359 356,359 356,359 C356,359 442,359 442,369 L442,395.6094 C442,405.6094 356,405.6094 356,405.6094 C356,405.6094 270,405.6094 270,395.6094 L270,369 " fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M270,369 C270,379 356,379 356,379 C356,379 442,379 442,369 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="152" x="280" y="397.5332">Project B Repository DB</text><!--MD5=[4da47c55621330202b2174f3850c089b]
+entity project_b_dwh_db--><path d="M288,496 C288,486 356,486 356,486 C356,486 424,486 424,496 L424,522.6094 C424,532.6094 356,532.6094 356,532.6094 C356,532.6094 288,532.6094 288,522.6094 L288,496 " fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M288,496 C288,506 356,506 356,506 C356,506 424,506 424,496 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="116" x="298" y="524.5332">Project B DWH DB</text><!--MD5=[d66baa12f43c8da2d2000900bd725e76]
+entity project_b_prod_dwh_db--><path d="M271,645 C271,635 356,635 356,635 C356,635 441,635 441,645 L441,671.6094 C441,681.6094 356,681.6094 356,681.6094 C356,681.6094 271,681.6094 271,671.6094 L271,645 " fill="#FFFFFF" filter="url(#fynonhpsuv1jm)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M271,645 C271,655 356,655 356,655 C356,655 441,655 441,645 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="150" x="281" y="673.5332">Project B Prod DWH DB</text><!--MD5=[65d8dcfbf84fda8a3da72820bac93884]
+entity dhw_developer--><ellipse cx="229" cy="18" fill="#FEFECE" filter="url(#fynonhpsuv1jm)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M229,26 L229,53 M216,34 L242,34 M229,53 L216,68 M229,53 L242,68 " fill="none" filter="url(#fynonhpsuv1jm)" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="207" x="125.5" y="89.5332">DHW (DataHandwerk) Developer</text><!--MD5=[88887d6be6ee77bfda72997e347335b0]
+entity dwh_developer--><ellipse cx="512" cy="184" fill="#FEFECE" filter="url(#fynonhpsuv1jm)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M512,192 L512,219 M499,200 L525,200 M512,219 L499,234 M512,219 L525,234 " fill="none" filter="url(#fynonhpsuv1jm)" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="101" x="461.5" y="255.5332">DWH Developer</text><!--MD5=[4ff23e7284127381bbef0aef868991b9]
+entity project_b_dwh_user--><ellipse cx="356" cy="772" fill="#FEFECE" filter="url(#fynonhpsuv1jm)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M356,780 L356,807 M343,788 L369,788 M356,807 L343,822 M356,807 L369,822 " fill="none" filter="url(#fynonhpsuv1jm)" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="126" x="293" y="843.5332">Project B DWH User</text><!--MD5=[53494eccfa9b57eff4e104480b0f0297]
+link dhw_developer to project_a_repo_db--><path d="M202.23,93.31 C183.05,123.27 157.77,162.75 141.22,188.61 " fill="none" id="dhw_developer-&gt;project_a_repo_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="138.43,192.96,146.6615,187.5524,141.1338,188.7541,139.9321,183.2264,138.43,192.96" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="50" x="184" y="137.4951">develops</text><!--MD5=[e1794716be35167a6ef43ea783109952]
+link dhw_developer to project_a_dwh_db--><path d="M264.69,93.1 C307.43,148.11 366.91,245.28 313,307 C304.3,316.96 266.63,311.04 254,315 C222.46,324.89 189.33,341.95 164.4,356.32 " fill="none" id="dhw_developer-&gt;project_a_dwh_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="159.85,358.97,169.6415,357.9084,164.1735,356.4586,165.6233,350.9907,159.85,358.97" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="336" y="221.9951">uses for testing</text><!--MD5=[cd8e7f574055698bfbf4715327d8d829]
+link dwh_developer to project_b_repo_db--><path d="M472.23,259.31 C443.49,289.52 405.56,329.4 380.97,355.25 " fill="none" id="dwh_developer-&gt;project_b_repo_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="377.44,358.96,386.5364,355.1844,380.8815,355.3329,380.733,349.678,377.44,358.96" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="28" x="444" y="303.4951">uses</text><!--MD5=[a7be6bda9c66c6e74508e7666c6ccb9d]
+link dwh_developer to project_b_dwh_db--><path d="M509.96,259.08 C505.98,304.43 494.29,377.54 460,430 C445.73,451.83 423.22,469.92 402.78,483.21 " fill="none" id="dwh_developer-&gt;project_b_dwh_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="398.46,485.97,408.1995,484.5064,402.6765,483.2828,403.9001,477.7599,398.46,485.97" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="50" x="502" y="387.9951">develops</text><!--MD5=[41809e0cde3f40cfecb9515d03a812ab]
+reverse link project_b_prod_dwh_db to project_b_dwh_user--><path d="M356,687.51 C356,708.67 356,738.04 356,761.94 " fill="none" id="project_b_prod_dwh_db&lt;-project_b_dwh_user" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="356,682.32,352,691.32,356,687.32,360,691.32,356,682.32" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="28" x="357" y="728.4951">uses</text><!--MD5=[63d06a7a3f91cfe36f62628f399cfe45]
+link project_a_repo_db to project_a_dwh_db--><path d="M93.07,244.11 C77.2,261.13 62.61,284.21 70,307 C75.72,324.63 87.34,341.58 98.34,354.84 " fill="none" id="project_a_repo_db-project_a_dwh_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="101.73,358.84,98.9479,349.3923,98.4913,355.0307,92.8529,354.5741,101.73,358.84" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="96.68,240.35,87.5607,244.0701,93.2165,243.9561,93.3305,249.6118,96.68,240.35" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="60" x="71" y="303.4951">connected</text><!--MD5=[e74634067fb40634b9e7bfdc4fc9f3cf]
+link project_b_repo_db to project_b_dwh_db--><path d="M356,411.34 C356,431.94 356,459.89 356,480.53 " fill="none" id="project_b_repo_db-project_b_dwh_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="356,485.61,360,476.61,356,480.61,352,476.61,356,485.61" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="356,406.14,352,415.14,356,411.14,360,415.14,356,406.14" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="60" x="357" y="452.4951">connected</text><!--MD5=[25c351e96c3c5288bc3983d2030da543]
+reverse link project_a_repo_db to project_b_repo_db--><path d="M160.51,243.31 C205.5,275.11 281.22,328.64 324.02,358.89 " fill="none" id="project_a_repo_db&lt;-project_b_repo_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="156.26,240.3,161.3037,248.7594,160.344,243.1845,165.9189,242.2249,156.26,240.3" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="135" x="248" y="303.4951">Database-Project DHW</text><!--MD5=[1aab78ea743458c095bf1f2610eefdb7]
+reverse link project_b_dwh_db to project_b_prod_dwh_db--><path d="M356,538.17 C356,566.04 356,608.54 356,634.59 " fill="none" id="project_b_dwh_db&lt;-project_b_prod_dwh_db" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="356,533.15,352,542.15,356,538.15,360,542.15,356,533.15" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="113" x="357" y="579.4951">Database-Project B</text><!--MD5=[8412dadc68a4d3fcf6b8ff39d0032ed0]
+@startuml
+skinparam componentStyle uml2
+
+actor "DHW (DataHandwerk) Developer" as dhw_developer
+actor "DWH Developer" as dwh_developer
+actor "Project B DWH User" as project_b_dwh_user
+
+package "MS SQL DHW" as mssql_dhw {
+  database "Project A Repository DB" as project_a_repo_db {
+  }
+  database  "Project A DWH DB" as project_a_dwh_db {
+  }
+}
+
+package "MS SQL Dev" as mssql_dev {
+  database "Project B Repository DB" as project_b_repo_db {
+  }
+  database  "Project B DWH DB" as project_b_dwh_db {
+  }
+}
+
+package "MS SQL Production" as mssql_prod {
+  database  "Project B Prod DWH DB" as project_b_prod_dwh_db {
+  }
+}
+
+
+dhw_developer - -> project_a_repo_db                     : develops
+dhw_developer - -> project_a_dwh_db                     : uses for testing
+
+dwh_developer - -> project_b_repo_db         : uses
+dwh_developer - -> project_b_dwh_db         : develops
+
+
+project_b_prod_dwh_db <- - project_b_dwh_user : uses
+
+
+project_a_repo_db <- -> project_a_dwh_db : connected
+project_b_repo_db <- -> project_b_dwh_db : connected
+
+project_a_repo_db <- - project_b_repo_db : Database-Project DHW
+
+project_b_dwh_db <- - project_b_prod_dwh_db : Database-Project B
+
+@enduml
+
+PlantUML version 1.2019.12(Sun Nov 03 11:24:54 CET 2019)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_281-b09
+Operating System: Windows 10
+Default Encoding: Cp1252
+Language: de
+Country: DE
+--></g></svg>

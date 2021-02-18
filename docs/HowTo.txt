@@ -1,4 +1,4 @@
-if doctoolchain is installed and included into the path, just call it from here:
+if doctoolchain is installed and included into the path, just call it from here (in VSC just open the Terminal):
 
 doctoolchain.bat . generateHTML
 

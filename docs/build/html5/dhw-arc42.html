@@ -534,6 +534,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_requirements_overview">1.1. Requirements Overview</a></li>
 <li><a href="#_quality_goals">1.2. Quality Goals</a></li>
 <li><a href="#_stakeholders">1.3. Stakeholders</a></li>
+<li><a href="#_alternatives">1.4. Alternatives</a></li>
 </ul>
 </li>
 <li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
@@ -553,7 +554,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
-<li><a href="#_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</a></li>
+<li><a href="#_repo_usp_main">6.1. [repo].[usp_main]</a></li>
 <li><a href="#_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</a></li>
 <li><a href="#">6.3. &#8230;&#8203;</a></li>
 <li><a href="#_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</a></li>
@@ -902,7 +903,29 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_alternatives">1.4. Alternatives</h3>
+<div class="sect3">
+<h4 id="_repository_based_database_generators">1.4.1. Repository based database generators</h4>
+<div class="paragraph">
+<p>There are commercial tools that define the structure and function of relational and analytical databases via a repository in order to generate the code of these databases. These tools are <em>one-way</em>: repository &#8658; target database. One can work very successfully with these tools if one accepts the methods and approaches provided. My subjective praise of AnalyticsCreator can be found here (in German): <a href="http://analyticscreator.aisberg.de/2020-04-26-warum-analyticscreator/">Warum ich seit 2017 den AnalyticsCreator verwende</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.analyticscreator.com/">AnalyticsCreator</a></p>
+</li>
+<li>
+<p>Deltamaster Modeler (Additional program for the <a href="https://www.bissantz.de/software/?lang=en">Delta Master</a>)</p>
+</li>
+<li>
+<p><a href="https://www.wherescape.com/">Wherescape</a></p>
+</li>
+</ul>
+</div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 </div>
@@ -971,18 +994,22 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 <h3 id="_business_context">3.1. Business Context</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/business-context.svg" alt="business context" width="415" height="218">
+<img src="./images/dhw-business-context.svg" alt="dhw business context" width="574" height="857">
 </div>
 </div>
 <div class="dlist">
 <dl>
+<dt class="hdlist1">DHW (DataHandwerk) Developer</dt>
+<dd>
+<p>Database developers who develop the toolkit</p>
+</dd>
 <dt class="hdlist1">DWH Developer</dt>
 <dd>
-<p>Database developer for whom this toolkit is created</p>
+<p>Database developers using the toolkit to develop DWH</p>
 </dd>
 <dt class="hdlist1">DWH User</dt>
 <dd>
-<p>User working with the DWH database</p>
+<p>End users consuming the DWH</p>
 </dd>
 </dl>
 </div>
@@ -991,17 +1018,40 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 <h3 id="_technical_context">3.2. Technical Context</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/technical-context.svg" alt="technical context" width="1732" height="609">
+<img src="./images/dhw-technical-context.svg" alt="dhw technical context" width="2047" height="668">
 </div>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System views and procedures</dt>
+<dd>
+<p>are the same in all databases</p>
+</dd>
+<dt class="hdlist1">Synonyms</dt>
+<dd>
+<p>are used to connect a repository database with a DWH database, based on System views and procedures. The connection can thus be easily changed.</p>
+</dd>
+<dt class="hdlist1">RepoObjects</dt>
+<dd>
+<p>are the basis of the toolkit. Columns, extended porperties, inidicies, references (dependencies) and other stuff are assigned to the RepoObjects. There is a synchronization with extended properties of objects and subobjects in the DWH. Thus, many (not all) metadata from the repository can be mapped directly in the DWH.</p>
+</dd>
+<dt class="hdlist1">Extended properties</dt>
+<dd>
+<p>can be defined in the DWH or in the repository. For their values there is a possibility of inheritance or filling based on parameters. Thus, descriptions can be inherited along the references, formulas of calculations can be written in descriptions, lists of referenced objects or columns can be created. This allows and simplifies the creation of documentation directly from the database - <em>documentation as code</em>.</p>
+</dd>
+<dt class="hdlist1">normal object</dt>
+<dd>
+<p>Objects created directly (or however) by the developer in the DWH.</p>
+</dd>
+<dt class="hdlist1">generated scripts</dt>
+<dd>
+<p>There are generators for procedures, tables (especially persistence with optional historization in temporal tables, including procedures to merge into these tables) and views (planned).</p>
+</dd>
+<dt class="hdlist1">objects, generated based on repo scripts</dt>
+<dd>
+<p>If a developer wishes, he can use the "generated scripts" to be assisted in the creation of objects.</p>
+</dd>
+</dl>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1019,6 +1069,44 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 <div class="content">
 <a class="image" href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/discussions"><img src="https://img.shields.io/badge/collaborate-in%20discussions-blue.svg" alt="collaborate in%20discussions blue"></a>
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The toolkit should fit into the usual working environment of a DWH developer. Therefore, the toolkit is based on repositories in the form of <strong>SQL Server databases</strong>. A developer can work with these databases the same way he works with other databases: with SSMS, Azure Data Studio = ADS, Visual Studio database projects and other tools.</p>
+</li>
+<li>
+<p>There is <strong>one (1) repository per target DWH</strong>.</p>
+</li>
+<li>
+<p>Repository database and DWH database are <strong>separate databases</strong> so that a DWH database is not unnecessarily filled up with ballast. This is especially important when the structure of the database is transferred to a production system.</p>
+</li>
+<li>
+<p>all repository databases have the <strong>same structure</strong>, they differ per DWH database only in content. This simplifies maintenance and upgrades.</p>
+</li>
+<li>
+<p>Repository databases are connected via <strong>synonyms</strong> on system views and procedures of the DWH database. These system views always have the same structure (within a SQL Server version). Synomyms can be easily deleted by script and created with reference to another database.</p>
+</li>
+<li>
+<p>The current development is based on <strong>SQL Server version 2019</strong>. One reason is the improved support of <strong>graph databases</strong>. According to the current concept, the dependencies of objects should also be stored in graph databases.</p>
+</li>
+<li>
+<p>It seems reasonable to add missing functionality of standard SQL Server tools (SSMS, ADS, VS) via one or more different <strong>additional GUI</strong>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>better input of multi-line strings</p>
+</li>
+<li>
+<p>linking of tables during data entry (filters and lookup tables)</p>
+</li>
+<li>
+<p>graphical interactive display of references (dependencies)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1038,73 +1126,58 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 </div>
 <div class="sect2">
 <h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
-<div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dhw-whitebox-overall-system.svg" alt="dhw whitebox overall system" width="1088" height="599">
+</div>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p><em>&lt;text explanation&gt;</em></p>
-</dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
-<dd>
-<p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
-</dd>
-<dt class="hdlist1">Important Interfaces</dt>
-<dd>
-<p><em>&lt;Description of important interfaces&gt;</em></p>
-</dd>
 </dl>
 </div>
-<div class="sect3">
-<h4 id="_name_black_box_1">5.1.1. &lt;Name black box 1&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;Purpose/Responsibility&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;Interface(s)&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Quality/Performance Characteristics&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Directory/File Location&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Fulfilled Requirements&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(optional) Open Issues/Problems/Risks&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_black_box_2">5.1.2. &lt;Name black box 2&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;black box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_black_box_n">5.1.3. &lt;Name black box n&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;black box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_1">5.1.4. &lt;Name interface 1&gt;</h4>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_m">5.1.5. &lt;Name interface m&gt;</h4>
-
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. DHW1::black_boxes</caption>
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 85.7143%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connection with DWH database and various settings for the behavior of the processes in the repository.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RepoObject</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Central construct to represent objects (tables, views, procedures, functions, index, &#8230;&#8203;) and their subunits (columns, index columns, procedure parameters, &#8230;&#8203;), their properties and relationships between them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determination and management of references (dependencies) between RepoObjects or RepoObject columns</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inheritance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inheritance or determination of extended properties for RepoObjects or RepoObject columns, based on references</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SQL Parser</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parse the code of views to extract column-level references or other logic from them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generators</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script generators for tables, procedures and views; especially also for tables for persisting views (with optional history tables)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GUI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional GUI for more convenient data entry than with standard tools like SSMS or ADS</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_level_2">5.2. Level 2</h3>
 <div class="sect3">
-<h4 id="_white_box_building_block_1">5.2.1. White Box <em>&lt;building block 1&gt;</em></h4>
+<h4 id="_white_box_repoobject">5.2.1. White Box RepoObject</h4>
 <div class="paragraph">
 <p><em>&lt;white box template&gt;</em></p>
 </div>
@@ -1163,17 +1236,60 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
-</li>
-<li>
-<p><em>&lt;insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.&gt;</em></p>
-</li>
-</ul>
+<h3 id="_repo_usp_main">6.1. [repo].[usp_main]</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dhw-tree-ExecutionLog-usp_main.svg" alt="dhw tree ExecutionLog usp main" width="572" height="208">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dhw-sequence-usp_main.svg" alt="dhw sequence usp main" width="3926" height="465">
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repo_usp_sync_guid_repoobject">6.1.1. [repo].[usp_sync_guid_RepoObject]</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dhw-sequence-usp_sync_guid_RepoObject.svg" alt="dhw sequence usp sync guid RepoObject" width="1738" height="1158">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repo_usp_sync_guid_repoobjectcolumn">6.1.2. [repo].[usp_sync_guid_RepoObjectColumn]</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dhw-sequence-usp_sync_guid_RepoObjectColumn.svg" alt="dhw sequence usp sync guid RepoObjectColumn" width="1376" height="1425">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repo_usp_update_referencing_count">6.1.3. [repo].[usp_update_Referencing_Count]</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dhw-sequence-usp_update_Referencing_Count.svg" alt="dhw sequence usp update Referencing Count" width="916" height="283">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repo_usp_index_inheritance">6.1.4. [repo].[usp_index_inheritance]</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dhw-sequence-usp_index_inheritance.svg" alt="dhw sequence usp index inheritance" width="3293" height="1351">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repo_usp_repoobjectcolumn_update_repoobjectcolumn_column_id">6.1.5. [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_repo_usp_generatorusp_insert_update_persistence">6.1.6. [repo].[usp_GeneratorUsp_insert_update_persistence]</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/usp_GeneratorUsp_insert_update_persistence.svg" alt="usp GeneratorUsp insert update persistence" width="1561" height="361">
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
