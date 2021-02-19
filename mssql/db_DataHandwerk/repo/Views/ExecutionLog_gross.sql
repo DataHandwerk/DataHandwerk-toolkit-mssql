@@ -1,4 +1,9 @@
-﻿CREATE VIEW [repo].[ExecutionLog_gross]
+﻿
+
+--, [plantUML_Sequence] = --
+--  --combine the result with
+--  --skinparam maxmessagesize 250
+CREATE VIEW [repo].[ExecutionLog_gross]
 AS
 --
 SELECT [id]
@@ -51,6 +56,7 @@ SELECT [id]
  --
  , [created_dt_min__execution_instance_guid] = MIN([created_dt]) OVER (PARTITION BY [execution_instance_guid])
  , [created_dt_max__execution_instance_guid] = MAX([created_dt]) OVER (PARTITION BY [execution_instance_guid])
+ , [duration__current_execution_guid] = DATEDIFF([ss], MIN([created_dt]) OVER (PARTITION BY [current_execution_guid]), MAX([created_dt]) OVER (PARTITION BY [current_execution_guid]))
  , [duration__execution_instance_guid] = DATEDIFF([ss], MIN([created_dt]) OVER (PARTITION BY [execution_instance_guid]), MAX([created_dt]) OVER (PARTITION BY [execution_instance_guid]))
  --
  , [plantUML_Sequence] = --
@@ -97,6 +103,11 @@ SELECT [id]
          THEN '?->x '
         ELSE ' ->x '
         END
+     ELSE CASE 
+       WHEN [source_object] IS NULL
+        THEN '?--> '
+       ELSE ' --> '
+       END
      END
     , CASE 
      WHEN NOT [target_object] IS NULL

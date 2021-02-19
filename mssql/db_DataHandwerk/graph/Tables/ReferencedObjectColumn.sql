@@ -26,6 +26,8 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [ix_fromid]
     ON [graph].[ReferencedObjectColumn]($from_id ASC, $to_id ASC);
