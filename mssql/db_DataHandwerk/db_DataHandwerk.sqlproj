@@ -75,6 +75,9 @@
     <Folder Include="graph\Tables\" />
     <Folder Include="graph\Views\" />
     <Folder Include="graph\Stored Procedures\" />
+    <Folder Include="_scripts" />
+    <Folder Include="_scripts\StaticData" />
+    <Folder Include="_scripts\StaticData\dhw_self" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -297,10 +300,29 @@
     <Build Include="repo\Views\RepoObject_InheritanceType_resulting_InheritanceDefinition.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumn_Inheritance.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObject_Inheritance.sql" />
+    <None Include="_scripts\StaticData\dhw_self\21_dhw_self_repo_GeneratorUsp.sql" />
+    <None Include="_scripts\StaticData\dhw_self\_dhw_self_repo_.sql" />
+    <None Include="_scripts\StaticData\dhw_self\22_dhw_self_repo_GeneratorUspParameter.sql" />
+    <None Include="_scripts\StaticData\dhw_self\23_dhw_self_repo_GeneratorUspStep.sql" />
+    <None Include="_scripts\StaticData\dhw_self\31_dhw_self_repo_ProcedureInstance.sql" />
+    <None Include="_scripts\StaticData\dhw_self\32_dhw_self_repo_ProcedureInstanceDependency.sql" />
+    <None Include="_scripts\StaticData\dhw_self\33_dhw_self_repo_Workflow.sql" />
+    <None Include="_scripts\StaticData\dhw_self\34_dhw_self_repo_WorkflowStep.sql" />
+    <None Include="_scripts\StaticData\dhw_self\41_dhw_self_repo_RepoObject.sql" />
+    <None Include="_scripts\StaticData\dhw_self\42_dhw_self_repo_RepoObject_persistence.sql" />
+    <None Include="_scripts\StaticData\dhw_self\43_dhw_self_repo_RepoObject_SqlModules.sql" />
+    <None Include="_scripts\StaticData\dhw_self\51_dhw_self_repo_RepoObjectColumn.sql" />
+    <None Include="_scripts\StaticData\dhw_self\61_dhw_self_repo_Index_virtual.sql" />
+    <None Include="_scripts\StaticData\dhw_self\62_dhw_self_repo_IndexColumn_virtual.sql" />
+    <None Include="_scripts\StaticData\dhw_self\63_dhw_self_repo_Index_Settings.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="repo\Functions\ftv_ExecutionLog_tree.sql" />
+    <Build Include="repo\Stored Procedures\usp_generate_merge.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
     <None Include="project_2_db.scmp" />
+    <None Include="_scripts\StaticData\dhw_self\11_dhw_self_repo_parameter.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">

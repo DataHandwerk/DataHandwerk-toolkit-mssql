@@ -271,3 +271,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e4f67
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fa4a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'usp_persistence_RepoObject_guid';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd6b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'InheritanceType';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd5b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'InheritanceDefinition';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd4b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'Inheritance_StringAggSeparatorSql';
+

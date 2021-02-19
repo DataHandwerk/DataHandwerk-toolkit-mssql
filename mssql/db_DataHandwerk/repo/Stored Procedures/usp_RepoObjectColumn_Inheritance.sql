@@ -408,3 +408,6 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '60b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumn_Inheritance';
+

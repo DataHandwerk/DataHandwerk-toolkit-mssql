@@ -10,6 +10,7 @@
 
 
 
+
 -- Alter View Parameter_default
 /*
 --merge this view into [repo].[Parameter]:
@@ -126,6 +127,13 @@ SELECT [Parameter_name] = 'Inheritance_StringAggSeparatorSql_column'
 
 UNION ALL
 
+SELECT [Parameter_name] = 'Inheritance_StringAggSeparatorSql_column'
+ , [sub_Parameter] = N'ReferencedObjectColumnList'
+ , [Parameter_desciption] = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
+ , [Parameter_default_value] = CAST(CHAR(13)+CHAR(10) AS NVARCHAR(4000))
+
+UNION ALL
+
 SELECT [Parameter_name] = 'Inheritance_StringAggSeparatorSql_object'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
@@ -151,6 +159,13 @@ SELECT [Parameter_name] = 'InheritanceDefinition_column'
  , [sub_Parameter] = N'MS_Description'
  , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
  , [Parameter_default_value] = CAST('CAST(COALESCE(referencing.[Repo_definition], repo.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(4000))' AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceDefinition_column'
+ , [sub_Parameter] = N'ReferencedObjectColumnList'
+ , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+ , [Parameter_default_value] = CAST('referenced.[RepoObjectColumn_fullname]' AS NVARCHAR(4000))
 
 UNION ALL
 
@@ -186,6 +201,13 @@ SELECT [Parameter_name] = 'InheritanceType_column'
  , [sub_Parameter] = N'MS_Description'
  , [Parameter_desciption] = N'TINYINT; InheritanceType for column: possible values in [repo].[InheritanceType]'
  , [Parameter_default_value] = CAST(0 AS TINYINT)
+
+UNION ALL
+
+SELECT [Parameter_name] = 'InheritanceType_column'
+ , [sub_Parameter] = N'ReferencedObjectColumnList'
+ , [Parameter_desciption] = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+ , [Parameter_default_value] = CAST(14 AS TINYINT)
 
 UNION ALL
 

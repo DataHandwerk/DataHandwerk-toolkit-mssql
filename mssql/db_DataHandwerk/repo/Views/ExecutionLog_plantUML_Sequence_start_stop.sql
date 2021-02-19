@@ -1,4 +1,5 @@
-﻿CREATE VIEW [repo].[ExecutionLog_plantUML_Sequence_start_stop]
+﻿
+CREATE VIEW [repo].[ExecutionLog_plantUML_Sequence_start_stop]
 AS
 --
 --, [plantUML_Sequence] = --
@@ -131,6 +132,7 @@ SELECT [T1].[id]
  --
  , [T1].[proc_fullname]
  , [parent].[parent_proc_fullname]
+ , [T1].[created_dt]
 FROM [repo].[ExecutionLog] AS T1
 LEFT JOIN [repo].[ExecutionLog_parent] AS parent
  ON parent.id = T1.id
