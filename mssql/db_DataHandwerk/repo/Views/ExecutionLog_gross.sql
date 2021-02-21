@@ -334,3 +334,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8ef77
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'created_dt';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '07b0ba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'duration__current_execution_guid';
+

@@ -90,8 +90,8 @@
     <Build Include="repo\Tables\RepoObjectColumnProperty.sql" />
     <Build Include="repo\Tables\RepoObjectColumn.sql" />
     <Build Include="repo\Tables\RepoObjectProperty.sql" />
-    <Build Include="repo_sys\Views\IndexColumn_real_unique.sql" />
-    <Build Include="repo_sys\Views\Index_real_unique.sql" />
+    <Build Include="repo_sys\Views\IndexColumn_unique.sql" />
+    <Build Include="repo_sys\Views\Index_unique.sql" />
     <Build Include="repo_sys\Views\ColumnReference.sql" />
     <Build Include="repo_sys\Views\sql_expression_dependencies.sql" />
     <Build Include="repo_sys\Views\ExtendedProperties_ParameterForAddUpdateDrop.sql" />
@@ -240,7 +240,7 @@
     <Build Include="repo\Tables\RepoObject_SqlModules_41_from_T.sql" />
     <Build Include="repo\Views\Index_virtual_IndexPatternColumnGuid.sql" />
     <Build Include="repo\Views\Index_referencing_IndexPatternColumnGuid.sql" />
-    <Build Include="repo\Views\Index_real_unique_IndexPatternColumnGuid.sql" />
+    <Build Include="repo\Views\Index_unique_IndexPatternColumnGuid.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_SqlModules_41_from_T.sql" />
     <Build Include="repo\Tables\IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.sql" />
     <Build Include="repo\Views\RepoObject_persistence_ForInput.sql" />
@@ -318,6 +318,17 @@
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="repo\Functions\ftv_ExecutionLog_tree.sql" />
     <Build Include="repo\Stored Procedures\usp_generate_merge.sql" />
+    <Build Include="repo_sys\Views\ForeignKeyColumn.sql" />
+    <Build Include="repo_sys\Views\ForeignKey.sql" />
+    <Build Include="sys_dwh\Synonyms\foreign_keys.sql" />
+    <Build Include="sys_dwh\Synonyms\foreign_key_columns.sql" />
+    <Build Include="repo\Tables\ForeignKey_virtual.sql" />
+    <Build Include="repo\Views\ForeignKey_IndexPattern.sql" />
+    <Build Include="repo\Views\ForeignKey_virtual_Index_guid.sql" />
+    <Build Include="repo\Views\ForeignKey_Index_guid_union.sql" />
+    <Build Include="repo\Views\ForeignKey_Index_guid.sql" />
+    <Build Include="repo\Stored Procedures\usp_Index_ForeignKey.sql" />
+    <Build Include="repo\Stored Procedures\usp_Index_finish.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

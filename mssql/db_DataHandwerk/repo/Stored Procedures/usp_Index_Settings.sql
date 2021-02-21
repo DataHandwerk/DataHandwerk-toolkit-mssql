@@ -60,6 +60,8 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 --
 ----START
 --
+--[repo].[Index_IndexPattern] is based on [repo].[IndexColumn_union]
+--Index without colums will be deleted
 DELETE T2
 FROM [repo].[Index_Settings] [T2]
 WHERE NOT EXISTS (

@@ -1,4 +1,4 @@
-﻿/*
+/*
 create the procedure sp_generate_merge in master database
 details: https://github.com/readyroll/generate-sql-merge
 
@@ -17,7 +17,7 @@ for sql_variant type the procedure generates wrong code:
 
 */
 
-create   procedure repo.usp_generate_merge
+CREATE   procedure [repo].[usp_generate_merge]
 AS
 
 --issues with sql_variant
@@ -28,6 +28,28 @@ EXEC sp_generate_merge @table_name = 'GeneratorUspParameter', @schema = 'repo', 
 EXEC sp_generate_merge @table_name = 'GeneratorUspStep', @schema = 'repo', @debug_mode = 1
 
 --todo: store and get all columns in extended properties
+/*
+TITLE: Microsoft SQL Server Management Studio
+------------------------------
+
+Unable to show XML. The following error happened:
+Unexpected end of file while parsing PI has occurred. Line 162, position 154777.
+
+One solution is to increase the number of characters retrieved from the server for XML data. To change this setting, on the Tools menu, click Options.
+
+------------------------------
+BUTTONS:
+
+OK
+------------------------------
+
+
+Menu > Tools > Options > Query Results > Results to Grid > XML Data
+default is 2 MB, set to unlimited
+
+But this can crash SSMS
+
+*/
 EXEC sp_generate_merge @table_name = 'RepoObject', @schema = 'repo', @debug_mode = 1
 --todo: store and get all columns in extended properties
 EXEC sp_generate_merge @table_name = 'RepoObject_persistence', @schema = 'repo', @debug_mode = 1
@@ -38,7 +60,7 @@ EXEC sp_generate_merge @table_name = 'RepoObject_SqlModules', @schema = 'repo', 
 ----issues with sql_variant
 --EXEC sp_generate_merge @table_name = 'RepoObjectProperty', @schema = 'repo', @debug_mode = 1
 
-EXEC sp_generate_merge @table_name = 'RepoObjectColumn', @schema = 'repo'
+EXEC sp_generate_merge @table_name = 'RepoObjectColumn', @schema = 'repo', @debug_mode = 1
 ----not required, get properties using [repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]
 ----issues with sql_variant
 --EXEC sp_generate_merge @table_name = 'RepoObjectColumnProperty', @schema = 'repo', @debug_mode = 1
@@ -55,3 +77,6 @@ EXEC sp_generate_merge @table_name = 'ProcedureInstance', @schema = 'repo', @deb
 EXEC sp_generate_merge @table_name = 'ProcedureInstanceDependency', @schema = 'repo', @debug_mode = 1
 EXEC sp_generate_merge @table_name = 'Workflow', @schema = 'repo', @debug_mode = 1
 EXEC sp_generate_merge @table_name = 'WorkflowStep', @schema = 'repo', @debug_mode = 1
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fcafba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
+

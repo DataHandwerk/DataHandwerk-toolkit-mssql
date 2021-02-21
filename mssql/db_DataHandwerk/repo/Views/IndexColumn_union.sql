@@ -16,7 +16,7 @@ SELECT [index_guid]
  , [is_index_primary_key]
  , [is_index_real]
  , [parent_SysObject_fullname]
-FROM repo_sys.[IndexColumn_real_unique] AS T1
+FROM repo_sys.[IndexColumn_unique] AS T1
 
 UNION ALL
 

@@ -125,3 +125,6 @@ RETURN (
     )
   FROM tree
   )
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fbafba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_tree';
+
