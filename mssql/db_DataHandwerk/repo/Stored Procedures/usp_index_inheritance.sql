@@ -1,25 +1,27 @@
-﻿
-CREATE PROCEDURE [repo].[usp_index_inheritance]
- --by default the source schema is used and the source name with prefix '_T' for table
- --todo: use general parameters to define this
- -- some optional parameters, used for logging
- @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
- , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
- , @sub_execution_id INT = NULL
- , @parent_execution_log_id BIGINT = NULL
+﻿CREATE   PROCEDURE [repo].[usp_index_inheritance]
+----keep the code between logging parameters and "START" unchanged!
+---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
+  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
+, @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
+, @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
+, @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
 AS
-DECLARE @current_execution_log_id BIGINT
- , @current_execution_guid UNIQUEIDENTIFIER = NEWID()
- , @source_object NVARCHAR(261) = NULL
- , @target_object NVARCHAR(261) = NULL
+DECLARE
+ --
+   @current_execution_log_id BIGINT --this variable should be filled only once per procedure call, it contains the first logging call for the step 'start'.
+ , @current_execution_guid UNIQUEIDENTIFIER = NEWID() --a unique guid for any procedure call. It should be propagated to sub procedures using "@parent_execution_log_id = @current_execution_log_id"
+ , @source_object NVARCHAR(261) = NULL --use it like '[schema].[object]', this allows data flow vizualizatiuon (include square brackets)
+ , @target_object NVARCHAR(261) = NULL --use it like '[schema].[object]', this allows data flow vizualizatiuon (include square brackets)
  , @proc_id INT = @@procid
- , @proc_schema_name NVARCHAR(128) = OBJECT_SCHEMA_NAME(@@procid)
- , @proc_name NVARCHAR(128) = OBJECT_NAME(@@procid)
+ , @proc_schema_name NVARCHAR(128) = OBJECT_SCHEMA_NAME(@@procid) --schema ande name of the current procedure should be automatically logged
+ , @proc_name NVARCHAR(128) = OBJECT_NAME(@@procid)               --schema ande name of the current procedure should be automatically logged
  , @event_info NVARCHAR(MAX)
  , @step_id INT = 0
  , @step_name NVARCHAR(1000) = NULL
  , @rows INT
 
+--[event_info] get's only the information about the "outer" calling process
+--wenn the procedure calls sub procedures, the [event_info] will not change
 SET @event_info = (
   SELECT [event_info]
   FROM sys.dm_exec_input_buffer(@@spid, CURRENT_REQUEST_ID())
@@ -27,13 +29,16 @@ SET @event_info = (
 
 IF @execution_instance_guid IS NULL
  SET @execution_instance_guid = NEWID();
+--
 --SET @rows = @@ROWCOUNT;
 SET @step_id = @step_id + 1
 SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert
+ --these parameters should be the same for all logging execution
+   @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -42,36 +47,33 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @proc_schema_name = @proc_schema_name
  , @proc_name = @proc_name
  , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
- , @execution_log_id = @current_execution_log_id OUTPUT;
+ --the following parameters are individual for each call
+ , @step_id = @step_id --@step_id should be incremented before each call
+ , @step_name = @step_name --assign individual step names for each call
+ --only the "start" step should return the log id into @current_execution_log_id
+ --all other calls should not overwrite @current_execution_log_id
+ , @execution_log_id = @current_execution_log_id OUTPUT
+----you can log the content of your own parameters, do this only in the start-step
+----data type is sql_variant
 
+--
+--keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
+----- start here with your own code
+--
+/*{"ReportUspStep":[{"Number":200,"Name":"[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
- --add your own parameters
- --logging parameters
+--add your own parameters
+--logging parameters
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id
 
---delete Index which are marked as referenced_index_guid, but the referenced index is missing 
+
+/*{"ReportUspStep":[{"Number":310,"Name":"DELETE (if it is a referencing index (NOT [referenced_index_guid] IS NULL), but referenced index is missing)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 DELETE
 FROM repo.[Index_virtual]
 WHERE NOT [referenced_index_guid] IS NULL
@@ -83,13 +85,15 @@ WHERE NOT [referenced_index_guid] IS NULL
    )
   )
 
-SET @rows = @@rowcount;
+-- Logging START --
+SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'DELETE (referenced index is missing)'
+SET @step_name = 'DELETE (if it is a referencing index (NOT [referenced_index_guid] IS NULL), but referenced index is missing)'
 SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -102,21 +106,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
  , @deleted = @rows
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
---insert Index which should be inherited in referenced, but not yet referenced
---todo WHERE Bedingung ist noch falsch, => Quellsicht noch weiter ändern
+/*{"ReportUspStep":[{"Number":410,"Name":"INSERT (Index which should be inherited in referenced, but not yet referenced)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"i"}]}*/
 INSERT INTO repo.[Index_virtual] (
  [parent_RepoObject_guid]
  , [referenced_index_guid]
@@ -140,13 +133,16 @@ WHERE (
    AND [T2].[IndexPatternColumnGuid] = [T1].[referencing_IndexPatternColumnGuid]
   )
 
-SET @rows = @@rowcount;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'INSERT (Index which should be inherited in referenced, but not yet referenced)'
 SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -160,18 +156,9 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @source_object = @source_object
  , @target_object = @target_object
  , @inserted = @rows
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":510,"Name":"DELETE (referenced index, where entries are missing in setpoint)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[IndexColumn_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 DELETE
 FROM repo.[IndexColumn_virtual]
 FROM [repo].[IndexColumn_virtual]
@@ -186,13 +173,15 @@ WHERE
  --where entries are missing in setpoint
  AND [setpoint].[index_column_id] IS NULL
 
-SET @rows = @@rowcount;
+-- Logging START --
+SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'DELETE (where entries are missing in setpoint)'
+SET @step_name = 'DELETE (referenced index, where entries are missing in setpoint)'
 SET @source_object = '[repo].[IndexColumn_virtual_referenced_setpoint]'
 SET @target_object = '[repo].[IndexColumn_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -205,22 +194,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
  , @deleted = @rows
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
---some combinations of ([index_guid], [index_column_id]) are not unique
---=> correct this in repo.IndexColumn_virtual_referenced_setpoint
---OK
+/*{"ReportUspStep":[{"Number":610,"Name":"INSERT missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"i"}]}*/
 INSERT INTO repo.[IndexColumn_virtual] (
  [index_guid]
  , [index_column_id]
@@ -239,13 +216,15 @@ WHERE NOT EXISTS (
    AND [ic].[index_column_id] = [setpoint].[index_column_id]
   )
 
-SET @rows = @@rowcount;
+-- Logging START --
+SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'INSERT missing'
 SET @source_object = '[repo].[IndexColumn_virtual_referenced_setpoint]'
-SET @target_object = '[repo].[IndexColumn_virtual]'
+SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -259,18 +238,9 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @source_object = @source_object
  , @target_object = @target_object
  , @inserted = @rows
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":710,"Name":"DELETE duplicates by pattern","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_gross]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 DELETE iv
 FROM [repo].[Index_virtual] [iv]
 WHERE EXISTS (
@@ -280,13 +250,15 @@ WHERE EXISTS (
    AND [ig].[RowNumber_PatternPerParentObject] > 1
   )
 
-SET @rows = @@rowcount;
+-- Logging START --
+SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'DELETE duplicates by pattern'
 SET @source_object = '[repo].[Index_gross]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -299,19 +271,10 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
  , @deleted = @rows
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
+/*{"ReportUspStep":[{"Number":810,"Name":"SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid], [is_descending_key] = [setpoint].[is_descending_key]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[IndexColumn_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 UPDATE icv
 SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid]
  , [is_descending_key] = [setpoint].[is_descending_key]
@@ -325,14 +288,15 @@ INNER JOIN [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
    OR [icv].[is_descending_key] <> [setpoint].[is_descending_key]
    )
 
---
-SET @rows = @@rowcount;
+-- Logging START --
+SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid], [is_descending_key] = [setpoint].[is_descending_key]'
 SET @source_object = '[repo].[IndexColumn_virtual_referenced_setpoint]'
 SET @target_object = '[repo].[IndexColumn_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -345,459 +309,34 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
  , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+-- Logging END --
 
-EXEC repo.[usp_Index_Settings] @execution_instance_guid = @execution_instance_guid
+/*{"ReportUspStep":[{"Number":900,"Name":"[repo].[usp_Index_finish]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
+EXEC [repo].[usp_Index_finish]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id
 
---inherit IndexSemanticGroup
---ATTENTION:
---repo.Index_IndexSemanticGroup.[IndexSemanticGroup] could also be set to NULL where it was assigned before
---maybe this should be avoided?
---but the strict inheritance is consequent
-UPDATE repo.[Index_Settings]
-SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]
-FROM [repo].[Index_virtual] AS [T1]
-INNER JOIN [repo].[Index_Settings] AS [TSource]
- ON [T1].[referenced_index_guid] = [TSource].[index_guid]
-INNER JOIN [repo].[Index_Settings]
- ON [T1].[index_guid] = [repo].[Index_Settings].[index_guid]
-  AND [TSource].[IndexPatternColumnDatatype] = [repo].[Index_Settings].[IndexPatternColumnDatatype]
-WHERE ISNULL([repo].[Index_Settings].[IndexSemanticGroup], '') <> ISNULL([TSource].[IndexSemanticGroup], '')
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]'
-SET @source_object = '[repo].[Index_IndexSemanticGroup]'
-SET @target_object = '[repo].[Index_IndexSemanticGroup]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
 
 --
---PK synchronizing between [repo].[RepoObject].[pk_index_guid] and [repo].[Index_virtual]
---
---PK can be defined in several ways:
----real PK for tables in database
----index can be marked as PK in [repo].[Index_virtual]
----index can be marked as PK by using it in [repo].[RepoObject].[pk_index_guid]
---
---PK could be defined in [repo].[RepoObject].[pk_index_guid] by using an index_guid in an manual process
---first we need to propagate this PK into [repo].[Index_virtual]
---atention, this will propagate only real existing PK from SysObject ("real PK")
---now we could have two or more PK defined in [repo].[Index_virtual]
-UPDATE iv
-SET [is_index_primary_key] = 1
- , [is_index_unique] = 1
-FROM [repo].[Index_virtual] [iv]
-WHERE [iv].[is_index_primary_key] = 0
- AND EXISTS (
-  SELECT [pk_index_guid]
-  FROM [repo].[RepoObject] AS [ro]
-  WHERE [ro].[RepoObject_guid] = [iv].[parent_RepoObject_guid]
-   AND [ro].[pk_index_guid] = [iv].[index_guid]
-  )
-
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_index_primary_key] = 1, [is_index_unique] = 1 (propagate PK from [repo].[RepoObject] into [repo].[Index_virtual])'
-SET @source_object = '[repo].[RepoObject]'
-SET @target_object = '[repo].[Index_virtual]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
-
---persistence:
---persistence with [has_history] = 1 require PK
---default index inserting doesn't mark inherited index as PK or UK
---[repo].[RepoObject_SqlCreateTable] will be invalid for these tables
---
-/*
-SELECT iv_p.is_index_primary_key
- , iv_p.is_index_unique
- , iv_s.is_index_primary_key AS is_index_primary_key_s
- , iv_s.is_index_unique AS is_index_unique_s
- , rop.has_history
- , rop.is_persistence
- 
- --, ro.RepoObject_fullname
- --, iv_p.index_guid
- --, iv_p.parent_RepoObject_guid
-FROM repo.Index_virtual AS iv_p
-INNER JOIN repo.RepoObject_persistence AS rop
- ON rop.target_RepoObject_guid = iv_p.parent_RepoObject_guid
-INNER JOIN repo.Index_union AS iv_s
- ON iv_p.referenced_index_guid = iv_s.index_guid
---INNER JOIN repo.RepoObject AS ro
--- ON ro.RepoObject_guid = iv_p.parent_RepoObject_guid
-*/
---
-UPDATE iv_p
-SET [is_index_primary_key] = [iv_s].[is_index_primary_key]
- , [is_index_unique] = [iv_s].[is_index_unique]
-FROM [repo].[Index_virtual] AS [iv_p]
-INNER JOIN [repo].[RepoObject_persistence] AS [rop]
- ON [rop].[target_RepoObject_guid] = [iv_p].[parent_RepoObject_guid]
-INNER JOIN [repo].[Index_union] AS [iv_s]
- ON [iv_p].[referenced_index_guid] = [iv_s].[index_guid]
-WHERE [rop].[has_history] = 1
- AND [iv_p].[is_index_primary_key] = 0
- AND [iv_s].[is_index_primary_key] = 1
-
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_index_primary_key] = 1 (WHERE rop.has_history = 1 and source-index is PK)'
-SET @source_object = '[repo].[Index_union]'
-SET @target_object = '[repo].[Index_virtual]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
-
---PK constraint creation needs to be enables in [repo].[Index_Settings]
-UPDATE iset
-SET [is_create_constraint] = 1
-FROM [repo].[Index_Settings] [iset]
-WHERE [iset].[is_create_constraint] = 0
- AND EXISTS (
-  SELECT 1
-  FROM [repo].[Index_union] AS [i]
-  INNER JOIN [repo].[RepoObject_persistence] AS [rop]
-   ON [rop].[target_RepoObject_guid] = [i].[parent_RepoObject_guid]
-  WHERE [rop].[has_history] = 1
-   AND [i].[is_index_primary_key] = 1
-   AND [i].[index_guid] = [iset].[index_guid]
-  )
-
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_create_constraint] = 1 (WHERE persistence has_history = 1)'
-SET @source_object = '[repo].[Index_union]'
-SET @target_object = '[repo].[Index_Settings]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
-
---each PK is also [is_index_unique]
-UPDATE iv
-SET [is_index_unique] = 1
-FROM [repo].[Index_virtual] [iv]
-WHERE [iv].[is_index_primary_key] = 1
- AND [iv].[is_index_unique] = 0
-
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_index_unique] = 1 (each PK is also [is_index_unique])'
-SET @source_object = '[repo].[Index_virtual]'
-SET @target_object = '[repo].[Index_virtual]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
-
--- UPDATE [repo].[RepoObject].[pk_index_guid]
---only one PK per RepoObject is possible
---we use some priority in [RowNumber_PkPerParentObject] in case that several PK are defined per RepoObject
---noch mal prüfen, wann werden die nicht-PK auf Null gesetzt?
-UPDATE ro
-SET [pk_index_guid] = [pk].[index_guid]
-FROM [repo].[RepoObject] [ro]
-LEFT JOIN (
- SELECT [index_guid]
-  , [parent_RepoObject_guid]
- FROM [repo].[Index_gross] AS [T1]
- WHERE [is_index_primary_key] = 1
-  AND [RowNumber_PkPerParentObject] = 1
- ) [pk]
- ON [ro].[RepoObject_guid] = [pk].[parent_RepoObject_guid]
-WHERE [ro].[pk_index_guid] <> [pk].[index_guid]
- OR (
-  [ro].[pk_index_guid] IS NULL
-  AND NOT [pk].[index_guid] IS NULL
-  )
- OR (
-  NOT [ro].[pk_index_guid] IS NULL
-  AND [pk].[index_guid] IS NULL
-  )
-
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_primary_key] = 1 and [RowNumber_PkPerParentObject] = 1)'
-SET @source_object = '[repo].[Index_gross]'
-SET @target_object = '[repo].[RepoObject]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
-
---because there could be several PK defined per [parent_RepoObject_guid], this should be corrected
---only [repo].[Index_virtual] needs to be corrected because the real PK consistence should be controled by mssql
-UPDATE iv
-SET [is_index_primary_key] = 0
-FROM [repo].[Index_virtual] [iv]
-WHERE [iv].[is_index_primary_key] = 1
- AND NOT EXISTS (
-  SELECT [pk_index_guid]
-  FROM [repo].[RepoObject] AS [ro]
-  WHERE [ro].[RepoObject_guid] = [iv].[parent_RepoObject_guid]
-   AND [ro].[pk_index_guid] = [iv].[index_guid]
-  )
-
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])'
-SET @source_object = '[repo].[RepoObject]'
-SET @target_object = '[repo].[Index_virtual]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
-
---index_name is required
-UPDATE iv
-SET [index_name] = [T2].[index_name_new]
-FROM [repo].[Index_virtual] AS [iv]
-INNER JOIN (
- SELECT [iv].[index_guid]
-  , [index_name_new] = CONCAT (
-   CASE 
-    WHEN [iv].[is_index_primary_key] = 1
-     THEN 'PK'
-    WHEN [iv].[is_index_unique] = 1
-     THEN 'UK'
-    ELSE 'idx'
-    END
-   , '_'
-   , [ro].[RepoObject_name]
-   , CASE 
-    WHEN [iv].[is_index_primary_key] = 0
-     THEN CONCAT (
-       '__'
-       , ROW_NUMBER() OVER (
-        PARTITION BY [iv].[parent_RepoObject_guid] ORDER BY [iv].[index_guid]
-        )
-       )
-    END
-   )
- FROM [repo].[Index_virtual] AS [iv]
- INNER JOIN [repo].[RepoObject] AS [ro]
-  ON [iv].[parent_RepoObject_guid] = [ro].[RepoObject_guid]
- WHERE [iv].[index_name] IS NULL
- ) [T2]
- ON [T2].[index_guid] = [iv].[index_guid]
-
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [iv].[index_name] WHERE [iv].[index_name] IS NULL'
-SET @source_object = '[repo].[RepoObject]'
-SET @target_object = '[repo].[Index_virtual]'
-
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
-
+--finish your own code here
+--keep the code between "END" and the end of the procedure unchanged!
 --
 --END
 --
---SET @rows = @@ROWCOUNT;
-SET @step_id = @step_id + 1;
+--SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
 SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC repo.usp_ExecutionLog_insert
+   @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -810,18 +349,6 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9f90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';

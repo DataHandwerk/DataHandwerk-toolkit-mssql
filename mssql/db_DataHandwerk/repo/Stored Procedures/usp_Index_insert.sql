@@ -26,7 +26,7 @@ CREATE
 
  PROCEDURE [repo].[usp_Index_insert] @RepoObject_guid UNIQUEIDENTIFIER = NULL --if @RepoObject_guid is NULL, then @RepoObject_fullname is used
  , @RepoObject_fullname NVARCHAR(261) = NULL --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
- , @IndexPatternColumnName NVARCHAR(4000) = NULL --a coma separated list to define the Index, for example 'aaa;bbb;ccc'
+ , @IndexPatternColumnName NVARCHAR(4000) = NULL --a semicolon separated list to define the Index, for example 'aaa;bbb;ccc'
  , @index_name NVARCHAR(128) = NULL
  , @index_type TINYINT = 2 --1 Clustered, 2 Nonclustered
  , @is_index_disabled BIT = 0

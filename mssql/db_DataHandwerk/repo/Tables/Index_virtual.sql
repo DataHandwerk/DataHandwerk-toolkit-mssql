@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [repo].[Index_virtual] (
     [index_guid]             UNIQUEIDENTIFIER CONSTRAINT [DF__Index_vir__index__12FDD1B2] DEFAULT (newsequentialid()) NOT NULL,
+    [has_managedName]        BIT              CONSTRAINT [DF_Index_virtual_has_managedName] DEFAULT ((1)) NOT NULL,
     [index_name]             NVARCHAR (128)   NULL,
     [index_type]             TINYINT          CONSTRAINT [DF__Index_vir__index__13F1F5EB] DEFAULT ((0)) NOT NULL,
     [is_index_disabled]      BIT              CONSTRAINT [DF__Index_vir__is_in__14E61A24] DEFAULT ((0)) NOT NULL,
@@ -11,6 +12,8 @@
     CONSTRAINT [PK_Index_virtual] PRIMARY KEY CLUSTERED ([index_guid] ASC),
     CONSTRAINT [FK_Index_virtual__RepoObject] FOREIGN KEY ([parent_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -164,4 +167,12 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'the same in
 for example
 SELECT A_A = A.A, B_A = B.A from source_1 as A LEFT JOIN source_1 as B ON ... 
 normaly these indexes should have different columns', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '92d69880-2874-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_Index_virtual_has_managedName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9cd69880-2874-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual', @level2type = N'COLUMN', @level2name = N'has_managedName';
 

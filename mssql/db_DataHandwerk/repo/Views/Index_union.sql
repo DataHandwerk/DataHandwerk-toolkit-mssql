@@ -12,8 +12,8 @@ SELECT T1.[index_guid]
  , T2.[IndexPatternColumnGuid]
  , [referenced_index_guid] = NULL
  , [is_index_real] = CAST(1 AS BIT)
-FROM repo_sys.[Index_real_unique] T1
-LEFT JOIN [repo].[Index_real_unique_IndexPatternColumnGuid] T2
+FROM repo_sys.[Index_unique] T1
+LEFT JOIN [repo].Index_unique_IndexPatternColumnGuid T2
  ON T2.[index_guid] = T1.[index_guid]
 
 UNION ALL
