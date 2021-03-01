@@ -329,6 +329,18 @@
     <Build Include="repo\Views\ForeignKey_Index_guid.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_ForeignKey.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_finish.sql" />
+    <Build Include="repo\Views\ProcedureInstanceDependency_gross.sql" />
+    <Build Include="repo\Tables\RepoObject_QueryPlan.sql" />
+    <Build Include="repo\Views\RepoObject_ReferenceTree.sql" />
+    <Build Include="repo\Views\RepoObject_fullname_u_v.sql" />
+    <Build Include="repo\Views\DbmlRelationFK.sql" />
+    <Build Include="repo\Views\DbmlRelationColumnReference.sql" />
+    <Build Include="graph\Views\RepoObject_ReferencingReferenced_u_v.sql" />
+    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree.sql" />
+    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_via_fullname.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_ReferenceTree.sql" />
+    <Build Include="graph\Views\RepoObjectColumn_ReferencingReferenced.sql" />
+    <Build Include="repo\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

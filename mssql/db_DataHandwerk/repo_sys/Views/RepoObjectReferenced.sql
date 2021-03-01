@@ -1,3 +1,4 @@
+﻿
 /*
 this view can be used to check if SysObject renaming is safe or if exists referenced objects and refactoring is required
 */
@@ -13,14 +14,11 @@ SELECT [ro].[RepoObject_guid]
  --, [ro].[SysObject_name]
  , [ro].[SysObject_type]
  , [ro].[SysObject_modify_date]
- --, [ro].[SysObject_query_plan]
- --, [ro].[SysObject_query_executed_dt]
  --, [ro].[has_execution_plan_issue]
  , [ro].[is_repo_managed]
  --, [ro].[modify_dt]
  , [ro].[has_different_sys_names]
  , [ro].[RepoObject_fullname]
- --, [ro].[SysObject_query_sql]
  , [ro].[SysObject_fullname]
  , [referenced].[referencing_minor_id] AS [referencing_minor_id]
  , [referenced].[referenced_server_name] COLLATE database_default AS [referenced_server_name]

@@ -1,0 +1,11 @@
+graph TB
+  linkStyle default fill:#ffffff
+  subgraph boundary [DWH B Development]
+    22[("<div style='font-weight: bold'>DWH database Development (Project B)</div><div style='font-size: 70%; margin-top: 0px'>[Container: Database]</div><div style='font-size: 80%; margin-top:10px'></div>")]
+    style 22 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    10[("<div style='font-weight: bold'>Repository database (Project B)</div><div style='font-size: 70%; margin-top: 0px'>[Container: Database]</div><div style='font-size: 80%; margin-top:10px'></div>")]
+    style 10 fill:#dddddd,stroke:#9a9a9a,color:#000000
+  end
+  style boundary fill:#ffffff,stroke:#000000,color:#000000
+  22-. "<div>RepoObject correspond with<br />extended properties</div><div style='font-size: 70%'></div>" .->10
+  10-. "<div>Synonyms link to DWH System<br />Views</div><div style='font-size: 70%'></div>" .->22

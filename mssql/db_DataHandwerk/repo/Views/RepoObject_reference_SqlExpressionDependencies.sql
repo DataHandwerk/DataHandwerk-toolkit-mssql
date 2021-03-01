@@ -1,24 +1,35 @@
-﻿CREATE VIEW [repo].[RepoObject_reference_SqlExpressionDependencies]
+﻿
+CREATE VIEW [repo].[RepoObject_reference_SqlExpressionDependencies]
 AS
 --
 SELECT [sed].[referencing_id]
  --, [sed].[referencing_minor_id]
  , CAST([sed].[referencing_id] AS BIGINT) * 10000 AS [referencing_node_id]
  , [sed].[referenced_id]
+ , [sed].[referenced_entity_name]
+ , [referenced_fullname] = CONCAT (
+  QUOTENAME([sed].[referenced_schema_name])
+  , '.'
+  , QUOTENAME([sed].[referenced_entity_name])
+  )
  --, [sed].[referenced_minor_id]
  , CAST([sed].[referenced_id] AS BIGINT) * 10000 AS [referenced_node_id]
- , [sed].[referencing_RepoObject_guid]
- --, [sed].[referencing_RepoObjectColumn_guid]
  , [sed].[referenced_RepoObject_guid]
- --, [sed].[referenced_RepoObjectColumn_guid]
- , [sed].[referencing_type]
- , [sed].[referencing_schema_name]
- , [sed].[referencing_entity_name]
- --, [sed].[referencing_column_name]
  , [sed].[referenced_schema_name]
- , [sed].[referenced_entity_name]
- --, [sed].[referenced_column_name]
  , [sed].[referenced_type]
+ --, [sed].[referenced_column_name]
+ --, [sed].[referenced_RepoObjectColumn_guid]
+ , [sed].[referencing_entity_name]
+ , [referencing_fullname] = CONCAT (
+  QUOTENAME([sed].[referencing_schema_name])
+  , '.'
+  , QUOTENAME([sed].[referencing_entity_name])
+  )
+ , [sed].[referencing_RepoObject_guid]
+ , [sed].[referencing_schema_name]
+ , [sed].[referencing_type]
+ --, [sed].[referencing_RepoObjectColumn_guid]
+ --, [sed].[referencing_column_name]
  , [InformationSource] = 'sys.sql_expression_dependencies'
 --, [sed].[referenced_server_name]
 --, [sed].[referenced_database_name]
@@ -99,4 +110,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd1f57
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd3f57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_SqlExpressionDependencies', @level2type = N'COLUMN', @level2name = N'InformationSource';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '36df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_SqlExpressionDependencies', @level2type = N'COLUMN', @level2name = N'referencing_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '35df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_SqlExpressionDependencies', @level2type = N'COLUMN', @level2name = N'referenced_fullname';
 

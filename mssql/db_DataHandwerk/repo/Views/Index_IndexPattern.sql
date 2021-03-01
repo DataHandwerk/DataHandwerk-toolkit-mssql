@@ -1,12 +1,13 @@
-﻿CREATE VIEW [repo].[Index_IndexPattern]
+﻿
+CREATE VIEW [repo].[Index_IndexPattern]
 AS
 --
 SELECT [index_guid]
- , IndexPatternColumnName = String_Agg(SysObject_column_name, ';') WITHIN
+ , IndexPatternColumnName = String_Agg(SysObject_column_name, ',') WITHIN
 GROUP (
   ORDER BY [index_column_id]
   )
- , IndexPatternColumnDatatype = String_Agg([SysObject_column_user_type_fullname], ';') WITHIN
+ , IndexPatternColumnDatatype = String_Agg([SysObject_column_user_type_fullname], ',') WITHIN
 GROUP (
   ORDER BY [index_column_id]
   )

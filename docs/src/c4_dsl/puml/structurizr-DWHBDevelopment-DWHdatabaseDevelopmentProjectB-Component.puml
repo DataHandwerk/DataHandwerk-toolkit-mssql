@@ -1,0 +1,35 @@
+@startuml(id=DWHBDevelopment-DWHdatabaseDevelopmentProjectB-Component)
+title DWH B Development - DWH database Development (Project B) - Components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<23>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<24>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam database<<10>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+database "==Repository database (Project B)\n<size:10>[Container: Database]</size>" <<10>> as 10
+package "DWH database Development (Project B)\n[Container: Database]" {
+  rectangle "==Extended Properties\n<size:10>[Component]</size>" <<24>> as 24
+  rectangle "==System views and procedures\n<size:10>[Component]</size>" <<23>> as 23
+}
+24 .[#707070].> 10 : "RepoObject correspond with extended properties"
+10 .[#707070].> 24 : "Synonyms link to DWH System Views"
+@enduml

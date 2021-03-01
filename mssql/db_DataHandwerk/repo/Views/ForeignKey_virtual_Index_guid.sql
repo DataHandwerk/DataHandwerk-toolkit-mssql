@@ -1,5 +1,4 @@
 ﻿
-
 CREATE VIEW [repo].[ForeignKey_virtual_Index_guid]
 AS
 SELECT
@@ -19,11 +18,15 @@ SELECT
  , [fk].[referenced_index_guid]
  , [referenced_IndexPatternColumnDatatype] = [i_2].[IndexPatternColumnDatatype]
  , [referenced_IndexPatternColumnName] = [i_2].[IndexPatternColumnName]
+ , [referenced_RepoObject_fullname] = [i_2].[RepoObject_fullname]
  , [referenced_RepoObject_guid] = [i_2].[parent_RepoObject_guid]
  , [fk].[referencing_index_guid]
  , [referencing_IndexPatternColumnDatatype] = [i_1].[IndexPatternColumnDatatype]
  , [referencing_IndexPatternColumnName] = [i_1].[IndexPatternColumnName]
+ , [referencing_RepoObject_fullname] = [i_1].[RepoObject_fullname]
  , [referencing_RepoObject_guid] = [i_1].[parent_RepoObject_guid]
+ , [delete_referential_action]
+ , [update_referential_action]
 FROM [repo].[ForeignKey_virtual] AS fk
 LEFT JOIN [repo].[Index_gross] AS i_1
  ON i_1.[index_guid] = fk.[referencing_index_guid]
@@ -79,4 +82,20 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '97d69
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '96d69880-2874-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Index_guid', @level2type = N'COLUMN', @level2name = N'is_MatchingDatatypePattern';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4cdf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Index_guid', @level2type = N'COLUMN', @level2name = N'update_referential_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4adf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Index_guid', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '49df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Index_guid', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4bdf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Index_guid', @level2type = N'COLUMN', @level2name = N'delete_referential_action';
 

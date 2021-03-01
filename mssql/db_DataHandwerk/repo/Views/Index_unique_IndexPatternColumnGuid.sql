@@ -1,7 +1,8 @@
-﻿CREATE VIEW repo.Index_unique_IndexPatternColumnGuid
+﻿
+CREATE VIEW [repo].[Index_unique_IndexPatternColumnGuid]
 AS
 SELECT [index_guid]
- , [IndexPatternColumnGuid] = STRING_AGG(CAST([ic].[RepoObjectColumn_guid] AS CHAR(36)), ';') WITHIN
+ , [IndexPatternColumnGuid] = STRING_AGG(CAST([ic].[RepoObjectColumn_guid] AS CHAR(36)), ',') WITHIN
 GROUP (
   ORDER BY CAST([ic].[RepoObjectColumn_guid] AS CHAR(36))
   )

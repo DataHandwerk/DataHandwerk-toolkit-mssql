@@ -1,0 +1,26 @@
+@startuml(id=MSSQLDHW-SystemContext)
+title MS SQL DHW - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<1>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<5>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+rectangle "==DHW Developer\n<size:10>[Person]</size>\n\nDeveloper of DataHandwerk Toolkit" <<1>> as 1
+rectangle "==MS SQL DHW\n<size:10>[Software System]</size>" <<5>> as 5
+1 .[#707070].> 5 : "developes DHW in"
+@enduml

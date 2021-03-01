@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [repo].[RepoObjectColumn_gross]
 AS
 --
@@ -66,6 +67,7 @@ SELECT
  , [ic].[index_column_id]
  , [ic].[index_name]
  , [ic].[is_index_primary_key]
+ , Property_ms_description = [repo].[fs_get_RepoObjectColumnProperty_nvarchar] ([roc].[RepoObjectColumn_guid], 'ms_description')
 FROM repo.RepoObjectColumn AS roc
 INNER JOIN repo.RepoObject AS ro
  ON roc.RepoObject_guid = ro.RepoObject_guid
@@ -308,4 +310,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd0b33
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd3b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3bdf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'Property_ms_description';
 

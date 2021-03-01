@@ -1,37 +1,48 @@
-﻿CREATE VIEW [repo].[RepoObject_reference_union]
+﻿
+CREATE VIEW [repo].[RepoObject_reference_union]
 AS
 --
-SELECT [T1].[referencing_id]
- , [T1].[referencing_node_id]
+SELECT
+ --
+ [T1].[referenced_entity_name]
+ , [T1].[referenced_fullname]
  , [T1].[referenced_id]
  , [T1].[referenced_node_id]
- , [T1].[referencing_RepoObject_guid]
  , [T1].[referenced_RepoObject_guid]
- , [T1].[referencing_type]
- , [T1].[referencing_schema_name]
- , [T1].[referencing_entity_name]
  , [T1].[referenced_schema_name]
- , [T1].[referenced_entity_name]
  , [T1].[referenced_type]
+ , [T1].[referencing_entity_name]
+ , [T1].[referencing_fullname]
+ , [T1].[referencing_id]
+ , [T1].[referencing_node_id]
+ , [T1].[referencing_RepoObject_guid]
+ , [T1].[referencing_schema_name]
+ , [T1].[referencing_type]
  , [T1].[InformationSource]
+ , one = 1
 FROM repo.[RepoObject_reference_SqlExpressionDependencies] AS T1
 
 UNION ALL
 
-SELECT [T2].[referencing_id]
- , [T2].[referencing_node_id]
- , [T2].[referenced_id]
- , [T2].[referenced_node_id]
- , [T2].[referencing_RepoObject_guid]
- , [T2].[referenced_RepoObject_guid]
- , [T2].[referencing_type]
- , [T2].[referencing_schema_name]
- , [T2].[referencing_entity_name]
- , [T2].[referenced_schema_name]
- , [T2].[referenced_entity_name]
- , [T2].[referenced_type]
- , [T2].[InformationSource]
-FROM repo.[RepoObject_reference_persistence] AS T2
+SELECT
+ --
+ [T1].[referenced_entity_name]
+ , [T1].[referenced_fullname]
+ , [T1].[referenced_id]
+ , [T1].[referenced_node_id]
+ , [T1].[referenced_RepoObject_guid]
+ , [T1].[referenced_schema_name]
+ , [T1].[referenced_type]
+ , [T1].[referencing_entity_name]
+ , [T1].[referencing_fullname]
+ , [T1].[referencing_id]
+ , [T1].[referencing_node_id]
+ , [T1].[referencing_RepoObject_guid]
+ , [T1].[referencing_schema_name]
+ , [T1].[referencing_type]
+ , [T1].[InformationSource]
+ , one = 1
+FROM repo.[RepoObject_reference_persistence] AS T1
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union';
@@ -87,4 +98,16 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'def57
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e0f57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union', @level2type = N'COLUMN', @level2name = N'InformationSource';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '38df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union', @level2type = N'COLUMN', @level2name = N'referencing_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '37df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union', @level2type = N'COLUMN', @level2name = N'referenced_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '39df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union', @level2type = N'COLUMN', @level2name = N'one';
 

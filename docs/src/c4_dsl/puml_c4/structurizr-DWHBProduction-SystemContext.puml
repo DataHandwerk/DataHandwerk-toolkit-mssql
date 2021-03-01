@@ -1,0 +1,15 @@
+@startuml(id=DWHBProduction-SystemContext)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DWH B Production - System Context
+
+Person(8, "Deployment Team", "")
+Person(9, "Project B DWH User", "user of DWH (Project B)")
+System(26, "DWH B Production", "")
+Rel_D(8, 26, "deployes on production system", "")
+Rel_D(9, 26, "uses", "")
+@enduml

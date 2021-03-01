@@ -1,4 +1,5 @@
 ﻿
+
 /*
 if a source_index "HasFullColumnsInReferencing"
 we need to know [referencing_IndexPatternColumnGuid]
@@ -11,7 +12,7 @@ CREATE   view [repo].[Index_referencing_IndexPatternColumnGuid]
 as
 SELECT [source_index_guid] = [ic].[index_guid]
  , [ic].[referencing_RepoObject_guid]
- , [referencing_IndexPatternColumnGuid] = STRING_AGG(CAST([ic].[referencing_RepoObjectColumn_guid] AS CHAR(36)), ';') WITHIN
+ , [referencing_IndexPatternColumnGuid] = STRING_AGG(CAST([ic].[referencing_RepoObjectColumn_guid] AS CHAR(36)), ',') WITHIN
 GROUP (
   ORDER BY CAST([ic].[referencing_RepoObjectColumn_guid] AS CHAR(36))
   )

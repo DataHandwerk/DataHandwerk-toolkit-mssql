@@ -1,0 +1,24 @@
+@startuml(id=DWHADevelopment-SystemContext)
+title DWH A Development - System Context
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+actor "DHW Developer" <<Person>> as 1 #dddddd
+note right of 1
+  Developer of DataHandwerk Toolkit
+end note
+rectangle 3 <<Software System>> #dddddd [
+  DWH A Development
+]
+1 .[#707070].> 3 : uses for testing and development
+@enduml

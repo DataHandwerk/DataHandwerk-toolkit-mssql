@@ -1,0 +1,33 @@
+@startuml(id=DWHBProduction-SystemContext)
+title DWH B Production - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<25>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<7>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<8>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+rectangle "==Deployment Team\n<size:10>[Person]</size>" <<7>> as 7
+rectangle "==Project B DWH User\n<size:10>[Person]</size>\n\nuser of DWH (Project B)" <<8>> as 8
+rectangle "==DWH B Production\n<size:10>[Software System]</size>" <<25>> as 25
+7 .[#707070].> 25 : "deployes on production system"
+8 .[#707070].> 25 : "uses"
+@enduml

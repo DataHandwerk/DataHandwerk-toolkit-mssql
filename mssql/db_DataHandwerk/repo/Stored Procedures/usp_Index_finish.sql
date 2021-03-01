@@ -581,3 +581,6 @@ EXEC repo.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '39e9a165-9574-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+

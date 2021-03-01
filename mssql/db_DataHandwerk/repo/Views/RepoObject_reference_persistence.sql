@@ -2,18 +2,22 @@
 CREATE VIEW [repo].[RepoObject_reference_persistence]
 AS
 --
-SELECT [referencing_id] = [ro_t].[SysObject_id]
- , [referencing_node_id] = [ro_t].[node_id]
+SELECT
+ --
+ [referenced_entity_name] = [ro_s].[SysObject_name]
+ , [referenced_fullname] = [ro_s].[RepoObject_fullname]
  , [referenced_id] = [ro_s].[SysObject_id]
  , [referenced_node_id] = [ro_s].[node_id]
- , [referencing_RepoObject_guid] = [rop].[target_RepoObject_guid]
  , [referenced_RepoObject_guid] = [rop].[source_RepoObject_guid]
- , [referencing_type] = COALESCE([ro_t].[SysObject_type], [ro_t].[RepoObject_type], 'U')
- , [referencing_schema_name] = [ro_t].[SysObject_schema_name]
- , [referencing_entity_name] = [ro_t].[SysObject_name]
  , [referenced_schema_name] = [ro_s].[SysObject_schema_name]
- , [referenced_entity_name] = [ro_s].[SysObject_name]
  , [referenced_type] = [ro_s].[SysObject_type]
+ , [referencing_entity_name] = [ro_t].[SysObject_name]
+ , [referencing_fullname] = [ro_t].[RepoObject_fullname]
+ , [referencing_id] = [ro_t].[SysObject_id]
+ , [referencing_node_id] = [ro_t].[node_id]
+ , [referencing_RepoObject_guid] = [rop].[target_RepoObject_guid]
+ , [referencing_schema_name] = [ro_t].[SysObject_schema_name]
+ , [referencing_type] = COALESCE([ro_t].[SysObject_type], [ro_t].[RepoObject_type], 'U')
  , [InformationSource] = 'repo.RepoObject_persistence'
 FROM repo.RepoObject_persistence AS rop
 INNER JOIN repo.RepoObject AS ro_t
@@ -75,4 +79,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd6f17
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd8f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_persistence', @level2type = N'COLUMN', @level2name = N'InformationSource';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '10df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_persistence', @level2type = N'COLUMN', @level2name = N'referencing_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0fdf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_persistence', @level2type = N'COLUMN', @level2name = N'referenced_fullname';
 

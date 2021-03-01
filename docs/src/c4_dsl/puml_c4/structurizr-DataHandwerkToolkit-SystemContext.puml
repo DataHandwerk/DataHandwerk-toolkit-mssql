@@ -1,0 +1,13 @@
+@startuml(id=DataHandwerkToolkit-SystemContext)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DataHandwerk Toolkit - System Context
+
+Person(1, "DHW Developer", "Developer of DataHandwerk Toolkit")
+System(2, "DataHandwerk Toolkit", "")
+Rel_D(1, 2, "developes", "")
+@enduml

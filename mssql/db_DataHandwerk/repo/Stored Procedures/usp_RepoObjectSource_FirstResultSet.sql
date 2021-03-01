@@ -147,7 +147,7 @@ SELECT [ro_filtered].[RepoObject_guid]
 FROM (
  SELECT [ro].[RepoObject_guid]
   , [ro].[SysObject_query_sql]
- FROM repo.RepoObject AS ro
+ FROM repo.RepoObject_gross AS ro
  LEFT JOIN (
   SELECT [RepoObject_guid]
    , MIN([created_dt]) AS [created_dt_min]

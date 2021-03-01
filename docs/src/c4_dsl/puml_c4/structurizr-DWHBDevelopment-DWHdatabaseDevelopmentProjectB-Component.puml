@@ -1,0 +1,17 @@
+@startuml(id=DWHBDevelopment-DWHdatabaseDevelopmentProjectB-Component)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DWH B Development - DWH database Development (Project B) - Components
+
+Container(11, "Repository database (Project B)", "relational database", "")
+Container_Boundary(23_boundary, DWH database Development (Project B)) {
+  Component(25, "Extended Properties", "", "")
+  Component(24, "System views and procedures", "", "")
+}
+Rel_D(25, 11, "RepoObject correspond with extended properties", "")
+Rel_D(11, 25, "Synonyms link to DWH System Views", "")
+@enduml
