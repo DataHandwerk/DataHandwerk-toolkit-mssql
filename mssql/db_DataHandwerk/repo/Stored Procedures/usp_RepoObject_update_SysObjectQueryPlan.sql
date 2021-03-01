@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 references on column level
 target: repo.RepoObjectSource_from_query_plan
 source: query plan analysis of the execution of a query like
@@ -91,7 +92,7 @@ SELECT [ro].[RepoObject_guid]
  , [ro].[SysObject_query_plan]
  , [ro].[SysObject_query_executed_dt]
 --, ro.[SysObject_modify_date]
-FROM repo.RepoObject AS ro
+FROM repo.RepoObject_gross AS ro
 WHERE
  --   --only views and tables (for calculated columns)
  ----we don't need tables, references for calculated columns we have in [repo].[RepoObjectColumn_reference__sql_expression_dependencies]
@@ -112,9 +113,9 @@ WHERE
  --thats why as an workaround we exclude them
  AND ISNULL([ro].[has_execution_plan_issue], 0) = 0
 ORDER BY [ro].[RepoObject_guid]
-FOR UPDATE OF [SysObject_query_plan]
- , [SysObject_query_executed_dt]
 
+--FOR UPDATE OF [SysObject_query_plan]
+-- , [SysObject_query_executed_dt]
 OPEN view_cursor
 
 FETCH NEXT
@@ -166,7 +167,7 @@ BEGIN
     FROM sys.dm_exec_query_stats AS qry
     CROSS APPLY sys.dm_exec_sql_text(qry.sql_handle) AS txt
     CROSS APPLY sys.dm_exec_query_plan(qry.plan_handle) AS pln
-    WHERE [txt].text = @select_into_query;
+    WHERE [txt].TEXT = @select_into_query;
    END TRY
 
    BEGIN CATCH
@@ -188,11 +189,34 @@ BEGIN
   --        RAISERROR(N'Can''t extract XML query plan from cache.' , 10 , 0);
   --        RETURN;
   --END;
-  UPDATE repo.RepoObject
-  SET [SysObject_query_plan] = @xml_plan
-   , [SysObject_query_executed_dt] = GETDATE()
-  WHERE [RepoObject_guid] = @RepoObject_guid
+  MERGE INTO [repo].[RepoObject_QueryPlan] T
+  USING (
+   SELECT @RepoObject_guid
+    , @xml_plan
+   ) AS S(RepoObject_guid, SysObject_query_plan)
+   ON S.RepoObject_guid = T.RepoObject_guid
+  WHEN MATCHED
+   THEN
+    UPDATE
+    SET [SysObject_query_plan] = [S].[SysObject_query_plan]
+     , [SysObject_query_executed_dt] = GETDATE()
+  WHEN NOT MATCHED
+   THEN
+    INSERT (
+     [RepoObject_guid]
+     , [SysObject_query_plan]
+     , [SysObject_query_executed_dt]
+     )
+    VALUES (
+     S.RepoObject_guid
+     , S.SysObject_query_plan
+     , GETDATE()
+     );
 
+  --UPDATE repo.RepoObject
+  --SET [SysObject_query_plan] = @xml_plan
+  -- , [SysObject_query_executed_dt] = GETDATE()
+  --WHERE [RepoObject_guid] = @RepoObject_guid
   SET @rows = @@rowcount;
   SET @step_id = @step_id + 1
   SET @step_name = 'UPDATE SET [SysObject_query_plan] = @xml_plan, [SysObject_query_executed_dt] = GETDATE()'

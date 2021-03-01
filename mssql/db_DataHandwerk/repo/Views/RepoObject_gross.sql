@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [repo].[RepoObject_gross]
 AS
 --
@@ -30,8 +31,8 @@ SELECT
  , [ro].[SysObject_modify_date]
  , [ro].[SysObject_name]
  , [ro].[SysObject_parent_object_id]
- , [ro].[SysObject_query_executed_dt]
- , [ro].[SysObject_query_plan]
+ , [QueryPlan].[SysObject_query_executed_dt]
+ , [QueryPlan].[SysObject_query_plan]
  , [ro].[SysObject_query_sql]
  , [ro].[SysObject_schema_name]
  , [ro].[SysObject_type]
@@ -54,9 +55,11 @@ SELECT
  , [ro_p].[history_table_name]
  , [ro_p].[temporal_type]
  , [ColumnList].[CreateColumnList]
+ , [ColumnList].[DbmlColumnList]
  , [ColumnList].[PersistenceCompareColumnList]
  , [ColumnList].[PersistenceInsertColumnList]
  , [ColumnList].[PersistenceUpdateColumnList]
+ , Property_ms_description = [repo].[fs_get_RepoObjectProperty_nvarchar] ([ro].[RepoObject_guid], 'ms_description')
 FROM repo.RepoObject AS ro
 LEFT OUTER JOIN repo.RepoObject_persistence AS ro_p
  ON ro_p.target_RepoObject_guid = ro.RepoObject_guid
@@ -67,6 +70,8 @@ LEFT OUTER JOIN repo.RepoObject AS ro_usp_p
   AND ro_usp_p.[RepoObject_schema_name] = ro.[RepoObject_schema_name]
 LEFT OUTER JOIN repo.RepoObject_ColumnList AS ColumnList
  ON ColumnList.RepoObject_guid = ro.RepoObject_guid
+LEFT OUTER JOIN [repo].[RepoObject_QueryPlan] AS QueryPlan
+ ON QueryPlan.[RepoObject_guid] = ro.[RepoObject_guid]
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7790291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
@@ -282,4 +287,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd5b33
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd4b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'Inheritance_StringAggSeparatorSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3edf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'Property_ms_description';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3ddf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'DbmlColumnList';
 

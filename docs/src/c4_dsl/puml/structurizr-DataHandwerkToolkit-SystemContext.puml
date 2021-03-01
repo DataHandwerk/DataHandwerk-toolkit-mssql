@@ -1,0 +1,26 @@
+@startuml(id=DataHandwerkToolkit-SystemContext)
+title DataHandwerk Toolkit - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<1>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<2>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+rectangle "==DHW Developer\n<size:10>[Person]</size>\n\nDeveloper of DataHandwerk Toolkit" <<1>> as 1
+rectangle "==DataHandwerk Toolkit\n<size:10>[Software System]</size>" <<2>> as 2
+1 .[#707070].> 2 : "developes"
+@enduml

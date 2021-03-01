@@ -2,6 +2,29 @@
 CREATE VIEW [repo].[RepoObject_SqlCreateTable]
 AS
 SELECT ro.[RepoObject_guid]
+ , DbmlTable = CONCAT (
+  'Table '
+  , QUOTENAME(ro.RepoObject_fullname, '"')
+  , '{'
+  , CHAR(13)
+  , CHAR(10)
+  , ColList.DbmlColumnList
+  --note: 'string to add notes'
+  , CASE 
+   WHEN NOT ro.Property_ms_description IS NULL
+    THEN CHAR(13) + CHAR(10) + 'Note: ''''''' + CHAR(13) + CHAR(10) + REPLACE(REPLACE(ro.Property_ms_description, '\', '\\'), '''''''', '\''''''') + CHAR(13) + CHAR(10) + ''''''''
+   END
+  --optional Settings [setting1: value1, setting2: value2, setting3, setting4]
+  , CHAR(13)
+  , CHAR(10)
+  , CASE 
+   WHEN NOT IndexList.DbmlIndexList IS NULL
+    THEN CHAR(13) + CHAR(10) + 'indexes {' + CHAR(13) + CHAR(10) + IndexList.DbmlIndexList + CHAR(13) + CHAR(10) + '}' + CHAR(13) + CHAR(10)
+   END
+  , '}'
+  , CHAR(13)
+  , CHAR(10)
+  )
  , ro.RepoObject_fullname
  , SqlCreateTable = CONCAT (
   'CREATE TABLE '
@@ -113,6 +136,37 @@ LEFT JOIN (
  GROUP BY [parent_RepoObject_guid]
  ) ConList
  ON ConList.[parent_RepoObject_guid] = ro.[RepoObject_guid]
+LEFT JOIN (
+ SELECT [parent_RepoObject_guid]
+  , DbmlIndexList = STRING_AGG(CONCAT (
+    --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+    CAST(' ' AS NVARCHAR(MAX))
+    , '('
+    , i.[DbmlIndexColumnList]
+    , ') '
+    , '['
+    , CASE 
+     --this doesn't work. but we define pk in DbmlColumnList
+     WHEN i.[is_index_primary_key] = 1
+      THEN 'pk'
+     WHEN i.[is_index_unique] = 1
+      THEN 'unique'
+     ELSE 'name:''' + [index_name] + ''''
+     END
+    , ']'
+    ), CHAR(13) + CHAR(10)) WITHIN
+ GROUP (
+   ORDER BY i.[RowNumber_PkPerParentObject]
+   )
+ FROM [repo].[Index_gross] i
+ WHERE i.[is_index_primary_key] = 0
+  AND (
+   i.is_index_unique = 1
+   OR i.is_index_real = 1
+   )
+ GROUP BY [parent_RepoObject_guid]
+ ) IndexList
+ ON IndexList.[parent_RepoObject_guid] = ro.[RepoObject_guid]
 LEFT JOIN repo.RepoObject ro_hist
  ON ro_hist.RepoObject_guid = ro.Repo_history_table_guid
 
@@ -146,4 +200,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '514cb
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '504cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3fdf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'DbmlTable';
 

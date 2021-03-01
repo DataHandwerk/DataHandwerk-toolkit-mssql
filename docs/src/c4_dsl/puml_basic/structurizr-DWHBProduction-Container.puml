@@ -1,0 +1,28 @@
+@startuml(id=DWHBProduction-Container)
+title DWH B Production - Containers
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+actor "Deployment Team" <<Person>> as 8 #dddddd
+actor "Project B DWH User" <<Person>> as 9 #dddddd
+note right of 9
+  user of DWH (Project B)
+end note
+package "DWH B Production" <<Software System>> {
+  database 27 <<Container: relational database>> #dddddd [
+    DWH database Production (Project B)
+  ]
+}
+8 .[#707070].> 27 : deployes on production system
+9 .[#707070].> 27 : uses
+@enduml

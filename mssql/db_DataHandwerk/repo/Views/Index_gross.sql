@@ -47,6 +47,7 @@ SELECT [T1].[index_guid]
  , [T3].[SysObject_id]
  , [ColumList].[ColumnList]
  , [ColumList].[ConstraintColumnList]
+ , [ColumList].[DbmlIndexColumnList]
 FROM repo.[Index_Settings] AS T1
 INNER JOIN repo.Index_union AS T2
  ON T1.index_guid = T2.index_guid
@@ -153,4 +154,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '517e3
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '10682e6a-3c65-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '40df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'DbmlIndexColumnList';
 

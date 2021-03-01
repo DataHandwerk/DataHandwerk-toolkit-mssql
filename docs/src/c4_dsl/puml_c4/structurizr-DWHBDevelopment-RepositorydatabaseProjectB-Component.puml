@@ -1,0 +1,41 @@
+@startuml(id=DWHBDevelopment-RepositorydatabaseProjectB-Component)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DWH B Development - Repository database (Project B) - Components
+
+Container(23, "DWH database Development (Project B)", "relational database", "")
+Container_Boundary(11_boundary, Repository database (Project B)) {
+  Component(13, "Configuration", "", "Connection with DWH database and various settings for the behavior of the processes in the repository.")
+  Component(17, "Inheritance", "", "Inheritance or determination of extended properties for RepoObjects or RepoObject columns, based on references")
+  Component(19, "Persistence Generator", "", "Views or tables can be persisted in tables, with or without history with temporal tables. Code for performing the persistations is created.")
+  Component(16, "Reference", "", "Determination and management of references (dependencies) between RepoObjects or RepoObject columns")
+  Component(14, "RepoObject", "", "Central construct to represent objects (tables, views, procedures, functions, index, ...) and their subunits (columns, index columns, procedure parameters, ...), their properties and relationships between them.")
+  Component(15, "SqlParser", "", "Parse the code of views to extract column-level references or other logic from them")
+  Component(12, "Synonyms", "", "Synonyms are used to connect the repository database with the corresponding DWH database")
+  Component(18, "USP Generator", "", "usp (userdefined stored procedures) can be generated in a formalized way: containing optional logging and some workflow elements (sub procedures, conditions, parent-child logic)")
+  Component(20, "View Generator", "", "Not yet implemented")
+  Component(22, "Visualzation", "?", "Visualization of data lineage (references), real and virtual PK, FK-PK")
+  Component(21, "Workflow", "", "A workflow executes procedures in a specific and necessary order.")
+}
+Rel_D(23, 14, "RepoObject correspond with extended properties", "")
+Rel_D(17, 16, "", "")
+Rel_D(17, 14, "", "")
+Rel_D(19, 16, "", "")
+Rel_D(19, 14, "", "")
+Rel_D(19, 18, "", "")
+Rel_D(16, 14, "", "")
+Rel_D(16, 15, "", "")
+Rel_D(14, 23, "", "")
+Rel_D(14, 12, "", "")
+Rel_D(15, 12, "", "")
+Rel_D(12, 23, "Synonyms link to DWH System Views", "")
+Rel_D(18, 14, "", "")
+Rel_D(20, 14, "", "")
+Rel_D(20, 15, "", "")
+Rel_D(22, 16, "", "")
+Rel_D(21, 16, "", "")
+@enduml

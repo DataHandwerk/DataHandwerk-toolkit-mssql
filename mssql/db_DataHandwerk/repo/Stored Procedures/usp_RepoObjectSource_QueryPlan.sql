@@ -4,7 +4,7 @@ target: repo.RepoObjectSource__QueryPlan
 source: query plan analysis of the execution of a query like
 `Vselect top (1) * into #foo from (SELECT * FROM sss.aaa)`
 
-First update query plan and write them into repo.RepoObject
+First update query plan and write them into repo.RepoObject_QueryPlan
 then analyse the query plans and update results into 
 
 EXEC [repo].[usp_RepoObject__update_SysObject_query_plan]
@@ -82,7 +82,7 @@ DECLARE @message NVARCHAR(1000)
 -- delete outdated entries, which need to be analyzed again
 DELETE
 FROM repo.RepoObjectSource_QueryPlan
-FROM [repo].[RepoObject] AS [ro]
+FROM [repo].[RepoObject_gross] AS [ro]
 INNER JOIN [repo].[RepoObjectSource_QueryPlan]
  ON [ro].[RepoObject_guid] = [repo].[RepoObjectSource_QueryPlan].[RepoObject_guid]
   AND [ro].[SysObject_query_executed_dt] > [repo].[RepoObjectSource_QueryPlan].[SysObject_query_executed_dt]
@@ -126,7 +126,7 @@ SELECT [ro].[RepoObject_guid]
  , [ro].[SysObject_fullname]
 --, [ro].[SysObject_query_executed_dt]
 --, [ro].SysObject_query_plan
-FROM repo.RepoObject AS ro
+FROM repo.RepoObject_gross AS ro
 WHERE NOT [ro].[SysObject_query_plan] IS NULL
  --only views
  AND [ro].[SysObject_type] = 'V'
@@ -194,7 +194,7 @@ BEGIN
     , [sc].[target_column_info]
     , [sc].[source_column_info]
     , [sc].[const_info]
-   FROM repo.RepoObject AS ro
+   FROM repo.RepoObject_gross AS ro
    CROSS APPLY repo.ftv_query_plan_extract_source(SysObject_query_plan) AS sc
    WHERE [ro].[RepoObject_guid] = @RepoObject_guid
    OPTION (MAXRECURSION 100)

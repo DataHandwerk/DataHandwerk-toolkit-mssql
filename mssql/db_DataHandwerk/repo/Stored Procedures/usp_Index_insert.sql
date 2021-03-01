@@ -2,7 +2,7 @@
 --test:
 EXEC repo.usp_Index_insert 
  @RepoObject_fullname = '[dbo].[view_1]'
- , @IndexPatternColumnName = 'aaa_id;bbb'
+ , @IndexPatternColumnName = 'aaa_id,bbb'
 
 EXEC repo.usp_Index_insert 
  @RepoObject_fullname = '[dbo].[view_1]'
@@ -174,7 +174,7 @@ SELECT TRIM(value) AS index_column_name
     SELECT NULL
     )
   ) AS [index_column_id]
-FROM STRING_SPLIT(@IndexPatternColumnName, ';')
+FROM STRING_SPLIT(@IndexPatternColumnName, ',')
 
 */
 --todo: concept to insert [is_descending_key]
@@ -196,7 +196,7 @@ FROM (
      SELECT NULL
      )
    ) AS [index_column_id]
- FROM STRING_SPLIT(@IndexPatternColumnName, ';')
+ FROM STRING_SPLIT(@IndexPatternColumnName, ',')
  ) ColTable
 LEFT JOIN [repo].[RepoObjectColumn] roc
  ON roc.RepoObject_guid = @RepoObject_guid

@@ -1,0 +1,17 @@
+@startuml(id=DWHBProduction-Container)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DWH B Production - Containers
+
+Person(8, "Deployment Team", "")
+Person(9, "Project B DWH User", "user of DWH (Project B)")
+System_Boundary(26_boundary, DWH B Production) {
+  Container(27, "DWH database Production (Project B)", "relational database", "")
+}
+Rel_D(8, 27, "deployes on production system", "")
+Rel_D(9, 27, "uses", "")
+@enduml

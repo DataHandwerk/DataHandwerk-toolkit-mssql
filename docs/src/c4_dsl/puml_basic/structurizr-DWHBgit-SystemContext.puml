@@ -1,0 +1,28 @@
+@startuml(id=DWHBgit-SystemContext)
+title DWH B git - System Context
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+actor "DWH Developer" <<Person>> as 7 #dddddd
+note right of 7
+  Developer of some DWH
+end note
+actor "Deployment Team" <<Person>> as 8 #dddddd
+folder 28 <<Software System>> #dddddd [
+  DWH B git
+  --
+  Code of Project B unter Version Control (git, subversion, ...)
+]
+7 .[#707070].> 28 : uses
+8 .[#707070].> 28 : takes code or builds
+@enduml

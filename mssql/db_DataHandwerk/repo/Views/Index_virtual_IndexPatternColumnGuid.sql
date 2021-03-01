@@ -1,10 +1,11 @@
 ﻿
+
 CREATE VIEW [repo].[Index_virtual_IndexPatternColumnGuid]
 AS
 SELECT i.[index_guid]
  --only one [parent_RepoObject_guid] per index_guid is possible
  , [parent_RepoObject_guid] = MAX(i.[parent_RepoObject_guid])
- , [IndexPatternColumnGuid] = STRING_AGG(CAST([ic].[RepoObjectColumn_guid] AS CHAR(36)), ';') WITHIN
+ , [IndexPatternColumnGuid] = STRING_AGG(CAST([ic].[RepoObjectColumn_guid] AS CHAR(36)), ',') WITHIN
 GROUP (
   ORDER BY CAST([ic].[RepoObjectColumn_guid] AS CHAR(36))
   )

@@ -1,0 +1,26 @@
+@startuml(id=DWHBDevelopment-SystemContext)
+title DWH B Development - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<6>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<9>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+rectangle "==DWH Developer\n<size:10>[Person]</size>\n\nDeveloper of some DWH" <<6>> as 6
+rectangle "==DWH B Development\n<size:10>[Software System]</size>" <<9>> as 9
+6 .[#707070].> 9 : "developes"
+@enduml

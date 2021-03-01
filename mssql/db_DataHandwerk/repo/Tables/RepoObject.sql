@@ -20,8 +20,6 @@
     [SysObject_modify_date]               DATETIME         NULL,
     [SysObject_name]                      NVARCHAR (128)   CONSTRAINT [DF_RepoObject_SysObject_name] DEFAULT (newid()) NOT NULL,
     [SysObject_parent_object_id]          INT              CONSTRAINT [DF_RepoObject_SysObject_parent_object_id] DEFAULT ((0)) NOT NULL,
-    [SysObject_query_executed_dt]         DATETIME         NULL,
-    [SysObject_query_plan]                XML              NULL,
     [SysObject_schema_name]               NVARCHAR (128)   NOT NULL,
     [SysObject_type]                      CHAR (2)         NULL,
     [is_RepoObject_name_uniqueidentifier] AS               (case when TRY_CAST([RepoObject_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
@@ -36,6 +34,8 @@
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 
@@ -290,11 +290,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c3f17
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c2f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_query_plan';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c1f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_query_executed_dt';
+
 
 
 GO

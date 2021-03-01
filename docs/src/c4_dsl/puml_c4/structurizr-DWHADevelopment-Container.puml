@@ -1,0 +1,14 @@
+@startuml(id=DWHADevelopment-Container)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DWH A Development - Containers
+
+System_Boundary(3_boundary, DWH A Development) {
+  Container(5, "DWH database (Project A)", "relational database", "")
+  Container(4, "Repository database (Project A)", "relational database", "")
+}
+@enduml

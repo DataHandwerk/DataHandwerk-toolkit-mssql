@@ -1,0 +1,15 @@
+@startuml(id=DWHBgit-SystemContext)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DWH B git - System Context
+
+Person(7, "DWH Developer", "Developer of some DWH")
+Person(8, "Deployment Team", "")
+System(28, "DWH B git", "Code of Project B unter Version Control (git, subversion, ...)")
+Rel_D(7, 28, "uses", "")
+Rel_D(8, 28, "takes code or builds", "")
+@enduml

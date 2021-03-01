@@ -14,9 +14,11 @@
     [source_RepoObject_guid]                UNIQUEIDENTIFIER NULL,
     [is_persistence]                        AS               (CONVERT([bit],(1))),
     [temporal_type]                         AS               (CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end)),
-    CONSTRAINT [PK_RepoObject_table] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
+    CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -134,7 +136,7 @@ ON DELETE CASCADE', @level0type = N'SCHEMA', @level0name = N'repo', @level1type 
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4890291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_table';
+
 
 
 GO
@@ -239,4 +241,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '31f47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '30f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4890291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_persistence';
 

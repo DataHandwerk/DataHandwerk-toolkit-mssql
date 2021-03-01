@@ -1,0 +1,13 @@
+@startuml(id=DWHBDevelopment-SystemContext)
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title DWH B Development - System Context
+
+Person(7, "DWH Developer", "Developer of some DWH")
+System(10, "DWH B Development", "")
+Rel_D(7, 10, "developes", "")
+@enduml
