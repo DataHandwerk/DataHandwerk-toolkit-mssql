@@ -540,8 +540,9 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
 <li><a href="#section-system-scope-and-context">3. System Scope and Context</a>
 <ul class="sectlevel2">
-<li><a href="#_business_context">3.1. Business Context</a></li>
-<li><a href="#_technical_context">3.2. Technical Context</a></li>
+<li><a href="#_system_landscape">3.1. System Landscape</a></li>
+<li><a href="#_datahandwerk_development_context">3.2. DataHandwerk Development Context</a></li>
+<li><a href="#_customer_context">3.3. Customer Context</a></li>
 </ul>
 </li>
 <li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
@@ -549,7 +550,6 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
 <li><a href="#_level_2">5.2. Level 2</a></li>
-<li><a href="#_level_3">5.3. Level 3</a></li>
 </ul>
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
@@ -991,67 +991,37 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 </div>
 </div>
 <div class="sect2">
-<h3 id="_business_context">3.1. Business Context</h3>
+<h3 id="_system_landscape">3.1. System Landscape</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/dhw-business-context.svg" alt="dhw business context" width="574" height="857">
+<img src="./images/structurizr-SystemLandscape.svg" alt="structurizr SystemLandscape" width="1072" height="420">
 </div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">DHW (DataHandwerk) Developer</dt>
-<dd>
-<p>Database developers who develop the toolkit</p>
-</dd>
-<dt class="hdlist1">DWH Developer</dt>
-<dd>
-<p>Database developers using the toolkit to develop DWH</p>
-</dd>
-<dt class="hdlist1">DWH User</dt>
-<dd>
-<p>End users consuming the DWH</p>
-</dd>
-</dl>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_technical_context">3.2. Technical Context</h3>
+<h3 id="_datahandwerk_development_context">3.2. DataHandwerk Development Context</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/dhw-technical-context.svg" alt="dhw technical context" width="2047" height="668">
+<img src="./images/structurizr-DataHandwerkDevelopment-SystemContext.svg" alt="structurizr DataHandwerkDevelopment SystemContext" width="384" height="307">
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">System views and procedures</dt>
-<dd>
-<p>are the same in all databases</p>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>are used to connect a repository database with a DWH database, based on System views and procedures. The connection can thus be easily changed.</p>
-</dd>
-<dt class="hdlist1">RepoObjects</dt>
-<dd>
-<p>are the basis of the toolkit. Columns, extended porperties, inidicies, references (dependencies) and other stuff are assigned to the RepoObjects. There is a synchronization with extended properties of objects and subobjects in the DWH. Thus, many (not all) metadata from the repository can be mapped directly in the DWH.</p>
-</dd>
-<dt class="hdlist1">Extended properties</dt>
-<dd>
-<p>can be defined in the DWH or in the repository. For their values there is a possibility of inheritance or filling based on parameters. Thus, descriptions can be inherited along the references, formulas of calculations can be written in descriptions, lists of referenced objects or columns can be created. This allows and simplifies the creation of documentation directly from the database - <em>documentation as code</em>.</p>
-</dd>
-<dt class="hdlist1">normal object</dt>
-<dd>
-<p>Objects created directly (or however) by the developer in the DWH.</p>
-</dd>
-<dt class="hdlist1">generated scripts</dt>
-<dd>
-<p>There are generators for procedures, tables (especially persistence with optional historization in temporal tables, including procedures to merge into these tables) and views (planned).</p>
-</dd>
-<dt class="hdlist1">objects, generated based on repo scripts</dt>
-<dd>
-<p>If a developer wishes, he can use the "generated scripts" to be assisted in the creation of objects.</p>
-</dd>
-</dl>
+</div>
+<div class="sect2">
+<h3 id="_customer_context">3.3. Customer Context</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/structurizr-DWHBDevelopment-SystemContext.svg" alt="structurizr DWHBDevelopment SystemContext" width="325" height="325">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/structurizr-DWHBgit-SystemContext.svg" alt="structurizr DWHBgit SystemContext" width="445" height="398">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/structurizr-DWHBProduction-SystemContext.svg" alt="structurizr DWHBProduction SystemContext" width="443" height="338">
+</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1128,94 +1098,36 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 <h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/dhw-whitebox-overall-system.svg" alt="dhw whitebox overall system" width="1088" height="599">
+<img src="./images/structurizr-DataHandwerkDevelopment-Container.svg" alt="structurizr DataHandwerkDevelopment Container" width="489" height="190">
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Contained Building Blocks</dt>
-</dl>
+<div class="imageblock">
+<div class="content">
+<img src="./images/structurizr-DWHBDevelopment-Container.svg" alt="structurizr DWHBDevelopment Container" width="338" height="371">
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. DHW1::black_boxes</caption>
-<colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 85.7143%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Connection with DWH database and various settings for the behavior of the processes in the repository.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RepoObject</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Central construct to represent objects (tables, views, procedures, functions, index, &#8230;&#8203;) and their subunits (columns, index columns, procedure parameters, &#8230;&#8203;), their properties and relationships between them.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reference</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Determination and management of references (dependencies) between RepoObjects or RepoObject columns</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inheritance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inheritance or determination of extended properties for RepoObjects or RepoObject columns, based on references</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SQL Parser</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parse the code of views to extract column-level references or other logic from them.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generators</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Script generators for tables, procedures and views; especially also for tables for persisting views (with optional history tables)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GUI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Additional GUI for more convenient data entry than with standard tools like SSMS or ADS</p></td>
-</tr>
-</tbody>
-</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/structurizr-DWHBProduction-Container.svg" alt="structurizr DWHBProduction Container" width="383" height="355">
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_level_2">5.2. Level 2</h3>
 <div class="sect3">
-<h4 id="_white_box_repoobject">5.2.1. White Box RepoObject</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<h4 id="_dwh_db_development_project_b">5.2.1. DWH db Development (Project B)</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/structurizr-DWHBDevelopment-DWHdbDevelopmentProjectB-Component.svg" alt="structurizr DWHBDevelopment DWHdbDevelopmentProjectB Component" width="585" height="332">
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_building_block_2">5.2.2. White Box <em>&lt;building block 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<h4 id="_repository_db_development_project_b">5.2.2. Repository db Development (Project B)</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/structurizr-DWHBDevelopment-RepositorydbProjectB-Component.svg" alt="structurizr DWHBDevelopment RepositorydbProjectB Component" width="1492" height="1079">
 </div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_building_block_m">5.2.3. White Box <em>&lt;building block m&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_level_3">5.3. Level 3</h3>
-<div class="sect3">
-<h4 id="_white_box_building_block_x_1">5.3.1. White Box &lt;_building block x.1_&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_building_block_x_2">5.3.2. White Box &lt;_building block x.2_&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_building_block_y_1">5.3.3. White Box &lt;_building block y.1_&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1239,7 +1151,7 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 <h3 id="_repo_usp_main">6.1. [repo].[usp_main]</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/dhw-tree-ExecutionLog-usp_main.svg" alt="dhw tree ExecutionLog usp main" width="572" height="208">
+<img src="./images/dhw-tree-ExecutionLog-usp_main.svg" alt="dhw tree ExecutionLog usp main" width="652" height="223">
 </div>
 </div>
 <div class="imageblock">

@@ -6,7 +6,7 @@ workspace {
             project_b_dwh_user = person "Project B DWH User" "user of DWH (Project B)"
 
             project_b_dev = softwareSystem "DWH B Development" {
-                project_b_repo_db = container "Repository database (Project B)" "" "Database" "Database" {
+                project_b_repo_db = container "Repository db (Project B)" "" "Database" "Database" {
                     repo_synonyms = component "Synonyms" "Synonyms are used to connect the repository database with the corresponding DWH database"
                     repo_Configuration = component "Configuration" "Connection with DWH database and various settings for the behavior of the processes in the repository."
                     repo_RepoObject = component "RepoObject" "Central construct to represent objects (tables, views, procedures, functions, index, ...) and their subunits (columns, index columns, procedure parameters, ...), their properties and relationships between them."
@@ -17,26 +17,26 @@ workspace {
                     repo_generator_persistence = component "Persistence Generator" "Views or tables can be persisted in tables, with or without history with temporal tables. Code for performing the persistations is created."
                     repo_generator_view = component "View Generator" "Not yet implemented"
                     repo_Workflow = component "Workflow" "A workflow executes procedures in a specific and necessary order."
-                    repo_visualization = component "Visualzation" "Visualization of data lineage (references), real and virtual PK, FK-PK" "?" "GUI"
+                    repo_visualization = component "Visualization" "Visualization of data lineage (references), real and virtual PK, FK-PK" "?" "GUI"
                 }
-                project_b_dev_dwh_db = container "DWH database Development (Project B)" "" "Database" "Database" {
+                project_b_dev_dwh_db = container "DWH db Development (Project B)" "" "Database" "Database" {
                     dwh_sys = component "System views and procedures"
                     dwh_extended_properties = component "Extended Properties"
                 }
             }
             project_b_prod = softwareSystem "DWH B Production" {
-                project_b_prod_dwh_db = container "DWH database Production (Project B)" "" "Database" "Database"
+                project_b_prod_dwh_db = container "DWH db Production (Project B)" "" "Database" "Database"
             }
-            project_b_git = softwareSystem "DWH B git" "Code of Project B unter Version Control (git, subversion, ...)" "git"
+            project_b_git = softwareSystem "DWH B git" "Code of Project B in Version Control (git, subversion, ...)" "git"
         }
 
         dhw_developer = person "DHW Developer" "Developer of DataHandwerk Toolkit"
 
         project_a_dwh_dev = softwareSystem "DataHandwerk Development" {
-            project_a_repo_db = container "Repository database (Project A)" "" "Database" "Database"
-            project_a_dwh_db = container "DWH database (Project A)" "" "Database" "Database"
+            project_a_repo_db = container "Repository db (Project A)" "" "Database" "Database"
+            project_a_dwh_db = container "DWH db (Project A)" "" "Database" "Database"
         }
-        dhw_git = softwareSystem "DataHandwerk git" "Code of DataHandwerk unter Version Control" "git"
+        dhw_git = softwareSystem "DataHandwerk git" "Code of DataHandwerk in Version Control" "git"
  
 
         dhw_developer -> project_a_dwh_dev "uses for testing and development"
