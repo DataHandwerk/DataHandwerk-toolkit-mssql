@@ -10,24 +10,26 @@ skinparam {
 }
 hide stereotype
 top to bottom direction
-skinparam rectangle<<25>> {
+skinparam rectangle<<2>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
-skinparam rectangle<<7>> {
+skinparam rectangle<<3>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
-skinparam rectangle<<8>> {
+skinparam rectangle<<20>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
-rectangle "==Deployment Team\n<size:10>[Person]</size>" <<7>> as 7
-rectangle "==Project B DWH User\n<size:10>[Person]</size>\n\nuser of DWH (Project B)" <<8>> as 8
-rectangle "==DWH B Production\n<size:10>[Software System]</size>" <<25>> as 25
-7 .[#707070].> 25 : "deployes on production system"
-8 .[#707070].> 25 : "uses"
+package "Customer" {
+  rectangle "==Deployment Team\n<size:10>[Person]</size>" <<2>> as 2
+  rectangle "==Project B DWH User\n<size:10>[Person]</size>\n\nuser of DWH (Project B)" <<3>> as 3
+  rectangle "==DWH B Production\n<size:10>[Software System]</size>" <<20>> as 20
+}
+2 .[#707070].> 20 : "deployes on production system"
+3 .[#707070].> 20 : "uses"
 @enduml

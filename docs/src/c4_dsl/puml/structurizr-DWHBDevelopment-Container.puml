@@ -10,20 +10,20 @@ skinparam {
 }
 hide stereotype
 top to bottom direction
-skinparam database<<22>> {
+skinparam database<<5>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
-skinparam database<<10>> {
+skinparam database<<17>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
 package "DWH B Development\n[Software System]" {
-  database "==DWH database Development (Project B)\n<size:10>[Container: Database]</size>" <<22>> as 22
-  database "==Repository database (Project B)\n<size:10>[Container: Database]</size>" <<10>> as 10
+  database "==DWH db Development (Project B)\n<size:10>[Container: Database]</size>" <<17>> as 17
+  database "==Repository db (Project B)\n<size:10>[Container: Database]</size>" <<5>> as 5
 }
-22 .[#707070].> 10 : "RepoObject correspond with extended properties"
-10 .[#707070].> 22 : "Synonyms link to DWH System Views"
+17 .[#707070].> 5 : "RepoObject correspond with extended properties"
+5 .[#707070].> 17 : "Synonyms link to DWH System Views"
 @enduml
