@@ -171,6 +171,13 @@ include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-DWHdbDevelopmentProject
 include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-RepositorydbProjectB-Component.puml[]
 ....
 
+==== GUI (Project B)
+
+[plantuml, structurizr-DWHBDevelopment-GUI-Component, svg]
+....
+include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-GUI-Component.puml[]
+....
+
 
 // ==== White Box RepoObject
 

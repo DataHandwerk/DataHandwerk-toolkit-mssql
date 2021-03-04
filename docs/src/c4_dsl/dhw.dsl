@@ -17,12 +17,17 @@ workspace {
                     repo_generator_persistence = component "Persistence Generator" "Views or tables can be persisted in tables, with or without history with temporal tables. Code for performing the persistations is created."
                     repo_generator_view = component "View Generator" "Not yet implemented"
                     repo_Workflow = component "Workflow" "A workflow executes procedures in a specific and necessary order."
-                    repo_visualization = component "Visualization" "Visualization of data lineage (references), real and virtual PK, FK-PK" "?" "GUI"
+                    repo_visualization = component "Visualization" "preparation for Visualization of data lineage (references), real and virtual PK, FK-PK"
                 }
                 project_b_dev_dwh_db = container "DWH db Development (Project B)" "" "Database" "Database" {
                     dwh_sys = component "System views and procedures"
                     dwh_extended_properties = component "Extended Properties"
                     project_b_sqlsever_objects = component "SQL Server objects"
+                }
+                GUI = container "GUI" "Graphical User Interface" "GUI" "GUI" {
+                    gui_visualization = component "Visualization GUI" "Visualization of data lineage (references), real and virtual PK, FK-PK" "?" "GUI"
+                    gui_crud = component "CRUD GUI" "CRUD - Create, Read, Update, Delete" "?" "GUI"
+
                 }
             }
             project_b_prod = softwareSystem "DWH B Production" {
@@ -77,6 +82,8 @@ workspace {
 
         dwh_sys -> project_b_sqlsever_objects "describe"
         dwh_extended_properties -> project_b_sqlsever_objects "enrich them with additional information"
+
+        gui_visualization -> repo_visualization "uses"
 
     }
     views {
