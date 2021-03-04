@@ -10,6 +10,11 @@ skinparam {
 }
 hide stereotype
 top to bottom direction
+skinparam database<<22>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
 skinparam rectangle<<2>> {
   BackgroundColor #dddddd
   FontColor #000000
@@ -20,16 +25,11 @@ skinparam rectangle<<3>> {
   FontColor #000000
   BorderColor #9A9A9A
 }
-skinparam database<<21>> {
-  BackgroundColor #dddddd
-  FontColor #000000
-  BorderColor #9A9A9A
-}
 rectangle "==Deployment Team\n<size:10>[Person]</size>" <<2>> as 2
 rectangle "==Project B DWH User\n<size:10>[Person]</size>\n\nuser of DWH (Project B)" <<3>> as 3
 package "DWH B Production\n[Software System]" {
-  database "==DWH db Production (Project B)\n<size:10>[Container: Database]</size>" <<21>> as 21
+  database "==DWH db Production (Project B)\n<size:10>[Container: Database]</size>" <<22>> as 22
 }
-2 .[#707070].> 21 : "deployes on production system"
-3 .[#707070].> 21 : "uses"
+2 .[#707070].> 22 : "deployes on production system"
+3 .[#707070].> 22 : "uses"
 @enduml

@@ -15,21 +15,21 @@ skinparam rectangle<<1>> {
   FontColor #000000
   BorderColor #9A9A9A
 }
-skinparam rectangle<<23>> {
+skinparam rectangle<<24>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
-skinparam folder<<27>> {
+skinparam folder<<28>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
-rectangle "==DHW Developer\n<size:10>[Person]</size>\n\nDeveloper of DataHandwerk Toolkit" <<23>> as 23
-folder "==DataHandwerk git\n<size:10>[Software System]</size>\n\nCode of DataHandwerk in Version Control" <<27>> as 27
+rectangle "==DHW Developer\n<size:10>[Person]</size>\n\nDeveloper of DataHandwerk Toolkit" <<24>> as 24
+folder "==DataHandwerk git\n<size:10>[Software System]</size>\n\nCode of DataHandwerk in Version Control" <<28>> as 28
 package "Customer" {
   rectangle "==DWH Developer\n<size:10>[Person]</size>\n\nDeveloper of some DWH" <<1>> as 1
 }
-23 .[#707070].> 27 : "uses"
-1 .[#707070].> 27 : "takes code or builds"
+24 .[#707070].> 28 : "uses"
+1 .[#707070].> 28 : "takes code or builds"
 @enduml

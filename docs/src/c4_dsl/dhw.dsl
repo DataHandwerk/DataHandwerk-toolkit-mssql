@@ -22,6 +22,7 @@ workspace {
                 project_b_dev_dwh_db = container "DWH db Development (Project B)" "" "Database" "Database" {
                     dwh_sys = component "System views and procedures"
                     dwh_extended_properties = component "Extended Properties"
+                    project_b_sqlsever_objects = component "SQL Server objects (Project B)"
                 }
             }
             project_b_prod = softwareSystem "DWH B Production" {
@@ -51,7 +52,7 @@ workspace {
 
         project_b_dwh_user -> project_b_prod_dwh_db "uses"
 
-        repo_synonyms -> dwh_extended_properties "Synonyms link to DWH System Views"
+        repo_synonyms -> dwh_sys "Synonyms link to DWH System Views"
         dwh_extended_properties -> repo_RepoObject "RepoObject correspond with extended properties"
         repo_RepoObject -> dwh_extended_properties
 
@@ -73,6 +74,9 @@ workspace {
 
         repo_generator_persistence -> repo_generator_usp
         repo_generator_view -> repo_SqlParser
+
+        dwh_sys -> project_b_sqlsever_objects "describe"
+        dwh_extended_properties -> project_b_sqlsever_objects "enrich them with additional information"
 
     }
     views {
