@@ -70,7 +70,13 @@ skinparam rectangle<<10>> {
   FontColor #000000
   BorderColor #9A9A9A
 }
+skinparam rectangle<<21>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
 database "==DWH db Development (Project B)\n<size:10>[Container: Database]</size>" <<17>> as 17
+rectangle "==GUI\n<size:10>[Container: GUI]</size>\n\nGraphical User Interface" <<21>> as 21
 package "Repository db (Project B)\n[Container: Database]" {
   rectangle "==Configuration\n<size:10>[Component]</size>\n\nConnection with DWH database and various settings for the behavior of the processes in the repository." <<7>> as 7
   rectangle "==Inheritance\n<size:10>[Component]</size>\n\nInheritance or determination of extended properties for RepoObjects or RepoObject columns, based on references" <<11>> as 11
@@ -81,10 +87,11 @@ package "Repository db (Project B)\n[Container: Database]" {
   rectangle "==Synonyms\n<size:10>[Component]</size>\n\nSynonyms are used to connect the repository database with the corresponding DWH database" <<6>> as 6
   rectangle "==USP Generator\n<size:10>[Component]</size>\n\nusp (userdefined stored procedures) can be generated in a formalized way: containing optional logging and some workflow elements (sub procedures, conditions, parent-child logic)" <<12>> as 12
   rectangle "==View Generator\n<size:10>[Component]</size>\n\nNot yet implemented" <<14>> as 14
-  rectangle "==Visualization\n<size:10>[Component: ?]</size>\n\nVisualization of data lineage (references), real and virtual PK, FK-PK" <<16>> as 16
+  rectangle "==Visualization\n<size:10>[Component]</size>\n\npreparation for Visualization of data lineage (references), real and virtual PK, FK-PK" <<16>> as 16
   rectangle "==Workflow\n<size:10>[Component]</size>\n\nA workflow executes procedures in a specific and necessary order." <<15>> as 15
 }
 17 .[#707070].> 8 : "RepoObject correspond with extended properties"
+21 .[#707070].> 16 : "uses"
 11 .[#707070].> 10 : ""
 11 .[#707070].> 8 : ""
 13 .[#707070].> 10 : ""
