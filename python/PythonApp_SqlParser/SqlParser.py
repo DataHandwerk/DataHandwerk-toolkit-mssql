@@ -1,7 +1,11 @@
-# https://docs.python.org/3/library/configparser.html
-# configparser — Configuration file parser
-# read configuration from ini file
-import configparser
+# # https://docs.python.org/3/library/configparser.html
+# # configparser — Configuration file parser
+# # read configuration from ini file
+# import configparser
+
+# https://pypi.org/project/ConfigArgParse/
+import configargparse
+
 
 # #required for sys.exit(1) und sys.argv
 # import sys
@@ -50,15 +54,34 @@ def serialise(token):
 
 
 def main():
-    config = configparser.ConfigParser()
-    config.read('SqlParser.ini')
-    # config.sections()
-    # print(config['mssql']['server'])
-    # print(config['mssql']['database'])
-    server = config['mssql']['server']
-    database = config['mssql']['database']
+    p = configargparse.ArgParser(default_config_files=['SqlParser.ini'])
+    p.add('--server', required=True, help='sql server instance. Examples: localhost localhost\sql2019')  # this option can be set in a config file because it starts with '--'
+    p.add('--database', required=True, help='database name. Examples: dhw_master')  # this option can be set in a config file because it starts with '--'
+    p.add('-c', '--my-config', is_config_file=True, help='config file path')
+    p.add('-v', help='verbose', action='store_true')
+
+    options = p.parse_args()
+    print(options)
+    print("----------")
+    print(p.format_help())
+    print("----------")
+    print(p.format_values())    # useful for logging where different settings came from
+
+    server = options.server
+    database = options.database
     print(server)
     print(database)
+
+
+    # config = configparser.ConfigParser()
+    # config.read('SqlParser.ini')
+    # # config.sections()
+    # # print(config['mssql']['server'])
+    # # print(config['mssql']['database'])
+    # server = config['mssql']['server']
+    # database = config['mssql']['database']
+    # print(server)
+    # print(database)
 
     cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' +
                           server+';DATABASE='+database+';Trusted_Connection=yes;')
