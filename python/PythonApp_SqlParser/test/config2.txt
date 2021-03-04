@@ -1,0 +1,5 @@
+# settings for SqlParser.py
+
+[mssql]
+server = localhost\sql2019
+database = dhw_self
