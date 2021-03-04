@@ -10,18 +10,18 @@ skinparam {
 }
 hide stereotype
 top to bottom direction
-skinparam database<<25>> {
-  BackgroundColor #dddddd
-  FontColor #000000
-  BorderColor #9A9A9A
-}
 skinparam database<<26>> {
   BackgroundColor #dddddd
   FontColor #000000
   BorderColor #9A9A9A
 }
+skinparam database<<27>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
 package "DataHandwerk Development\n[Software System]" {
-  database "==DWH db (Project A)\n<size:10>[Container: Database]</size>" <<26>> as 26
-  database "==Repository db (Project A)\n<size:10>[Container: Database]</size>" <<25>> as 25
+  database "==DWH db (Project A)\n<size:10>[Container: Database]</size>" <<27>> as 27
+  database "==Repository db (Project A)\n<size:10>[Container: Database]</size>" <<26>> as 26
 }
 @enduml
