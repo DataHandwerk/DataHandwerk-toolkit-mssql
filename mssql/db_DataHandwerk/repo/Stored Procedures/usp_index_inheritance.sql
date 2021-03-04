@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_Index_inheritance]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -74,6 +75,8 @@ EXEC [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInRefer
 
 
 /*{"ReportUspStep":[{"Number":310,"Name":"DELETE (if it is a referencing index (NOT [referenced_index_guid] IS NULL), but referenced index is missing)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',310,';',NULL);
+
 DELETE
 FROM repo.[Index_virtual]
 WHERE NOT [referenced_index_guid] IS NULL
@@ -110,6 +113,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":410,"Name":"INSERT (Index which should be inherited in referenced, but not yet referenced)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',410,';',NULL);
+
 INSERT INTO repo.[Index_virtual] (
  [parent_RepoObject_guid]
  , [referenced_index_guid]
@@ -159,6 +164,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":510,"Name":"DELETE (referenced index, where entries are missing in setpoint)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[IndexColumn_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',510,';',NULL);
+
 DELETE
 FROM repo.[IndexColumn_virtual]
 FROM [repo].[IndexColumn_virtual]
@@ -198,6 +205,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":610,"Name":"INSERT missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',610,';',NULL);
+
 INSERT INTO repo.[IndexColumn_virtual] (
  [index_guid]
  , [index_column_id]
@@ -241,6 +250,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":710,"Name":"DELETE duplicates by pattern","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_gross]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',710,';',NULL);
+
 DELETE iv
 FROM [repo].[Index_virtual] [iv]
 WHERE EXISTS (
@@ -275,6 +286,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":810,"Name":"SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid], [is_descending_key] = [setpoint].[is_descending_key]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[IndexColumn_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',810,';',NULL);
+
 UPDATE icv
 SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid]
  , [is_descending_key] = [setpoint].[is_descending_key]

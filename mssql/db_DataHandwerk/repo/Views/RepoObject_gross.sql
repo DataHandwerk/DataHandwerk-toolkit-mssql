@@ -1,5 +1,4 @@
 ﻿
-
 CREATE VIEW [repo].[RepoObject_gross]
 AS
 --
@@ -15,6 +14,16 @@ SELECT
  , [ro].[Inheritance_StringAggSeparatorSql]
  , [ro].[InheritanceDefinition]
  , [ro].[InheritanceType]
+ , [is_in_reference] = CASE 
+  WHEN EXISTS (
+    SELECT 1
+    FROM [graph].[RepoObject_ReferencingReferenced] AS [ref]
+    WHERE [ref].[Referenced_guid] = [ro].[RepoObject_guid]
+     OR [ref].[Referencing_guid] = [ro].[RepoObject_guid]
+    )
+   THEN 1
+  ELSE 0
+  END
  , [ro].[is_repo_managed]
  , [ro].[is_RepoObject_name_uniqueidentifier]
  , [ro].[is_SysObject_missing]
@@ -59,7 +68,10 @@ SELECT
  , [ColumnList].[PersistenceCompareColumnList]
  , [ColumnList].[PersistenceInsertColumnList]
  , [ColumnList].[PersistenceUpdateColumnList]
- , Property_ms_description = [repo].[fs_get_RepoObjectProperty_nvarchar] ([ro].[RepoObject_guid], 'ms_description')
+ , [Property_ms_description] = [repo].[fs_get_RepoObjectProperty_nvarchar]([ro].[RepoObject_guid], 'ms_description')
+ , [SqlModules].[sql_modules_definition]
+ , [SqlModules].[sql_modules_formatted]
+ , [SqlModules].[sql_modules_formatted2]
 FROM repo.RepoObject AS ro
 LEFT OUTER JOIN repo.RepoObject_persistence AS ro_p
  ON ro_p.target_RepoObject_guid = ro.RepoObject_guid
@@ -72,6 +84,8 @@ LEFT OUTER JOIN repo.RepoObject_ColumnList AS ColumnList
  ON ColumnList.RepoObject_guid = ro.RepoObject_guid
 LEFT OUTER JOIN [repo].[RepoObject_QueryPlan] AS QueryPlan
  ON QueryPlan.[RepoObject_guid] = ro.[RepoObject_guid]
+LEFT OUTER JOIN [repo].[RepoObject_SqlModules_Repo_Sys] AS SqlModules
+ ON SqlModules.RepoObject_guid = [ro].[RepoObject_guid]
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7790291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
@@ -295,4 +309,20 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3edf2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3ddf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'DbmlColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '764679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'sql_modules_formatted2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '754679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'sql_modules_formatted';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '744679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'sql_modules_definition';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '734679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_in_reference';
 

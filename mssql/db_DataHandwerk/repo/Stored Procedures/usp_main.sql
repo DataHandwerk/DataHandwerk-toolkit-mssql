@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_main]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -176,6 +177,8 @@ EXEC [repo].[usp_GeneratorUsp_insert_update_persistence]
 
 
 /*{"ReportUspStep":[{"Number":2110,"Name":"MERGE [graph].[ReferencedObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencedObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2110,';',NULL);
+
 MERGE [graph].[ReferencedObject]
 USING (
  (
@@ -234,6 +237,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":2120,"Name":"MERGE [graph].[ReferencingObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencingObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2120,';',NULL);
+
 MERGE [graph].[ReferencingObject]
 USING (
  (
@@ -292,6 +297,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":2210,"Name":"MERGE [graph].[ReferencedObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn_reference_union]","log_target_object":"[graph].[ReferencedObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2210,';',NULL);
+
 MERGE [graph].[ReferencedObjectColumn]
 USING (
  (
@@ -352,6 +359,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":2220,"Name":"MERGE [graph].[ReferencingObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn_reference_union]","log_target_object":"[graph].[ReferencingObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2220,';',NULL);
+
 MERGE [graph].[ReferencingObjectColumn]
 USING (
  (
@@ -412,6 +421,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":3110,"Name":"Merge Into [repo].[ProcedureInstanceDependency] (Persistence)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Match_RepoObject_referenced_UspPersistence]","log_target_object":"[repo].[ProcedureInstanceDependency]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',3110,';',NULL);
+
 Merge Into [repo].[ProcedureInstanceDependency] T
 USING
 (

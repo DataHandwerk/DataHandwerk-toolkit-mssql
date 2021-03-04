@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[graph].[usp_PERSIST_RepoObjectColumn]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -68,6 +69,8 @@ IF (SELECT count(*) FROM [graph].[RepoObjectColumn_S]) = 0
 
 /*{"ReportUspStep":[{"Number":110,"Parent_Number":100,"Name":"ERROR 50110: persistence source is empty","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',10,';',110,';',100);
+
  THROW 50110
   , 'persistence source is empty: [graph].[RepoObjectColumn_S]'
   , 1;
@@ -75,6 +78,8 @@ BEGIN
 END;
 
 /*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[RepoObjectColumn_S]","log_target_object":"[graph].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',10,';',500,';',NULL);
+
 DELETE T
 FROM [graph].[RepoObjectColumn] AS T
 WHERE
@@ -110,13 +115,17 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[RepoObjectColumn_S]","log_target_object":"[graph].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"U"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',10,';',600,';',NULL);
+
 UPDATE T
 SET
   T.[RepoObject_fullname] = S.[RepoObject_fullname]
 , T.[RepoObject_guid] = S.[RepoObject_guid]
 , T.[RepoObject_type] = S.[RepoObject_type]
+, T.[RepoObjectColumn_fullname] = S.[RepoObjectColumn_fullname]
 , T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
 , T.[RepoObjectColumn_name] = S.[RepoObjectColumn_name]
+, T.[RepoObjectColumn_type] = S.[RepoObjectColumn_type]
 
 FROM [graph].[RepoObjectColumn] AS T
 INNER JOIN [graph].[RepoObjectColumn_S] AS S
@@ -127,8 +136,10 @@ WHERE
    T.[RepoObject_fullname] <> S.[RepoObject_fullname]
 OR T.[RepoObject_guid] <> S.[RepoObject_guid]
 OR T.[RepoObject_type] <> S.[RepoObject_type]
+OR T.[RepoObjectColumn_fullname] <> S.[RepoObjectColumn_fullname]
 OR T.[RepoObjectColumn_guid] <> S.[RepoObjectColumn_guid]
 OR T.[RepoObjectColumn_name] <> S.[RepoObjectColumn_name]
+OR T.[RepoObjectColumn_type] <> S.[RepoObjectColumn_type] OR (S.[RepoObjectColumn_type] IS NULL AND NOT T.[RepoObjectColumn_type] IS NULL) OR (NOT S.[RepoObjectColumn_type] IS NULL AND T.[RepoObjectColumn_type] IS NULL)
 
 
 -- Logging START --
@@ -156,21 +167,27 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[RepoObjectColumn_S]","log_target_object":"[graph].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',10,';',700,';',NULL);
+
 INSERT INTO 
  [graph].[RepoObjectColumn]
  (
   [RepoObject_fullname]
 , [RepoObject_guid]
 , [RepoObject_type]
+, [RepoObjectColumn_fullname]
 , [RepoObjectColumn_guid]
 , [RepoObjectColumn_name]
+, [RepoObjectColumn_type]
 )
 SELECT
   [RepoObject_fullname]
 , [RepoObject_guid]
 , [RepoObject_type]
+, [RepoObjectColumn_fullname]
 , [RepoObjectColumn_guid]
 , [RepoObjectColumn_name]
+, [RepoObjectColumn_type]
 
 FROM [graph].[RepoObjectColumn_S] AS S
 WHERE

@@ -1,4 +1,11 @@
 ﻿/*
+Index will be inserted (updated) into repo.[Index_virtual]
+but it will not be visible in [repo].[Index_gross]
+until it was also included into [repo].[Index_Settings]
+
+run
+EXEC [repo].[usp_Index_finish]
+
 --test:
 EXEC repo.usp_Index_insert 
  @RepoObject_fullname = '[dbo].[view_1]'
@@ -8,6 +15,20 @@ EXEC repo.usp_Index_insert
  @RepoObject_fullname = '[dbo].[view_1]'
  , @IndexPatternColumnName = 'aaa_id'
  , @is_index_primary_key = 1
+
+EXEC repo.usp_Index_insert 
+ @RepoObject_fullname = '[repo].[RepoObjectColumn_gross]'
+ , @IndexPatternColumnName = 'RepoObjectColumn_guid'
+ , @is_index_primary_key = 1
+
+EXEC repo.usp_Index_insert 
+ @RepoObject_fullname = '[graph].[RepoObjectColumn_S]'
+ , @IndexPatternColumnName = 'RepoObjectColumn_guid'
+ , @is_index_primary_key = 1
+
+EXEC [repo].[usp_Index_finish]
+
+
 
 index_type
 

@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_GeneratorUsp_insert_update_persistence]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":210,"Name":"delete old usp, which doesn't exist anymore","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":" [repo].[GeneratorUsp]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',210,';',NULL);
+
 --ATTENTION, destructive!
 --we should delete only usp definitions for persistence!
 DELETE u
@@ -101,6 +104,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":310,"Name":"insert new usp","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[GeneratorUsp]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',310,';',NULL);
+
 INSERT INTO [repo].[GeneratorUsp] (
  [usp_schema]
  , [usp_name]
@@ -143,6 +148,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":510,"Name":"update steps, changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',510,';',NULL);
+
 UPDATE T
 SET [Parent_Number] = [S].[Parent_Number]
  , [Name] = [S].[Name]
@@ -238,6 +245,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":610,"Name":"insert steps, not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',610,';',NULL);
+
 INSERT INTO [repo].[GeneratorUspStep] (
  [usp_id]
  , [Number]
@@ -306,6 +315,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":710,"Name":"update steps; SET [is_inactive] = [setpoint].[is_inactive]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',710,';',NULL);
+
 UPDATE step
 SET [is_inactive] = [setpoint].[is_inactive]
 FROM [repo].[GeneratorUspStep] [step]

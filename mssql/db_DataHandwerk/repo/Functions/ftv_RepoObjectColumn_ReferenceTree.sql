@@ -84,3 +84,6 @@ RETURN (
    , @RepoObjectColumn_guid AS RepoObjectColumn_guid
   FROM tree_referencing
   )
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3f4679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObjectColumn_ReferenceTree';
+

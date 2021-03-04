@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_sync_guid_RepoObjectColumn]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":100,"Name":"intro","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',100,';',NULL);
+
 /*
 ATTENTION!
 Column guid syncronization requires existing RepoObject guid synchronization (all RepoObject in the database need a RepoObject_guid)
@@ -75,6 +78,8 @@ must be executed _before_ to ensure all RepoObject guid are synchronized
 */
 
 /*{"ReportUspStep":[{"Number":210,"Name":"UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColumn_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',210,';',NULL);
+
 /*
 use objects with [RepoObjectColumn_guid] stored in extended properties
 	
@@ -122,6 +127,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":310,"Name":"SET [SysObjectColumn_name] = [RepoObjectColumn_guid] (to avoid conflict in the next INSERT step)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',310,';',NULL);
+
 /*
 in case of possible conflict when inserting missing guid because auf [UK_RepoObjectColumn__SysNames] conflicting entries get 
 [SysObjectColumn_name] = [repo].[RepoObjectColumn].[RepoObjectColumn_guid]
@@ -175,6 +182,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":410,"Name":"[SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] ([RepoObjectColumn_guid] is stored in extended properties)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',410,';',NULL);
+
 /*
 	
 if a [RepoObjectColumn_guid] is stored in extended properties but missing in RepoObjectColumn, it should be restored
@@ -258,6 +267,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":510,"Name":"DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1); via [repo].[SysColumn_RepoObjectColumn_via_name]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',510,';',NULL);
+
 --in case we have more then one [RepoObjectColumn_guid] per Schema.Object.Column
 DELETE roc
 FROM [repo].[RepoObjectColumn] [roc]
@@ -294,6 +305,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":610,"Name":"INSERT still missing Column","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',610,';',NULL);
+
 /*
 	
 ensure all object columns existing in database (as SysObjectColumn) are also included into [repo].[RepoObjectColumn]
@@ -374,6 +387,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":710,"Name":"SET [RepoObjectColumn_name] = [SysObjectColumn_name] WHERE (has_different_sys_names = 1) AND (ISNULL(is_repo_managed, 0) = 0)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',710,';',NULL);
+
 /*
 	
 now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
@@ -436,6 +451,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":810,"Name":"other properties, where (ISNULL(is_repo_managed, 0) = 0)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',810,';',NULL);
+
 --update other properties for RepoObject which are not is_repo_managed
 UPDATE repo.SysColumn_RepoObjectColumn_via_guid
 SET [Repo_default_definition] = [default_definition]
@@ -619,6 +636,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":1010,"Name":"persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1010,';',NULL);
+
 --persistence: update RepoObjectColumn_name (and other repo attributes) from SysObjecColumn_name (and other sys attributes) of persistence_source_RepoObjectColumn_guid
 UPDATE roc_p
 SET [RepoObjectColumn_name] = [scroc].[SysObjectColumn_name]
@@ -795,6 +814,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":1110,"Name":"persistence: [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name via [repo].[RepoObject_persistence])","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1110,';',NULL);
+
 --persistence: try to find [persistence_source_RepoObjectColumn_guid] for existing persistence columns by Column name
 UPDATE roc_p
 SET [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
@@ -844,6 +865,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":1210,"Name":"persistence: add missing persistence columns existing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1210,';',NULL);
+
 --persistence: add missing (in target) persistence columns, existing in source
 --before the persistence sql can be created the [repo].[usp_sync_guid_RepoObjectColumn] needs to be executed again
 INSERT INTO [repo].[RepoObjectColumn] (
@@ -906,6 +929,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":1310,"Name":"persistence: insert missing HistValidColumns","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1310,';',NULL);
+
 --currently we only insert missing but not delete not required
 -- maybe we should delete them?
 INSERT INTO [repo].[RepoObjectColumn] (
@@ -957,6 +982,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":1410,"Name":"persistence: SET [persistence_source_RepoObjectColumn_guid] = NULL (missing source column)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1410,';',NULL);
+
 UPDATE roc
 SET [persistence_source_RepoObjectColumn_guid] = NULL
 FROM [repo].[RepoObjectColumn] roc
@@ -991,6 +1018,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":2010,"Name":"write RepoObjectColumn_guid into extended properties of SysObjectColumn, Level2","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo_sys].[SysColumn]"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2010,';',NULL);
+
 DECLARE property_cursor CURSOR READ_ONLY
 FOR
 --
@@ -1086,6 +1115,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":2110,"Name":"SET [is_SysObjectColumn_missing] = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2110,';',NULL);
+
 /*
 columns deleted or renamed in database but still referenced in [repo].[RepoObjectColumn] should be marked: [is_SysObjectColumn_missing] = 1
 */
@@ -1125,6 +1156,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":2210,"Name":"where is_SysObjectColumn_missing = 1, but not in objects which are is_repo_managed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2210,';',NULL);
+
 /*
 delete columns, marked as missing in [repo_sys].SysColumn
 which are not [is_repo_managed]

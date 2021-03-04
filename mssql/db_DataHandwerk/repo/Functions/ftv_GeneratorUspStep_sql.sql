@@ -207,6 +207,21 @@ RETURN (
       --other statements
       CONCAT (
        ''
+       , 'PRINT CONCAT(''usp_id;Number;Parent_Number: '','
+       , [usp_id]
+       , ','';'','
+       , [Number]
+       , ','';'','
+       , CASE 
+        WHEN NOT [Parent_Number] IS NULL
+         THEN CAST([Parent_Number] AS VARCHAR(50))
+        ELSE 'NULL'
+        END
+       , ');'
+       , CHAR(13)
+       , CHAR(10)
+       , CHAR(13)
+       , CHAR(10)
        , [Statement]
        --logging depending on parameter @usp_has_logging
        , CASE 

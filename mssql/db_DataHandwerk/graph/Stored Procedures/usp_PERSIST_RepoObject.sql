@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[graph].[usp_PERSIST_RepoObject]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -68,6 +69,8 @@ IF (SELECT count(*) FROM [graph].[RepoObject_S]) = 0
 
 /*{"ReportUspStep":[{"Number":110,"Parent_Number":100,"Name":"ERROR 50110: persistence source is empty","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',9,';',110,';',100);
+
  THROW 50110
   , 'persistence source is empty: [graph].[RepoObject_S]'
   , 1;
@@ -75,6 +78,8 @@ BEGIN
 END;
 
 /*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[RepoObject_S]","log_target_object":"[graph].[RepoObject]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',9,';',500,';',NULL);
+
 DELETE T
 FROM [graph].[RepoObject] AS T
 WHERE
@@ -110,6 +115,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[RepoObject_S]","log_target_object":"[graph].[RepoObject]","log_flag_InsertUpdateDelete":"U"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',9,';',600,';',NULL);
+
 UPDATE T
 SET
   T.[RepoObject_fullname] = S.[RepoObject_fullname]
@@ -152,6 +159,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[RepoObject_S]","log_target_object":"[graph].[RepoObject]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',9,';',700,';',NULL);
+
 INSERT INTO 
  [graph].[RepoObject]
  (

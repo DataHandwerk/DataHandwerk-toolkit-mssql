@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_sync_guid]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START

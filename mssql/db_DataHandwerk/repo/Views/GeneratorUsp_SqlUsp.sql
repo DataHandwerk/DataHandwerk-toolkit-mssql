@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -85,6 +86,7 @@ EXEC repo.usp_ExecutionLog_insert
       , [ParameterList].[ParameterListLogging]
       , '
 --
+PRINT ''', u.[usp_fullname], '''
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START

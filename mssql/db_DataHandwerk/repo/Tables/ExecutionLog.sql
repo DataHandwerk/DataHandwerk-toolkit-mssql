@@ -1,21 +1,21 @@
 ﻿CREATE TABLE [repo].[ExecutionLog] (
     [id]                      BIGINT           IDENTITY (1, 1) NOT NULL,
     [parent_execution_log_id] BIGINT           NULL,
-    [execution_instance_guid] UNIQUEIDENTIFIER NOT NULL,
-    [ssis_execution_id]       BIGINT           NULL,
-    [sub_execution_id]        INT              NULL,
-    [current_execution_guid]  UNIQUEIDENTIFIER NULL,
-    [proc_id]                 INT              NULL,
+    [created_dt]              DATETIME         NULL,
     [proc_schema_name]        NVARCHAR (128)   NULL,
     [proc_name]               NVARCHAR (128)   NULL,
     [step_id]                 INT              NULL,
     [step_name]               NVARCHAR (1000)  NULL,
-    [created_dt]              DATETIME         NULL,
     [source_object]           NVARCHAR (261)   NULL,
     [target_object]           NVARCHAR (261)   NULL,
     [inserted]                INT              NULL,
     [updated]                 INT              NULL,
     [deleted]                 INT              NULL,
+    [current_execution_guid]  UNIQUEIDENTIFIER NULL,
+    [execution_instance_guid] UNIQUEIDENTIFIER NOT NULL,
+    [ssis_execution_id]       BIGINT           NULL,
+    [sub_execution_id]        INT              NULL,
+    [proc_id]                 INT              NULL,
     [info_01]                 SQL_VARIANT      NULL,
     [info_02]                 SQL_VARIANT      NULL,
     [info_03]                 SQL_VARIANT      NULL,
@@ -49,6 +49,8 @@
     [proc_fullname]           AS               (concat(quotename([proc_schema_name]),'.',quotename([proc_name]))),
     CONSTRAINT [PK_ExecutionLog] PRIMARY KEY CLUSTERED ([id] ASC)
 );
+
+
 
 
 
