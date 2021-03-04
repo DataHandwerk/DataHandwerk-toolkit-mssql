@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":100,"Name":"DECLARE","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',13,';',100,';',NULL);
+
 DECLARE
  --
  @property_name NVARCHAR(128)
@@ -77,6 +80,8 @@ DECLARE
  , @level2name NVARCHAR(128)
 
 /*{"ReportUspStep":[{"Number":310,"Name":"Level1-Properties - INSERT + UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[ExtendedProperty_Repo2Sys_level1]","log_target_object":"[repo_sys].[usp_AddOrUpdateExtendedProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',13,';',310,';',NULL);
+
 DECLARE property_cursor CURSOR READ_ONLY
 FOR
 --
@@ -186,6 +191,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":320,"Name":"Level2-Properties - INSERT + UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[ExtendedProperty_Repo2Sys_level2_Union]","log_target_object":"[repo_sys].[usp_AddOrUpdateExtendedProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',13,';',320,';',NULL);
+
 DECLARE property_cursor CURSOR READ_ONLY
 FOR
 --

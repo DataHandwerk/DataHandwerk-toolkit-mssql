@@ -1,12 +1,10 @@
-﻿CREATE VIEW repo.RepoObject_ReferenceTree
+﻿
+CREATE VIEW [repo].[RepoObject_ReferenceTree]
 AS
 SELECT [tree].*
-FROM [repo].[RepoObject] AS ro
+FROM [repo].[RepoObject_gross] AS ro
 CROSS APPLY [repo].[ftv_RepoObject_ReferenceTree](ro.[RepoObject_guid], 1000, 1000) AS tree
-WHERE [ro].[RepoObject_type] IN (
-  'u'
-  , 'v'
-  )
+WHERE [ro].[is_in_reference] = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '34df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 

@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[graph].[usp_PERSIST_ProcedureInstance]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[ProcedureInstance_S]","log_target_object":"[graph].[ProcedureInstance]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',11,';',500,';',NULL);
+
 DELETE T
 FROM [graph].[ProcedureInstance] AS T
 WHERE
@@ -100,6 +103,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[ProcedureInstance_S]","log_target_object":"[graph].[ProcedureInstance]","log_flag_InsertUpdateDelete":"U"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',11,';',600,';',NULL);
+
 UPDATE T
 SET
   T.[Instance] = S.[Instance]
@@ -143,6 +148,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[ProcedureInstance_S]","log_target_object":"[graph].[ProcedureInstance]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',11,';',700,';',NULL);
+
 INSERT INTO 
  [graph].[ProcedureInstance]
  (

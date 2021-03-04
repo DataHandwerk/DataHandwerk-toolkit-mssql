@@ -341,6 +341,7 @@
     <Build Include="repo\Views\RepoObjectColumn_ReferenceTree.sql" />
     <Build Include="graph\Views\RepoObjectColumn_ReferencingReferenced.sql" />
     <Build Include="repo\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
+    <Build Include="graph\Views\RepoObject_ReferencingReferenced.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

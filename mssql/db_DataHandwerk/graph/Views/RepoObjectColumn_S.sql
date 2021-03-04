@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [graph].[RepoObjectColumn_S]
 AS
 SELECT
@@ -6,6 +7,7 @@ SELECT
  [RepoObjectColumn_guid]
  , [RepoObjectColumn_fullname]
  , [RepoObjectColumn_name]
+ , [Repo_user_type_fullname] AS [RepoObjectColumn_type]
  , [RepoObject_guid]
  , [RepoObject_fullname]
  , [RepoObject_type]
@@ -36,4 +38,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b09fc
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a32c2611-ba7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '774679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_type';
 

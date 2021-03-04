@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_update_Referencing_Count]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":210,"Name":"SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[RepoObjectReferencing]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',19,';',210,';',NULL);
+
 UPDATE repo.RepoObject
 SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]
 FROM [repo].[RepoObject]
@@ -101,6 +104,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":310,"Name":"SET [Referencing_Count] = [rorc].[Referencing_Count]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[RepoObjectReferenced]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',19,';',310,';',NULL);
+
 UPDATE repo.RepoObjectColumn
 SET [Referencing_Count] = [rorc].[Referencing_Count]
 FROM [repo].[RepoObjectColumn]

@@ -4,10 +4,13 @@
     [RepoObject_guid]           UNIQUEIDENTIFIER NOT NULL,
     [RepoObject_type]           CHAR (2)         NOT NULL,
     [RepoObjectColumn_name]     NVARCHAR (128)   NOT NULL,
-    [RepoObjectColumn_fullname] NVARCHAR (520)   NOT NULL,
+    [RepoObjectColumn_fullname] NVARCHAR (520)   NULL,
+    [RepoObjectColumn_type]     NVARCHAR (128)   NULL,
     CONSTRAINT [UK_RepoObjectColumn] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC),
     INDEX [ix_graphid] UNIQUE NONCLUSTERED ($node_id)
 ) AS NODE;
+
+
 
 
 
@@ -68,4 +71,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2cc1e60f-ed
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a22c2611-ba7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '724679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_type';
 

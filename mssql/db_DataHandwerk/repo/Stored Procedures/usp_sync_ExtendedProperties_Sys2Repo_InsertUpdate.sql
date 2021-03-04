@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":100,"Name":"DECLARE","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',100,';',NULL);
+
 DECLARE
  --
  @property_name NVARCHAR(128)
@@ -77,6 +80,8 @@ DECLARE
  , @level2name NVARCHAR(128)
 
 /*{"ReportUspStep":[{"Number":310,"Name":"repo.RepoObjectProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_sys_repo]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',310,';',NULL);
+
 INSERT INTO repo.RepoObjectProperty (
  [RepoObject_guid]
  , [property_name]
@@ -113,6 +118,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":320,"Name":"repo.RepoObjectProperty - UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_sys_repo]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',320,';',NULL);
+
 --update table [repo].[RepoObjectProperty] via view
 UPDATE repo.RepoObjectProperty_sys_repo
 SET [RepoObjectProperty_property_value] = [property_value]
@@ -144,6 +151,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":410,"Name":"repo.RepoObjectColumnProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[repo].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',410,';',NULL);
+
 INSERT INTO repo.RepoObjectColumnProperty (
  [RepoObjectColumn_guid]
  , [property_name]
@@ -180,6 +189,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":420,"Name":"repo.RepoObjectColumnProperty - UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[repo].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',420,';',NULL);
+
 --update table [repo].[RepoObjectColumnProperty] via view
 UPDATE repo.RepoObjectColumnProperty_sys_repo
 SET [RepoObjectColumnProperty_property_value] = [property_value]

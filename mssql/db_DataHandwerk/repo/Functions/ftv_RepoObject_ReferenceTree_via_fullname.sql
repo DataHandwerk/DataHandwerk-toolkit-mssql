@@ -42,7 +42,7 @@ RETURN (
     SELECT [FirstNode].*
      , 1 AS [Referenced_Depth]
      , 0 AS [Referencing_Depth]
-    FROM graph.RepoObject_ReferencingReferenced_u_v AS FirstNode
+    FROM graph.RepoObject_ReferencingReferenced AS FirstNode
     WHERE [Referencing_fullname] = @RepoObject_fullname
      AND 1 <= @Referenced_Depth
     
@@ -60,7 +60,7 @@ RETURN (
     SELECT [FirstNode].*
      , 0 AS [Referenced_Depth]
      , 1 AS [Referencing_Depth]
-    FROM graph.RepoObject_ReferencingReferenced_u_v AS FirstNode
+    FROM graph.RepoObject_ReferencingReferenced AS FirstNode
     WHERE [Referenced_fullname] = @RepoObject_fullname
      AND 1 <= @Referencing_Depth
     

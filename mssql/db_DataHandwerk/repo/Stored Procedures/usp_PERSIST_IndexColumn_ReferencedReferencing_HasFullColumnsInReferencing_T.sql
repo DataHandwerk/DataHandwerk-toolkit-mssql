@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',5,';',400,';',NULL);
+
 TRUNCATE TABLE [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
 
 -- Logging START --
@@ -91,6 +94,8 @@ EXEC repo.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',5,';',800,';',NULL);
+
 INSERT INTO 
  [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
  (

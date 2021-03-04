@@ -57,6 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
+PRINT '[repo].[usp_Index_ForeignKey]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -64,6 +65,8 @@ EXEC repo.usp_ExecutionLog_insert
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":310,"Name":"create missing Index_virtual for ForeignKey","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[ForeignKey_Index_guid]","log_target_object":"[repo].[Index_virtual]"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',18,';',310,';',NULL);
+
 DECLARE fk_cursor CURSOR READ_ONLY
 FOR
 SELECT [referencing_RepoObject_guid]
