@@ -22,7 +22,7 @@ workspace {
                 project_b_dev_dwh_db = container "DWH db Development (Project B)" "" "Database" "Database" {
                     dwh_sys = component "System views and procedures"
                     dwh_extended_properties = component "Extended Properties"
-                    project_b_sqlsever_objects = component "SQL Server objects (Project B)"
+                    project_b_sqlsever_objects = component "SQL Server objects"
                 }
             }
             project_b_prod = softwareSystem "DWH B Production" {
