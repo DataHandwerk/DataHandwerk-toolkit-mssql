@@ -333,8 +333,6 @@
     <Build Include="repo\Tables\RepoObject_QueryPlan.sql" />
     <Build Include="repo\Views\RepoObject_ReferenceTree.sql" />
     <Build Include="repo\Views\RepoObject_fullname_u_v.sql" />
-    <Build Include="repo\Views\DbmlRelationFK.sql" />
-    <Build Include="repo\Views\DbmlRelationColumnReference.sql" />
     <Build Include="graph\Views\RepoObject_ReferencingReferenced_u_v.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_via_fullname.sql" />
@@ -342,6 +340,16 @@
     <Build Include="graph\Views\RepoObjectColumn_ReferencingReferenced.sql" />
     <Build Include="repo\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
     <Build Include="graph\Views\RepoObject_ReferencingReferenced.sql" />
+    <Build Include="repo\Tables\dbeaver_DataSources.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_RelationScript.sql" />
+    <Build Include="repo\Views\Reference_UspPersistence.sql" />
+    <Build Include="repo\Views\ForeignKey_RelationScript.sql" />
+    <Build Include="repo\Views\dbeaver_DataSources_DbSchemaTable_FK.sql" />
+    <Build Include="repo\Views\dbeaver_DataSources_DbSchemaTable_constraint.sql" />
+    <Build Include="repo\Views\dbeaver_DataSources_DbSchemaTable.sql" />
+    <Build Include="repo\Views\dbeaver_DataSources_connection.sql" />
+    <Build Include="repo\Functions\ftv_RepoObject_DbmlColumnRelation.sql" />
+    <Build Include="repo\Functions\ftv_RepoObject_ColumReferenceRepoObject.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

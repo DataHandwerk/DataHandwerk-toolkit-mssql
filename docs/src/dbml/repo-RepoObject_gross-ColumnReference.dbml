@@ -1,0 +1,289 @@
+Ref: "[repo].[Index_gross]"."is_persistence" > "[repo].[RepoObject_gross]"."is_persistence"
+Ref: "[repo].[Index_gross]"."is_repo_managed" > "[repo].[RepoObject_gross]"."is_repo_managed"
+Ref: "[repo].[Index_gross]"."RepoObject_fullname" > "[repo].[RepoObject_gross]"."RepoObject_fullname"
+Ref: "[repo].[Index_gross]"."SysObject_fullname" > "[repo].[RepoObject_gross]"."SysObject_fullname"
+Ref: "[repo].[Index_gross]"."SysObject_id" > "[repo].[RepoObject_gross]"."SysObject_id"
+Ref: "[repo].[Index_gross]"."SysObject_name" > "[repo].[RepoObject_gross]"."SysObject_name"
+Ref: "[repo].[Index_gross]"."SysObject_schema_name" > "[repo].[RepoObject_gross]"."SysObject_schema_name"
+Ref: "[repo].[Index_gross]"."SysObject_type" > "[repo].[RepoObject_gross]"."SysObject_type"
+Ref: "[repo].[RepoObject_gross]"."CreateColumnList" > "[repo].[RepoObject_ColumnList]"."CreateColumnList"
+Ref: "[repo].[RepoObject_gross]"."DbmlColumnList" > "[repo].[RepoObject_ColumnList]"."DbmlColumnList"
+Ref: "[repo].[RepoObject_gross]"."has_different_sys_names" > "[repo].[RepoObject]"."has_different_sys_names"
+Ref: "[repo].[RepoObject_gross]"."has_execution_plan_issue" > "[repo].[RepoObject]"."has_execution_plan_issue"
+Ref: "[repo].[RepoObject_gross]"."has_get_referenced_issue" > "[repo].[RepoObject]"."has_get_referenced_issue"
+Ref: "[repo].[RepoObject_gross]"."has_history" > "[repo].[RepoObject_persistence]"."has_history"
+Ref: "[repo].[RepoObject_gross]"."has_history_columns" > "[repo].[RepoObject_persistence]"."has_history_columns"
+Ref: "[repo].[RepoObject_gross]"."history_schema_name" > "[repo].[RepoObject_persistence]"."history_schema_name"
+Ref: "[repo].[RepoObject_gross]"."history_table_name" > "[repo].[RepoObject_persistence]"."history_table_name"
+Ref: "[repo].[RepoObject_gross]"."Inheritance_StringAggSeparatorSql" > "[repo].[RepoObject]"."Inheritance_StringAggSeparatorSql"
+Ref: "[repo].[RepoObject_gross]"."InheritanceDefinition" > "[repo].[RepoObject]"."InheritanceDefinition"
+Ref: "[repo].[RepoObject_gross]"."InheritanceType" > "[repo].[RepoObject]"."InheritanceType"
+Ref: "[repo].[RepoObject_gross]"."is_persistence" > "[repo].[RepoObject_persistence]"."is_persistence"
+Ref: "[repo].[RepoObject_gross]"."is_persistence_check_duplicate_per_pk" > "[repo].[RepoObject_persistence]"."is_persistence_check_duplicate_per_pk"
+Ref: "[repo].[RepoObject_gross]"."is_persistence_check_for_empty_source" > "[repo].[RepoObject_persistence]"."is_persistence_check_for_empty_source"
+Ref: "[repo].[RepoObject_gross]"."is_persistence_delete_changed" > "[repo].[RepoObject_persistence]"."is_persistence_delete_changed"
+Ref: "[repo].[RepoObject_gross]"."is_persistence_delete_missing" > "[repo].[RepoObject_persistence]"."is_persistence_delete_missing"
+Ref: "[repo].[RepoObject_gross]"."is_persistence_insert" > "[repo].[RepoObject_persistence]"."is_persistence_insert"
+Ref: "[repo].[RepoObject_gross]"."is_persistence_truncate" > "[repo].[RepoObject_persistence]"."is_persistence_truncate"
+Ref: "[repo].[RepoObject_gross]"."is_persistence_update_changed" > "[repo].[RepoObject_persistence]"."is_persistence_update_changed"
+Ref: "[repo].[RepoObject_gross]"."is_repo_managed" > "[repo].[RepoObject]"."is_repo_managed"
+Ref: "[repo].[RepoObject_gross]"."is_RepoObject_name_uniqueidentifier" > "[repo].[RepoObject]"."is_RepoObject_name_uniqueidentifier"
+Ref: "[repo].[RepoObject_gross]"."is_SysObject_missing" > "[repo].[RepoObject]"."is_SysObject_missing"
+Ref: "[repo].[RepoObject_gross]"."is_SysObject_name_uniqueidentifier" > "[repo].[RepoObject]"."is_SysObject_name_uniqueidentifier"
+Ref: "[repo].[RepoObject_gross]"."modify_dt" > "[repo].[RepoObject]"."modify_dt"
+Ref: "[repo].[RepoObject_gross]"."node_id" > "[repo].[RepoObject]"."node_id"
+Ref: "[repo].[RepoObject_gross]"."PersistenceCompareColumnList" > "[repo].[RepoObject_ColumnList]"."PersistenceCompareColumnList"
+Ref: "[repo].[RepoObject_gross]"."PersistenceInsertColumnList" > "[repo].[RepoObject_ColumnList]"."PersistenceInsertColumnList"
+Ref: "[repo].[RepoObject_gross]"."PersistenceUpdateColumnList" > "[repo].[RepoObject_ColumnList]"."PersistenceUpdateColumnList"
+Ref: "[repo].[RepoObject_gross]"."pk_index_guid" > "[repo].[RepoObject]"."pk_index_guid"
+Ref: "[repo].[RepoObject_gross]"."Repo_history_table_guid" > "[repo].[RepoObject]"."Repo_history_table_guid"
+Ref: "[repo].[RepoObject_gross]"."Repo_temporal_type" > "[repo].[RepoObject]"."Repo_temporal_type"
+Ref: "[repo].[RepoObject_gross]"."RepoObject_fullname" > "[repo].[RepoObject]"."RepoObject_fullname"
+Ref: "[repo].[RepoObject_gross]"."RepoObject_guid" > "[repo].[RepoObject]"."RepoObject_guid"
+Ref: "[repo].[RepoObject_gross]"."RepoObject_name" > "[repo].[RepoObject]"."RepoObject_name"
+Ref: "[repo].[RepoObject_gross]"."RepoObject_Referencing_Count" > "[repo].[RepoObject]"."RepoObject_Referencing_Count"
+Ref: "[repo].[RepoObject_gross]"."RepoObject_schema_name" > "[repo].[RepoObject]"."RepoObject_schema_name"
+Ref: "[repo].[RepoObject_gross]"."RepoObject_type" > "[repo].[RepoObject]"."RepoObject_type"
+Ref: "[repo].[RepoObject_gross]"."sql_modules_definition" > "[repo].[RepoObject_SqlModules_Repo_Sys]"."sql_modules_definition"
+Ref: "[repo].[RepoObject_gross]"."sql_modules_formatted" > "[repo].[RepoObject_SqlModules_Repo_Sys]"."sql_modules_formatted"
+Ref: "[repo].[RepoObject_gross]"."sql_modules_formatted2" > "[repo].[RepoObject_SqlModules_Repo_Sys]"."sql_modules_formatted2"
+Ref: "[repo].[RepoObject_gross]"."SysObject_fullname" > "[repo].[RepoObject]"."SysObject_fullname"
+Ref: "[repo].[RepoObject_gross]"."SysObject_id" > "[repo].[RepoObject]"."SysObject_id"
+Ref: "[repo].[RepoObject_gross]"."SysObject_modify_date" > "[repo].[RepoObject]"."SysObject_modify_date"
+Ref: "[repo].[RepoObject_gross]"."SysObject_name" > "[repo].[RepoObject]"."SysObject_name"
+Ref: "[repo].[RepoObject_gross]"."SysObject_parent_object_id" > "[repo].[RepoObject]"."SysObject_parent_object_id"
+Ref: "[repo].[RepoObject_gross]"."SysObject_query_executed_dt" > "[repo].[RepoObject_QueryPlan]"."SysObject_query_executed_dt"
+Ref: "[repo].[RepoObject_gross]"."SysObject_query_plan" > "[repo].[RepoObject_QueryPlan]"."SysObject_query_plan"
+Ref: "[repo].[RepoObject_gross]"."SysObject_query_sql" > "[repo].[RepoObject]"."SysObject_query_sql"
+Ref: "[repo].[RepoObject_gross]"."SysObject_schema_name" > "[repo].[RepoObject]"."SysObject_schema_name"
+Ref: "[repo].[RepoObject_gross]"."SysObject_type" > "[repo].[RepoObject]"."SysObject_type"
+Ref: "[repo].[RepoObject_gross]"."temporal_type" > "[repo].[RepoObject_persistence]"."temporal_type"
+Ref: "[repo].[RepoObject_gross]"."usp_persistence_name" > "[repo].[RepoObject]"."usp_persistence_name"
+Table "[repo].[Index_gross]"{
+"ColumnList" nvarchar(max) [ null]
+"ConstraintColumnList" nvarchar(max) [ null]
+"DbmlIndexColumnList" nvarchar(max) [ null]
+"index_guid" uniqueidentifier [not null]
+"index_name" nvarchar(128) [ null]
+"index_type" tinyint [not null]
+"IndexPatternColumnDatatype" nvarchar(4000) [ null]
+"IndexPatternColumnName" nvarchar(4000) [ null]
+"IndexSemanticGroup" nvarchar(512) [ null]
+"is_index_disabled" bit [ null]
+"is_index_primary_key" bit [ null]
+"is_index_real" bit [ null]
+"is_index_unique" bit [ null]
+"is_persistence" bit [ null]
+"is_repo_managed" bit [ null]
+"parent_RepoObject_guid" uniqueidentifier [ null]
+"referenced_index_guid" uniqueidentifier [ null]
+"RepoObject_fullname" nvarchar(261) [not null]
+"RowNumber_PatternPerParentObject" bigint [ null]
+"RowNumber_PkPerParentObject" bigint [ null]
+"SysObject_fullname" nvarchar(261) [not null, Note: '''
+(concat('[',[SysObject_schema_name],'].[',[SysObject_name],']'))
+''']
+"SysObject_id" int [ null]
+"SysObject_name" nvarchar(128) [not null]
+"SysObject_schema_name" nvarchar(128) [not null]
+"SysObject_type" char(2) [ null, Note: '''
+reference in [repo_sys].[type]
+''']
+}
+Table "[repo].[RepoObject]"{
+"RepoObject_guid" uniqueidentifier [not null, pk, default: `(newsequentialid())`]
+"has_execution_plan_issue" bit [ null]
+"has_get_referenced_issue" bit [ null]
+"Inheritance_StringAggSeparatorSql" nvarchar(4000) [ null]
+"InheritanceDefinition" nvarchar(4000) [ null]
+"InheritanceType" tinyint [ null]
+"is_repo_managed" bit [ null]
+"is_SysObject_missing" bit [ null]
+"modify_dt" datetime [not null, default: `(getdate())`]
+"pk_index_guid" uniqueidentifier [ null]
+"Repo_history_table_guid" uniqueidentifier [ null]
+"Repo_temporal_type" tinyint [ null, Note: '''
+reference in [repo_sys].[type]
+''']
+"RepoObject_name" nvarchar(128) [not null, default: `(newid())`]
+"RepoObject_Referencing_Count" int [ null]
+"RepoObject_schema_name" nvarchar(128) [not null]
+"RepoObject_type" char(2) [not null, Note: '''
+reference in [repo_sys].[type]
+''']
+"SysObject_id" int [ null]
+"SysObject_modify_date" datetime [ null]
+"SysObject_name" nvarchar(128) [not null, default: `(newid())`]
+"SysObject_parent_object_id" int [not null, default: `((0))`]
+"SysObject_schema_name" nvarchar(128) [not null]
+"SysObject_type" char(2) [ null, Note: '''
+reference in [repo_sys].[type]
+''']
+"has_different_sys_names" bit [ null, Note: '''
+(CONVERT([bit],case when [RepoObject_schema_name]<>[SysObject_schema_name] OR [RepoObject_name]<>[SysObject_name] OR [RepoObject_type]<>[SysObject_type] then (1) else (0) end))
+''']
+"is_RepoObject_name_uniqueidentifier" int [not null, Note: '''
+(case when TRY_CAST([RepoObject_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end)
+''']
+"is_SysObject_name_uniqueidentifier" int [not null, Note: '''
+(case when TRY_CAST([SysObject_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end)
+''']
+"node_id" bigint [ null, Note: '''
+(CONVERT([bigint],[SysObject_id])*(10000))
+''']
+"RepoObject_fullname" nvarchar(261) [not null, Note: '''
+(concat('[',[RepoObject_schema_name],'].[',[RepoObject_name],']'))
+''']
+"SysObject_fullname" nvarchar(261) [not null, Note: '''
+(concat('[',[SysObject_schema_name],'].[',[SysObject_name],']'))
+''']
+"SysObject_query_sql" nvarchar(406) [not null, Note: '''
+(concat('SELECT * FROM [',[repo].[fs_dwh_database_name](),'].[',[SysObject_schema_name],'].[',[SysObject_name],']'))
+''']
+"usp_persistence_name" nvarchar(140) [not null, Note: '''
+('usp_PERSIST_'+[RepoObject_name])
+''']
+
+indexes {
+ ( "SysObject_schema_name", "SysObject_name") [unique]
+ ( "RepoObject_schema_name", "RepoObject_name") [unique]
+}
+}
+Table "[repo].[RepoObject_ColumnList]"{
+"CreateColumnList" nvarchar(max) [ null]
+"DbmlColumnList" nvarchar(max) [ null]
+"PersistenceCompareColumnList" nvarchar(max) [ null]
+"PersistenceInsertColumnList" nvarchar(max) [ null]
+"PersistenceUpdateColumnList" nvarchar(max) [ null]
+"RepoObject_guid" uniqueidentifier [not null]
+}
+Table "[repo].[RepoObject_gross]"{
+"CreateColumnList" nvarchar(max) [ null]
+"DbmlColumnList" nvarchar(max) [ null]
+"has_different_sys_names" bit [ null, Note: '''
+(CONVERT([bit],case when [RepoObject_schema_name]<>[SysObject_schema_name] OR [RepoObject_name]<>[SysObject_name] OR [RepoObject_type]<>[SysObject_type] then (1) else (0) end))
+''']
+"has_execution_plan_issue" bit [ null]
+"has_get_referenced_issue" bit [ null]
+"has_history" bit [ null]
+"has_history_columns" bit [ null]
+"history_schema_name" nvarchar(128) [ null]
+"history_table_name" nvarchar(128) [ null]
+"Inheritance_StringAggSeparatorSql" nvarchar(4000) [ null]
+"InheritanceDefinition" nvarchar(4000) [ null]
+"InheritanceType" tinyint [ null]
+"is_in_reference" int [not null]
+"is_persistence" bit [ null]
+"is_persistence_check_duplicate_per_pk" bit [ null]
+"is_persistence_check_for_empty_source" bit [ null]
+"is_persistence_delete_changed" bit [ null]
+"is_persistence_delete_missing" bit [ null]
+"is_persistence_insert" bit [ null]
+"is_persistence_truncate" bit [ null]
+"is_persistence_update_changed" bit [ null]
+"is_repo_managed" bit [ null]
+"is_RepoObject_name_uniqueidentifier" int [not null, Note: '''
+(case when TRY_CAST([RepoObject_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end)
+''']
+"is_SysObject_missing" bit [ null]
+"is_SysObject_name_uniqueidentifier" int [not null, Note: '''
+(case when TRY_CAST([SysObject_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end)
+''']
+"modify_dt" datetime [not null]
+"node_id" bigint [ null, Note: '''
+(CONVERT([bigint],[SysObject_id])*(10000))
+''']
+"persistence_source_RepoObject_fullname" nvarchar(261) [ null]
+"persistence_source_RepoObject_guid" uniqueidentifier [ null]
+"persistence_source_SysObject_fullname" nvarchar(261) [ null]
+"PersistenceCompareColumnList" nvarchar(max) [ null]
+"PersistenceInsertColumnList" nvarchar(max) [ null]
+"PersistenceUpdateColumnList" nvarchar(max) [ null]
+"pk_index_guid" uniqueidentifier [ null]
+"Property_ms_description" nvarchar(4000) [ null]
+"Repo_history_table_guid" uniqueidentifier [ null]
+"Repo_temporal_type" tinyint [ null, Note: '''
+reference in [repo_sys].[type]
+''']
+"RepoObject_fullname" nvarchar(261) [not null, Note: '''
+(concat('[',[RepoObject_schema_name],'].[',[RepoObject_name],']'))
+''']
+"RepoObject_guid" uniqueidentifier [not null]
+"RepoObject_name" nvarchar(128) [not null]
+"RepoObject_Referencing_Count" int [ null]
+"RepoObject_schema_name" nvarchar(128) [not null]
+"RepoObject_type" char(2) [not null, Note: '''
+reference in [repo_sys].[type]
+''']
+"sql_modules_definition" nvarchar(max) [ null]
+"sql_modules_formatted" nvarchar(max) [ null]
+"sql_modules_formatted2" nvarchar(max) [ null]
+"SysObject_fullname" nvarchar(261) [not null, Note: '''
+(concat('[',[SysObject_schema_name],'].[',[SysObject_name],']'))
+''']
+"SysObject_id" int [ null]
+"SysObject_modify_date" datetime [ null]
+"SysObject_name" nvarchar(128) [not null]
+"SysObject_parent_object_id" int [not null]
+"SysObject_query_executed_dt" datetime [ null]
+"SysObject_query_plan" xml [ null]
+"SysObject_query_sql" nvarchar(406) [not null, Note: '''
+(concat('SELECT * FROM [',[repo].[fs_dwh_database_name](),'].[',[SysObject_schema_name],'].[',[SysObject_name],']'))
+''']
+"SysObject_schema_name" nvarchar(128) [not null]
+"SysObject_type" char(2) [ null, Note: '''
+reference in [repo_sys].[type]
+''']
+"temporal_type" tinyint [ null, Note: '''
+(CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end))
+''']
+"usp_persistence_name" nvarchar(140) [not null, Note: '''
+('usp_PERSIST_'+[RepoObject_name])
+''']
+"usp_persistence_RepoObject_guid" uniqueidentifier [ null]
+}
+Table "[repo].[RepoObject_persistence]"{
+"target_RepoObject_guid" uniqueidentifier [not null, pk]
+"has_history" bit [not null, default: `((0))`]
+"has_history_columns" bit [not null, default: `((0))`]
+"history_schema_name" nvarchar(128) [ null]
+"history_table_name" nvarchar(128) [ null]
+"is_persistence_check_duplicate_per_pk" bit [not null, default: `((0))`]
+"is_persistence_check_for_empty_source" bit [not null, default: `((0))`]
+"is_persistence_delete_changed" bit [not null, default: `((0))`]
+"is_persistence_delete_missing" bit [not null, default: `((0))`]
+"is_persistence_insert" bit [not null, default: `((1))`]
+"is_persistence_truncate" bit [not null, default: `((1))`]
+"is_persistence_update_changed" bit [not null, default: `((0))`]
+"source_RepoObject_guid" uniqueidentifier [ null]
+"is_persistence" bit [ null]
+"temporal_type" tinyint [ null, Note: '''
+(CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end))
+''']
+Note: '''
+extra table is required to allow FK with
+ON UPDATE CASCADE
+ON DELETE CASCADE
+'''
+}
+Table "[repo].[RepoObject_QueryPlan]"{
+"RepoObject_guid" uniqueidentifier [not null, pk]
+"SysObject_query_executed_dt" datetime [ null]
+"SysObject_query_plan" xml [ null]
+}
+Table "[repo].[RepoObject_SqlModules_Repo_Sys]"{
+"is_json_sql_modules_json" int [ null, Note: '''
+(isjson([sql_modules_json]))
+''']
+"is_outdated" bit [ null]
+"modify_date" datetime [not null]
+"RepoObject_guid" uniqueidentifier [not null]
+"sql_modules_definition" nvarchar(max) [ null]
+"sql_modules_dt" datetime [ null]
+"sql_modules_formatted" nvarchar(max) [ null]
+"sql_modules_formatted2" nvarchar(max) [ null]
+"sql_modules_json" nvarchar(max) [ null]
+"SysObject_type" char(2) [ null, Note: '''
+reference in [repo_sys].[type]
+''']
+}

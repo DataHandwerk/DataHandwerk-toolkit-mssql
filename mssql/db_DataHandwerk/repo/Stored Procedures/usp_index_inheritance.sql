@@ -163,6 +163,44 @@ EXEC repo.usp_ExecutionLog_insert
  , @inserted = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":420,"Name":"UPDATE [referenced_index_guid], if NULL but should be inherited","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',420,';',NULL);
+
+UPDATE iv
+SET [referenced_index_guid] = T1.[source_index_guid]
+ , [RowNumberInReferencing] = T1.[RowNumberInReferencing]
+FROM repo.[Index_virtual] iv
+INNER JOIN [repo].[Index_virtual_IndexPatternColumnGuid] AS [T2]
+ ON T2.index_guid = iv.index_guid
+INNER JOIN repo.IndexReferencedReferencing_HasFullColumnsInReferencing AS T1
+ ON [T1].[referencing_RepoObject_guid] = iv.[parent_RepoObject_guid]
+  AND [T1].[referencing_IndexPatternColumnGuid] = T2.[IndexPatternColumnGuid]
+WHERE iv.[referenced_index_guid] IS NULL
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'UPDATE [referenced_index_guid], if NULL but should be inherited'
+SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
+SET @target_object = '[repo].[Index_virtual]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":510,"Name":"DELETE (referenced index, where entries are missing in setpoint)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[IndexColumn_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',510,';',NULL);
 
