@@ -1,5 +1,7 @@
-﻿create   view repo.[RepoObject_SqlModules_61_SelectIdentifier_Union]
-as
+﻿
+
+CREATE VIEW [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]
+AS
 SELECT [T1].[RepoObject_guid]
  , [T1].[SysObject_fullname]
  --can be empty, this is fine in case of only one source table in FROM, but it could be also OK in case of unique name within multiple source tables
@@ -30,8 +32,12 @@ SELECT T26.RepoObject_guid
 FROM repo.RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName AS T26
 INNER JOIN repo.RepoObject_SqlModules_39_object AS T39
  ON T26.RepoObject_guid = T39.RepoObject_guid
+  --only default views where SELECT is the 5th element in view definition
+  AND T39.is_5_select = 1
+  --only SELECT IdentifierList after SELECT (5)
+  AND T26.RowNumber_per_Object > 5
   --only SELECT IdentifierList before FROM
-  AND T39.Min_RowNumber_From = T26.RowNumber_per_Object + 1
+  AND T39.Min_RowNumber_From > T26.RowNumber_per_Object
 --source column should exist (it will not exist in case of calculations, functions, ...)
 WHERE NOT T26.Identifier_source_column_QuoteName IS NULL
 GO

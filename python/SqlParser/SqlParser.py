@@ -57,7 +57,7 @@ def main():
     p = configargparse.ArgParser(default_config_files=['SqlParser.ini'])
     p.add('--server', required=True, help='sql server instance. Examples: localhost localhost\sql2019')  # this option can be set in a config file because it starts with '--'
     p.add('--database', required=True, help='database name. Examples: dhw_master')  # this option can be set in a config file because it starts with '--'
-    p.add('-c', '--my-config', is_config_file=True, help='config file path')
+    p.add('-c', '--my-config', required=False, is_config_file=True, help='config file path')
     p.add('-v', help='verbose', action='store_true')
 
     options = p.parse_args()

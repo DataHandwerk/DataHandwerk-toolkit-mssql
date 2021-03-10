@@ -1,4 +1,6 @@
 ﻿
+
+
 /*
 can be used to find out missing [referenced_index_guid] or [referencing_index_guid]
 to create them using [repo].[usp_Index_insert]
@@ -20,11 +22,15 @@ SELECT
  , [fk].[referenced_IndexPatternColumnName]
  , [referenced_RepoObject_fullname] = [i_2].[RepoObject_fullname]
  , [fk].[referenced_RepoObject_guid]
+ , [referenced_SysObject_name] = [i_2].[SysObject_name]
+ , [referenced_SysObject_schema_name] = [i_2].[SysObject_schema_name]
  , [referencing_index_guid] = [i_1].[index_guid]
  , [referencing_IndexPatternColumnDatatype] = [i_1].[IndexPatternColumnDatatype]
  , [fk].[referencing_IndexPatternColumnName]
  , [referencing_RepoObject_fullname] = [i_1].[RepoObject_fullname]
  , [fk].[referencing_RepoObject_guid]
+ , [referencing_SysObject_name] = [i_1].[SysObject_name]
+ , [referencing_SysObject_schema_name] = [i_1].[SysObject_schema_name]
  , [fk].[delete_referential_action]
  , [fk].[update_referential_action]
 FROM [repo].[ForeignKey_IndexPattern] AS fk
@@ -100,4 +106,20 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '43df2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '45df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'delete_referential_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f4be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'referencing_SysObject_schema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f3be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'referencing_SysObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f2be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'referenced_SysObject_schema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f1be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'referenced_SysObject_name';
 

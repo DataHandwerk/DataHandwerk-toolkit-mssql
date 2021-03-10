@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 HasFullColumnsInReferencing:
 Filter repo.IndexReferencedReferencing
@@ -17,6 +18,13 @@ for example
 SELECT A_A = A.A, B_A = B.A from source_1 as A LEFT JOIN source_1 as B ON ... 
 normaly these indexes should have different columns
 
+Issue:
+if [repo].[Index_virtual].[referenced_index_guid] is missing, then it could be contained in repo.IndexReferencedReferencing
+but [referenced_index_guid] is NULL in this case
+
+How we could / should create a missing but possible [repo].[Index_virtual].[referenced_index_guid]?
+=> in usp_index_inheritance
+not only insert, but also update of [repo].[Index_virtual].[referenced_index_guid] if it is NULL but it has a source_index here in this view
 */
 CREATE VIEW [repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
 AS
