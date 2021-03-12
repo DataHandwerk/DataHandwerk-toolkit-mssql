@@ -100,7 +100,7 @@ BEGIN
   PRINT @RepoObject_guid
   PRINT @IndexPatternColumnName
 
-  EXEC [repo].[usp_Index_insert] @RepoObject_guid = @RepoObject_guid
+  EXEC [repo].[usp_Index_virtual_InsertUpdate] @RepoObject_guid = @RepoObject_guid
    , @IndexPatternColumnName = @IndexPatternColumnName
    , @is_index_disabled = 1
  END
