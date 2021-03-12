@@ -45,7 +45,7 @@ Type of index:
 CREATE
  
 
- PROCEDURE [repo].[usp_Index_insert] @RepoObject_guid UNIQUEIDENTIFIER = NULL --if @RepoObject_guid is NULL, then @RepoObject_fullname is used
+ PROCEDURE [repo].[usp_Index_virtual_InsertUpdate] @RepoObject_guid UNIQUEIDENTIFIER = NULL --if @RepoObject_guid is NULL, then @RepoObject_fullname is used
  , @RepoObject_fullname NVARCHAR(261) = NULL --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
  , @IndexPatternColumnName NVARCHAR(4000) = NULL --a semicolon separated list to define the Index, for example 'aaa;bbb;ccc'
  , @index_name NVARCHAR(128) = NULL
@@ -291,5 +291,5 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @info_08 = NULL
  , @info_09 = NULL
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_insert';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_InsertUpdate';
 
