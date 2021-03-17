@@ -8,7 +8,7 @@
 <a href="https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql">
 <img loading="lazy" width="149" height="149"
 style="position: absolute; top: 0; left: 0; border: 0;"
-src="https://github.blog/wp-content/uploads/2008/12/forkme_left_white_ffffff.png?resize=149%2C149" 
+src="https://github.blog/wp-content/uploads/2008/12/forkme_left_white_ffffff.png?resize=149%2C149"
 class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 </a>
 ++++
@@ -22,7 +22,15 @@ class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
 // :toc-title: Table of Contents
 
 // configure EN settings for asciidoc
-include::src/config.adoc[]
+// asciidoc settings for EN (English)
+// ==================================
+:toc-title: table of contents
+
+// enable table-of-contents
+:toc:
+
+// where are images located?
+:imagesdir: ./images
 
 :author: Germo Görtz
 // :email: datahandwerk@aisberg.de
@@ -43,7 +51,6 @@ include::src/config.adoc[]
 
 
 //additional style for arc42 help callouts
-ifdef::basebackend-html[]
 ++++
 <style>
 .arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0px; padding: 2px 0px 3px 2px;}
@@ -55,7 +62,6 @@ ifdef::basebackend-html[]
 }
 </style>
 ++++
-endif::basebackend-html[]
 
 
 // // horizontal line
@@ -66,53 +72,1727 @@ endif::basebackend-html[]
 
 <<<<
 // 1. Introduction and Goals
-include::src/01_introduction_and_goals.adoc[]
+:filename: src/01_introduction_and_goals.adoc
+
+[[section-introduction-and-goals]]
+== Introduction and Goals
+
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+kbd:[DHW] (**D**ata**H**and**w**erk) is designed to support BI and DWH developers working with the Microsoft BI platform (MS SQL Server) in their work.
+
+Handwerk statt Massenproduktion. Craft instead of mass production. +
+MSSQL based tools for data craftsmen. Individual customization instead of assembly line.
+
+// [role="arc42help"]
+// ****
+// Handwerk = craft +
+// Handwerker = craftsmen
+
+// Als Handwerk werden zahlreiche gewerbliche Tätigkeiten bezeichnet, die Produkte meist auf Bestellung fertigen oder Dienstleistungen auf Nachfrage erbringen. Die handwerkliche Tätigkeit steht der industriellen Massenproduktion gegenüber.
+
+// Craft is the term used to describe numerous commercial activities that manufacture products mostly to order or provide services on demand. Craft activities are contrasted with industrial mass production.
+// ****
+
+[NOTE]
+====
+Handwerk = craft +
+Handwerker = craftsmen
+
+// Als Handwerk werden zahlreiche gewerbliche Tätigkeiten bezeichnet, die Produkte meist auf Bestellung fertigen oder Dienstleistungen auf Nachfrage erbringen. Die handwerkliche Tätigkeit steht der industriellen Massenproduktion gegenüber.
+
+Craft is the term used to describe numerous commercial activities that manufacture products mostly to order or provide services on demand. Craft activities are contrasted with industrial mass production.
+====
+
+// Die wichtigsten Stakeholder des Projekts sind DWH-Entwickler, die ihre Arbeit als *Handwerk* verstehen.
+
+// * Für diese Data-Handwerker wird eine Werkzeugkiste erstellt und nach und nach mit Werkzeugen gefüllt und erweitert.
+// * Die Datenhandwerker erhalten mit der Toolbox die *Möglichkeit, schneller und besser* zu arbeiten und *bei Bedarf Teile zu automatisieren*, wenn (und nur wenn) sie das wünschen.
+// * Werkzeuge und Methoden können einzeln und unabhängig voneinander *fakultativ* eingesetzt werden. Sie müssen nicht obligatorisch eingesetzt werden.
+// * Die Toolbox soll immer *als Bereicherung und Hilfsmittel empfunden werden*, gerne als stützendes, nie als beengendes Korsett. +
+// Ein Entwickler wird durch die Verwendung von Werkzeugen und Methoden nicht ungewünscht eingeschränkt. Er lässt sich partiell und bewusst einschränken, wenn für ihn subjektiv die Vorteile überwiegen.
+
+The project's key stakeholders are DWH developers who see their work as a *craft*.
+
+* A toolkit is created for these data craftsmen and gradually filled and expanded with tools.
+* The data craftsmen are given the *possibility to work faster and better* with the toolkit and *to automate parts* if (and only if) they wish to do so.
+* Tools and methods can be used individually and independently *optional*. They do not have to be used in a mandatory way.
+* The toolbox should always be *perceived as an enrichment and aid*, gladly as a supportive, never as a constricting corset. +
+A developer is not undesirably restricted by the use of tools and methods. He allows himself to be partially and consciously restricted if the advantages subjectively outweigh the disadvantages for him.
+
+=== Requirements Overview
+
+// . Kombination von Handarbeit und Werkzeugverwendung
+// ** Die Kombination von _Handarbeit ohne Tools_ und der _Verwendung von Tools_ ist einfach möglich. Es darf *keine Einbahnstraße* geben.
+// ** Ein *Entwickler wird nicht zum Sklaven* der Werkzeuge oder der Methoden, sondern kann jederzeit wie ein Handwerker selbst entscheiden kann, in welchem Umfang er welche Werkzeuge zu seiner Unterstützung verwenden will, oder eben nicht.
+// . mssql und Azure Features
+// ** Es muss für BI Entwickler *immer* möglich sein, *alle* mssql und Azure Features zu verwenden. Letztendlich also auch https://azure.microsoft.com/en-us/services/synapse-analytics/[Azure Synapse Analytics], Data Factory, BLOB Storage und andere Azure Produkte.
+// ** Wann immer möglich oder gewünscht, kann ein Entwickler zur Realisierung von Zielen bevorzugt mssql Features verwenden, statt proprietärer Lösungen. Werkzeuge sollen deren Verwendung vereinfachen.
+// *** temporale Tabellen
+// *** Graph Datenbanken
+// *** ...
+// . ein minimal-invasives *Repository* ergänzt Datenbank-Metadaten
+// ** Funktionen und Methoden, die in einer Datenbank nicht oder unzureichend vorhanden sind, werden über ein Repository (pro Datenbank) ergänzt, welches über Synonyme mit System-Katalog-Sichten der DWH-Datenbank verbunden ist.
+// ** Ein Repository ist ebenfalls eine Datenbank: die Repository-Datenbank.
+// ** Dieses Repository braucht und soll nicht alle Metadaten zur vollständigen Definition einer Datenbank enthalten, sondern nur notwendige oder sinnvolle Ergänzungen.
+// ** Ein Repository wird von außen an eine DWH-Datenbank angeschlossen, mit _minimalen invasiven Eingriffen_ in diese Datenbank
+// ** diese minimal invasiven Eingriffe lassen sich rückgängig machen
+// ** für diese minimal invasiven Eingriffe werden (nach aktueller Konzeption) `extended properties` verwendet, die vielen Datenbank-Objekten und auch Spalten, Paramtern usw. zugewiesen und auch wieder entfernt werden können.
+// *** durch die Verwendung eindeutiger `guid` ist es möglich, Objekte inklusive der in den `extended properties` gespeicherten zusätzlichen Metadaten in andere Datenbanken zu kopieren.
+// . Unabhängigkeit von Sofort-Support
+// ** Man soll auch arbeiten können, wenn ein Werkzeug nicht wie erwartet funktioniert. Es soll keine blockierende Abhängigkeit von einem Tool oder eine Methode entstehen, die Support-Feuerwehr-Einsätze erfordert, sondern es soll immer auch einen manuellen Ausweg geben.
+// ** Dadurch soll insbesondere die Zusammenarbeit in der Community attraktiver werden: image:https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}"]
+// . Dokumentation
+// ** Das Repository, seine Funktionsweise und die Methoden werden *verständlich und ausführlich dokumentiert*. Eine gute Dokumentation
+// *** bietet Transparenz
+// *** schafft Verständnis
+// *** erleichtert das selbständige Arbeiten
+// *** erleichtert den Einstieg
+// *** verringert die Abhängigkeit vom Support
+// . Modularer Aufbau und Erweiterbarkeit
+// ** Das Toolbox-Konzept ermöglicht, dass die Toolbox von verschiedenen Anwendern mit Modulen (Tools) erweitert werden kann.
+// ** Beispiele für mögliche Module:
+// *** Relation Management
+// **** virtuelle PK und FK
+// *** Persistierungs- und Historisierungs- Assistent
+// *** Dokumentations-Assistent (inklusive Erstellung und Vererbung von Beschreibungen und Friendly Name)
+// *** Data Lineage Visualizer
+// *** Import Wizard
+// *** SSIS Generator
+// *** Data Factory Generator
+// *** Data Vault Assistent
+// *** DSGVO Assistent
+// *** SSAS Tabular Generator
+// *** Easy Refactoring
+// *** ...
+
+
+. Combination of manual work and the use of tools
+** The combination of _handwork without tools_ and the _use of tools_ is easily possible. There must be *no one-way street*.
+** A *developer does not become a slave* to the tools or the methods, but can at any time, like a craftsman, decide for himself to what extent he wants to use which tools to support him, or not.
+. mssql and Azure features
+** It must *always* be possible for BI developers to use *all* mssql and Azure features. So ultimately also https://azure.microsoft.com/en-us/services/synapse-analytics/[Azure Synapse Analytics], Data Factory, BLOB Storage and other Azure products.
+** Whenever possible or desired, a developer may prefer to use mssql features to realize goals, rather than proprietary solutions. Tools should simplify their use.
+*** temporal tables
+*** graph databases
+*** ...
+. a minimally invasive *repository* supplements database metadata
+** Functions and methods that are absent or insufficient in a database are supplemented via a repository (per database), which is connected via synonyms to system catalog views of the DWH database.
+** A repository is also a database: the repository database.
+** This repository does not need and should not contain all metadata to fully define a database, but only necessary or useful additions.
+** A repository is externally connected to a DWH database, with _minimal invasive interventions_ in this database.
+** these minimal invasive interventions can be undone
+** for these minimal invasive interventions (according to current conception) `extended properties` are used, which can be assigned to many database objects and also columns, parameters etc. and also removed again.
+*** by using unique `guid` it is possible to copy objects including the additional metadata stored in the `extended properties` into other databases.
+. Independence from immediate support
+** One should be able to work even if a tool does not work as expected. There shall be no blocking dependency on a tool or a method that requires support fire department interventions, but there shall always be a manual way out.
+** This should especially make community collaboration more attractive: image:https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}"]
+. Documentation
+** The repository, how it works, and the methods are *clearly and thoroughly documented*. Good documentation
+*** provides transparency
+*** creates understanding
+*** facilitates independent work
+*** makes it easier to get started
+*** reduces dependence on support
+. Modular structure and expandability
+** The toolbox concept allows the toolbox to be extended with modules (tools) by different users.
+** Examples of possible modules:
+*** Relation Management
+**** virtual PK and FK
+*** Persistence and Historization Assistant
+*** Documentation Wizard (including creation and inheritance of descriptions and Friendly Name)
+*** Data Lineage Visualizer
+*** Import Wizard
+*** SSIS Generator
+*** Data Factory Generator
+*** Data Vault Wizard
+*** DSGVO Wizard
+*** SSAS Tabular Generator
+*** Easy Refactoring
+*** ...
+
+// Translated with www.DeepL.com/Translator (free version)
+
+=== Quality Goals
+
+. Fixing bugs is more important than implementing new features.
+. A feature is only as good as its documentation.
+
+
+
+=== Stakeholders
+
+// .Stakeholders
+// include::../excel/Stakeholders.xlsx/Stakeholders.adoc[]
+
+// //before using the content of excel files, they need to be exported from Excel into adoc (they are also exported into csc)
+// //use: exportExcel
+// //https://doctoolchain.github.io/docToolchain/#_exportexcel
+
+.Stakeholders
+[options="header",cols="1,2,2a"]
+|===
+|Role/Name|Contact|Expectations
+
+| dwh developer
+|
+|
+* wants to work faster, more efficiently and more effectively
+* wants to automate boring work optionally
+* wants to decide for himself what he automates and what not
+* does not want to become a slave of the tools
+
+| dwh user
+|
+| wants a well documented DWH
+|===
+
+=== Alternatives
+
+==== Repository based database generators
+
+// Es gibt kommerzielle Werkzeuge, mit denen Struktur und Funktion von relationalen und analytischen Datenbanken über ein Repository definiert werden, um daraus den Code dieser Datenbanken zu generieren. Bei diesen Werkzeugen handelt es sich um Einbahnstraßen Repository => Zieldatenbank. Man kann mit diesen Werkzeugen sehr erfolgreich arbeiten, wenn man die vorgesehenen Methoden und Ansätze akzeptiert. Mein subjektives Loblied auf den AnalyticsCreator gibt es hier (auf Deutsch): http://analyticscreator.aisberg.de/2020-04-26-warum-analyticscreator/[Warum ich seit 2017 den AnalyticsCreator verwende].
+
+There are commercial tools that define the structure and function of relational and analytical databases via a repository in order to generate the code of these databases. These tools are _one-way_: repository => target database. One can work very successfully with these tools if one accepts the methods and approaches provided. My subjective praise of AnalyticsCreator can be found here (in German): http://analyticscreator.aisberg.de/2020-04-26-warum-analyticscreator/[Warum ich seit 2017 den AnalyticsCreator verwende].
+
+- https://www.analyticscreator.com/[AnalyticsCreator]
+- Deltamaster Modeler (Additional program for the https://www.bissantz.de/software/?lang=en[Delta Master])
+- https://www.wherescape.com/[Wherescape]
 
 <<<<
 // 2. Architecture Constraints
-include::src/02_architecture_constraints.adoc[]
+:filename: src/02_architecture_constraints.adoc
+
+[[section-architecture-constraints]]
+== Architecture Constraints
+
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+. The project is based on Microsoft SQL Server (mssql)
+. It must *always* be possible for BI developers to use *all* mssql and Azure features in DWH databases.
+. a minimally invasive *repository database* _supplements_ DWH database metadata
+** A repository database is externally connected to a DWH database via *synonyms to system catalog views* of the DWH database.
+** Changes can be made both in repository and in DWH database. Synchronization is required for this.
+** for additional _minimal invasive interventions_ `extended properties` are used, which can be assigned to many database objects and also columns, parameters etc.
+** The synchronization concept takes into account that renaming and refactoring can be performed in the repository as well as in the DWH database.
+** The DWH database works without the repository and all traces of a repository can be removed (extended properties can be dropped).
+
+// === Technical Constraints
+
+// .Technical Constraints
+// [options="header", cols="1,6,12a"]
+// |===
+// ||Constraint|Background and / or motivation
+
+// 3+|_Software and programming constraints_
+
+// |TC1
+// |Main implementation in TSQL
+// |
+
+// |TC2
+// |Additional implementation can use other programming languages
+// |some required components are not availabe or possible in TSQL
+
+// |TC3
+// |Third party software must be available under an compatible open source license and installable via a package manager
+// |The interested developer or architect should be able to check out the sources, compile and run the application without problems compiling or installing dependencies. All external dependencies should be available via the package manager of the operation system or at least through an installer.
+
+// 3+|_Operating System Constraints_
+
+// |TC4
+// |Target OS: Windows
+// |The application should be compilable on all 3 mayor operation systems running SQL Server (Mac OS X, Linux and Windows), but Windows is the main target and Windows specific elements are OK
+
+
+// 3+|_Hardware Constraints_
+
+
+// |===
+
+// === Organizational Constraints
+
+// === Conventions
+
+// .List of Conventions
+// [options="header", cols="1,6,12a"]
+// |===
+// ||Constraint|Background and / or motivation
+
+// |C1
+// |Architecture documentation
+// |Structure based on the english arc42-Template
+
+// |===
 
 <<<<
 // 3. System Scope and Context
-include::src/03_system_scope_and_context.adoc[]
+[[section-system-scope-and-context]]
+== System Scope and Context
+
+:filename: src/03_system_scope_and_context.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+// :c4_dsl_includedir: c4_dsl/puml
+// c4_dsl_includedir we need explicitely
+// configure project settings settings for asciidoc
+// is included in src/config_project.adoc
+// include::config_project.adoc[]
+
+=== System Landscape
+
+[plantuml, structurizr-SystemLandscape, svg]
+....
+@startuml(id=SystemLandscape)
+title System Landscape for Customer
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<1>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<24>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<2>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<3>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<4>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam folder<<26>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<27>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<28>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam folder<<31>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+rectangle "==DHW Developer\n<size:10>[Person]</size>\n\nDeveloper of DataHandwerk Toolkit" <<27>> as 27
+rectangle "==DataHandwerk Development\n<size:10>[Software System]</size>" <<28>> as 28
+folder "==DataHandwerk git\n<size:10>[Software System]</size>\n\nCode of DataHandwerk in Version Control" <<31>> as 31
+package "Customer" {
+  rectangle "==DWH Developer\n<size:10>[Person]</size>\n\nDeveloper of some DWH" <<1>> as 1
+  rectangle "==Deployment Team\n<size:10>[Person]</size>" <<2>> as 2
+  rectangle "==Project B DWH User\n<size:10>[Person]</size>\n\nuser of DWH (Project B)" <<3>> as 3
+  rectangle "==DWH B Development\n<size:10>[Software System]</size>" <<4>> as 4
+  rectangle "==DWH B Production\n<size:10>[Software System]</size>" <<24>> as 24
+  folder "==DWH B git\n<size:10>[Software System]</size>\n\nCode of Project B in Version Control (git, subversion, ...)" <<26>> as 26
+}
+27 .[#707070].> 28 : "uses for testing and development"
+27 .[#707070].> 31 : "uses"
+1 .[#707070].> 4 : "developes"
+1 .[#707070].> 26 : "uses"
+1 .[#707070].> 31 : "takes code or builds"
+2 .[#707070].> 24 : "deployes on production system"
+2 .[#707070].> 26 : "takes code or builds"
+3 .[#707070].> 24 : "uses"
+@enduml
+....
+
+=== DataHandwerk Development Context
+
+[plantuml, structurizr-DataHandwerkDevelopment-SystemContext, svg]
+....
+@startuml(id=DataHandwerkDevelopment-SystemContext)
+title DataHandwerk Development - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<27>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<28>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+rectangle "==DHW Developer\n<size:10>[Person]</size>\n\nDeveloper of DataHandwerk Toolkit" <<27>> as 27
+rectangle "==DataHandwerk Development\n<size:10>[Software System]</size>" <<28>> as 28
+27 .[#707070].> 28 : "uses for testing and development"
+@enduml
+....
+
+=== Customer Context
+
+[plantuml, structurizr-DWHBDevelopment-SystemContext, svg]
+....
+@startuml(id=DWHBDevelopment-SystemContext)
+title DWH B Development - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<1>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<4>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+package "Customer" {
+  rectangle "==DWH Developer\n<size:10>[Person]</size>\n\nDeveloper of some DWH" <<1>> as 1
+  rectangle "==DWH B Development\n<size:10>[Software System]</size>" <<4>> as 4
+}
+1 .[#707070].> 4 : "developes"
+@enduml
+....
+
+[plantuml, structurizr-DWHBgit-SystemContext, svg]
+....
+@startuml(id=DWHBgit-SystemContext)
+title DWH B git - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<1>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<2>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam folder<<26>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+package "Customer" {
+  rectangle "==DWH Developer\n<size:10>[Person]</size>\n\nDeveloper of some DWH" <<1>> as 1
+  rectangle "==Deployment Team\n<size:10>[Person]</size>" <<2>> as 2
+  folder "==DWH B git\n<size:10>[Software System]</size>\n\nCode of Project B in Version Control (git, subversion, ...)" <<26>> as 26
+}
+1 .[#707070].> 26 : "uses"
+2 .[#707070].> 26 : "takes code or builds"
+@enduml
+....
+
+[plantuml, structurizr-DWHBProduction-SystemContext, svg]
+....
+@startuml(id=DWHBProduction-SystemContext)
+title DWH B Production - System Context
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<24>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<2>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<3>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+package "Customer" {
+  rectangle "==Deployment Team\n<size:10>[Person]</size>" <<2>> as 2
+  rectangle "==Project B DWH User\n<size:10>[Person]</size>\n\nuser of DWH (Project B)" <<3>> as 3
+  rectangle "==DWH B Production\n<size:10>[Software System]</size>" <<24>> as 24
+}
+2 .[#707070].> 24 : "deployes on production system"
+3 .[#707070].> 24 : "uses"
+@enduml
+....
+
+
+
+// === Business Context
+
+// [plantuml, dhw-business-context, svg]
+// ....
+// ' left to right direction
+// skinparam componentStyle uml2
+
+// actor "DHW (DataHandwerk) Developer" as dhw_developer
+// actor "DWH Developer" as dwh_developer
+// ' actor "Project A DWH User" as project_a_dwh_user
+// actor "Project B DWH User" as project_b_dwh_user
+
+// package "MS SQL DHW" as mssql_dhw {
+//   database "Project A Repository DB" as project_a_repo_db {
+//   }
+//   database  "Project A DWH DB" as project_a_dwh_db {
+//   }
+// }
+
+// package "MS SQL Dev" as mssql_dev {
+//   database "Project B Repository DB" as project_b_repo_db {
+//   }
+//   database  "Project B DWH DB" as project_b_dwh_db {
+//   }
+// }
+
+// package "MS SQL Production" as mssql_prod {
+//   ' database  "Project A Prod DWH DB" as project_a_prod_dwh_db {
+//   ' }
+//   database  "Project B Prod DWH DB" as project_b_prod_dwh_db {
+//   }
+// }
+
+// ' package "GUI tools" as gui_tools {
+// '   component tools [
+// '     SSMS
+// '     Azure Data Studio
+// '     Visual Studio - SSDT
+// '     other tools
+// '   ]
+// ' }
+
+// dhw_developer --> project_a_repo_db                     : develops
+// dhw_developer --> project_a_dwh_db                     : uses for testing
+// ' dhw_developer --> tools                     : uses
+
+// dwh_developer --> project_b_repo_db         : uses
+// dwh_developer --> project_b_dwh_db         : develops
+// ' dwh_developer --> tools                     : uses
+
+
+// ' project_a_prod_dwh_db <-- project_a_dwh_user
+// project_b_prod_dwh_db <-- project_b_dwh_user : uses
+
+// ' tools --> mssql_dev                       : configure, manage, and administer components within
+
+// project_a_repo_db <--> project_a_dwh_db : connected
+// project_b_repo_db <--> project_b_dwh_db : connected
+
+// project_a_repo_db <-- project_b_repo_db : Database-Project DHW
+
+// ' project_a_dwh_db <--> project_a_prod_dwh_db : Database-Project A
+// project_b_dwh_db <-- project_b_prod_dwh_db : Database-Project B
+
+// ' dwh_developer --> mssql_dev
+// ' dwh_developer --> project_a_repo_db
+// ' dwh_developer --> project_b_repo_db
+// ' dwh_developer --> project_a_dwh_db
+// ' dwh_developer --> project_b_dwh_db
+// ....
+
+// DHW (DataHandwerk) Developer:: Database developers who develop the toolkit
+// DWH Developer:: Database developers using the toolkit to develop DWH
+// DWH User:: End users consuming the DWH
+
+
+// === Technical Context
+
+// [plantuml, dhw-technical-context, svg]
+// ....
+// ' left to right direction
+// skinparam componentStyle uml2
+
+// package "MS SQL Dev" as mssql_dev {
+//   database "Project A Repository DB" as project_a_repo_db {
+//     [Synonyms] as repo_syn
+//     [RepoObjects] as repo_object
+// '    [Index virtual]
+// '    [Reference virtual]
+// '    [other tools]
+//     package "generated scripts for objects in DWH DB" as project_a_scripts {
+//       [procedure scripts]
+//       [view scripts]
+//       [table scripts]
+//     }
+//   }
+//   database  "Project A DWH DB" as project_a_dwh_db {
+//     [System views and procedures] as dwh_sys
+//     [extended properties] as dwh_ep
+//     frame "optional" {
+//       [Logging] as dwh_logging
+//     }
+//     package "objects, generated based on repo scripts" as project_a_generated_objects {
+//         [procedures 2]
+//         [views 2]
+//         [tables 2]
+//     }
+//     package "normal objects" as project_a_objects {
+//         [procedures]
+//         [views]
+//         [tables]
+//     }
+//   }
+// }
+
+// ' package "GUI tools" as gui_tools {
+// '   component tools [
+// '     SSMS
+// '     Azure Data Studio
+// '     Visual Studio - SSDT
+// '     other tools
+// '   ]
+// ' }
+
+// repo_syn --> dwh_sys                      : link to
+// repo_object <--> dwh_ep                   : correspond to each other
+// ' project_a_scripts --> project_a_repo_db   : are generated based on
+// ' project_a_scripts --> project_a_dwh_db    : can be executed to create or change objects in
+// ' project_a_scripts <-- project_a_generated_objects    : created, using
+// [procedures 2] ..> dwh_logging                : uses
+// [procedures] ..> dwh_logging                : uses
+
+// ' procedures --> [procedure scripts]
+// ' tables --> [table scripts]
+// ' views --> [view scripts]
+
+// ' tools --> mssql_dev                       : configure, manage, and administer components within
+// ' tools <-- project_a_scripts               : can be executed, using
+// ....
+
+// System views and procedures:: are the same in all databases
+// Synonyms:: are used to connect a repository database with a DWH database, based on System views and procedures. The connection can thus be easily changed.
+// RepoObjects:: are the basis of the toolkit. Columns, extended porperties, inidicies, references (dependencies) and other stuff are assigned to the RepoObjects. There is a synchronization with extended properties of objects and subobjects in the DWH. Thus, many (not all) metadata from the repository can be mapped directly in the DWH.
+// Extended properties:: can be defined in the DWH or in the repository. For their values there is a possibility of inheritance or filling based on parameters. Thus, descriptions can be inherited along the references, formulas of calculations can be written in descriptions, lists of referenced objects or columns can be created. This allows and simplifies the creation of documentation directly from the database - _documentation as code_.
+// normal object:: Objects created directly (or however) by the developer in the DWH.
+// generated scripts:: There are generators for procedures, tables (especially persistence with optional historization in temporal tables, including procedures to merge into these tables) and views (planned).
+// objects, generated based on repo scripts:: If a developer wishes, he can use the "generated scripts" to be assisted in the creation of objects.
 
 <<<<
 // 4. Solution Strategy
-include::src/04_solution_strategy.adoc[]
+[[section-solution-strategy]]
+== Solution Strategy
+
+:filename: src/04_solution_strategy.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+// * Das Toolkit soll sich in die gewohnte Arbeitsumgebung eines DWH Entwicklers einpassen. Daher basiert das Toolkit auf Repositories in Form von **SQL Server Datenbanken**. Mit diesen Datenbanken kann ein Entwickler so arbeiten, wie er mit anderen Datenbanken arbeitet: mit SSMS, Azure Data Studio = ADS, Visual Studio Datenbankprojekten und anderen Werkzeugen.
+// * Es gibt **ein (1) Repository pro Ziel-DWH**
+// * Repository-Datenbank und DWH-Datenbank sind **getrennte Datenbanken**, damit eine DWH-Datenbank nicht unnötig mit Ballast aufgefüllt wird. Dass ist insbesondere wichtig, wenn die Struktur der Datanbank auf ein produktives System übertragen wird.
+// * alle Repository-Datenbanken haben die **gleiche Struktur**, sie unterscheiden sich pro DWH-Datenbank nur im Inhalt. Das vereinfacht die Wartung und Upgrades.
+// * Die Verbindung der Repository-Datenbanken erfolgt über **Synonyme** auf System-Sichten und Prozeduren der DWH-Datenbank. Diese Systemsichten haben (innerhalb einer SQL Server Version) immer den gleichen Aufbau. Synomyme können einfach per Skript gelöscht und mit Verweis auf eine andere Datenbank angelegt werden.
+// * Die aktuelle Entwicklung basiert auf **SQL Server Version 2019**. Ein Grund ist die verbesserte Unterstützung von **Graph-Datenbanken**. Nach aktuellem Konzept sollen die Abhängigkeiten von Objekten auch in Graph-Datenbanken abgelegt werden.
+// * Es scheint sinnvoll, fehlende Funktionalität der Standard-SQL-Server-Werkzeuge (SSMS, ADS, VS) über eine odere verschiedene **zusätzliche GUI** zu ergänzen.
+// ** bessere Eingabe mehrzeiliger Zeichenketten
+// ** Verknüpfung von Tabellen bei der Dateneingabe (Filter und Nachschlage-Tabellen)
+// ** graphische interaktive Anzeige von Referenzen (Abhängikeiten)
+
+
+* The toolkit should fit into the usual working environment of a DWH developer. Therefore, the toolkit is based on repositories in the form of **SQL Server databases**. A developer can work with these databases the same way he works with other databases: with SSMS, Azure Data Studio = ADS, Visual Studio database projects and other tools.
+* There is **one (1) repository per target DWH**.
+* Repository database and DWH database are **separate databases** so that a DWH database is not unnecessarily filled up with ballast. This is especially important when the structure of the database is transferred to a production system.
+* all repository databases have the **same structure**, they differ per DWH database only in content. This simplifies maintenance and upgrades.
+* Repository databases are connected via **synonyms** on system views and procedures of the DWH database. These system views always have the same structure (within a SQL Server version). Synomyms can be easily deleted by script and created with reference to another database.
+* The current development is based on **SQL Server version 2019**. One reason is the improved support of **graph databases**. According to the current concept, the dependencies of objects should also be stored in graph databases.
+* It seems reasonable to add missing functionality of standard SQL Server tools (SSMS, ADS, VS) via one or more different **additional GUI**.
+** better input of multi-line strings
+** linking of tables during data entry (filters and lookup tables)
+** graphical interactive display of references (dependencies)
 
 <<<<
 // 5. Building Block View
-include::src/05_building_block_view.adoc[]
+[[section-building-block-view]]
+
+
+== Building Block View
+
+:filename: src/05_building_block_view.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+// :c4_dsl_includedir: c4_dsl/puml
+
+=== Whitebox Overall System
+
+[plantuml, structurizr-DataHandwerkDevelopment-Container, svg]
+....
+@startuml(id=DataHandwerkDevelopment-Container)
+title DataHandwerk Development - Containers
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam database<<29>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam database<<30>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+package "DataHandwerk Development\n[Software System]" {
+  database "==DWH db (Project A)\n<size:10>[Container: Database]</size>" <<30>> as 30
+  database "==Repository db (Project A)\n<size:10>[Container: Database]</size>" <<29>> as 29
+}
+@enduml
+....
+
+
+[plantuml, structurizr-DWHBDevelopment-Container, svg]
+....
+@startuml(id=DWHBDevelopment-Container)
+title DWH B Development - Containers
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam database<<5>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam database<<17>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<21>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+package "DWH B Development\n[Software System]" {
+  database "==DWH db Development (Project B)\n<size:10>[Container: Database]</size>" <<17>> as 17
+  rectangle "==GUI\n<size:10>[Container: GUI]</size>\n\nGraphical User Interface" <<21>> as 21
+  database "==Repository db (Project B)\n<size:10>[Container: Database]</size>" <<5>> as 5
+}
+17 .[#707070].> 5 : "RepoObject correspond with extended properties"
+21 .[#707070].> 5 : "uses"
+5 .[#707070].> 17 : "Synonyms link to DWH System Views"
+@enduml
+....
+
+
+[plantuml, structurizr-DWHBProduction-Container, svg]
+....
+@startuml(id=DWHBProduction-Container)
+title DWH B Production - Containers
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<2>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam database<<25>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<3>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+rectangle "==Deployment Team\n<size:10>[Person]</size>" <<2>> as 2
+rectangle "==Project B DWH User\n<size:10>[Person]</size>\n\nuser of DWH (Project B)" <<3>> as 3
+package "DWH B Production\n[Software System]" {
+  database "==DWH db Production (Project B)\n<size:10>[Container: Database]</size>" <<25>> as 25
+}
+2 .[#707070].> 25 : "deployes on production system"
+3 .[#707070].> 25 : "uses"
+@enduml
+....
+
+
+
+// [plantuml, dhw-whitebox-overall-system, svg]
+// ....
+// ' left to right direction
+// skinparam componentStyle uml2
+
+// [GUI]
+
+// database "Repository DB" as repo_db {
+//   package [Configuration] {
+//     [Synonyms]
+//     [Parameter]
+//   }
+//   [RepoObject] as RepoObject
+//   [SQL Parser] as SqlParser
+//   [Reference] as Reference
+//   [Inheritance]
+//   package [Generators] {
+//     [USP generator (Procedures)] as GeneratorUsp
+//     [Persistence generator] as GeneratorPersistence
+//     [View generator] as GeneratorView
+//     [Workflow]
+//   }
+// }
+
+// database  "DWH DB" as dwh_db {
+//   [System views and procedures] as dwh_sys
+//   [extended properties] as dwh_ep
+// }
+
+// Synonyms --> dwh_sys    : link to
+// RepoObject <--> dwh_ep  : correspond to each other
+
+// Reference --> RepoObject
+// Inheritance --> RepoObject
+// GeneratorUsp --> RepoObject
+// GeneratorPersistence --> RepoObject
+// GeneratorView --> RepoObject
+
+// Reference --> SqlParser
+// GeneratorView --> SqlParser
+
+// Inheritance --> Reference
+// Workflow --> Reference
+// GeneratorPersistence --> Reference
+// GeneratorView --> Reference
+
+// GeneratorPersistence --> GeneratorUsp
+// ....
+
+
+// // Motivation::
+
+// // _<text explanation>_
+
+
+// Contained Building Blocks::
+// // _<Description of contained building block (black boxes)>_
+
+// .DHW1::black_boxes
+// // [options="header",cols="1,4"]
+// [cols="1,6"]
+// |===
+// // |box|Description
+
+// | Configuration
+// | Connection with DWH database and various settings for the behavior of the processes in the repository.
+
+// | RepoObject
+// | Central construct to represent objects (tables, views, procedures, functions, index, ...) and their subunits (columns, index columns, procedure parameters, ...), their properties and relationships between them.
+
+// | Reference
+// | Determination and management of references (dependencies) between RepoObjects or RepoObject columns
+
+// | Inheritance
+// | Inheritance or determination of extended properties for RepoObjects or RepoObject columns, based on references
+
+// | SQL Parser
+// | Parse the code of views to extract column-level references or other logic from them.
+
+// | Generators
+// | Script generators for tables, procedures and views; especially also for tables for persisting views (with optional history tables)
+
+// | GUI
+// | Additional GUI for more convenient data entry than with standard tools like SSMS or ADS
+
+// |===
+
+// // Important Interfaces::
+// // _<Description of important interfaces>_
+
+
+
+
+// // ==== <Name black box 1>
+
+
+
+// // _<Purpose/Responsibility>_
+
+// // _<Interface(s)>_
+
+// // _<(Optional) Quality/Performance Characteristics>_
+
+// // _<(Optional) Directory/File Location>_
+
+// // _<(Optional) Fulfilled Requirements>_
+
+// // _<(optional) Open Issues/Problems/Risks>_
+
+
+
+
+// // ==== <Name black box 2>
+
+// // _<black box template>_
+
+// // ==== <Name black box n>
+
+// // _<black box template>_
+
+
+// // ==== <Name interface 1>
+
+// // ...
+
+// // ==== <Name interface m>
+
+
+=== Level 2
+
+==== DWH db Development (Project B)
+
+[plantuml, structurizr-DWHBDevelopment-DWHdbDevelopmentProjectB-Component, svg]
+....
+@startuml(id=DWHBDevelopment-DWHdbDevelopmentProjectB-Component)
+title DWH B Development - DWH db Development (Project B) - Components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam database<<5>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<18>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<19>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<20>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+database "==Repository db (Project B)\n<size:10>[Container: Database]</size>" <<5>> as 5
+package "DWH db Development (Project B)\n[Container: Database]" {
+  rectangle "==Extended Properties\n<size:10>[Component]</size>" <<19>> as 19
+  rectangle "==SQL Server objects\n<size:10>[Component]</size>" <<20>> as 20
+  rectangle "==System views and procedures\n<size:10>[Component]</size>" <<18>> as 18
+}
+19 .[#707070].> 5 : "RepoObject correspond with extended properties"
+19 .[#707070].> 20 : "enrich them with additional information"
+5 .[#707070].> 19 : ""
+5 .[#707070].> 18 : "Synonyms link to DWH System Views"
+18 .[#707070].> 20 : "describe"
+@enduml
+....
+
+==== Repository db Development (Project B)
+
+[plantuml, structurizr-DWHBDevelopment-RepositorydbProjectB-Component, svg]
+....
+@startuml(id=DWHBDevelopment-RepositorydbProjectB-Component)
+title DWH B Development - Repository db (Project B) - Components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<11>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<12>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<13>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<14>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<15>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<16>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam database<<17>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<6>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<7>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<8>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<9>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<10>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<21>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+database "==DWH db Development (Project B)\n<size:10>[Container: Database]</size>" <<17>> as 17
+rectangle "==GUI\n<size:10>[Container: GUI]</size>\n\nGraphical User Interface" <<21>> as 21
+package "Repository db (Project B)\n[Container: Database]" {
+  rectangle "==Configuration\n<size:10>[Component]</size>\n\nConnection with DWH database and various settings for the behavior of the processes in the repository." <<7>> as 7
+  rectangle "==Inheritance\n<size:10>[Component]</size>\n\nInheritance or determination of extended properties for RepoObjects or RepoObject columns, based on references" <<11>> as 11
+  rectangle "==Persistence Generator\n<size:10>[Component]</size>\n\nViews or tables can be persisted in tables, with or without history with temporal tables. Code for performing the persistations is created." <<13>> as 13
+  rectangle "==Reference\n<size:10>[Component]</size>\n\nDetermination and management of references (dependencies) between RepoObjects or RepoObject columns" <<10>> as 10
+  rectangle "==RepoObject\n<size:10>[Component]</size>\n\nCentral construct to represent objects (tables, views, procedures, functions, index, ...) and their subunits (columns, index columns, procedure parameters, ...), their properties and relationships between them." <<8>> as 8
+  rectangle "==SqlParser\n<size:10>[Component]</size>\n\nParse the code of views to extract column-level references or other logic from them" <<9>> as 9
+  rectangle "==Synonyms\n<size:10>[Component]</size>\n\nSynonyms are used to connect the repository database with the corresponding DWH database" <<6>> as 6
+  rectangle "==USP Generator\n<size:10>[Component]</size>\n\nusp (userdefined stored procedures) can be generated in a formalized way: containing optional logging and some workflow elements (sub procedures, conditions, parent-child logic)" <<12>> as 12
+  rectangle "==View Generator\n<size:10>[Component]</size>\n\nNot yet implemented" <<14>> as 14
+  rectangle "==Visualization\n<size:10>[Component]</size>\n\npreparation for Visualization of data lineage (references), real and virtual PK, FK-PK" <<16>> as 16
+  rectangle "==Workflow\n<size:10>[Component]</size>\n\nA workflow executes procedures in a specific and necessary order." <<15>> as 15
+}
+17 .[#707070].> 8 : "RepoObject correspond with extended properties"
+21 .[#707070].> 16 : "uses"
+11 .[#707070].> 10 : ""
+11 .[#707070].> 8 : ""
+13 .[#707070].> 10 : ""
+13 .[#707070].> 8 : ""
+13 .[#707070].> 12 : ""
+10 .[#707070].> 8 : ""
+10 .[#707070].> 9 : ""
+8 .[#707070].> 17 : ""
+8 .[#707070].> 6 : ""
+9 .[#707070].> 6 : ""
+6 .[#707070].> 17 : "Synonyms link to DWH System Views"
+12 .[#707070].> 8 : ""
+14 .[#707070].> 8 : ""
+14 .[#707070].> 9 : ""
+16 .[#707070].> 10 : ""
+15 .[#707070].> 10 : ""
+@enduml
+....
+
+==== GUI (Project B)
+
+[plantuml, structurizr-DWHBDevelopment-GUI-Component, svg]
+....
+@startuml(id=DWHBDevelopment-GUI-Component)
+title DWH B Development - GUI - Components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<22>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<23>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam database<<5>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+database "==Repository db (Project B)\n<size:10>[Container: Database]</size>" <<5>> as 5
+package "GUI\n[Container: GUI]" {
+  rectangle "==CRUD GUI\n<size:10>[Component: ?]</size>\n\nCRUD - Create, Read, Update, Delete" <<23>> as 23
+  rectangle "==Visualization GUI\n<size:10>[Component: ?]</size>\n\nVisualization of data lineage (references), real and virtual PK, FK-PK" <<22>> as 22
+}
+22 .[#707070].> 5 : "uses"
+@enduml
+....
+
+
+// ==== White Box RepoObject
+
+
+
+// _<white box template>_
+
+// ==== White Box _<building block 2>_
+
+
+// _<white box template>_
+
+// ...
+
+// ==== White Box _<building block m>_
+
+
+// _<white box template>_
+
+
+
+// === Level 3
+
+
+
+
+// ==== White Box <_building block x.1_>
+
+
+
+
+// _<white box template>_
+
+
+// ==== White Box <_building block x.2_>
+
+// _<white box template>_
+
+
+
+// ==== White Box <_building block y.1_>
+
+// _<white box template>_
 
 <<<<
 // 6. Runtime View
-include::src/06_runtime_view.adoc[]
+[[section-runtime-view]]
+== Runtime View
+
+:filename: src/06_runtime_view.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+
+// === <Runtime Scenario 1>
+
+=== [repo].[usp_main]
+
+// * _<insert runtime diagram or textual description of the scenario>_
+// * _<insert description of the notable aspects of the interactions between the
+// building block instances depicted in this diagram.>_
+
+// https://plantuml.com/en/salt
+// Tree widget
+// oder
+// Tree Table
+
+// select
+// *
+// from
+// [repo].[ftv_ExecutionLog_tree] (DEFAULT, DEFAULT)
+// order by
+// id
+
+[plantuml, dhw-tree-ExecutionLog-usp_main, svg]
+....
+@startsalt
+{
+{T
+Procedure  |  Duration sec
++ [repo].[usp_main]  |  62
+++ [repo].[usp_sync_guid]  |  10
++++ [repo].[usp_sync_guid_RepoObject]  |  1
+++++ [graph].[usp_PERSIST_RepoObject]  |  0
+++++ [graph].[usp_PERSIST_ProcedureInstance]  |  0
++++ [repo].[usp_sync_guid_RepoObjectColumn]  |  5
+++++ [graph].[usp_PERSIST_RepoObjectColumn]  |  0
+++ [repo].[usp_update_Referencing_Count]  |  6
+++ [repo].[usp_index_inheritance]  |  8
++++ [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]  |  2
++++ [repo].[usp_Index_Settings]  |  1
+++ [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]  |  1
+++ [repo].[usp_GeneratorUsp_insert_update_persistence]  |  4
+}
+}
+@endsalt
+....
+
+
+// SELECT
+//        [id]
+//      , [plantUML_Sequence_start_stop]
+//      , [proc_fullname]
+//      , [parent_proc_fullname]
+//      , [created_dt]
+// FROM
+//      [repo].[ExecutionLog_plantUML_Sequence_start_stop]
+// WHERE  [id] BETWEEN 3159 AND 3248
+// ORDER BY
+//          [id]
+
+[plantuml, dhw-sequence-usp_main, svg]
+....
+ -> "[repo].[usp_main]"
+activate "[repo].[usp_main]"
+"[repo].[usp_main]" -> "[repo].[usp_sync_guid]"
+activate "[repo].[usp_sync_guid]"
+"[repo].[usp_sync_guid]" -> "[repo].[usp_sync_guid_RepoObject]"
+activate "[repo].[usp_sync_guid_RepoObject]"
+"[repo].[usp_sync_guid_RepoObject]" -> "[graph].[usp_PERSIST_RepoObject]"
+activate "[graph].[usp_PERSIST_RepoObject]"
+"[repo].[usp_sync_guid_RepoObject]" <- "[graph].[usp_PERSIST_RepoObject]"
+deactivate "[graph].[usp_PERSIST_RepoObject]"
+"[repo].[usp_sync_guid_RepoObject]" -> "[graph].[usp_PERSIST_ProcedureInstance]"
+activate "[graph].[usp_PERSIST_ProcedureInstance]"
+"[repo].[usp_sync_guid_RepoObject]" <- "[graph].[usp_PERSIST_ProcedureInstance]"
+deactivate "[graph].[usp_PERSIST_ProcedureInstance]"
+"[repo].[usp_sync_guid]" <- "[repo].[usp_sync_guid_RepoObject]"
+deactivate "[repo].[usp_sync_guid_RepoObject]"
+"[repo].[usp_sync_guid]" -> "[repo].[usp_sync_guid_RepoObjectColumn]"
+activate "[repo].[usp_sync_guid_RepoObjectColumn]"
+"[repo].[usp_sync_guid_RepoObjectColumn]" -> "[graph].[usp_PERSIST_RepoObjectColumn]"
+activate "[graph].[usp_PERSIST_RepoObjectColumn]"
+"[repo].[usp_sync_guid_RepoObjectColumn]" <- "[graph].[usp_PERSIST_RepoObjectColumn]"
+deactivate "[graph].[usp_PERSIST_RepoObjectColumn]"
+"[repo].[usp_sync_guid]" <- "[repo].[usp_sync_guid_RepoObjectColumn]"
+deactivate "[repo].[usp_sync_guid_RepoObjectColumn]"
+"[repo].[usp_main]" <- "[repo].[usp_sync_guid]"
+deactivate "[repo].[usp_sync_guid]"
+"[repo].[usp_main]" -> "[repo].[usp_update_Referencing_Count]"
+activate "[repo].[usp_update_Referencing_Count]"
+"[repo].[usp_main]" <- "[repo].[usp_update_Referencing_Count]"
+deactivate "[repo].[usp_update_Referencing_Count]"
+"[repo].[usp_main]" -> "[repo].[usp_index_inheritance]"
+activate "[repo].[usp_index_inheritance]"
+"[repo].[usp_index_inheritance]" -> "[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]"
+activate "[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]"
+"[repo].[usp_index_inheritance]" <- "[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]"
+deactivate "[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]"
+"[repo].[usp_index_inheritance]" -> "[repo].[usp_Index_Settings]"
+activate "[repo].[usp_Index_Settings]"
+"[repo].[usp_index_inheritance]" <- "[repo].[usp_Index_Settings]"
+deactivate "[repo].[usp_Index_Settings]"
+"[repo].[usp_main]" <- "[repo].[usp_index_inheritance]"
+deactivate "[repo].[usp_index_inheritance]"
+"[repo].[usp_main]" -> "[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]"
+activate "[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]"
+"[repo].[usp_main]" <- "[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]"
+deactivate "[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]"
+"[repo].[usp_main]" -> "[repo].[usp_GeneratorUsp_insert_update_persistence]"
+activate "[repo].[usp_GeneratorUsp_insert_update_persistence]"
+"[repo].[usp_main]" <- "[repo].[usp_GeneratorUsp_insert_update_persistence]"
+deactivate "[repo].[usp_GeneratorUsp_insert_update_persistence]"
+ <- "[repo].[usp_main]"
+deactivate "[repo].[usp_main]"
+....
+
+// SELECT [id]
+//  , [plantUML_Sequence]
+//  , [proc_schema_name]
+//  , [proc_name]
+//  , [step_id]
+//  , [step_name]
+//  , [created_dt]
+//  , [source_object]
+//  , [target_object]
+//  , [inserted]
+//  , [updated]
+//  , [deleted]
+// FROM [repo].[ExecutionLog_gross]
+// WHERE [id] BETWEEN 3159
+//   AND 3248
+// ORDER BY [id]
+
+==== [repo].[usp_sync_guid_RepoObject]
+
+[plantuml, dhw-sequence-usp_sync_guid_RepoObject, svg]
+....
+skinparam maxmessagesize 220
+
+== [repo].[usp_sync_guid_RepoObject] - start ==
+
+"[repo_sys].[SysObject]" ->O "[repo].[RepoObject]" : SET several RepoObject_SysObject_...
+rnote right:53
+"[repo_sys].[SysObject]" ->O "[repo].[RepoObject]" : SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
+rnote right:0
+"[repo_sys].[SysObject]" -> "[repo].[RepoObject]" : [SysObject_RepoObject_guid] -> [RepoObject_guid]; some name, type, …
+rnote right:0
+"[repo_sys].[SysObject]" -> "[repo].[RepoObject]" : INSERT still missing Object
+rnote right:21
+"[repo].[RepoObject]" ->O "[repo].[RepoObject]" : SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]
+rnote right:21
+"[repo].[RepoObject]" --> "[repo_sys].[SysObject]" : write RepoObject_guid into extended properties of SysObject
+rnote right:
+"[repo].[RepoObject]" ->O "[repo].[RepoObject]" : SET is_SysObject_missing = 1
+rnote right:0
+"[repo].[RepoObject]" ->x "[repo].[RepoObject]" : DELETE; marked missing SysObject, but not is_repo_managed  = 1
+rnote right:0
+"[repo_sys].[SysObject]" ->O "[repo].[RepoObject]" : UPDATE other properties, where not is_repo_managed  = 1
+rnote right:2
+"[repo].[RepoObject_persistence]" ->O "[repo].[RepoObject]" : SET [Repo_temporal_type]
+rnote right:0
+"[repo].[RepoObject]" ->O "[repo].[ProcedureInstance]" : MERGE INTO [repo].[ProcedureInstance]
+rnote right:6
+
+== [graph].[usp_PERSIST_RepoObject] - start ==
+
+"[graph].[RepoObject_S]" ->x "[graph].[RepoObject]" : delete persistence target missing in source
+rnote right:0
+"[graph].[RepoObject_S]" ->O "[graph].[RepoObject]" : update changed
+rnote right:0
+"[graph].[RepoObject_S]" -> "[graph].[RepoObject]" : insert missing
+rnote right:21
+
+== [graph].[usp_PERSIST_RepoObject] - end ==
+
+
+== [graph].[usp_PERSIST_ProcedureInstance] - start ==
+
+"[graph].[ProcedureInstance_S]" ->x "[graph].[ProcedureInstance]" : delete persistence target missing in source
+rnote right:0
+"[graph].[ProcedureInstance_S]" ->O "[graph].[ProcedureInstance]" : update changed
+rnote right:0
+"[graph].[ProcedureInstance_S]" -> "[graph].[ProcedureInstance]" : insert missing
+rnote right:6
+
+== [graph].[usp_PERSIST_ProcedureInstance] - end ==
+
+
+== [repo].[usp_sync_guid_RepoObject] - end ==
+
+....
+
+==== [repo].[usp_sync_guid_RepoObjectColumn]
+
+[plantuml, dhw-sequence-usp_sync_guid_RepoObjectColumn, svg]
+....
+skinparam maxmessagesize 220
+
+== [repo].[usp_sync_guid_RepoObjectColumn] - start ==
+
+"[repo_sys].[SysColumn]" ->O "[repo].[RepoObjectColumn]" : UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColumn_guid
+rnote right:150
+"[repo].[RepoObjectColumn]" ->O "[repo].[RepoObjectColumn]" : SET [SysObjectColumn_name] = [RepoObjectColumn_guid] (to avoid conflict in the next INSERT step)
+rnote right:0
+"[repo_sys].[SysColumn]" -> "[repo].[RepoObjectColumn]" : [SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] ([RepoObjectColumn_guid] is stored in extended properties)
+rnote right:0
+"[repo_sys].[SysColumn]" ->x "[repo].[RepoObjectColumn]" : DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1); via [repo].[SysColumn_RepoObjectColumn_via_name]
+rnote right:0
+"[repo_sys].[SysColumn]" -> "[repo].[RepoObjectColumn]" : INSERT still missing Column
+rnote right:144
+"[repo].[RepoObjectColumn]" ->O "[repo].[RepoObjectColumn]" : SET [RepoObjectColumn_name] = [SysObjectColumn_name] WHERE (has_different_sys_names = 1) AND (ISNULL(is_repo_managed, 0) = 0)
+rnote right:144
+"[repo_sys].[SysColumn]" ->O "[repo].[RepoObjectColumn]" : other properties, where (ISNULL(is_repo_managed, 0) = 0)
+rnote right:2
+"[repo_sys].[SysColumn]" ->O "[repo].[RepoObjectColumn]" : persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid
+rnote right:0
+"[repo].[RepoObjectColumn]" ->O "[repo].[RepoObjectColumn]" : persistence: [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name via [repo].[RepoObject_persistence])
+rnote right:0
+"[repo].[RepoObjectColumn]" -> "[repo].[RepoObjectColumn]" : persistence: add missing persistence columns existing in source
+rnote right:0
+"[repo].[RepoObject_persistence]" -> "[repo].[RepoObjectColumn]" : persistence: insert missing HistValidColumns
+rnote right:0
+"[repo].[RepoObjectColumn]" ->O "[repo].[RepoObjectColumn]" : persistence: SET [persistence_source_RepoObjectColumn_guid] = NULL (missing source column)
+rnote right:2076
+"[repo].[RepoObjectColumn]" --> "[repo_sys].[SysColumn]" : write RepoObjectColumn_guid into extended properties of SysObjectColumn, Level2
+rnote right:
+"[repo_sys].[SysColumn]" ->O "[repo].[RepoObjectColumn]" : SET [is_SysObjectColumn_missing] = 1
+rnote right:0
+"[repo_sys].[RepoObjectColumn]" ->x "[repo].[RepoObjectColumn]" : where is_SysObjectColumn_missing = 1, but not in objects which are is_repo_managed
+rnote right:0
+
+== [graph].[usp_PERSIST_RepoObjectColumn] - start ==
+
+"[graph].[RepoObjectColumn_S]" ->x "[graph].[RepoObjectColumn]" : delete persistence target missing in source
+rnote right:0
+"[graph].[RepoObjectColumn_S]" ->O "[graph].[RepoObjectColumn]" : update changed
+rnote right:0
+"[graph].[RepoObjectColumn_S]" -> "[graph].[RepoObjectColumn]" : insert missing
+rnote right:144
+
+== [graph].[usp_PERSIST_RepoObjectColumn] - end ==
+
+
+== [repo].[usp_sync_guid_RepoObjectColumn] - end ==
+....
+
+==== [repo].[usp_update_Referencing_Count]
+
+[plantuml, dhw-sequence-usp_update_Referencing_Count, svg]
+....
+skinparam maxmessagesize 220
+
+== [repo].[usp_update_Referencing_Count] - start ==
+
+"[repo_sys].[RepoObjectReferencing]" ->O "[repo].[RepoObject]" : SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]
+rnote right:27
+"[repo_sys].[RepoObjectReferenced]" ->O "[repo].[RepoObjectColumn]" : SET [Referencing_Count] = [rorc].[Referencing_Count]
+rnote right:141
+
+== [repo].[usp_update_Referencing_Count] - end ==
+....
+
+==== [repo].[usp_index_inheritance]
+
+[plantuml, dhw-sequence-usp_index_inheritance, svg]
+....
+skinparam maxmessagesize 220
+== [repo].[usp_index_inheritance] - start ==
+
+
+== [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T] - start ==
+
+?->x "[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]" : truncate persistence target
+rnote right:0
+"[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]" -> "[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]" : insert all
+rnote right:147
+
+== [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T] - end ==
+
+"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]" ->x "[repo].[Index_virtual]" : DELETE (referenced index is missing)
+rnote right:2
+"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]" -> "[repo].[Index_virtual]" : INSERT (Index which should be inherited in referenced, but not yet referenced)
+rnote right:2
+"[repo].[IndexColumn_virtual_referenced_setpoint]" ->x "[repo].[IndexColumn_virtual]" : DELETE (where entries are missing in setpoint)
+rnote right:0
+"[repo].[IndexColumn_virtual_referenced_setpoint]" -> "[repo].[IndexColumn_virtual]" : INSERT missing
+rnote right:4
+"[repo].[Index_gross]" ->x "[repo].[Index_virtual]" : DELETE duplicates by pattern
+rnote right:7
+"[repo].[IndexColumn_virtual_referenced_setpoint]" ->O "[repo].[IndexColumn_virtual]" : SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid], [is_descending_key] = [setpoint].[is_descending_key]
+rnote right:4
+
+== [repo].[usp_Index_Settings] - start ==
+
+"[repo].[Index_IndexPattern]" ->x "[repo].[Index_Settings]" : DELETE
+rnote right:9
+"[repo].[Index_IndexPattern]" -> "[repo].[Index_Settings]" : INSERT
+rnote right:2
+"[repo].[Index_IndexPattern]" ->O "[repo].[Index_Settings]" : UPDATE
+rnote right:4
+
+== [repo].[usp_Index_Settings] - end ==
+
+"[repo].[Index_IndexSemanticGroup]" ->O "[repo].[Index_IndexSemanticGroup]" : SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]
+rnote right:2
+"[repo].[RepoObject]" ->O "[repo].[Index_virtual]" : SET [is_index_primary_key] = 1, [is_index_unique] = 1 (propagate PK from [repo].[RepoObject] into [repo].[Index_virtual])
+rnote right:0
+"[repo].[Index_union]" ->O "[repo].[Index_virtual]" : SET [is_index_primary_key] = 1 (WHERE rop.has_history = 1 and source-index is PK)
+rnote right:0
+"[repo].[Index_union]" ->O "[repo].[Index_Settings]" : SET [is_create_constraint] = 1 (WHERE persistence has_history = 1)
+rnote right:0
+"[repo].[Index_virtual]" ->O "[repo].[Index_virtual]" : SET [is_index_unique] = 1 (each PK is also [is_index_unique])
+rnote right:0
+"[repo].[Index_gross]" ->O "[repo].[RepoObject]" : SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_primary_key] = 1 and [RowNumber_PkPerParentObject] = 1)
+rnote right:0
+"[repo].[RepoObject]" ->O "[repo].[Index_virtual]" : SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])
+rnote right:0
+"[repo].[RepoObject]" ->O "[repo].[Index_virtual]" : SET [iv].[index_name] WHERE [iv].[index_name] IS NULL
+rnote right:2
+
+== [repo].[usp_index_inheritance] - end ==
+....
+
+==== [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
+
+// [plantuml, dhw-sequence-usp_RepoObjectColumn_update_RepoObjectColumn_column_id, svg]
+// ....
+
+// == [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id] - start ==
+
+
+// == [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id] - end ==
+
+// ....
+
+==== [repo].[usp_GeneratorUsp_insert_update_persistence]
+
+[plantuml, usp_GeneratorUsp_insert_update_persistence, svg]
+....
+
+== [repo].[usp_GeneratorUsp_insert_update_persistence] - start ==
+
+"[repo].[RepoObject_gross]" ->x " [repo].[GeneratorUsp]" : delete old usp, which doesn't exist anymore
+rnote right:0
+"[repo].[RepoObject_gross]" -> "[repo].[GeneratorUsp]" : insert new usp
+rnote right:0
+"[repo].[GeneratorUspStep_Persistence]" ->O "[repo].[GeneratorUspStep]" : update steps, changed
+rnote right:0
+"[repo].[GeneratorUspStep_Persistence]" -> "[repo].[GeneratorUspStep]" : insert steps, not existing
+rnote right:0
+"[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]" ->O "[repo].[GeneratorUspStep]" : update steps; SET [is_inactive] = [setpoint].[is_inactive]
+rnote right:0
+
+== [repo].[usp_GeneratorUsp_insert_update_persistence] - end ==
+
+....
+
+
+=== <Runtime Scenario 2>
+
+=== ...
+
+=== <Runtime Scenario n>
 
 <<<<
 // 7. Deployment View
-include::src/07_deployment_view.adoc[]
+[[section-deployment-view]]
+
+
+== Deployment View
+
+:filename: src/07_deployment_view.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+
+=== Infrastructure Level 1
+
+
+
+_**<Overview Diagram>**_
+
+Motivation::
+
+_<explanation in text form>_
+
+Quality and/or Performance Features::
+
+_<explanation in text form>_
+
+Mapping of Building Blocks to Infrastructure::
+_<description of the mapping>_
+
+
+=== Infrastructure Level 2
+
+
+
+==== _<Infrastructure Element 1>_
+
+_<diagram + explanation>_
+
+==== _<Infrastructure Element 2>_
+
+_<diagram + explanation>_
+
+...
+
+==== _<Infrastructure Element n>_
+
+_<diagram + explanation>_
 
 <<<<
 // 8. Concepts
-include::src/08_concepts.adoc[]
+[[section-concepts]]
+== Cross-cutting Concepts
+
+:filename: src/08_concepts.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+
+
+=== _<Concept 1>_
+
+_<explanation>_
+
+
+
+=== _<Concept 2>_
+
+_<explanation>_
+
+...
+
+=== _<Concept n>_
+
+_<explanation>_
 
 <<<<
 // 9. Design Decisions
-include::src/09_design_decisions.adoc[]
+[[section-design-decisions]]
+== Design Decisions
+
+:filename: src/09_design_decisions.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
 
 <<<<
 // 10. Quality Scenarios
-include::src/10_quality_scenarios.adoc[]
+[[section-quality-scenarios]]
+== Quality Requirements
+
+:filename: src/10_quality_scenarios.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+
+=== Quality Tree
+
+
+
+=== Quality Scenarios
 
 <<<<
 // 11. Technical Risks
-include::src/11_technical_risks.adoc[]
+[[section-technical-risks]]
+== Risks and Technical Debts
+
+:filename: src/11_technical_risks.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
 
 <<<<
 // 12. Glossary
-include::src/12_glossary.adoc[]
+[[section-glossary]]
+== Glossary
+
+:filename: src/12_glossary.adoc
+// image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={project-repository-docs-edit-link}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-red.svg[link="{project-report-issue-link}{filename}", float=right]
+image::https://img.shields.io/badge/collaborate-in%20discussions-blue.svg[link="{project-discussions}", float=right]
+
+
+
+[options="header"]
+|===
+| Term         | Definition
+| <Term-1>     | <definition-1>
+| <Term-2>     | <definition-2>
+|===
 
 // horizontal line
 ***
-include::src/about-arc42.adoc[]
+:filename: src/about-arc42.adoc
+// :homepage: http://arc42.org
 
+// :keywords: software-architecture, documentation, template, arc42
+
+// :numbered!:
+**About arc42**
+
+// == About arc42
+
+[role="lead"]
+arc42, the Template for documentation of
+software and system architecture.
+
+By Dr. Gernot Starke, Dr. Peter Hruschka and contributors.
+
+
+Template Revision: 7.0 EN (based on asciidoc), January 2017
+
+(C)
+We acknowledge that this document uses material from the
+arc 42 architecture template, https://arc42.de, https://arc42.org/
+Created by Dr. Peter Hruschka & Dr. Gernot Starke.

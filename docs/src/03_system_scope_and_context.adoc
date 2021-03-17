@@ -4,37 +4,41 @@
 :filename: src/03_system_scope_and_context.adoc
 include::_feedback.adoc[]
 
-:c4_dsl_includedir: c4_dsl/puml
+// :c4_dsl_includedir: c4_dsl/puml
+// c4_dsl_includedir we need explicitely
+// configure project settings settings for asciidoc
+// is included in src/config_project.adoc
+// include::config_project.adoc[]
 
 === System Landscape
 
 [plantuml, structurizr-SystemLandscape, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-SystemLandscape.puml[]
+include::c4_dsl/puml/structurizr-SystemLandscape.puml[]
 ....
 
 === DataHandwerk Development Context
 
 [plantuml, structurizr-DataHandwerkDevelopment-SystemContext, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DataHandwerkDevelopment-SystemContext.puml[]
+include::c4_dsl/puml/structurizr-DataHandwerkDevelopment-SystemContext.puml[]
 ....
 
 === Customer Context
 
 [plantuml, structurizr-DWHBDevelopment-SystemContext, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-SystemContext.puml[]
+include::c4_dsl/puml/structurizr-DWHBDevelopment-SystemContext.puml[]
 ....
 
 [plantuml, structurizr-DWHBgit-SystemContext, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBgit-SystemContext.puml[]
+include::c4_dsl/puml/structurizr-DWHBgit-SystemContext.puml[]
 ....
 
 [plantuml, structurizr-DWHBProduction-SystemContext, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBProduction-SystemContext.puml[]
+include::c4_dsl/puml/structurizr-DWHBProduction-SystemContext.puml[]
 ....
 
 
