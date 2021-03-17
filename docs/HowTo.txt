@@ -5,3 +5,9 @@ doctoolchain.bat . generateHTML
 to use another folder:
 
 doctoolchain.bat <docDir> generateHTML
+
+How to create single adoc files, containing all included sources:
+
+ruby asciidoc-coalescer.rb [OPTIONS] FILE
+
+ruby asciidoc-coalescer.rb --output dhw-arc42-onefile.adoc dhw-arc42.adoc

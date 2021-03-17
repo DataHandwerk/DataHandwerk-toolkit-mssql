@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="133px" preserveAspectRatio="none" style="width:881px;height:133px;background:#000000;" version="1.1" viewBox="0 0 881 133" width="881px" zoomAndPan="magnify"><defs/><g><rect fill="#150F24" height="1" style="stroke: #150F24; stroke-width: 1.0;" width="1" x="0" y="0"/><rect fill="#33FF02" height="22.6094" style="stroke: #33FF02; stroke-width: 1.0;" width="146" x="5" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="144" x="6" y="20">[From string (line 4) ]</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="0" x="9" y="41.6094"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="70" x="5" y="59.2188">@startuml</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="125" x="5" y="76.8281">skinparam dpi 200</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="0" x="9" y="94.4375"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="874" x="5" y="112.0469">Unresolved directive in src/05_building_block_view.adoc - include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-Repos ...</text><text fill="#FF0000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="93" x="9" y="129.6563">Syntax Error?</text><!--MD5=[6b9ed4e73025fdd228506129e35cde1d]
+@startuml
+skinparam dpi 200
+
+Unresolved directive in src/05_building_block_view.adoc - include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-RepositorydbProjectB-Component.puml[]
+@enduml
+
+PlantUML version 1.2020.09(Sun May 10 12:51:06 CEST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 12.0.1+12
+Operating System: Windows 10
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
