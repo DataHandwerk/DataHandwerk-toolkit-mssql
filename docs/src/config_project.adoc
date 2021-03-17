@@ -11,3 +11,4 @@
 :project-repository-docs-link: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/tree/main/docs/
 :project-repository-docs-edit-link: https://github.com/DataHandwerk/DataHandwerk-toolkit-mssql/edit/main/docs/
 
+:c4_dsl_includedir: c4_dsl/puml

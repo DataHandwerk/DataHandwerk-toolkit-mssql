@@ -6,23 +6,25 @@
 :filename: src/05_building_block_view.adoc
 include::_feedback.adoc[]
 
+// :c4_dsl_includedir: c4_dsl/puml
+
 === Whitebox Overall System
 
 [plantuml, structurizr-DataHandwerkDevelopment-Container, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DataHandwerkDevelopment-Container.puml[]
+include::c4_dsl/puml/structurizr-DataHandwerkDevelopment-Container.puml[]
 ....
 
 
 [plantuml, structurizr-DWHBDevelopment-Container, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-Container.puml[]
+include::c4_dsl/puml/structurizr-DWHBDevelopment-Container.puml[]
 ....
 
 
 [plantuml, structurizr-DWHBProduction-Container, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBProduction-Container.puml[]
+include::c4_dsl/puml/structurizr-DWHBProduction-Container.puml[]
 ....
 
 
@@ -161,21 +163,21 @@ include::{c4_dsl_includedir}/structurizr-DWHBProduction-Container.puml[]
 
 [plantuml, structurizr-DWHBDevelopment-DWHdbDevelopmentProjectB-Component, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-DWHdbDevelopmentProjectB-Component.puml[]
+include::c4_dsl/puml/structurizr-DWHBDevelopment-DWHdbDevelopmentProjectB-Component.puml[]
 ....
 
 ==== Repository db Development (Project B)
 
 [plantuml, structurizr-DWHBDevelopment-RepositorydbProjectB-Component, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-RepositorydbProjectB-Component.puml[]
+include::c4_dsl/puml/structurizr-DWHBDevelopment-RepositorydbProjectB-Component.puml[]
 ....
 
 ==== GUI (Project B)
 
 [plantuml, structurizr-DWHBDevelopment-GUI-Component, svg]
 ....
-include::{c4_dsl_includedir}/structurizr-DWHBDevelopment-GUI-Component.puml[]
+include::c4_dsl/puml/structurizr-DWHBDevelopment-GUI-Component.puml[]
 ....
 
 
