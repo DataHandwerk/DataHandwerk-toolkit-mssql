@@ -156,12 +156,11 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 // //https://doctoolchain.github.io/docToolchain/#_exportexcel
 
 .Stakeholders
-[options="header",cols="1,2,2a"]
+[options="header",cols="1,2a"]
 |===
-|Role/Name|Contact|Expectations
+|Role/Name|Expectations
 
 | dwh developer 
-| 
 |
 * wants to work faster, more efficiently and more effectively
 * wants to automate boring work optionally
@@ -169,7 +168,6 @@ A developer is not undesirably restricted by the use of tools and methods. He al
 * does not want to become a slave of the tools
 
 | dwh user
-|  
 | wants a well documented DWH
 |===
 
