@@ -1,8 +1,0 @@
-include::config-project.adoc[]
-
-// just code
-.postdeployment script
-[source,sql]
-----
-include::{dbproject-dir}/Script.PostDeployment1.sql[]
-----

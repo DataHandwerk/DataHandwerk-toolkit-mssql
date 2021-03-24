@@ -1,4 +1,0 @@
-:dbproject-dir: db_DataHandwerk
-// :dbproject-dir: ../../../db_DataHandwerk
-
-
