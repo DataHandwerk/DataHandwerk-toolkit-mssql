@@ -1,0 +1,9 @@
+// include::config-project.adoc[]
+
+include::sqldb:example$test-example-01.adoc[]
+
+.example in page
+----
+include::../../../db_DataHandwerk/Script.PostDeployment1.sql[]
+----
+
