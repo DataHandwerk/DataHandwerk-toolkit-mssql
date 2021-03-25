@@ -1,12 +1,8 @@
 ﻿/*
-example
+--example:
 
 [repo].[usp_connect_database]
-@dwh_database_name = 'dwh_PerformanceAnalytics'
-
-[repo].[usp_connect_database]
-@dwh_database_name = 'WideWorldImporters-test'
-
+@dwh_database_name = 'WideWorldImporters'
 
 */
 CREATE PROCEDURE [repo].[usp_connect_database] (@dwh_database_name NVARCHAR(128))

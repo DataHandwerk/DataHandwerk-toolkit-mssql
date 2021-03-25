@@ -1,0 +1,20 @@
+Das ist ein test
+
+// .include::sqldb:example$/db_DataHandwerk/Script.PostDeployment1.sql[]
+
+// [source,sql]
+// ----
+// include::sqldb:example$/db_DataHandwerk/Script.PostDeployment1.sql[]
+// ----
+
+.include::sqldb:example$/Script.PostDeployment1.sql[]
+[source,sql]
+----
+include::sqldb:example$/Script.PostDeployment1.sql[]
+----
+
+.include::example$/Script.PostDeployment1.sql[]
+[source,sql]
+----
+include::example$/Script.PostDeployment1.sql[]
+----

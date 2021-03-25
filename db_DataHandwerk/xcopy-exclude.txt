@@ -1,0 +1,10 @@
+.dacpac\
+.dbmdl\
+.jfm\
+.scmp\
+.sln\
+.sqlproj\
+.user\
+.vs
+bin
+Snapshots
