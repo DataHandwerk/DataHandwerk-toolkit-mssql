@@ -1,0 +1,37 @@
+name: dhw
+# title: DataHandwerk
+version: 0.1.0
+# nav:
+# - modules/ROOT/nav.adoc
+# - modules/arc/nav.adoc
+# - modules/manual/nav.adoc
+# # - modules-one/nav.adoc
+source-map:
+  - source-paths: db_DataHandwerk
+    target:
+      path: modules/sqldb/pages
+      include: '*.adoc'
+  - source-paths: db_DataHandwerk
+    target:
+      path: modules/sqldb/examples
+      include: '*.sql'
+  - source-paths: db_DataHandwerk/repo
+    target:
+      path: modules/sqldb/examples/repo
+      include: '*.sql'
+  - source-paths: db_DataHandwerk/repo/Tables
+    target:
+      path: modules/sqldb/examples/repo/Tables
+      include: '*.sql'
+  - source-paths: db_DataHandwerk/repo/Views
+    target:
+      path: modules/sqldb/examples/repo/Views
+      include: '*.sql'
+  - source-paths: db_DataHandwerk/repo/Functions
+    target:
+      path: modules/sqldb/examples/repo/Functions
+      include: '*.sql'
+  - source-paths: db_DataHandwerk/repo/Stored Procedures
+    target:
+      path: modules/sqldb/examples/repo/Stored Procedures
+      include: '*.sql'
