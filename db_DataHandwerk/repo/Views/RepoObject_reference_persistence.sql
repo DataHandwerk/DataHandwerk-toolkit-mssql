@@ -4,18 +4,18 @@ AS
 --
 SELECT
  --
- [referenced_entity_name] = [ro_s].[SysObject_name]
+ [referenced_RepoObject_guid] = [rop].[source_RepoObject_guid]
+ , [referencing_RepoObject_guid] = [rop].[target_RepoObject_guid]
+ , [referenced_entity_name] = [ro_s].[SysObject_name]
  , [referenced_fullname] = [ro_s].[RepoObject_fullname]
  , [referenced_id] = [ro_s].[SysObject_id]
  , [referenced_node_id] = [ro_s].[node_id]
- , [referenced_RepoObject_guid] = [rop].[source_RepoObject_guid]
  , [referenced_schema_name] = [ro_s].[SysObject_schema_name]
  , [referenced_type] = [ro_s].[SysObject_type]
  , [referencing_entity_name] = [ro_t].[SysObject_name]
  , [referencing_fullname] = [ro_t].[RepoObject_fullname]
  , [referencing_id] = [ro_t].[SysObject_id]
  , [referencing_node_id] = [ro_t].[node_id]
- , [referencing_RepoObject_guid] = [rop].[target_RepoObject_guid]
  , [referencing_schema_name] = [ro_t].[SysObject_schema_name]
  , [referencing_type] = COALESCE([ro_t].[SysObject_type], [ro_t].[RepoObject_type], 'U')
  , [InformationSource] = 'repo.RepoObject_persistence'

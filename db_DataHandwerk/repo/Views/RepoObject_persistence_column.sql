@@ -1,4 +1,6 @@
-﻿/*
+﻿
+/*
+wofür soll diese Sicht verwendet werden?
 noch nicht fertig
 */
 CREATE VIEW [repo].[RepoObject_persistence_column]

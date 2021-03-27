@@ -1,4 +1,8 @@
-﻿CREATE VIEW [repo].[RepoObject_persistence_ForInput]
+﻿/*
+Added some lookup columns [repo].[RepoObject_persistence]
+to simplify data entry in the frontend
+*/
+CREATE VIEW [repo].[RepoObject_persistence_ForInput]
 AS
 SELECT [ro_p].[target_RepoObject_guid]
  , [ro].[RepoObject_fullname] AS [target_RepoObject_fullname]

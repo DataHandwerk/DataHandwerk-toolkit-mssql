@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 missing table alias:
 
@@ -19,7 +17,10 @@ table
 */
 CREATE VIEW [repo].[RepoObject_SqlModules_72_reference_NoTableAlias]
 AS
-SELECT T1.RepoObject_guid
+SELECT
+ --
+ T1.RepoObject_guid
+ , T1.alias_QuoteName
  , T1.SysObject_fullname
  , roc.RepoObjectColumn_guid
  , roc.RepoObjectColumn_name
@@ -29,7 +30,6 @@ SELECT T1.RepoObject_guid
  , source_RepoObjectColumn_name = roc_source.RepoObjectColumn_name
  , T1.source_table_QuoteName
  , T1.source_column_QuoteName
- , T1.alias_QuoteName
  , T1.[normalized]
 FROM [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T] AS T1
 INNER JOIN [repo].[RepoObject_SqlModules_44_from_Identifier_QuoteName] AS T44

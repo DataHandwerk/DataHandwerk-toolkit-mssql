@@ -31,6 +31,10 @@ SELECT
  , [ro].[modify_dt]
  , [ro].[node_id]
  , [ro].[pk_index_guid]
+ , [ipk].[IndexPatternColumnDatatype] AS [pk_IndexPatternColumnDatatype]
+ , [ipk].[IndexPatternColumnName] AS [pk_IndexPatternColumnName]
+ , [ro].[pk_IndexPatternColumnName_new]
+ , [ipk].[IndexSemanticGroup] AS [pk_IndexSemanticGroup]
  , [ro].[Repo_history_table_guid]
  , [ro].[Repo_temporal_type]
  , [ro].[RepoObject_fullname]
@@ -86,6 +90,8 @@ LEFT OUTER JOIN [repo].[RepoObject_QueryPlan] AS QueryPlan
  ON QueryPlan.[RepoObject_guid] = ro.[RepoObject_guid]
 LEFT OUTER JOIN [repo].[RepoObject_SqlModules_Repo_Sys] AS SqlModules
  ON SqlModules.RepoObject_guid = [ro].[RepoObject_guid]
+LEFT JOIN [repo].[Index_Settings] AS ipk
+ ON ipk.[index_guid] = [ro].[pk_index_guid]
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7790291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';

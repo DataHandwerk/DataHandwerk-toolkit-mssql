@@ -1,4 +1,6 @@
-﻿/*
+﻿
+/*
+obsolet?
 
 --only SELECT Identifier (before FROM)
 SELECT
@@ -12,9 +14,12 @@ FROM repo.RepoObject_SqlModules_Identitfier T1
 
 */
 
-create   view repo.RepoObject_SqlModules_Identitfier
+CREATE   view [repo].[RepoObject_SqlModules_Identitfier]
 as
-SELECT [T1].[RepoObject_guid]
+SELECT 
+--
+[T1].[RepoObject_guid]
+ , [T1].[json_key]
  , [T1].[SysObject_fullname]
  , [T1].[RowNumber_per_Object]
  , [T1].[class]
@@ -128,4 +133,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '61813
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '68813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Identitfier', @level2type = N'COLUMN', @level2name = N'children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a15eb1d1-fa81-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Identitfier', @level2type = N'COLUMN', @level2name = N'json_key';
 

@@ -1,9 +1,8 @@
 ﻿/*
---example:
-
-[repo].[usp_connect_database]
+-- tag::example[]  
+EXEC [repo].[usp_connect_database]
 @dwh_database_name = 'WideWorldImporters'
-
+-- end::example[]  
 */
 CREATE PROCEDURE [repo].[usp_connect_database] (@dwh_database_name NVARCHAR(128))
 AS
@@ -62,8 +61,7 @@ CREATE SYNONYM [sys_dwh].[foreign_keys] FOR [' + @dwh_database_name + '].[sys].[
 CREATE SYNONYM [sys_dwh].[identity_columns] FOR [' + @dwh_database_name + '].[sys].[identity_columns]
 CREATE SYNONYM [sys_dwh].[indexes] FOR [' + @dwh_database_name + '].[sys].[indexes]
 CREATE SYNONYM [sys_dwh].[index_columns] FOR [' + @dwh_database_name + '].[sys].[index_columns]
-CREATE SYNONYM [sys_dwh].[objects] FOR [' + @dwh_database_name + 
-  '].[sys].[objects]
+CREATE SYNONYM [sys_dwh].[objects] FOR [' + @dwh_database_name + '].[sys].[objects]
 CREATE SYNONYM [sys_dwh].[parameters] FOR [' + @dwh_database_name + '].[sys].[parameters]
 CREATE SYNONYM [sys_dwh].[schemas] FOR [' + @dwh_database_name + '].[sys].[schemas]
 CREATE SYNONYM [sys_dwh].[sp_addextendedproperty] FOR [' + @dwh_database_name + '].[sp_addextendedproperty]

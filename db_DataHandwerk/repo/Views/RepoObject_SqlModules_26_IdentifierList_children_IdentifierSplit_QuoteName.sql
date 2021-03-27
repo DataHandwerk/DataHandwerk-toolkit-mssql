@@ -1,9 +1,9 @@
 ﻿
-
 CREATE VIEW [repo].[RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName]
 AS
 SELECT [RepoObject_guid]
  , [json_key]
+ , [T2_json_key]
  , [SysObject_fullname]
  , [RowNumber_per_Object]
  , [class]
@@ -100,4 +100,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '42813
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3f813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName', @level2type = N'COLUMN', @level2name = N'class';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3401113c-f581-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName', @level2type = N'COLUMN', @level2name = N'T2_json_key';
 
