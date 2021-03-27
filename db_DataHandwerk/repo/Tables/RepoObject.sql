@@ -10,6 +10,7 @@
     [is_SysObject_missing]                BIT              NULL,
     [modify_dt]                           DATETIME         CONSTRAINT [DF_RepoObject_modify_dt] DEFAULT (getdate()) NOT NULL,
     [pk_index_guid]                       UNIQUEIDENTIFIER NULL,
+    [pk_IndexPatternColumnName_new]       NVARCHAR (4000)  NULL,
     [Repo_history_table_guid]             UNIQUEIDENTIFIER NULL,
     [Repo_temporal_type]                  TINYINT          NULL,
     [RepoObject_name]                     NVARCHAR (128)   CONSTRAINT [DF_RepoObject_RepoObject_name] DEFAULT (newid()) NOT NULL,
@@ -34,6 +35,8 @@
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 

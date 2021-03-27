@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 HasFullColumnsInReferencing:
 Filter repo.IndexReferencedReferencing
@@ -30,11 +31,11 @@ CREATE VIEW [repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
 AS
 --
 SELECT [T1].[source_index_guid]
+ , [T1].[referencing_RepoObject_guid]
+ , [T1].[RowNumberInReferencing_Target]
  , [T1].[source_index_type]
  , [T1].[referenced_RepoObject_guid]
- , [T1].[referencing_RepoObject_guid]
  , [T1].[referenced_index_guid]
- , [T1].[RowNumberInReferencing_Target]
  , [T2].[RowNumberInReferencing]
  , [T3].[referencing_IndexPatternColumnGuid]
 FROM repo.IndexReferencedReferencing AS T1

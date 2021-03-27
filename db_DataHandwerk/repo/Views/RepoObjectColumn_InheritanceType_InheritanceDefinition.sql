@@ -1,4 +1,7 @@
 ﻿
+/*
+Maybe rename RepoObjectColumnProperty_InheritanceType_InheritanceDefinition
+*/
 CREATE VIEW [repo].[RepoObjectColumn_InheritanceType_InheritanceDefinition]
 AS
 SELECT

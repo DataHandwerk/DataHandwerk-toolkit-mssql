@@ -1,6 +1,10 @@
-﻿CREATE VIEW [repo].[RepoObject_SqlModules_52_Identitfier_QuoteName]
+﻿
+CREATE VIEW [repo].[RepoObject_SqlModules_52_Identitfier_QuoteName]
 AS
-SELECT [RepoObject_guid]
+SELECT
+ --
+ [RepoObject_guid]
+ , [json_key]
  , [SysObject_fullname]
  , [RowNumber_per_Object]
  , [class]
@@ -83,4 +87,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0eb3c
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2e454a02-8364-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_52_Identitfier_QuoteName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9aa0a6c2-f781-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_52_Identitfier_QuoteName', @level2type = N'COLUMN', @level2name = N'json_key';
 

@@ -2,10 +2,11 @@
 CREATE VIEW [repo].[RepoObject_reference_SqlExpressionDependencies]
 AS
 --
-SELECT [sed].[referencing_id]
+SELECT
+ --
+ [sed].[referenced_id]
+ , [sed].[referencing_id]
  --, [sed].[referencing_minor_id]
- , CAST([sed].[referencing_id] AS BIGINT) * 10000 AS [referencing_node_id]
- , [sed].[referenced_id]
  , [sed].[referenced_entity_name]
  , [referenced_fullname] = CONCAT (
   QUOTENAME([sed].[referenced_schema_name])
@@ -25,6 +26,7 @@ SELECT [sed].[referencing_id]
   , '.'
   , QUOTENAME([sed].[referencing_entity_name])
   )
+ , CAST([sed].[referencing_id] AS BIGINT) * 10000 AS [referencing_node_id]
  , [sed].[referencing_RepoObject_guid]
  , [sed].[referencing_schema_name]
  , [sed].[referencing_type]

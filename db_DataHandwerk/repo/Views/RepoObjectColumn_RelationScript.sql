@@ -4,7 +4,9 @@ AS
 --
 SELECT DISTINCT
  --
- [DbmlRelation] = CONCAT (
+ [referenced_RepoObject_guid]
+ , [referencing_RepoObject_guid]
+ , [DbmlRelation] = CONCAT (
   'Ref'
   , ': '
   , QUOTENAME(QUOTENAME([referencing_schema_name]) + '.' + QUOTENAME([referencing_entity_name]), '"')
@@ -20,8 +22,6 @@ SELECT DISTINCT
   , [referenced_column_name]
   , '"'
   )
- , [referenced_RepoObject_guid]
- , [referencing_RepoObject_guid]
 FROM [repo].[RepoObjectColumn_reference_union] AS rocu
 INNER JOIN [repo].[RepoObjectColumn] AS roc1
  ON roc1.RepoObjectColumn_guid = rocu.referencing_RepoObjectColumn_guid

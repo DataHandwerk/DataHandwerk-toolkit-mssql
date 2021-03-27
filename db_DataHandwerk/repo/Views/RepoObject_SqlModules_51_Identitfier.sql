@@ -12,10 +12,12 @@ FROM repo.RepoObject_SqlModules_51_Identitfier T1
 
 
 */
-
-CREATE   view [repo].[RepoObject_SqlModules_51_Identitfier]
-as
-SELECT [T1].[RepoObject_guid]
+CREATE VIEW [repo].[RepoObject_SqlModules_51_Identitfier]
+AS
+SELECT
+ --
+ [T1].[RepoObject_guid]
+ , [T1].[json_key]
  , [T1].[SysObject_fullname]
  , [T1].[RowNumber_per_Object]
  , [T1].[class]
@@ -42,46 +44,46 @@ SELECT [T1].[RepoObject_guid]
  , [T1].[children]
  , [T1].[child0_class]
 --what happens in case of aa.bb as c or c = aa.bb?
- --, [T1].[RepoObject_guid]
- --, [T1].[json_key]
- --, [T1].[SysObject_fullname]
- --, [T1].[RowNumber_per_Object]
- --, [T1].[class]
- --, [T1].[is_group]
- --, [T1].[is_keyword]
- --, [T1].[is_whitespace]
- --, [T1].[normalized]
- --, [T1].[children]
- --, [T1].[child0_class]
- --, [T1].[child0_is_group]
- --, [T1].[child0_is_keyword]
- --, [T1].[child0_is_whitespace]
- --, [T1].[child0_normalized]
- --, [T1].[child0_children]
- --, [T1].[child1_class]
- --, [T1].[child1_is_group]
- --, [T1].[child1_is_keyword]
- --, [T1].[child1_is_whitespace]
- --, [T1].[child1_normalized]
- --, [T1].[child1_children]
- --, [T1].[child2_class]
- --, [T1].[child2_is_group]
- --, [T1].[child2_is_keyword]
- --, [T1].[child2_is_whitespace]
- --, [T1].[child2_normalized]
- --, [T1].[child2_children]
- --, [T1].[child3_class]
- --, [T1].[child3_is_group]
- --, [T1].[child3_is_keyword]
- --, [T1].[child3_is_whitespace]
- --, [T1].[child3_normalized]
- --, [T1].[child3_children]
- --, [T1].[child4_class]
- --, [T1].[child4_is_group]
- --, [T1].[child4_is_keyword]
- --, [T1].[child4_is_whitespace]
- --, [T1].[child4_normalized]
- --, [T1].[child4_children]
+--, [T1].[RepoObject_guid]
+--, [T1].[json_key]
+--, [T1].[SysObject_fullname]
+--, [T1].[RowNumber_per_Object]
+--, [T1].[class]
+--, [T1].[is_group]
+--, [T1].[is_keyword]
+--, [T1].[is_whitespace]
+--, [T1].[normalized]
+--, [T1].[children]
+--, [T1].[child0_class]
+--, [T1].[child0_is_group]
+--, [T1].[child0_is_keyword]
+--, [T1].[child0_is_whitespace]
+--, [T1].[child0_normalized]
+--, [T1].[child0_children]
+--, [T1].[child1_class]
+--, [T1].[child1_is_group]
+--, [T1].[child1_is_keyword]
+--, [T1].[child1_is_whitespace]
+--, [T1].[child1_normalized]
+--, [T1].[child1_children]
+--, [T1].[child2_class]
+--, [T1].[child2_is_group]
+--, [T1].[child2_is_keyword]
+--, [T1].[child2_is_whitespace]
+--, [T1].[child2_normalized]
+--, [T1].[child2_children]
+--, [T1].[child3_class]
+--, [T1].[child3_is_group]
+--, [T1].[child3_is_keyword]
+--, [T1].[child3_is_whitespace]
+--, [T1].[child3_normalized]
+--, [T1].[child3_children]
+--, [T1].[child4_class]
+--, [T1].[child4_is_group]
+--, [T1].[child4_is_keyword]
+--, [T1].[child4_is_whitespace]
+--, [T1].[child4_normalized]
+--, [T1].[child4_children]
 FROM repo.RepoObject_SqlModules_20_statement_children AS T1
 WHERE [T1].[class] = 'Identifier'
 GO
@@ -134,4 +136,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5d813
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0db3c709-8364-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'child0_class';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '99a0a6c2-f781-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'json_key';
 

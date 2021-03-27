@@ -1,4 +1,5 @@
 ﻿
+
 /*
 --The result must be grouped to determine all required calculation variants of an inheritance
 
@@ -8,6 +9,10 @@ FROM repo.RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition
 GROUP BY is_StringAggAllSources
  , resulting_InheritanceDefinition
 HAVING (NOT (resulting_InheritanceDefinition IS NULL))
+
+
+
+Maybe rename RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition
 
 */
 

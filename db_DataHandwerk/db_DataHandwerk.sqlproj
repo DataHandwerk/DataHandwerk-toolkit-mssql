@@ -79,6 +79,8 @@
     <Folder Include="_scripts\StaticData" />
     <Folder Include="_scripts\StaticData\dhw_self" />
     <Folder Include="Snapshots" />
+    <Folder Include="dbeaver" />
+    <Folder Include="dbeaver\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -191,7 +193,6 @@
     <Build Include="sys_self\Stored Procedures\usp_dropextendedproperty_level_2.sql" />
     <Build Include="sys_self\Stored Procedures\usp_dropextendedproperty_level_1.sql" />
     <Build Include="Security\sys_self.sql" />
-    <Build Include="repo\Views\RepoObject_SqlModules_990_obsolet.sql" />
     <Build Include="repo\Views\RepoObject_SqlModules_29_2_object_is_GroupBy.sql" />
     <Build Include="repo\Views\RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit.sql" />
     <Build Include="repo\Views\RepoObject_SqlModules_24_IdentifierList_children.sql" />
@@ -345,12 +346,15 @@
     <Build Include="repo\Views\RepoObjectColumn_RelationScript.sql" />
     <Build Include="repo\Views\Reference_UspPersistence.sql" />
     <Build Include="repo\Views\ForeignKey_RelationScript.sql" />
-    <Build Include="repo\Views\dbeaver_DataSources_DbSchemaTable_FK.sql" />
-    <Build Include="repo\Views\dbeaver_DataSources_DbSchemaTable_constraint.sql" />
-    <Build Include="repo\Views\dbeaver_DataSources_DbSchemaTable.sql" />
-    <Build Include="repo\Views\dbeaver_DataSources_connection.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_DbmlColumnRelation.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_ColumReferenceRepoObject.sql" />
+    <Build Include="repo\Stored Procedures\usp_longprint.sql" />
+    <Build Include="Security\docs.sql" />
+    <Build Include="Security\dbeaver.sql" />
+    <Build Include="dbeaver\Views\DataSources_connection.sql" />
+    <Build Include="dbeaver\Views\DataSources_DbSchemaTable.sql" />
+    <Build Include="dbeaver\Views\DataSources_DbSchemaTable_constraint.sql" />
+    <Build Include="dbeaver\Views\DataSources_DbSchemaTable_FK.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

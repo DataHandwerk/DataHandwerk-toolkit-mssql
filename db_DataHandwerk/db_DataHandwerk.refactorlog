@@ -509,4 +509,56 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[usp_Index_virtual_InsertUpdate]" />
   </Operation>
+  <Operation Name="Move Schema" Key="d95081eb-ba0b-4938-89ca-39a8f1f8f6f1" ChangeDateTime="03/27/2021 13:21:01">
+    <Property Name="ElementName" Value="[repo].[dbeaver_DataSources_connection]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="dbeaver" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="1a67cf66-0f14-4180-bf05-840b25f7fb10" ChangeDateTime="03/27/2021 13:21:46">
+    <Property Name="ElementName" Value="[repo].[dbeaver_DataSources_DbSchemaTable]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="dbeaver" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a18ec790-b6f6-491f-b3e8-756bcb6230c8" ChangeDateTime="03/27/2021 13:22:17">
+    <Property Name="ElementName" Value="[repo].[dbeaver_DataSources_DbSchemaTable_constraint]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="dbeaver" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="f3f7b3e9-f474-4724-902f-ab719c44b5cd" ChangeDateTime="03/27/2021 13:22:52">
+    <Property Name="ElementName" Value="[repo].[dbeaver_DataSources_DbSchemaTable_FK]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="dbeaver" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1afa50be-7475-4f6f-aef3-2c7aa8079aa5" ChangeDateTime="03/27/2021 13:23:33">
+    <Property Name="ElementName" Value="[dbeaver].[dbeaver_DataSources_connection]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[dbeaver]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[DataSources_connection]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7e9fd22d-8d7d-4478-a0d6-4d5ea7f4c650" ChangeDateTime="03/27/2021 13:24:11">
+    <Property Name="ElementName" Value="[dbeaver].[dbeaver_DataSources_DbSchemaTable]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[dbeaver]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="DataSources_DbSchemaTable" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="156ebd8b-3607-48b2-bff7-52c6903da27b" ChangeDateTime="03/27/2021 13:24:42">
+    <Property Name="ElementName" Value="[dbeaver].[dbeaver_DataSources_DbSchemaTable_constraint]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[dbeaver]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[DataSources_DbSchemaTable_constraint]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3fe3fc8a-7d6b-47b6-8240-afacc2becd14" ChangeDateTime="03/27/2021 13:25:12">
+    <Property Name="ElementName" Value="[dbeaver].[dbeaver_DataSources_DbSchemaTable_FK]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[dbeaver]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[DataSources_DbSchemaTable_FK]" />
+  </Operation>
 </Operations>

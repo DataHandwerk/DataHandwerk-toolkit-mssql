@@ -1,7 +1,9 @@
 ﻿
+
 CREATE VIEW [repo].[RepoObject_SqlModules_79_reference_union]
 AS
 SELECT [RepoObject_guid]
+ , [alias_QuoteName]
  , [SysObject_fullname]
  , [RepoObjectColumn_guid]
  , [RepoObjectColumn_name]
@@ -11,13 +13,13 @@ SELECT [RepoObject_guid]
  , [source_RepoObjectColumn_name]
  , [source_table_QuoteName]
  , [source_column_QuoteName]
- , [alias_QuoteName]
  , [normalized]
 FROM [repo].[RepoObject_SqlModules_71_reference_ExpliciteTableAlias]
 
 UNION ALL
 
 SELECT [RepoObject_guid]
+ , [alias_QuoteName]
  , [SysObject_fullname]
  , [RepoObjectColumn_guid]
  , [RepoObjectColumn_name]
@@ -27,7 +29,6 @@ SELECT [RepoObject_guid]
  , [source_RepoObjectColumn_name]
  , [source_table_QuoteName]
  , [source_column_QuoteName]
- , [alias_QuoteName]
  , [normalized]
 FROM [repo].[RepoObject_SqlModules_72_reference_NoTableAlias]
 GO

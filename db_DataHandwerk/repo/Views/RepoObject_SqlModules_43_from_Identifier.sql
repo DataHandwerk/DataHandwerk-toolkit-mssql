@@ -1,10 +1,12 @@
 ﻿
 CREATE VIEW [repo].[RepoObject_SqlModules_43_from_Identifier]
 AS
-SELECT [RepoObject_guid]
+SELECT
+ --
+ [RepoObject_guid]
+ , [json_key]
  , [SysObject_fullname]
  , [class]
- , [json_key]
  , [RowNumber_per_Object]
  , [name]
  , [name_charindex_dot]

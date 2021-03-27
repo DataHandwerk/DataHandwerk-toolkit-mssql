@@ -1,14 +1,15 @@
 ﻿
-
 --todo IdentifierList
 --done: bad performance => Persistence of [repo].[RepoObject_SqlModules_41_from]
 CREATE VIEW [repo].[RepoObject_SqlModules_42_from_Identifier]
 AS
 --
-SELECT [T1].[RepoObject_guid]
+SELECT
+ --
+ [T1].[RepoObject_guid]
+ , [T1].[json_key]
  , [T1].[SysObject_fullname]
  , [T1].[class]
- , [T1].[json_key]
  , [T1].[RowNumber_per_Object]
  --todo: we need extra handling when the result of [name] is an IdentifierList and need to exclude them here
  , [name] = COALESCE([T1].[identifier_name], [T1].[normalized_wo_nolock])
