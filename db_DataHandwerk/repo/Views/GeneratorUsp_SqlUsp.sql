@@ -1,21 +1,16 @@
 ﻿
-
-
-
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
 - [repo].[GeneratorUspParameter]
 - [repo].[GeneratorUspStep]
 */
-CREATE
- 
-
- VIEW [repo].[GeneratorUsp_SqlUsp]
+CREATE VIEW [repo].[GeneratorUsp_SqlUsp]
 AS
 SELECT [u].[id] AS [usp_id]
  , [SqlUsp] = CONCAT (
-  --todo - maybe add description as comment
+  --todo - maybe add use
+  --todo - maybe add description + example as comment
   'CREATE OR ALTER PROCEDURE '
   , [u].[usp_fullname]
   , CHAR(13)
@@ -86,7 +81,9 @@ EXEC repo.usp_ExecutionLog_insert
       , [ParameterList].[ParameterListLogging]
       , '
 --
-PRINT ''', u.[usp_fullname], '''
+PRINT '''
+      , u.[usp_fullname]
+      , '''
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -130,6 +127,122 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 '
    END --[u].[has_logging]
+  )
+ , [AdocUsp] = CONCAT (
+  'PROCEDURE '
+  , [u].[usp_fullname]
+  , CHAR(13)
+  , CHAR(10)
+  , '// tag::parameters[]'
+  , CHAR(13)
+  , CHAR(10)
+  , [ParameterList].[ParameterList]
+  , CHAR(13)
+  , CHAR(10)
+  , '// end::parameters[]'
+  , CHAR(13)
+  , CHAR(10)
+  , CHAR(13)
+  , CHAR(10)
+  , '// tag::steps[]'
+  , CHAR(13)
+  , CHAR(10)
+  , '.Steps in '
+  , [u].[usp_fullname]
+  , CHAR(13)
+  , CHAR(10)
+  , '[cols="5,200,1,100,100,1"]'
+  , CHAR(13)
+  , CHAR(10)
+  , '|==='
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Number'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Name'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Condition'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Source'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Target'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Action'
+  , CHAR(13)
+  , CHAR(10)
+  , CHAR(13)
+  , CHAR(10)
+  , [StepList].[AdocStepList]
+  , '|==='
+  , CHAR(13)
+  , CHAR(10)
+  , '// end::steps[]'
+  , CHAR(13)
+  , CHAR(10)
+  , CHAR(13)
+  , CHAR(10)
+  , '// tag::examples[]'
+  , CHAR(13)
+  , CHAR(10)
+  --, examples required here
+  , CHAR(13)
+  , CHAR(10)
+  , '// end::examples[]'
+  , CHAR(13)
+  , CHAR(10)
+  )
+ , [AdocUspSteps] = CONCAT (
+  '.Steps in '
+  , [u].[usp_fullname]
+  , CHAR(13)
+  , CHAR(10)
+  , '[cols="5,200,1,100,100,1"]'
+  , CHAR(13)
+  , CHAR(10)
+  , '|==='
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Number'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Name'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Condition'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Source'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Target'
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , 'Action'
+  , CHAR(13)
+  , CHAR(10)
+  , CHAR(13)
+  , CHAR(10)
+  , [StepList].[AdocStepList]
+  , '|==='
+  , CHAR(13)
+  , CHAR(10)
   )
  , [u].[usp_schema]
  , [u].[usp_name]

@@ -1,5 +1,4 @@
 ﻿
-
 /*
 --usage:
 
@@ -31,6 +30,32 @@ SELECT [u].[id] AS usp_id
  --, [t].[Asc_PerParentChild]
  --, [t].[Desc_PerParentChild]
  , sql.SqlStep
+ , AdocStep = CONCAT (
+  '|'
+  , step.Number
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , step.[Name]
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , step.[is_condition]
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , step.[log_source_object]
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , step.[log_target_object]
+  , CHAR(13)
+  , CHAR(10)
+  , '|'
+  , step.[log_flag_InsertUpdateDelete]
+  , CHAR(13)
+  , CHAR(10)
+  )
 FROM [repo].[GeneratorUsp] AS u
 CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
 LEFT JOIN (
@@ -47,6 +72,9 @@ LEFT JOIN (
  ) AS BeginEnd
  ON BeginEnd.usp_id = u.id
   AND BeginEnd.Number = t.Number
+LEFT JOIN [repo].[GeneratorUspStep] step
+ ON step.usp_id = u.id
+  AND step.Number = [t].[Number]
 CROSS APPLY [repo].[ftv_GeneratorUspStep_sql]([u].[id], [t].[Number], [u].[has_logging], [BeginEnd].[required_Begin_count], [BeginEnd].[required_End_count], [BeginEnd].[is_required_ELSE]) sql
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
