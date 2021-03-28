@@ -166,3 +166,20 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0f77
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '08b0ba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'created_dt';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ExecutionLog]
+[repo].[ExecutionLog_parent]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[ExecutionLog].[proc_fullname]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(quotename([proc_schema_name]),''.'',quotename([proc_name])))', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[ExecutionLog_parent].[parent_proc_fullname]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'parent_proc_fullname';
+

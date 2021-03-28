@@ -226,3 +226,46 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '54b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureInstance';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureInstance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureInstance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [graph].[usp_PERSIST_ProcedureInstance]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|500
+|delete persistence target missing in source
+|0
+|[graph].[ProcedureInstance_S]
+|[graph].[ProcedureInstance]
+|D
+
+|600
+|update changed
+|0
+|[graph].[ProcedureInstance_S]
+|[graph].[ProcedureInstance]
+|U
+
+|700
+|insert missing
+|0
+|[graph].[ProcedureInstance_S]
+|[graph].[ProcedureInstance]
+|I
+|===
+', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureInstance';
+
