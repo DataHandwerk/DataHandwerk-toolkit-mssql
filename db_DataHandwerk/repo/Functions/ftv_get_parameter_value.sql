@@ -14,3 +14,7 @@ RETURN (
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_get_parameter_value';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Parameter]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_get_parameter_value';
+

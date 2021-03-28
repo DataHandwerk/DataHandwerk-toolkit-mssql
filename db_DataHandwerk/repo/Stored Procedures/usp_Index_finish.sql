@@ -617,3 +617,109 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '39e9a165-9574-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_Index_finish]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|210
+|[repo].[usp_Index_Settings]
+|0
+|
+|
+|
+
+|220
+|DELETE [repo].[Index_virtual] without columns
+|0
+|[repo].[IndexColumn_virtual]
+|[repo].[Index_virtual]
+|d
+
+|410
+|DELETE duplicates by pattern
+|0
+|[repo].[Index_gross]
+|[repo].[Index_virtual]
+|d
+
+|510
+|SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup] (via [T1].[referenced_index_guid] = [TSource].[index_guid])
+|0
+|[repo].[Index_Settings]
+|[repo].[Index_Settings]
+|u
+
+|520
+|SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup] (via [repo].[ForeignKey_Index_guid_union])
+|0
+|[repo].[Index_Settings]
+|[repo].[Index_Settings]
+|u
+
+|610
+|SET [is_index_primary_key] = 1, [is_index_unique] = 1 (propagate PK from [repo].[RepoObject] into [repo].[Index_virtual])
+|0
+|[repo].[RepoObject]
+|[repo].[Index_virtual]
+|u
+
+|620
+|SET [is_index_primary_key] = 1 (WHERE rop.has_history = 1 and source-index is PK)
+|0
+|[repo].[Index_union]
+|[repo].[Index_virtual]
+|u
+
+|710
+|SET [is_create_constraint] = 1 (WHERE persistence has_history = 1)
+|0
+|[repo].[Index_union]
+|[repo].[Index_virtual]
+|u
+
+|810
+|SET [is_index_unique] = 1 (each PK is also [is_index_unique])
+|0
+|[repo].[Index_virtual]
+|[repo].[Index_virtual]
+|u
+
+|910
+|SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_primary_key] = 1 and [RowNumber_PkPerParentObject] = 1)
+|0
+|[repo].[Index_gross]
+|[repo].[Index_virtual]
+|u
+
+|920
+|SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])
+|0
+|[repo].[RepoObject]
+|[repo].[Index_virtual]
+|u
+
+|1010
+|SET [index_name] = [T2].[index_name_new]
+|0
+|[repo].[RepoObject]
+|[repo].[Index_virtual]
+|u
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+

@@ -115,3 +115,45 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b890291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[usp_ExecutionLog_insert]
+[repo].[usp_sync_guid_RepoObject]
+[repo].[usp_sync_guid_RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_guid]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|210
+|[repo].[usp_sync_guid_RepoObject]
+|0
+|
+|
+|
+
+|310
+|[repo].[usp_sync_guid_RepoObjectColumn]
+|0
+|
+|
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+

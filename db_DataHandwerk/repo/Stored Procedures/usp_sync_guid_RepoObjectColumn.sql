@@ -1237,3 +1237,158 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[usp_PERSIST_RepoObjectColumn]
+[repo].[RepoObject]
+[repo].[RepoObject_persistence]
+[repo].[RepoObjectColumn]
+[repo].[RepoObjectColumn_HistValidColums_setpoint]
+[repo].[SysColumn_RepoObjectColumn_via_guid]
+[repo].[SysColumn_RepoObjectColumn_via_name]
+[repo].[type_level1type_level2type]
+[repo].[usp_ExecutionLog_insert]
+[repo_sys].[SysColumn]
+[repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_guid_RepoObjectColumn]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|100
+|intro
+|0
+|
+|
+|
+
+|210
+|UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColumn_guid
+|0
+|[repo_sys].[SysColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|310
+|SET [SysObjectColumn_name] = [RepoObjectColumn_guid] (to avoid conflict in the next INSERT step)
+|0
+|[repo].[RepoObjectColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|410
+|[SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] ([RepoObjectColumn_guid] is stored in extended properties)
+|0
+|[repo_sys].[SysColumn]
+|[repo].[RepoObjectColumn]
+|i
+
+|510
+|DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1); via [repo].[SysColumn_RepoObjectColumn_via_name]
+|0
+|[repo_sys].[SysColumn]
+|[repo].[RepoObjectColumn]
+|d
+
+|610
+|INSERT still missing Column
+|0
+|[repo_sys].[SysColumn]
+|[repo].[RepoObjectColumn]
+|i
+
+|710
+|SET [RepoObjectColumn_name] = [SysObjectColumn_name] WHERE (has_different_sys_names = 1) AND (ISNULL(is_repo_managed, 0) = 0)
+|0
+|[repo].[RepoObjectColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|810
+|other properties, where (ISNULL(is_repo_managed, 0) = 0)
+|0
+|[repo_sys].[SysColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|1010
+|persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid
+|0
+|[repo_sys].[SysColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|1110
+|persistence: [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name via [repo].[RepoObject_persistence])
+|0
+|[repo].[RepoObjectColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|1210
+|persistence: add missing persistence columns existing in source
+|0
+|[repo].[RepoObjectColumn]
+|[repo].[RepoObjectColumn]
+|i
+
+|1310
+|persistence: insert missing HistValidColumns
+|0
+|[repo].[RepoObject_persistence]
+|[repo].[RepoObjectColumn]
+|i
+
+|1410
+|persistence: SET [persistence_source_RepoObjectColumn_guid] = NULL (missing source column)
+|0
+|[repo].[RepoObjectColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|2010
+|write RepoObjectColumn_guid into extended properties of SysObjectColumn, Level2
+|0
+|[repo].[RepoObjectColumn]
+|[repo_sys].[SysColumn]
+|
+
+|2110
+|SET [is_SysObjectColumn_missing] = 1
+|0
+|[repo_sys].[SysColumn]
+|[repo].[RepoObjectColumn]
+|u
+
+|2210
+|where is_SysObjectColumn_missing = 1, but not in objects which are is_repo_managed
+|0
+|[repo_sys].[RepoObjectColumn]
+|[repo].[RepoObjectColumn]
+|d
+
+|5200
+|[graph].[usp_PERSIST_RepoObjectColumn]
+|0
+|
+|
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+

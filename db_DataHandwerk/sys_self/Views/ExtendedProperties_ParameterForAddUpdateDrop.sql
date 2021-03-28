@@ -80,3 +80,36 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'abf17
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'aaf17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'class';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[type_level1type_level2type]
+[sys_self].[ExtendedProperties]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[type_level1type_level2type].[level2type]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[type_level1type_level2type].[level1type]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'type_level1type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[sys_self].[ExtendedProperties].[property_value]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'property_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[sys_self].[ExtendedProperties].[property_name]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'property_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[sys_self].[ExtendedProperties].[minor_id]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'minor_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[sys_self].[ExtendedProperties].[class_desc]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'class_desc';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[sys_self].[ExtendedProperties].[class]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'class';
+

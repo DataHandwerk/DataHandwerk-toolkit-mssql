@@ -366,6 +366,7 @@
     <Build Include="config\Tables\spt_values.sql" />
     <Build Include="dbeaver\Tables\DataSources.sql" />
     <Build Include="Security\test.sql" />
+    <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_insert_update.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

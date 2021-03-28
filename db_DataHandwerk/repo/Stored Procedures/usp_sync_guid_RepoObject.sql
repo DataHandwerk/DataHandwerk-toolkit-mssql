@@ -856,3 +856,151 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b090291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[usp_PERSIST_RepoObject]
+[repo].[ProcedureInstance]
+[repo].[RepoObject]
+[repo].[RepoObject_persistence]
+[repo].[RepoObject_RequiredRepoObjectMerge]
+[repo].[SysObject_RepoObject_via_guid]
+[repo].[SysObject_RepoObject_via_name]
+[repo].[type_level1type_level2type]
+[repo].[usp_ExecutionLog_insert]
+[repo_sys].[SysObject]
+[repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_guid_RepoObject]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|210
+|SET several RepoObject_SysObject_...
+|0
+|[repo_sys].[SysObject]
+|[repo].[RepoObject]
+|u
+
+|310
+|SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
+|0
+|[repo_sys].[SysObject]
+|[repo].[RepoObject]
+|u
+
+|410
+|[SysObject_RepoObject_guid] -> [RepoObject_guid]; some name, type, …
+|0
+|[repo_sys].[SysObject]
+|[repo].[RepoObject]
+|i
+
+|510
+|INSERT still missing Object
+|0
+|[repo_sys].[SysObject]
+|[repo].[RepoObject]
+|i
+
+|610
+|SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]
+|0
+|[repo].[RepoObject]
+|[repo].[RepoObject]
+|u
+
+|700
+|[repo].[RepoObject_RequiredRepoObjectMerge]
+|1
+|[repo].[RepoObject]
+|[repo].[RepoObject]
+|
+
+|710
+|merge RepoObject
+|0
+|[repo].[RepoObject]
+|[repo].[RepoObject]
+|
+
+|720
+|SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]
+|0
+|[repo].[RepoObject]
+|[repo].[RepoObject]
+|u
+
+|1010
+|write RepoObject_guid into extended properties of SysObject
+|0
+|[repo].[RepoObject]
+|[repo_sys].[SysObject]
+|
+
+|2010
+|SET is_SysObject_missing = 1
+|0
+|[repo].[RepoObject]
+|[repo].[RepoObject]
+|u
+
+|2110
+|DELETE; marked missing SysObject, but not is_repo_managed  = 1
+|0
+|[repo].[RepoObject]
+|[repo].[RepoObject]
+|d
+
+|2210
+|UPDATE other properties, where not is_repo_managed  = 1
+|0
+|[repo_sys].[SysObject]
+|[repo].[RepoObject]
+|u
+
+|4010
+|SET [Repo_temporal_type]
+|0
+|[repo].[RepoObject_persistence]
+|[repo].[RepoObject]
+|u
+
+|4110
+|MERGE INTO [repo].[ProcedureInstance]
+|0
+|[repo].[RepoObject]
+|[repo].[ProcedureInstance]
+|u
+
+|5200
+|[graph].[usp_PERSIST_RepoObject]
+|0
+|
+|
+|
+
+|5220
+|[graph].[usp_PERSIST_ProcedureInstance]
+|0
+|
+|
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+

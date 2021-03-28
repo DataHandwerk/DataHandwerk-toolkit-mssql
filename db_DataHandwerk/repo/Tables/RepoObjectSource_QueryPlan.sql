@@ -19,6 +19,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'references on column level
 target: repo.RepoObjectSource_from_query_plan
@@ -98,4 +100,20 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '96f37
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '97f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectSource_QueryPlan].[target_column_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_target_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [target_column_name] like ''EXPR[0-9][0-9][0-9][0-9]'' then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_target_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectSource_QueryPlan].[source_column_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [source_column_name] like ''EXPR[0-9][0-9][0-9][0-9]'' then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
 

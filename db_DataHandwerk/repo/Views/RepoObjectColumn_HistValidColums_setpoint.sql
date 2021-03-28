@@ -49,3 +49,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '17f47
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '16f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint', @level2type = N'COLUMN', @level2name = N'Repo_generated_always_type';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_get_parameter_value]
+[repo].[RepoObject_persistence]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+

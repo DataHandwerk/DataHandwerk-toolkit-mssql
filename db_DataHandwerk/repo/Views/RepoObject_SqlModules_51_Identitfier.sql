@@ -141,3 +141,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0db3c
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '99a0a6c2-f781-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'json_key';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_20_statement_children]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[children]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[child0_class]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'child0_class';
+

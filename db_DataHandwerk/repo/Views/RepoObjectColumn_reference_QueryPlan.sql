@@ -193,3 +193,27 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '74f67
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7af67926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_QueryPlan', @level2type = N'COLUMN', @level2name = N'definition';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[fs_dwh_database_name]
+[repo].[RepoObject]
+[repo].[RepoObject_reference_union]
+[repo].[RepoObjectColumn_gross]
+[repo].[RepoObjectSource_QueryPlan]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_QueryPlan';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectSource_QueryPlan].[is_target_column_name_expression]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_target_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [target_column_name] like ''EXPR[0-9][0-9][0-9][0-9]'' then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_target_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectSource_QueryPlan].[is_source_column_name_expression]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [source_column_name] like ''EXPR[0-9][0-9][0-9][0-9]'' then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
+

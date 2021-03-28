@@ -1,4 +1,4 @@
-CREATE VIEW [repo_sys].[SysColumn]
+﻿CREATE VIEW [repo_sys].[SysColumn]
 AS
 --
 SELECT [sc].object_id AS [SysObject_id]
@@ -328,4 +328,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '20f57
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '09f57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn', @level2type = N'COLUMN', @level2name = N'collation_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_dwh_database]
+[repo_sys].[ExtendedProperties]
+[repo_sys].[SysObject]
+[sys_dwh].[columns]
+[sys_dwh].[computed_columns]
+[sys_dwh].[default_constraints]
+[sys_dwh].[identity_columns]
+[sys_dwh].[types]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn';
 

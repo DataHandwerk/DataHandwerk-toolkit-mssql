@@ -285,3 +285,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '50f57
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4ff57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysColumn_RepoObjectColumn_via_guid', @level2type = N'COLUMN', @level2name = N'default_definition';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
+[repo].[RepoObjectColumn]
+[repo_sys].[SysColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysColumn_RepoObjectColumn_via_guid';
+

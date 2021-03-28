@@ -300,3 +300,8 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9d90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_update_SysObjectQueryPlan';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
+[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_update_SysObjectQueryPlan';
+

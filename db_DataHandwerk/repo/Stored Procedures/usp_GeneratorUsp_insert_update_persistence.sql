@@ -379,3 +379,69 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUsp]
+[repo].[GeneratorUspStep]
+[repo].[GeneratorUspStep_Persistence]
+[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]
+[repo].[RepoObject_gross]
+[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_GeneratorUsp_insert_update_persistence]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|210
+|delete old usp, which doesn''t exist anymore
+|0
+|[repo].[RepoObject_gross]
+| [repo].[GeneratorUsp]
+|d
+
+|310
+|insert new usp
+|0
+|[repo].[RepoObject_gross]
+|[repo].[GeneratorUsp]
+|i
+
+|510
+|update steps, changed
+|0
+|[repo].[GeneratorUspStep_Persistence]
+|[repo].[GeneratorUspStep]
+|u
+
+|610
+|insert steps, not existing
+|0
+|[repo].[GeneratorUspStep_Persistence]
+|[repo].[GeneratorUspStep]
+|i
+
+|710
+|update steps; SET [is_inactive] = [setpoint].[is_inactive]
+|0
+|[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]
+|[repo].[GeneratorUspStep]
+|u
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+

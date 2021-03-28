@@ -33,3 +33,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '32f47
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '33f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_StepList', @level2type = N'COLUMN', @level2name = N'StepList';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUspStep_Sql]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_StepList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '281a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_StepList', @level2type = N'COLUMN', @level2name = N'AdocStepList';
+

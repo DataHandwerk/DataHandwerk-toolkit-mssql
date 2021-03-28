@@ -200,3 +200,52 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4d4cb4d0-4762-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_41_from]
+[repo].[RepoObject_SqlModules_41_from_T]
+[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_PERSIST_RepoObject_SqlModules_41_from_T]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|400
+|truncate persistence target
+|0
+|
+|[repo].[RepoObject_SqlModules_41_from_T]
+|D
+
+|700
+|insert missing
+|0
+|[repo].[RepoObject_SqlModules_41_from]
+|[repo].[RepoObject_SqlModules_41_from_T]
+|I
+
+|800
+|insert all
+|0
+|[repo].[RepoObject_SqlModules_41_from]
+|[repo].[RepoObject_SqlModules_41_from_T]
+|I
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
+

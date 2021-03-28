@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+﻿CREATE   PROCEDURE [repo].[usp_RepoObjectProperty_insert_update]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -57,24 +57,58 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
+PRINT '[repo].[usp_RepoObjectProperty_insert_update]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',7,';',400,';',NULL);
+/*{"ReportUspStep":[{"Number":210,"Name":"MERGE [repo].[RepoObjectProperty], property_name] = 'AdocUspSteps'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',210,';',NULL);
 
-TRUNCATE TABLE [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+MERGE [repo].[RepoObjectProperty] AS t
+USING (
+ SELECT [RepoObject_guid]
+  , [property_name] = 'AdocUspSteps'
+  , [property_value] = CAST([AdocUspSteps] AS NVARCHAR(4000))
+ FROM [repo].[GeneratorUsp_SqlUsp]
+ WHERE NOT [RepoObject_guid] IS NULL
+ ) AS s
+ ON t.[RepoObject_guid] = s.[RepoObject_guid]
+  AND t.[property_name] = s.[property_name]
+WHEN MATCHED
+ AND (
+  t.[property_value] <> s.[property_value]
+  OR t.[property_value] IS NULL
+  OR s.[property_value] IS NULL
+  )
+ THEN
+  UPDATE
+  SET [property_value] = s.[property_value]
+WHEN NOT MATCHED
+ THEN
+  INSERT (
+   [RepoObject_guid]
+   , [property_name]
+   , [property_value]
+   )
+  VALUES (
+   s.[RepoObject_guid]
+   , s.[property_name]
+   , s.[property_value]
+   )
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
+
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'truncate persistence target'
-SET @source_object = NULL
-SET @target_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
+SET @step_name = 'MERGE [repo].[RepoObjectProperty], property_name] = ''AdocUspSteps'''
+SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
+SET @target_object = '[repo].[RepoObjectProperty]'
 
 EXEC repo.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -90,42 +124,54 @@ EXEC repo.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @deleted = @rows
+ , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]","log_target_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',7,';',800,';',NULL);
+/*{"ReportUspStep":[{"Number":220,"Name":"MERGE [repo].[RepoObjectProperty], property_name] = 'UspParameters'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',220,';',NULL);
 
-INSERT INTO 
- [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
- (
-  [alias_QuoteName]
-, [class]
-, [normalized]
-, [RepoObject_guid]
-, [RowNumber_per_Object]
-, [source_column_QuoteName]
-, [source_table_QuoteName]
-, [SysObject_fullname]
-)
-SELECT
-  [alias_QuoteName]
-, [class]
-, [normalized]
-, [RepoObject_guid]
-, [RowNumber_per_Object]
-, [source_column_QuoteName]
-, [source_table_QuoteName]
-, [SysObject_fullname]
+MERGE [repo].[RepoObjectProperty] AS t
+USING (
+ SELECT [RepoObject_guid]
+  , [property_name] = 'UspParameters'
+  , [property_value] = CAST([UspParameters] AS NVARCHAR(4000))
+ FROM [repo].[GeneratorUsp_SqlUsp]
+ WHERE NOT [RepoObject_guid] IS NULL
+ ) AS s
+ ON t.[RepoObject_guid] = s.[RepoObject_guid]
+  AND t.[property_name] = s.[property_name]
+WHEN MATCHED
+ AND (
+  t.[property_value] <> s.[property_value]
+  OR t.[property_value] IS NULL
+  OR s.[property_value] IS NULL
+  )
+ THEN
+  UPDATE
+  SET [property_value] = s.[property_value]
+WHEN NOT MATCHED
+ THEN
+  INSERT (
+   [RepoObject_guid]
+   , [property_name]
+   , [property_value]
+   )
+  VALUES (
+   s.[RepoObject_guid]
+   , s.[property_name]
+   , s.[property_value]
+   )
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
 
-FROM [repo].[RepoObject_SqlModules_61_SelectIdentifier_Union] AS S
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'insert all'
-SET @source_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]'
-SET @target_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
+SET @step_name = 'MERGE [repo].[RepoObjectProperty], property_name] = ''UspParameters'''
+SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
+SET @target_object = '[repo].[RepoObjectProperty]'
 
 EXEC repo.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -141,9 +187,71 @@ EXEC repo.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = @rows
+ , @updated = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":230,"Name":"MERGE [repo].[RepoObjectProperty], property_name] = 'UspExamples'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',230,';',NULL);
+
+MERGE [repo].[RepoObjectProperty] AS t
+USING (
+ SELECT [RepoObject_guid]
+  , [property_name] = 'UspExamples'
+  , [property_value] = CAST([UspExamples] AS NVARCHAR(4000))
+ FROM [repo].[GeneratorUsp_SqlUsp]
+ WHERE NOT [RepoObject_guid] IS NULL
+ ) AS s
+ ON t.[RepoObject_guid] = s.[RepoObject_guid]
+  AND t.[property_name] = s.[property_name]
+WHEN MATCHED
+ AND (
+  t.[property_value] <> s.[property_value]
+  OR t.[property_value] IS NULL
+  OR s.[property_value] IS NULL
+  )
+ THEN
+  UPDATE
+  SET [property_value] = s.[property_value]
+WHEN NOT MATCHED
+ THEN
+  INSERT (
+   [RepoObject_guid]
+   , [property_name]
+   , [property_value]
+   )
+  VALUES (
+   s.[RepoObject_guid]
+   , s.[property_name]
+   , s.[property_value]
+   )
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'MERGE [repo].[RepoObjectProperty], property_name] = ''UspExamples'''
+SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
+SET @target_object = '[repo].[RepoObjectProperty]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
 
 --
 --finish your own code here
@@ -172,47 +280,5 @@ EXEC repo.usp_ExecutionLog_insert
  , @source_object = @source_object
  , @target_object = @target_object
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '87efc212-b764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]
-[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-[cols="5,200,1,100,100,1"]
-|===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
-
-|400
-|truncate persistence target
-|0
-|
-|[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-|D
-
-|800
-|insert all
-|0
-|[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]
-|[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-|I
-|===
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '251a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_insert_update';
 

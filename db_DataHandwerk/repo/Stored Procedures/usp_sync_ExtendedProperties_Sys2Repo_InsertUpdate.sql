@@ -251,3 +251,60 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '59b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|100
+|DECLARE
+|0
+|
+|
+|
+
+|310
+|repo.RepoObjectProperty - INSERT
+|0
+|[repo].[RepoObjectProperty_sys_repo]
+|[repo].[RepoObjectProperty]
+|i
+
+|320
+|repo.RepoObjectProperty - UPDATE
+|0
+|[repo].[RepoObjectProperty_sys_repo]
+|[repo].[RepoObjectProperty]
+|u
+
+|410
+|repo.RepoObjectColumnProperty - INSERT
+|0
+|[repo].[RepoObjectColumnProperty_sys_repo]
+|[repo].[RepoObjectColumnProperty]
+|i
+
+|420
+|repo.RepoObjectColumnProperty - UPDATE
+|0
+|[repo].[RepoObjectColumnProperty_sys_repo]
+|[repo].[RepoObjectColumnProperty]
+|u
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+

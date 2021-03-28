@@ -1,4 +1,4 @@
-/*
+﻿/*
 database_id required in
 - OBJECT_SCHEMA_NAME
 - OBJECT_NAME
@@ -156,4 +156,13 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '45f47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '41f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties', @level2type = N'COLUMN', @level2name = N'class';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_dwh_database]
+[sys_dwh].[columns]
+[sys_dwh].[extended_properties]
+[sys_dwh].[indexes]
+[sys_dwh].[objects]
+[sys_dwh].[parameters]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
 Index hat folgende Eindeutigkeiten
 
 - RepoObject_guid
@@ -138,4 +138,27 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9bf57
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9cf57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'index_column_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[SysColumn_RepoObjectColumn_via_name]
+[repo].[SysObject_RepoObject_via_name]
+[sys_dwh].[index_columns]
+[sys_dwh].[indexes]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[SysColumn_RepoObjectColumn_via_name].[SysObject_column_name]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'SysObject_column_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[SysColumn_RepoObjectColumn_via_name].[SysObject_name]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'parent_SysObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[SysColumn_RepoObjectColumn_via_name].[SysObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'parent_SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[SysColumn_RepoObjectColumn_via_name].[SysObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'parent_schema_name';
 
