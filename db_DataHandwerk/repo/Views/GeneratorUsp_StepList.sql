@@ -1,20 +1,21 @@
 ﻿
-
 /*
 SQL for the list of all steps
 */
-CREATE
- 
-
- VIEW [repo].[GeneratorUsp_StepList]
+CREATE VIEW [repo].[GeneratorUsp_StepList]
 AS
 SELECT [usp_id]
  , StepList = STRING_AGG(CONCAT (
    CAST('' AS NVARCHAR(max))
    , [SqlStep]
-   , CHAR(13)
-   , CHAR(10)
-   ), '') WITHIN
+   ), CHAR(13) + CHAR(10)) WITHIN
+GROUP (
+  ORDER BY [RowNumber_PerUsp]
+  )
+ , AdocStepList = STRING_AGG(CONCAT (
+   CAST('' AS NVARCHAR(max))
+   , [AdocStep]
+   ), CHAR(13) + CHAR(10)) WITHIN
 GROUP (
   ORDER BY [RowNumber_PerUsp]
   )
