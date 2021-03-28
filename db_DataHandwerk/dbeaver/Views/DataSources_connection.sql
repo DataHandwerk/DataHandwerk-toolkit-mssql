@@ -8,7 +8,7 @@ SELECT
  , j3.[key] AS connection_key
  , j3.value AS connection_json
  , J4.*
-FROM [repo].[dbeaver_DataSources] j1
+FROM [dbeaver].[DataSources] j1
 CROSS APPLY OPENJSON(BulkColumn) WITH (connections NVARCHAR(MAX) N'$.connections' AS JSON) j2
 CROSS APPLY OPENJSON(j2.connections) j3
 CROSS APPLY OPENJSON(j3.value) WITH (

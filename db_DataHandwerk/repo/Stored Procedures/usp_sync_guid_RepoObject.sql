@@ -466,7 +466,7 @@ SELECT [T1].[RepoObject_guid]
  , [level2Name] = NULL
  , [T1].[SysObject_type]
 FROM repo.SysObject_RepoObject_via_name AS T1
-INNER JOIN repo.[type_level1type_level2type] AS T2
+INNER JOIN [config].[type_level1type_level2type] AS T2
  ON T1.SysObject_type = T2.type
 WHERE NOT [T1].[RepoObject_guid] IS NULL
  AND [T1].[SysObject_RepoObject_guid] IS NULL
@@ -489,11 +489,11 @@ SELECT [T1].[RepoObject_guid]
 --, [parent].[SysObject_name]
 --, [parent].[SysObject_type]
 FROM repo.SysObject_RepoObject_via_name AS T1
-INNER JOIN repo.[type_level1type_level2type] AS T2
+INNER JOIN [config].[type_level1type_level2type] AS T2
  ON T1.SysObject_type = T2.type
 INNER JOIN repo.SysObject_RepoObject_via_name AS parent
  ON T1.parent_object_id = parent.SysObject_id
-INNER JOIN repo.[type_level1type_level2type] AS T4
+INNER JOIN [config].[type_level1type_level2type] AS T4
  ON parent.SysObject_type = T4.type
 WHERE NOT [T1].[RepoObject_guid] IS NULL
  AND [T1].[SysObject_RepoObject_guid] IS NULL

@@ -15,7 +15,7 @@ SELECT [prop].[property_name]
 FROM repo.RepoObjectProperty AS prop
 INNER JOIN repo.RepoObject AS ro
  ON ro.RepoObject_guid = prop.RepoObject_guid
-INNER JOIN [repo].[type_level1type_level2type] AS lev
+INNER JOIN [config].[type_level1type_level2type] AS lev
  ON lev.type = ro.RepoObject_type
 WHERE NOT [lev].[level1type] IS NULL
  AND [lev].[level2type] IS NULL

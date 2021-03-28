@@ -1,7 +1,7 @@
-﻿CREATE PROCEDURE repo.usp_init_spt_values
+﻿CREATE PROCEDURE [config].usp_init_spt_values
 AS
 --
-TRUNCATE TABLE [repo].[spt_values]
+TRUNCATE TABLE [config].[spt_values]
 
 -- [noformat] don't want any formatting here, because this is created in ADS
 
@@ -16,7 +16,7 @@ TRUNCATE TABLE [repo].[spt_values]
 --[status] [int] NULL);
 
 
-insert [repo].[spt_values] ([name],[number],[type],[low],[high],[status])
+insert [config].[spt_values] ([name],[number],[type],[low],[high],[status])
 select 'rpc',1,'A  ',NULL,NULL,0 UNION ALL
 select 'pub',2,'A  ',NULL,NULL,0 UNION ALL
 select 'sub',4,'A  ',NULL,NULL,0 UNION ALL
@@ -2573,5 +2573,5 @@ select 'deferred',8192,'V  ',0,1,0;
  --[/noformat] 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_init_spt_values';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_spt_values';
 

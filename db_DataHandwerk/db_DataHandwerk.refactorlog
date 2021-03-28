@@ -561,4 +561,89 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[DataSources_DbSchemaTable_FK]" />
   </Operation>
+  <Operation Name="Move Schema" Key="7c6f3e7b-1a19-420e-bca9-260be899603e" ChangeDateTime="03/28/2021 07:11:15">
+    <Property Name="ElementName" Value="[repo].[join_type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="ef40c16e-0123-440e-a764-6de32d0a0bc2" ChangeDateTime="03/28/2021 07:17:04">
+    <Property Name="ElementName" Value="[repo].[Parameter_default]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="9d212193-d6aa-4208-9b3c-8e1a5ffaa555" ChangeDateTime="03/28/2021 07:22:20">
+    <Property Name="ElementName" Value="[repo].[usp_init_parameter]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="53903b0f-3891-40e9-9f54-aa91097262b5" ChangeDateTime="03/28/2021 07:24:45">
+    <Property Name="ElementName" Value="[repo].[usp_init_spt_values]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="9ce4ffcf-ca31-4bce-a170-9094a9f6fc84" ChangeDateTime="03/28/2021 07:47:10">
+    <Property Name="ElementName" Value="[repo].[InheritanceType]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="50176cf4-a9cc-4a84-863c-bd3af366082e" ChangeDateTime="03/28/2021 07:50:48">
+    <Property Name="ElementName" Value="[repo].[ExecutionLog_plantUML_Sequence_start_stop]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="docs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="f9981169-40ab-4f3d-b179-d421551c99a9" ChangeDateTime="03/28/2021 07:52:30">
+    <Property Name="ElementName" Value="[repo].[visjs_EdgeList_object_test01]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="docs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="f6873dbc-406f-47a0-b9cf-03db5e848f97" ChangeDateTime="03/28/2021 07:53:09">
+    <Property Name="ElementName" Value="[repo].[visjs_nodelist_object_test01]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="docs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="88aa6c88-dd35-4807-a76c-63569d38f194" ChangeDateTime="03/28/2021 07:54:22">
+    <Property Name="ElementName" Value="[repo].[type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="df032e9f-33ba-4e99-b352-9f5d90fbbc8c" ChangeDateTime="03/28/2021 08:05:47">
+    <Property Name="ElementName" Value="[repo].[type_level1type_level2type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="067bc292-4977-4091-aac6-1593d9e91ed7" ChangeDateTime="03/28/2021 08:10:28">
+    <Property Name="ElementName" Value="[repo].[usp_longprint]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="dbo" />
+    <Property Name="IsNewSchemaExternal" Value="True" />
+  </Operation>
+  <Operation Name="Move Schema" Key="085d1294-7312-4bd1-9d64-a41bce91df2a" ChangeDateTime="03/28/2021 08:13:55">
+    <Property Name="ElementName" Value="[repo].[spt_values]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="6f260a5f-55eb-445f-b66d-03a1d0e94aec" ChangeDateTime="03/28/2021 08:29:11">
+    <Property Name="ElementName" Value="[repo].[dbeaver_DataSources]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="dbeaver" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7da3ae2f-bd62-4454-8480-0feabb4c67e9" ChangeDateTime="03/28/2021 08:30:19">
+    <Property Name="ElementName" Value="[dbeaver].[dbeaver_DataSources]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbeaver]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[DataSources]" />
+  </Operation>
 </Operations>

@@ -52,7 +52,7 @@ FROM
      --ON T23.[RepoObject_guid] = T1.[RepoObject_guid]
      --   AND T23.[key] = T1.[key]
      LEFT OUTER JOIN
-     [repo].[join_type] AS T4
+     [config].[join_type] AS T4
      ON T4.[join_type_variant] = T1.normalized
         AND T1.is_keyword = 1
 WHERE

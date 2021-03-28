@@ -1,3 +1,5 @@
+## usage
+
 The Python Script SqlParser.py can be executed with parameters or with an ini-file (default is SqlParser.ini in the same directory)
 
 2 parameters are required
@@ -13,9 +15,14 @@ usage: SqlParser.exe [-h] --server SERVER --database DATABASE [-c MY_CONFIG] [-v
 SqlParser.exe: error: the following arguments are required: --server, --database
 ```
 
-example:
+
+example, when you are in the folder, where the exe is located:
 
 `SqlParser --server localhost\sql2019 --database dhw_master`
+
+`SqlParser --server localhost\sql2019 --database dhw_self`
+
+## what does it do
 
 This query is used to read the [sql_modules_definition], but only in case it was changed since last parsing
 
@@ -48,7 +55,7 @@ VALUES
 
 ---
 
-How to freeze the script (create exe executable):
+## How to freeze the script (create exe executable):
 
 https://pyinstaller.readthedocs.io/en/stable/usage.html
 
