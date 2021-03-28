@@ -236,3 +236,66 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bd364096-6065-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[RepoObject]
+[graph].[RepoObject_S]
+[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [graph].[usp_PERSIST_RepoObject]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|100
+|check for empty source
+|1
+|[graph].[RepoObject_S]
+|
+|
+
+|110
+|ERROR 50110: persistence source is empty
+|0
+|
+|
+|
+
+|500
+|delete persistence target missing in source
+|0
+|[graph].[RepoObject_S]
+|[graph].[RepoObject]
+|D
+
+|600
+|update changed
+|0
+|[graph].[RepoObject_S]
+|[graph].[RepoObject]
+|U
+
+|700
+|insert missing
+|0
+|[graph].[RepoObject_S]
+|[graph].[RepoObject]
+|I
+|===
+', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
