@@ -57,6 +57,8 @@
 
 
 
+
+
 GO
 CREATE TRIGGER [repo].[RepoObject__after_update] ON repo.RepoObject
 AFTER UPDATE
@@ -410,4 +412,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '73b33
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '72b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'Inheritance_StringAggSeparatorSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '68b8b46b-a08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'pk_IndexPatternColumnName_new';
 

@@ -13,7 +13,7 @@ SELECT
  , SUBSTRING(j6.[key], 2, 500) AS VirtualModel_table
  , j6.value AS VirtualModel_table_json
  , j7.*
-FROM [repo].[dbeaver_DataSources] j1
+FROM [dbeaver].[DataSources] j1
 CROSS APPLY OPENJSON(BulkColumn) WITH (VirtualModels NVARCHAR(MAX) N'$."virtual-models"' AS JSON) j2
 CROSS APPLY OPENJSON(j2.VirtualModels) j3
 CROSS APPLY OPENJSON(j3.value) j4

@@ -1,6 +1,4 @@
-﻿
-
-CREATE   VIEW [repo].[InheritanceType]
+﻿CREATE   VIEW [config].[InheritanceType]
 AS
 --
 SELECT
@@ -56,13 +54,13 @@ SELECT
 --       [InheritanceType] = 33
 --     , [InheritanceTypeDescription] = 'use CONCAT (for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')''), Inheritance from first predecessor, force'
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5cb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'InheritanceType';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5cb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'InheritanceType';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a4b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'InheritanceType', @level2type = N'COLUMN', @level2name = N'InheritanceTypeDescription';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a4b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'InheritanceType', @level2type = N'COLUMN', @level2name = N'InheritanceTypeDescription';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a3b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'InheritanceType', @level2type = N'COLUMN', @level2name = N'InheritanceType';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a3b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'InheritanceType', @level2type = N'COLUMN', @level2name = N'InheritanceType';
 

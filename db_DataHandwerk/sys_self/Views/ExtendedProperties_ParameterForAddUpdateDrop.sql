@@ -18,7 +18,7 @@ SELECT [sep].[property_name]
 FROM sys_self.[ExtendedProperties] AS sep
 INNER JOIN sys.objects AS so
  ON sep.major_id = so.object_id
-INNER JOIN repo.[type_level1type_level2type] AS stl
+INNER JOIN [config].[type_level1type_level2type] AS stl
  ON so.type COLLATE database_default = stl.type
 
 GO

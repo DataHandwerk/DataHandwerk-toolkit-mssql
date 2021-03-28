@@ -1,5 +1,5 @@
 ﻿
-CREATE VIEW [repo].[ExecutionLog_plantUML_Sequence_start_stop]
+CREATE VIEW [docs].[ExecutionLog_plantUML_Sequence_start_stop]
 AS
 --
 --, [plantUML_Sequence] = --
@@ -144,25 +144,25 @@ WHERE [T1].[step_name] IN (
  --         [T1].[id]
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bf90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bf90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b2f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b2f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'proc_fullname';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'plantUML_Sequence_start_stop';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'plantUML_Sequence_start_stop';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b3f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'parent_proc_fullname';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b3f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'parent_proc_fullname';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'id';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'id';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '08b0ba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'created_dt';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '08b0ba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'created_dt';
 

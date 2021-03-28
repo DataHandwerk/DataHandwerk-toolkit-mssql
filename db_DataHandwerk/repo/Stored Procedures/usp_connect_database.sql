@@ -8,10 +8,10 @@ CREATE PROCEDURE [repo].[usp_connect_database] (@dwh_database_name NVARCHAR(128)
 AS
 --
 --ensure existence of required parameters like 'dwh_database_name'
-EXEC [repo].[usp_init_parameter]
+EXEC [config].[usp_init_parameter]
 
 --ensure [repo].[spt_values] is filled, otherwise extended properties will not be written into database
-EXEC [repo].[usp_init_spt_values]
+EXEC [config].[usp_init_spt_values]
 
 DECLARE @dwh_database_name_old NVARCHAR(128) = (
   SELECT [repo].[fs_dwh_database_name]()

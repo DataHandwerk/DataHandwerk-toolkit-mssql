@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [repo].[usp_init_parameter]
+﻿CREATE PROCEDURE [config].[usp_init_parameter]
 AS
 --
 INSERT INTO [repo].[Parameter] (
@@ -11,7 +11,7 @@ SELECT [Parameter_name]
  , [sub_Parameter]
  , [Parameter_desciption]
  , [Parameter_default_value]
-FROM [repo].[Parameter_default] AS T1
+FROM [config].[Parameter_default] AS T1
 WHERE NOT EXISTS (
   SELECT 1
   FROM [repo].[Parameter] AS [target]
@@ -23,7 +23,7 @@ UPDATE T2
 SET [T2].[Parameter_desciption] = [source].[Parameter_desciption]
  , [T2].[Parameter_default_value] = [source].[Parameter_default_value]
 FROM [repo].[Parameter] AS [T2]
-INNER JOIN [repo].[Parameter_default] AS [source]
+INNER JOIN [config].[Parameter_default] AS [source]
  ON [source].[Parameter_name] = [T2].[Parameter_name]
   AND [source].[sub_Parameter] = [T2].[sub_Parameter]
 WHERE [T2].[Parameter_desciption] <> [source].[Parameter_desciption]
@@ -46,5 +46,5 @@ WHERE [T2].[Parameter_desciption] <> [source].[Parameter_desciption]
   )
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8d90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8d90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
 

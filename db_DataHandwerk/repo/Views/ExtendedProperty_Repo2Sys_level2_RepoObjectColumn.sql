@@ -17,7 +17,7 @@ INNER JOIN [repo].[RepoObjectColumn] AS roc
  ON roc.[RepoObjectColumn_guid] = prop.[RepoObjectColumn_guid]
 INNER JOIN repo.RepoObject AS ro_parent
  ON ro_parent.[RepoObject_guid] = roc.[RepoObject_guid]
-INNER JOIN [repo].[type_level1type_level2type] AS lev_parent
+INNER JOIN [config].[type_level1type_level2type] AS lev_parent
  ON lev_parent.type = ro_parent.RepoObject_type
 WHERE [is_RepoObjectColumn_name_uniqueidentifier] = 0
 GO
