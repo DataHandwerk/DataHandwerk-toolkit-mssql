@@ -34,3 +34,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6ece8
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5ece8eb8-5f62-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
+

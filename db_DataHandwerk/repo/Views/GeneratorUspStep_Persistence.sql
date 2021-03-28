@@ -376,3 +376,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '05f77
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '04f77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence', @level2type = N'COLUMN', @level2name = N'has_logging';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUsp]
+[repo].[Index_ColumList]
+[repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+

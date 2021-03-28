@@ -75,3 +75,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1d7e4
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1b7e4be1-8f64-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union', @level2type = N'COLUMN', @level2name = N'alias_QuoteName';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName]
+[repo].[RepoObject_SqlModules_39_object]
+[repo].[RepoObject_SqlModules_52_Identitfier_QuoteName]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union';
+

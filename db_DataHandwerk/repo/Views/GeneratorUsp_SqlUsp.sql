@@ -1,4 +1,6 @@
 ﻿
+
+
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -10,8 +12,16 @@ AS
 SELECT [u].[id] AS [usp_id]
  , [SqlUsp] = CONCAT (
   --todo - maybe add use
+  'USE  ['
+  , [repo].[fs_dwh_database_name]()
+  , ']'
+  , CHAR(13)
+  , CHAR(10)
+  , 'GO'
+  , CHAR(13)
+  , CHAR(10)
   --todo - maybe add description + example as comment
-  'CREATE OR ALTER PROCEDURE '
+  , 'CREATE OR ALTER PROCEDURE '
   , [u].[usp_fullname]
   , CHAR(13)
   , CHAR(10)
@@ -249,13 +259,17 @@ GO
  , [u].[has_logging]
  , [u].[usp_Description]
  , [u].[usp_fullname]
- , [ParameterList].[ParameterList]
- , [StepList].[StepList]
+ , UspExamples = u.usp_Examples
+ , UspParameters = [ParameterList].[ParameterList]
+ , SqlStepList = [StepList].[StepList]
+ , ro.RepoObject_guid
 FROM [repo].[GeneratorUsp] AS u
 LEFT JOIN [repo].[GeneratorUsp_ParameterList] AS ParameterList
  ON ParameterList.usp_id = u.id
 LEFT JOIN [repo].[GeneratorUsp_StepList] AS StepList
  ON StepList.usp_id = u.id
+LEFT JOIN [repo].[RepoObject] ro
+ ON ro.RepoObject_fullname = u.usp_fullname
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4990291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp';
@@ -282,7 +296,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '39f47
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3cf47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'StepList';
+
 
 
 GO
@@ -290,9 +304,63 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '35f47
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3bf47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'ParameterList';
+
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '38f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'has_logging';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUsp]
+[repo].[GeneratorUsp_ParameterList]
+[repo].[GeneratorUsp_StepList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[usp_schema]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'usp_schema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[usp_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'usp_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[usp_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'usp_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[usp_schema],''].['',[usp_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'usp_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[usp_Description]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'usp_Description';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[has_logging]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'has_logging';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2a1a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'AdocUspSteps';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '291a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'AdocUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2c1a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'UspParameters';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2b1a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'UspExamples';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2d1a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'SqlStepList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2e1a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 

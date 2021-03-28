@@ -28,3 +28,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '73ce8
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '60ce8eb8-5f62-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_virtual_IndexPatternColumnGuid';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_virtual]
+[repo].[IndexColumn_virtual]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_virtual_IndexPatternColumnGuid';
+

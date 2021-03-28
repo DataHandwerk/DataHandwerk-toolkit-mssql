@@ -205,3 +205,24 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '504cb
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3fdf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'DbmlTable';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[fs_get_parameter_value]
+[repo].[Index_SqlConstraint_PkUq]
+[repo].[RepoObject]
+[repo].[RepoObject_ColumnList]
+[repo].[RepoObject_gross]
+[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_gross].[persistence_source_SysObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'persistence_source_SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_gross].[persistence_source_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_gross].[persistence_source_RepoObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_fullname';
+

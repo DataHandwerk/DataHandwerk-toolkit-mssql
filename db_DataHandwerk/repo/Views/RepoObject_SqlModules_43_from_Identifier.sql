@@ -77,3 +77,19 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fe5bfbad-f0
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '39813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_43_from_Identifier', @level2type = N'COLUMN', @level2name = N'json_key';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_42_from_Identifier]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_43_from_Identifier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_42_from_Identifier].[T1_identifier_alias]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_43_from_Identifier', @level2type = N'COLUMN', @level2name = N'T1_identifier_alias';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_42_from_Identifier].[lag_normalized_wo_nolock]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_43_from_Identifier', @level2type = N'COLUMN', @level2name = N'lag_normalized_wo_nolock';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_42_from_Identifier].[alias]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_43_from_Identifier', @level2type = N'COLUMN', @level2name = N'alias';
+

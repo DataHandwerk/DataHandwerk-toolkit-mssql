@@ -450,3 +450,158 @@ EXEC repo.usp_ExecutionLog_insert
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6bcbc49c-3862-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = N'EXEC = [repo].[usp_main]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[ReferencedObject]
+[graph].[ReferencingObject]
+[graph].[RepoObject]
+[repo].[fs_get_parameter_value]
+[repo].[Match_RepoObject_referenced_UspPersistence]
+[repo].[ProcedureInstance]
+[repo].[ProcedureInstanceDependency]
+[repo].[RepoObject_reference_union]
+[repo].[usp_ExecutionLog_insert]
+[repo].[usp_GeneratorUsp_insert_update_persistence]
+[repo].[usp_index_inheritance]
+[repo].[usp_RepoObject_update_SysObjectQueryPlan]
+[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
+[repo].[usp_RepoObjectSource_FirstResultSet]
+[repo].[usp_RepoObjectSource_QueryPlan]
+[repo].[usp_sync_guid]
+[repo].[usp_update_Referencing_Count]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_main]
+[cols="5,200,1,100,100,1"]
+|===
+|Number
+|Name
+|Condition
+|Source
+|Target
+|Action
+
+|210
+|[repo].[usp_sync_guid]
+|0
+|
+|
+|
+
+|300
+|(select [repo].[fs_get_parameter_value](''main enable usp_RepoObjectSource_FirstResultSet'', DEFAULT)) = 1
+|1
+|
+|
+|
+
+|310
+|[repo].[usp_RepoObjectSource_FirstResultSet]
+|0
+|
+|
+|
+
+|400
+|(select [repo].[fs_get_parameter_value](''main enable usp_RepoObject_update_SysObjectQueryPlan'', DEFAULT)) = 1
+|1
+|
+|
+|
+
+|410
+|[repo].[usp_RepoObject_update_SysObjectQueryPlan]
+|0
+|
+|
+|
+
+|500
+|(select [repo].[fs_get_parameter_value](''main enable usp_RepoObjectSource_QueryPlan'', DEFAULT)) = 1
+|1
+|
+|
+|
+
+|510
+|[repo].[usp_RepoObjectSource_QueryPlan]
+--This can take a very long time
+|0
+|
+|
+|
+
+|610
+|[repo].[usp_update_Referencing_Count]
+|0
+|
+|
+|
+
+|710
+|[repo].[usp_index_inheritance]
+|0
+|
+|
+|
+
+|720
+|[repo].[usp_Index_ForeignKey]
+|0
+|
+|
+|
+
+|810
+|[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
+|0
+|
+|
+|
+
+|910
+|[repo].[usp_GeneratorUsp_insert_update_persistence]
+|0
+|
+|
+|
+
+|2110
+|MERGE [graph].[ReferencedObject]
+|0
+|[repo].[RepoObject_reference_union]
+|[graph].[ReferencedObject]
+|u
+
+|2120
+|MERGE [graph].[ReferencingObject]
+|0
+|[repo].[RepoObject_reference_union]
+|[graph].[ReferencingObject]
+|u
+
+|2210
+|MERGE [graph].[ReferencedObjectColumn]
+|0
+|[repo].[RepoObjectColumn_reference_union]
+|[graph].[ReferencedObjectColumn]
+|u
+
+|2220
+|MERGE [graph].[ReferencingObjectColumn]
+|0
+|[repo].[RepoObjectColumn_reference_union]
+|[graph].[ReferencingObjectColumn]
+|u
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+

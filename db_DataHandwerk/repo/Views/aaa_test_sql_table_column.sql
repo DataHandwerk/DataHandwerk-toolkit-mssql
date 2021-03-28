@@ -120,3 +120,27 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59f77
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5df77926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_increment_value';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumn].[Repo_seed_value]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_seed_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumn].[Repo_is_persisted]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_is_persisted';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumn].[Repo_is_identity]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_is_identity';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumn].[Repo_is_computed]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_is_computed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumn].[Repo_increment_value]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column', @level2type = N'COLUMN', @level2name = N'Repo_increment_value';
+

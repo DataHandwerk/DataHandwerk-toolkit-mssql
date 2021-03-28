@@ -1,4 +1,4 @@
-/*
+﻿/*
 ATTENTION:
 [SysObject_RepoObject_guid] has prefix SysObject, because it it the RepoObject_guid stored in repo_sys.extended_properties
 but some objects havn't extended properties, for example Triggers
@@ -133,4 +133,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7bf47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '74f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysObject', @level2type = N'COLUMN', @level2name = N'create_date';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo_sys].[ExtendedProperties]
+[sys_dwh].[objects]
+[sys_dwh].[schemas]
+[sys_dwh].[sql_modules]
+[sys_dwh].[tables]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysObject';
 

@@ -68,3 +68,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '05f27
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '31813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_31_object', @level2type = N'COLUMN', @level2name = N'is_6_Identifier';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_21_statement_children_helper]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_31_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_21_statement_children_helper].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_31_object', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+

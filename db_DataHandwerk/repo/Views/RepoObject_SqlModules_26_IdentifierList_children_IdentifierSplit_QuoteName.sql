@@ -105,3 +105,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3f813
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3401113c-f581-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName', @level2type = N'COLUMN', @level2name = N'T2_json_key';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName';
+
