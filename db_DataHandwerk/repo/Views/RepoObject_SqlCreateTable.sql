@@ -207,12 +207,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3fdf2
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[fs_get_parameter_value]
-[repo].[Index_SqlConstraint_PkUq]
-[repo].[RepoObject]
-[repo].[RepoObject_ColumnList]
-[repo].[RepoObject_gross]
-[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
 
 
 GO

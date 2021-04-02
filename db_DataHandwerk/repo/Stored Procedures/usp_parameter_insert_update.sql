@@ -40,5 +40,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9990291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Parameter]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_parameter_insert_update';
+
 

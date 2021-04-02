@@ -90,6 +90,8 @@
     <Folder Include="dbo" />
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="dbeaver\Tables" />
+    <Folder Include="docs\Tables\" />
+    <Folder Include="docs\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -367,6 +369,20 @@
     <Build Include="dbeaver\Tables\DataSources.sql" />
     <Build Include="Security\test.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_insert_update.sql" />
+    <Build Include="docs\Tables\RepoObject_Adoc_T.sql" />
+    <Build Include="repo\Views\RepoObjectProperty_cross.sql" />
+    <Build Include="repo\Views\RepoObject_ReferencingList.sql" />
+    <Build Include="repo\Views\RepoObject_ReferencedList.sql" />
+    <Build Include="docs\Views\RepoObject_AntoraSource.sql" />
+    <Build Include="docs\Views\RepoObject_AntoraColumnList.sql" />
+    <Build Include="docs\Views\RepoObject_Adoc.sql" />
+    <Build Include="docs\Views\AntoraNavListRepoObject_by_type.sql" />
+    <Build Include="docs\Views\AntoraNavListRepoObject_by_schema_type.sql" />
+    <Build Include="docs\Views\AntoraNavListRepoObject_by_schema.sql" />
+    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraProperties_export.sql" />
+    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraPages_export.sql" />
+    <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Adoc_T.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraNavLists_export.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

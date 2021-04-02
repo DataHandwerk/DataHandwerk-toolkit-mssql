@@ -88,10 +88,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '79f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_virtual]
-[repo].[IndexColumn_virtual]
-[repo].[RepoObject]
-[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_virtual_gross';
+
 
 
 GO

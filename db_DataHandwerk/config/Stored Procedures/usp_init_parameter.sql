@@ -50,6 +50,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8d90291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Parameter]
-[repo].[Parameter_default]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
+
 

@@ -77,9 +77,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fff57
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_union]
-[repo].[Index_virtual]
-[repo].[RepoObject_reference_union]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing';
+
 
 
 GO

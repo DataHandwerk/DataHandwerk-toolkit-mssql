@@ -1,4 +1,6 @@
-﻿/*
+﻿
+
+/*
 -- tag::example[]  
 --example 1:
 --merge this view into [repo].[Parameter]:
@@ -153,7 +155,7 @@ UNION ALL
 SELECT [Parameter_name] = 'InheritanceDefinition_column'
  , [sub_Parameter] = N'ReferencedObjectColumnList'
  , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
- , [Parameter_default_value] = CAST('referenced.[RepoObjectColumn_fullname]' AS NVARCHAR(4000))
+ , [Parameter_default_value] = CAST('''* '' + referenced.[RepoObjectColumn_fullname]' AS NVARCHAR(4000))
 
 UNION ALL
 
@@ -174,7 +176,7 @@ UNION ALL
 SELECT [Parameter_name] = 'InheritanceDefinition_object'
  , [sub_Parameter] = N'ReferencedObjectList'
  , [Parameter_desciption] = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
- , [Parameter_default_value] = CAST('referenced.[RepoObject_fullname]' AS NVARCHAR(4000))
+ , [Parameter_default_value] = CAST('''* '' + referenced.[RepoObject_fullname]' AS NVARCHAR(4000))
 
 UNION ALL
 
@@ -232,7 +234,7 @@ SELECT [Parameter_name] = 'InheritanceType_object'
 -- , [sub_Parameter] = N'MS_Description'
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [repo].[InheritanceType]'
 -- , [Parameter_default_value] = CAST(0 AS TINYINT)
-----
+
 
 --UNION ALL
 
@@ -247,6 +249,120 @@ SELECT [Parameter_name] = 'InheritanceType_object'
 -- , [sub_Parameter] = N'MS_Description'
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [repo].[InheritanceType]'
 -- , [Parameter_default_value] = CAST(0 AS TINYINT)
+
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Adoc_AntoraDocModulFolder'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'Antora export folder, will be extended by ''partials\'', ''pages\'', ''examples\'', ''images\'' and so on'
+ , [Parameter_default_value] = CAST(N'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\' as NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Adoc_AntoraPageTemplate'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'content of an Antora Page which gets Content via include from Partials with tags'
+ , [Parameter_default_value] = CAST(N'= {docname}
+
+include::partial${docname}.adoc[tag=existing_properties]
+
+type:
+include::partial${docname}.adoc[tag=SysObject_type]
+(
+include::partial${docname}.adoc[tag=SysObject_type_name]
+), modify_date:
+include::partial${docname}.adoc[tag=SysObject_modify_date]
+
+RepoObject_guid:
+include::partial${docname}.adoc[tag=RepoObject_guid]
+
+ifdef::ExistsProperty--AdocUspSteps[]
+
+== Procedure steps
+
+include::partial${docname}.adoc[tag=AdocUspSteps]
+
+endif::ExistsProperty--AdocUspSteps[]
+
+ifdef::ExistsProperty--pk_index_guid[]
+
+== PK
+
+PK SemanticGroup:
+include::partial${docname}.adoc[tag=pk_IndexSemanticGroup]
+
+//PK Column Name(s):
+//include::partial${docname}.adoc[tag=pk_IndexPatternColumnName]
+
+//PK Column Datatype(s):
+//include::partial${docname}.adoc[tag=pk_IndexPatternColumnDatatype]
+
+.PK columns of {docname}
+[cols="d,m,m,m,m,d"]
+|===
+|PK|Column Name|Data Type|NULL?|ID|Calc
+
+include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]
+
+|===
+
+endif::ExistsProperty--pk_index_guid[]
+
+ifdef::ExistsProperty--Columns[]
+
+== Columns
+
+.Columns of {docname}
+[cols="d,m,m,m,m,d"]
+|===
+|PK|Column Name|Data Type|NULL?|ID|Calc
+
+include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]
+
+include::partial${docname}.adoc[tag=AntoraNonPkColumnTableRows]
+
+|===
+
+//todo
+
+endif::ExistsProperty--Columns[]
+
+== References
+
+=== Referenced Objects
+
+include::partial${docname}.adoc[tag=AntoraReferencedList]
+
+=== Referencing Objects
+
+include::partial${docname}.adoc[tag=AntoraReferencingList]
+
+// .References of {docname}
+// [cols="a,a"]
+// |===
+// |Referenced Objects |Referencing Objects
+// 
+// |
+// include::partial${docname}.adoc[tag=AntoraReferencedList]
+// |
+// include::partial${docname}.adoc[tag=AntoraReferencingList]
+// 
+// |===
+
+== Indexes
+
+//todo
+
+ifdef::ExistsProperty--sql_modules_definition[]
+
+== sql_modules_definition
+
+.{docname} script
+include::partial${docname}.adoc[tag=sql_modules_definition]
+endif::ExistsProperty--sql_modules_definition[]
+
+' AS NVARCHAR(4000))
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'dd8f291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'Parameter_default';

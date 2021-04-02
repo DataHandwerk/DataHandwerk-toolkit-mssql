@@ -331,12 +331,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '09f57
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_dwh_database]
-[repo_sys].[ExtendedProperties]
-[repo_sys].[SysObject]
-[sys_dwh].[columns]
-[sys_dwh].[computed_columns]
-[sys_dwh].[default_constraints]
-[sys_dwh].[identity_columns]
-[sys_dwh].[types]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn';
+
 

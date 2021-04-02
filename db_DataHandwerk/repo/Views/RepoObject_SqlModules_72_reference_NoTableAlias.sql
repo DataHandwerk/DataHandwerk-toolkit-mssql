@@ -101,10 +101,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd48f8
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[repo].[RepoObject_SqlModules_44_from_Identifier_QuoteName]
-[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_72_reference_NoTableAlias';
+
 
 
 GO

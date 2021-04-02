@@ -48,5 +48,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'faf57
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_reference_SqlExpressionDependencies]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01';
+
 

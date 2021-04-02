@@ -195,11 +195,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7af67
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[fs_dwh_database_name]
-[repo].[RepoObject]
-[repo].[RepoObject_reference_union]
-[repo].[RepoObjectColumn_gross]
-[repo].[RepoObjectSource_QueryPlan]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_QueryPlan';
+
 
 
 GO

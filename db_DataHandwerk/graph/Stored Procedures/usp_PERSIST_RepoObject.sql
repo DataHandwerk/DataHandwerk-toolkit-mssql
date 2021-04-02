@@ -120,6 +120,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',9,';',600,';',NULL);
 UPDATE T
 SET
   T.[RepoObject_fullname] = S.[RepoObject_fullname]
+, T.[RepoObject_fullname2] = S.[RepoObject_fullname2]
 , T.[RepoObject_guid] = S.[RepoObject_guid]
 , T.[RepoObject_type] = S.[RepoObject_type]
 
@@ -130,6 +131,7 @@ T.[RepoObject_guid] = S.[RepoObject_guid]
 
 WHERE
    T.[RepoObject_fullname] <> S.[RepoObject_fullname]
+OR T.[RepoObject_fullname2] <> S.[RepoObject_fullname2] OR (S.[RepoObject_fullname2] IS NULL AND NOT T.[RepoObject_fullname2] IS NULL) OR (NOT S.[RepoObject_fullname2] IS NULL AND T.[RepoObject_fullname2] IS NULL)
 OR T.[RepoObject_guid] <> S.[RepoObject_guid]
 OR T.[RepoObject_type] <> S.[RepoObject_type]
 
@@ -165,11 +167,13 @@ INSERT INTO
  [graph].[RepoObject]
  (
   [RepoObject_fullname]
+, [RepoObject_fullname2]
 , [RepoObject_guid]
 , [RepoObject_type]
 )
 SELECT
   [RepoObject_fullname]
+, [RepoObject_fullname2]
 , [RepoObject_guid]
 , [RepoObject_type]
 
@@ -205,7 +209,6 @@ EXEC repo.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @inserted = @rows
 -- Logging END --
-
 
 --
 --finish your own code here
@@ -246,9 +249,7 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[RepoObject]
-[graph].[RepoObject_S]
-[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
 
 
 GO

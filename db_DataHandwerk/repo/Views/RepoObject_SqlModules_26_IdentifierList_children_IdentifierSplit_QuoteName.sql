@@ -107,5 +107,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '34011
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName';
+
 

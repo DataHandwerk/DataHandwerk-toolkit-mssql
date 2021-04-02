@@ -26,8 +26,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '49c1e
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ProcedureInstance]
-[repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'ProcedureInstance_S';
+
 
 
 GO

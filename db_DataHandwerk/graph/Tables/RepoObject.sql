@@ -1,10 +1,15 @@
 ﻿CREATE TABLE [graph].[RepoObject] (
-    [RepoObject_guid]     UNIQUEIDENTIFIER NOT NULL,
-    [RepoObject_fullname] NVARCHAR (261)   NOT NULL,
-    [RepoObject_type]     CHAR (2)         NOT NULL,
+    [RepoObject_guid]      UNIQUEIDENTIFIER NOT NULL,
+    [RepoObject_fullname]  NVARCHAR (261)   NOT NULL,
+    [RepoObject_type]      CHAR (2)         NOT NULL,
+    [RepoObject_fullname2] NVARCHAR (257)   NULL,
     CONSTRAINT [UK_RepoObject] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC),
     INDEX [ix_graphid] UNIQUE NONCLUSTERED ($node_id)
 ) AS NODE;
+
+
+
+
 
 
 
@@ -93,4 +98,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0139cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 

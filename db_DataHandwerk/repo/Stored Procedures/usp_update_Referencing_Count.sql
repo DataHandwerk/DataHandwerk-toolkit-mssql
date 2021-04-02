@@ -194,12 +194,7 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[fs_dwh_database_name]
-[repo].[RepoObject]
-[repo].[RepoObjectColumn]
-[repo].[usp_ExecutionLog_insert]
-[repo_sys].[RepoObjectReferenced]
-[repo_sys].[RepoObjectReferencing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
 
 
 GO

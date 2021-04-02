@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE VIEW [repo].[RepoObject_ColumnList]
 AS
 SELECT roc.[RepoObject_guid]
@@ -128,7 +126,7 @@ GROUP (
    --note: 'string to add notes'
    , CASE 
     WHEN NOT roc.Property_ms_description IS NULL
-     THEN ', Note: ''''''' +CHAR(13) + CHAR(10) + REPLACE(REPLACE(roc.Property_ms_description, '\', '\\'),'''''''','\''''''') +CHAR(13) + CHAR(10) +  ''''''''
+     THEN ', Note: ''''''' + CHAR(13) + CHAR(10) + REPLACE(REPLACE(roc.Property_ms_description, '\', '\\'), '''''''', '\''''''') + CHAR(13) + CHAR(10) + ''''''''
     END
    , ']'
    ), CHAR(13) + CHAR(10)) WITHIN
@@ -232,7 +230,7 @@ GROUP (
    ), 1, 2, '  ')
 FROM [repo].[RepoObjectColumn_gross] AS roc
 WHERE
- --not [is_query_plan_expression]
+ --not [is_query_plan_expression], these are not real columms
  roc.[is_query_plan_expression] IS NULL
  --we need the datatype, or it should be computed
  AND (
@@ -269,5 +267,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3cdf2
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObjectColumn_gross]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
 

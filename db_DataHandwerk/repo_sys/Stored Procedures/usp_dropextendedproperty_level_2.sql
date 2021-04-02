@@ -107,6 +107,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a990291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[fs_dwh_database_name]
-[sys_self].[ExtendedProperties_ParameterForAddUpdateDrop]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_dropextendedproperty_level_2';
+
 

@@ -21,5 +21,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5fce8eb8-5f
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo_sys].[IndexColumn_real_unique]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_unique_IndexPatternColumnGuid';
+
 

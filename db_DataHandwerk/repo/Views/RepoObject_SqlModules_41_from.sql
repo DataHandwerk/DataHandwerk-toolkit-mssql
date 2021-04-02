@@ -161,10 +161,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '37813
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[join_type]
-[repo].[RepoObject_SqlModules_20_statement_children]
-[repo].[RepoObject_SqlModules_22_identifier_alias_AS]
-[repo].[RepoObject_SqlModules_39_object]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
 
 
 GO

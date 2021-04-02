@@ -109,7 +109,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '52230f14-2e
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
 
 
 GO

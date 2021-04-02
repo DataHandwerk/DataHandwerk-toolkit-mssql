@@ -123,7 +123,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '35df2
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo_sys].[sql_expression_dependencies]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_reference_SqlExpressionDependencies';
+
 
 
 GO

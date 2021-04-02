@@ -22,6 +22,27 @@ in any case:
 - sql for persistence table => repo.RepoObject_SqlCreateTable
 - sql for persistence procedure => todo
 
+after creating the RepoObject you should use the create sql:
+
+SELECT [RepoObject_guid]
+ , [DbmlTable]
+ , [RepoObject_fullname]
+ , [SqlCreateTable]
+ , [ConList]
+ , [persistence_source_RepoObject_fullname]
+ , [persistence_source_RepoObject_guid]
+ , [persistence_source_SysObject_fullname]
+FROM [repo].[RepoObject_SqlCreateTable]
+WHERE NOT [persistence_source_RepoObject_fullname] IS NULL
+ORDER BY [RepoObject_fullname]
+
+Use the sql statement in [SqlCreateTable] to create the table
+
+Now sync guid and create code for persistence usp
+
+EXEC [repo].[usp_main]
+
+get the usp code in [repo].[GeneratorUsp_SqlUsp]
 
 test
 
@@ -733,7 +754,7 @@ WHERE
 	    --
 	    )
 */
-----
+
 ----try to find [persistence_source_RepoObjectColumn_guid] for existing persistence columns by Column name
 --UPDATE roc_p
 --SET [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
@@ -948,9 +969,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ba90291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Parameter]
-[repo].[RepoObject]
-[repo].[RepoObject_persistence]
-[repo].[usp_ExecutionLog_insert]
-[repo].[usp_sync_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_insert_update';
+
 

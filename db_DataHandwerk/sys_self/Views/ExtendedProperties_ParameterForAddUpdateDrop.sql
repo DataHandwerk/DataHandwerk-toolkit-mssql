@@ -82,8 +82,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'aaf17
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[type_level1type_level2type]
-[sys_self].[ExtendedProperties]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+
 
 
 GO

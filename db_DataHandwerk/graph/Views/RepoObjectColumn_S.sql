@@ -1,15 +1,18 @@
 ﻿
-
 CREATE VIEW [graph].[RepoObjectColumn_S]
 AS
 SELECT
  --
  [RepoObjectColumn_guid]
  , [RepoObjectColumn_fullname]
+ --we need to mark the column as nullable, because in [repo].[usp_sync_guid_RepoObjectColumn] in step 1010 it will be inherited into target: [Repo_is_nullable] = [scroc].[is_nullable] 
+ , NULLIF([RepoObjectColumn_fullname2], '') AS [RepoObjectColumn_fullname2]
  , [RepoObjectColumn_name]
  , [Repo_user_type_fullname] AS [RepoObjectColumn_type]
  , [RepoObject_guid]
  , [RepoObject_fullname]
+ --we need to mark the column as nullable, because in [repo].[usp_sync_guid_RepoObjectColumn] in step 1010 it will be inherited into target: [Repo_is_nullable] = [scroc].[is_nullable] 
+ , NULLIF([RepoObject_fullname2], '') AS [RepoObject_fullname2]
  , [RepoObject_type]
 FROM [repo].[RepoObjectColumn_gross]
 GO
@@ -45,7 +48,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '77467
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObjectColumn_gross]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S';
+
 
 
 GO
@@ -78,4 +81,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0739cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0839cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 

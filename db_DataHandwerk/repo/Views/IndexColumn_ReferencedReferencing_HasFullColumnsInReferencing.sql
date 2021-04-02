@@ -143,7 +143,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ecf67
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[IndexColumn_union]
-[repo].[RepoObjectColumn]
-[repo].[RepoObjectColumn_reference_union]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing';
+
 

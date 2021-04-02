@@ -389,12 +389,7 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUsp]
-[repo].[GeneratorUspStep]
-[repo].[GeneratorUspStep_Persistence]
-[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]
-[repo].[RepoObject_gross]
-[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
 
 
 GO

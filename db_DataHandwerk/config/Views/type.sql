@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 master.dbo.spt_values is an undocumemted hidden view or table, containing useful entries 
 it's copy should be in in repo_config.spt_values
 */
@@ -7,7 +8,7 @@ CREATE VIEW [config].[type]
 AS
 --
 SELECT PARSENAME(REPLACE([name], ':', '.'), 2) AS 'type'
- , PARSENAME(REPLACE([name], ':', '.'), 1) AS 'type_desc'
+ , TRIM(PARSENAME(REPLACE([name], ':', '.'), 1)) AS 'type_desc'
 FROM [config].spt_values
 WHERE [type] = 'O9T'
  AND [number] = - 1;
@@ -25,5 +26,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7cf17
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[spt_values]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'type';
+
 

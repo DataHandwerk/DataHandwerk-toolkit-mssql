@@ -21,7 +21,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '02f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_20_statement_children]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_29_2_object_is_GroupBy';
+
 
 
 GO

@@ -35,6 +35,8 @@
 
 
 
+
+
 GO
 
 
@@ -250,7 +252,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4890291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'?', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence';
+
 
 
 GO

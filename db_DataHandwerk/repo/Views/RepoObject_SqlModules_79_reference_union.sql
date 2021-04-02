@@ -84,6 +84,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'd18f8f21-42
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_71_reference_ExpliciteTableAlias]
-[repo].[RepoObject_SqlModules_72_reference_NoTableAlias]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_79_reference_union';
+
 

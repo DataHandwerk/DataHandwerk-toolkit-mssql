@@ -107,5 +107,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ae90291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[sys_self].[ExtendedProperties_ParameterForAddUpdateDrop]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'PROCEDURE', @level1name = N'usp_dropextendedproperty_level_2';
+
 

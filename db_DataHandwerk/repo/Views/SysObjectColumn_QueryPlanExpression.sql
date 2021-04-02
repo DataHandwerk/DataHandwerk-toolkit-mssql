@@ -33,5 +33,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7df67
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObjectColumn_reference_QueryPlan]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysObjectColumn_QueryPlanExpression';
+
 

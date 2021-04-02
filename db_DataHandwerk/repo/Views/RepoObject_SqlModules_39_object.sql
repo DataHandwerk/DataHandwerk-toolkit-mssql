@@ -130,13 +130,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '32813
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[repo].[RepoObject_SqlModules]
-[repo].[RepoObject_SqlModules_29_1_object_is_union]
-[repo].[RepoObject_SqlModules_29_2_object_is_GroupBy]
-[repo].[RepoObject_SqlModules_31_object]
-[repo].[RepoObject_SqlModules_32_ObjectClass]
-[repo].[RepoObject_SqlModules_33_ObjectNormalized]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+
 
 
 GO

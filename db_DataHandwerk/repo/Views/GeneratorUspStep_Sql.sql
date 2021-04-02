@@ -30,31 +30,51 @@ SELECT [u].[id] AS usp_id
  --, [t].[Asc_PerParentChild]
  --, [t].[Desc_PerParentChild]
  , sql.SqlStep
+ ----this list is  too wide, we need a smaller list
+ --, AdocStep = CONCAT (
+ -- '|'
+ -- , step.Number
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , step.[Name]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , step.[is_condition]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , step.[log_source_object]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , step.[log_target_object]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , step.[log_flag_InsertUpdateDelete]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- )
  , AdocStep = CONCAT (
   '|'
   , step.Number
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
   , '|'
+  , CHAR(13) + CHAR(10)
+  , '*'
   , step.[Name]
-  , CHAR(13)
-  , CHAR(10)
+  , '*'
+  , CHAR(13) + CHAR(10)
+  , CHAR(13) + CHAR(10)
+  , IIF(step.[log_flag_InsertUpdateDelete] <> '', '* ' + step.[log_flag_InsertUpdateDelete] + CHAR(13) + CHAR(10), NULL)
+  , IIF(step.[log_source_object] <> '', '* ' + step.[log_source_object] + CHAR(13) + CHAR(10), NULL)
+  , IIF(step.[log_target_object] <> '', '* ' + step.[log_target_object] + CHAR(13) + CHAR(10), NULL)
+  , CHAR(13) + CHAR(10)
   , '|'
   , step.[is_condition]
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , step.[log_source_object]
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , step.[log_target_object]
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , step.[log_flag_InsertUpdateDelete]
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
   )
 FROM [repo].[GeneratorUsp] AS u
 CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
@@ -117,10 +137,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1cf47
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_GeneratorUspStep_sql]
-[repo].[ftv_GeneratorUspStep_tree]
-[repo].[GeneratorUsp]
-[repo].[GeneratorUspStep]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
 
 
 GO

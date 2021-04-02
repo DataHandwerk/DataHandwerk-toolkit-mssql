@@ -273,6 +273,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '16813
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_sqlparse_with_some_children]
-[repo].[RepoObject_SqlModules_10_statement]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
 

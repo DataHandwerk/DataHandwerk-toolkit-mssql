@@ -14,6 +14,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '86efc212-b764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
 
@@ -51,7 +53,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '92efc
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
 
 
 GO

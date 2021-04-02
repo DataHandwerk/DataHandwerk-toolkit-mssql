@@ -1,5 +1,4 @@
 ﻿
-
 CREATE VIEW [repo].[RepoObjectColumn_gross]
 AS
 --
@@ -41,6 +40,11 @@ SELECT
   , '.'
   , QUOTENAME([roc].[RepoObjectColumn_name])
   )
+ , [RepoObjectColumn_fullname2] = CONCAT (
+  [ro].[RepoObject_fullname2]
+  , '.'
+  , [roc].[RepoObjectColumn_name]
+  )
  , [roc].[RepoObjectColumn_name]
  , [roc].[SysObjectColumn_column_id]
  , [roc].[SysObjectColumn_name]
@@ -53,11 +57,13 @@ SELECT
  , [ro].[node_id]
  , [ro].[pk_index_guid]
  , [ro].[RepoObject_fullname]
+ , [ro].[RepoObject_fullname2]
  , [ro].[RepoObject_name]
  , [ro].[RepoObject_Referencing_Count]
  , [ro].[RepoObject_schema_name]
  , [ro].[RepoObject_type]
  , [ro].[SysObject_fullname]
+ , [ro].[SysObject_fullname2]
  , [ro].[SysObject_id]
  , [ro].[SysObject_modify_date]
  , [ro].[SysObject_name]
@@ -67,7 +73,7 @@ SELECT
  , [ic].[index_column_id]
  , [ic].[index_name]
  , [ic].[is_index_primary_key]
- , Property_ms_description = [repo].[fs_get_RepoObjectColumnProperty_nvarchar] ([roc].[RepoObjectColumn_guid], 'ms_description')
+ , Property_ms_description = [repo].[fs_get_RepoObjectColumnProperty_nvarchar]([roc].[RepoObjectColumn_guid], 'ms_description')
 FROM repo.RepoObjectColumn AS roc
 INNER JOIN repo.RepoObject AS ro
  ON roc.RepoObject_guid = ro.RepoObject_guid
@@ -317,9 +323,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3bdf2
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[IndexColumn_union]
-[repo].[RepoObject]
-[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross';
+
 
 
 GO
@@ -628,4 +632,16 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [RepoObjectColumn_name]<>[SysObjectColumn_name] then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'has_different_sys_names';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0039cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'SysObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fe38cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ff38cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 

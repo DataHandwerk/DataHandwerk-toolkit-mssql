@@ -73,7 +73,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '1468f544-e4
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[ReferencedObject]
-[graph].[RepoObject]
-[repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+
 
