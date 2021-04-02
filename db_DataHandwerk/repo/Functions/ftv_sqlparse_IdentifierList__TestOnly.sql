@@ -270,5 +270,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5190291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_sqlparse_with_some_children]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_sqlparse_IdentifierList__TestOnly';
+
 

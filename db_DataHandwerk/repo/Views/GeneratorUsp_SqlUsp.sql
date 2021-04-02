@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -15,16 +13,13 @@ SELECT [u].[id] AS [usp_id]
   'USE  ['
   , [repo].[fs_dwh_database_name]()
   , ']'
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
   , 'GO'
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
   --todo - maybe add description + example as comment
   , 'CREATE OR ALTER PROCEDURE '
   , [u].[usp_fullname]
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
   , [ParameterList].[ParameterList]
   , CASE [u].[has_logging]
    WHEN 1
@@ -138,121 +133,142 @@ GO
 '
    END --[u].[has_logging]
   )
- , [AdocUsp] = CONCAT (
-  'PROCEDURE '
-  , [u].[usp_fullname]
-  , CHAR(13)
-  , CHAR(10)
-  , '// tag::parameters[]'
-  , CHAR(13)
-  , CHAR(10)
-  , [ParameterList].[ParameterList]
-  , CHAR(13)
-  , CHAR(10)
-  , '// end::parameters[]'
-  , CHAR(13)
-  , CHAR(10)
-  , CHAR(13)
-  , CHAR(10)
-  , '// tag::steps[]'
-  , CHAR(13)
-  , CHAR(10)
-  , '.Steps in '
-  , [u].[usp_fullname]
-  , CHAR(13)
-  , CHAR(10)
-  , '[cols="5,200,1,100,100,1"]'
-  , CHAR(13)
-  , CHAR(10)
-  , '|==='
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Number'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Name'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Condition'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Source'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Target'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Action'
-  , CHAR(13)
-  , CHAR(10)
-  , CHAR(13)
-  , CHAR(10)
-  , [StepList].[AdocStepList]
-  , '|==='
-  , CHAR(13)
-  , CHAR(10)
-  , '// end::steps[]'
-  , CHAR(13)
-  , CHAR(10)
-  , CHAR(13)
-  , CHAR(10)
-  , '// tag::examples[]'
-  , CHAR(13)
-  , CHAR(10)
-  --, examples required here
-  , CHAR(13)
-  , CHAR(10)
-  , '// end::examples[]'
-  , CHAR(13)
-  , CHAR(10)
-  )
+ --, [AdocUsp] = CONCAT (
+ -- 'PROCEDURE '
+ -- , [u].[usp_fullname]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '// tag::parameters[]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , [ParameterList].[ParameterList]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '// end::parameters[]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '// tag::steps[]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '.Steps in '
+ -- , [u].[usp_fullname]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '[cols="5,200,1,100,100,1"]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|==='
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Number'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Name'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Condition'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Source'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Target'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Action'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , [StepList].[AdocStepList]
+ -- , '|==='
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '// end::steps[]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '// tag::examples[]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- --, examples required here
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '// end::examples[]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- )
+ ----old:
+ --, [AdocUspSteps] = CONCAT (
+ -- '.Steps in '
+ -- , [u].[usp_fullname]
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '[cols="5,200,1,100,100,1"]'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|==='
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Number'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Name'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Condition'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Source'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Target'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , '|'
+ -- , 'Action'
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- , [StepList].[AdocStepList]
+ -- , '|==='
+ -- , CHAR(13)
+ -- , CHAR(10)
+ -- )
  , [AdocUspSteps] = CONCAT (
   '.Steps in '
   , [u].[usp_fullname]
-  , CHAR(13)
-  , CHAR(10)
-  , '[cols="5,200,1,100,100,1"]'
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
+  , '[cols="d,a,d"]'
+  , CHAR(13) + CHAR(10)
   , '|==='
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
   , '|'
   , 'Number'
-  , CHAR(13)
-  , CHAR(10)
   , '|'
-  , 'Name'
-  , CHAR(13)
-  , CHAR(10)
+  , 'Name (Action, Source, Target)'
   , '|'
   , 'Condition'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Source'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Target'
-  , CHAR(13)
-  , CHAR(10)
-  , '|'
-  , 'Action'
-  , CHAR(13)
-  , CHAR(10)
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
+  , CHAR(13) + CHAR(10)
   , [StepList].[AdocStepList]
   , '|==='
-  , CHAR(13)
-  , CHAR(10)
+  , CHAR(13) + CHAR(10)
   )
  , [u].[usp_schema]
  , [u].[usp_name]
@@ -312,9 +328,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '38f47
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUsp]
-[repo].[GeneratorUsp_ParameterList]
-[repo].[GeneratorUsp_StepList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp';
+
 
 
 GO
@@ -346,7 +360,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2a1a8
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '291a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'AdocUsp';
+
 
 
 GO

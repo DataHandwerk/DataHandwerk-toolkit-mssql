@@ -1,9 +1,22 @@
-﻿CREATE VIEW [repo].[RepoObject_SqlModules_Repo_Sys]
+﻿
+
+
+CREATE VIEW [repo].[RepoObject_SqlModules_Repo_Sys]
 AS
 --
 SELECT [ro].[RepoObject_guid]
+ ----when outdated, use original [sql_modules_definition], otherwise use saved [sql_modules_definition]
+ --, [sql_modules_definition] = CASE 
+ -- WHEN (
+ --   [ros].[sql_modules_dt] IS NULL
+ --   OR [ros].[sql_modules_dt] < [so].[modify_date]
+ --   )
+ --  THEN [so].[sql_modules_definition]
+ -- ELSE [ros].[sql_modules_definition]
+ -- END
  , [so].[sql_modules_definition]
  , [ros].[sql_modules_dt]
+ --, [ros].[sql_modules_antora]
  , [ros].[sql_modules_formatted]
  , [ros].[sql_modules_formatted2]
  , [ros].[sql_modules_json]
@@ -70,9 +83,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '89f47
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[repo].[RepoObject_SqlModules]
-[repo_sys].[SysObject]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+
 
 
 GO

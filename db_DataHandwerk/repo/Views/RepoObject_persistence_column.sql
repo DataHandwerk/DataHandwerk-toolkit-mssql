@@ -163,9 +163,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[repo].[RepoObject_persistence]
-[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_column';
+
 
 
 GO

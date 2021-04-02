@@ -230,7 +230,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9790291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_IndexPattern]
-[repo].[Index_Settings]
-[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_Settings';
+
 

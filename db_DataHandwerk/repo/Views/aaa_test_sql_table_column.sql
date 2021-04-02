@@ -122,7 +122,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5df77
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'aaa_test_sql_table_column';
+
 
 
 GO

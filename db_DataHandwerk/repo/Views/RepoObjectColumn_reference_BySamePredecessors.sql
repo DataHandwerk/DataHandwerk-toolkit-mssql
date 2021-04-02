@@ -179,8 +179,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9df67
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_reference_union]
-[repo].[RepoObjectColumn_reference_FirstResultSet]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors';
+
 
 
 GO

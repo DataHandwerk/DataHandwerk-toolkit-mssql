@@ -1,4 +1,7 @@
-﻿
+﻿/*
+all used [property_name] in any RepoObject, and additinally some [repo].[Parameter].[sub_Parameter]
+*/
+
 CREATE VIEW [repo].[PropertyName_RepoObject]
 AS
 SELECT DISTINCT

@@ -414,19 +414,7 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_gross]
-[repo].[Index_Settings]
-[repo].[Index_union]
-[repo].[Index_virtual]
-[repo].[Index_virtual_IndexPatternColumnGuid]
-[repo].[IndexColumn_virtual]
-[repo].[IndexColumn_virtual_referenced_setpoint]
-[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
-[repo].[RepoObject]
-[repo].[RepoObject_persistence]
-[repo].[usp_ExecutionLog_insert]
-[repo].[usp_Index_Settings]
-[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';
+
 
 
 GO

@@ -161,10 +161,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '40df2
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_ColumList]
-[repo].[Index_Settings]
-[repo].[Index_union]
-[repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross';
+
 
 
 GO

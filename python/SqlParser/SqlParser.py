@@ -185,6 +185,7 @@ def main():
             tsqlinsert = """\
             INSERT INTO [repo].[RepoObject_SqlModules]
             ([RepoObject_guid]
+            --,[sql_modules_definition]
             ,[sql_modules_formatted]
             ,[sql_modules_formatted2]
             ,[sql_modules_json])

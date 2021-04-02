@@ -176,10 +176,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c6f57
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_dwh_database]
-[repo_sys].[SysColumn]
-[repo_sys].[SysObject]
-[sys_dwh].[sql_expression_dependencies]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'sql_expression_dependencies';
+
 
 
 GO

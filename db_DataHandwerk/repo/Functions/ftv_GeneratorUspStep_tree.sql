@@ -282,5 +282,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3390291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUspStep]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_tree';
+
 

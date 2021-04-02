@@ -141,10 +141,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9cf57
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[SysColumn_RepoObjectColumn_via_name]
-[repo].[SysObject_RepoObject_via_name]
-[sys_dwh].[index_columns]
-[sys_dwh].[indexes]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique';
+
 
 
 GO

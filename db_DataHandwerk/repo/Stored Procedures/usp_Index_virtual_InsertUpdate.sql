@@ -336,9 +336,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a190291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_virtual]
-[repo].[IndexColumn_virtual]
-[repo].[RepoObject]
-[repo].[RepoObjectColumn]
-[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_InsertUpdate';
+
 

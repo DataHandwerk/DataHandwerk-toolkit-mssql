@@ -460,23 +460,7 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = N'EXEC = [repo].
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[ReferencedObject]
-[graph].[ReferencingObject]
-[graph].[RepoObject]
-[repo].[fs_get_parameter_value]
-[repo].[Match_RepoObject_referenced_UspPersistence]
-[repo].[ProcedureInstance]
-[repo].[ProcedureInstanceDependency]
-[repo].[RepoObject_reference_union]
-[repo].[usp_ExecutionLog_insert]
-[repo].[usp_GeneratorUsp_insert_update_persistence]
-[repo].[usp_index_inheritance]
-[repo].[usp_RepoObject_update_SysObjectQueryPlan]
-[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
-[repo].[usp_RepoObjectSource_FirstResultSet]
-[repo].[usp_RepoObjectSource_QueryPlan]
-[repo].[usp_sync_guid]
-[repo].[usp_update_Referencing_Count]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
 
 
 GO

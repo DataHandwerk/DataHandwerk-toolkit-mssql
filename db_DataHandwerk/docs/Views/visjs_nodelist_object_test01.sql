@@ -63,5 +63,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '43f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_nodelist_object_test01';
+
 

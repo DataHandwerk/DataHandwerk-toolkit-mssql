@@ -150,6 +150,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9ff27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[sys_dwh].[dm_sql_referenced_entities]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced';
+
 

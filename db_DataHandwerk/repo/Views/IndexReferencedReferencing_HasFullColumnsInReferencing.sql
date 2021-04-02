@@ -84,9 +84,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6dce8
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[Index_referencing_IndexPatternColumnGuid]
-[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
-[repo].[IndexReferencedReferencing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing';
+
 
 
 GO

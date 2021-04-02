@@ -70,7 +70,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '31813
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject_SqlModules_21_statement_children_helper]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_31_object';
+
 
 
 GO

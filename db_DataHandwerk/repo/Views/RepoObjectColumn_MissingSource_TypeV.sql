@@ -168,9 +168,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '26f77
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[repo].[RepoObjectColumn]
-[repo].[RepoObjectColumn_reference_union]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV';
+
 
 
 GO

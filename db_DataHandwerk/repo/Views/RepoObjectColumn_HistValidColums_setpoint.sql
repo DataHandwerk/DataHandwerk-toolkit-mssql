@@ -51,6 +51,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '16f47
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_get_parameter_value]
-[repo].[RepoObject_persistence]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+
 

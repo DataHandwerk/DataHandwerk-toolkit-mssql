@@ -1,5 +1,16 @@
 ﻿
 
+/*
+this view creates possible steps for GeneratorUspStep
+
+[repo].[usp_GeneratorUsp_insert_update_persistence]
+
+The content of the steps and the status [is_inactive] are determined and applied separately.
+
+* first all steps are inserted or updated
+* [is_inactive] will be set for some steps, to make
+
+*/
 
 
 CREATE VIEW [repo].[GeneratorUspStep_Persistence]
@@ -378,7 +389,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '04f77
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[GeneratorUsp]
-[repo].[Index_ColumList]
-[repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+
 

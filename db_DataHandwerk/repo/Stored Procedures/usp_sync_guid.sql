@@ -125,9 +125,7 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[usp_ExecutionLog_insert]
-[repo].[usp_sync_guid_RepoObject]
-[repo].[usp_sync_guid_RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
 
 
 GO

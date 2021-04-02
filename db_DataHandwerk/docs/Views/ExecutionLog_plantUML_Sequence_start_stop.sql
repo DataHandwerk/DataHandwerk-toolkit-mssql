@@ -168,8 +168,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '08b0b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ExecutionLog]
-[repo].[ExecutionLog_parent]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ExecutionLog_plantUML_Sequence_start_stop';
+
 
 
 GO

@@ -1,20 +1,33 @@
 ﻿
+/*
+per referencing RepoObject all directly referenced RepoOobject are listed
 
-CREATE   View [graph].[RepoObject_ReferencingReferenced]
-As
-Select
-    Object1.[RepoObject_fullname] As Referencing_fullname
-  , Object1.[RepoObject_guid]     As Referencing_guid
-  , Object1.[RepoObject_type]     As Referencing_type
-  , Object2.[RepoObject_fullname] As Referenced_fullname
-  , Object2.[RepoObject_guid]     As Referenced_guid
-  , Object2.[RepoObject_type]     As Referenced_type
-From
-    [graph].[RepoObject] As Object1
-  , [graph].[ReferencedObject] As referenced
-  , [graph].[RepoObject] As Object2
-Where MATCH(
-    Object1-(referenced)->Object2)
+can be used in both directions:
+
+* get all referenced per referencing
+* get all referencing per referenced
+
+
+uses graph tables
+
+* [graph].[RepoObject]
+* [graph].[ReferencedObject]
+
+*/
+CREATE VIEW [graph].[RepoObject_ReferencingReferenced]
+AS
+SELECT Object1.[RepoObject_fullname] AS Referencing_fullname
+ , Object1.[RepoObject_fullname2] AS Referencing_fullname2
+ , Object1.[RepoObject_guid] AS Referencing_guid
+ , Object1.[RepoObject_type] AS Referencing_type
+ , Object2.[RepoObject_fullname] AS Referenced_fullname
+ , Object2.[RepoObject_fullname2] AS Referenced_fullname2
+ , Object2.[RepoObject_guid] AS Referenced_guid
+ , Object2.[RepoObject_type] AS Referenced_type
+FROM [graph].[RepoObject] AS Object1
+ , [graph].[ReferencedObject] AS referenced
+ , [graph].[RepoObject] AS Object2
+WHERE MATCH(Object1 - (referenced) - > Object2)
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '714679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referenced_type';
 
@@ -41,4 +54,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6c467
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '414679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8371b9ec-0892-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referencing_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8471b9ec-0892-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referenced_fullname2';
 

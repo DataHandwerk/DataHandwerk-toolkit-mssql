@@ -399,10 +399,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8f90291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_query_plan_extract_source]
-[repo].[RepoObject]
-[repo].[RepoObjectColumn]
-[repo].[RepoObjectSource_QueryPlan]
-[repo].[SysObjectColumn_QueryPlanExpression]
-[repo].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource_QueryPlan';
+
 

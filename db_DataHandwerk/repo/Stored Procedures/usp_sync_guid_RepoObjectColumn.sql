@@ -1247,17 +1247,7 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[graph].[usp_PERSIST_RepoObjectColumn]
-[repo].[RepoObject]
-[repo].[RepoObject_persistence]
-[repo].[RepoObjectColumn]
-[repo].[RepoObjectColumn_HistValidColums_setpoint]
-[repo].[SysColumn_RepoObjectColumn_via_guid]
-[repo].[SysColumn_RepoObjectColumn_via_name]
-[repo].[type_level1type_level2type]
-[repo].[usp_ExecutionLog_insert]
-[repo_sys].[SysColumn]
-[repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
 
 
 GO

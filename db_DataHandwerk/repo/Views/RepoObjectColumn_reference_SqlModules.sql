@@ -148,9 +148,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '036ee
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[repo].[RepoObject_SqlModules_79_reference_union]
-[repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_SqlModules';
+
 
 
 GO

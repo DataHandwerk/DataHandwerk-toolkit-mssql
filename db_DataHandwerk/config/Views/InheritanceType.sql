@@ -1,4 +1,5 @@
-﻿CREATE   VIEW [config].[InheritanceType]
+﻿
+CREATE   VIEW [config].[InheritanceType]
 AS
 --
 SELECT
@@ -21,7 +22,7 @@ UNION ALL
 SELECT
        [InheritanceType] = 14
      , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, forced without exception (dangerous!)'
-----
+
 --UNION ALL
 --SELECT
 --       [InheritanceType] = 21

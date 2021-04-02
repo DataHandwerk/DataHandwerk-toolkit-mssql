@@ -1,4 +1,6 @@
 ﻿
+
+
 CREATE VIEW [repo].[RepoObject_gross]
 AS
 --
@@ -8,6 +10,7 @@ SELECT
  , [ro].[RepoObject_schema_name]
  , [ro].[RepoObject_name]
  , [ro].[RepoObject_type]
+ , [repo_type].[type_desc] AS [RepoObject_type_name]
  , [ro].[has_different_sys_names]
  , [ro].[has_execution_plan_issue]
  , [ro].[has_get_referenced_issue]
@@ -38,8 +41,10 @@ SELECT
  , [ro].[Repo_history_table_guid]
  , [ro].[Repo_temporal_type]
  , [ro].[RepoObject_fullname]
+ , [ro].[RepoObject_fullname2]
  , [ro].[RepoObject_Referencing_Count]
  , [ro].[SysObject_fullname]
+ , [ro].[SysObject_fullname2]
  , [ro].[SysObject_id]
  , [ro].[SysObject_modify_date]
  , [ro].[SysObject_name]
@@ -49,6 +54,7 @@ SELECT
  , [ro].[SysObject_query_sql]
  , [ro].[SysObject_schema_name]
  , [ro].[SysObject_type]
+ , [sys_type].[type_desc] AS [SysObject_type_name]
  , [ro].[usp_persistence_name]
  , [ro_usp_p].[RepoObject_guid] AS [usp_persistence_RepoObject_guid]
  , [ro_p].[source_RepoObject_guid] AS [persistence_source_RepoObject_guid]
@@ -74,8 +80,11 @@ SELECT
  , [ColumnList].[PersistenceUpdateColumnList]
  , [Property_ms_description] = [repo].[fs_get_RepoObjectProperty_nvarchar]([ro].[RepoObject_guid], 'ms_description')
  , [SqlModules].[sql_modules_definition]
+ , REPLACE([SqlModules].[sql_modules_definition], 'include::','\include::') AS [sql_modules_antora]
  , [SqlModules].[sql_modules_formatted]
  , [SqlModules].[sql_modules_formatted2]
+ , [ro_referenced].[AntoraReferencedList]
+ , [ro_referencing].[AntoraReferencingList]
 FROM repo.RepoObject AS ro
 LEFT OUTER JOIN repo.RepoObject_persistence AS ro_p
  ON ro_p.target_RepoObject_guid = ro.RepoObject_guid
@@ -92,6 +101,14 @@ LEFT OUTER JOIN [repo].[RepoObject_SqlModules_Repo_Sys] AS SqlModules
  ON SqlModules.RepoObject_guid = [ro].[RepoObject_guid]
 LEFT JOIN [repo].[Index_Settings] AS ipk
  ON ipk.[index_guid] = [ro].[pk_index_guid]
+LEFT JOIN [repo].[RepoObject_ReferencedList] AS ro_referenced
+ ON ro_referenced.[Referencing_guid] = [ro].[RepoObject_guid]
+LEFT JOIN [repo].[RepoObject_ReferencingList] AS ro_referencing
+ ON ro_referencing.[Referenced_guid] = [ro].[RepoObject_guid]
+LEFT JOIN [config].[type] AS repo_type
+ ON repo_type.[type] = ro.[RepoObject_type]
+LEFT JOIN [config].[type] AS sys_type
+ ON sys_type.[type] = ro.SysObject_type
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7790291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
@@ -350,9 +367,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '64b8b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[RepoObject]
-[repo].[RepoObject_ColumnList]
-[repo].[RepoObject_persistence]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
+
 
 
 GO
@@ -588,4 +603,32 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_ColumnList].[CreateColumnList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'CreateColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6a1254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'SysObject_type_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0539cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'SysObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6b1254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'sql_modules_antora';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '691254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'RepoObject_type_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0439cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6d1254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencingList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6c1254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencedList';
 

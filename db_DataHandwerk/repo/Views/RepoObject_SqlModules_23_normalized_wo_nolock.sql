@@ -70,8 +70,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '34813
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ftv_sqlparse_children_pivot]
-[repo].[RepoObject_SqlModules_20_statement_children]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_23_normalized_wo_nolock';
+
 
 
 GO

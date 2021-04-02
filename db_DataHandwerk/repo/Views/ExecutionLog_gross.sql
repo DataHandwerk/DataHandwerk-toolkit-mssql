@@ -340,5 +340,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '07b0b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'[repo].[ExecutionLog]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
 
