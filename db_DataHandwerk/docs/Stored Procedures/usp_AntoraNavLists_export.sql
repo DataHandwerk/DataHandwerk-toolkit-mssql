@@ -12,7 +12,7 @@ CREATE PROCEDURE [docs].[usp_AntoraNavLists_export]
 AS
 SET @outputDir = ISNULL(@outputDir, (
    SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
-   ) + 'partials\')
+   ) + 'partials\navlist\')
 
 --Declare variables 
 DECLARE @instanceName NVARCHAR(500) = @@servername --example: 'ACER-F17\SQL2019', '.\SQL2019', localhost\SQL2019

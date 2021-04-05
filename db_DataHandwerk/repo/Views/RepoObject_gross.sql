@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE VIEW [repo].[RepoObject_gross]
 AS
 --
@@ -17,6 +15,7 @@ SELECT
  , [ro].[Inheritance_StringAggSeparatorSql]
  , [ro].[InheritanceDefinition]
  , [ro].[InheritanceType]
+ , ty.[is_DocsOutput]
  , [is_in_reference] = CASE 
   WHEN EXISTS (
     SELECT 1
@@ -59,7 +58,11 @@ SELECT
  , [ro_usp_p].[RepoObject_guid] AS [usp_persistence_RepoObject_guid]
  , [ro_p].[source_RepoObject_guid] AS [persistence_source_RepoObject_guid]
  , [ro_p_s].[RepoObject_fullname] AS [persistence_source_RepoObject_fullname]
+ , [ro_p_s].[RepoObject_fullname2] AS [persistence_source_RepoObject_fullname2]
+ , 'xref:' + [ro_p_s].[RepoObject_fullname2] + '.adoc[]' AS [persistence_source_RepoObject_xref]
  , [ro_p_s].[SysObject_fullname] AS [persistence_source_SysObject_fullname]
+ , [ro_p_s].[SysObject_fullname2] AS [persistence_source_SysObject_fullname2]
+ , 'xref:' + [ro_p_s].[SysObject_fullname2] + '.adoc[]' AS [persistence_source_SysObject_xref]
  , [ro_p].[has_history]
  , [ro_p].[has_history_columns]
  , [ro_p].[is_persistence]
@@ -80,7 +83,7 @@ SELECT
  , [ColumnList].[PersistenceUpdateColumnList]
  , [Property_ms_description] = [repo].[fs_get_RepoObjectProperty_nvarchar]([ro].[RepoObject_guid], 'ms_description')
  , [SqlModules].[sql_modules_definition]
- , REPLACE([SqlModules].[sql_modules_definition], 'include::','\include::') AS [sql_modules_antora]
+ , REPLACE(REPLACE(REPLACE([SqlModules].[sql_modules_definition], 'include::', '\include::'), 'ifdef::', '\ifdef::'), 'endif::', '\endif::') AS [sql_modules_antora]
  , [SqlModules].[sql_modules_formatted]
  , [SqlModules].[sql_modules_formatted2]
  , [ro_referenced].[AntoraReferencedList]
@@ -109,6 +112,8 @@ LEFT JOIN [config].[type] AS repo_type
  ON repo_type.[type] = ro.[RepoObject_type]
 LEFT JOIN [config].[type] AS sys_type
  ON sys_type.[type] = ro.SysObject_type
+LEFT JOIN [config].[type] ty
+ ON ty.type = ro.RepoObject_type
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7790291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
@@ -631,4 +636,24 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6d125
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6c1254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencedList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bf35b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'persistence_source_SysObject_xref';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'be35b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'persistence_source_SysObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bd35b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_xref';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bc35b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '44e90a1e-7495-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_DocsOutput';
 

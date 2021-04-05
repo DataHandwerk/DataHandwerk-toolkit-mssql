@@ -1,4 +1,6 @@
 ﻿
+
+
 CREATE VIEW [repo].[Index_gross]
 AS
 --
@@ -17,6 +19,7 @@ SELECT [T1].[index_guid]
  , [T2].[parent_RepoObject_guid]
  , [T2].[referenced_index_guid]
  , [T3].[RepoObject_fullname]
+ , [T3].[RepoObject_fullname2]
  --if [RowNumber_PatternPerParentObject] > 1 then these are duplicates by same ColumnPattern and normally should be deleted, at least in [repo].[Index_virtual] 
  , [RowNumber_PatternPerParentObject] = ROW_NUMBER() OVER (
   PARTITION BY [T2].[parent_RepoObject_guid]
@@ -41,10 +44,12 @@ SELECT [T1].[index_guid]
    , [T2].[index_guid]
   )
  , [T3].[SysObject_fullname]
+ , [T3].[SysObject_fullname2]
  , [T3].[SysObject_schema_name]
  , [T3].[SysObject_name]
  , [T3].[SysObject_type]
  , [T3].[SysObject_id]
+ , [ColumList].[AntoraIndexColumnList]
  , [ColumList].[ColumnList]
  , [ColumList].[ConstraintColumnList]
  , [ColumList].[DbmlIndexColumnList]
@@ -198,4 +203,16 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[Index_ColumList].[ColumnList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7b9c578a-0194-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'SysObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7a9c578a-0194-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7c9c578a-0194-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'AntoraIndexColumnList';
 

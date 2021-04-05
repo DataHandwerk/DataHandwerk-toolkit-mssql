@@ -1,9 +1,7 @@
-﻿CREATE VIEW [repo].[RepoObject_ReferencingList]
+﻿
+CREATE VIEW [repo].[RepoObject_ReferencingList]
 AS
 SELECT ror.[Referenced_guid]
- , MAX(ror.[Referenced_fullname]) AS [Referenced_fullname]
- , MAX(ror.[Referenced_fullname2]) AS [Referenced_fullname2]
- , MAX(ror.[Referenced_type]) AS [Referenced_type]
  , AntoraReferencingList = String_Agg(CONCAT (
    --* xref:target-page-filename.adoc[link text]
    --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
@@ -18,6 +16,9 @@ SELECT ror.[Referenced_guid]
 GROUP (
   ORDER BY ror.[Referencing_fullname]
   )
+ , MAX(ror.[Referenced_fullname]) AS [Referenced_fullname]
+ , MAX(ror.[Referenced_fullname2]) AS [Referenced_fullname2]
+ , MAX(ror.[Referenced_type]) AS [Referenced_type]
 FROM [graph].[RepoObject_ReferencingReferenced] AS ror
 GROUP BY ror.[Referenced_guid]
 GO

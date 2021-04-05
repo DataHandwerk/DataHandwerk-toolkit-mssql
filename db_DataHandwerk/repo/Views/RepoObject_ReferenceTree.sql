@@ -1,9 +1,10 @@
 ﻿
+
 CREATE VIEW [repo].[RepoObject_ReferenceTree]
 AS
 SELECT [tree].*
 FROM [repo].[RepoObject_gross] AS ro
-CROSS APPLY [repo].[ftv_RepoObject_ReferenceTree](ro.[RepoObject_guid], 1000, 1000) AS tree
+CROSS APPLY [repo].[ftv_RepoObject_ReferenceTree](ro.[RepoObject_guid], 100, 100) AS tree
 WHERE [ro].[is_in_reference] = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '34df2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
@@ -43,4 +44,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2cdf2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0bdf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '41e90a1e-7495-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree', @level2type = N'COLUMN', @level2name = N'Referencing_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '42e90a1e-7495-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree', @level2type = N'COLUMN', @level2name = N'Referenced_fullname2';
 
