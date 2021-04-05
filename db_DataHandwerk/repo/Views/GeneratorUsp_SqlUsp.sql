@@ -1,4 +1,6 @@
 ﻿
+
+
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -254,7 +256,7 @@ GO
   '.Steps in '
   , [u].[usp_fullname]
   , CHAR(13) + CHAR(10)
-  , '[cols="d,a,d"]'
+  , '[cols="d,15a,d"]'
   , CHAR(13) + CHAR(10)
   , '|==='
   , CHAR(13) + CHAR(10)
@@ -263,7 +265,7 @@ GO
   , '|'
   , 'Name (Action, Source, Target)'
   , '|'
-  , 'Condition'
+  , 'Parent'
   , CHAR(13) + CHAR(10)
   , CHAR(13) + CHAR(10)
   , [StepList].[AdocStepList]

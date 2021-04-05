@@ -66,7 +66,7 @@ DECLARE db_cursor CURSOR
 FOR
 SELECT RepoObject_fullname
  , RepoObject_fullname2
-FROM docs.RepoObject_AntoraSource
+FROM docs.[RepoObject_OutputFilter]
 ORDER BY RepoObject_fullname
 
 OPEN db_cursor

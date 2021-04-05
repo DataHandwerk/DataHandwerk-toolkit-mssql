@@ -13,7 +13,7 @@ SELECT [RepoObject_schema_name]
 GROUP (
   ORDER BY ro.[RepoObject_fullname2]
   )
-FROM [docs].[RepoObject_AntoraSource] ro
+FROM [docs].[RepoObject_OutputFilter] ro
 GROUP BY [RepoObject_schema_name]
  , [SysObject_type]
  , [SysObject_type_name]

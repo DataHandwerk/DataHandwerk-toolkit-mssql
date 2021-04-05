@@ -768,6 +768,134 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":381,"Name":"property_name = 'persistence_source_RepoObject_fullname2'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',381,';',NULL);
+
+MERGE [repo].[RepoObjectProperty] AS t
+USING (
+ SELECT [RepoObject_guid]
+  , [property_name] = 'persistence_source_RepoObject_fullname2'
+  , [property_value] = CAST([persistence_source_RepoObject_fullname2] AS NVARCHAR(4000))
+ FROM [repo].[RepoObject_gross]
+ WHERE NOT [RepoObject_guid] IS NULL
+ ) AS s
+ ON t.[RepoObject_guid] = s.[RepoObject_guid]
+  AND t.[property_name] = s.[property_name]
+WHEN MATCHED
+ AND (
+  t.[property_value] <> s.[property_value]
+  OR t.[property_value] IS NULL AND NOT s.[property_value] IS NULL
+  OR s.[property_value] IS NULL AND NOT t.[property_value] IS NULL
+  )
+ THEN
+  UPDATE
+  SET [property_value] = s.[property_value]
+WHEN NOT MATCHED
+ AND NOT s.[property_value] IS NULL
+ THEN
+  INSERT (
+   [RepoObject_guid]
+   , [property_name]
+   , [property_value]
+   )
+  VALUES (
+   s.[RepoObject_guid]
+   , s.[property_name]
+   , s.[property_value]
+   )
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'property_name = ''persistence_source_RepoObject_fullname2'''
+SET @source_object = '[repo].[RepoObject_gross]'
+SET @target_object = '[repo].[RepoObjectProperty]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":382,"Name":"property_name = 'persistence_source_RepoObject_xref'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',382,';',NULL);
+
+MERGE [repo].[RepoObjectProperty] AS t
+USING (
+ SELECT [RepoObject_guid]
+  , [property_name] = 'persistence_source_RepoObject_xref'
+  , [property_value] = CAST([persistence_source_RepoObject_xref] AS NVARCHAR(4000))
+ FROM [repo].[RepoObject_gross]
+ WHERE NOT [RepoObject_guid] IS NULL
+ ) AS s
+ ON t.[RepoObject_guid] = s.[RepoObject_guid]
+  AND t.[property_name] = s.[property_name]
+WHEN MATCHED
+ AND (
+  t.[property_value] <> s.[property_value]
+  OR t.[property_value] IS NULL AND NOT s.[property_value] IS NULL
+  OR s.[property_value] IS NULL AND NOT t.[property_value] IS NULL
+  )
+ THEN
+  UPDATE
+  SET [property_value] = s.[property_value]
+WHEN NOT MATCHED
+ AND NOT s.[property_value] IS NULL
+ THEN
+  INSERT (
+   [RepoObject_guid]
+   , [property_name]
+   , [property_value]
+   )
+  VALUES (
+   s.[RepoObject_guid]
+   , s.[property_name]
+   , s.[property_value]
+   )
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'property_name = ''persistence_source_RepoObject_xref'''
+SET @source_object = '[repo].[RepoObject_gross]'
+SET @target_object = '[repo].[RepoObjectProperty]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":390,"Name":"property_name = 'has_history'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',390,';',NULL);
 

@@ -1,4 +1,5 @@
 ﻿
+
 /*
 --usage:
 
@@ -68,12 +69,14 @@ SELECT [u].[id] AS usp_id
   , '*'
   , CHAR(13) + CHAR(10)
   , CHAR(13) + CHAR(10)
+  , IIF(step.[is_SubProcedure] = 1, '* ' + '`EXEC ' + step.[Statement] + '`' + CHAR(13) + CHAR(10), NULL)
+  , IIF(step.[is_condition] = 1, '* ' + '`IF ' + step.[Statement] + '`' + CHAR(13) + CHAR(10), NULL)
   , IIF(step.[log_flag_InsertUpdateDelete] <> '', '* ' + step.[log_flag_InsertUpdateDelete] + CHAR(13) + CHAR(10), NULL)
   , IIF(step.[log_source_object] <> '', '* ' + step.[log_source_object] + CHAR(13) + CHAR(10), NULL)
   , IIF(step.[log_target_object] <> '', '* ' + step.[log_target_object] + CHAR(13) + CHAR(10), NULL)
   , CHAR(13) + CHAR(10)
   , '|'
-  , step.[is_condition]
+  , step.[Parent_Number]
   , CHAR(13) + CHAR(10)
   )
 FROM [repo].[GeneratorUsp] AS u

@@ -521,7 +521,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1010,"Name":"SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":1010,"Name":"SET [index_name] = [T2].[index_name_new]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',1010,';',NULL);
 
 --index_name is required, it will be assigned, where it is missing or where [has_managedName] = 1 and it is differenc 
@@ -566,7 +566,7 @@ WHERE [iv].[index_name] IS NULL
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])'
+SET @step_name = 'SET [index_name] = [T2].[index_name_new]'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index_virtual]'
 
@@ -586,6 +586,15 @@ EXEC repo.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @updated = @rows
 -- Logging END --
+
+/*{"ReportUspStep":[{"Number":2100,"Name":"[graph].[usp_PERSIST_Index]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [graph].[usp_PERSIST_Index]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
 
 
 --

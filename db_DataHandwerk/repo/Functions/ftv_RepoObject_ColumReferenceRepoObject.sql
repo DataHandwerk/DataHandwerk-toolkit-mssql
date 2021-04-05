@@ -1,4 +1,6 @@
 ﻿/*
+--hier stimmt irgendetwas nicht, es dauert sehr lange und es kommt ein Fehler mit einer Typ-Konvertierung
+
 --based on [repo].[RepoObjectColumn_ReferenceTree]
 --return referenced and referencing RepoObject
 --Default:

@@ -1,9 +1,15 @@
-﻿
-
 
 CREATE VIEW [repo].[Index_ColumList]
 AS
 SELECT col.[index_guid]
+ , AntoraIndexColumnList = STRING_AGG(CONCAT (
+   CAST(N'' AS NVARCHAR(MAX))
+   , '* <<column-' + col.[SysObject_column_name] + '>>; '
+   , col.[SysObject_column_user_type_fullname]
+   ), CHAR(13) + CHAR(10)) WITHIN
+GROUP (
+  ORDER BY col.[index_column_id]
+  )
  --ColumnList doesn't contain Asc and Desc
  , ColumnList = STRING_AGG(CONCAT (
    --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
@@ -74,5 +80,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3adf2
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '799c578a-0194-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ColumList', @level2type = N'COLUMN', @level2name = N'AntoraIndexColumnList';
 

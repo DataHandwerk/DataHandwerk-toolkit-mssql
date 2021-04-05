@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 -- tag::example[]  
 --example 1:
@@ -253,6 +255,31 @@ SELECT [Parameter_name] = 'InheritanceType_object'
 
 UNION ALL
 
+SELECT [Parameter_name] = 'puml_skinparam_class'
+ , [sub_Parameter] = N''
+ , [Parameter_desciption] = N'skinparam class for generated PlantUML files. <<xxx>> - object type, see: [config].[type]'
+ , [Parameter_default_value] = CAST(N'
+skinparam class {
+  BackgroundColor White
+  BackgroundColor<<FN>> Yellow
+  BackgroundColor<<FS>> Yellow
+  BackgroundColor<<FT>> LightGray
+  BackgroundColor<<IF>> Yellow
+  BackgroundColor<<IS>> Yellow
+  BackgroundColor<<P>> Aqua
+  BackgroundColor<<PC>> Aqua
+  BackgroundColor<<SN>> Yellow
+  BackgroundColor<<SO>> SlateBlue
+  BackgroundColor<<TF>> LightGray
+  BackgroundColor<<TR>> Tomato
+  BackgroundColor<<U>> White
+  BackgroundColor<<V>> WhiteSmoke
+  BackgroundColor<<X>> Aqua
+}
+' as NVARCHAR(4000))
+
+UNION ALL
+
 SELECT [Parameter_name] = 'Adoc_AntoraDocModulFolder'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'Antora export folder, will be extended by ''partials\'', ''pages\'', ''examples\'', ''images\'' and so on'
@@ -262,7 +289,17 @@ UNION ALL
 
 SELECT [Parameter_name] = 'Adoc_AntoraPageTemplate'
  , [sub_Parameter] = N''
- , [Parameter_desciption] = N'content of an Antora Page which gets Content via include from Partials with tags'
+ , [Parameter_desciption] = N'content of an final Antora Page'
+ , [Parameter_default_value] = CAST(N'
+include::partial$template/master-page-1.adoc[]
+include::partial$template/master-page-2.adoc[]
+' AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Adoc_AntoraPageTemplate'
+ , [sub_Parameter] = N'1'
+ , [Parameter_desciption] = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
  , [Parameter_default_value] = CAST(N'= {docname}
 
 include::partial${docname}.adoc[tag=existing_properties]
@@ -276,6 +313,27 @@ include::partial${docname}.adoc[tag=SysObject_modify_date]
 
 RepoObject_guid:
 include::partial${docname}.adoc[tag=RepoObject_guid]
+
+ifdef::ExistsProperty--is_repo_managed[]
+is_repo_managed:
+include::partial${docname}.adoc[tag=is_repo_managed]
+endif::ExistsProperty--is_repo_managed[]
+
+ifdef::ExistsProperty--MS_Description[]
+
+== Description
+
+include::partial${docname}.adoc[tag=MS_Description]
+
+endif::ExistsProperty--MS_Description[]
+
+ifdef::ExistsProperty--UspExamples[]
+
+== UspExamples
+
+include::partial${docname}.adoc[tag=UspExamples]
+
+endif::ExistsProperty--UspExamples[]
 
 ifdef::ExistsProperty--AdocUspSteps[]
 
@@ -324,35 +382,79 @@ include::partial${docname}.adoc[tag=AntoraNonPkColumnTableRows]
 
 |===
 
-//todo
-
 endif::ExistsProperty--Columns[]
 
+ifdef::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]
+
+== Persistence, History Table
+
+* persistence source:
+include::partial${docname}.adoc[tag=persistence_source_RepoObject_xref]
+* is_persistence:
+include::partial${docname}.adoc[tag=is_persistence]
+* is_persistence_check_duplicate_per_pk:
+include::partial${docname}.adoc[tag=is_persistence_check_duplicate_per_pk]
+* is_persistence_check_for_empty_source:
+include::partial${docname}.adoc[tag=is_persistence_check_for_empty_source]
+* is_persistence_delete_changed:
+include::partial${docname}.adoc[tag=is_persistence_delete_changed]
+* is_persistence_delete_missing:
+include::partial${docname}.adoc[tag=is_persistence_delete_missing]
+* is_persistence_insert:
+include::partial${docname}.adoc[tag=is_persistence_insert]
+* is_persistence_truncate:
+include::partial${docname}.adoc[tag=is_persistence_truncate]
+* is_persistence_update_changed:
+include::partial${docname}.adoc[tag=is_persistence_update_changed]
+* has_history:
+include::partial${docname}.adoc[tag=has_history]
+* has_history_columns:
+include::partial${docname}.adoc[tag=has_history_columns]
+
+endif::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]
+
+' AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Adoc_AntoraPageTemplate'
+ , [sub_Parameter] = N'2'
+ , [Parameter_desciption] = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
+ , [Parameter_default_value] = CAST(N'
 == References
+
+ifdef::ExistsProperty--AntoraReferencedList[]
 
 === Referenced Objects
 
 include::partial${docname}.adoc[tag=AntoraReferencedList]
+endif::ExistsProperty--AntoraReferencedList[]
+
+ifdef::ExistsProperty--AntoraReferencingList[]
 
 === Referencing Objects
 
 include::partial${docname}.adoc[tag=AntoraReferencingList]
+endif::ExistsProperty--AntoraReferencingList[]
 
-// .References of {docname}
-// [cols="a,a"]
-// |===
-// |Referenced Objects |Referencing Objects
-// 
-// |
-// include::partial${docname}.adoc[tag=AntoraReferencedList]
-// |
-// include::partial${docname}.adoc[tag=AntoraReferencingList]
-// 
-// |===
+=== Reference Diagram
+
+[plantuml, entity_1_1_colref-{docname}, svg]
+....
+include::partial$puml/entity_1_1_colref/{docname}.puml[]
+....
 
 == Indexes
 
 //todo
+
+ifdef::ExistsProperty--Columns[]
+
+== Column Details
+
+include::partial${docname}.adoc[tag=AntoraColumnDetails]
+
+endif::ExistsProperty--Columns[]
 
 ifdef::ExistsProperty--sql_modules_definition[]
 

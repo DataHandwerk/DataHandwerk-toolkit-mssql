@@ -5,7 +5,8 @@ but it will not be visible in [repo].[Index_gross]
 until it was also included into [repo].[Index_Settings]
 and after inserting a new index there could be duplicates for the same columns which needs to be removed again
 
-run
+That's why it is required run (this also happens in [repo].[usp_main])
+
 EXEC [repo].[usp_Index_finish]
 
 --test:
@@ -14,7 +15,7 @@ EXEC repo.usp_Index_virtual_InsertUpdate
  , @IndexPatternColumnName = 'aaa_id,bbb'
 
 EXEC repo.usp_Index_virtual_InsertUpdate 
- @RepoObject_fullname = '[dbo].[view_1]'
+ @RepoObject_fullname2 = 'dbo.view_1'
  , @IndexPatternColumnName = 'aaa_id'
  , @is_index_primary_key = 1
 
@@ -46,6 +47,7 @@ Type of index:
 */
 CREATE PROCEDURE [repo].[usp_Index_virtual_InsertUpdate] @RepoObject_guid UNIQUEIDENTIFIER = NULL --if @RepoObject_guid is NULL, then @RepoObject_fullname is used
  , @RepoObject_fullname NVARCHAR(261) = NULL --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
+ , @RepoObject_fullname2 NVARCHAR(257) = NULL --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use schema.TableOrView
  , @IndexPatternColumnName NVARCHAR(4000) = NULL --a semicolon separated list to define the Index, for example 'aaa;bbb;ccc'
  , @index_name NVARCHAR(128) = NULL
  , @index_type TINYINT = 2 --1 Clustered, 2 Nonclustered
@@ -111,17 +113,13 @@ EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance
  , @execution_log_id = @current_execution_log_id OUTPUT
  , @parameter_01 = @RepoObject_guid
  , @parameter_02 = @RepoObject_fullname
- , @parameter_03 = @IndexPatternColumnName
- , @parameter_04 = @index_name
- , @parameter_05 = @index_type
- , @parameter_06 = @is_index_disabled
- , @parameter_07 = @is_index_primary_key
- , @parameter_08 = @is_index_unique
- , @parameter_09 = NULL
- , @parameter_10 = NULL
- , @parameter_11 = NULL
- , @parameter_12 = NULL
- , @parameter_13 = NULL
+ , @parameter_03 = @RepoObject_fullname2
+ , @parameter_04 = @IndexPatternColumnName
+ , @parameter_05 = @index_name
+ , @parameter_06 = @index_type
+ , @parameter_07 = @is_index_disabled
+ , @parameter_08 = @is_index_primary_key
+ , @parameter_09 = @is_index_unique
 
 --
 ----START
@@ -133,6 +131,13 @@ IF @RepoObject_guid IS NULL
    SELECT [RepoObject_guid]
    FROM [repo].[RepoObject]
    WHERE [RepoObject_fullname] = @RepoObject_fullname
+   )
+
+IF @RepoObject_guid IS NULL
+ SET @RepoObject_guid = (
+   SELECT [RepoObject_guid]
+   FROM [repo].[RepoObject]
+   WHERE [RepoObject_fullname2] = @RepoObject_fullname2
    )
 
 --check existence of @RepoObject_guid

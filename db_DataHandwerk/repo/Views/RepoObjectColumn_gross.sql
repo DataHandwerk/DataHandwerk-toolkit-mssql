@@ -74,12 +74,18 @@ SELECT
  , [ic].[index_name]
  , [ic].[is_index_primary_key]
  , Property_ms_description = [repo].[fs_get_RepoObjectColumnProperty_nvarchar]([roc].[RepoObjectColumn_guid], 'ms_description')
+ , [roc_referenced].[AntoraReferencedColumnList]
+ , [roc_referencing].[AntoraReferencingColumnList]
 FROM repo.RepoObjectColumn AS roc
 INNER JOIN repo.RepoObject AS ro
  ON roc.RepoObject_guid = ro.RepoObject_guid
 LEFT OUTER JOIN repo.IndexColumn_union AS ic
  ON ic.index_guid = ro.pk_index_guid
   AND ic.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+LEFT JOIN [repo].[RepoObjectColumn_ReferencedList] AS roc_referenced
+ ON roc_referenced.[Referencing_guid] = roc.RepoObjectColumn_guid
+LEFT JOIN [repo].[RepoObjectColumn_ReferencingList] AS roc_referencing
+ ON roc_referencing.[Referenced_guid] = roc.RepoObjectColumn_guid
 
 
 GO
@@ -644,4 +650,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fe38c
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ff38cf17-0592-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bb35b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencingColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ba35b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencedColumnList';
 

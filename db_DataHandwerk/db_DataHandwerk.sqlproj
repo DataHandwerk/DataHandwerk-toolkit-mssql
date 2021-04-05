@@ -92,6 +92,7 @@
     <Folder Include="dbeaver\Tables" />
     <Folder Include="docs\Tables\" />
     <Folder Include="docs\Stored Procedures\" />
+    <Folder Include="docs\Functions\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -373,8 +374,6 @@
     <Build Include="repo\Views\RepoObjectProperty_cross.sql" />
     <Build Include="repo\Views\RepoObject_ReferencingList.sql" />
     <Build Include="repo\Views\RepoObject_ReferencedList.sql" />
-    <Build Include="docs\Views\RepoObject_AntoraSource.sql" />
-    <Build Include="docs\Views\RepoObject_AntoraColumnList.sql" />
     <Build Include="docs\Views\RepoObject_Adoc.sql" />
     <Build Include="docs\Views\AntoraNavListRepoObject_by_type.sql" />
     <Build Include="docs\Views\AntoraNavListRepoObject_by_schema_type.sql" />
@@ -383,6 +382,29 @@
     <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraPages_export.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Adoc_T.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraNavLists_export.sql" />
+    <Build Include="repo\Tables\RepoObject_referencing_level_T.sql" />
+    <Build Include="repo\Tables\RepoObject_referenced_level_T.sql" />
+    <Build Include="graph\Tables\Index.sql" />
+    <Build Include="docs\Tables\RepoObject_Plantuml_Entity_T.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_ReferencingList.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_ReferencedList.sql" />
+    <Build Include="repo\Views\RepoObject_referencing_level.sql" />
+    <Build Include="repo\Views\RepoObject_referenced_level.sql" />
+    <Build Include="graph\Views\Index_S.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml_Entity.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml_ColRefList.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml.sql" />
+    <Build Include="docs\Views\RepoObject_OutputFilter.sql" />
+    <Build Include="docs\Views\RepoObject_ColumnList.sql" />
+    <Build Include="repo\Functions\ftv_RepoObject_ReferencedReferencing.sql" />
+    <Build Include="docs\Functions\ftv_RepoObject_Reference_PlantUml_EntityRefList.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_referencing_level_T.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_referenced_level_T.sql" />
+    <Build Include="graph\Stored Procedures\usp_PERSIST_Index.sql" />
+    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraPuml_export.sql" />
+    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraPageTemplate_export.sql" />
+    <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Plantuml_Entity_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -15,34 +15,29 @@ create RepoObject for a new persistence table, based on a given source view or t
   - insert or update [repo].[RepoObject_persistence] for (target_RepoObject_guid, [source_RepoObject_guid])
 update existing RepoObject which is a persistence table
 
+after executing [repo].[usp_persistence_insert_update] you need
 
-in any case:
-- update attributes in [repo].[RepoObject_persistence]
-- refresh columns in [repo].[RepoObjectColumn]
-- sql for persistence table => repo.RepoObject_SqlCreateTable
-- sql for persistence procedure => todo
+- EXEC [repo].[usp_main]
+- check and update attributes in [repo].[RepoObject_persistence]
+- physically create the persistence table (this procedure will only create the code)
 
-after creating the RepoObject you should use the create sql:
+	SELECT [RepoObject_guid]
+	 , [DbmlTable]
+	 , [RepoObject_fullname]
+	 , [SqlCreateTable]
+	 , [ConList]
+	 , [persistence_source_RepoObject_fullname]
+	 , [persistence_source_RepoObject_guid]
+	 , [persistence_source_SysObject_fullname]
+	FROM [repo].[RepoObject_SqlCreateTable]
+	WHERE NOT [persistence_source_RepoObject_fullname] IS NULL
+	ORDER BY [RepoObject_fullname]
 
-SELECT [RepoObject_guid]
- , [DbmlTable]
- , [RepoObject_fullname]
- , [SqlCreateTable]
- , [ConList]
- , [persistence_source_RepoObject_fullname]
- , [persistence_source_RepoObject_guid]
- , [persistence_source_SysObject_fullname]
-FROM [repo].[RepoObject_SqlCreateTable]
-WHERE NOT [persistence_source_RepoObject_fullname] IS NULL
-ORDER BY [RepoObject_fullname]
+	Use the sql statement in [SqlCreateTable] to create the table
 
-Use the sql statement in [SqlCreateTable] to create the table
+- get the usp code in [repo].[GeneratorUsp_SqlUsp]
 
-Now sync guid and create code for persistence usp
 
-EXEC [repo].[usp_main]
-
-get the usp code in [repo].[GeneratorUsp_SqlUsp]
 
 test
 
@@ -57,10 +52,30 @@ exec repo.[usp_persistence_insert_update]
 EXEC repo.[usp_persistence_insert_update]
      @source_fullname = '[dbo].[view_1]'
 
-
 --3)
+---this will not work, because there is no @persistence_schema_name
+EXEC repo.[usp_persistence_insert_update]
+ --
+ @source_fullname = '[graph].[Index_S]'
+ , @persistence_table_name = 'Index'
+ , @is_persistence_check_for_empty_source = 1
+ , @is_persistence_truncate = 1
+ , @is_persistence_insert = 1
+
+
+/*
+ , @is_persistence_delete_missing BIT = NULL
+ , @is_persistence_delete_changed BIT = NULL
+ , @is_persistence_update_changed BIT = NULL
+*/
+
+--4a)
+
 --mark a table which exists as RepoObject as persistence of a source
 --or update persistence if the entry already exists in [repo].[RepoObject_persistence]
+--we need to obtain @persistence_RepoObject_guid
+--wen don't need @source_RepoObject_guid, but we could use @source_fullname
+
 
 DECLARE
      @source_RepoObject_guid      UNIQUEIDENTIFIER
@@ -86,17 +101,6 @@ SET @persistence_RepoObject_guid =
     WHERE  [RepoObject_fullname] = '[dbo].[view_1_T]'
 )
 
---SET @persistence_RepoObject_guid =
---(
---    SELECT TOP 1
---           [target_RepoObject_guid]
---    FROM
---         [repo].[RepoObject_persistence]
---    WHERE  [source_RepoObject_guid] = @source_RepoObject_guid
---    ORDER BY
---             [target_RepoObject_guid]
---)
-
 PRINT @persistence_RepoObject_guid
 
 EXEC repo.[usp_persistence_insert_update]
@@ -104,7 +108,26 @@ EXEC repo.[usp_persistence_insert_update]
    , @persistence_RepoObject_guid = @persistence_RepoObject_guid
    , @has_history = 1
 
---4)
+
+--4b)
+
+DECLARE @persistence_RepoObject_guid UNIQUEIDENTIFIER
+
+SET @persistence_RepoObject_guid = (
+  SELECT [RepoObject_guid]
+  FROM [repo].[RepoObject]
+  WHERE [RepoObject_fullname] = '[graph].[Index]'
+  )
+
+PRINT @persistence_RepoObject_guid
+
+EXEC repo.[usp_persistence_insert_update] @source_fullname = '[graph].[Index_S]'
+ , @persistence_RepoObject_guid = @persistence_RepoObject_guid
+ , @is_persistence_check_for_empty_source = 1
+ , @is_persistence_truncate = 1
+ , @is_persistence_insert = 1
+
+--5)
 
 DECLARE	@return_value int,
 		@persistence_RepoObject_guid uniqueidentifier
@@ -126,11 +149,10 @@ SELECT	'Return Value' = @return_value
 
 
 */
---todo: überlegen, ob @source_RepoObject_guid NULL sein darf, wenn @persistence_RepoObject_guid NOT NULL
 CREATE PROCEDURE [repo].[usp_persistence_insert_update] @source_RepoObject_guid UNIQUEIDENTIFIER = NULL --
  , @source_fullname NVARCHAR(261) = NULL --it is possible to use @source_RepoObject_guid OR @source_fullname; use: "[schema].[object_name]"
  , @persistence_RepoObject_guid UNIQUEIDENTIFIER = NULL OUTPUT --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created, don't use brackts: "object_name_T"
- , @persistence_table_name NVARCHAR(128) = NULL --default: @source_table_name + @persistence_name_suffix; default schema is @source_schema_name
+ , @persistence_table_name NVARCHAR(128) = NULL --default: @source_table_name + @persistence_name_suffix; default schema is @source_schema_name; example: 'aaa_T'
  , @is_persistence_check_for_empty_source BIT = NULL
  , @is_persistence_truncate BIT = NULL
  , @is_persistence_delete_missing BIT = NULL

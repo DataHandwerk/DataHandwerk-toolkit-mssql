@@ -1,4 +1,6 @@
 ﻿/*
+--wird wohl gar nicht (mehr) benutzt, sondern nur [repo].[ftv_RepoObject_ReferenceTree]
+
 --Duplicates are possible, if exists alternative path between objects with different depth
 --to elimenate them, exclude Referenced_Depth and Referencing_Depth and use DISTINCT
 
@@ -51,7 +53,7 @@ RETURN (
     SELECT [child].*
      , [Referenced_Depth] = [parent].[Referenced_Depth] + 1
      , 0
-    FROM graph.RepoObject_ReferencingReferenced_u_v AS child
+    FROM graph.RepoObject_ReferencingReferenced AS child
     INNER JOIN tree_referenced AS parent
      ON [child].Referencing_guid = [parent].Referenced_guid
     WHERE [parent].[Referenced_Depth] < @Referenced_Depth
@@ -69,7 +71,7 @@ RETURN (
     SELECT [child].*
      , 0
      , [Referencing_Depth] = [parent].[Referencing_Depth] + 1
-    FROM graph.RepoObject_ReferencingReferenced_u_v AS child
+    FROM graph.RepoObject_ReferencingReferenced AS child
     INNER JOIN tree_referencing AS parent
      ON [child].Referenced_guid = [parent].Referencing_guid
     WHERE [parent].[Referencing_Depth] < @Referencing_Depth

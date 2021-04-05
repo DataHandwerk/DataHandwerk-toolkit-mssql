@@ -1,4 +1,5 @@
 ﻿
+--todo: refactoring RepoObjectProperty_InheritanceType_InheritanceDefinition
 CREATE VIEW [repo].[RepoObject_InheritanceType_InheritanceDefinition]
 AS
 SELECT

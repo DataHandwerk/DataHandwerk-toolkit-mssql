@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [graph].[RepoObjectColumn_ReferencingReferenced]
 AS
 SELECT
@@ -9,6 +10,7 @@ SELECT
  , Object2.[RepoObject_type] AS Referenced_type
  , Object2.[RepoObjectColumn_fullname] AS ReferencedColumn_fullname
  , Object2.[RepoObjectColumn_fullname2] AS ReferencedColumn_fullname2
+ , Object2.[RepoObjectColumn_name] AS ReferencedColumn_name
  , Object2.[RepoObjectColumn_type] AS ReferencedColumn_type
  , Object2.[RepoObjectColumn_guid] AS Referenced_guid
  , Object1.[RepoObject_fullname] AS Referencing_fullname
@@ -17,6 +19,7 @@ SELECT
  , Object1.[RepoObject_type] AS Referencing_type
  , Object1.[RepoObjectColumn_fullname] AS ReferencingColumn_fullname
  , Object1.[RepoObjectColumn_fullname2] AS ReferencingColumn_fullname2
+ , Object1.[RepoObjectColumn_name] AS ReferencingColumn_name
  , Object1.[RepoObjectColumn_type] AS ReferencingColumn_type
  , Object1.[RepoObjectColumn_guid] AS Referencing_guid
 FROM [graph].[RepoObjectColumn] AS Object1
@@ -89,4 +92,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5c125
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5b1254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referenced_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b935b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'ReferencingColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b835b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'ReferencedColumn_name';
 

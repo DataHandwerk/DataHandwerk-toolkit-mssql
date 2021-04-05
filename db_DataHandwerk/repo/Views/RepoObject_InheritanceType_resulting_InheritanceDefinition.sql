@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 --The result must be grouped to determine all required calculation variants of an inheritance
 
@@ -10,7 +11,9 @@ GROUP BY is_StringAggAllSources
  , resulting_InheritanceDefinition
 HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 
+
 */
+--todo: refactoring [RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]
 
 CREATE VIEW [repo].[RepoObject_InheritanceType_resulting_InheritanceDefinition]
 AS

@@ -229,8 +229,8 @@ SELECT [SysObject_RepoObjectColumn_guid]
  , [definition]
  , [generated_always_type]
  , [graph_type]
- , [graph_type]
  , [is_computed]
+ , [is_identity]
  , [is_nullable]
  , [is_persisted]
  , [seed_value]
@@ -1206,6 +1206,45 @@ EXEC [graph].[usp_PERSIST_RepoObjectColumn]
  , @parent_execution_log_id = @current_execution_log_id
 
 
+/*{"ReportUspStep":[{"Number":5210,"Name":"UPDATE [graph].[RepoObjectColumn] - ensure current case","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',5210,';',NULL);
+
+UPDATE T
+SET [RepoObject_fullname] = [S].[RepoObject_fullname]
+ , [RepoObject_fullname2] = [S].[RepoObject_fullname2]
+ , [RepoObjectColumn_fullname] = [S].[RepoObjectColumn_fullname]
+ , [RepoObjectColumn_fullname2] = [S].[RepoObjectColumn_fullname2]
+FROM [graph].[RepoObjectColumn] [T]
+INNER JOIN [graph].[RepoObjectColumn_S] [S]
+ ON [S].[RepoObjectColumn_guid] = [T].[RepoObjectColumn_guid]
+WHERE [S].[RepoObject_fullname] COLLATE Latin1_General_CS_AS <> [T].[RepoObject_fullname] COLLATE Latin1_General_CS_AS
+ OR [S].[RepoObject_fullname2] COLLATE Latin1_General_CS_AS <> [T].[RepoObject_fullname2] COLLATE Latin1_General_CS_AS
+ OR [S].[RepoObjectColumn_fullname] COLLATE Latin1_General_CS_AS <> [T].[RepoObjectColumn_fullname] COLLATE Latin1_General_CS_AS
+ OR [S].[RepoObjectColumn_fullname2] COLLATE Latin1_General_CS_AS <> [T].[RepoObjectColumn_fullname2] COLLATE Latin1_General_CS_AS
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'UPDATE [graph].[RepoObjectColumn] - ensure current case'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+
+-- Logging END --
 
 --
 --finish your own code here

@@ -1,5 +1,4 @@
 ﻿
-
 /*
 todo - direkt oder über extended properties
 - Index List
@@ -9,6 +8,7 @@ todo - direkt oder über extended properties
 CREATE VIEW [docs].[RepoObject_Adoc]
 AS
 SELECT ro.[RepoObject_guid]
+ , [is_DocsOutput] = MAX(ro.[is_DocsOutput])
  , RepoObject_fullname = MAX(ro.RepoObject_fullname)
  , RepoObject_fullname2 = MAX(ro.RepoObject_fullname2)
  , [RepoObject_schema_name] = MAX([RepoObject_schema_name])
@@ -48,7 +48,11 @@ SELECT ro.[RepoObject_guid]
      THEN ':ExistsProperty--sql_modules_definition:' + CHAR(13) + CHAR(10)
     END
    , CASE 
-    WHEN max(ro.SysObject_type) IN ('U', 'V', 'IF')
+    WHEN max(ro.SysObject_type) IN (
+      'U'
+      , 'V'
+      , 'IF'
+      )
      THEN ':ExistsProperty--Columns:' + CHAR(13) + CHAR(10)
     END
    , '// end::existing_properties[]'
@@ -137,6 +141,23 @@ SELECT ro.[RepoObject_guid]
    , CHAR(13)
    , CHAR(10)
    , '// end::SysObject_modify_date[]'
+   , CHAR(13)
+   , CHAR(10)
+   --
+   , CHAR(13)
+   , CHAR(10)
+   , '== AntoraColumnDetails'
+   , CHAR(13)
+   , CHAR(10)
+   , CHAR(13)
+   , CHAR(10)
+   , '// tag::AntoraColumnDetails[]'
+   , CHAR(13)
+   , CHAR(10)
+   , max(roac.AntoraColumnDetails)
+   , CHAR(13)
+   , CHAR(10)
+   , '// end::AntoraColumnDetails[]'
    , CHAR(13)
    , CHAR(10)
    --
@@ -351,7 +372,7 @@ LEFT JOIN [repo].[RepoObjectProperty] rop
  ON rop.RepoObject_guid = rop_cross.RepoObject_guid
   AND rop.[property_name] = rop_cross.[property_name]
 --AND NOT rop.[property_nvarchar] IS NULL
-LEFT JOIN [docs].[RepoObject_AntoraColumnList] roac
+LEFT JOIN [docs].[RepoObject_ColumnList] roac
  ON roac.RepoObject_guid = ro.RepoObject_guid
 GROUP BY ro.[RepoObject_guid]
 GO
@@ -400,4 +421,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dce0b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dbe0b563-4291-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'AdocContent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '43e90a1e-7495-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'is_DocsOutput';
 

@@ -11,7 +11,7 @@ SELECT [RepoObject_schema_name]
 GROUP (
   ORDER BY ro.[RepoObject_fullname2]
   )
-FROM [docs].[RepoObject_AntoraSource] ro
+FROM [docs].[RepoObject_OutputFilter] ro
 GROUP BY [RepoObject_schema_name]
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9c8b79d5-b993-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListRepoObject_by_schema';
