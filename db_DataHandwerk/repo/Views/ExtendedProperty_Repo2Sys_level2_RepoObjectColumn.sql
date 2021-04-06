@@ -1,4 +1,5 @@
-﻿CREATE VIEW repo.ExtendedProperty_Repo2Sys_level2_RepoObjectColumn
+﻿
+CREATE VIEW [repo].[ExtendedProperty_Repo2Sys_level2_RepoObjectColumn]
 AS
 SELECT [prop].[property_name]
  , [prop].[property_value]
@@ -20,6 +21,8 @@ INNER JOIN repo.RepoObject AS ro_parent
 INNER JOIN [config].[type_level1type_level2type] AS lev_parent
  ON lev_parent.type = ro_parent.RepoObject_type
 WHERE [is_RepoObjectColumn_name_uniqueidentifier] = 0
+ --SchemaCompare has issues comparing extended properties for graph table columns, we need to exclude them
+ AND roc.Repo_graph_type IS NULL
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '57b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn';
 

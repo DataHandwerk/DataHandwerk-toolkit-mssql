@@ -1739,13 +1739,6 @@
       <Name>ReferencedObjectList</Name>
     </SelectedItem>
     <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Name>SqlColumn</Name>
-      <Name>graph</Name>
-      <Name>RepoObjectColumn</Name>
-      <Name>$node_id_347F7C762E2642A98518838371CE6BB1</Name>
-      <Name>ReferencedObjectColumnList</Name>
-    </SelectedItem>
-    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlExtendedProperty, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Name>SqlTableBase</Name>
       <Name>graph</Name>
       <Name>RepoObject</Name>

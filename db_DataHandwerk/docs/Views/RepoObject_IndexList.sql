@@ -1,4 +1,5 @@
-﻿CREATE VIEW [docs].[RepoObject_IndexList]
+﻿
+CREATE VIEW [docs].[RepoObject_IndexList]
 AS
 SELECT ix.[parent_RepoObject_guid] AS RepoObject_guid
  , AntoraIndexList = String_Agg(CONCAT (
@@ -13,8 +14,7 @@ SELECT ix.[parent_RepoObject_guid] AS RepoObject_guid
    , ix.[index_name]
    , CHAR(13) + CHAR(10)
    , CHAR(13) + CHAR(10)
-   , '* IndexSemanticGroup: '
-   , ix.[IndexSemanticGroup]
+   , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#[_' + REPLACE(REPLACE(REPLACE(ix.[IndexSemanticGroup], ' ', '_'), '__', '_'), '__', '_') + ']'
    , CHAR(13) + CHAR(10)
    , '+' + CHAR(13) + CHAR(10)
    , '--' + CHAR(13) + CHAR(10)
