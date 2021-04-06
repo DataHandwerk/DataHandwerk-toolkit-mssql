@@ -286,7 +286,7 @@
     <Build Include="graph\Stored Procedures\usp_PERSIST_ProcedureInstance.sql" />
     <Build Include="repo\Views\RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition.sql" />
     <Build Include="repo\Views\RepoObjectColumn_InheritanceType_InheritanceDefinition.sql" />
-    <Build Include="repo\Views\RepoObject_InheritanceType_InheritanceDefinition.sql" />
+    <Build Include="repo\Views\RepoObjectProperty_InheritanceType_InheritanceDefinition.sql" />
     <Build Include="repo\Views\PropertyName_RepoObjectColumn.sql" />
     <Build Include="repo\Views\PropertyName_RepoObject.sql" />
     <Build Include="repo\Views\ExtendedProperty_Repo2Sys_level2_Union.sql" />
@@ -300,7 +300,7 @@
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_Delete.sql" />
     <Build Include="repo\Tables\RepoObjectColumn_Inheritance_temp.sql" />
     <Build Include="repo\Tables\RepoObject_Inheritance_temp.sql" />
-    <Build Include="repo\Views\RepoObject_InheritanceType_resulting_InheritanceDefinition.sql" />
+    <Build Include="repo\Views\RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumn_Inheritance.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObject_Inheritance.sql" />
     <None Include="_scripts\StaticData\dhw_self\21_dhw_self_repo_GeneratorUsp.sql" />
@@ -378,10 +378,10 @@
     <Build Include="docs\Views\AntoraNavListRepoObject_by_type.sql" />
     <Build Include="docs\Views\AntoraNavListRepoObject_by_schema_type.sql" />
     <Build Include="docs\Views\AntoraNavListRepoObject_by_schema.sql" />
-    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraProperties_export.sql" />
-    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraPages_export.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPartialProperties.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPage.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Adoc_T.sql" />
-    <Build Include="docs\Stored Procedures\usp_AntoraNavLists_export.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_navigation.sql" />
     <Build Include="repo\Tables\RepoObject_referencing_level_T.sql" />
     <Build Include="repo\Tables\RepoObject_referenced_level_T.sql" />
     <Build Include="graph\Tables\Index.sql" />
@@ -402,8 +402,8 @@
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_referencing_level_T.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_referenced_level_T.sql" />
     <Build Include="graph\Stored Procedures\usp_PERSIST_Index.sql" />
-    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraPuml_export.sql" />
-    <Build Include="docs\Stored Procedures\usp_RepoObject_AntoraPageTemplate_export.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPuml.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPageTemplate.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Plantuml_Entity_T.sql" />
     <Build Include="docs\Views\RepoObject_IndexList.sql" />
   </ItemGroup>

@@ -646,4 +646,60 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[DataSources]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="cb82bef4-db9b-40a8-9ab8-952c5156b1ac" ChangeDateTime="04/06/2021 09:08:58">
+    <Property Name="ElementName" Value="[docs].[usp_AntoraNavLists_export]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_AntoraExport_navigation]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ee610b52-37ff-46f7-941e-c035a30ffe47" ChangeDateTime="04/06/2021 09:10:25">
+    <Property Name="ElementName" Value="[docs].[usp_RepoObject_AntoraPages_export]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_AntoraExport_ObjectPages]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4490099c-50be-4bb4-9948-34d77228b5e3" ChangeDateTime="04/06/2021 09:11:51">
+    <Property Name="ElementName" Value="[docs].[usp_RepoObject_AntoraPageTemplate_export]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_AntoraExport_ObjectPageTemplate]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b3262152-a106-46f5-9072-8e8dba7be0e9" ChangeDateTime="04/06/2021 09:13:01">
+    <Property Name="ElementName" Value="[docs].[usp_AntoraExport_ObjectPages]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_AntoraExport_ObjectPage]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b7a47646-d333-4d6f-ad79-2ff827518907" ChangeDateTime="04/06/2021 09:14:50">
+    <Property Name="ElementName" Value="[docs].[usp_RepoObject_AntoraProperties_export]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_AntoraExport_ObjectPartialProperties]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2034b5be-7935-4405-a726-ac9c40ffdbb8" ChangeDateTime="04/06/2021 09:15:52">
+    <Property Name="ElementName" Value="[docs].[usp_RepoObject_AntoraPuml_export]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_AntoraExport_ObjectPuml]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f4b98193-6498-4c2f-9ac9-aa1c9c7c0ded" ChangeDateTime="04/06/2021 09:18:29">
+    <Property Name="ElementName" Value="[repo].[RepoObject_InheritanceType_InheritanceDefinition]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectProperty_InheritanceType_InheritanceDefinition]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6be333aa-7b2e-49e0-b357-0b481b52ad46" ChangeDateTime="04/06/2021 09:21:07">
+    <Property Name="ElementName" Value="[repo].[RepoObject_InheritanceType_resulting_InheritanceDefinition]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]" />
+  </Operation>
 </Operations>
