@@ -11,7 +11,7 @@ include::partial$navlist/navlist-type-U.adoc[]
 --
 
 */
-CREATE VIEW [docs].[AntoraNav_by_type]
+CREATE VIEW [docs].[AntoraPage_ObjectByType]
 AS
 SELECT partial_content = CONCAT (
   '* Objects by type'

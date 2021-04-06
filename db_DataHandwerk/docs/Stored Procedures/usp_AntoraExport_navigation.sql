@@ -219,7 +219,7 @@ CLOSE page_cursor
 DEALLOCATE page_cursor
 
 --nav-by-type.adoc
-SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraNav_by_type]"  queryout ' + @outputDirPartNav + 'nav-by-type.adoc'
+SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]"  queryout ' + @outputDirPartNav + 'nav-by-type.adoc'
  --
  + ' -S ' + @instanceName
  --

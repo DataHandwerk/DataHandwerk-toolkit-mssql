@@ -702,4 +702,11 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="54276d7b-b9bc-4fae-82c1-06d15ea50033" ChangeDateTime="04/06/2021 12:54:03">
+    <Property Name="ElementName" Value="[docs].[AntoraNav_by_type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[AntoraPage_ObjectByType]" />
+  </Operation>
 </Operations>
