@@ -1,18 +1,21 @@
 ﻿CREATE TABLE [repo].[GeneratorUspParameter] (
-    [id]               INT            IDENTITY (1, 1) NOT NULL,
-    [usp_id]           INT            NOT NULL,
-    [Number]           INT            NOT NULL,
-    [Name]             NVARCHAR (128) NOT NULL,
-    [UserTypeFullname] NVARCHAR (128) NOT NULL,
-    [is_inactive]      TINYINT        CONSTRAINT [DF_GeneratorUspParameter_is_inactive] DEFAULT ((0)) NOT NULL,
-    [is_out]           TINYINT        CONSTRAINT [DF_GeneratorUspParameter_is_out] DEFAULT ((0)) NOT NULL,
-    [has_DefaultValue] TINYINT        CONSTRAINT [DF_GeneratorUspParameter_has_DefaultValue] DEFAULT ((0)) NOT NULL,
-    [DefaultValue]     NVARCHAR (MAX) NULL,
+    [id]               INT             IDENTITY (1, 1) NOT NULL,
+    [usp_id]           INT             NOT NULL,
+    [Number]           INT             NOT NULL,
+    [Name]             NVARCHAR (128)  NOT NULL,
+    [UserTypeFullname] NVARCHAR (128)  NOT NULL,
+    [is_inactive]      TINYINT         CONSTRAINT [DF_GeneratorUspParameter_is_inactive] DEFAULT ((0)) NOT NULL,
+    [is_out]           TINYINT         CONSTRAINT [DF_GeneratorUspParameter_is_out] DEFAULT ((0)) NOT NULL,
+    [has_DefaultValue] TINYINT         CONSTRAINT [DF_GeneratorUspParameter_has_DefaultValue] DEFAULT ((0)) NOT NULL,
+    [DefaultValue]     NVARCHAR (MAX)  NULL,
+    [Description]      NVARCHAR (4000) NULL,
     CONSTRAINT [PK_GeneratorUspParameter] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_GeneratorUspParameter_GeneratorUsp] FOREIGN KEY ([usp_id]) REFERENCES [repo].[GeneratorUsp] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_GeneratorUspParameter_name] UNIQUE NONCLUSTERED ([usp_id] ASC, [Name] ASC),
     CONSTRAINT [UK_GeneratorUspParameter_Number] UNIQUE NONCLUSTERED ([usp_id] ASC, [Number] ASC)
 );
+
+
 
 
 
@@ -83,4 +86,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '68f47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'GeneratorUspParameter', @level2type = N'COLUMN', @level2name = N'DefaultValue';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '72e2b548-5e96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'GeneratorUspParameter', @level2type = N'COLUMN', @level2name = N'Description';
 

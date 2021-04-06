@@ -444,9 +444,13 @@ endif::ExistsProperty--AntoraReferencingList[]
 include::partial$puml/entity_1_1_colref/{docname}.puml[]
 ....
 
+ifdef::ExistsProperty--AntoraIndexList[]
+
 == Indexes
 
-//todo
+include::partial${docname}.adoc[tag=AntoraIndexList]
+
+endif::ExistsProperty--AntoraIndexList[]
 
 ifdef::ExistsProperty--Columns[]
 
