@@ -709,4 +709,10 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[AntoraPage_ObjectByType]" />
   </Operation>
+  <Operation Name="Move Schema" Key="760ead10-ecd2-4706-a6df-2557b2b4f1ca" ChangeDateTime="04/06/2021 18:23:00">
+    <Property Name="ElementName" Value="[repo].[ForeignKey_RelationScript]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="docs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

@@ -345,7 +345,6 @@
     <Build Include="graph\Views\RepoObject_ReferencingReferenced.sql" />
     <Build Include="repo\Views\RepoObjectColumn_RelationScript.sql" />
     <Build Include="repo\Views\Reference_UspPersistence.sql" />
-    <Build Include="repo\Views\ForeignKey_RelationScript.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_DbmlColumnRelation.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_ColumReferenceRepoObject.sql" />
     <Build Include="Security\docs.sql" />
@@ -413,6 +412,7 @@
     <Build Include="docs\Views\AntoraPage_IndexSemanticGroup.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_Page_IndexSemanticGroup.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport.sql" />
+    <Build Include="docs\Views\ForeignKey_RelationScript.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
