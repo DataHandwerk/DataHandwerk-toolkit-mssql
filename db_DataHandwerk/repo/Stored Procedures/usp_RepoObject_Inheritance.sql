@@ -66,7 +66,7 @@ EXEC repo.usp_ExecutionLog_insert
 DECLARE inheritance_cursor CURSOR READ_ONLY
 FOR
 SELECT [resulting_InheritanceDefinition]
-FROM repo.RepoObject_InheritanceType_resulting_InheritanceDefinition
+FROM repo.[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]
 GROUP BY [resulting_InheritanceDefinition]
 HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 

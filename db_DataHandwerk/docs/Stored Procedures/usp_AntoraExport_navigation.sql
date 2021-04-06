@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [docs].[usp_AntoraNavLists_export]
+CREATE PROCEDURE [docs].[usp_AntoraExport_navigation]
  --output directory for the files to be created
  @outputDir NVARCHAR(1000) = NULL -- example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\'
  --SQL instance from which the data will be exported
@@ -167,5 +167,5 @@ CLOSE nav2_cursor
 
 DEALLOCATE nav2_cursor
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9e8b79d5-b993-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraNavLists_export';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9e8b79d5-b993-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
 

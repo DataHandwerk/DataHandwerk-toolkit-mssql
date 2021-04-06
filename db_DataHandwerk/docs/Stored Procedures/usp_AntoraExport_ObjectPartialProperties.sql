@@ -31,7 +31,7 @@ RECONFIGURE
 GO
 
 */
-CREATE PROCEDURE [docs].[usp_RepoObject_AntoraProperties_export]
+CREATE PROCEDURE [docs].[usp_AntoraExport_ObjectPartialProperties]
  --output directory for the files to be created
  @outputDir NVARCHAR(1000) = NULL -- example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\'
  --SQL instance from which the data will be exported
@@ -112,5 +112,5 @@ CLOSE db_cursor
 
 DEALLOCATE db_cursor
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ea5bf6c2-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_AntoraProperties_export';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ea5bf6c2-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
 

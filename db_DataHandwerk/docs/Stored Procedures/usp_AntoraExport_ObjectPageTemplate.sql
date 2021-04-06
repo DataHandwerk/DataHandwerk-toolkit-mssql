@@ -1,6 +1,8 @@
 ﻿
-
 /*
+--exportes the template file used in each Antora page file per RepoObject (filtered by type)
+--the file contains includes and uses the instrinsic paramater {docname} to get content from different files
+
 --before executing the procedure:
 --Temporarily enable xp_cmdshell
 sp_configure 'show advanced options'
@@ -15,7 +17,8 @@ sp_configure 'xp_cmdshell'
 RECONFIGURE
 GO
 
-EXEC [docs].[usp_RepoObject_AntoraPuml_export] @outputDir = 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\'
+EXEC [docs].[usp_RepoObject_AntoraPageTemplate_export]
+@outputDir = 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\'
 
 --you can also disable later again:
 --Disable xp_cmdshell
@@ -32,9 +35,9 @@ RECONFIGURE
 GO
 
 */
-CREATE PROCEDURE [docs].[usp_RepoObject_AntoraPuml_export]
+CREATE PROCEDURE [docs].[usp_AntoraExport_ObjectPageTemplate]
  --output directory for the files to be created
- @outputDir NVARCHAR(1000) = NULL -- example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\'
+ @outputDir NVARCHAR(1000) = NULL -- example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\tempalte\'
  --SQL instance from which the data will be exported
  --specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not
  , @isTrustedConnection BIT = 1
@@ -45,10 +48,12 @@ CREATE PROCEDURE [docs].[usp_RepoObject_AntoraPuml_export]
 AS
 SET @outputDir = ISNULL(@outputDir, (
    SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
-   ) + 'partials\puml\entity_1_1_colref\')
+   ) + 'partials\template\')
 
 --Declare variables 
 DECLARE @command NVARCHAR(4000);
+DECLARE @sub_parameter NVARCHAR(128);
+DECLARE @BaseFileName NVARCHAR(128) = 'master-page-'
 DECLARE @Object_fullname NVARCHAR(261);
 DECLARE @Object_fullname2 NVARCHAR(257);
 DECLARE @instanceName NVARCHAR(500) = @@servername --example: 'ACER-F17\SQL2019', '.\SQL2019', localhost\SQL2019
@@ -60,34 +65,28 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
---persist
-EXEC [repo].[usp_PERSIST_RepoObject_referenced_level_T]
-EXEC [repo].[usp_PERSIST_RepoObject_referencing_level_T]
-EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
-
-DECLARE db_cursor CURSOR
+DECLARE template_cursor CURSOR
 FOR
-SELECT RepoObject_fullname
- , RepoObject_fullname2
-FROM docs.[RepoObject_OutputFilter]
-ORDER BY RepoObject_fullname
+SELECT [sub_Parameter]
+--,[Parameter_value__result_nvarchar]
+FROM [repo].[Parameter]
+WHERE [Parameter_name] = 'Adoc_AntoraPageTemplate'
+ AND [sub_Parameter] <> ''
+ORDER BY [sub_Parameter]
 
-OPEN db_cursor
+OPEN template_cursor
 
 FETCH NEXT
-FROM db_cursor
-INTO @Object_fullname
- , @Object_fullname2
+FROM template_cursor
+INTO @sub_parameter
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- SET @command = 'bcp "SELECT [PlantumlEntity_1_1_ColRef] FROM [docs].[RepoObject_Plantuml] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
-  --
-  + @Object_fullname2
-  --
-  + '''" queryout ' + @outputDir + @Object_fullname2 + '.puml'
+ --bcp "SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\master-page-1.adoc -S localhost\sql2019 -d dhw_self -c -T
+ --
+ SET @command = 'bcp "SELECT [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @BaseFileName + @sub_parameter + '.adoc'
   --
   + ' -S ' + @instanceName
   --
@@ -104,14 +103,13 @@ BEGIN
   , no_output
 
  FETCH NEXT
- FROM db_cursor
- INTO @Object_fullname
-  , @Object_fullname2
+ FROM template_cursor
+ INTO @sub_parameter
 END
 
-CLOSE db_cursor
+CLOSE template_cursor
 
-DEALLOCATE db_cursor
+DEALLOCATE template_cursor
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'f40b29c2-e595-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_AntoraPuml_export';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'c0d49d8d-4595-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPageTemplate';
 
