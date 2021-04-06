@@ -48,6 +48,10 @@ SELECT ro.[RepoObject_guid]
      THEN ':ExistsProperty--sql_modules_definition:' + CHAR(13) + CHAR(10)
     END
    , CASE 
+    WHEN max(ilist.AntoraIndexList) <> ''
+     THEN ':ExistsProperty--AntoraIndexList:' + CHAR(13) + CHAR(10)
+    END
+   , CASE 
     WHEN max(ro.SysObject_type) IN (
       'U'
       , 'V'
@@ -154,7 +158,7 @@ SELECT ro.[RepoObject_guid]
    , '// tag::AntoraColumnDetails[]'
    , CHAR(13)
    , CHAR(10)
-   , max(roac.AntoraColumnDetails)
+   , max(clist.AntoraColumnDetails)
    , CHAR(13)
    , CHAR(10)
    , '// end::AntoraColumnDetails[]'
@@ -171,7 +175,7 @@ SELECT ro.[RepoObject_guid]
    , '// tag::AntoraPkColumnTableRows[]'
    , CHAR(13)
    , CHAR(10)
-   , max(roac.AntoraPkColumnTableRows)
+   , max(clist.AntoraPkColumnTableRows)
    , CHAR(13)
    , CHAR(10)
    , '// end::AntoraPkColumnTableRows[]'
@@ -188,10 +192,27 @@ SELECT ro.[RepoObject_guid]
    , '// tag::AntoraNonPkColumnTableRows[]'
    , CHAR(13)
    , CHAR(10)
-   , max(roac.AntoraNonPkColumnTableRows)
+   , max(clist.AntoraNonPkColumnTableRows)
    , CHAR(13)
    , CHAR(10)
    , '// end::AntoraNonPkColumnTableRows[]'
+   , CHAR(13)
+   , CHAR(10)
+   --
+   , CHAR(13)
+   , CHAR(10)
+   , '== AntoraIndexList'
+   , CHAR(13)
+   , CHAR(10)
+   , CHAR(13)
+   , CHAR(10)
+   , '// tag::AntoraIndexList[]'
+   , CHAR(13)
+   , CHAR(10)
+   , max(ilist.AntoraIndexList)
+   , CHAR(13)
+   , CHAR(10)
+   , '// end::AntoraIndexList[]'
    , CHAR(13)
    , CHAR(10)
    ----
@@ -372,8 +393,10 @@ LEFT JOIN [repo].[RepoObjectProperty] rop
  ON rop.RepoObject_guid = rop_cross.RepoObject_guid
   AND rop.[property_name] = rop_cross.[property_name]
 --AND NOT rop.[property_nvarchar] IS NULL
-LEFT JOIN [docs].[RepoObject_ColumnList] roac
- ON roac.RepoObject_guid = ro.RepoObject_guid
+LEFT JOIN [docs].[RepoObject_ColumnList] clist
+ ON clist.RepoObject_guid = ro.RepoObject_guid
+LEFT JOIN [docs].[RepoObject_IndexList] ilist
+ ON ilist.RepoObject_guid = ro.RepoObject_guid
 GROUP BY ro.[RepoObject_guid]
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'd5e0b563-4291-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';

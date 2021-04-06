@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE VIEW [repo].[Index_gross]
 AS
 --
@@ -55,9 +53,9 @@ SELECT [T1].[index_guid]
  , [ColumList].[DbmlIndexColumnList]
 FROM repo.[Index_Settings] AS T1
 INNER JOIN repo.Index_union AS T2
- ON T1.index_guid = T2.index_guid
+ ON T2.index_guid = T1.index_guid
 INNER JOIN repo.RepoObject_gross AS T3
- ON T2.parent_RepoObject_guid = T3.RepoObject_guid
+ ON T3.RepoObject_guid = T2.parent_RepoObject_guid
 LEFT JOIN [repo].[Index_ColumList] AS ColumList
  ON ColumList.[index_guid] = T1.[index_guid]
 

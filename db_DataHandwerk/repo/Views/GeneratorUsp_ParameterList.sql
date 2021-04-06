@@ -1,5 +1,4 @@
 ﻿
-
 /*
 List of parameters without trailing comma
 */
@@ -16,9 +15,8 @@ SELECT [up].[usp_id]
      , ISNULL([up].[DefaultValue], 'NULL')
      ), NULL)
    , IIF([up].[is_out] = 1, ' OUTPUT', NULL)
-   , CHAR(13)
-   , CHAR(10)
-   ), ',') WITHIN
+   , '/* ' + up.[Description] + ' */'
+   ), CHAR(13) + CHAR(10) + ',') WITHIN
 GROUP (
   ORDER BY [up].[Number]
   )
@@ -30,9 +28,7 @@ GROUP (
      ), 2)
    , CAST(' = @' AS NVARCHAR(max))
    , [up].[Name]
-   , CHAR(13)
-   , CHAR(10)
-   ), '') WITHIN
+   ), CHAR(13) + CHAR(10)) WITHIN
 GROUP (
   ORDER BY [up].[Number]
   )
@@ -45,6 +41,7 @@ FROM (
   , [par].[is_out]
   , [par].[has_DefaultValue]
   , [par].[DefaultValue]
+  , [par].[Description]
   , RowNumber_PerUsp = ROW_NUMBER() OVER (
    PARTITION BY [usp_id] ORDER BY [Number]
    )
