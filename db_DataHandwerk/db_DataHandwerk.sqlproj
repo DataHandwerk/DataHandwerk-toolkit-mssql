@@ -406,6 +406,10 @@
     <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPageTemplate.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Plantuml_Entity_T.sql" />
     <Build Include="docs\Views\RepoObject_IndexList.sql" />
+    <Build Include="docs\Views\AntoraNavListPage_by_type.sql" />
+    <Build Include="docs\Views\AntoraNav_by_type.sql" />
+    <Build Include="docs\Views\AntoraIndexSemanticgroupPatterndatatype.sql" />
+    <Build Include="docs\Views\AntoraIndexSemanticgroup.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
