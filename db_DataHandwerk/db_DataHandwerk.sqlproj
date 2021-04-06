@@ -410,6 +410,9 @@
     <Build Include="docs\Views\AntoraPage_ObjectByType.sql" />
     <Build Include="docs\Views\AntoraIndexSemanticgroupPatterndatatype.sql" />
     <Build Include="docs\Views\AntoraIndexSemanticgroup.sql" />
+    <Build Include="docs\Views\AntoraPage_IndexSemanticGroup.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_Page_IndexSemanticGroup.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

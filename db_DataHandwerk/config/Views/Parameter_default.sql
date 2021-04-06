@@ -437,7 +437,7 @@ ifdef::ExistsProperty--AntoraReferencingList[]
 include::partial${docname}.adoc[tag=AntoraReferencingList]
 endif::ExistsProperty--AntoraReferencingList[]
 
-=== Reference Diagram
+=== Column Reference Diagram
 
 [plantuml, entity_1_1_colref-{docname}, svg]
 ....
