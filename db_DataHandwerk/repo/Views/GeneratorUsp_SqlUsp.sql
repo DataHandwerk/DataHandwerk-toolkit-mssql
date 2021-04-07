@@ -1,6 +1,5 @@
 ﻿
 
-
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -26,7 +25,7 @@ SELECT [u].[id] AS [usp_id]
   , CASE [u].[has_logging]
    WHEN 1
     THEN CONCAT (
-      IIF([ParameterList].[ParameterList] <> '', ',' + CHAR(13) + CHAR(10), '')
+      IIF([ParameterList].[ParameterList] <> '', CHAR(13) + CHAR(10) + ',' + CHAR(13) + CHAR(10), '')
       , 
       '----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don''t need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
@@ -252,6 +251,7 @@ GO
  -- , CHAR(13)
  -- , CHAR(10)
  -- )
+ ----Attention! issue, if the resulting string > 4000, because it is saved in Properties, which have a limit of sql_variant (nvarchar(4000))
  , [AdocUspSteps] = CONCAT (
   '.Steps in '
   , [u].[usp_fullname]
@@ -272,12 +272,13 @@ GO
   , '|==='
   , CHAR(13) + CHAR(10)
   )
- , [u].[usp_schema]
- , [u].[usp_name]
+ , MS_Description = [u].[usp_Description]
  , [u].[has_logging]
  , [u].[usp_Description]
  , [u].[usp_fullname]
- , UspExamples = u.usp_Examples
+ , [u].[usp_name]
+ , [u].[usp_schema]
+ , UspExamples = ISNULL(u.usp_Examples, 'EXEC ' + u.usp_schema + u.usp_name)
  , UspParameters = [ParameterList].[ParameterList]
  , SqlStepList = [StepList].[StepList]
  , ro.RepoObject_guid
@@ -379,4 +380,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2d1a8
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2e1a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '127e7a91-ca97-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'MS_Description';
 

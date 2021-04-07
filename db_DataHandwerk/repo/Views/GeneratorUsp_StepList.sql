@@ -1,4 +1,5 @@
 ﻿
+
 /*
 SQL for the list of all steps
 */
@@ -12,6 +13,7 @@ SELECT [usp_id]
 GROUP (
   ORDER BY [RowNumber_PerUsp]
   )
+ ----Attention! issue, if the resulting string > 4000, because it is saved in Properties, which have a limit of sql_variant (nvarchar(4000))
  , AdocStepList = STRING_AGG(CONCAT (
    CAST('' AS NVARCHAR(max))
    , [AdocStep]

@@ -2,6 +2,7 @@
 
 
 
+
 /*
 -- tag::example[]  
 --example 1:
@@ -283,7 +284,7 @@ UNION ALL
 SELECT [Parameter_name] = 'Adoc_AntoraDocModulFolder'
  , [sub_Parameter] = N''
  , [Parameter_desciption] = N'Antora export folder, will be extended by ''partials\'', ''pages\'', ''examples\'', ''images\'' and so on'
- , [Parameter_default_value] = CAST(N'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\' as NVARCHAR(4000))
+ , [Parameter_default_value] = CAST(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb\' as NVARCHAR(4000))
 
 UNION ALL
 
@@ -331,9 +332,22 @@ ifdef::ExistsProperty--UspExamples[]
 
 == UspExamples
 
+====
+[source,sql]
+----
 include::partial${docname}.adoc[tag=UspExamples]
+----
+====
 
 endif::ExistsProperty--UspExamples[]
+
+ifdef::ExistsProperty--AntoraParameterList[]
+
+== Parameters
+
+include::partial${docname}.adoc[tag=AntoraParameterList]
+
+endif::ExistsProperty--AntoraParameterList[]
 
 ifdef::ExistsProperty--AdocUspSteps[]
 

@@ -1,4 +1,5 @@
 ﻿
+
 /*
 List of parameters without trailing comma
 */
@@ -15,7 +16,7 @@ SELECT [up].[usp_id]
      , ISNULL([up].[DefaultValue], 'NULL')
      ), NULL)
    , IIF([up].[is_out] = 1, ' OUTPUT', NULL)
-   , '/* ' + up.[Description] + ' */'
+   , IIF(NOT up.[Description] IS NULL, ' /* ' + up.[Description] + ' */', NULL)
    ), CHAR(13) + CHAR(10) + ',') WITHIN
 GROUP (
   ORDER BY [up].[Number]

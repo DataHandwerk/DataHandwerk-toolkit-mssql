@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE VIEW [repo].[ForeignKey_Index_guid_union]
 AS
 SELECT [ForeignKey_guid]
@@ -11,6 +12,7 @@ SELECT [ForeignKey_guid]
  , [referenced_IndexPatternColumnDatatype]
  , [referenced_IndexPatternColumnName]
  , [referenced_RepoObject_fullname]
+ , [referenced_RepoObject_fullname2]
  , [referenced_RepoObject_guid]
  , [referenced_SysObject_name]
  , [referenced_SysObject_schema_name]
@@ -18,6 +20,7 @@ SELECT [ForeignKey_guid]
  , [referencing_IndexPatternColumnDatatype]
  , [referencing_IndexPatternColumnName]
  , [referencing_RepoObject_fullname]
+ , [referencing_RepoObject_fullname2]
  , [referencing_RepoObject_guid]
  , [referencing_SysObject_name]
  , [referencing_SysObject_schema_name]
@@ -35,6 +38,7 @@ SELECT [ForeignKey_guid]
  , [referenced_IndexPatternColumnDatatype]
  , [referenced_IndexPatternColumnName]
  , [referenced_RepoObject_fullname]
+ , [referenced_RepoObject_fullname2]
  , [referenced_RepoObject_guid]
  , [referenced_SysObject_name]
  , [referenced_SysObject_schema_name]
@@ -42,6 +46,7 @@ SELECT [ForeignKey_guid]
  , [referencing_IndexPatternColumnDatatype]
  , [referencing_IndexPatternColumnName]
  , [referencing_RepoObject_fullname]
+ , [referencing_RepoObject_fullname2]
  , [referencing_RepoObject_guid]
  , [referencing_SysObject_name]
  , [referencing_SysObject_schema_name]
@@ -130,4 +135,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fabe8
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f9be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid_union', @level2type = N'COLUMN', @level2name = N'referenced_SysObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1925676d-1797-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid_union', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1825676d-1797-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid_union', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_fullname2';
 

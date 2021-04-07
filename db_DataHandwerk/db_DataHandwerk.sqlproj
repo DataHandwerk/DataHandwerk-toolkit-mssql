@@ -413,6 +413,10 @@
     <Build Include="docs\Stored Procedures\usp_AntoraExport_Page_IndexSemanticGroup.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport.sql" />
     <Build Include="docs\Views\ForeignKey_RelationScript.sql" />
+    <Build Include="repo_sys\Views\parameters.sql" />
+    <Build Include="repo\Views\ForeignKey_gross.sql" />
+    <Build Include="docs\Views\RepoObject_ParameterList.sql" />
+    <Build Include="repo\Stored Procedures\usp_set_RepoObjectProperty.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
