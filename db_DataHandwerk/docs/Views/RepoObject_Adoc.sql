@@ -1,4 +1,5 @@
 ﻿
+
 /*
 todo - direkt oder über extended properties
 - Index List
@@ -50,6 +51,10 @@ SELECT ro.[RepoObject_guid]
    , CASE 
     WHEN max(ilist.AntoraIndexList) <> ''
      THEN ':ExistsProperty--AntoraIndexList:' + CHAR(13) + CHAR(10)
+    END
+   , CASE 
+    WHEN max(parlist.AntoraParameterList) <> ''
+     THEN ':ExistsProperty--AntoraParameterList:' + CHAR(13) + CHAR(10)
     END
    , CASE 
     WHEN max(ro.SysObject_type) IN (
@@ -213,6 +218,23 @@ SELECT ro.[RepoObject_guid]
    , CHAR(13)
    , CHAR(10)
    , '// end::AntoraIndexList[]'
+   , CHAR(13)
+   , CHAR(10)
+   --
+   , CHAR(13)
+   , CHAR(10)
+   , '== AntoraParameterList'
+   , CHAR(13)
+   , CHAR(10)
+   , CHAR(13)
+   , CHAR(10)
+   , '// tag::AntoraParameterList[]'
+   , CHAR(13)
+   , CHAR(10)
+   , max(parlist.AntoraParameterList)
+   , CHAR(13)
+   , CHAR(10)
+   , '// end::AntoraParameterList[]'
    , CHAR(13)
    , CHAR(10)
    ----
@@ -397,6 +419,8 @@ LEFT JOIN [docs].[RepoObject_ColumnList] clist
  ON clist.RepoObject_guid = ro.RepoObject_guid
 LEFT JOIN [docs].[RepoObject_IndexList] ilist
  ON ilist.RepoObject_guid = ro.RepoObject_guid
+LEFT JOIN [docs].[RepoObject_ParameterList] parlist
+ ON parlist.RepoObject_guid = ro.RepoObject_guid
 GROUP BY ro.[RepoObject_guid]
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'd5e0b563-4291-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';

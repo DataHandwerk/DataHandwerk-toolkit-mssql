@@ -3,61 +3,6 @@
     INDEX [ix_graphid] UNIQUE NONCLUSTERED ($edge_id)
 ) AS EDGE;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [ix_fromid]
     ON [graph].[ReferencedObjectColumn]($from_id ASC, $to_id ASC);

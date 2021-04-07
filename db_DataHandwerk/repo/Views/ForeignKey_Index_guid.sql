@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 can be used to find out missing [referenced_index_guid] or [referencing_index_guid]
 to create them using [repo].[usp_Index_insert]
@@ -21,6 +22,7 @@ SELECT
  , [referenced_IndexPatternColumnDatatype] = [i_2].[IndexPatternColumnDatatype]
  , [fk].[referenced_IndexPatternColumnName]
  , [referenced_RepoObject_fullname] = [i_2].[RepoObject_fullname]
+ , [referenced_RepoObject_fullname2] = [i_2].[RepoObject_fullname2]
  , [fk].[referenced_RepoObject_guid]
  , [referenced_SysObject_name] = [i_2].[SysObject_name]
  , [referenced_SysObject_schema_name] = [i_2].[SysObject_schema_name]
@@ -28,6 +30,7 @@ SELECT
  , [referencing_IndexPatternColumnDatatype] = [i_1].[IndexPatternColumnDatatype]
  , [fk].[referencing_IndexPatternColumnName]
  , [referencing_RepoObject_fullname] = [i_1].[RepoObject_fullname]
+ , [referencing_RepoObject_fullname2] = [i_1].[RepoObject_fullname2]
  , [fk].[referencing_RepoObject_guid]
  , [referencing_SysObject_name] = [i_1].[SysObject_name]
  , [referencing_SysObject_schema_name] = [i_1].[SysObject_schema_name]
@@ -122,4 +125,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f2be8
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f1be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'referenced_SysObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1525676d-1797-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1425676d-1797-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Index_guid', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_fullname2';
 

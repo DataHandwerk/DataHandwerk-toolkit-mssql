@@ -1,4 +1,5 @@
-﻿/*
+
+/*
 ATTENTION:
 [SysObject_RepoObject_guid] has prefix SysObject, because it it the RepoObject_guid stored in repo_sys.extended_properties
 but some objects havn't extended properties, for example Triggers
@@ -22,6 +23,11 @@ SELECT [so].object_id AS [SysObject_id]
   QUOTENAME([sch].[name])
   , '.'
   , QUOTENAME([so].[name])
+  ) COLLATE database_default
+ , [SysObject_fullname2] = CONCAT (
+  [sch].[name]
+  , '.'
+  , [so].[name]
   ) COLLATE database_default
  , TRY_CAST([ep].[property_value] AS UNIQUEIDENTIFIER) AS [SysObject_RepoObject_guid]
  , [so].[principal_id]
@@ -136,5 +142,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '74f47
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '137e7a91-ca97-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysObject', @level2type = N'COLUMN', @level2name = N'SysObject_fullname2';
 

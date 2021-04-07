@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [docs].[RepoObject_OutputFilter]
 AS
 SELECT [roa].[RepoObject_guid]
@@ -8,7 +9,7 @@ SELECT [roa].[RepoObject_guid]
  , [roa].[RepoObject_fullname2]
  , [roa].[RepoObject_schema_name]
  , roa.[is_DocsOutput]
-FROM [docs].[RepoObject_Adoc] AS roa
+FROM [repo].[RepoObject_gross] AS roa
 WHERE roa.[is_DocsOutput] = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '45e90a1e-7495-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'is_DocsOutput';
