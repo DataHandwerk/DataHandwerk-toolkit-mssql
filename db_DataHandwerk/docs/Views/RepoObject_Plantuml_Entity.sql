@@ -2,6 +2,7 @@
 
 
 
+
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -48,7 +49,7 @@ SELECT ro.[RepoObject_guid]
 FROM [docs].[RepoObject_OutputFilter] AS ro
 LEFT JOIN [docs].[RepoObject_ColumnList] collist
  ON collist.[RepoObject_guid] = ro.[RepoObject_guid]
-LEFT JOIN [docs].[RepoObject_IndexList] indexlist
+LEFT JOIN [docs].[RepoObject_IndexList_T] indexlist
  ON indexlist.[RepoObject_guid] = ro.[RepoObject_guid]
 GO
 

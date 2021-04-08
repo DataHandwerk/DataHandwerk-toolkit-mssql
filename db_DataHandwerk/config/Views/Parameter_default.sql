@@ -3,6 +3,7 @@
 
 
 
+
 /*
 -- tag::example[]  
 --example 1:
@@ -451,12 +452,23 @@ ifdef::ExistsProperty--AntoraReferencingList[]
 include::partial${docname}.adoc[tag=AntoraReferencingList]
 endif::ExistsProperty--AntoraReferencingList[]
 
+=== Object Reference Diagram
+
+[plantuml, entity_1_1_objectref-{docname}, svg]
+....
+include::partial$puml/entity_1_1_objectref/{docname}.puml[]
+....
+
+ifdef::ExistsProperty--Columns[]
+
 === Column Reference Diagram
 
 [plantuml, entity_1_1_colref-{docname}, svg]
 ....
 include::partial$puml/entity_1_1_colref/{docname}.puml[]
 ....
+
+endif::ExistsProperty--Columns[]
 
 ifdef::ExistsProperty--AntoraIndexList[]
 
