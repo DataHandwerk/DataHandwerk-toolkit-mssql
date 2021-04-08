@@ -84,7 +84,6 @@ EXEC [repo].[usp_sync_guid_RepoObjectColumn]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-
 --
 --finish your own code here
 --keep the code between "END" and the end of the procedure unchanged!

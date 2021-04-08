@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [docs].[RepoObject_Adoc_T] (
     [AdocContent]            NVARCHAR (MAX)   NOT NULL,
+    [is_DocsOutput]          INT              NULL,
     [PropertyCount]          INT              NULL,
     [RepoObject_fullname]    NVARCHAR (261)   NULL,
     [RepoObject_fullname2]   NVARCHAR (257)   NULL,
@@ -11,6 +12,8 @@
     [SysObject_type]         CHAR (2)         NULL,
     [SysObject_type_name]    NVARCHAR (128)   NULL
 );
+
+
 
 
 
