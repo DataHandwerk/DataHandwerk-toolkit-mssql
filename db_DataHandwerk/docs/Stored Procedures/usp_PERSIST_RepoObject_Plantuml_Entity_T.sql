@@ -101,10 +101,14 @@ INSERT INTO
  (
   [RepoObject_guid]
 , [RepoObject_Puml]
+, [RepoObject_PumlOnlyIndex]
+, [RepoObject_PumlOnlyPK]
 )
 SELECT
   [RepoObject_guid]
 , [RepoObject_Puml]
+, [RepoObject_PumlOnlyIndex]
+, [RepoObject_PumlOnlyPK]
 
 FROM [docs].[RepoObject_Plantuml_Entity] AS S
 

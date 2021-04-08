@@ -64,7 +64,7 @@ PRINT '[repo].[usp_RepoObjectProperty_insert_update]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"property_name = 'AdocUspSteps' from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":210,"Name":"AdocUspSteps from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',210,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -107,7 +107,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''AdocUspSteps'' from [repo].[GeneratorUsp_SqlUsp]'
+SET @step_name = 'AdocUspSteps from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -128,7 +128,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":220,"Name":"property_name = 'UspParameters' from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":220,"Name":"UspParameters from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',220,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -171,7 +171,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''UspParameters'' from [repo].[GeneratorUsp_SqlUsp]'
+SET @step_name = 'UspParameters from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -192,7 +192,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":230,"Name":"property_name = 'UspExamples' from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":230,"Name":"UspExamples from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',230,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -237,7 +237,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''UspExamples'' from [repo].[GeneratorUsp_SqlUsp]'
+SET @step_name = 'UspExamples from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -258,7 +258,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":240,"Name":"property_name = 'MS_Description' from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":240,"Name":"MS_Description from [repo].[GeneratorUsp_SqlUsp]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',240,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -303,7 +303,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''MS_Description'' from [repo].[GeneratorUsp_SqlUsp]'
+SET @step_name = 'MS_Description from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -324,7 +324,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":310,"Name":"property_name = 'pk_index_guid'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":310,"Name":"pk_index_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',310,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -367,7 +367,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''pk_index_guid'''
+SET @step_name = 'pk_index_guid'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -388,7 +388,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":320,"Name":"property_name = 'pk_IndexPatternColumnDatatype'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":320,"Name":"pk_IndexPatternColumnDatatype","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',320,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -431,7 +431,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''pk_IndexPatternColumnDatatype'''
+SET @step_name = 'pk_IndexPatternColumnDatatype'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -452,7 +452,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":330,"Name":"property_name = 'pk_IndexPatternColumnName'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":330,"Name":"pk_IndexPatternColumnName","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',330,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -495,7 +495,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''pk_IndexPatternColumnName'''
+SET @step_name = 'pk_IndexPatternColumnName'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -516,7 +516,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":340,"Name":"property_name = 'pk_IndexSemanticGroup'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":340,"Name":"pk_IndexSemanticGroup","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',340,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -559,7 +559,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''pk_IndexSemanticGroup'''
+SET @step_name = 'pk_IndexSemanticGroup'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -580,7 +580,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":350,"Name":"property_name = 'is_repo_managed'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":350,"Name":"is_repo_managed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',350,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -623,7 +623,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_repo_managed'''
+SET @step_name = 'is_repo_managed'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -644,7 +644,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":360,"Name":"property_name = 'usp_persistence_RepoObject_guid'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":360,"Name":"usp_persistence_RepoObject_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',360,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -687,7 +687,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''usp_persistence_RepoObject_guid'''
+SET @step_name = 'usp_persistence_RepoObject_guid'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -708,7 +708,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":370,"Name":"property_name = 'persistence_source_RepoObject_guid'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":370,"Name":"persistence_source_RepoObject_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',370,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -751,7 +751,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''persistence_source_RepoObject_guid'''
+SET @step_name = 'persistence_source_RepoObject_guid'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -772,7 +772,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":380,"Name":"property_name = 'persistence_source_RepoObject_fullname'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":380,"Name":"persistence_source_RepoObject_fullname","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',380,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -815,7 +815,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''persistence_source_RepoObject_fullname'''
+SET @step_name = 'persistence_source_RepoObject_fullname'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -836,7 +836,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":381,"Name":"property_name = 'persistence_source_RepoObject_fullname2'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":381,"Name":"persistence_source_RepoObject_fullname2","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',381,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -879,7 +879,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''persistence_source_RepoObject_fullname2'''
+SET @step_name = 'persistence_source_RepoObject_fullname2'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -900,7 +900,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":382,"Name":"property_name = 'persistence_source_RepoObject_xref'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":382,"Name":"persistence_source_RepoObject_xref","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',382,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -943,7 +943,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''persistence_source_RepoObject_xref'''
+SET @step_name = 'persistence_source_RepoObject_xref'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -964,7 +964,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":390,"Name":"property_name = 'has_history'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":390,"Name":"has_history","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',390,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1007,7 +1007,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''has_history'''
+SET @step_name = 'has_history'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1028,7 +1028,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":410,"Name":"property_name = 'has_history_columns'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"has_history_columns","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',410,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1071,7 +1071,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''has_history_columns'''
+SET @step_name = 'has_history_columns'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1092,7 +1092,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":420,"Name":"property_name = 'is_persistence'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":420,"Name":"is_persistence","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',420,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1135,7 +1135,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence'''
+SET @step_name = 'is_persistence'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1156,7 +1156,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":421,"Name":"property_name = 'is_persistence_check_duplicate_per_pk'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":421,"Name":"is_persistence_check_duplicate_per_pk","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',421,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1199,7 +1199,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence_check_duplicate_per_pk'''
+SET @step_name = 'is_persistence_check_duplicate_per_pk'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1220,7 +1220,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":422,"Name":"property_name = 'is_persistence_check_for_empty_source'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":422,"Name":"is_persistence_check_for_empty_source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',422,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1263,7 +1263,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence_check_for_empty_source'''
+SET @step_name = 'is_persistence_check_for_empty_source'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1284,7 +1284,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":423,"Name":"property_name = 'is_persistence_delete_missing'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":423,"Name":"is_persistence_delete_missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',423,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1327,7 +1327,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence_delete_missing'''
+SET @step_name = 'is_persistence_delete_missing'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1348,7 +1348,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":424,"Name":"property_name = 'is_persistence_delete_changed'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":424,"Name":"is_persistence_delete_changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',424,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1391,7 +1391,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence_delete_changed'''
+SET @step_name = 'is_persistence_delete_changed'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1412,7 +1412,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":425,"Name":"property_name = 'is_persistence_insert'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":425,"Name":"is_persistence_insert","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',425,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1455,7 +1455,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence_insert'''
+SET @step_name = 'is_persistence_insert'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1476,7 +1476,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":426,"Name":"property_name = 'is_persistence_truncate'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":426,"Name":"is_persistence_truncate","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',426,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1519,7 +1519,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence_truncate'''
+SET @step_name = 'is_persistence_truncate'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1540,7 +1540,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":427,"Name":"property_name = 'is_persistence_update_changed'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":427,"Name":"is_persistence_update_changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',427,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1583,7 +1583,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''is_persistence_update_changed'''
+SET @step_name = 'is_persistence_update_changed'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1604,7 +1604,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":440,"Name":"property_name = 'history_schema_name'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":440,"Name":"history_schema_name","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',440,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1647,7 +1647,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''history_schema_name'''
+SET @step_name = 'history_schema_name'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1668,7 +1668,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":445,"Name":"property_name = 'history_table_name'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":445,"Name":"history_table_name","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',445,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1711,7 +1711,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''history_table_name'''
+SET @step_name = 'history_table_name'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1732,7 +1732,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":510,"Name":"property_name = 'AntoraReferencedList'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":510,"Name":"AntoraReferencedList","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',510,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1775,7 +1775,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''AntoraReferencedList'''
+SET @step_name = 'AntoraReferencedList'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
@@ -1796,7 +1796,7 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":520,"Name":"property_name = 'AntoraReferencingList'","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":520,"Name":"AntoraReferencingList","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',520,';',NULL);
 
 MERGE [repo].[RepoObjectProperty] AS t
@@ -1839,7 +1839,7 @@ OUTPUT deleted.*
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'property_name = ''AntoraReferencingList'''
+SET @step_name = 'AntoraReferencingList'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 

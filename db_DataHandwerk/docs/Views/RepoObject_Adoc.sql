@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 todo - direkt oder über extended properties
 - Index List
@@ -417,7 +418,7 @@ LEFT JOIN [repo].[RepoObjectProperty] rop
 --AND NOT rop.[property_nvarchar] IS NULL
 LEFT JOIN [docs].[RepoObject_ColumnList] clist
  ON clist.RepoObject_guid = ro.RepoObject_guid
-LEFT JOIN [docs].[RepoObject_IndexList] ilist
+LEFT JOIN [docs].[RepoObject_IndexList_T] ilist
  ON ilist.RepoObject_guid = ro.RepoObject_guid
 LEFT JOIN [docs].[RepoObject_ParameterList] parlist
  ON parlist.RepoObject_guid = ro.RepoObject_guid
