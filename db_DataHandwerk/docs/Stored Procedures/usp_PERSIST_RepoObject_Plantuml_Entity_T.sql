@@ -100,11 +100,11 @@ INSERT INTO
  [docs].[RepoObject_Plantuml_Entity_T]
  (
   [RepoObject_guid]
-, [RepoObject_Plantuml]
+, [RepoObject_Puml]
 )
 SELECT
   [RepoObject_guid]
-, [RepoObject_Plantuml]
+, [RepoObject_Puml]
 
 FROM [docs].[RepoObject_Plantuml_Entity] AS S
 

@@ -715,4 +715,11 @@
     <Property Name="NewSchema" Value="docs" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1db9293f-f18c-4627-9104-ebca78185b69" ChangeDateTime="04/08/2021 13:41:19">
+    <Property Name="ElementName" Value="[docs].[RepoObject_Plantuml_Entity_T].[RepoObject_Plantuml]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[docs].[RepoObject_Plantuml_Entity_T]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RepoObject_Puml]" />
+  </Operation>
 </Operations>
