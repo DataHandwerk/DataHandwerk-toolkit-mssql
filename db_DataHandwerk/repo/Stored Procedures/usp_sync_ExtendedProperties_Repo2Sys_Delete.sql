@@ -303,7 +303,6 @@ EXEC repo.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-
 --
 --finish your own code here
 --keep the code between "END" and the end of the procedure unchanged!

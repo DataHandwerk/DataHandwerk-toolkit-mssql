@@ -144,7 +144,6 @@ EXEC repo.usp_ExecutionLog_insert
  , @inserted = @rows
 -- Logging END --
 
-
 --
 --finish your own code here
 --keep the code between "END" and the end of the procedure unchanged!

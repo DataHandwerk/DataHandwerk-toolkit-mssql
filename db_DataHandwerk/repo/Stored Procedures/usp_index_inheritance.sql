@@ -373,7 +373,6 @@ EXEC [repo].[usp_Index_finish]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-
 --
 --finish your own code here
 --keep the code between "END" and the end of the procedure unchanged!
