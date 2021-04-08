@@ -417,6 +417,8 @@
     <Build Include="repo\Views\ForeignKey_gross.sql" />
     <Build Include="docs\Views\RepoObject_ParameterList.sql" />
     <Build Include="repo\Stored Procedures\usp_set_RepoObjectProperty.sql" />
+    <Build Include="docs\Tables\RepoObject_IndexList_T.sql" />
+    <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_IndexList_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
