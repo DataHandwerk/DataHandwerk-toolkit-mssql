@@ -61,7 +61,7 @@ RETURN (
   SELECT ro_guid
    , Referenced_Depth = @Referenced_Depth
    , Referencing_Depth = @Referencing_Depth
-   , PlantumlEntityList = String_Agg([RepoObject_Plantuml], CHAR(13) + CHAR(10)) WITHIN
+   , PlantumlEntityList = String_Agg([RepoObject_Puml], CHAR(13) + CHAR(10)) WITHIN
   GROUP (
     ORDER BY Node_fullname2
     )

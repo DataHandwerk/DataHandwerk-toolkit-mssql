@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [repo].[Index_gross]
 AS
 --
@@ -51,6 +52,8 @@ SELECT [T1].[index_guid]
  , [ColumList].[ColumnList]
  , [ColumList].[ConstraintColumnList]
  , [ColumList].[DbmlIndexColumnList]
+ , [ColumList].[PersistenceWhereColumnList]
+ , [ColumList].[PumlIndexColumnList]
 FROM repo.[Index_Settings] AS T1
 INNER JOIN repo.Index_union AS T2
  ON T2.index_guid = T1.index_guid
@@ -213,4 +216,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7a9c5
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7c9c578a-0194-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'AntoraIndexColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cec9519a-6298-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'PumlIndexColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cdc9519a-6298-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'PersistenceWhereColumnList';
 

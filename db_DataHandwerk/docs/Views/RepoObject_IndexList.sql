@@ -36,6 +36,22 @@ GROUP (
    , ix.[is_index_unique] DESC
    , ix.[index_name]
   )
+ , PumlIndexList = String_Agg(CONCAT (
+   CAST('' AS NVARCHAR(MAX))
+   , IIF([is_index_real] = 1, '- ', NULL)
+   , IIF([is_index_primary_key] = 1, '**', NULL)
+   , ix.[index_name]
+   , IIF([is_index_primary_key] = 1, '**', NULL)
+   , CHAR(13) + CHAR(10)
+   , '..'
+   , CHAR(13) + CHAR(10)
+   , [PumlIndexColumnList]
+   ), CHAR(13) + CHAR(10) + '--' + CHAR(13) + CHAR(10)) WITHIN
+GROUP (
+  ORDER BY ix.[is_index_primary_key] DESC
+   , ix.[is_index_unique] DESC
+   , ix.[index_name]
+  )
 FROM [repo].[Index_gross] AS ix
 LEFT JOIN [repo].[ForeignKey_gross] fk
  ON fk.[referencing_index_guid] = ix.index_guid
@@ -50,4 +66,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '70e2b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6fe2b548-5e96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cbc9519a-6298-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList', @level2type = N'COLUMN', @level2name = N'PumlIndexList';
 

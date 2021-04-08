@@ -1,4 +1,4 @@
-
+﻿
 CREATE VIEW [repo].[Index_ColumList]
 AS
 SELECT col.[index_guid]
@@ -52,6 +52,14 @@ GROUP (
     ), '') WITHIN GROUP (
    ORDER BY col.[index_column_id]
    ), 1, 4, NULL)
+ , [PumlIndexColumnList] = STRING_AGG(CONCAT (
+   CAST(N'' AS NVARCHAR(MAX))
+   , col.[SysObject_column_name] + '; '
+   , col.[SysObject_column_user_type_fullname]
+   ), CHAR(13) + CHAR(10)) WITHIN
+GROUP (
+  ORDER BY col.[index_column_id]
+  )
 FROM [repo].[IndexColumn_union] AS col
 GROUP BY col.[index_guid]
 
@@ -81,4 +89,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3adf2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '799c578a-0194-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ColumList', @level2type = N'COLUMN', @level2name = N'AntoraIndexColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ccc9519a-6298-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ColumList', @level2type = N'COLUMN', @level2name = N'PumlIndexColumnList';
 
