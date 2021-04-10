@@ -287,6 +287,48 @@ EXEC repo.usp_ExecutionLog_insert
  , @inserted = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":650,"Name":"Persistence: UPDATE some persistence target index attributes from persistence source indexes","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_virtual]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',650,';',NULL);
+
+UPDATE i_target
+SET is_index_disabled = i_source.is_index_disabled
+ , is_index_primary_key = i_source.is_index_primary_key
+ , is_index_unique = i_source.is_index_unique
+FROM [repo].[Index_virtual_ForUpdate] AS i_target
+INNER JOIN repo.Index_gross AS i_source
+ ON i_target.referenced_index_guid = i_source.index_guid
+WHERE (i_target.is_persistence = 1)
+ AND (
+  i_target.is_index_disabled <> i_source.is_index_disabled
+  OR i_target.is_index_primary_key <> i_source.is_index_primary_key
+  OR i_target.is_index_unique <> i_source.is_index_unique
+  )
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Persistence: UPDATE some persistence target index attributes from persistence source indexes'
+SET @source_object = '[repo].[Index_virtual]'
+SET @target_object = '[repo].[Index_virtual]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":710,"Name":"DELETE duplicates by pattern","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_gross]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',710,';',NULL);
 

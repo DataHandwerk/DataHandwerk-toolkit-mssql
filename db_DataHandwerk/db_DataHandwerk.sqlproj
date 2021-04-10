@@ -93,6 +93,8 @@
     <Folder Include="docs\Tables\" />
     <Folder Include="docs\Stored Procedures\" />
     <Folder Include="docs\Functions\" />
+    <Folder Include="tool\" />
+    <Folder Include="tool\Functions\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -368,7 +370,6 @@
     <Build Include="config\Tables\spt_values.sql" />
     <Build Include="dbeaver\Tables\DataSources.sql" />
     <Build Include="Security\test.sql" />
-    <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_insert_update.sql" />
     <Build Include="docs\Tables\RepoObject_Adoc_T.sql" />
     <Build Include="repo\Views\RepoObjectProperty_cross.sql" />
     <Build Include="repo\Views\RepoObject_ReferencingList.sql" />
@@ -419,6 +420,13 @@
     <Build Include="repo\Stored Procedures\usp_set_RepoObjectProperty.sql" />
     <Build Include="docs\Tables\RepoObject_IndexList_T.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_IndexList_T.sql" />
+    <Build Include="repo\Views\RepoObjectProperty_from_sql_modules_definition.sql" />
+    <Build Include="repo\Views\Index_virtual_ForUpdate.sql" />
+    <Build Include="docs\Views\AntoraPage_ObjectBySchema.sql" />
+    <Build Include="docs\Views\AntoraNavListPage_by_schema.sql" />
+    <Build Include="tool\Functions\ftv_extract_substrings.sql" />
+    <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_collect.sql" />
+    <Build Include="Security\tool.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

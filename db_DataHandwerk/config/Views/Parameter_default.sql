@@ -1,20 +1,19 @@
-﻿
+﻿/*
+<<property_start>>MS_Description
+* default parameters for xref:sqldb:repo.Parameter.adoc[]
+* content can be overwritten in xref:sqldb:repo.Parameter.adoc#column-Parameter_value[repo.Parameter.Parameter_value]
+<<property_end>>
 
-
-
-
-
-/*
--- tag::example[]  
---example 1:
+<<property_start>>example1
 --merge this view into [repo].[Parameter]:
 
 EXEC [config].[usp_init_parameter]
+<<property_end>>
 
---example 2:
---remove, what not is defined here (Dangerous: possible data loss)
+<<property_start>>example2
+--delete from [repo].[Parameter], what not is defined here in this view (Dangerous: possible data loss)
 --do not delete based on [sub_Parameter]!
---they can always be added!
+--they can always be added in [repo].[Parameter]!
 
 DELETE T
 FROM [repo].[Parameter] T
@@ -23,7 +22,7 @@ WHERE NOT EXISTS (
   FROM [config].[Parameter_default] S
   WHERE S.[Parameter_name] = T.[Parameter_name]
   )
--- end::example[]  
+<<property_end>>
 */
 CREATE VIEW [config].[Parameter_default]
 AS
@@ -329,9 +328,13 @@ include::partial${docname}.adoc[tag=MS_Description]
 
 endif::ExistsProperty--MS_Description[]
 
-ifdef::ExistsProperty--UspExamples[]
+ifdef::ExistsProperty--UspExamples,ExistsProperty--example1,ExistsProperty--example2[]
 
-== UspExamples
+== Examples
+
+endif::ExistsProperty--UspExamples,ExistsProperty--example1,ExistsProperty--example2[]
+
+ifdef::ExistsProperty--UspExamples[]
 
 ====
 [source,sql]
@@ -341,6 +344,28 @@ include::partial${docname}.adoc[tag=UspExamples]
 ====
 
 endif::ExistsProperty--UspExamples[]
+
+ifdef::ExistsProperty--example1[]
+
+====
+[source,sql]
+----
+include::partial${docname}.adoc[tag=example1]
+----
+====
+
+endif::ExistsProperty--example1[]
+
+ifdef::ExistsProperty--example2[]
+
+====
+[source,sql]
+----
+include::partial${docname}.adoc[tag=example2]
+----
+====
+
+endif::ExistsProperty--example2[]
 
 ifdef::ExistsProperty--AntoraParameterList[]
 
@@ -358,29 +383,29 @@ include::partial${docname}.adoc[tag=AdocUspSteps]
 
 endif::ExistsProperty--AdocUspSteps[]
 
-ifdef::ExistsProperty--pk_index_guid[]
-
-== PK
-
-PK SemanticGroup:
-include::partial${docname}.adoc[tag=pk_IndexSemanticGroup]
-
+//ifdef::ExistsProperty--pk_index_guid[]
+//
+//== PK
+//
+//PK SemanticGroup:
+//include::partial${docname}.adoc[tag=pk_IndexSemanticGroup]
+//
 //PK Column Name(s):
 //include::partial${docname}.adoc[tag=pk_IndexPatternColumnName]
-
+//
 //PK Column Datatype(s):
 //include::partial${docname}.adoc[tag=pk_IndexPatternColumnDatatype]
-
-.PK columns of {docname}
-[cols="d,m,m,m,m,d"]
-|===
-|PK|Column Name|Data Type|NULL?|ID|Calc
-
-include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]
-
-|===
-
-endif::ExistsProperty--pk_index_guid[]
+//
+//.PK columns of {docname}
+//[cols="d,m,m,m,m,d"]
+//|===
+//|PK|Column Name|Data Type|NULL?|ID|Calc
+//
+//include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]
+//
+//|===
+//
+//endif::ExistsProperty--pk_index_guid[]
 
 ifdef::ExistsProperty--Columns[]
 

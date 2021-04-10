@@ -159,6 +159,7 @@ BEGIN
   , 1;
 END
 
+--try to find existing index
 SET @index_guid = (
   SELECT [index_guid]
   FROM [repo].[Index_gross]

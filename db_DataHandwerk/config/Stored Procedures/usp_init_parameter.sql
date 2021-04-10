@@ -1,4 +1,9 @@
-﻿CREATE PROCEDURE [config].[usp_init_parameter]
+﻿/*
+<<property_start>>MS_Description
+* merges default values for parameters from xref:sqldb:config.Parameter_default.adoc[] into xref:sqldb:repo.Parameter.adoc[]
+<<property_end>>
+*/
+CREATE PROCEDURE [config].[usp_init_parameter]
 AS
 --
 INSERT INTO [repo].[Parameter] (

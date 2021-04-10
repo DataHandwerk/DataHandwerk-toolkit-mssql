@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -161,7 +162,7 @@ GO
  , [u].[usp_fullname]
  , [u].[usp_name]
  , [u].[usp_schema]
- , UspExamples = ISNULL(u.usp_Examples, 'EXEC ' + u.usp_schema + u.usp_name)
+ , UspExamples = ISNULL(u.usp_Examples, 'EXEC ' + [u].[usp_fullname])
  , UspParameters = [ParameterList].[ParameterList]
  , SqlStepList = [StepList].[StepList]
  , ro.RepoObject_guid

@@ -1,7 +1,10 @@
+﻿
 
 /*
-master.dbo.spt_values is an undocumemted hidden view or table, containing useful entries 
-it's copy should be in in repo_config.spt_values
+<<property_start>>MS_Description
+* based on master.dbo.spt_values, which  is an undocumemted hidden view or table, containing useful entries 
+* master.dbo.spt_values content is available as copy in xref:sqldb:config.spt_values.adoc[]
+<<property_end>>
 */
 CREATE VIEW [config].[type]
 AS
