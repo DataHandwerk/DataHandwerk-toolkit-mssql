@@ -722,4 +722,10 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[RepoObject_Puml]" />
   </Operation>
+  <Operation Name="Move Schema" Key="59880c9f-34ac-4c8d-9441-d4cd89324117" ChangeDateTime="04/10/2021 18:23:53">
+    <Property Name="ElementName" Value="[dbo].[usp_longprint]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="tool" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>
