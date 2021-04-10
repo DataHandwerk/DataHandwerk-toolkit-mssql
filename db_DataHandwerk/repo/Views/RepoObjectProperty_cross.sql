@@ -1,4 +1,11 @@
-﻿CREATE VIEW [repo].[RepoObjectProperty_cross]
+﻿/*
+<<property_start>>MS_Description
+* cross join between RepoObject and *all* used properties in any RepoObject
+* required for Antora export: per RepoObject we export partials for all Properties: +
+When we use includes with tags we can't check if the tags exists or not. That's why we need to create all tags, with contents without content
+<<property_end>>
+*/
+CREATE VIEW [repo].[RepoObjectProperty_cross]
 AS
 SELECT ro.RepoObject_guid
  , p.property_name

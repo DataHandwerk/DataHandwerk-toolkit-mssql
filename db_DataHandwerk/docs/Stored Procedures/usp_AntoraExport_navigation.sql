@@ -92,7 +92,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',120,';',NULL);
 SET @outputDirPartNav = ISNULL(@outputDirPartNav, (
    SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
    ) + 'partials\navlist\')
-SET @outputDirPageNav = ISNULL(@outputDirPartNav, (
+SET @outputDirPageNav = ISNULL(@outputDirPageNav, (
    SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
    ) + 'pages\nav\')
 
@@ -174,8 +174,8 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":510,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_type]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',510,';',NULL);
+/*{"ReportUspStep":[{"Number":420,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_type]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',420,';',NULL);
 
 DECLARE part2_cursor CURSOR
 FOR
@@ -246,8 +246,8 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":610,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_schema_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_schema_type]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',610,';',NULL);
+/*{"ReportUspStep":[{"Number":430,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_schema_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_schema_type]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',430,';',NULL);
 
 DECLARE part3_cursor CURSOR
 FOR
@@ -321,8 +321,79 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":710,"Name":"export FROM [docs].[AntoraNavListPage_by_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListPage_by_type]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',710,';',NULL);
+/*{"ReportUspStep":[{"Number":510,"Name":"export FROM [docs].[AntoraNavListPage_by_schema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListPage_by_schema]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',510,';',NULL);
+
+DECLARE page_cursor CURSOR
+FOR
+SELECT [RepoObject_schema_name]
+FROM [docs].[AntoraNavListRepoObject_by_schema]
+ORDER BY [RepoObject_schema_name]
+
+OPEN page_cursor
+
+FETCH NEXT
+FROM page_cursor
+INTO @schema_name
+
+--, @nav_list
+WHILE @@FETCH_STATUS = 0
+BEGIN
+ --Dynamically construct the BCP command
+ --
+ SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_schema] WHERE [RepoObject_schema_name] = ''' + @schema_name + '''"  queryout ' + @outputDirPageNav + 'nav-schema-' + @schema_name + '.adoc'
+  --
+  + ' -S ' + @instanceName
+  --
+  + ' -d ' + ' dhw_self'
+  --
+  + ' -c'
+  --
+  + @TrustedUserPassword
+
+ PRINT @command
+
+ --Execute the BCP command
+ EXEC xp_cmdshell @command
+  , no_output
+
+ FETCH NEXT
+ FROM page_cursor
+ INTO @schema_name
+END
+
+CLOSE page_cursor
+
+DEALLOCATE page_cursor
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'export FROM [docs].[AntoraNavListPage_by_schema]'
+SET @source_object = '[docs].[AntoraNavListPage_by_schema]'
+SET @target_object = NULL
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":520,"Name":"export FROM [docs].[AntoraNavListPage_by_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListPage_by_type]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',520,';',NULL);
+
 
 DECLARE page_cursor CURSOR
 FOR
@@ -331,9 +402,11 @@ FROM config.type
 WHERE (is_DocsOutput = 1)
 ORDER BY type
 
-SELECT [RepoObject_schema_name]
-FROM [docs].[AntoraNavListRepoObject_by_schema]
-ORDER BY [RepoObject_schema_name]
+----some entries doesn't exist in [docs].[AntoraNavListPage_by_type]
+----but we will generate empty files to avoid old files with not existing content
+--FROM [docs].[AntoraNavListPage_by_type]
+--ORDER BY type
+
 
 OPEN page_cursor
 
@@ -396,8 +469,53 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":810,"Name":"export FROM [docs].[AntoraPage_ObjectByType]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectByType]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',810,';',NULL);
+/*{"ReportUspStep":[{"Number":610,"Name":"export FROM [docs].[AntoraPage_ObjectBySchema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectBySchema]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',610,';',NULL);
+
+--nav-by-schema.adoc
+SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout ' + @outputDirPartNav + 'nav-by-schema.adoc'
+ --
+ + ' -S ' + @instanceName
+ --
+ + ' -d ' + ' dhw_self'
+ --
+ + ' -c'
+ --
+ + @TrustedUserPassword
+
+PRINT @command
+
+--Execute the BCP command
+EXEC xp_cmdshell @command
+ , no_output
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'export FROM [docs].[AntoraPage_ObjectBySchema]'
+SET @source_object = '[docs].[AntoraPage_ObjectBySchema]'
+SET @target_object = NULL
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":620,"Name":"export FROM [docs].[AntoraPage_ObjectByType]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectByType]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',620,';',NULL);
 
 --nav-by-type.adoc
 SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]"  queryout ' + @outputDirPartNav + 'nav-by-type.adoc'

@@ -154,7 +154,7 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreWhitespace</Name>
-        <Value>True</Value>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreKeywordCasing</Name>
@@ -162,7 +162,7 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreSemicolonBetweenStatements</Name>
-        <Value>True</Value>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnorePartitionSchemes</Name>
@@ -230,7 +230,7 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreQuotedIdentifiers</Name>
-        <Value>True</Value>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreUserSettingsObjects</Name>

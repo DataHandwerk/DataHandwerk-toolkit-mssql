@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [docs].[RepoObject_IndexList]
 AS
 SELECT ix.[parent_RepoObject_guid] AS RepoObject_guid
@@ -14,7 +15,7 @@ SELECT ix.[parent_RepoObject_guid] AS RepoObject_guid
    , ix.[index_name]
    , CHAR(13) + CHAR(10)
    , CHAR(13) + CHAR(10)
-   , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_' + REPLACE(REPLACE(REPLACE(LOWER(ix.[IndexSemanticGroup]), ' ', '_'), '__', '_'), '__', '_') + '[' + ix.[IndexSemanticGroup] + ']'
+   , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_' + REPLACE(REPLACE(REPLACE(LOWER(ISNULL(ix.[IndexSemanticGroup], 'no_group')), ' ', '_'), '__', '_'), '__', '_') + '[' + ix.[IndexSemanticGroup] + ']'
    , CHAR(13) + CHAR(10)
    , '+' + CHAR(13) + CHAR(10)
    , '--' + CHAR(13) + CHAR(10)

@@ -100,6 +100,7 @@ INSERT INTO
  [docs].[RepoObject_Adoc_T]
  (
   [AdocContent]
+, [is_DocsOutput]
 , [PropertyCount]
 , [RepoObject_fullname]
 , [RepoObject_fullname2]
@@ -113,6 +114,7 @@ INSERT INTO
 )
 SELECT
   [AdocContent]
+, [is_DocsOutput]
 , [PropertyCount]
 , [RepoObject_fullname]
 , [RepoObject_fullname2]

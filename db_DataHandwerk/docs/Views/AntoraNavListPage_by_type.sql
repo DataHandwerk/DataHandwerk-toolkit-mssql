@@ -11,8 +11,13 @@ SELECT type
   , 'include::partial$navlist/navlist-type-' + type + '.adoc[]'
   , CHAR(13) + CHAR(10)
   )
-FROM config.type
+FROM config.type t
 WHERE (is_DocsOutput = 1)
+ AND EXISTS (
+  SELECT 1
+  FROM [docs].[RepoObject_OutputFilter] f
+  WHERE f.SysObject_type = t.type
+  )
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '861293b9-de96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListPage_by_type';
 

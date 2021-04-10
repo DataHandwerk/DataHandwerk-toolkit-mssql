@@ -427,8 +427,51 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":910,"Name":"SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_primary_key] = 1 and [RowNumber_PkPerParentObject] = 1)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_gross]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',910,';',NULL);
+/*{"ReportUspStep":[{"Number":920,"Name":"SET [is_index_primary_key] = 0 (where RowNumber_PkPerParentObject > 1)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',920,';',NULL);
+
+--because there could be several PK defined per [parent_RepoObject_guid], this should be corrected
+--only [repo].[Index_virtual] needs to be corrected because the real PK consistence should be controled by mssql
+
+UPDATE iv
+SET [is_index_primary_key] = 0
+FROM [repo].[Index_virtual] [iv]
+WHERE iv.[is_index_primary_key] = 1
+ AND EXISTS (
+  SELECT 1
+  FROM [repo].[Index_gross] ig
+  WHERE ig.[parent_RepoObject_guid] = iv.parent_RepoObject_guid
+   AND ig.index_guid = iv.index_guid
+   AND RowNumber_PkPerParentObject > 1
+  )
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'SET [is_index_primary_key] = 0 (where RowNumber_PkPerParentObject > 1)'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[repo].[Index_virtual]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":930,"Name":"SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_primary_key] = 1 and [RowNumber_PkPerParentObject] = 1)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_gross]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',930,';',NULL);
 
 --only one PK per RepoObject is possible
 --we use some priority in [RowNumber_PkPerParentObject] in case that several PK are defined per RepoObject
@@ -460,48 +503,6 @@ SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_primary_key] = 1 and [RowNumber_PkPerParentObject] = 1)'
 SET @source_object = '[repo].[Index_gross]'
-SET @target_object = '[repo].[Index_virtual]'
-
-EXEC repo.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":920,"Name":"SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',920,';',NULL);
-
---because there could be several PK defined per [parent_RepoObject_guid], this should be corrected
---only [repo].[Index_virtual] needs to be corrected because the real PK consistence should be controled by mssql
-
-UPDATE iv
-SET [is_index_primary_key] = 0
-FROM [repo].[Index_virtual] [iv]
-WHERE [iv].[is_index_primary_key] = 1
- AND NOT EXISTS (
-  SELECT [pk_index_guid]
-  FROM [repo].[RepoObject] AS [ro]
-  WHERE [ro].[RepoObject_guid] = [iv].[parent_RepoObject_guid]
-   AND [ro].[pk_index_guid] = [iv].[index_guid]
-  )
-
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'SET [is_index_primary_key] = 0 (where it is not a PK in [repo].[RepoObject])'
-SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index_virtual]'
 
 EXEC repo.usp_ExecutionLog_insert 

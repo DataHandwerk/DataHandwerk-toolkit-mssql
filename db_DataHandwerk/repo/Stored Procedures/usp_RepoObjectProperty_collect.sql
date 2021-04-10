@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_RepoObjectProperty_insert_update]
+﻿CREATE   PROCEDURE [repo].[usp_RepoObjectProperty_collect]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -57,7 +57,7 @@ EXEC repo.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_RepoObjectProperty_insert_update]'
+PRINT '[repo].[usp_RepoObjectProperty_collect]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -1860,6 +1860,72 @@ EXEC repo.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":1100,"Name":"[repo].[RepoObjectProperty_from_sql_modules_definition]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_from_sql_modules_definition]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',1100,';',NULL);
+
+MERGE [repo].[RepoObjectProperty] AS t
+USING (
+ SELECT [RepoObject_guid]
+  , [property_name]
+  , [property_value]
+ FROM [repo].[RepoObjectProperty_from_sql_modules_definition]
+ WHERE NOT [RepoObject_guid] IS NULL
+ ) AS s
+ ON t.[RepoObject_guid] = s.[RepoObject_guid]
+  AND t.[property_name] = s.[property_name]
+WHEN MATCHED
+ AND (
+  t.[property_value] <> s.[property_value]
+  OR t.[property_value] IS NULL
+  AND NOT s.[property_value] IS NULL
+  OR s.[property_value] IS NULL
+  AND NOT t.[property_value] IS NULL
+  )
+ THEN
+  UPDATE
+  SET [property_value] = s.[property_value]
+WHEN NOT MATCHED
+ AND NOT s.[property_value] IS NULL
+ THEN
+  INSERT (
+   [RepoObject_guid]
+   , [property_name]
+   , [property_value]
+   )
+  VALUES (
+   s.[RepoObject_guid]
+   , s.[property_name]
+   , s.[property_value]
+   )
+OUTPUT deleted.*
+ , $ACTION
+ , inserted.*;
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = '[repo].[RepoObjectProperty_from_sql_modules_definition]'
+SET @source_object = '[repo].[RepoObjectProperty_from_sql_modules_definition]'
+SET @target_object = '[repo].[RepoObjectProperty]'
+
+EXEC repo.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":3000,"Name":"DELETE WHERE [property_value] IS NULL","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',3000,';',NULL);
 
@@ -1893,30 +1959,7 @@ EXEC repo.usp_ExecutionLog_insert
 
 --
 --finish your own code here
---keep the code between "END" and the end of the procedure unchanged!
---
---END
---
---SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'end'
-SET @source_object = NULL
-SET @target_object = NULL
-
-EXEC repo.usp_ExecutionLog_insert
-   @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
+--keep the code b
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '251a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_insert_update';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bd24df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
 
