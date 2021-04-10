@@ -95,6 +95,7 @@
     <Folder Include="docs\Functions\" />
     <Folder Include="tool\" />
     <Folder Include="tool\Functions\" />
+    <Folder Include="tool\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -366,7 +367,6 @@
     <Build Include="docs\Views\visjs_nodelist_object_test01.sql" />
     <Build Include="config\Views\type.sql" />
     <Build Include="config\Views\type_level1type_level2type.sql" />
-    <Build Include="dbo\Stored Procedures\usp_longprint.sql" />
     <Build Include="config\Tables\spt_values.sql" />
     <Build Include="dbeaver\Tables\DataSources.sql" />
     <Build Include="Security\test.sql" />
@@ -427,6 +427,7 @@
     <Build Include="tool\Functions\ftv_extract_substrings.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_collect.sql" />
     <Build Include="Security\tool.sql" />
+    <Build Include="tool\Stored Procedures\usp_longprint.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

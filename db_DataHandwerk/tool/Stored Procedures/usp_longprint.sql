@@ -1,5 +1,5 @@
 ﻿--code idea from analyticscreator.com
-CREATE   PROCEDURE [dbo].[usp_longprint] @Sql nvarchar(max) AS
+CREATE   PROCEDURE [tool].[usp_longprint] @Sql nvarchar(max) AS
 BEGIN
 	DECLARE
 		@len int,
@@ -27,5 +27,5 @@ BEGIN
 	END
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '63b8b46b-a08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'PROCEDURE', @level1name = N'usp_longprint';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '63b8b46b-a08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_longprint';
 
