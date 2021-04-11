@@ -71,7 +71,7 @@ DECLARE fk_cursor CURSOR READ_ONLY
 FOR
 SELECT [referencing_RepoObject_guid]
  , [referencing_IndexPatternColumnName]
-FROM repo.ForeignKey_Index_guid AS fk
+FROM repo.[ForeignKey_Indexes] AS fk
 WHERE (NOT ([referencing_RepoObject_guid] IS NULL))
  AND ([referencing_index_guid] IS NULL)
 
@@ -79,7 +79,7 @@ UNION
 
 SELECT [referenced_RepoObject_guid]
  , [referenced_IndexPatternColumnName]
-FROM repo.ForeignKey_Index_guid AS fk
+FROM repo.[ForeignKey_Indexes] AS fk
 WHERE (NOT ([referenced_RepoObject_guid] IS NULL))
  AND ([referenced_index_guid] IS NULL)
 

@@ -30,7 +30,7 @@ SELECT fk.[ForeignKey_guid]
   , CHAR(13) + CHAR(10)
   , 'referenced: xref:' + fk.referenced_RepoObject_fullname2 + '.adoc[], xref:' + fk.referenced_RepoObject_fullname2 + '.adoc#' + 'index-' + refed.[index_name] + '[' + refed.[index_name] + ']'
   )
-FROM [repo].[ForeignKey_Index_guid_union] fk
+FROM [repo].[ForeignKey_Indexes_union] fk
 LEFT JOIN [repo].[Index_gross] refed
  ON refed.index_guid = fk.referenced_index_guid
 LEFT JOIN [repo].[Index_gross] refing

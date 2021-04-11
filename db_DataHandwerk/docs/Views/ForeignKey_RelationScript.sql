@@ -61,7 +61,7 @@ SELECT
 --, [referencing_IndexPatternColumnName]
 --, [delete_referential_action]
 --, [update_referential_action]
-FROM [repo].[ForeignKey_Index_guid_union]
+FROM [repo].[ForeignKey_Indexes_union]
 WHERE NOT [referenced_index_guid] IS NULL
  AND NOT [referencing_index_guid] IS NULL
 GO
