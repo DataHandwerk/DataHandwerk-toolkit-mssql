@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
 * default parameters for xref:sqldb:repo.Parameter.adoc[]
 * content can be overwritten in xref:sqldb:repo.Parameter.adoc#column-Parameter_value[repo.Parameter.Parameter_value]
@@ -294,6 +295,7 @@ SELECT [Parameter_name] = 'Adoc_AntoraPageTemplate'
  , [Parameter_default_value] = CAST(N'
 include::partial$template/master-page-1.adoc[]
 include::partial$template/master-page-2.adoc[]
+include::partial$template/master-page-3.adoc[]
 ' AS NVARCHAR(4000))
 
 UNION ALL
@@ -328,14 +330,16 @@ include::partial${docname}.adoc[tag=MS_Description]
 
 endif::ExistsProperty--MS_Description[]
 
-ifdef::ExistsProperty--UspExamples,ExistsProperty--example1,ExistsProperty--example2[]
+ifdef::ExistsProperty--UspExamples,ExistsProperty--example1,ExistsProperty--example2,ExistsProperty--example3,ExistsProperty--example4,ExistsProperty--example5[]
 
 == Examples
 
-endif::ExistsProperty--UspExamples,ExistsProperty--example1,ExistsProperty--example2[]
+endif::ExistsProperty--UspExamples,ExistsProperty--example1,ExistsProperty--example2,ExistsProperty--example3,ExistsProperty--example4,ExistsProperty--example5[]
+
 
 ifdef::ExistsProperty--UspExamples[]
 
+.UspExamples
 ====
 [source,sql]
 ----
@@ -347,6 +351,7 @@ endif::ExistsProperty--UspExamples[]
 
 ifdef::ExistsProperty--example1[]
 
+.Example 1
 ====
 [source,sql]
 ----
@@ -358,6 +363,7 @@ endif::ExistsProperty--example1[]
 
 ifdef::ExistsProperty--example2[]
 
+.Example 2
 ====
 [source,sql]
 ----
@@ -367,6 +373,49 @@ include::partial${docname}.adoc[tag=example2]
 
 endif::ExistsProperty--example2[]
 
+ifdef::ExistsProperty--example3[]
+
+.Example 3
+====
+[source,sql]
+----
+include::partial${docname}.adoc[tag=example3]
+----
+====
+
+endif::ExistsProperty--example3[]
+
+ifdef::ExistsProperty--example4[]
+
+.Example 4
+====
+[source,sql]
+----
+include::partial${docname}.adoc[tag=example4]
+----
+====
+
+endif::ExistsProperty--example4[]
+
+ifdef::ExistsProperty--example5[]
+
+.Example 5
+====
+[source,sql]
+----
+include::partial${docname}.adoc[tag=example5]
+----
+====
+
+endif::ExistsProperty--example5[]
+' AS NVARCHAR(4000))
+
+UNION ALL
+
+SELECT [Parameter_name] = 'Adoc_AntoraPageTemplate'
+ , [sub_Parameter] = N'2'
+ , [Parameter_desciption] = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
+ , [Parameter_default_value] = CAST(N'
 ifdef::ExistsProperty--AntoraParameterList[]
 
 == Parameters
@@ -453,12 +502,22 @@ include::partial${docname}.adoc[tag=has_history_columns]
 
 endif::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]
 
+ifdef::ExistsProperty--FK[]
+
+== Foreign Key Diagram
+
+[plantuml, entity_1_1_fk-{docname}, svg]
+....
+include::partial$puml/entity_1_1_fk/{docname}.puml[]
+....
+
+endif::ExistsProperty--FK[]
 ' AS NVARCHAR(4000))
 
 UNION ALL
 
 SELECT [Parameter_name] = 'Adoc_AntoraPageTemplate'
- , [sub_Parameter] = N'2'
+ , [sub_Parameter] = N'3'
  , [Parameter_desciption] = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
  , [Parameter_default_value] = CAST(N'
 == References
@@ -518,7 +577,6 @@ ifdef::ExistsProperty--sql_modules_definition[]
 .{docname} script
 include::partial${docname}.adoc[tag=sql_modules_definition]
 endif::ExistsProperty--sql_modules_definition[]
-
 ' AS NVARCHAR(4000))
 
 GO

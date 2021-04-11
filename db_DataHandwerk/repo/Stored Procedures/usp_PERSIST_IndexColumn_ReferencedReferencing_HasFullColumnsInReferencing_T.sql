@@ -99,24 +99,24 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',5,';',800,';',NULL);
 INSERT INTO 
  [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
  (
-  [index_column_id]
-, [index_guid]
+  [index_guid]
+, [index_column_id]
+, [RowNumberInReferencing]
 , [is_descending_key]
 , [referenced_RepoObject_guid]
 , [referenced_RepoObjectColumn_guid]
 , [referencing_RepoObject_guid]
 , [referencing_RepoObjectColumn_guid]
-, [RowNumberInReferencing]
 )
 SELECT
-  [index_column_id]
-, [index_guid]
+  [index_guid]
+, [index_column_id]
+, [RowNumberInReferencing]
 , [is_descending_key]
 , [referenced_RepoObject_guid]
 , [referenced_RepoObjectColumn_guid]
 , [referencing_RepoObject_guid]
 , [referencing_RepoObjectColumn_guid]
-, [RowNumberInReferencing]
 
 FROM [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing] AS S
 

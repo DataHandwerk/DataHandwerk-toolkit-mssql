@@ -2,6 +2,7 @@
 
 
 
+
 /*
 <<property_start>>MS_Description
 * mapping from xref:sqldb:repo.ForeignKey_virtual.adoc[] to referenced_index and referencing_indx
@@ -26,6 +27,7 @@ SELECT
   , QUOTENAME([fk].[ForeignKey_name])
   )
  , [fk].[referenced_index_guid]
+ , [referenced_index_name] = [i_2].[index_name]
  , [referenced_IndexPatternColumnDatatype] = [i_2].[IndexPatternColumnDatatype]
  , [referenced_IndexPatternColumnName] = [i_2].[IndexPatternColumnName]
  , [referenced_RepoObject_fullname] = [i_2].[RepoObject_fullname]
@@ -34,6 +36,7 @@ SELECT
  , [referenced_SysObject_name] = [i_2].[SysObject_name]
  , [referenced_SysObject_schema_name] = [i_2].[SysObject_schema_name]
  , [fk].[referencing_index_guid]
+ , [referencing_index_name] = [i_1].[index_name]
  , [referencing_IndexPatternColumnDatatype] = [i_1].[IndexPatternColumnDatatype]
  , [referencing_IndexPatternColumnName] = [i_1].[IndexPatternColumnName]
  , [referencing_RepoObject_fullname] = [i_1].[RepoObject_fullname]
@@ -138,4 +141,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '17256
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1625676d-1797-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Indexes', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ab6b2118-b19a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Indexes', @level2type = N'COLUMN', @level2name = N'referencing_index_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'aa6b2118-b19a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_virtual_Indexes', @level2type = N'COLUMN', @level2name = N'referenced_index_name';
 

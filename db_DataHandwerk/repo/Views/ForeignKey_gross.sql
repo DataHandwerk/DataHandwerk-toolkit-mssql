@@ -1,4 +1,5 @@
-﻿CREATE VIEW repo.ForeignKey_gross
+﻿
+CREATE VIEW [repo].[ForeignKey_gross]
 AS
 SELECT fk.[ForeignKey_guid]
  , fk.[is_MatchingDatatypePattern]
@@ -30,7 +31,7 @@ SELECT fk.[ForeignKey_guid]
   , CHAR(13) + CHAR(10)
   , 'referenced: xref:' + fk.referenced_RepoObject_fullname2 + '.adoc[], xref:' + fk.referenced_RepoObject_fullname2 + '.adoc#' + 'index-' + refed.[index_name] + '[' + refed.[index_name] + ']'
   )
-FROM [repo].[ForeignKey_Indexes_union] fk
+FROM [repo].[ForeignKey_Indexes_union_T] fk
 LEFT JOIN [repo].[Index_gross] refed
  ON refed.index_guid = fk.referenced_index_guid
 LEFT JOIN [repo].[Index_gross] refing

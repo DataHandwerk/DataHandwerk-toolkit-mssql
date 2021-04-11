@@ -99,24 +99,24 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',25,';',800,';',NULL);
 INSERT INTO 
  [repo].[RepoObject_referencing_level_T]
  (
-  [LastNode_fullname]
-, [LastNode_fullname2]
+  [StartingNode_guid]
 , [LastNode_guid]
-, [ListNode]
 , [referencing_level]
+, [LastNode_fullname]
+, [LastNode_fullname2]
+, [ListNode]
 , [StartingNode_fullname]
 , [StartingNode_fullname2]
-, [StartingNode_guid]
 )
 SELECT
-  [LastNode_fullname]
-, [LastNode_fullname2]
+  [StartingNode_guid]
 , [LastNode_guid]
-, [ListNode]
 , [referencing_level]
+, [LastNode_fullname]
+, [LastNode_fullname2]
+, [ListNode]
 , [StartingNode_fullname]
 , [StartingNode_fullname2]
-, [StartingNode_guid]
 
 FROM [repo].[RepoObject_referencing_level] AS S
 

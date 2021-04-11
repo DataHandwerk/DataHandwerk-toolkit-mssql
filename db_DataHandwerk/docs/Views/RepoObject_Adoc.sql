@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 todo - direkt oder über extended properties
 - Index List
@@ -48,6 +49,13 @@ SELECT ro.[RepoObject_guid]
    , CASE 
     WHEN max(ro.sql_modules_antora) <> ''
      THEN ':ExistsProperty--sql_modules_definition:' + CHAR(13) + CHAR(10)
+    END
+   , CASE 
+    WHEN max(ro.SysObject_type) IN (
+      'U'
+      , 'V'
+      )
+     THEN ':ExistsProperty--FK:' + CHAR(13) + CHAR(10)
     END
    , CASE 
     WHEN max(ilist.AntoraIndexList) <> ''

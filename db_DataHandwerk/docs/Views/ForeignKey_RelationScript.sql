@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE VIEW [docs].[ForeignKey_RelationScript]
 AS
 --
@@ -61,7 +62,7 @@ SELECT
 --, [referencing_IndexPatternColumnName]
 --, [delete_referential_action]
 --, [update_referential_action]
-FROM [repo].[ForeignKey_Indexes_union]
+FROM [repo].[ForeignKey_Indexes_union_T]
 WHERE NOT [referenced_index_guid] IS NULL
  AND NOT [referencing_index_guid] IS NULL
 GO

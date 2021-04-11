@@ -194,7 +194,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',520,';',NULL);
 UPDATE i_s
 SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]
 FROM repo.[Index_Settings] i_s
-INNER JOIN [repo].[ForeignKey_Indexes_union] fk
+INNER JOIN [repo].[ForeignKey_Indexes_union_T] fk
  ON fk.[referencing_index_guid] = i_s.[index_guid]
 INNER JOIN [repo].[Index_Settings] AS [TSource]
  ON [TSource].[index_guid] = fk.[referenced_index_guid]
