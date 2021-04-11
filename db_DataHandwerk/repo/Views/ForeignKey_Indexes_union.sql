@@ -2,6 +2,7 @@
 
 
 
+
 CREATE VIEW [repo].[ForeignKey_Indexes_union]
 AS
 SELECT [ForeignKey_guid]
@@ -9,6 +10,7 @@ SELECT [ForeignKey_guid]
  , [ForeignKey_name]
  , [ForeignKey_fullname]
  , [referenced_index_guid]
+ , [referenced_index_name]
  , [referenced_IndexPatternColumnDatatype]
  , [referenced_IndexPatternColumnName]
  , [referenced_RepoObject_fullname]
@@ -17,6 +19,7 @@ SELECT [ForeignKey_guid]
  , [referenced_SysObject_name]
  , [referenced_SysObject_schema_name]
  , [referencing_index_guid]
+ , [referencing_index_name]
  , [referencing_IndexPatternColumnDatatype]
  , [referencing_IndexPatternColumnName]
  , [referencing_RepoObject_fullname]
@@ -35,6 +38,7 @@ SELECT [ForeignKey_guid]
  , [ForeignKey_name]
  , [ForeignKey_fullname]
  , [referenced_index_guid]
+ , [referenced_index_name]
  , [referenced_IndexPatternColumnDatatype]
  , [referenced_IndexPatternColumnName]
  , [referenced_RepoObject_fullname]
@@ -43,6 +47,7 @@ SELECT [ForeignKey_guid]
  , [referenced_SysObject_name]
  , [referenced_SysObject_schema_name]
  , [referencing_index_guid]
+ , [referencing_index_name]
  , [referencing_IndexPatternColumnDatatype]
  , [referencing_IndexPatternColumnName]
  , [referencing_RepoObject_fullname]
@@ -143,4 +148,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '19256
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1825676d-1797-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Indexes_union', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ad6b2118-b19a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Indexes_union', @level2type = N'COLUMN', @level2name = N'referencing_index_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ac6b2118-b19a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_Indexes_union', @level2type = N'COLUMN', @level2name = N'referenced_index_name';
 

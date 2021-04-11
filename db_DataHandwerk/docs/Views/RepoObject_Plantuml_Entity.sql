@@ -3,6 +3,7 @@
 
 
 
+
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -43,6 +44,7 @@ SELECT ro.[RepoObject_guid]
   , ' {'
   , CHAR(13) + CHAR(10)
   , indexlist.PumlIndexList
+  , CHAR(13) + CHAR(10)
   , '}'
   , CHAR(13) + CHAR(10)
   )

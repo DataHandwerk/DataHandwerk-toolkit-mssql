@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 Assuming that a statement has only one child, this one child is decomposed into its components here.
 
@@ -57,7 +58,7 @@ AS
 SELECT [T1].[RepoObject_guid]
  --we need the key for ROW_NUMBER
  --key is an int in this case, maybe because the json is an array
- , [T2].[json_key]
+ , [T2].[json_key] COLLATE database_default AS [json_key]
  , [T1].[SysObject_fullname]
  --a statement should have only one child
  --if this is not the case we need to include into ROW_NUMBER()

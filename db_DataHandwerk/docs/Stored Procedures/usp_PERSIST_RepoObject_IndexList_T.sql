@@ -99,14 +99,14 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',34,';',800,';',NULL);
 INSERT INTO 
  [docs].[RepoObject_IndexList_T]
  (
-  [AntoraIndexList]
+  [RepoObject_guid]
+, [AntoraIndexList]
 , [PumlIndexList]
-, [RepoObject_guid]
 )
 SELECT
-  [AntoraIndexList]
+  [RepoObject_guid]
+, [AntoraIndexList]
 , [PumlIndexList]
-, [RepoObject_guid]
 
 FROM [docs].[RepoObject_IndexList] AS S
 

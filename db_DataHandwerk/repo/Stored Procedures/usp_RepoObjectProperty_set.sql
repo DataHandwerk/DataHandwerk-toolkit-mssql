@@ -1,6 +1,6 @@
 ﻿/*
 --example
-[repo].[usp_set_RepoObjectProperty]
+[repo].[usp_RepoObjectProperty_set]
 @RepoObject_fullname2 = 'repo.usp_connect_database'
 , @property_name = 'MS_Description'
 , @property_value =
@@ -10,7 +10,7 @@ see details in xref:manual:repo.xref:sqldb:repo.usp_connect_database.adoc[]
 '
 
 */
-CREATE PROCEDURE [repo].[usp_set_RepoObjectProperty]
+CREATE PROCEDURE [repo].[usp_RepoObjectProperty_set]
  --
  @RepoObject_guid UNIQUEIDENTIFIER = NULL --if @RepoObject_guid is NULL, then @RepoObject_fullname or @RepoObject_fullname2 is used
  , @RepoObject_fullname NVARCHAR(261) = NULL --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
@@ -85,5 +85,5 @@ BEGIN
   , inserted.*;
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9edfbe88-ca97-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_set_RepoObjectProperty';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9edfbe88-ca97-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_set';
 

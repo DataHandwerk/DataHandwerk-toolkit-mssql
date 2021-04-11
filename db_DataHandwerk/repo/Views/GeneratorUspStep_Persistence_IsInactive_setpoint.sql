@@ -114,11 +114,13 @@ UNION ALL
 
 SELECT
  --insert missing
+ --don't do this, if 'insert all' (in case of truncate)
  --also check existing PK
  [usp_id]
  , Number = 700
  , [is_inactive] = CASE 
   WHEN [is_persistence_insert] = 1
+   AND NOT [is_persistence_truncate] = 1
    AND NOT ([pk_index_guid] IS NULL)
    THEN 0
   ELSE 1

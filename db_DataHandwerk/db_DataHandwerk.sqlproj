@@ -417,7 +417,6 @@
     <Build Include="repo_sys\Views\parameters.sql" />
     <Build Include="repo\Views\ForeignKey_gross.sql" />
     <Build Include="docs\Views\RepoObject_ParameterList.sql" />
-    <Build Include="repo\Stored Procedures\usp_set_RepoObjectProperty.sql" />
     <Build Include="docs\Tables\RepoObject_IndexList_T.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_IndexList_T.sql" />
     <Build Include="repo\Views\RepoObjectProperty_from_sql_modules_definition.sql" />
@@ -431,6 +430,11 @@
     <Build Include="repo\Views\RepoObject_related_FK_union.sql" />
     <Build Include="docs\Views\RepoObject_PlantUml_PumlEntityFkList.sql" />
     <Build Include="docs\Views\RepoObject_PlantUml_FkRefList.sql" />
+    <Build Include="repo\Tables\ForeignKey_Indexes_union_T.sql" />
+    <Build Include="docs\Tables\RepoObject_Plantuml_T.sql" />
+    <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_set.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_ForeignKey_Indexes_union_T.sql" />
+    <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Plantuml_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -99,12 +99,12 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',21,';',800,';',NULL);
 INSERT INTO 
  [docs].[RepoObject_Adoc_T]
  (
-  [AdocContent]
+  [RepoObject_guid]
+, [AdocContent]
 , [is_DocsOutput]
 , [PropertyCount]
 , [RepoObject_fullname]
 , [RepoObject_fullname2]
-, [RepoObject_guid]
 , [RepoObject_schema_name]
 , [SysObject_fullname]
 , [SysObject_fullname2]
@@ -113,12 +113,12 @@ INSERT INTO
 , [SysObject_type_name]
 )
 SELECT
-  [AdocContent]
+  [RepoObject_guid]
+, [AdocContent]
 , [is_DocsOutput]
 , [PropertyCount]
 , [RepoObject_fullname]
 , [RepoObject_fullname2]
-, [RepoObject_guid]
 , [RepoObject_schema_name]
 , [SysObject_fullname]
 , [SysObject_fullname2]

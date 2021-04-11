@@ -1,5 +1,4 @@
 ﻿
-
 CREATE VIEW [docs].[RepoObject_IndexList]
 AS
 SELECT ix.[parent_RepoObject_guid] AS RepoObject_guid
@@ -15,7 +14,7 @@ SELECT ix.[parent_RepoObject_guid] AS RepoObject_guid
    , ix.[index_name]
    , CHAR(13) + CHAR(10)
    , CHAR(13) + CHAR(10)
-   , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_' + REPLACE(REPLACE(REPLACE(LOWER(ISNULL(ix.[IndexSemanticGroup], 'no_group')), ' ', '_'), '__', '_'), '__', '_') + '[' + ix.[IndexSemanticGroup] + ']'
+   , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_' + REPLACE(REPLACE(REPLACE(LOWER(ISNULL(ix.[IndexSemanticGroup], 'no_group')), ' ', '_'), '__', '_'), '__', '_') + '[' + ISNULL(ix.[IndexSemanticGroup], 'no_group') + ']'
    , CHAR(13) + CHAR(10)
    , '+' + CHAR(13) + CHAR(10)
    , '--' + CHAR(13) + CHAR(10)
@@ -39,10 +38,12 @@ GROUP (
   )
  , PumlIndexList = String_Agg(CONCAT (
    CAST('' AS NVARCHAR(MAX))
-   , IIF([is_index_real] = 1, '- ', NULL)
+   , IIF([is_index_real] = 0, '- ', NULL)
    , IIF([is_index_primary_key] = 1, '**', NULL)
    , ix.[index_name]
    , IIF([is_index_primary_key] = 1, '**', NULL)
+   , CHAR(13) + CHAR(10)
+   , '{' + ix.[IndexSemanticGroup] + '}'
    , CHAR(13) + CHAR(10)
    , '..'
    , CHAR(13) + CHAR(10)
