@@ -330,9 +330,9 @@
     <Build Include="sys_dwh\Synonyms\foreign_key_columns.sql" />
     <Build Include="repo\Tables\ForeignKey_virtual.sql" />
     <Build Include="repo\Views\ForeignKey_IndexPattern.sql" />
-    <Build Include="repo\Views\ForeignKey_virtual_Index_guid.sql" />
-    <Build Include="repo\Views\ForeignKey_Index_guid_union.sql" />
-    <Build Include="repo\Views\ForeignKey_Index_guid.sql" />
+    <Build Include="repo\Views\ForeignKey_virtual_Indexes.sql" />
+    <Build Include="repo\Views\ForeignKey_Indexes_union.sql" />
+    <Build Include="repo\Views\ForeignKey_Indexes.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_ForeignKey.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_finish.sql" />
     <Build Include="repo\Views\ProcedureInstanceDependency_gross.sql" />

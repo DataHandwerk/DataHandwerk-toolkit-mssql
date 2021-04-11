@@ -15,7 +15,7 @@ GROUP (
   ORDER BY fk.[referenced_RepoObject_fullname2]
    , fk.[referencing_RepoObject_fullname2]
   )
-FROM [repo].[ForeignKey_Index_guid_union] fk
+FROM [repo].[ForeignKey_Indexes_union] fk
 INNER JOIN repo.RepoObject_related_FK_union ro
  ON ro.RepoObject_guid = fk.[referenced_RepoObject_guid]
   AND ro.[included_RepoObject_guid] = fk.referencing_RepoObject_guid

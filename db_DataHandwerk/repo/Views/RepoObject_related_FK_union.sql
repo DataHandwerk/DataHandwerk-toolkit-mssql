@@ -24,7 +24,7 @@ SELECT [referenced_RepoObject_guid]
  , [referenced_RepoObject_fullname2]
  , [referencing_RepoObject_guid]
  , [referencing_RepoObject_fullname2]
-FROM [repo].[ForeignKey_Index_guid_union]
+FROM [repo].[ForeignKey_Indexes_union]
 
 UNION
 
@@ -32,7 +32,7 @@ SELECT [referencing_RepoObject_guid]
  , [referencing_RepoObject_fullname2]
  , [referenced_RepoObject_guid]
  , [referenced_RepoObject_fullname2]
-FROM [repo].[ForeignKey_Index_guid_union]
+FROM [repo].[ForeignKey_Indexes_union]
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '22224606-439a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_related_FK_union', @level2type = N'COLUMN', @level2name = N'included_RepoObject_fullname2';
 
