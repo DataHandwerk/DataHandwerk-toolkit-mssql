@@ -428,6 +428,9 @@
     <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_collect.sql" />
     <Build Include="Security\tool.sql" />
     <Build Include="tool\Stored Procedures\usp_longprint.sql" />
+    <Build Include="repo\Views\RepoObject_related_FK_union.sql" />
+    <Build Include="docs\Views\RepoObject_PlantUml_PumlEntityFkList.sql" />
+    <Build Include="docs\Views\RepoObject_PlantUml_FkRefList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

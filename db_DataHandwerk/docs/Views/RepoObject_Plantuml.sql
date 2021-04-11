@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE VIEW [docs].[RepoObject_Plantuml]
 AS
 SELECT [ro].[RepoObject_guid]
@@ -44,8 +42,8 @@ SELECT [ro].[RepoObject_guid]
   , CHAR(13) + CHAR(10)
   , [olist].[ObjectRefList]
   )
-  --todo: needs to be implemented, this is only a placeholder
-  --other lists are required: PumlEntityFkList, FkList
+ --todo: needs to be implemented, this is only a placeholder
+ --other lists are required: PumlEntityFkList, FkList
  , [PlantumlEntity_1_1_FkRef] = CONCAT (
   'left to right direction'
   , CHAR(13) + CHAR(10)
@@ -59,9 +57,9 @@ SELECT [ro].[RepoObject_guid]
   , [repo].[fs_get_parameter_value]('puml_skinparam_class', '')
   , CHAR(13) + CHAR(10)
   , CHAR(13) + CHAR(10)
-  , [elist].PumlEntityOnlyPkList
+  , EntityFkList.PumlEntityFkList
   , CHAR(13) + CHAR(10)
-  , [olist].[ObjectRefList]
+  , FkRefList.FkRefList
   )
 FROM [repo].[RepoObject_gross] AS ro
 LEFT JOIN [docs].[RepoObject_Plantuml_ColRefList] AS clist
@@ -69,6 +67,10 @@ LEFT JOIN [docs].[RepoObject_Plantuml_ColRefList] AS clist
 LEFT JOIN [docs].[RepoObject_Plantuml_ObjectRefList] AS olist
  ON olist.RepoObject_guid = ro.RepoObject_guid
 CROSS APPLY [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList](ro.RepoObject_guid, 1, 1) AS elist
+LEFT JOIN docs.RepoObject_PlantUml_PumlEntityFkList EntityFkList
+ ON EntityFkList.RepoObject_guid = ro.RepoObject_guid
+LEFT JOIN docs.RepoObject_PlantUml_FkRefList FkRefList
+ ON FkRefList.RepoObject_guid = ro.RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fb0b29c2-e595-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml', @level2type = N'COLUMN', @level2name = N'PlantumlEntity_1_1_ColRef';
 
