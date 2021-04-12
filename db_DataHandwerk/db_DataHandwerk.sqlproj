@@ -229,7 +229,7 @@
     <Build Include="repo\Views\RepoObject_ColumnList.sql" />
     <Build Include="repo\Views\RepoObjectColumn_HistValidColums_setpoint.sql" />
     <Build Include="repo\Functions\ftv_get_parameter_value.sql" />
-    <Build Include="repo\Stored Procedures\usp_Index_virtual_InsertUpdate.sql" />
+    <Build Include="repo\Stored Procedures\usp_Index_virtual_set.sql" />
     <Build Include="repo\Tables\GeneratorUspStep.sql" />
     <Build Include="repo\Tables\GeneratorUspParameter.sql" />
     <Build Include="repo\Tables\GeneratorUsp.sql" />
