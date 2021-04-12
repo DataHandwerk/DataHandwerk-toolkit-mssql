@@ -1,46 +1,90 @@
-﻿
-CREATE VIEW [repo].[RepoObject_ReferencedList]
-AS
-SELECT ror.[Referencing_guid]
- , AntoraReferencedList = String_Agg(CONCAT (
-   --* xref:target-page-filename.adoc[link text]
-   --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-   CAST('* xref:' AS NVARCHAR(MAX))
-   , ror.[Referenced_fullname2]
-   , '.adoc[]'
-   --, QuoteName(ror.[Referenced_fullname])
-   --, ' '
-   --, CHAR(13)
-   --, CHAR(10)
-   ), CHAR(13) + CHAR(10)) WITHIN
-GROUP (
-  ORDER BY ror.[Referenced_fullname]
-  )
- , MAX(ror.[Referencing_fullname]) AS [Referencing_fullname]
- , MAX(ror.[Referencing_fullname2]) AS [Referencing_fullname2]
- , MAX(ror.[Referencing_type]) AS [Referencing_type]
-FROM [graph].[RepoObject_ReferencingReferenced] AS ror
-GROUP BY ror.[Referencing_guid]
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '631254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedList', @level2type = N'COLUMN', @level2name = N'AntoraReferencedList';
+﻿Create View repo.RepoObject_ReferencedList
+As
+Select
+    ror.Referencing_guid
+  , AntoraReferencedList              = String_Agg (
+                                                       Concat (
+                                                                  --* xref:target-page-filename.adoc[link text]
+                                                                  --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                                                                  Cast('* xref:' As NVarchar(Max))
+                                                                , ror.Referenced_fullname2
+                                                                , '.adoc[]'
+                                                              --, QuoteName(ror.[Referenced_fullname])
+                                                              --, ' '
+                                                              --, CHAR(13)
+                                                              --, CHAR(10)
+                                                              )
+                                                     , Char ( 13 ) + Char ( 10 )
+                                                   ) Within Group(Order By
+                                                                      ror.Referenced_fullname)
+  , Max ( ror.Referencing_fullname )  As Referencing_fullname
+  , Max ( ror.Referencing_fullname2 ) As Referencing_fullname2
+  , Max ( ror.Referencing_type )      As Referencing_type
+From
+    graph.RepoObject_ReferencingReferenced As ror
+Group By
+    ror.Referencing_guid;
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '631254dc-0593-eb11-84f2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_ReferencedList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'AntoraReferencedList';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '621254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedList', @level2type = N'COLUMN', @level2name = N'Referencing_type';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '621254dc-0593-eb11-84f2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_ReferencedList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'Referencing_type';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '611254dc-0593-eb11-84f2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_ReferencedList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'Referencing_fullname2';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '611254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedList', @level2type = N'COLUMN', @level2name = N'Referencing_fullname2';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '601254dc-0593-eb11-84f2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_ReferencedList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'Referencing_fullname';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '5f1254dc-0593-eb11-84f2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_ReferencedList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'Referencing_guid';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '601254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedList', @level2type = N'COLUMN', @level2name = N'Referencing_fullname';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5f1254dc-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedList', @level2type = N'COLUMN', @level2name = N'Referencing_guid';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'e85bf6c2-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedList';
-
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = 'e85bf6c2-0593-eb11-84f2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_ReferencedList';

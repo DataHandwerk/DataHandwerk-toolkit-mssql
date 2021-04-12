@@ -70,7 +70,7 @@ Declare inheritance_cursor Cursor Read_Only For
 Select
     resulting_InheritanceDefinition
 From
-    repo.RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition
+    repo.[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition]
 Group By
     resulting_InheritanceDefinition
 Having

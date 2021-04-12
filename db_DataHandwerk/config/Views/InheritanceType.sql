@@ -1,28 +1,26 @@
-﻿
-
-CREATE View [config].[InheritanceType]
+﻿Create View config.InheritanceType
 As
 --
 Select
-    [InheritanceType]            = 0
-  , [InheritanceTypeDescription] = 'No inheritance from predecessor'
+    InheritanceType            = 0
+  , InheritanceTypeDescription = 'No inheritance from predecessor'
 --
 Union All
 Select
-    [InheritanceType]            = 11
-  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, if current value is NULL'
+    InheritanceType            = 11
+  , InheritanceTypeDescription = 'Inheritance from first (or all) predecessor, if current value is NULL'
 Union All
 Select
-    [InheritanceType]            = 12
-  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, if current value is NULL or empty ('''')'
+    InheritanceType            = 12
+  , InheritanceTypeDescription = 'Inheritance from first (or all) predecessor, if current value is NULL or empty ('''')'
 Union All
 Select
-    [InheritanceType]            = 13
-  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, forced, only when source is not empty'
+    InheritanceType            = 13
+  , InheritanceTypeDescription = 'Inheritance from first (or all) predecessor, forced, only when source is not empty'
 Union All
 Select
-    [InheritanceType]            = 14
-  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, forced without exception (dangerous!)';
+    InheritanceType            = 14
+  , InheritanceTypeDescription = 'Inheritance from first (or all) predecessor, forced without exception (dangerous!)';
 
 --UNION ALL
 --SELECT
@@ -55,14 +53,36 @@ Select
 --SELECT
 --       [InheritanceType] = 33
 --     , [InheritanceTypeDescription] = 'use CONCAT (for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')''), Inheritance from first predecessor, force'
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5cb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'InheritanceType';
+Go
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '5cb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'config'
+  , @level1type = N'VIEW'
+  , @level1name = N'InheritanceType';
 
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a4b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'InheritanceType', @level2type = N'COLUMN', @level2name = N'InheritanceTypeDescription';
+Go
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'a4b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'config'
+  , @level1type = N'VIEW'
+  , @level1name = N'InheritanceType'
+  , @level2type = N'COLUMN'
+  , @level2name = N'InheritanceTypeDescription';
 
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a3b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'VIEW', @level1name = N'InheritanceType', @level2type = N'COLUMN', @level2name = N'InheritanceType';
+Go
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'a3b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'config'
+  , @level1type = N'VIEW'
+  , @level1name = N'InheritanceType'
+  , @level2type = N'COLUMN'
+  , @level2name = N'InheritanceType';
 

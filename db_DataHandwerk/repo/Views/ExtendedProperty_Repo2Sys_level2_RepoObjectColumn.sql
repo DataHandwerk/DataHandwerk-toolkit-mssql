@@ -1,76 +1,176 @@
-﻿
-CREATE VIEW [repo].[ExtendedProperty_Repo2Sys_level2_RepoObjectColumn]
-AS
-SELECT [prop].[property_name]
- , [prop].[property_value]
- , [level0type] = N'Schema'
- , [level0name] = [ro_parent].[RepoObject_schema_name]
- , [lev_parent].[level1type]
- , [level1name] = [ro_parent].[RepoObject_name]
- , [level2type] = N'COLUMN'
- , [level2name] = [roc].[RepoObjectColumn_name]
- , [prop].[RepoObjectColumn_guid]
- , [roc].[Repo_user_type_fullname]
- , [parent_RepoObject_guid] = [ro_parent].[RepoObject_guid]
- , [parent_RepoObject_type] = [ro_parent].[RepoObject_type]
-FROM [repo].[RepoObjectColumnProperty] AS prop
-INNER JOIN [repo].[RepoObjectColumn] AS roc
- ON roc.[RepoObjectColumn_guid] = prop.[RepoObjectColumn_guid]
-INNER JOIN repo.RepoObject AS ro_parent
- ON ro_parent.[RepoObject_guid] = roc.[RepoObject_guid]
-INNER JOIN [config].[type_level1type_level2type] AS lev_parent
- ON lev_parent.type = ro_parent.RepoObject_type
-WHERE [is_RepoObjectColumn_name_uniqueidentifier] = 0
- --SchemaCompare has issues comparing extended properties for graph table columns, we need to exclude them
- AND roc.Repo_graph_type IS NULL
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '57b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn';
+﻿Create View repo.ExtendedProperty_Repo2Sys_level2_RepoObjectColumn
+As
+Select
+    prop.property_name
+  , prop.property_value
+  , level0type             = N'Schema'
+  , level0name             = ro_parent.RepoObject_schema_name
+  , lev_parent.level1type
+  , level1name             = ro_parent.RepoObject_name
+  , level2type             = N'COLUMN'
+  , level2name             = roc.RepoObjectColumn_name
+  , prop.RepoObjectColumn_guid
+  , roc.Repo_user_type_fullname
+  , parent_RepoObject_guid = ro_parent.RepoObject_guid
+  , parent_RepoObject_type = ro_parent.RepoObject_type
+From
+    repo.RepoObjectColumnProperty         As prop
+    Inner Join
+        repo.RepoObjectColumn             As roc
+            On
+            roc.RepoObjectColumn_guid = prop.RepoObjectColumn_guid
 
+    Inner Join
+        repo.RepoObject                   As ro_parent
+            On
+            ro_parent.RepoObject_guid = roc.RepoObject_guid
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '94b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+    Inner Join
+        config.type_level1type_level2type As lev_parent
+            On
+            lev_parent.type           = ro_parent.RepoObject_type
+Where
+    is_RepoObjectColumn_name_uniqueidentifier = 0
+    --SchemaCompare has issues comparing extended properties for graph table columns, we need to exclude them
+    And roc.Repo_graph_type Is Null;
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '57b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '95b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'Repo_user_type_fullname';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '94b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObjectColumn_guid';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '95b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'Repo_user_type_fullname';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8db33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'property_value';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '8db33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'property_value';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '8cb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'property_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8cb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'property_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '97b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'parent_RepoObject_type';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '96b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'parent_RepoObject_guid';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '97b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'parent_RepoObject_type';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '92b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level2type';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '93b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level2name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '96b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'parent_RepoObject_guid';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '90b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level1type';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '91b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level1name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '92b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level2type';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '8eb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level0type';
+Go
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '93b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level2name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '90b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level1type';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '91b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level1name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8eb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level0type';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8fb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level0name';
-
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '8fb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level0name';

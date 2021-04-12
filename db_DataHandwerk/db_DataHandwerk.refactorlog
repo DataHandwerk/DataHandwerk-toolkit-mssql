@@ -806,4 +806,18 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="usp_persistence_set" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="55b16a1a-8fc6-4665-ba59-1e45b7eef67d" ChangeDateTime="04/12/2021 18:29:18">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_InheritanceType_InheritanceDefinition]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="RepoObjectColumnProperty_InheritanceType_InheritanceDefinition" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d607550b-62db-412f-b0f8-328b4a4849df" ChangeDateTime="04/12/2021 18:31:02">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition]" />
+  </Operation>
 </Operations>

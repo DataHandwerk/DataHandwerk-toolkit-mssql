@@ -12,37 +12,41 @@ FROM repo.RepoObject_SqlModules_51_Identitfier T1
 
 
 */
-CREATE VIEW [repo].[RepoObject_SqlModules_51_Identitfier]
-AS
-SELECT
- --
- [T1].[RepoObject_guid]
- , [T1].[json_key]
- , [T1].[SysObject_fullname]
- , [T1].[RowNumber_per_Object]
- , [T1].[class]
- , [T1].[normalized]
- , [T1].[is_group]
- , [T1].[is_keyword]
- , [T1].[is_whitespace]
- --same logic: [repo].[RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit]
- --in case of an simple identifier like [T1].[aaa] get the table part (before dot) and the column part (after dot)
- , [source_table] = CASE 
-  WHEN [T1].[child1_normalized] = '.'
-   AND NOT [T1].[child2_normalized] IS NULL
-   THEN [T1].[child0_normalized]
-  WHEN [T1].[child1_normalized] IS NULL
-   THEN NULL
-  END
- , [source_column] = CASE 
-  WHEN [T1].[child1_normalized] = '.'
-   AND NOT [T1].[child2_normalized] IS NULL
-   THEN [T1].[child2_normalized]
-  WHEN [T1].[child1_normalized] IS NULL
-   THEN [T1].[child0_normalized]
-  END
- , [T1].[children]
- , [T1].[child0_class]
+Create View repo.RepoObject_SqlModules_51_Identitfier
+As
+Select
+    --
+    T1.RepoObject_guid
+  , T1.json_key
+  , T1.SysObject_fullname
+  , T1.RowNumber_per_Object
+  , T1.class
+  , T1.normalized
+  , T1.is_group
+  , T1.is_keyword
+  , T1.is_whitespace
+  --same logic: [repo].[RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit]
+  --in case of an simple identifier like [T1].[aaa] get the table part (before dot) and the column part (after dot)
+  , source_table  = Case
+                        When T1.child1_normalized = '.'
+                             And Not T1.child2_normalized Is Null
+                            Then
+                            T1.child0_normalized
+                        When T1.child1_normalized Is Null
+                            Then
+                            Null
+                    End
+  , source_column = Case
+                        When T1.child1_normalized = '.'
+                             And Not T1.child2_normalized Is Null
+                            Then
+                            T1.child2_normalized
+                        When T1.child1_normalized Is Null
+                            Then
+                            T1.child0_normalized
+                    End
+  , T1.children
+  , T1.child0_class
 --what happens in case of aa.bb as c or c = aa.bb?
 --, [T1].[RepoObject_guid]
 --, [T1].[json_key]
@@ -84,72 +88,183 @@ SELECT
 --, [T1].[child4_is_whitespace]
 --, [T1].[child4_normalized]
 --, [T1].[child4_children]
-FROM repo.RepoObject_SqlModules_20_statement_children AS T1
-WHERE [T1].[class] = 'Identifier'
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0e813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier';
+From
+    repo.RepoObject_SqlModules_20_statement_children As T1
+Where
+    T1.class = 'Identifier';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '0e813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '54813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '54813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_fullname';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '5b813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'source_table';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5b813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'source_table';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '5c813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'source_column';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '55813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RowNumber_per_Object';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5c813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'source_column';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '53813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_guid';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '57813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'normalized';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '55813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'RowNumber_per_Object';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '5a813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'is_whitespace';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '59813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'is_keyword';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '53813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '58813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'is_group';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '56813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'class';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'normalized';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '5d813ebd-7764-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'children';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '0db3c709-8364-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'child0_class';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5a813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'is_whitespace';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '99a0a6c2-f781-eb11-84e9-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'json_key';
+Go
 
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'is_keyword';
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[children]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'children';
+Go
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'is_group';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'class';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5d813ebd-7764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'children';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0db3c709-8364-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'child0_class';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '99a0a6c2-f781-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'json_key';
-
-
-GO
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[children]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'children';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[child0_class]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_51_Identitfier', @level2type = N'COLUMN', @level2name = N'child0_class';
-
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[child0_class]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_SqlModules_51_Identitfier'
+  , @level2type = N'COLUMN'
+  , @level2name = N'child0_class';

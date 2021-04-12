@@ -5,20 +5,18 @@
 
 SELECT is_StringAggAllSources
  , resulting_InheritanceDefinition
-FROM repo.RepoObject_InheritanceType_resulting_InheritanceDefinition
+FROM repo.RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition
 GROUP BY is_StringAggAllSources
  , resulting_InheritanceDefinition
 HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 
-
 */
---todo: refactoring [RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]
 
-Create View repo.RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
+Create View repo.RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition
 As
 Select
     --
-    inh.RepoObject_guid
+    inh.RepoObjectColumn_guid
   , inh.property_name
   , inh.property_value
   , inh.InheritanceType
@@ -58,144 +56,132 @@ Select
           Then
           IsNull (
                      InheritanceDefinition
-                   , '[repo].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], [referencing].[property_name])'
+                   , '[repo].[fs_get_RepoObjectColumnProperty_nvarchar]([referenced].[RepoObjectColumn_guid], [referencing].[property_name])'
                  )
   End
   --normally the result from [resulting_InheritanceDefinition] should not be empty to be inherited
   --this will avoid existing property_value to be deleted
   --but inheritance can be forced (dangerous!)
   , inh.InheritanceDefinition
-  , inh.RepoObject_fullname
-  , inh.RepoObject_type
+  , inh.RepoObjectColumn_name
 From
-    repo.RepoObjectProperty_InheritanceType_InheritanceDefinition As inh;
+    repo.RepoObjectColumnProperty_InheritanceType_InheritanceDefinition As inh;
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
-  , @value = '61b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '53b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition';
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'bdb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '6fb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'resulting_InheritanceDefinition';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'c0b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '71b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_type';
+  , @level2name = N'RepoObjectColumn_name';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'b6b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '68b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
+  , @level2name = N'RepoObjectColumn_guid';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'bfb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '6ab33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_fullname';
-Go
-
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'b8b33a4a-426d-eb11-84e2-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'property_value';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'b7b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '69b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'property_name';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'bbb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '6db33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'is_StringAggAllSources';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'bab33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '6cb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'is_force_inherit_empty_source';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'b9b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '6bb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'InheritanceType';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'beb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '70b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'InheritanceDefinition';
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
-  , @value = 'bcb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '6eb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
   , @level0name = N'repo'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
+  , @level1name = N'RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
   , @level2name = N'Inheritance_StringAggSeparatorSql';

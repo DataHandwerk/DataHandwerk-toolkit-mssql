@@ -1,64 +1,146 @@
-﻿
+﻿Create View repo.ExtendedProperty_Repo2Sys_level1
+As
+Select
+    prop.property_name
+  , prop.property_value
+  , level0type = N'Schema'
+  , level0name = ro.RepoObject_schema_name
+  , lev.level1type
+  , level1name = ro.RepoObject_name
+  , lev.level2type
+  , level2name = Cast(Null As Varchar(128))
+  , prop.RepoObject_guid
+  , ro.RepoObject_type
+From
+    repo.RepoObjectProperty               As prop
+    Inner Join
+        repo.RepoObject                   As ro
+            On
+            ro.RepoObject_guid = prop.RepoObject_guid
 
-CREATE VIEW [repo].[ExtendedProperty_Repo2Sys_level1]
-AS
-SELECT [prop].[property_name]
- , [prop].[property_value]
- , [level0type] = N'Schema'
- , [level0name] = [ro].[RepoObject_schema_name]
- , [lev].[level1type]
- , [level1name] = [ro].[RepoObject_name]
- , [lev].[level2type]
- , [level2name] = CAST(NULL AS VARCHAR(128))
- , [prop].[RepoObject_guid]
- , [ro].[RepoObject_type]
-FROM repo.RepoObjectProperty AS prop
-INNER JOIN repo.RepoObject AS ro
- ON ro.RepoObject_guid = prop.RepoObject_guid
-INNER JOIN [config].[type_level1type_level2type] AS lev
- ON lev.type = ro.RepoObject_type
-WHERE NOT [lev].[level1type] IS NULL
- AND [lev].[level2type] IS NULL
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '55b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1';
+    Inner Join
+        config.type_level1type_level2type As lev
+            On
+            lev.type           = ro.RepoObject_type
+Where
+    Not lev.level1type Is Null
+    And lev.level2type Is Null;
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '55b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7fb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'RepoObject_type';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '7fb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_type';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '7eb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_guid';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7eb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '77b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'property_value';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '76b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'property_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '77b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'property_value';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '7cb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level2type';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '7db33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level2name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '76b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'property_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '7ab33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level1type';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '7bb33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level1name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7cb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'level2type';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '78b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level0type';
+Go
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7db33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'level2name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7ab33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'level1type';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7bb33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'level1name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '78b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'level0type';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '79b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level1', @level2type = N'COLUMN', @level2name = N'level0name';
-
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '79b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'ExtendedProperty_Repo2Sys_level1'
+  , @level2type = N'COLUMN'
+  , @level2name = N'level0name';

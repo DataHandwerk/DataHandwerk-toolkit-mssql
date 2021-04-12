@@ -142,133 +142,158 @@ and isjson(T1.children) = 1
 
 */
 --@jsonstr should be 'children' element of en entry class IdentifierList
-CREATE FUNCTION [repo].[ftv_sqlparse_IdentifierList__TestOnly] (@jsonstr NVARCHAR(MAX))
-RETURNS TABLE
-AS
-RETURN (
-  SELECT
-   --j1.*
-   --,
-   --  [T1].[RepoObject_guid]
-   --, [T1].[key]
-   --, [T1].[SysObject_fullname]
-   --, [T1].[RowNumber_per_Object]
-   --, [T1].[class]
-   --  --, [T1].[is_group]
-   --  --, [T1].[is_keyword]
-   --  --, [T1].[is_whitespace]
-   --, [T1].[normalized]
-   --  --, [T1].[children]
-   --, 
-   [T2_class] = [T2].[class]
-   , [Identifier_alias] = CASE [T2].[class]
-    WHEN 'Identifier'
-     THEN CASE 
-       WHEN [T2].[child1_normalized] = 'AS'
-        THEN [T2].[child2_normalized]
-       WHEN [T2].[child3_normalized] = 'AS'
-        THEN [T2].[child4_normalized]
-       END
-    WHEN 'Comparison'
-     THEN CASE 
-       WHEN [T2].[child1_normalized] = '='
-        THEN [T2].[child0_normalized]
-       END
-    END
-   , [Identifier_source] = CASE [T2].[class]
-    WHEN 'Identifier'
-     THEN CASE [T2].[child0_class]
-       WHEN 'Token'
-        THEN [T2].[normalized]
-       WHEN 'Function'
-        THEN [T2].[child0_normalized]
-       END
-    WHEN 'Comparison'
-     THEN CASE 
-       WHEN [T2].[child1_normalized] = '='
-        THEN [T2].[child2_normalized]
-       END
-    END
-   , [Identifier_source_class] = CASE [T2].[class]
-    WHEN 'Identifier'
-     THEN CASE [T2].[child0_class]
-       WHEN 'Token'
-        THEN [T2].[class]
-       WHEN 'Function'
-        THEN [T2].[child0_class]
-       END
-    WHEN 'Comparison'
-     THEN CASE 
-       WHEN [T2].[child1_normalized] = '='
-        THEN [T2].[child2_class]
-       END
-    END
-   , [Identifier_source_children] = CASE [T2].[class]
-    WHEN 'Identifier'
-     THEN CASE [T2].[child0_class]
-       WHEN 'Token'
-        THEN [T2].[children]
-       WHEN 'Function'
-        THEN [T2].[child0_children]
-       END
-    WHEN 'Comparison'
-     THEN CASE 
-       WHEN [T2].[child1_normalized] = '='
-        THEN [T2].[child2_children]
-       END
-    END
-  --     , [T2].[json_key]
-  --     , [T2].[is_group]
-  --     , [T2].[is_keyword]
-  --     , [T2].[is_whitespace]
-  --     , [T2].[normalized]
-  --     , [T2].[children]
-  --     , [T2].[child0_class]
-  --     , [T2].[child0_is_group]
-  --     , [T2].[child0_is_keyword]
-  --     , [T2].[child0_is_whitespace]
-  --     , [T2].[child0_normalized]
-  --     , [T2].[child0_children]
-  --     , [T2].[child1_class]
-  --     , [T2].[child1_is_group]
-  --     , [T2].[child1_is_keyword]
-  --     , [T2].[child1_is_whitespace]
-  --     , [T2].[child1_normalized]
-  --     , [T2].[child1_children]
-  --     , [T2].[child2_class]
-  --     , [T2].[child2_is_group]
-  --     , [T2].[child2_is_keyword]
-  --     , [T2].[child2_is_whitespace]
-  --     , [T2].[child2_normalized]
-  --     , [T2].[child2_children]
-  --     , [T2].[child3_class]
-  --     , [T2].[child3_is_group]
-  --     , [T2].[child3_is_keyword]
-  --     , [T2].[child3_is_whitespace]
-  --     , [T2].[child3_normalized]
-  --     , [T2].[child3_children]
-  --     , [T2].[child4_class]
-  --     , [T2].[child4_is_group]
-  --     , [T2].[child4_is_keyword]
-  --     , [T2].[child4_is_whitespace]
-  --     , [T2].[child4_normalized]
-  --     , [T2].[child4_children]
-  ----FROM
-  ----     [repo].[RepoObject__sql_modules_20_statement_children] AS T1
-  FROM --
-   --     OPENJSON(@jsonstr) AS j1
-   --     CROSS APPLY
-   [repo].[ftv_sqlparse_with_some_children](@jsonstr) AS T2
-  WHERE [T2].[class] IN (
-    'Identifier'
-    , 'Comparison'
-    )
-  )
+Create Function repo.ftv_sqlparse_IdentifierList__TestOnly
+(
+    @jsonstr NVarchar(Max)
+)
+Returns Table
+As
+Return
+(
+    Select
+        --j1.*
+        --,
+        --  [T1].[RepoObject_guid]
+        --, [T1].[key]
+        --, [T1].[SysObject_fullname]
+        --, [T1].[RowNumber_per_Object]
+        --, [T1].[class]
+        --  --, [T1].[is_group]
+        --  --, [T1].[is_keyword]
+        --  --, [T1].[is_whitespace]
+        --, [T1].[normalized]
+        --  --, [T1].[children]
+        --, 
+        T2_class                   = T2.class
+      , Identifier_alias           = Case T2.class
+                                         When 'Identifier'
+                                             Then
+                                             Case
+                                                 When T2.child1_normalized = 'AS'
+                                                     Then
+                                                     T2.child2_normalized
+                                                 When T2.child3_normalized = 'AS'
+                                                     Then
+                                                     T2.child4_normalized
+                                             End
+                                         When 'Comparison'
+                                             Then
+                                             Case
+                                                 When T2.child1_normalized = '='
+                                                     Then
+                                                     T2.child0_normalized
+                                             End
+                                     End
+      , Identifier_source          = Case T2.class
+                                         When 'Identifier'
+                                             Then
+                                             Case T2.child0_class
+                                                 When 'Token'
+                                                     Then
+                                                     T2.normalized
+                                                 When 'Function'
+                                                     Then
+                                                     T2.child0_normalized
+                                             End
+                                         When 'Comparison'
+                                             Then
+                                             Case
+                                                 When T2.child1_normalized = '='
+                                                     Then
+                                                     T2.child2_normalized
+                                             End
+                                     End
+      , Identifier_source_class    = Case T2.class
+                                         When 'Identifier'
+                                             Then
+                                             Case T2.child0_class
+                                                 When 'Token'
+                                                     Then
+                                                     T2.class
+                                                 When 'Function'
+                                                     Then
+                                                     T2.child0_class
+                                             End
+                                         When 'Comparison'
+                                             Then
+                                             Case
+                                                 When T2.child1_normalized = '='
+                                                     Then
+                                                     T2.child2_class
+                                             End
+                                     End
+      , Identifier_source_children = Case T2.class
+                                         When 'Identifier'
+                                             Then
+                                             Case T2.child0_class
+                                                 When 'Token'
+                                                     Then
+                                                     T2.children
+                                                 When 'Function'
+                                                     Then
+                                                     T2.child0_children
+                                             End
+                                         When 'Comparison'
+                                             Then
+                                             Case
+                                                 When T2.child1_normalized = '='
+                                                     Then
+                                                     T2.child2_children
+                                             End
+                                     End
+    --     , [T2].[json_key]
+    --     , [T2].[is_group]
+    --     , [T2].[is_keyword]
+    --     , [T2].[is_whitespace]
+    --     , [T2].[normalized]
+    --     , [T2].[children]
+    --     , [T2].[child0_class]
+    --     , [T2].[child0_is_group]
+    --     , [T2].[child0_is_keyword]
+    --     , [T2].[child0_is_whitespace]
+    --     , [T2].[child0_normalized]
+    --     , [T2].[child0_children]
+    --     , [T2].[child1_class]
+    --     , [T2].[child1_is_group]
+    --     , [T2].[child1_is_keyword]
+    --     , [T2].[child1_is_whitespace]
+    --     , [T2].[child1_normalized]
+    --     , [T2].[child1_children]
+    --     , [T2].[child2_class]
+    --     , [T2].[child2_is_group]
+    --     , [T2].[child2_is_keyword]
+    --     , [T2].[child2_is_whitespace]
+    --     , [T2].[child2_normalized]
+    --     , [T2].[child2_children]
+    --     , [T2].[child3_class]
+    --     , [T2].[child3_is_group]
+    --     , [T2].[child3_is_keyword]
+    --     , [T2].[child3_is_whitespace]
+    --     , [T2].[child3_normalized]
+    --     , [T2].[child3_children]
+    --     , [T2].[child4_class]
+    --     , [T2].[child4_is_group]
+    --     , [T2].[child4_is_keyword]
+    --     , [T2].[child4_is_whitespace]
+    --     , [T2].[child4_normalized]
+    --     , [T2].[child4_children]
+    ----FROM
+    ----     [repo].[RepoObject__sql_modules_20_statement_children] AS T1
+    From --
+        --     OPENJSON(@jsonstr) AS j1
+        --     CROSS APPLY
+        repo.ftv_sqlparse_with_some_children ( @jsonstr ) As T2
+    Where
+        T2.class In
+        ( 'Identifier', 'Comparison' )
+);
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_sqlparse_IdentifierList__TestOnly';
-
-
-GO
-
-
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '5190291c-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'FUNCTION'
+  , @level1name = N'ftv_sqlparse_IdentifierList__TestOnly';
+Go

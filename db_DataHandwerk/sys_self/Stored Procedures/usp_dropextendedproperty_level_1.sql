@@ -2,93 +2,98 @@
 EXEC [sys_self].usp_dropextendedproperty_level_1
      @name = 'RepoObject_guid'
 */
-CREATE PROCEDURE [sys_self].[usp_dropextendedproperty_level_1] @name VARCHAR(128)
-AS
-DECLARE @DbName SYSNAME = DB_NAME()
+Create Procedure sys_self.usp_dropextendedproperty_level_1 @name Varchar(128)
+As
+Declare @DbName sysname = Db_Name ();
 
-PRINT @DbName
+Print @DbName;
 
-DECLARE @module_name_var_drop NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_dropextendedproperty'
+Declare @module_name_var_drop NVarchar(500) = QuoteName ( @DbName ) + N'.sys.sp_dropextendedproperty';
 
-PRINT @module_name_var_drop
+Print @module_name_var_drop;
 
-DECLARE delete_cursor CURSOR READ_ONLY
-FOR
-SELECT [property_name]
- , [property_value]
- , [level0type]
- , [level0name]
- , [level1type]
- , [level1name]
-FROM sys_self.[ExtendedProperties_ParameterForAddUpdateDrop]
-WHERE [property_name] = @name
- AND NOT [level1type] IS NULL
- AND NOT [level1name] IS NULL
- AND [level2type] IS NULL
- AND [level2name] IS NULL
+Declare delete_cursor Cursor Read_Only For
+Select
+    property_name
+  , property_value
+  , level0type
+  , level0name
+  , level1type
+  , level1name
+From
+    sys_self.ExtendedProperties_ParameterForAddUpdateDrop
+Where
+    property_name = @name
+    And Not level1type Is Null
+    And Not level1name Is Null
+    And level2type Is Null
+    And level2name Is Null;
 
-DECLARE @property_name VARCHAR(128)
- , @property_value SQL_VARIANT
- , @level0type VARCHAR(128)
- , @level0name VARCHAR(128)
- , @level1type VARCHAR(128)
- , @level1name VARCHAR(128)
+Declare
+    @property_name  Varchar(128)
+  , @property_value Sql_Variant
+  , @level0type     Varchar(128)
+  , @level0name     Varchar(128)
+  , @level1type     Varchar(128)
+  , @level1name     Varchar(128);
 
-OPEN delete_cursor
+Open delete_cursor;
 
-FETCH NEXT
-FROM delete_cursor
-INTO @property_name
- , @property_value
- , @level0type
- , @level0name
- , @level1type
- , @level1name
-
-WHILE @@fetch_status <> - 1
-BEGIN
- IF @@fetch_status <> - 2
- BEGIN
-  PRINT CONCAT (
-    @module_name_var_drop
-    , ';'
-    , @name
-    , ';'
-    , @level0type
-    , ';'
-    , @level0name
-    , ';'
-    , @level1type
-    , ';'
-    , @level1name
-    )
-
-  --EXEC sp_dropextendedproperty
-  EXEC @module_name_var_drop @name = @property_name
-   , @level0type = @level0type
-   , @level0name = @level0name
-   , @level1type = @level1type
-   , @level1name = @level1name
- END
-
- FETCH NEXT
- FROM delete_cursor
- INTO @property_name
+Fetch Next From delete_cursor
+Into
+    @property_name
   , @property_value
   , @level0type
   , @level0name
   , @level1type
-  , @level1name
-END
+  , @level1name;
 
-CLOSE delete_cursor
+While @@Fetch_Status <> -1
+Begin
+    If @@Fetch_Status <> -2
+    Begin
+        Print Concat (
+                         @module_name_var_drop
+                       , ';'
+                       , @name
+                       , ';'
+                       , @level0type
+                       , ';'
+                       , @level0name
+                       , ';'
+                       , @level1type
+                       , ';'
+                       , @level1name
+                     );
 
-DEALLOCATE delete_cursor
+        --EXEC sp_dropextendedproperty
+        Exec @module_name_var_drop
+            @name = @property_name
+          , @level0type = @level0type
+          , @level0name = @level0name
+          , @level1type = @level1type
+          , @level1name = @level1name;
+    End;
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ab90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'PROCEDURE', @level1name = N'usp_dropextendedproperty_level_1';
+    Fetch Next From delete_cursor
+    Into
+        @property_name
+      , @property_value
+      , @level0type
+      , @level0name
+      , @level1type
+      , @level1name;
+End;
 
+Close delete_cursor;
+Deallocate delete_cursor;
+Go
 
-GO
-
-
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = 'ab90291c-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'sys_self'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_dropextendedproperty_level_1';
+Go

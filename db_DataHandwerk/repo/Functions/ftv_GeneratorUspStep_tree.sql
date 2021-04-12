@@ -175,117 +175,130 @@ ORDER BY [u].[id]
 
 
 */
-CREATE FUNCTION [repo].[ftv_GeneratorUspStep_tree] (
- @usp_id INT
- , @Parent_Number INT
- --, @usp_has_logging TINYINT = 0
- )
-RETURNS TABLE
-AS
-RETURN (
-  WITH tree AS
-   --tree is recursive to solve parent child hierarchies
-   (
-    SELECT [usp_id]
-     , [Number]
-     , [Parent_Number]
-     , 0 AS [Depth]
-     , [Number] AS [Sort]
-     , [Number] AS [Parent_Sort]
-     , [Number] AS [Root_Sort]
-     , [is_condition]
-     , [child_PerParent] = IIF(NOT [Parent_Number] IS NULL, ROW_NUMBER() OVER (
-       PARTITION BY [usp_id]
-       , [Parent_Number] ORDER BY [Number]
-       ), NULL)
-    --ROW_NUMBER() OVER(Partition by [usp_id], [Parent_Number] ORDER BY [Number])
-    FROM [repo].[GeneratorUspStep]
-    WHERE
-     --
-     [usp_id] = @usp_id
-     AND [is_inactive] = 0
-     AND (
-      [Parent_Number] = @Parent_Number
-      OR @Parent_Number IS NULL
-      AND [Parent_Number] IS NULL
-      )
-    
-    UNION ALL
-    
-    SELECT [child].[usp_id]
-     , [child].[Number]
-     , [child].[Parent_Number]
-     , [parent].[Depth] + 1
-     , [child].[Parent_Number] AS [sort]
-     , [parent].[Sort] AS [Parent_sort]
-     , [parent].[Root_Sort] AS [Root_Sort]
-     , [child].[is_condition]
-     , [child_PerParent] = [parent].[child_PerParent]
-    FROM [repo].[GeneratorUspStep] AS child
-    INNER JOIN tree AS parent
-     ON child.[Parent_Number] = parent.Number
-    WHERE
-     --
-     [child].[usp_id] = @usp_id
-     AND [child].[is_inactive] = 0
-    )
-   , tree_2 AS
-   --tree_2 is required to calculate the correct step order: [RowNumber_PerUsp]
-   (
-    SELECT
-     --
-     [tree].[usp_id]
-     , [tree].[Number]
-     , [RowNumber_PerUsp] = ROW_NUMBER() OVER (
-      PARTITION BY [tree].[usp_id] ORDER BY [tree].[Root_Sort]
-       , [tree].[Parent_Number]
-       , [tree].[Parent_Sort]
-       , [tree].[Sort]
-      )
-     , [tree].[Depth]
-     , [tree].[is_condition]
-     , [tree].[Root_Sort]
-     , [tree].[Parent_Number]
-     , [tree].[Parent_Sort]
-     , [tree].[Sort]
-     , [tree].[child_PerParent]
-    FROM tree
-    )
-   , tree_3 AS
-   --final query is used to calculate Asc_PerParentChild and Desc_PerParentChild
-   --Asc_PerParentChild is the first step per [child_PerParent]
-   --if the @Parent_Number has [is_condition] = 1
-   --then [child_PerParent] = 1 is the THEN block an [child_PerParent] = 2 is the ELSE block
-   --to encapsulate THEN and ELSE block:
-   --a 'BEGIN' is required before Asc_PerParentChild = 1
-   --a 'END' is required after Desc_PerParentChild = 1
-   (
-    SELECT
-     --
-     *
-     , [Asc_PerParentChild] = ROW_NUMBER() OVER (
-      PARTITION BY [usp_id]
-      , [child_PerParent] ORDER BY [RowNumber_PerUsp]
-      )
-     , [Desc_PerParentChild] = ROW_NUMBER() OVER (
-      PARTITION BY [usp_id]
-      , [child_PerParent] ORDER BY [RowNumber_PerUsp] DESC
-      )
-    FROM tree_2
-    )
-  SELECT
-   --
-   *
-   --[child_PerParent] = 2 is the ELSE-block, if the parent is a condition
-   --in front of the ELSE block the 'ELSE' is required
-   , is_required_ELSE = IIF([child_PerParent] = 2
-    AND [Asc_PerParentChild] = 1, 1, 0)
-  FROM tree_3
-  )
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_tree';
+Create Function repo.ftv_GeneratorUspStep_tree
+(
+    @usp_id        Int
+  , @Parent_Number Int
+--, @usp_has_logging TINYINT = 0
+)
+Returns Table
+As
+Return
+(
+    With
+    tree
+    As
+        --tree is recursive to solve parent child hierarchies
+        (
+        Select
+            usp_id
+          , Number
+          , Parent_Number
+          , 0               As Depth
+          , Number          As Sort
+          , Number          As Parent_Sort
+          , Number          As Root_Sort
+          , is_condition
+          , child_PerParent = Iif(Not Parent_Number Is Null
+                                  , Row_Number () Over ( Partition By usp_id, Parent_Number Order By Number )
+                                  , Null)
+        --ROW_NUMBER() OVER(Partition by [usp_id], [Parent_Number] ORDER BY [Number])
+        From
+            repo.GeneratorUspStep
+        Where
+            --
+            usp_id            = @usp_id
+            And is_inactive   = 0
+            And
+            (
+                Parent_Number = @Parent_Number
+                Or @Parent_Number Is Null
+                   And Parent_Number Is Null
+            )
+        Union All
+        Select
+            child.usp_id
+          , child.Number
+          , child.Parent_Number
+          , parent.Depth + 1
+          , child.Parent_Number As sort
+          , parent.Sort         As Parent_sort
+          , parent.Root_Sort    As Root_Sort
+          , child.is_condition
+          , child_PerParent     = parent.child_PerParent
+        From
+            repo.GeneratorUspStep As child
+            Inner Join
+                tree              As parent
+                    On
+                    child.Parent_Number = parent.Number
+        Where
+            --
+            child.usp_id          = @usp_id
+            And child.is_inactive = 0
+        )
+  ,
+    tree_2
+    As
+        --tree_2 is required to calculate the correct step order: [RowNumber_PerUsp]
+        (
+        Select
+            --
+            tree.usp_id
+          , tree.Number
+          , RowNumber_PerUsp = Row_Number () Over ( Partition By
+                                                        tree.usp_id
+                                                    Order By
+                                                        tree.Root_Sort
+                                                      , tree.Parent_Number
+                                                      , tree.Parent_Sort
+                                                      , tree.Sort
+                                                  )
+          , tree.Depth
+          , tree.is_condition
+          , tree.Root_Sort
+          , tree.Parent_Number
+          , tree.Parent_Sort
+          , tree.Sort
+          , tree.child_PerParent
+        From
+            tree
+        )
+  ,
+    tree_3
+    As
+        --final query is used to calculate Asc_PerParentChild and Desc_PerParentChild
+        --Asc_PerParentChild is the first step per [child_PerParent]
+        --if the @Parent_Number has [is_condition] = 1
+        --then [child_PerParent] = 1 is the THEN block an [child_PerParent] = 2 is the ELSE block
+        --to encapsulate THEN and ELSE block:
+        --a 'BEGIN' is required before Asc_PerParentChild = 1
+        --a 'END' is required after Desc_PerParentChild = 1
+        (
+        Select
+            --
+            *
+          , Asc_PerParentChild  = Row_Number () Over ( Partition By usp_id, child_PerParent Order By RowNumber_PerUsp )
+          , Desc_PerParentChild = Row_Number () Over ( Partition By usp_id, child_PerParent Order By RowNumber_PerUsp Desc )
+        From
+            tree_2
+        )
+    Select
+        --
+        *
+      --[child_PerParent] = 2 is the ELSE-block, if the parent is a condition
+      --in front of the ELSE block the 'ELSE' is required
+      , is_required_ELSE = Iif(child_PerParent = 2 And Asc_PerParentChild = 1, 1, 0)
+    From
+        tree_3
+);
+Go
 
-
-GO
-
-
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '3390291c-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'FUNCTION'
+  , @level1name = N'ftv_GeneratorUspStep_tree';
+Go
