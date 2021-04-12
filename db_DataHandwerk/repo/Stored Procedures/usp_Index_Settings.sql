@@ -1,234 +1,270 @@
-﻿CREATE PROCEDURE [repo].[usp_Index_Settings]
- -- some optional parameters, used for logging
- @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
- , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
- , @sub_execution_id INT = NULL
- , @parent_execution_log_id BIGINT = NULL
-AS
-DECLARE @current_execution_log_id BIGINT
- , @current_execution_guid UNIQUEIDENTIFIER = NEWID()
- , @source_object NVARCHAR(261) = NULL
- , @target_object NVARCHAR(261) = NULL
- , @proc_id INT = @@procid
- , @proc_schema_name NVARCHAR(128) = OBJECT_SCHEMA_NAME(@@procid)
- , @proc_name NVARCHAR(128) = OBJECT_NAME(@@procid)
- , @event_info NVARCHAR(MAX)
- , @step_id INT = 0
- , @step_name NVARCHAR(1000) = NULL
- , @rows INT
+﻿Create Procedure repo.usp_Index_Settings
+    -- some optional parameters, used for logging
+    @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
+  , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
+  , @sub_execution_id        Int              = Null
+  , @parent_execution_log_id BigInt           = Null
+As
+Declare
+    @current_execution_log_id BigInt
+  , @current_execution_guid   UniqueIdentifier = NewId ()
+  , @source_object            NVarchar(261)    = Null
+  , @target_object            NVarchar(261)    = Null
+  , @proc_id                  Int              = @@ProcId
+  , @proc_schema_name         NVarchar(128)    = Object_Schema_Name ( @@ProcId )
+  , @proc_name                NVarchar(128)    = Object_Name ( @@ProcId )
+  , @event_info               NVarchar(Max)
+  , @step_id                  Int              = 0
+  , @step_name                NVarchar(1000)   = Null
+  , @rows                     Int;
 
-SET @event_info = (
-  SELECT [event_info]
-  FROM sys.dm_exec_input_buffer(@@spid, CURRENT_REQUEST_ID())
-  )
+Set @event_info =
+(
+    Select
+        event_info
+    From
+        sys.dm_exec_input_buffer ( @@Spid, Current_Request_Id ())
+);
 
-IF @execution_instance_guid IS NULL
- SET @execution_instance_guid = NEWID();
+If @execution_instance_guid Is Null
+    Set @execution_instance_guid = NewId ();
 --SET @rows = @@ROWCOUNT;
-SET @step_id = @step_id + 1
-SET @step_name = 'start'
+Set @step_id = @step_id + 1;
+Set @step_name = N'start';
 
 --SET @source_object = NULL
 --SET @target_object = NULL
-EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
- , @execution_log_id = @current_execution_log_id OUTPUT;
+Exec logs.usp_ExecutionLog_insert
+    @execution_instance_guid = @execution_instance_guid
+  , @ssis_execution_id = @ssis_execution_id
+  , @sub_execution_id = @sub_execution_id
+  , @parent_execution_log_id = @parent_execution_log_id
+  , @current_execution_guid = @current_execution_guid
+  , @proc_id = @proc_id
+  , @proc_schema_name = @proc_schema_name
+  , @proc_name = @proc_name
+  , @event_info = @event_info
+  , @step_id = @step_id
+  , @step_name = @step_name
+  , @source_object = @source_object
+  , @target_object = @target_object
+  , @inserted = Null
+  , @updated = Null
+  , @deleted = Null
+  , @info_01 = Null
+  , @info_02 = Null
+  , @info_03 = Null
+  , @info_04 = Null
+  , @info_05 = Null
+  , @info_06 = Null
+  , @info_07 = Null
+  , @info_08 = Null
+  , @info_09 = Null
+  , @execution_log_id = @current_execution_log_id Output;
 
 --
 ----START
 --
 --[repo].[Index_IndexPattern] is based on [repo].[IndexColumn_union]
 --Index without colums will be deleted
-DELETE T2
-FROM [repo].[Index_Settings] [T2]
-WHERE NOT EXISTS (
-  SELECT [index_guid]
-  FROM [repo].[Index_IndexPattern] AS [T1]
-  WHERE [T2].[index_guid] = [T1].[index_guid]
-  )
+Delete
+T2
+From
+    repo.Index_Settings T2
+Where
+    Not Exists
+(
+    Select
+        index_guid
+    From
+        repo.Index_IndexPattern As T1
+    Where
+        T2.index_guid = T1.index_guid
+);
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
-SET @step_name = 'DELETE'
-SET @source_object = '[repo].[Index_IndexPattern]'
-SET @target_object = '[repo].[Index_Settings]'
+Set @rows = @@RowCount;
+Set @step_id = @step_id + 1;
+Set @step_name = N'DELETE';
+Set @source_object = N'[repo].[Index_IndexPattern]';
+Set @target_object = N'[repo].[Index_Settings]';
 
-EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
- , @deleted = @rows
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+Exec logs.usp_ExecutionLog_insert
+    @execution_instance_guid = @execution_instance_guid
+  , @ssis_execution_id = @ssis_execution_id
+  , @sub_execution_id = @sub_execution_id
+  , @parent_execution_log_id = @parent_execution_log_id
+  , @current_execution_guid = @current_execution_guid
+  , @proc_id = @proc_id
+  , @proc_schema_name = @proc_schema_name
+  , @proc_name = @proc_name
+  , @event_info = @event_info
+  , @step_id = @step_id
+  , @step_name = @step_name
+  , @source_object = @source_object
+  , @target_object = @target_object
+  , @inserted = Null
+  , @updated = Null
+  , @deleted = @rows
+  , @info_01 = Null
+  , @info_02 = Null
+  , @info_03 = Null
+  , @info_04 = Null
+  , @info_05 = Null
+  , @info_06 = Null
+  , @info_07 = Null
+  , @info_08 = Null
+  , @info_09 = Null;
 
-INSERT INTO repo.[Index_Settings] (
- [index_guid]
- , [IndexPatternColumnName]
- , [IndexPatternColumnDatatype]
- )
-SELECT [index_guid]
- , [IndexPatternColumnName]
- , [IndexPatternColumnDatatype]
-FROM repo.Index_IndexPattern AS T1
-WHERE NOT EXISTS (
-  SELECT [index_guid]
-  FROM [repo].[Index_Settings] AS [T2]
-  WHERE [T2].[index_guid] = [T1].[index_guid]
-  )
+Insert Into repo.Index_Settings
+(
+    index_guid
+  , IndexPatternColumnName
+  , IndexPatternColumnDatatype
+)
+Select
+    index_guid
+  , IndexPatternColumnName
+  , IndexPatternColumnDatatype
+From
+    repo.Index_IndexPattern As T1
+Where
+    Not Exists
+(
+    Select
+        index_guid
+    From
+        repo.Index_Settings As T2
+    Where
+        T2.index_guid = T1.index_guid
+);
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
-SET @step_name = 'INSERT'
-SET @source_object = '[repo].[Index_IndexPattern]'
-SET @target_object = '[repo].[Index_Settings]'
+Set @rows = @@RowCount;
+Set @step_id = @step_id + 1;
+Set @step_name = N'INSERT';
+Set @source_object = N'[repo].[Index_IndexPattern]';
+Set @target_object = N'[repo].[Index_Settings]';
 
-EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = @rows
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+Exec logs.usp_ExecutionLog_insert
+    @execution_instance_guid = @execution_instance_guid
+  , @ssis_execution_id = @ssis_execution_id
+  , @sub_execution_id = @sub_execution_id
+  , @parent_execution_log_id = @parent_execution_log_id
+  , @current_execution_guid = @current_execution_guid
+  , @proc_id = @proc_id
+  , @proc_schema_name = @proc_schema_name
+  , @proc_name = @proc_name
+  , @event_info = @event_info
+  , @step_id = @step_id
+  , @step_name = @step_name
+  , @source_object = @source_object
+  , @target_object = @target_object
+  , @inserted = @rows
+  , @updated = Null
+  , @deleted = Null
+  , @info_01 = Null
+  , @info_02 = Null
+  , @info_03 = Null
+  , @info_04 = Null
+  , @info_05 = Null
+  , @info_06 = Null
+  , @info_07 = Null
+  , @info_08 = Null
+  , @info_09 = Null;
 
-UPDATE repo.[Index_Settings]
-SET [IndexPatternColumnName] = [T1].[IndexPatternColumnName]
- , [IndexPatternColumnDatatype] = [T1].[IndexPatternColumnDatatype]
-FROM [repo].[Index_Settings] [T2]
-LEFT JOIN [repo].[Index_IndexPattern] AS [T1]
- ON [T2].[index_guid] = [T1].[index_guid]
-WHERE [T1].[IndexPatternColumnName] <> ISNULL([T2].[IndexPatternColumnName], '')
- OR [T1].[IndexPatternColumnDatatype] <> ISNULL([T2].[IndexPatternColumnDatatype], '')
+Update
+    repo.Index_Settings
+Set
+    IndexPatternColumnName = T1.IndexPatternColumnName
+  , IndexPatternColumnDatatype = T1.IndexPatternColumnDatatype
+From
+    repo.Index_Settings         T2
+    Left Join
+        repo.Index_IndexPattern As T1
+            On
+            T2.index_guid = T1.index_guid
+Where
+    T1.IndexPatternColumnName        <> IsNull ( T2.IndexPatternColumnName, '' )
+    Or T1.IndexPatternColumnDatatype <> IsNull ( T2.IndexPatternColumnDatatype, '' );
 
-SET @rows = @@rowcount;
-SET @step_id = @step_id + 1;
-SET @step_name = 'UPDATE'
-SET @source_object = '[repo].[Index_IndexPattern]'
-SET @target_object = '[repo].[Index_Settings]'
+Set @rows = @@RowCount;
+Set @step_id = @step_id + 1;
+Set @step_name = N'UPDATE';
+Set @source_object = N'[repo].[Index_IndexPattern]';
+Set @target_object = N'[repo].[Index_Settings]';
 
-EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = @rows
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+Exec logs.usp_ExecutionLog_insert
+    @execution_instance_guid = @execution_instance_guid
+  , @ssis_execution_id = @ssis_execution_id
+  , @sub_execution_id = @sub_execution_id
+  , @parent_execution_log_id = @parent_execution_log_id
+  , @current_execution_guid = @current_execution_guid
+  , @proc_id = @proc_id
+  , @proc_schema_name = @proc_schema_name
+  , @proc_name = @proc_name
+  , @event_info = @event_info
+  , @step_id = @step_id
+  , @step_name = @step_name
+  , @source_object = @source_object
+  , @target_object = @target_object
+  , @inserted = Null
+  , @updated = @rows
+  , @deleted = Null
+  , @info_01 = Null
+  , @info_02 = Null
+  , @info_03 = Null
+  , @info_04 = Null
+  , @info_05 = Null
+  , @info_06 = Null
+  , @info_07 = Null
+  , @info_08 = Null
+  , @info_09 = Null;
 
 --
 --END
 --
 --SET @rows = @@ROWCOUNT;
-SET @step_id = @step_id + 1;
-SET @step_name = 'end'
-SET @source_object = NULL
-SET @target_object = NULL
+Set @step_id = @step_id + 1;
+Set @step_name = N'end';
+Set @source_object = Null;
+Set @target_object = Null;
 
-EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = NULL
- , @updated = NULL
- , @deleted = NULL
- , @info_01 = NULL
- , @info_02 = NULL
- , @info_03 = NULL
- , @info_04 = NULL
- , @info_05 = NULL
- , @info_06 = NULL
- , @info_07 = NULL
- , @info_08 = NULL
- , @info_09 = NULL
+Exec logs.usp_ExecutionLog_insert
+    @execution_instance_guid = @execution_instance_guid
+  , @ssis_execution_id = @ssis_execution_id
+  , @sub_execution_id = @sub_execution_id
+  , @parent_execution_log_id = @parent_execution_log_id
+  , @current_execution_guid = @current_execution_guid
+  , @proc_id = @proc_id
+  , @proc_schema_name = @proc_schema_name
+  , @proc_name = @proc_name
+  , @event_info = @event_info
+  , @step_id = @step_id
+  , @step_name = @step_name
+  , @source_object = @source_object
+  , @target_object = @target_object
+  , @inserted = Null
+  , @updated = Null
+  , @deleted = Null
+  , @info_01 = Null
+  , @info_02 = Null
+  , @info_03 = Null
+  , @info_04 = Null
+  , @info_05 = Null
+  , @info_06 = Null
+  , @info_07 = Null
+  , @info_08 = Null
+  , @info_09 = Null;
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9790291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_Settings';
+Go
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '9790291c-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_Index_Settings';
 
 
-GO
+Go
 
 
