@@ -176,7 +176,7 @@
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObjectColumn.sql" />
     <Build Include="repo\Stored Procedures\usp_persistence_insert_update.sql" />
     <Build Include="repo\Stored Procedures\usp_connect_database.sql" />
-    <Build Include="repo\Stored Procedures\usp_parameter_insert_update.sql" />
+    <Build Include="repo\Stored Procedures\usp_parameter_set.sql" />
     <Build Include="Security\sys_dwh.sql" />
     <Build Include="Security\repo_sys.sql" />
     <Build Include="Security\repo.sql" />

@@ -785,4 +785,11 @@
     <Property Name="NewSchema" Value="logs" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="c3138b24-1656-4027-b46c-41d90b141efd" ChangeDateTime="04/12/2021 16:47:08">
+    <Property Name="ElementName" Value="[repo].[usp_parameter_insert_update]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[repo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[usp_parameter_set]" />
+  </Operation>
 </Operations>
