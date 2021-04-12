@@ -10,151 +10,274 @@ ORDER BY [id]
 
 
 */
-CREATE VIEW [repo].[GeneratorUspStep_Sql]
-AS
-SELECT [u].[id] AS usp_id
- , [t].[Number]
- , [u].[has_logging]
- , [BeginEnd].[required_Begin_count]
- , [BeginEnd].[required_End_count]
- , [BeginEnd].[is_required_ELSE]
- --only information
- , [u].[usp_fullname]
- , [t].[RowNumber_PerUsp]
- --, [t].[Depth]
- --, [t].[is_condition]
- --, [t].[Root_Sort]
- --, [t].[Parent_Number]
- --, [t].[Parent_Sort]
- --, [t].[Sort]
- --, [t].[child_PerParent]
- --, [t].[Asc_PerParentChild]
- --, [t].[Desc_PerParentChild]
- , sql.SqlStep
- ----this list is  too wide, we need a smaller list
- --, AdocStep = CONCAT (
- -- '|'
- -- , step.Number
- -- , CHAR(13)
- -- , CHAR(10)
- -- , '|'
- -- , step.[Name]
- -- , CHAR(13)
- -- , CHAR(10)
- -- , '|'
- -- , step.[is_condition]
- -- , CHAR(13)
- -- , CHAR(10)
- -- , '|'
- -- , step.[log_source_object]
- -- , CHAR(13)
- -- , CHAR(10)
- -- , '|'
- -- , step.[log_target_object]
- -- , CHAR(13)
- -- , CHAR(10)
- -- , '|'
- -- , step.[log_flag_InsertUpdateDelete]
- -- , CHAR(13)
- -- , CHAR(10)
- -- )
- , AdocStep = CONCAT (
-  '|'
-  , step.Number
-  , CHAR(13) + CHAR(10)
-  , '|'
-  , CHAR(13) + CHAR(10)
-  , '*'
-  , step.[Name]
-  , '*'
-  , CHAR(13) + CHAR(10)
-  , CHAR(13) + CHAR(10)
-  , IIF(step.[is_SubProcedure] = 1, '* ' + '`EXEC ' + step.[Statement] + '`' + CHAR(13) + CHAR(10), NULL)
-  , IIF(step.[is_condition] = 1, '* ' + '`IF ' + step.[Statement] + '`' + CHAR(13) + CHAR(10), NULL)
-  , IIF(step.[log_flag_InsertUpdateDelete] <> '', '* ' + step.[log_flag_InsertUpdateDelete] + CHAR(13) + CHAR(10), NULL)
-  , IIF(step.[log_source_object] <> '', '* ' + step.[log_source_object] + CHAR(13) + CHAR(10), NULL)
-  , IIF(step.[log_target_object] <> '', '* ' + step.[log_target_object] + CHAR(13) + CHAR(10), NULL)
-  , CHAR(13) + CHAR(10)
-  , '|'
-  , step.[Parent_Number]
-  , CHAR(13) + CHAR(10)
-  )
-FROM [repo].[GeneratorUsp] AS u
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
-LEFT JOIN (
- SELECT [s].[usp_id]
-  , [t].[Number]
-  , [required_Begin_count] = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
-  , [required_End_count] = SUM(IIF([t].[Desc_PerParentChild] = 1, 1, 0))
-  , [is_required_ELSE] = MAX([t].[is_required_ELSE])
- FROM [repo].[GeneratorUspStep] AS s
- CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
- WHERE [s].[is_condition] = 1
- GROUP BY [s].[usp_id]
-  , [t].[Number]
- ) AS BeginEnd
- ON BeginEnd.usp_id = u.id
-  AND BeginEnd.Number = t.Number
-LEFT JOIN [repo].[GeneratorUspStep] step
- ON step.usp_id = u.id
-  AND step.Number = [t].[Number]
-CROSS APPLY [repo].[ftv_GeneratorUspStep_sql]([u].[id], [t].[Number], [u].[has_logging], [BeginEnd].[required_Begin_count], [BeginEnd].[required_End_count], [BeginEnd].[is_required_ELSE]) sql
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+Create View repo.GeneratorUspStep_Sql
+As
+Select
+    u.id     As usp_id
+  , t.Number
+  , u.has_logging
+  , BeginEnd.required_Begin_count
+  , BeginEnd.required_End_count
+  , BeginEnd.is_required_ELSE
+  --only information
+  , u.usp_fullname
+  , t.RowNumber_PerUsp
+  --, [t].[Depth]
+  --, [t].[is_condition]
+  --, [t].[Root_Sort]
+  --, [t].[Parent_Number]
+  --, [t].[Parent_Sort]
+  --, [t].[Sort]
+  --, [t].[child_PerParent]
+  --, [t].[Asc_PerParentChild]
+  --, [t].[Desc_PerParentChild]
+  , sql.SqlStep
+  ----this list is  too wide, we need a smaller list
+  --, AdocStep = CONCAT (
+  -- '|'
+  -- , step.Number
+  -- , CHAR(13)
+  -- , CHAR(10)
+  -- , '|'
+  -- , step.[Name]
+  -- , CHAR(13)
+  -- , CHAR(10)
+  -- , '|'
+  -- , step.[is_condition]
+  -- , CHAR(13)
+  -- , CHAR(10)
+  -- , '|'
+  -- , step.[log_source_object]
+  -- , CHAR(13)
+  -- , CHAR(10)
+  -- , '|'
+  -- , step.[log_target_object]
+  -- , CHAR(13)
+  -- , CHAR(10)
+  -- , '|'
+  -- , step.[log_flag_InsertUpdateDelete]
+  -- , CHAR(13)
+  -- , CHAR(10)
+  -- )
+  , AdocStep = Concat (
+                          '|'
+                        , step.Number
+                        , Char ( 13 ) + Char ( 10 )
+                        , '|'
+                        , Char ( 13 ) + Char ( 10 )
+                        , '*'
+                        , step.Name
+                        , '*'
+                        , Char ( 13 ) + Char ( 10 )
+                        , Char ( 13 ) + Char ( 10 )
+                        , Iif(step.is_SubProcedure = 1
+                              , '* ' + '`EXEC ' + step.Statement + '`' + Char ( 13 ) + Char ( 10 )
+                              , Null)
+                        , Iif(step.is_condition = 1
+                              , '* ' + '`IF ' + step.Statement + '`' + Char ( 13 ) + Char ( 10 )
+                              , Null)
+                        , Iif(step.log_flag_InsertUpdateDelete <> ''
+                              , '* ' + step.log_flag_InsertUpdateDelete + Char ( 13 ) + Char ( 10 )
+                              , Null)
+                        , Iif(step.log_source_object <> ''
+                              , '* ' + step.log_source_object + Char ( 13 ) + Char ( 10 )
+                              , Null)
+                        , Iif(step.log_target_object <> ''
+                              , '* ' + step.log_target_object + Char ( 13 ) + Char ( 10 )
+                              , Null)
+                        , Char ( 13 ) + Char ( 10 )
+                        , '|'
+                        , step.Parent_Number
+                        , Char ( 13 ) + Char ( 10 )
+                      )
+From
+    repo.GeneratorUsp                                       As u
+    Cross Apply repo.ftv_GeneratorUspStep_tree ( id, Null ) As t
+    Left Join
+    (
+        Select
+            s.usp_id
+          , t.Number
+          , required_Begin_count = Sum ( Iif(t.Asc_PerParentChild = 1, 1, 0))
+          , required_End_count   = Sum ( Iif(t.Desc_PerParentChild = 1, 1, 0))
+          , is_required_ELSE     = Max ( t.is_required_ELSE )
+        From
+            repo.GeneratorUspStep                                         As s
+            Cross Apply repo.ftv_GeneratorUspStep_tree ( usp_id, Number ) As t
+        Where
+            s.is_condition = 1
+        Group By
+            s.usp_id
+          , t.Number
+    )                                           As BeginEnd
+        On
+        BeginEnd.usp_id = u.id
+        And BeginEnd.Number = t.Number
 
+    Left Join
+        repo.GeneratorUspStep                   step
+            On
+            step.usp_id = u.id
+            And step.Number = t.Number
+    Cross Apply repo.ftv_GeneratorUspStep_sql (
+                                                  u.id
+                                                , t.Number
+                                                , u.has_logging
+                                                , BeginEnd.required_Begin_count
+                                                , BeginEnd.required_End_count
+                                                , BeginEnd.is_required_ELSE
+                                              ) sql;
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1af47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'usp_id';
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '4590291c-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '1af47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'usp_id';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '20f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'usp_fullname';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '20f47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'usp_fullname';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '22f47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SqlStep';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '22f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'SqlStep';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '21f47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RowNumber_PerUsp';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '1ef47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'required_End_count';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '21f47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'RowNumber_PerUsp';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '1df47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'required_Begin_count';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '1bf47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'Number';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1ef47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'required_End_count';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '1ff47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'is_required_ELSE';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '1cf47926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'has_logging';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1df47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'required_Begin_count';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[GeneratorUsp].[usp_fullname]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'usp_fullname';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1bf47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'Number';
+Execute sp_addextendedproperty
+    @name = N'MS_Description'
+  , @value = N'(concat(''['',[usp_schema],''].['',[usp_name],'']''))'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'usp_fullname';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[GeneratorUsp].[has_logging]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'has_logging';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1ff47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'is_required_ELSE';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1cf47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'has_logging';
-
-
-GO
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[usp_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'usp_fullname';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[usp_schema],''].['',[usp_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'usp_fullname';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[has_logging]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'has_logging';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '271a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'AdocStep';
-
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '271a8d58-e08f-eb11-84f1-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'GeneratorUspStep_Sql'
+  , @level2type = N'COLUMN'
+  , @level2name = N'AdocStep';

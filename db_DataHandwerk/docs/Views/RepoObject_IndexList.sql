@@ -1,75 +1,127 @@
-﻿
-CREATE VIEW [docs].[RepoObject_IndexList]
-AS
-SELECT ix.[parent_RepoObject_guid] AS RepoObject_guid
- , AntoraIndexList = String_Agg(CONCAT (
-   --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-   CAST('' AS NVARCHAR(MAX))
-   , CHAR(13) + CHAR(10)
-   , '[[index-'
-   , ix.[index_name]
-   , ']]'
-   , CHAR(13) + CHAR(10)
-   , '=== '
-   , ix.[index_name]
-   , CHAR(13) + CHAR(10)
-   , CHAR(13) + CHAR(10)
-   , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_' + REPLACE(REPLACE(REPLACE(LOWER(ISNULL(ix.[IndexSemanticGroup], 'no_group')), ' ', '_'), '__', '_'), '__', '_') + '[' + ISNULL(ix.[IndexSemanticGroup], 'no_group') + ']'
-   , CHAR(13) + CHAR(10)
-   , '+' + CHAR(13) + CHAR(10)
-   , '--' + CHAR(13) + CHAR(10)
-   , [AntoraIndexColumnList]
-   , CHAR(13) + CHAR(10)
-   , '--' + CHAR(13) + CHAR(10)
-   , '* PK, Unique, Real: '
-   , [is_index_primary_key]
-   , ', '
-   , [is_index_unique]
-   , ', '
-   , [is_index_real]
-   , CHAR(13) + CHAR(10)
-   , '* ' + fk.[referenced_AntoraXref] + CHAR(13) + CHAR(10)
-   , IIF(ix.[is_index_disabled] = 1, '* is disabled' + CHAR(13) + CHAR(10), NULL)
-   ), CHAR(13) + CHAR(10)) WITHIN
-GROUP (
-  ORDER BY ix.[is_index_primary_key] DESC
-   , ix.[is_index_unique] DESC
-   , ix.[index_name]
-  )
- , PumlIndexList = String_Agg(CONCAT (
-   CAST('' AS NVARCHAR(MAX))
-   , IIF([is_index_real] = 0, '- ', NULL)
-   , IIF([is_index_primary_key] = 1, '**', NULL)
-   , ix.[index_name]
-   , IIF([is_index_primary_key] = 1, '**', NULL)
-   , CHAR(13) + CHAR(10)
-   , '{' + ix.[IndexSemanticGroup] + '}'
-   , CHAR(13) + CHAR(10)
-   , '..'
-   , CHAR(13) + CHAR(10)
-   , [PumlIndexColumnList]
-   ), CHAR(13) + CHAR(10) + '--' + CHAR(13) + CHAR(10)) WITHIN
-GROUP (
-  ORDER BY ix.[is_index_primary_key] DESC
-   , ix.[is_index_unique] DESC
-   , ix.[index_name]
-  )
-FROM [repo].[Index_gross] AS ix
-LEFT JOIN [repo].[ForeignKey_gross] fk
- ON fk.[referencing_index_guid] = ix.index_guid
-GROUP BY ix.[parent_RepoObject_guid]
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '71e2b548-5e96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList', @level2type = N'COLUMN', @level2name = N'AntoraIndexList';
+﻿Create View docs.RepoObject_IndexList
+As
+Select
+    ix.parent_RepoObject_guid As RepoObject_guid
+  , AntoraIndexList           = String_Agg (
+                                               Concat (
+                                                          --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                                                          Cast('' As NVarchar(Max))
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '[[index-'
+                                                        , ix.index_name
+                                                        , ']]'
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '=== '
+                                                        , ix.index_name
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_'
+                                                          + Replace (
+                                                                        Replace (
+                                                                                    Replace (
+                                                                                                Lower ( IsNull (
+                                                                                                                   ix.IndexSemanticGroup
+                                                                                                                 , 'no_group'
+                                                                                                               )
+                                                                                                      )
+                                                                                              , ' '
+                                                                                              , '_'
+                                                                                            )
+                                                                                  , '__'
+                                                                                  , '_'
+                                                                                )
+                                                                      , '__'
+                                                                      , '_'
+                                                                    ) + '[' + IsNull ( ix.IndexSemanticGroup, 'no_group' ) + ']'
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '+' + Char ( 13 ) + Char ( 10 )
+                                                        , '--' + Char ( 13 ) + Char ( 10 )
+                                                        , AntoraIndexColumnList
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '--' + Char ( 13 ) + Char ( 10 )
+                                                        , '* PK, Unique, Real: '
+                                                        , is_index_primary_key
+                                                        , ', '
+                                                        , is_index_unique
+                                                        , ', '
+                                                        , is_index_real
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '* ' + fk.referenced_AntoraXref + Char ( 13 ) + Char ( 10 )
+                                                        , Iif(ix.is_index_disabled = 1
+                                                    , '* is disabled' + Char ( 13 ) + Char ( 10 )
+                                                    , Null)
+                                                      )
+                                             , Char ( 13 ) + Char ( 10 )
+                                           ) Within Group(Order By
+                                                              ix.is_index_primary_key Desc
+                                                            , ix.is_index_unique Desc
+                                                            , ix.index_name)
+  , PumlIndexList             = String_Agg (
+                                               Concat (
+                                                          Cast('' As NVarchar(Max))
+                                                        , Iif(is_index_real = 0, '- ', Null)
+                                                        , Iif(is_index_primary_key = 1, '**', Null)
+                                                        , ix.index_name
+                                                        , Iif(is_index_primary_key = 1, '**', Null)
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '{' + ix.IndexSemanticGroup + '}'
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , '..'
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , PumlIndexColumnList
+                                                      )
+                                             , Char ( 13 ) + Char ( 10 ) + '--' + Char ( 13 ) + Char ( 10 )
+                                           ) Within Group(Order By
+                                                              ix.is_index_primary_key Desc
+                                                            , ix.is_index_unique Desc
+                                                            , ix.index_name)
+From
+    repo.Index_gross          As ix
+    Left Join
+        repo.ForeignKey_gross fk
+            On
+            fk.referencing_index_guid = ix.index_guid
+Group By
+    ix.parent_RepoObject_guid;
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '71e2b548-5e96-eb11-84f4-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_IndexList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'AntoraIndexList';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '70e2b548-5e96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = '70e2b548-5e96-eb11-84f4-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_IndexList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_guid';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '6fe2b548-5e96-eb11-84f4-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_IndexList';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6fe2b548-5e96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cbc9519a-6298-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList', @level2type = N'COLUMN', @level2name = N'PumlIndexList';
-
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'cbc9519a-6298-eb11-84f4-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_IndexList'
+  , @level2type = N'COLUMN'
+  , @level2name = N'PumlIndexList';

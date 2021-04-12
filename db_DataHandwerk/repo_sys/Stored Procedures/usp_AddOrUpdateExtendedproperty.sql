@@ -46,74 +46,79 @@ Operations that require a change to the schema version, for example renaming, ar
 
 => todo
 */
-CREATE PROCEDURE [repo_sys].[usp_AddOrUpdateExtendedProperty] @name SYSNAME
- , @value SQL_VARIANT = NULL
- , @level0type VARCHAR(128) = NULL
- , @level0name SYSNAME = NULL
- , @level1type VARCHAR(128) = NULL
- , @level1name SYSNAME = NULL
- , @level2type VARCHAR(128) = NULL
- , @level2name SYSNAME = NULL
-AS
-DECLARE @DbName SYSNAME = [repo].[fs_dwh_database_name]()
-DECLARE @module_name_var_update NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_updateextendedproperty'
- , @module_name_var_add NVARCHAR(500) = QUOTENAME(@DbName) + '.sys.sp_addextendedproperty'
+Create Procedure repo_sys.usp_AddOrUpdateExtendedproperty
+    @name       sysname
+  , @value      Sql_Variant  = Null
+  , @level0type Varchar(128) = Null
+  , @level0name sysname      = Null
+  , @level1type Varchar(128) = Null
+  , @level1name sysname      = Null
+  , @level2type Varchar(128) = Null
+  , @level2name sysname      = Null
+As
+Declare @DbName sysname = repo.fs_dwh_database_name ();
+Declare
+    @module_name_var_update NVarchar(500) = QuoteName ( @DbName ) + N'.sys.sp_updateextendedproperty'
+  , @module_name_var_add    NVarchar(500) = QuoteName ( @DbName ) + N'.sys.sp_addextendedproperty';
 
 ----DEBUG
 --PRINT CONCAT(@name , ';' , CAST(@value AS NVARCHAR(4000)) , ';' , @level0type , ';' , @level0name , ';' , @level1type , ';' , @level1name , ';' , @level2type , ';' , @level2name , ';')
 ----DEBUG
 --
-BEGIN TRY
- --EXEC [sys].sp_updateextendedproperty
- EXEC @module_name_var_update @name = @name
-  , @value = @value
-  , @level0type = @level0type
-  , @level0name = @level0name
-  , @level1type = @level1type
-  , @level1name = @level1name
-  , @level2type = @level2type
-  , @level2name = @level2name
-END TRY
+Begin Try
+    --EXEC [sys].sp_updateextendedproperty
+    Exec @module_name_var_update
+        @name = @name
+      , @value = @value
+      , @level0type = @level0type
+      , @level0name = @level0name
+      , @level1type = @level1type
+      , @level1name = @level1name
+      , @level2type = @level2type
+      , @level2name = @level2name;
+End Try
+Begin Catch
+    Begin Try
+        --EXEC [sys].sp_addextendedproperty
+        Exec @module_name_var_add
+            @name = @name
+          , @value = @value
+          , @level0type = @level0type
+          , @level0name = @level0name
+          , @level1type = @level1type
+          , @level1name = @level1name
+          , @level2type = @level2type
+          , @level2name = @level2name;
+    End Try
+    Begin Catch
+        Print 'Can''t insert extended property:';
+        Print Concat (
+                         @name
+                       , ';'
+                       , Cast(@value As NVarchar(4000))
+                       , ';'
+                       , @level0type
+                       , ';'
+                       , @level0name
+                       , ';'
+                       , @level1type
+                       , ';'
+                       , @level1name
+                       , ';'
+                       , @level2type
+                       , ';'
+                       , @level2name
+                       , ';'
+                     );
+    End Catch;
+End Catch;
+Go
 
-BEGIN CATCH
- BEGIN TRY
-  --EXEC [sys].sp_addextendedproperty
-  EXEC @module_name_var_add @name = @name
-   , @value = @value
-   , @level0type = @level0type
-   , @level0name = @level0name
-   , @level1type = @level1type
-   , @level1name = @level1name
-   , @level2type = @level2type
-   , @level2name = @level2name
- END TRY
-
- BEGIN CATCH
-  PRINT 'Can''t insert extended property:'
-  PRINT CONCAT (
-    @name
-    , ';'
-    , CAST(@value AS NVARCHAR(4000))
-    , ';'
-    , @level0type
-    , ';'
-    , @level0name
-    , ';'
-    , @level1type
-    , ';'
-    , @level1name
-    , ';'
-    , @level2type
-    , ';'
-    , @level2name
-    , ';'
-    )
- END CATCH
-END CATCH
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_AddOrUpdateExtendedProperty';
-
-
-GO
-
-
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = 'a590291c-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo_sys'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_AddOrUpdateExtendedProperty';
+Go

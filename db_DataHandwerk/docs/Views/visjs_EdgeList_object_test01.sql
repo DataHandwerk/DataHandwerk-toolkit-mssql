@@ -18,35 +18,54 @@
     ]);
 
 */
-CREATE VIEW [docs].[visjs_EdgeList_object_test01]
-AS
-SELECT [referencing_node_id]
- , [referenced_node_id]
- , EdgeListElement = CONCAT (
-  '{ from: '
-  , [referenced_node_id]
-  , ', to:'
-  , [referencing_node_id]
-  , ' },'
-  )
-FROM repo.[RepoObject_reference_SqlExpressionDependencies]
+Create View docs.visjs_EdgeList_object_test01
+As
+Select
+    referencing_node_id
+  , referenced_node_id
+  , EdgeListElement = Concat ( '{ from: ', referenced_node_id, ', to:', referencing_node_id, ' },' )
+From
+    repo.RepoObject_reference_SqlExpressionDependencies;
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6590291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01';
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '6590291c-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'visjs_EdgeList_object_test01';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f8f57926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'visjs_EdgeList_object_test01'
+  , @level2type = N'COLUMN'
+  , @level2name = N'referencing_node_id';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f8f57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'referencing_node_id';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f9f57926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'visjs_EdgeList_object_test01'
+  , @level2type = N'COLUMN'
+  , @level2name = N'referenced_node_id';
+Go
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f9f57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'referenced_node_id';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'faf57926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'EdgeListElement';
-
-
-GO
-
-
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'faf57926-9d61-eb11-84dc-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'docs'
+  , @level1type = N'VIEW'
+  , @level1name = N'visjs_EdgeList_object_test01'
+  , @level2type = N'COLUMN'
+  , @level2name = N'EdgeListElement';
+Go

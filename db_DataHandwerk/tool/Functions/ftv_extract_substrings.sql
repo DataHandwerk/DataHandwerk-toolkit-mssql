@@ -43,61 +43,90 @@ CROSS APPLY tool.[ftv_extract_substrings]([sql_modules_definition], CHAR(13) + C
 
 
 */
-CREATE FUNCTION [tool].[ftv_extract_substrings] (
- @string NVARCHAR(max)
- , @pattern1 NVARCHAR(1000)
- , @pattern2 NVARCHAR(1000)
- )
-RETURNS TABLE
-AS
-RETURN (
-  WITH positions AS (
-    SELECT pos1
-     , pos2
-     , string
-    FROM (
-     SELECT patindex('%' + @pattern1 + '%', @string) pos1
-      , patindex('%' + @pattern2 + '%', @string) pos2
-      , @string AS string
-     ) firstpattern
-    --WHERE pos2 > pos1
-    
-    UNION ALL
-    
-    SELECT pos1 + patindex('%' + @pattern1 + '%', substring(@string, pos1 + 1, len(@string))) pos1
-     , pos2 + patindex('%' + @pattern2 + '%', substring(@string, pos2 + 1, len(@string))) pos2
-     , @string
-    FROM positions
-    WHERE
-     --
-     patindex('%' + @pattern1 + '%', substring(@string, pos1 + 1, len(@string))) > 0
-     OR patindex('%' + @pattern2 + '%', substring(@string, pos2 + 1, len(@string))) > 0
-    )
-   , result1 AS (
-    SELECT
-     --
-     pos1
-     , pos2
-     , substring_gross = iif(pos2 > pos1, substring(@string, pos1, pos2 - pos1), NULL)
-     , substring_net = iif(pos2 > pos1 + len(@pattern1), substring(@string, pos1 + len(@pattern1), pos2 - pos1 - len(@pattern1)), NULL)
-     , len(@pattern1) AS len1
-     , len(@pattern2) AS len2
-    FROM positions
-    )
-  SELECT
-   --
-   pos1
-   , pos2
-   , substring_gross
-   , substring_net
-   , substring_netPreEol = substring(substring_net, 0, patindex('%' + CHAR(13) + CHAR(10) + '%', substring_net))
-   , substring_netPostEol = substring(substring_net, patindex('%' + CHAR(13) + CHAR(10) + '%', substring_net), len(substring_net))
-   , pos1eol = patindex('%' + CHAR(13) + CHAR(10) + '%', substring_net)
-   , len1
-   , len2
-  FROM result1
-  )
- --, substring_netToEol = iif(pos2 > pos1 + len(@pattern1), substring(@string, pos1 + len(@pattern1), pos2 - pos1 - len(@pattern1)), NULL)
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a1e4202c-e299-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'FUNCTION', @level1name = N'ftv_extract_substrings';
+Create Function tool.ftv_extract_substrings
+(
+    @string   NVarchar(Max)
+  , @pattern1 NVarchar(1000)
+  , @pattern2 NVarchar(1000)
+)
+Returns Table
+As
+Return
+(
+    With
+    positions
+    As
+        (
+        Select
+            pos1
+          , pos2
+          , string
+        From
+        (
+            Select
+                PatIndex ( '%' + @pattern1 + '%', @string ) pos1
+              , PatIndex ( '%' + @pattern2 + '%', @string ) pos2
+              , @string                                     As string
+        ) firstpattern
+        --WHERE pos2 > pos1
+        Union All
+        Select
+            pos1 + PatIndex ( '%' + @pattern1 + '%', Substring ( @string, pos1 + 1, Len ( @string ))) pos1
+          , pos2 + PatIndex ( '%' + @pattern2 + '%', Substring ( @string, pos2 + 1, Len ( @string ))) pos2
+          , @string
+        From
+            positions
+        Where
+            --
+            PatIndex ( '%' + @pattern1 + '%', Substring ( @string, pos1 + 1, Len ( @string )))    > 0
+            Or PatIndex ( '%' + @pattern2 + '%', Substring ( @string, pos2 + 1, Len ( @string ))) > 0
+        )
+  ,
+    result1
+    As
+        (
+        Select
+            --
+            pos1
+          , pos2
+          , substring_gross   = Iif(pos2 > pos1, Substring ( @string, pos1, pos2 - pos1 ), Null)
+          , substring_net     = Iif(pos2 > pos1 + Len ( @pattern1 )
+                                , Substring ( @string, pos1 + Len ( @pattern1 ), pos2 - pos1 - Len ( @pattern1 ))
+                                , Null)
+          , Len ( @pattern1 ) As len1
+          , Len ( @pattern2 ) As len2
+        From
+            positions
+        )
+    Select
+        --
+        pos1
+      , pos2
+      , substring_gross
+      , substring_net
+      , substring_netPreEol  = Substring (
+                                             substring_net
+                                           , 0
+                                           , PatIndex ( '%' + Char ( 13 ) + Char ( 10 ) + '%', substring_net )
+                                         )
+      , substring_netPostEol = Substring (
+                                             substring_net
+                                           , PatIndex ( '%' + Char ( 13 ) + Char ( 10 ) + '%', substring_net )
+                                           , Len ( substring_net )
+                                         )
+      , pos1eol              = PatIndex ( '%' + Char ( 13 ) + Char ( 10 ) + '%', substring_net )
+      , len1
+      , len2
+    From
+        result1
+);
+--, substring_netToEol = iif(pos2 > pos1 + len(@pattern1), substring(@string, pos1 + len(@pattern1), pos2 - pos1 - len(@pattern1)), NULL)
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = 'a1e4202c-e299-eb11-84f5-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'tool'
+  , @level1type = N'FUNCTION'
+  , @level1name = N'ftv_extract_substrings';

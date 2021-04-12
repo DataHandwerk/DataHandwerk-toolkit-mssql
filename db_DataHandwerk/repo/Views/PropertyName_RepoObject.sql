@@ -2,29 +2,42 @@
 all used [property_name] in any RepoObject, and additinally some [repo].[Parameter].[sub_Parameter]
 */
 
-CREATE VIEW [repo].[PropertyName_RepoObject]
-AS
-SELECT DISTINCT
- --
- [property_name]
-FROM [repo].[RepoObjectProperty]
+Create View repo.PropertyName_RepoObject
+As
+Select
+    Distinct
+    --
+    property_name
+From
+    repo.RepoObjectProperty
+Union
+Select
+    Distinct
+    --
+    sub_Parameter
+From
+    repo.Parameter
+Where
+    Parameter_name In
+    ( 'Inheritance_StringAggSeparatorSql_object', 'InheritanceDefinition_object', 'InheritanceType_object' )
+    And sub_Parameter <> '';
+Go
 
-UNION
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '5db33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'PropertyName_RepoObject';
+Go
 
-SELECT DISTINCT
- --
- [sub_Parameter]
-FROM [repo].[Parameter]
-WHERE [Parameter_name] IN (
-  'Inheritance_StringAggSeparatorSql_object'
-  , 'InheritanceDefinition_object'
-  , 'InheritanceType_object'
-  )
- AND [sub_Parameter] <> ''
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5db33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'PropertyName_RepoObject';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a5b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'PropertyName_RepoObject', @level2type = N'COLUMN', @level2name = N'property_name';
-
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'a5b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'PropertyName_RepoObject'
+  , @level2type = N'COLUMN'
+  , @level2name = N'property_name';

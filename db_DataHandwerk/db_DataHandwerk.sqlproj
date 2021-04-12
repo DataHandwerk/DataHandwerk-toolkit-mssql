@@ -152,7 +152,6 @@
     <Build Include="repo\Views\RepoObjectColumn_reference_Persistence.sql" />
     <Build Include="repo\Views\SysObjectColumn_QueryPlanExpression.sql" />
     <Build Include="repo\Views\RepoObjectColumnProperty_sys_repo.sql" />
-    <Build Include="repo\Views\aaa_test_sql_table_column.sql" />
     <Build Include="repo\Views\RepoObjectProperty_sys_repo.sql" />
     <Build Include="repo\Views\RepoObject_SqlModules_29_1_object_is_union.sql" />
     <Build Include="repo\Views\RepoObject_SqlModules_42_from_Identifier.sql" />
@@ -288,8 +287,8 @@
     <Build Include="graph\Tables\ProcedureInstance.sql" />
     <Build Include="graph\Views\ProcedureInstance_S.sql" />
     <Build Include="graph\Stored Procedures\usp_PERSIST_ProcedureInstance.sql" />
-    <Build Include="repo\Views\RepoObjectColumn_InheritanceType_resulting_InheritanceDefinition.sql" />
-    <Build Include="repo\Views\RepoObjectColumn_InheritanceType_InheritanceDefinition.sql" />
+    <Build Include="repo\Views\RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
+    <Build Include="repo\Views\RepoObjectColumnProperty_InheritanceType_InheritanceDefinition.sql" />
     <Build Include="repo\Views\RepoObjectProperty_InheritanceType_InheritanceDefinition.sql" />
     <Build Include="repo\Views\PropertyName_RepoObjectColumn.sql" />
     <Build Include="repo\Views\PropertyName_RepoObject.sql" />

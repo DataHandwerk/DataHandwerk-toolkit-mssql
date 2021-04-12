@@ -42,7 +42,7 @@ repo	RepoObjectSource_FirstResultSet	RepoObject_guid
 repo	RepoObjectSource_QueryPlan	RepoObject_guid
 
 */
-CREATE View repo.RepoObject_RequiredRepoObjectMerge
+Create View repo.RepoObject_RequiredRepoObjectMerge
 As
 Select
     ro1.RepoObject_guid
@@ -65,104 +65,262 @@ From
             On
             ro2.SysObject_fullname  = ro1.RepoObject_fullname
             And ro2.RepoObject_guid <> ro1.RepoObject_guid;
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f94a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_SysObject_name';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f94a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'ro2_SysObject_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f84a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_RepoObject_schema_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f84a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'ro2_RepoObject_schema_name';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f74a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'ro2_RepoObject_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f74a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_RepoObject_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f64a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_schema_name';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f54a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f64a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'SysObject_schema_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f44a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_schema_name';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f34a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f54a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'SysObject_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f24a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'ro2_SysObject_fullname';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f14a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_fullname';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f44a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_schema_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'f04a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'ro2_RepoObject_fullname';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'ef4a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_fullname';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f34a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_name';
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'ee4a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'ro2_RepoObject_guid';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObjectColumn_guid'
+  , @value = 'ed4a3013-3866-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_guid';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f24a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_SysObject_fullname';
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '52230f14-2e66-eb11-84dd-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge';
+Go
 
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f14a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject].[SysObject_schema_name]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_schema_name';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject].[SysObject_name]
+[repo].[RepoObject].[SysObject_name]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f04a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_RepoObject_fullname';
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject].[SysObject_fullname]
+[repo].[RepoObject].[SysObject_fullname]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_fullname';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'MS_Description'
+  , @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'SysObject_fullname';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ef4a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject].[RepoObject_schema_name]
+[repo].[RepoObject].[RepoObject_schema_name]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_schema_name';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject].[RepoObject_name]
+[repo].[RepoObject].[RepoObject_name]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_name';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee4a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_RepoObject_guid';
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject].[RepoObject_guid]
+[repo].[RepoObject].[RepoObject_guid]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_guid';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectColumnList'
+  , @value = N'[repo].[RepoObject].[RepoObject_fullname]
+[repo].[RepoObject].[RepoObject_fullname]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_fullname';
+Go
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ed4a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '52230f14-2e66-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
-
-
-GO
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[SysObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'SysObject_schema_name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[SysObject_name]
-[repo].[RepoObject].[SysObject_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'SysObject_name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[SysObject_fullname]
-[repo].[RepoObject].[SysObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[RepoObject_schema_name]
-[repo].[RepoObject].[RepoObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_schema_name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[RepoObject_name]
-[repo].[RepoObject].[RepoObject_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_name';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[RepoObject_guid]
-[repo].[RepoObject].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[RepoObject_fullname]
-[repo].[RepoObject].[RepoObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
-
+Execute sp_addextendedproperty
+    @name = N'MS_Description'
+  , @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'VIEW'
+  , @level1name = N'RepoObject_RequiredRepoObjectMerge'
+  , @level2type = N'COLUMN'
+  , @level2name = N'RepoObject_fullname';

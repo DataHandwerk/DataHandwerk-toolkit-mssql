@@ -29,61 +29,89 @@ ORDER BY [Referenced_Depth]
 
 
 */
-CREATE FUNCTION [repo].[ftv_RepoObjectColumn_ReferenceTree] (
- @RepoObjectColumn_guid uniqueidentifier
- , @Referenced_Depth INT = 0
- , @Referencing_Depth INT = 0
- )
-RETURNS TABLE
-AS
-RETURN (
-  --trees are recursive to get parent child relations
-  WITH tree_referenced AS (
-    SELECT [FirstNode].*
-     , 1 AS [Referenced_Depth]
-     , 0 AS [Referencing_Depth]
-    FROM graph.RepoObjectColumn_ReferencingReferenced AS FirstNode
-    WHERE [Referencing_guid] = @RepoObjectColumn_guid
-     AND 1 <= @Referenced_Depth
-    
-    UNION ALL
-    
-    SELECT [child].*
-     , [Referenced_Depth] = [parent].[Referenced_Depth] + 1
-     , 0
-    FROM graph.RepoObjectColumn_ReferencingReferenced AS child
-    INNER JOIN tree_referenced AS parent
-     ON [child].Referencing_guid = [parent].Referenced_guid
-    WHERE [parent].[Referenced_Depth] < @Referenced_Depth
-    )
-   , tree_referencing AS (
-    SELECT [FirstNode].*
-     , 0 AS [Referenced_Depth]
-     , 1 AS [Referencing_Depth]
-    FROM graph.RepoObjectColumn_ReferencingReferenced AS FirstNode
-    WHERE [Referenced_guid] = @RepoObjectColumn_guid
-     AND 1 <= @Referencing_Depth
-    
-    UNION ALL
-    
-    SELECT [child].*
-     , 0
-     , [Referencing_Depth] = [parent].[Referencing_Depth] + 1
-    FROM graph.RepoObjectColumn_ReferencingReferenced AS child
-    INNER JOIN tree_referencing AS parent
-     ON [child].Referenced_guid = [parent].Referencing_guid
-    WHERE [parent].[Referencing_Depth] < @Referencing_Depth
-    )
-  SELECT *
-   , @RepoObjectColumn_guid AS RepoObjectColumn_guid
-  FROM tree_referenced
-  
-  UNION
-  
-  SELECT *
-   , @RepoObjectColumn_guid AS RepoObjectColumn_guid
-  FROM tree_referencing
-  )
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3f4679b8-147c-eb11-84e6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObjectColumn_ReferenceTree';
+Create Function repo.ftv_RepoObjectColumn_ReferenceTree
+(
+    @RepoObjectColumn_guid UniqueIdentifier
+  , @Referenced_Depth      Int = 0
+  , @Referencing_Depth     Int = 0
+)
+Returns Table
+As
+Return
+(
+    --trees are recursive to get parent child relations
+    With
+    tree_referenced
+    As
+        (
+        Select
+            FirstNode.*
+          , 1 As Referenced_Depth
+          , 0 As Referencing_Depth
+        From
+            graph.RepoObjectColumn_ReferencingReferenced As FirstNode
+        Where
+            Referencing_guid = @RepoObjectColumn_guid
+            And 1            <= @Referenced_Depth
+        Union All
+        Select
+            child.*
+          , Referenced_Depth = parent.Referenced_Depth + 1
+          , 0
+        From
+            graph.RepoObjectColumn_ReferencingReferenced As child
+            Inner Join
+                tree_referenced                          As parent
+                    On
+                    child.Referencing_guid = parent.Referenced_guid
+        Where
+            parent.Referenced_Depth < @Referenced_Depth
+        )
+  ,
+    tree_referencing
+    As
+        (
+        Select
+            FirstNode.*
+          , 0 As Referenced_Depth
+          , 1 As Referencing_Depth
+        From
+            graph.RepoObjectColumn_ReferencingReferenced As FirstNode
+        Where
+            Referenced_guid = @RepoObjectColumn_guid
+            And 1           <= @Referencing_Depth
+        Union All
+        Select
+            child.*
+          , 0
+          , Referencing_Depth = parent.Referencing_Depth + 1
+        From
+            graph.RepoObjectColumn_ReferencingReferenced As child
+            Inner Join
+                tree_referencing                         As parent
+                    On
+                    child.Referenced_guid = parent.Referencing_guid
+        Where
+            parent.Referencing_Depth < @Referencing_Depth
+        )
+    Select
+        *
+      , @RepoObjectColumn_guid As RepoObjectColumn_guid
+    From
+        tree_referenced
+    Union
+    Select
+        *
+      , @RepoObjectColumn_guid As RepoObjectColumn_guid
+    From
+        tree_referencing
+);
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '3f4679b8-147c-eb11-84e6-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'FUNCTION'
+  , @level1name = N'ftv_RepoObjectColumn_ReferenceTree';

@@ -30,85 +30,113 @@ ORDER BY [Referenced_Depth]
 
 
 */
-CREATE FUNCTION [repo].[ftv_RepoObject_ReferenceTree] (
- @RepoObject_guid UNIQUEIDENTIFIER
- , @Referenced_Depth INT = 0
- , @Referencing_Depth INT = 0
- )
-RETURNS TABLE
-AS
-RETURN (
-  --trees are recursive to get parent child relations
-  WITH tree_referenced AS (
-    SELECT [FirstNode].*
-     , 1 AS [Referenced_Depth]
-     , 0 AS [Referencing_Depth]
-    FROM graph.RepoObject_ReferencingReferenced AS FirstNode
-    --INNER JOIN [config].[type] t1
-    -- ON t1.[type] = FirstNode.Referenced_type
-    --INNER JOIN [config].[type] t2
-    -- ON t2.[type] = FirstNode.Referencing_type
-    WHERE [Referencing_guid] = @RepoObject_guid
-     AND 1 <= @Referenced_Depth
-     --AND t1.[is_DocsOutput] = 1
-     --AND t2.[is_DocsOutput] = 1
-    
-    UNION ALL
-    
-    SELECT [child].*
-     , [Referenced_Depth] = [parent].[Referenced_Depth] + 1
-     , 0
-    FROM graph.RepoObject_ReferencingReferenced AS child
-    INNER JOIN tree_referenced AS parent
-     ON [child].Referencing_guid = [parent].Referenced_guid
-    --INNER JOIN [config].[type] t1
-    -- ON t1.[type] = child.Referenced_type
-    ----INNER JOIN [config].[type] t2
-    ---- ON t2.[type] = child.Referencing_type
-    WHERE [parent].[Referenced_Depth] < @Referenced_Depth
-     --AND t1.[is_DocsOutput] = 1
-     ----AND t2.[is_DocsOutput] = 1
-    )
-   , tree_referencing AS (
-    SELECT [FirstNode].*
-     , 0 AS [Referenced_Depth]
-     , 1 AS [Referencing_Depth]
-    FROM graph.RepoObject_ReferencingReferenced AS FirstNode
-    --INNER JOIN [config].[type] t1
-    -- ON t1.[type] = FirstNode.Referenced_type
-    --INNER JOIN [config].[type] t2
-    -- ON t2.[type] = FirstNode.Referencing_type
-    WHERE [Referenced_guid] = @RepoObject_guid
-     AND 1 <= @Referencing_Depth
-     --AND t1.[is_DocsOutput] = 1
-     --AND t2.[is_DocsOutput] = 1
-    
-    UNION ALL
-    
-    SELECT [child].*
-     , 0
-     , [Referencing_Depth] = [parent].[Referencing_Depth] + 1
-    FROM graph.RepoObject_ReferencingReferenced AS child
-    INNER JOIN tree_referencing AS parent
-     ON [child].Referenced_guid = [parent].Referencing_guid
-    ----INNER JOIN [config].[type] t1
-    ---- ON t1.[type] = child.Referenced_type
-    --INNER JOIN [config].[type] t2
-    -- ON t2.[type] = child.Referencing_type
-    WHERE [parent].[Referencing_Depth] < @Referencing_Depth
-     ----AND t1.[is_DocsOutput] = 1
-     --AND t2.[is_DocsOutput] = 1
-    )
-  SELECT *
-   , @RepoObject_guid AS RepoObject_guid
-  FROM tree_referenced
-  
-  UNION
-  
-  SELECT *
-   , @RepoObject_guid AS RepoObject_guid
-  FROM tree_referencing
-  )
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0adf2fe1-ae7a-eb11-84e5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+Create Function repo.ftv_RepoObject_ReferenceTree
+(
+    @RepoObject_guid   UniqueIdentifier
+  , @Referenced_Depth  Int = 0
+  , @Referencing_Depth Int = 0
+)
+Returns Table
+As
+Return
+(
+    --trees are recursive to get parent child relations
+    With
+    tree_referenced
+    As
+        (
+        Select
+            FirstNode.*
+          , 1 As Referenced_Depth
+          , 0 As Referencing_Depth
+        From
+            graph.RepoObject_ReferencingReferenced As FirstNode
+        --INNER JOIN [config].[type] t1
+        -- ON t1.[type] = FirstNode.Referenced_type
+        --INNER JOIN [config].[type] t2
+        -- ON t2.[type] = FirstNode.Referencing_type
+        Where
+            Referencing_guid = @RepoObject_guid
+            And 1            <= @Referenced_Depth
+        --AND t1.[is_DocsOutput] = 1
+        --AND t2.[is_DocsOutput] = 1
+        Union All
+        Select
+            child.*
+          , Referenced_Depth = parent.Referenced_Depth + 1
+          , 0
+        From
+            graph.RepoObject_ReferencingReferenced As child
+            Inner Join
+                tree_referenced                    As parent
+                    On
+                    child.Referencing_guid = parent.Referenced_guid
+        --INNER JOIN [config].[type] t1
+        -- ON t1.[type] = child.Referenced_type
+        ----INNER JOIN [config].[type] t2
+        ---- ON t2.[type] = child.Referencing_type
+        Where
+            parent.Referenced_Depth < @Referenced_Depth
+        --AND t1.[is_DocsOutput] = 1
+        ----AND t2.[is_DocsOutput] = 1
+        )
+  ,
+    tree_referencing
+    As
+        (
+        Select
+            FirstNode.*
+          , 0 As Referenced_Depth
+          , 1 As Referencing_Depth
+        From
+            graph.RepoObject_ReferencingReferenced As FirstNode
+        --INNER JOIN [config].[type] t1
+        -- ON t1.[type] = FirstNode.Referenced_type
+        --INNER JOIN [config].[type] t2
+        -- ON t2.[type] = FirstNode.Referencing_type
+        Where
+            Referenced_guid = @RepoObject_guid
+            And 1           <= @Referencing_Depth
+        --AND t1.[is_DocsOutput] = 1
+        --AND t2.[is_DocsOutput] = 1
+        Union All
+        Select
+            child.*
+          , 0
+          , Referencing_Depth = parent.Referencing_Depth + 1
+        From
+            graph.RepoObject_ReferencingReferenced As child
+            Inner Join
+                tree_referencing                   As parent
+                    On
+                    child.Referenced_guid = parent.Referencing_guid
+        ----INNER JOIN [config].[type] t1
+        ---- ON t1.[type] = child.Referenced_type
+        --INNER JOIN [config].[type] t2
+        -- ON t2.[type] = child.Referencing_type
+        Where
+            parent.Referencing_Depth < @Referencing_Depth
+        ----AND t1.[is_DocsOutput] = 1
+        --AND t2.[is_DocsOutput] = 1
+        )
+    Select
+        *
+      , @RepoObject_guid As RepoObject_guid
+    From
+        tree_referenced
+    Union
+    Select
+        *
+      , @RepoObject_guid As RepoObject_guid
+    From
+        tree_referencing
+);
+Go
 
+Execute sp_addextendedproperty
+    @name = N'RepoObject_guid'
+  , @value = '0adf2fe1-ae7a-eb11-84e5-a81e8446d5b0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'FUNCTION'
+  , @level1name = N'ftv_RepoObject_ReferenceTree';
