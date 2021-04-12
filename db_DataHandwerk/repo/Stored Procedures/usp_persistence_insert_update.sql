@@ -258,7 +258,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -364,7 +364,7 @@ BEGIN
   SET @source_object = '[repo].[RepoObject_persistence]'
   SET @target_object = NULL
 
-  EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+  EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
    , @parent_execution_log_id = @parent_execution_log_id
@@ -424,7 +424,7 @@ BEGIN
   SET @source_object = '[repo].[RepoObject]'
   SET @target_object = NULL
 
-  EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+  EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
    , @parent_execution_log_id = @parent_execution_log_id
@@ -480,7 +480,7 @@ BEGIN
   SET @source_object = '[repo].[RepoObject]'
   SET @target_object = NULL
 
-  EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+  EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
    , @parent_execution_log_id = @parent_execution_log_id
@@ -583,7 +583,7 @@ BEGIN
  SET @source_object = '[repo].[RepoObject]'
  SET @target_object = NULL
 
- EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+ EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
   , @ssis_execution_id = @ssis_execution_id
   , @sub_execution_id = @sub_execution_id
   , @parent_execution_log_id = @parent_execution_log_id
@@ -638,7 +638,7 @@ SET @step_name = 'INSERT SELECT @persistence_RepoObject_guid, @source_RepoObject
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObject_persistence]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -685,7 +685,7 @@ SET @step_name = 'SET parameters from procedure call'
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObject_persistence]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -723,7 +723,7 @@ SET @step_name = 'SET [is_repo_managed] = 1 (WHERE [RepoObject_guid] = @persiste
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -770,7 +770,7 @@ SET @step_name = 'SET [Repo_temporal_type]'
 SET @source_object = '[repo].[RepoObject_persistence]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -1014,7 +1014,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id

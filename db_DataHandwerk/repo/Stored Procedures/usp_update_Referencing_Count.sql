@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -86,7 +86,7 @@ SET @step_name = 'SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count
 SET @source_object = '[repo_sys].[RepoObjectReferencing]'
 SET @target_object = '[repo].[RepoObject]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -136,7 +136,7 @@ SET @step_name = 'SET [Referencing_Count] = [rorc].[Referencing_Count]'
 SET @source_object = '[repo_sys].[RepoObjectReferenced]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -165,7 +165,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

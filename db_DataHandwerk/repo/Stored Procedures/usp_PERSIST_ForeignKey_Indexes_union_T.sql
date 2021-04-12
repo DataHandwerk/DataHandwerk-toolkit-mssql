@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -76,7 +76,7 @@ SET @step_name = 'truncate persistence target'
 SET @source_object = NULL
 SET @target_object = '[repo].[ForeignKey_Indexes_union_T]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -159,7 +159,7 @@ SET @step_name = 'insert all'
 SET @source_object = '[repo].[ForeignKey_Indexes_union]'
 SET @target_object = '[repo].[ForeignKey_Indexes_union_T]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -188,7 +188,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

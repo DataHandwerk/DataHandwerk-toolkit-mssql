@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -109,7 +109,7 @@ SET @step_name = 'UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColum
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -164,7 +164,7 @@ SET @step_name = 'SET [SysObjectColumn_name] = [RepoObjectColumn_guid] (to avoid
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -249,7 +249,7 @@ SET @step_name = '[SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] (
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -287,7 +287,7 @@ SET @step_name = 'DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1); v
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -369,7 +369,7 @@ SET @step_name = 'INSERT still missing Column'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -433,7 +433,7 @@ SET @step_name = 'SET [RepoObjectColumn_name] = [SysObjectColumn_name] WHERE (ha
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -618,7 +618,7 @@ SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0)'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -796,7 +796,7 @@ SET @step_name = 'persistence: update RepoObjectColumn_name and repo attributes 
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -847,7 +847,7 @@ SET @step_name = 'persistence: [roc_p].[persistence_source_RepoObjectColumn_guid
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -911,7 +911,7 @@ SET @step_name = 'persistence: add missing persistence columns existing in sourc
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -964,7 +964,7 @@ SET @step_name = 'persistence: insert missing HistValidColumns'
 SET @source_object = '[repo].[RepoObject_persistence]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1000,7 +1000,7 @@ SET @step_name = 'persistence: SET [persistence_source_RepoObjectColumn_guid] = 
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1097,7 +1097,7 @@ SET @step_name = 'write RepoObjectColumn_guid into extended properties of SysObj
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo_sys].[SysColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1138,7 +1138,7 @@ SET @step_name = 'SET [is_SysObjectColumn_missing] = 1'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1179,7 +1179,7 @@ SET @step_name = 'where is_SysObjectColumn_missing = 1, but not in objects which
 SET @source_object = '[repo_sys].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1229,7 +1229,7 @@ SET @step_name = 'UPDATE [graph].[RepoObjectColumn] - ensure current case'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1258,7 +1258,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -100,7 +100,7 @@ SET @step_name = 'repo.RepoObjectProperty - INSERT'
 SET @source_object = '[repo].[RepoObjectProperty_sys_repo]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -133,7 +133,7 @@ SET @step_name = 'repo.RepoObjectProperty - UPDATE'
 SET @source_object = '[repo].[RepoObjectProperty_sys_repo]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -171,7 +171,7 @@ SET @step_name = 'repo.RepoObjectColumnProperty - INSERT'
 SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
 SET @target_object = '[repo].[RepoObjectColumnProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -204,7 +204,7 @@ SET @step_name = 'repo.RepoObjectColumnProperty - UPDATE'
 SET @source_object = '[repo].[RepoObjectColumnProperty_sys_repo]'
 SET @target_object = '[repo].[RepoObjectColumnProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -233,7 +233,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

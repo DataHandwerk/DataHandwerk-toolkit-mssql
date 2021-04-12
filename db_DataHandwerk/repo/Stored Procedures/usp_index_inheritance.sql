@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -95,7 +95,7 @@ SET @step_name = 'DELETE (if it is a referencing index (NOT [referenced_index_gu
 SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -146,7 +146,7 @@ SET @step_name = 'INSERT (Index which should be inherited in referenced, but not
 SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -184,7 +184,7 @@ SET @step_name = 'UPDATE [referenced_index_guid], if NULL but should be inherite
 SET @source_object = '[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -225,7 +225,7 @@ SET @step_name = 'DELETE (referenced index, where entries are missing in setpoin
 SET @source_object = '[repo].[IndexColumn_virtual_referenced_setpoint]'
 SET @target_object = '[repo].[IndexColumn_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -270,7 +270,7 @@ SET @step_name = 'INSERT missing'
 SET @source_object = '[repo].[IndexColumn_virtual_referenced_setpoint]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -312,7 +312,7 @@ SET @step_name = 'Persistence: UPDATE some persistence target index attributes f
 SET @source_object = '[repo].[Index_virtual]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -348,7 +348,7 @@ SET @step_name = 'DELETE duplicates by pattern'
 SET @source_object = '[repo].[Index_gross]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -388,7 +388,7 @@ SET @step_name = 'SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObje
 SET @source_object = '[repo].[IndexColumn_virtual_referenced_setpoint]'
 SET @target_object = '[repo].[IndexColumn_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -427,7 +427,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

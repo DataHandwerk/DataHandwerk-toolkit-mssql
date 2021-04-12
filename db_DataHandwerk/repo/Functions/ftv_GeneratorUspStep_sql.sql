@@ -269,7 +269,7 @@ RETURN (
            , CHAR(10)
            , CHAR(13)
            , CHAR(10)
-           , 'EXEC repo.usp_ExecutionLog_insert '
+           , 'EXEC logs.usp_ExecutionLog_insert '
            , CHAR(13)
            , CHAR(10)
            , ' @execution_instance_guid = @execution_instance_guid'

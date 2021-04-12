@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -111,7 +111,7 @@ SET @step_name = 'AdocUspSteps from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -175,7 +175,7 @@ SET @step_name = 'UspParameters from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -241,7 +241,7 @@ SET @step_name = 'UspExamples from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -307,7 +307,7 @@ SET @step_name = 'MS_Description from [repo].[GeneratorUsp_SqlUsp]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -371,7 +371,7 @@ SET @step_name = 'pk_index_guid'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -435,7 +435,7 @@ SET @step_name = 'pk_IndexPatternColumnDatatype'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -499,7 +499,7 @@ SET @step_name = 'pk_IndexPatternColumnName'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -563,7 +563,7 @@ SET @step_name = 'pk_IndexSemanticGroup'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -627,7 +627,7 @@ SET @step_name = 'is_repo_managed'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -691,7 +691,7 @@ SET @step_name = 'usp_persistence_RepoObject_guid'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -755,7 +755,7 @@ SET @step_name = 'persistence_source_RepoObject_guid'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -819,7 +819,7 @@ SET @step_name = 'persistence_source_RepoObject_fullname'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -883,7 +883,7 @@ SET @step_name = 'persistence_source_RepoObject_fullname2'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -947,7 +947,7 @@ SET @step_name = 'persistence_source_RepoObject_xref'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1011,7 +1011,7 @@ SET @step_name = 'has_history'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1075,7 +1075,7 @@ SET @step_name = 'has_history_columns'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1139,7 +1139,7 @@ SET @step_name = 'is_persistence'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1203,7 +1203,7 @@ SET @step_name = 'is_persistence_check_duplicate_per_pk'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1267,7 +1267,7 @@ SET @step_name = 'is_persistence_check_for_empty_source'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1331,7 +1331,7 @@ SET @step_name = 'is_persistence_delete_missing'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1395,7 +1395,7 @@ SET @step_name = 'is_persistence_delete_changed'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1459,7 +1459,7 @@ SET @step_name = 'is_persistence_insert'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1523,7 +1523,7 @@ SET @step_name = 'is_persistence_truncate'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1587,7 +1587,7 @@ SET @step_name = 'is_persistence_update_changed'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1651,7 +1651,7 @@ SET @step_name = 'history_schema_name'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1715,7 +1715,7 @@ SET @step_name = 'history_table_name'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1779,7 +1779,7 @@ SET @step_name = 'AntoraReferencedList'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1843,7 +1843,7 @@ SET @step_name = 'AntoraReferencingList'
 SET @source_object = '[repo].[RepoObject_gross]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1909,7 +1909,7 @@ SET @step_name = '[repo].[RepoObjectProperty_from_sql_modules_definition]'
 SET @source_object = '[repo].[RepoObjectProperty_from_sql_modules_definition]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1940,7 +1940,7 @@ SET @step_name = 'DELETE WHERE [property_value] IS NULL'
 SET @source_object = '[repo].[RepoObjectProperty]'
 SET @target_object = '[repo].[RepoObjectProperty]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1969,7 +1969,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

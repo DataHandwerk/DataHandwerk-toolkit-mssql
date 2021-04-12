@@ -96,6 +96,11 @@
     <Folder Include="tool\" />
     <Folder Include="tool\Functions\" />
     <Folder Include="tool\Stored Procedures" />
+    <Folder Include="logs\" />
+    <Folder Include="logs\Views\" />
+    <Folder Include="logs\Tables" />
+    <Folder Include="logs\Functions" />
+    <Folder Include="logs\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -207,7 +212,6 @@
     <Build Include="repo\Tables\RepoObjectSource_QueryPlan.sql" />
     <Build Include="repo\Tables\RepoObjectSource_FirstResultSet.sql" />
     <Build Include="repo\Tables\RepoObject_SqlModules.sql" />
-    <Build Include="repo\Tables\ExecutionLog.sql" />
     <Build Include="repo\Views\RepoObject_gross.sql" />
     <Build Include="repo\Views\IndexColumn_virtual_referenced_setpoint.sql" />
     <Build Include="repo\Views\IndexColumn_virtual_gross.sql" />
@@ -215,12 +219,9 @@
     <Build Include="repo\Views\Index_virtual_SysObject.sql" />
     <Build Include="repo\Views\Index_union.sql" />
     <Build Include="repo\Views\Index_gross.sql" />
-    <Build Include="repo\Views\ExecutionLog_parent.sql" />
-    <Build Include="repo\Views\ExecutionLog_gross.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_QueryPlan.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumn_update_RepoObjectColumn_column_id.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_Settings.sql" />
-    <Build Include="repo\Stored Procedures\usp_ExecutionLog_insert.sql" />
     <Build Include="repo\Views\RepoObject_SqlCreateTable.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObject_update_SysObjectQueryPlan.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectSource_FirstResultSet.sql" />
@@ -322,7 +323,6 @@
     <None Include="_scripts\StaticData\dhw_self\62_dhw_self_repo_IndexColumn_virtual.sql" />
     <None Include="_scripts\StaticData\dhw_self\63_dhw_self_repo_Index_Settings.sql" />
     <Build Include="Security\RoleMemberships.sql" />
-    <Build Include="repo\Functions\ftv_ExecutionLog_tree.sql" />
     <Build Include="repo\Stored Procedures\usp_generate_merge.sql" />
     <Build Include="repo_sys\Views\ForeignKeyColumn.sql" />
     <Build Include="repo_sys\Views\ForeignKey.sql" />
@@ -362,7 +362,6 @@
     <Build Include="config\Stored Procedures\usp_init_parameter.sql" />
     <Build Include="config\Stored Procedures\usp_init_spt_values.sql" />
     <Build Include="config\Views\InheritanceType.sql" />
-    <Build Include="docs\Views\ExecutionLog_plantUML_Sequence_start_stop.sql" />
     <Build Include="docs\Views\visjs_EdgeList_object_test01.sql" />
     <Build Include="docs\Views\visjs_nodelist_object_test01.sql" />
     <Build Include="config\Views\type.sql" />
@@ -435,6 +434,13 @@
     <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_set.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_ForeignKey_Indexes_union_T.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Plantuml_T.sql" />
+    <Build Include="Security\logs.sql" />
+    <Build Include="logs\Tables\ExecutionLog.sql" />
+    <Build Include="logs\Views\ExecutionLog_parent.sql" />
+    <Build Include="logs\Views\ExecutionLog_gross.sql" />
+    <Build Include="logs\Functions\ftv_ExecutionLog_tree.sql" />
+    <Build Include="logs\Views\ExecutionLog_plantUML_Sequence_start_stop.sql" />
+    <Build Include="logs\Stored Procedures\usp_ExecutionLog_insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
