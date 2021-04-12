@@ -1,19 +1,31 @@
-﻿/*
-mismatch of RepoObject_guid can create 2 entries per one RepoObject
+﻿
+
+/*
+<<property_start>>MS_Description
+list of conflicting entries which needs to be merged
+
+mismatch of RepoObject_guid can create 2 entries per one RepoObject +
 this can happen, if the guid exists in the database extended properties and a new guid will be created in the repo
-ro1 has the right RepoObject_fullname, but the guid was new created
-ro2 got the "right" guid from database, but ro2 can't propagate the fullname into RepoObject because the RepoObject_fullname is occupied
+
+* roc1 has the right RepoObject_fullname, but the guid was new created
+* roc2 got the "right" guid from database, but roc2 can't propagate the fullname into RepoObject because the RepoObject_fullname is occupied
 now we have 2 entries, but we need to merge them
 
-we need to replace 
-ro1.RepoObject_guid by ro2.RepoObject_guid
+we should keep roc1.RepoObject_guid
 
+this was the old logic, it looks like we get issues: +
+we need to replace roc1.RepoObject_guid by roc2.RepoObject_guid
+<<property_end>>
+
+some history, how we started to investigate:
 
 first we check where the RepoObject PK is used in FK
 
+[source,sql]
+------
 --Returns logical foreign key information
-EXEC sp_fkeys @pktable_name = N'RepoObject'
- , @pktable_owner = N'repo';
+EXEC sp_fkeys @pktable_name = N'RepoObject', @pktable_owner = N'repo';
+------
 
 we should care about
 
@@ -30,28 +42,29 @@ repo	RepoObjectSource_FirstResultSet	RepoObject_guid
 repo	RepoObjectSource_QueryPlan	RepoObject_guid
 
 */
---list of conflicting entries which needs to be merged
-Create VIEW repo.RepoObject_RequiredRepoObjectMerge
-AS
-SELECT
- --
- ro1.RepoObject_guid
- , ro2.RepoObject_guid AS ro2_RepoObject_guid
- , ro1.RepoObject_fullname
- , ro2.RepoObject_fullname AS ro2_RepoObject_fullname
- , ro1.SysObject_fullname
- , ro2.SysObject_fullname AS ro2_SysObject_fullname
- , ro1.RepoObject_name
- , ro1.RepoObject_schema_name
- , ro1.SysObject_name
- , ro1.SysObject_schema_name
- , ro2.RepoObject_name AS ro2_RepoObject_name
- , ro2.RepoObject_schema_name AS ro2_RepoObject_schema_name
- , ro2.SysObject_name AS ro2_SysObject_name
-FROM repo.RepoObject AS ro1
-INNER JOIN repo.RepoObject AS ro2
- ON ro2.SysObject_fullname = ro1.RepoObject_fullname
-  AND ro2.RepoObject_guid <> ro1.RepoObject_guid
+CREATE View repo.RepoObject_RequiredRepoObjectMerge
+As
+Select
+    ro1.RepoObject_guid
+  , ro2.RepoObject_guid        As ro2_RepoObject_guid
+  , ro1.RepoObject_fullname
+  , ro2.RepoObject_fullname    As ro2_RepoObject_fullname
+  , ro1.SysObject_fullname
+  , ro2.SysObject_fullname     As ro2_SysObject_fullname
+  , ro1.RepoObject_name
+  , ro1.RepoObject_schema_name
+  , ro1.SysObject_name
+  , ro1.SysObject_schema_name
+  , ro2.RepoObject_name        As ro2_RepoObject_name
+  , ro2.RepoObject_schema_name As ro2_RepoObject_schema_name
+  , ro2.SysObject_name         As ro2_SysObject_name
+From
+    repo.RepoObject     As ro1
+    Inner Join
+        repo.RepoObject As ro2
+            On
+            ro2.SysObject_fullname  = ro1.RepoObject_fullname
+            And ro2.RepoObject_guid <> ro1.RepoObject_guid;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f94a3013-3866-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_SysObject_name';
 

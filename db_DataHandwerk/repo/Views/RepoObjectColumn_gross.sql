@@ -1,91 +1,100 @@
 ﻿
-CREATE VIEW [repo].[RepoObjectColumn_gross]
-AS
+
+CREATE View repo.RepoObjectColumn_gross
+As
 --
-SELECT
- --
- [roc].[RepoObjectColumn_guid]
- , [roc].[has_different_sys_names]
- , [roc].[Inheritance_StringAggSeparatorSql]
- , [roc].[InheritanceDefinition]
- , [roc].[InheritanceType]
- , [roc].[is_persistence_no_check]
- , [roc].[is_persistence_no_include]
- , [roc].[is_persistence_no_update]
- , [roc].[is_query_plan_expression]
- , [roc].[is_RepoObjectColumn_name_uniqueidentifier]
- , [roc].[is_SysObjectColumn_missing]
- , [roc].[is_SysObjectColumn_name_uniqueidentifier]
- , [roc].[persistence_source_RepoObjectColumn_guid]
- , [roc].[Referencing_Count]
- , [roc].[Repo_default_definition]
- , [roc].[Repo_default_is_system_named]
- , [roc].[Repo_default_name]
- , [roc].[Repo_definition]
- , [roc].[Repo_generated_always_type]
- , [roc].[Repo_graph_type]
- , [roc].[Repo_is_computed]
- , [roc].[Repo_is_identity]
- , [roc].[Repo_is_nullable]
- , [roc].[Repo_is_persisted]
- , [roc].[Repo_seed_value]
- , [roc].[Repo_increment_value]
- , [roc].[Repo_user_type_fullname]
- , [roc].[Repo_user_type_name]
- , [roc].[Repo_uses_database_collation]
- , [roc].[RepoObject_guid]
- , [roc].[RepoObjectColumn_column_id]
- , [RepoObjectColumn_fullname] = CONCAT (
-  [ro].[RepoObject_fullname]
-  , '.'
-  , QUOTENAME([roc].[RepoObjectColumn_name])
-  )
- , [RepoObjectColumn_fullname2] = CONCAT (
-  [ro].[RepoObject_fullname2]
-  , '.'
-  , [roc].[RepoObjectColumn_name]
-  )
- , [roc].[RepoObjectColumn_name]
- , [roc].[SysObjectColumn_column_id]
- , [roc].[SysObjectColumn_name]
- , [ro].[has_get_referenced_issue]
- , [ro].[is_repo_managed]
- , [ro].[is_RepoObject_name_uniqueidentifier]
- , [ro].[is_SysObject_missing]
- , [ro].[is_SysObject_name_uniqueidentifier]
- , [ro].[modify_dt]
- , [ro].[node_id]
- , [ro].[pk_index_guid]
- , [ro].[RepoObject_fullname]
- , [ro].[RepoObject_fullname2]
- , [ro].[RepoObject_name]
- , [ro].[RepoObject_Referencing_Count]
- , [ro].[RepoObject_schema_name]
- , [ro].[RepoObject_type]
- , [ro].[SysObject_fullname]
- , [ro].[SysObject_fullname2]
- , [ro].[SysObject_id]
- , [ro].[SysObject_modify_date]
- , [ro].[SysObject_name]
- , [ro].[SysObject_schema_name]
- , [ro].[SysObject_type]
- , [ro].[SysObject_parent_object_id]
- , [ic].[index_column_id]
- , [ic].[index_name]
- , [ic].[is_index_primary_key]
- , Property_ms_description = [repo].[fs_get_RepoObjectColumnProperty_nvarchar]([roc].[RepoObjectColumn_guid], 'ms_description')
- , [roc_referenced].[AntoraReferencedColumnList]
- , [roc_referencing].[AntoraReferencingColumnList]
-FROM repo.RepoObjectColumn AS roc
-INNER JOIN repo.RepoObject AS ro
- ON roc.RepoObject_guid = ro.RepoObject_guid
-LEFT OUTER JOIN repo.IndexColumn_union AS ic
- ON ic.index_guid = ro.pk_index_guid
-  AND ic.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
-LEFT JOIN [repo].[RepoObjectColumn_ReferencedList] AS roc_referenced
- ON roc_referenced.[Referencing_guid] = roc.RepoObjectColumn_guid
-LEFT JOIN [repo].[RepoObjectColumn_ReferencingList] AS roc_referencing
- ON roc_referencing.[Referenced_guid] = roc.RepoObjectColumn_guid
+Select
+    --
+    roc.RepoObjectColumn_guid
+  , roc.has_different_sys_names
+  , roc.Inheritance_StringAggSeparatorSql
+  , roc.InheritanceDefinition
+  , roc.InheritanceType
+  , roc.is_persistence_no_check
+  , roc.is_persistence_no_include
+  , roc.is_persistence_no_update
+  , roc.is_query_plan_expression
+  , roc.is_RepoObjectColumn_name_uniqueidentifier
+  , roc.is_required_ColumnMerge
+  , roc.is_SysObjectColumn_missing
+  , roc.is_SysObjectColumn_name_uniqueidentifier
+  , roc.persistence_source_RepoObjectColumn_guid
+  , roc.Referencing_Count
+  , roc.Repo_default_definition
+  , roc.Repo_default_is_system_named
+  , roc.Repo_default_name
+  , roc.Repo_definition
+  , roc.Repo_generated_always_type
+  , roc.Repo_graph_type
+  , roc.Repo_is_computed
+  , roc.Repo_is_identity
+  , roc.Repo_is_nullable
+  , roc.Repo_is_persisted
+  , roc.Repo_seed_value
+  , roc.Repo_increment_value
+  , roc.Repo_user_type_fullname
+  , roc.Repo_user_type_name
+  , roc.Repo_uses_database_collation
+  , roc.RepoObject_guid
+  , roc.RepoObjectColumn_column_id
+  , RepoObjectColumn_fullname  = Concat ( ro.RepoObject_fullname, '.', QuoteName ( roc.RepoObjectColumn_name ))
+  , RepoObjectColumn_fullname2 = Concat ( ro.RepoObject_fullname2, '.', roc.RepoObjectColumn_name )
+  , roc.RepoObjectColumn_name
+  , roc.SysObjectColumn_column_id
+  , roc.SysObjectColumn_name
+  , ro.has_get_referenced_issue
+  , ro.is_repo_managed
+  , ro.is_RepoObject_name_uniqueidentifier
+  , ro.is_SysObject_missing
+  , ro.is_SysObject_name_uniqueidentifier
+  , ro.modify_dt
+  , ro.node_id
+  , ro.pk_index_guid
+  , ro.RepoObject_fullname
+  , ro.RepoObject_fullname2
+  , ro.RepoObject_name
+  , ro.RepoObject_Referencing_Count
+  , ro.RepoObject_schema_name
+  , ro.RepoObject_type
+  , ro.SysObject_fullname
+  , ro.SysObject_fullname2
+  , ro.SysObject_id
+  , ro.SysObject_modify_date
+  , ro.SysObject_name
+  , ro.SysObject_schema_name
+  , ro.SysObject_type
+  , ro.SysObject_parent_object_id
+  , ic.index_column_id
+  , ic.index_name
+  , ic.is_index_primary_key
+  , Property_ms_description    = repo.fs_get_RepoObjectColumnProperty_nvarchar (
+                                                                                   roc.RepoObjectColumn_guid
+                                                                                 , 'ms_description'
+                                                                               )
+  , roc_referenced.AntoraReferencedColumnList
+  , roc_referencing.AntoraReferencingColumnList
+From
+    repo.RepoObjectColumn                     As roc
+    Inner Join
+        repo.RepoObject                       As ro
+            On
+            roc.RepoObject_guid             = ro.RepoObject_guid
+
+    Left Outer Join
+        repo.IndexColumn_union                As ic
+            On
+            ic.index_guid                   = ro.pk_index_guid
+            And ic.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid
+
+    Left Join
+        repo.RepoObjectColumn_ReferencedList  As roc_referenced
+            On
+            roc_referenced.Referencing_guid = roc.RepoObjectColumn_guid
+
+    Left Join
+        repo.RepoObjectColumn_ReferencingList As roc_referencing
+            On
+            roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid;
 
 
 GO
@@ -658,4 +667,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bb35b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ba35b4cd-e093-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencedColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0bfb57e8-9f9b-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'is_required_ColumnMerge';
 
