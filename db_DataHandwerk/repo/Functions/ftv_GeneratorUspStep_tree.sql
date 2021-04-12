@@ -1,27 +1,32 @@
 ﻿
 /*
-[repo].[GeneratorUspStep] has a parent child structure
-here we try to get the numbers in the right order
+<<property_start>>MS_Description
+* xref:sqldb:repo.GeneratorUspStep.adoc[] has a parent child structure.
+Here in this function we try to get the numbers in the right order.
+* It is not perfect if the tree is to deep and some "deep" numbers are lower.
+** check the result per [usp_id]
+** and if it not fits try to use better sorted numbers
+* one goal is to solve steps which are conditions
+** is_condition = 1
+** we need to encapsulate condition THEN and ELSE statement in BEGIN...END blocks
+** and this should work recursively
+** see the comment on top of the code for more details and testing
+<<property_end>>
 
-it is not perfect if the tree is to deep and some "deep" numbers are lower
-check the result per [usp_id]
-and if it not fits try to use better sorted numbers
-
-
-----usage
-----and how to get required_Begin_count and required_Begin_count for conditions
---
+<<property_start>>exampleUsage
 --get all steps per Usp, recursively:
+
 SELECT u.*
  , t.*
 FROM [repo].[GeneratorUsp] u
 CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) t
 ORDER BY [u].id
  , t.[RowNumber_PerUsp]
+<<property_end>>
 
 ----and now about conditions
 ----all this is done because we need to encapsulate condition THEN and ELSE statement in BEGIN...END blocks
-----but need to explore the first and last step per condition THEN- or ELSE-block
+----but we need to explore the first and last step per condition THEN- or ELSE-block
 --
 --get all (is_condition = 1) statements and their recursive children
 SELECT [s].[usp_id]

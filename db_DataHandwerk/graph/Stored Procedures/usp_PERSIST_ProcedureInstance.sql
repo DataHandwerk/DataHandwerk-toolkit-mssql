@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -64,6 +64,137 @@ PRINT '[graph].[usp_PERSIST_ProcedureInstance]'
 --
 ----- start here with your own code
 --
+/*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[ProcedureInstance_S]","log_target_object":"[graph].[ProcedureInstance]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',11,';',500,';',NULL);
+
+DELETE T
+FROM [graph].[ProcedureInstance] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [graph].[ProcedureInstance_S] AS S
+WHERE
+T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
+AND T.[Instance] = S.[Instance]
+)
+ 
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'delete persistence target missing in source'
+SET @source_object = '[graph].[ProcedureInstance_S]'
+SET @target_object = '[graph].[ProcedureInstance]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[ProcedureInstance_S]","log_target_object":"[graph].[ProcedureInstance]","log_flag_InsertUpdateDelete":"U"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',11,';',600,';',NULL);
+
+UPDATE T
+SET
+  T.[Instance] = S.[Instance]
+, T.[Procedure_fullname] = S.[Procedure_fullname]
+, T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
+
+FROM [graph].[ProcedureInstance] AS T
+INNER JOIN [graph].[ProcedureInstance_S] AS S
+ON
+T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
+AND T.[Instance] = S.[Instance]
+
+WHERE
+   T.[Instance] <> S.[Instance]
+OR T.[Procedure_fullname] <> S.[Procedure_fullname]
+OR T.[Procedure_RepoObject_guid] <> S.[Procedure_RepoObject_guid]
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'update changed'
+SET @source_object = '[graph].[ProcedureInstance_S]'
+SET @target_object = '[graph].[ProcedureInstance]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[ProcedureInstance_S]","log_target_object":"[graph].[ProcedureInstance]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',11,';',700,';',NULL);
+
+INSERT INTO 
+ [graph].[ProcedureInstance]
+ (
+  [Instance]
+, [Procedure_fullname]
+, [Procedure_RepoObject_guid]
+)
+SELECT
+  [Instance]
+, [Procedure_fullname]
+, [Procedure_RepoObject_guid]
+
+FROM [graph].[ProcedureInstance_S] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [graph].[ProcedureInstance] AS T
+WHERE
+T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
+AND T.[Instance] = S.[Instance]
+)
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'insert missing'
+SET @source_object = '[graph].[ProcedureInstance_S]'
+SET @target_object = '[graph].[ProcedureInstance]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
 
 --
 --finish your own code here
@@ -77,7 +208,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
