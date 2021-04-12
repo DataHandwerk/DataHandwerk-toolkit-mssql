@@ -41,7 +41,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -159,7 +159,52 @@ SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraPageT
 SET @source_object = '[repo].[Parameter]'
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":510,"Name":"export FROM [docs].[AntoraTemplate_examples]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_IndexSemanticGroup]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',510,';',NULL);
+
+--nav-by-type.adoc
+SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraTemplate_examples]"  queryout ' + @outputDir + 'master-page-examples.adoc'
+ --
+ + ' -S ' + @instanceName
+ --
+ + ' -d ' + ' dhw_self'
+ --
+ + ' -c'
+ --
+ + @TrustedUserPassword
+
+PRINT @command
+
+--Execute the BCP command
+EXEC xp_cmdshell @command
+ , no_output
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'export FROM [docs].[AntoraTemplate_examples]'
+SET @source_object = '[docs].[AntoraPage_IndexSemanticGroup]'
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -188,7 +233,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
