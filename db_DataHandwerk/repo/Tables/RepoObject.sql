@@ -6,6 +6,7 @@
     [Inheritance_StringAggSeparatorSql]   NVARCHAR (4000)  NULL,
     [InheritanceDefinition]               NVARCHAR (4000)  NULL,
     [InheritanceType]                     TINYINT          NULL,
+    [is_required_ObjectMerge]             BIT              NULL,
     [is_repo_managed]                     BIT              NULL,
     [is_SysObject_missing]                BIT              NULL,
     [modify_dt]                           DATETIME         CONSTRAINT [DF_RepoObject_modify_dt] DEFAULT (getdate()) NOT NULL,
@@ -37,6 +38,8 @@
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 
@@ -510,4 +513,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fc38c
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '077bec7a-a69b-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'is_required_ObjectMerge';
 

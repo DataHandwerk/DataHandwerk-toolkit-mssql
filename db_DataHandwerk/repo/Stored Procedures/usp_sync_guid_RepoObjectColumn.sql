@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -109,7 +109,7 @@ SET @step_name = 'UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColum
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -164,7 +164,7 @@ SET @step_name = 'SET [SysObjectColumn_name] = [RepoObjectColumn_guid] (to avoid
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -249,7 +249,7 @@ SET @step_name = '[SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] (
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -287,7 +287,7 @@ SET @step_name = 'DELETE repo.RepoObjectColumn, WHERE (RowNumberOverName > 1); v
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -369,7 +369,7 @@ SET @step_name = 'INSERT still missing Column'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -433,7 +433,7 @@ SET @step_name = 'SET [RepoObjectColumn_name] = [SysObjectColumn_name] WHERE (ha
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -618,7 +618,7 @@ SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0)'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -796,7 +796,7 @@ SET @step_name = 'persistence: update RepoObjectColumn_name and repo attributes 
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -847,7 +847,7 @@ SET @step_name = 'persistence: [roc_p].[persistence_source_RepoObjectColumn_guid
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -911,7 +911,7 @@ SET @step_name = 'persistence: add missing persistence columns existing in sourc
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -964,7 +964,7 @@ SET @step_name = 'persistence: insert missing HistValidColumns'
 SET @source_object = '[repo].[RepoObject_persistence]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1000,7 +1000,97 @@ SET @step_name = 'persistence: SET [persistence_source_RepoObjectColumn_guid] = 
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":1610,"Name":"merge columns, defined in repo.RepoObjectColumn_RequiredRepoObjectColumnMerge","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"repo.RepoObjectColumn_RequiredRepoObjectColumnMerge","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1610,';',NULL);
+
+Begin Try
+    /*
+based on repo.RepoObjectColumn_RequiredRepoObjectColumnMerge
+keep roc1 (which has the right RepoObjectColumn_name)
+mark them set is_required_ColumnMerge = 1
+*/
+    Update
+        roc
+    Set
+        is_required_ColumnMerge = 1
+    From
+        repo.RepoObjectColumn                                   As roc
+        Inner Join
+            repo.RepoObjectColumn_RequiredRepoObjectColumnMerge As Filter
+                On
+                Filter.RepoObjectColumn_guid = roc.RepoObjectColumn_guid;
+
+    /*
+delete columns with RepoObjectColumn_guid in roc2_RepoObjectColumn_guid
+*/
+
+    Delete
+    roc
+    From
+        repo.RepoObjectColumn                                   As roc
+        Inner Join
+            repo.RepoObjectColumn_RequiredRepoObjectColumnMerge As Filter
+                On
+                Filter.roc2_RepoObjectColumn_guid = roc.RepoObjectColumn_guid;
+
+    /*
+set SysObjectColumn_name = RepoObjectColumn_name (for roc1, for marked columns)
+*/
+
+    Update
+        roc
+    Set
+        SysObjectColumn_name = RepoObjectColumn_name
+    From
+        repo.RepoObjectColumn As roc
+    Where
+        is_required_ColumnMerge = 1;
+
+    /*
+remove marker where SysObjectColumn_name = RepoObjectColumn_name
+*/
+    Update
+        roc
+    Set
+        is_required_ColumnMerge = NULL
+    From
+        repo.RepoObjectColumn As roc
+    Where
+        is_required_ColumnMerge  = 1
+        And SysObjectColumn_name = RepoObjectColumn_name;
+
+End Try
+Begin Catch
+    Print 'issue merging RepoObjectColumn';
+
+    Throw;
+End Catch;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'merge columns, defined in repo.RepoObjectColumn_RequiredRepoObjectColumnMerge'
+SET @source_object = 'repo.RepoObjectColumn_RequiredRepoObjectColumnMerge'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1097,7 +1187,7 @@ SET @step_name = 'write RepoObjectColumn_guid into extended properties of SysObj
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo_sys].[SysColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1138,7 +1228,7 @@ SET @step_name = 'SET [is_SysObjectColumn_missing] = 1'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1179,7 +1269,7 @@ SET @step_name = 'where is_SysObjectColumn_missing = 1, but not in objects which
 SET @source_object = '[repo_sys].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1229,7 +1319,7 @@ SET @step_name = 'UPDATE [graph].[RepoObjectColumn] - ensure current case'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -1258,7 +1348,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

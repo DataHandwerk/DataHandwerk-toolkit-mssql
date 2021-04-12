@@ -7,6 +7,7 @@
     [is_persistence_no_include]                 BIT              NULL,
     [is_persistence_no_update]                  BIT              NULL,
     [is_query_plan_expression]                  BIT              NULL,
+    [is_required_ColumnMerge]                   BIT              NULL,
     [is_SysObjectColumn_missing]                BIT              NULL,
     [persistence_source_RepoObjectColumn_guid]  UNIQUEIDENTIFIER NULL,
     [Referencing_Count]                         INT              NULL,
@@ -38,6 +39,8 @@
     CONSTRAINT [UK_RepoObjectColumn__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC, [RepoObjectColumn_name] ASC),
     CONSTRAINT [UK_RepoObjectColumn__SysNames] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [SysObjectColumn_name] ASC)
 );
+
+
 
 
 
@@ -431,4 +434,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [RepoObjectColumn_name]<>[SysObjectColumn_name] then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'has_different_sys_names';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0cfb57e8-9f9b-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_required_ColumnMerge';
 

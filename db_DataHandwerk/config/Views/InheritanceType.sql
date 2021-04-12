@@ -1,27 +1,28 @@
 ﻿
-CREATE   VIEW [config].[InheritanceType]
-AS
+
+CREATE View [config].[InheritanceType]
+As
 --
-SELECT
-       [InheritanceType] = 0
-     , [InheritanceTypeDescription] = 'No inheritance from predecessor'
+Select
+    [InheritanceType]            = 0
+  , [InheritanceTypeDescription] = 'No inheritance from predecessor'
 --
-UNION ALL
-SELECT
-       [InheritanceType] = 11
-     , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, if current value is NULL'
-UNION ALL
-SELECT
-       [InheritanceType] = 12
-     , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, if current value is NULL or empty ('''')'
-UNION ALL
-SELECT
-       [InheritanceType] = 13
-     , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, forced, only when source is not empty'
-UNION ALL
-SELECT
-       [InheritanceType] = 14
-     , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, forced without exception (dangerous!)'
+Union All
+Select
+    [InheritanceType]            = 11
+  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, if current value is NULL'
+Union All
+Select
+    [InheritanceType]            = 12
+  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, if current value is NULL or empty ('''')'
+Union All
+Select
+    [InheritanceType]            = 13
+  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, forced, only when source is not empty'
+Union All
+Select
+    [InheritanceType]            = 14
+  , [InheritanceTypeDescription] = 'Inheritance from first (or all) predecessor, forced without exception (dangerous!)';
 
 --UNION ALL
 --SELECT

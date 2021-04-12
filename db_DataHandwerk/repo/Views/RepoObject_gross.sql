@@ -1,119 +1,171 @@
 ﻿
-CREATE VIEW [repo].[RepoObject_gross]
-AS
+
+CREATE View repo.RepoObject_gross
+As
 --
-SELECT
- --
- [ro].[RepoObject_guid]
- , [ro].[RepoObject_schema_name]
- , [ro].[RepoObject_name]
- , [ro].[RepoObject_type]
- , [repo_type].[type_desc] AS [RepoObject_type_name]
- , [ro].[has_different_sys_names]
- , [ro].[has_execution_plan_issue]
- , [ro].[has_get_referenced_issue]
- , [ro].[Inheritance_StringAggSeparatorSql]
- , [ro].[InheritanceDefinition]
- , [ro].[InheritanceType]
- , ty.[is_DocsOutput]
- , [is_in_reference] = CASE 
-  WHEN EXISTS (
-    SELECT 1
-    FROM [graph].[RepoObject_ReferencingReferenced] AS [ref]
-    WHERE [ref].[Referenced_guid] = [ro].[RepoObject_guid]
-     OR [ref].[Referencing_guid] = [ro].[RepoObject_guid]
-    )
-   THEN 1
-  ELSE 0
-  END
- , [ro].[is_repo_managed]
- , [ro].[is_RepoObject_name_uniqueidentifier]
- , [ro].[is_SysObject_missing]
- , [ro].[is_SysObject_name_uniqueidentifier]
- , [ro].[modify_dt]
- , [ro].[node_id]
- , [ro].[pk_index_guid]
- , [ipk].[IndexPatternColumnDatatype] AS [pk_IndexPatternColumnDatatype]
- , [ipk].[IndexPatternColumnName] AS [pk_IndexPatternColumnName]
- , [ro].[pk_IndexPatternColumnName_new]
- , [ipk].[IndexSemanticGroup] AS [pk_IndexSemanticGroup]
- , [ro].[Repo_history_table_guid]
- , [ro].[Repo_temporal_type]
- , [ro].[RepoObject_fullname]
- , [ro].[RepoObject_fullname2]
- , [ro].[RepoObject_Referencing_Count]
- , [ro].[SysObject_fullname]
- , [ro].[SysObject_fullname2]
- , [ro].[SysObject_id]
- , [ro].[SysObject_modify_date]
- , [ro].[SysObject_name]
- , [ro].[SysObject_parent_object_id]
- , [QueryPlan].[SysObject_query_executed_dt]
- , [QueryPlan].[SysObject_query_plan]
- , [ro].[SysObject_query_sql]
- , [ro].[SysObject_schema_name]
- , [ro].[SysObject_type]
- , [sys_type].[type_desc] AS [SysObject_type_name]
- , [ro].[usp_persistence_name]
- , [ro_usp_p].[RepoObject_guid] AS [usp_persistence_RepoObject_guid]
- , [ro_p].[source_RepoObject_guid] AS [persistence_source_RepoObject_guid]
- , [ro_p_s].[RepoObject_fullname] AS [persistence_source_RepoObject_fullname]
- , [ro_p_s].[RepoObject_fullname2] AS [persistence_source_RepoObject_fullname2]
- , 'xref:' + [ro_p_s].[RepoObject_fullname2] + '.adoc[]' AS [persistence_source_RepoObject_xref]
- , [ro_p_s].[SysObject_fullname] AS [persistence_source_SysObject_fullname]
- , [ro_p_s].[SysObject_fullname2] AS [persistence_source_SysObject_fullname2]
- , 'xref:' + [ro_p_s].[SysObject_fullname2] + '.adoc[]' AS [persistence_source_SysObject_xref]
- , [ro_p].[has_history]
- , [ro_p].[has_history_columns]
- , [ro_p].[is_persistence]
- , [ro_p].[is_persistence_check_duplicate_per_pk]
- , [ro_p].[is_persistence_check_for_empty_source]
- , [ro_p].[is_persistence_delete_missing]
- , [ro_p].[is_persistence_delete_changed]
- , [ro_p].[is_persistence_insert]
- , [ro_p].[is_persistence_truncate]
- , [ro_p].[is_persistence_update_changed]
- , [ro_p].[history_schema_name]
- , [ro_p].[history_table_name]
- , [ro_p].[temporal_type]
- , [ColumnList].[CreateColumnList]
- , [ColumnList].[DbmlColumnList]
- , [ColumnList].[PersistenceCompareColumnList]
- , [ColumnList].[PersistenceInsertColumnList]
- , [ColumnList].[PersistenceUpdateColumnList]
- , [Property_ms_description] = [repo].[fs_get_RepoObjectProperty_nvarchar]([ro].[RepoObject_guid], 'ms_description')
- , [SqlModules].[sql_modules_definition]
- , REPLACE(REPLACE(REPLACE([SqlModules].[sql_modules_definition], 'include::', '\include::'), 'ifdef::', '\ifdef::'), 'endif::', '\endif::') AS [sql_modules_antora]
- , [SqlModules].[sql_modules_formatted]
- , [SqlModules].[sql_modules_formatted2]
- , [ro_referenced].[AntoraReferencedList]
- , [ro_referencing].[AntoraReferencingList]
-FROM repo.RepoObject AS ro
-LEFT OUTER JOIN repo.RepoObject_persistence AS ro_p
- ON ro_p.target_RepoObject_guid = ro.RepoObject_guid
-LEFT OUTER JOIN repo.RepoObject AS ro_p_s
- ON ro_p_s.RepoObject_guid = ro_p.source_RepoObject_guid
-LEFT OUTER JOIN repo.RepoObject AS ro_usp_p
- ON ro_usp_p.[RepoObject_name] = ro.[usp_persistence_name]
-  AND ro_usp_p.[RepoObject_schema_name] = ro.[RepoObject_schema_name]
-LEFT OUTER JOIN repo.RepoObject_ColumnList AS ColumnList
- ON ColumnList.RepoObject_guid = ro.RepoObject_guid
-LEFT OUTER JOIN [repo].[RepoObject_QueryPlan] AS QueryPlan
- ON QueryPlan.[RepoObject_guid] = ro.[RepoObject_guid]
-LEFT OUTER JOIN [repo].[RepoObject_SqlModules_Repo_Sys] AS SqlModules
- ON SqlModules.RepoObject_guid = [ro].[RepoObject_guid]
-LEFT JOIN [repo].[Index_Settings] AS ipk
- ON ipk.[index_guid] = [ro].[pk_index_guid]
-LEFT JOIN [repo].[RepoObject_ReferencedList] AS ro_referenced
- ON ro_referenced.[Referencing_guid] = [ro].[RepoObject_guid]
-LEFT JOIN [repo].[RepoObject_ReferencingList] AS ro_referencing
- ON ro_referencing.[Referenced_guid] = [ro].[RepoObject_guid]
-LEFT JOIN [config].[type] AS repo_type
- ON repo_type.[type] = ro.[RepoObject_type]
-LEFT JOIN [config].[type] AS sys_type
- ON sys_type.[type] = ro.SysObject_type
-LEFT JOIN [config].[type] ty
- ON ty.type = ro.RepoObject_type
+Select
+    --
+    ro.RepoObject_guid
+  , ro.RepoObject_schema_name
+  , ro.RepoObject_name
+  , ro.RepoObject_type
+  , repo_type.type_desc                               As RepoObject_type_name
+  , ro.has_different_sys_names
+  , ro.has_execution_plan_issue
+  , ro.has_get_referenced_issue
+  , ro.Inheritance_StringAggSeparatorSql
+  , ro.InheritanceDefinition
+  , ro.InheritanceType
+  , ty.is_DocsOutput
+  , is_in_reference                                   = Case
+                                                            When Exists
+                                                                 (
+                                                                     Select
+                                                                         1
+                                                                     From
+                                                                         graph.RepoObject_ReferencingReferenced As ref
+                                                                     Where
+                                                                         ref.Referenced_guid     = ro.RepoObject_guid
+                                                                         Or ref.Referencing_guid = ro.RepoObject_guid
+                                                                 )
+                                                                Then
+                                                                1
+                                                            Else
+                                                                0
+                                                        End
+  , ro.is_repo_managed
+  , ro.is_required_ObjectMerge
+  , ro.is_RepoObject_name_uniqueidentifier
+  , ro.is_SysObject_missing
+  , ro.is_SysObject_name_uniqueidentifier
+  , ro.modify_dt
+  , ro.node_id
+  , ro.pk_index_guid
+  , ipk.IndexPatternColumnDatatype                    As pk_IndexPatternColumnDatatype
+  , ipk.IndexPatternColumnName                        As pk_IndexPatternColumnName
+  , ro.pk_IndexPatternColumnName_new
+  , ipk.IndexSemanticGroup                            As pk_IndexSemanticGroup
+  , ro.Repo_history_table_guid
+  , ro.Repo_temporal_type
+  , ro.RepoObject_fullname
+  , ro.RepoObject_fullname2
+  , ro.RepoObject_Referencing_Count
+  , ro.SysObject_fullname
+  , ro.SysObject_fullname2
+  , ro.SysObject_id
+  , ro.SysObject_modify_date
+  , ro.SysObject_name
+  , ro.SysObject_parent_object_id
+  , QueryPlan.SysObject_query_executed_dt
+  , QueryPlan.SysObject_query_plan
+  , ro.SysObject_query_sql
+  , ro.SysObject_schema_name
+  , ro.SysObject_type
+  , sys_type.type_desc                                As SysObject_type_name
+  , ro.usp_persistence_name
+  , ro_usp_p.RepoObject_guid                          As usp_persistence_RepoObject_guid
+  , ro_p.source_RepoObject_guid                       As persistence_source_RepoObject_guid
+  , ro_p_s.RepoObject_fullname                        As persistence_source_RepoObject_fullname
+  , ro_p_s.RepoObject_fullname2                       As persistence_source_RepoObject_fullname2
+  , 'xref:' + ro_p_s.RepoObject_fullname2 + '.adoc[]' As persistence_source_RepoObject_xref
+  , ro_p_s.SysObject_fullname                         As persistence_source_SysObject_fullname
+  , ro_p_s.SysObject_fullname2                        As persistence_source_SysObject_fullname2
+  , 'xref:' + ro_p_s.SysObject_fullname2 + '.adoc[]'  As persistence_source_SysObject_xref
+  , ro_p.has_history
+  , ro_p.has_history_columns
+  , ro_p.is_persistence
+  , ro_p.is_persistence_check_duplicate_per_pk
+  , ro_p.is_persistence_check_for_empty_source
+  , ro_p.is_persistence_delete_missing
+  , ro_p.is_persistence_delete_changed
+  , ro_p.is_persistence_insert
+  , ro_p.is_persistence_truncate
+  , ro_p.is_persistence_update_changed
+  , ro_p.history_schema_name
+  , ro_p.history_table_name
+  , ro_p.temporal_type
+  , ColumnList.CreateColumnList
+  , ColumnList.DbmlColumnList
+  , ColumnList.PersistenceCompareColumnList
+  , ColumnList.PersistenceInsertColumnList
+  , ColumnList.PersistenceUpdateColumnList
+  , Property_ms_description                           = repo.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
+  , SqlModules.sql_modules_definition
+  , Replace (
+                Replace (
+                            Replace ( SqlModules.sql_modules_definition, 'include::', '\include::' )
+                          , 'ifdef::'
+                          , '\ifdef::'
+                        )
+              , 'endif::'
+              , '\endif::'
+            )                                         As sql_modules_antora
+  , SqlModules.sql_modules_formatted
+  , SqlModules.sql_modules_formatted2
+  , ro_referenced.AntoraReferencedList
+  , ro_referencing.AntoraReferencingList
+From
+    repo.RepoObject                         As ro
+    Left Outer Join
+        repo.RepoObject_persistence         As ro_p
+            On
+            ro_p.target_RepoObject_guid         = ro.RepoObject_guid
+
+    Left Outer Join
+        repo.RepoObject                     As ro_p_s
+            On
+            ro_p_s.RepoObject_guid              = ro_p.source_RepoObject_guid
+
+    Left Outer Join
+        repo.RepoObject                     As ro_usp_p
+            On
+            ro_usp_p.RepoObject_name            = ro.usp_persistence_name
+            And ro_usp_p.RepoObject_schema_name = ro.RepoObject_schema_name
+
+    Left Outer Join
+        repo.RepoObject_ColumnList          As ColumnList
+            On
+            ColumnList.RepoObject_guid          = ro.RepoObject_guid
+
+    Left Outer Join
+        repo.RepoObject_QueryPlan           As QueryPlan
+            On
+            QueryPlan.RepoObject_guid           = ro.RepoObject_guid
+
+    Left Outer Join
+        repo.RepoObject_SqlModules_Repo_Sys As SqlModules
+            On
+            SqlModules.RepoObject_guid          = ro.RepoObject_guid
+
+    Left Join
+        repo.Index_Settings                 As ipk
+            On
+            ipk.index_guid                      = ro.pk_index_guid
+
+    Left Join
+        repo.RepoObject_ReferencedList      As ro_referenced
+            On
+            ro_referenced.Referencing_guid      = ro.RepoObject_guid
+
+    Left Join
+        repo.RepoObject_ReferencingList     As ro_referencing
+            On
+            ro_referencing.Referenced_guid      = ro.RepoObject_guid
+
+    Left Join
+        config.type                         As repo_type
+            On
+            repo_type.type                      = ro.RepoObject_type
+
+    Left Join
+        config.type                         As sys_type
+            On
+            sys_type.type                       = ro.SysObject_type
+
+    Left Join
+        config.type                         ty
+            On
+            ty.type                             = ro.RepoObject_type;
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7790291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
@@ -656,4 +708,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bc35b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '44e90a1e-7495-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_DocsOutput';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7fd54692-a79b-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_required_ObjectMerge';
 
