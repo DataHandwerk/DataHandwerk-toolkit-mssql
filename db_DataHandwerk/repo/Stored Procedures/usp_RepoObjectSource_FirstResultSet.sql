@@ -39,7 +39,7 @@ SET @step_name = 'start'
 
 --SET @source_object = NULL
 --SET @target_object = NULL
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -92,7 +92,7 @@ SET @step_name = 'DELETE modified after last created:dt'
 SET @source_object = NULL
 SET @target_object = '[repo].[RepoObjectSource_FirstResultSet]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -180,7 +180,7 @@ SET @step_name = 'CROSS APPLY sys.dm_exec_describe_first_result_set(ro_filtered.
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObjectSource_FirstResultSet]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -215,7 +215,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id

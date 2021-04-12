@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -93,7 +93,7 @@ SET @step_name = 'DELETE [repo].[Index_virtual] without columns'
 SET @source_object = '[repo].[IndexColumn_virtual]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -129,7 +129,7 @@ SET @step_name = 'DELETE duplicates by pattern'
 SET @source_object = '[repo].[Index_gross]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -171,7 +171,7 @@ SET @step_name = 'SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup] (via
 SET @source_object = '[repo].[Index_Settings]'
 SET @target_object = '[repo].[Index_Settings]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -207,7 +207,7 @@ SET @step_name = 'SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup] (via
 SET @source_object = '[repo].[Index_Settings]'
 SET @target_object = '[repo].[Index_Settings]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -269,7 +269,7 @@ SET @step_name = 'SET [is_index_primary_key] = 1, [is_index_unique] = 1 (propaga
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -334,7 +334,7 @@ SET @step_name = 'SET [is_index_primary_key] = 1 (WHERE rop.has_history = 1 and 
 SET @source_object = '[repo].[Index_union]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -377,7 +377,7 @@ SET @step_name = 'SET [is_create_constraint] = 1 (WHERE persistence has_history 
 SET @source_object = '[repo].[Index_union]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -410,7 +410,7 @@ SET @step_name = 'SET [is_index_unique] = 1 (each PK is also [is_index_unique])'
 SET @source_object = '[repo].[Index_virtual]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -453,7 +453,7 @@ SET @step_name = 'SET [is_index_primary_key] = 0 (where RowNumber_PkPerParentObj
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -505,7 +505,7 @@ SET @step_name = 'SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_prima
 SET @source_object = '[repo].[Index_gross]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -571,7 +571,7 @@ SET @step_name = 'SET [index_name] = [T2].[index_name_new]'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[Index_virtual]'
 
-EXEC repo.usp_ExecutionLog_insert 
+EXEC [logs].usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -610,7 +610,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert
+EXEC [logs].usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id

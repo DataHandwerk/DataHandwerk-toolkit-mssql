@@ -749,4 +749,40 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[ForeignKey_Indexes_union]" />
   </Operation>
+  <Operation Name="Move Schema" Key="748aac03-3ee9-4877-a0f8-1e451a454c97" ChangeDateTime="04/12/2021 07:16:56">
+    <Property Name="ElementName" Value="[repo].[ExecutionLog]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="logs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="872f78fd-ebba-41d0-b72d-b15629165470" ChangeDateTime="04/12/2021 07:18:30">
+    <Property Name="ElementName" Value="[repo].[ExecutionLog_parent]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="logs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="442288e6-c7e0-4e0e-b8a3-3bf7572e1396" ChangeDateTime="04/12/2021 07:20:11">
+    <Property Name="ElementName" Value="[repo].[ExecutionLog_gross]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="logs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="ca85362b-8ff6-4082-a565-05e0fbe3531e" ChangeDateTime="04/12/2021 07:21:12">
+    <Property Name="ElementName" Value="[repo].[ftv_ExecutionLog_tree]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="logs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="2423466f-acb1-42a4-9390-069404f491db" ChangeDateTime="04/12/2021 07:23:15">
+    <Property Name="ElementName" Value="[docs].[ExecutionLog_plantUML_Sequence_start_stop]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="logs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="674c3151-f793-458d-ba3c-f0da5ee3ddd3" ChangeDateTime="04/12/2021 07:29:04">
+    <Property Name="ElementName" Value="[repo].[usp_ExecutionLog_insert]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="logs" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

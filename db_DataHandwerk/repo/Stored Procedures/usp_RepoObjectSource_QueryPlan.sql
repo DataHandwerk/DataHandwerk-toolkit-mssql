@@ -47,7 +47,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -93,7 +93,7 @@ SET @step_name = 'DELETE outdated entries, which need to be analyzed again'
 SET @source_object = '[repo].[RepoObject]'
 SET @target_object = '[repo].[RepoObjectSource__query_plan]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -229,7 +229,7 @@ BEGIN
   SET @source_object = '[repo].[RepoObject]'
   SET @target_object = '[repo].[RepoObjectSource__query_plan]'
 
-  EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+  EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
    , @ssis_execution_id = @ssis_execution_id
    , @sub_execution_id = @sub_execution_id
    , @parent_execution_log_id = @parent_execution_log_id
@@ -291,7 +291,7 @@ SET @step_name = 'INSERT missing'
 SET @source_object = '[repo].[SysObjectColumn__query_plan_expression]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -333,7 +333,7 @@ SET @step_name = 'DELETE not existing'
 SET @source_object = '[repo].[SysObjectColumn__query_plan_expression]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
@@ -368,7 +368,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
+EXEC [logs].usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @parent_execution_log_id
