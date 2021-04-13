@@ -59,7 +59,7 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_GeneratorUsp_insert_update_persistence]'
+PRINT '[uspgenerator].[usp_GeneratorUsp_insert_update_persistence]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
