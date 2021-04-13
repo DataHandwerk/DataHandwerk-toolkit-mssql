@@ -10,7 +10,7 @@ ORDER BY [id]
 
 
 */
-Create View repo.GeneratorUspStep_Sql
+Create View [uspgenerator].GeneratorUspStep_Sql
 As
 Select
     u.id     As usp_id
@@ -91,8 +91,8 @@ Select
                         , Char ( 13 ) + Char ( 10 )
                       )
 From
-    repo.GeneratorUsp                                       As u
-    Cross Apply repo.ftv_GeneratorUspStep_tree ( id, Null ) As t
+    [uspgenerator].GeneratorUsp                                       As u
+    Cross Apply [uspgenerator].ftv_GeneratorUspStep_tree ( id, Null ) As t
     Left Join
     (
         Select
@@ -102,8 +102,8 @@ From
           , required_End_count   = Sum ( Iif(t.Desc_PerParentChild = 1, 1, 0))
           , is_required_ELSE     = Max ( t.is_required_ELSE )
         From
-            repo.GeneratorUspStep                                         As s
-            Cross Apply repo.ftv_GeneratorUspStep_tree ( usp_id, Number ) As t
+            [uspgenerator].GeneratorUspStep                                         As s
+            Cross Apply [uspgenerator].ftv_GeneratorUspStep_tree ( usp_id, Number ) As t
         Where
             s.is_condition = 1
         Group By
@@ -115,11 +115,11 @@ From
         And BeginEnd.Number = t.Number
 
     Left Join
-        repo.GeneratorUspStep                   step
+        [uspgenerator].GeneratorUspStep                   step
             On
             step.usp_id = u.id
             And step.Number = t.Number
-    Cross Apply repo.ftv_GeneratorUspStep_sql (
+    Cross Apply [uspgenerator].ftv_GeneratorUspStep_sql (
                                                   u.id
                                                 , t.Number
                                                 , u.has_logging
@@ -133,7 +133,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '4590291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql';
 Go
@@ -142,7 +142,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '1af47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -153,7 +153,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '20f47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -164,7 +164,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '22f47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -175,7 +175,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '21f47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -186,7 +186,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '1ef47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -197,7 +197,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '1df47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -208,7 +208,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '1bf47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -219,7 +219,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '1ff47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -230,7 +230,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '1cf47926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -243,7 +243,7 @@ Execute sp_addextendedproperty
     @name = N'ReferencedObjectColumnList'
   , @value = N'[repo].[GeneratorUsp].[usp_fullname]'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -254,7 +254,7 @@ Execute sp_addextendedproperty
     @name = N'MS_Description'
   , @value = N'(concat(''['',[usp_schema],''].['',[usp_name],'']''))'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -265,7 +265,7 @@ Execute sp_addextendedproperty
     @name = N'ReferencedObjectColumnList'
   , @value = N'[repo].[GeneratorUsp].[has_logging]'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
@@ -276,7 +276,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '271a8d58-e08f-eb11-84f1-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'

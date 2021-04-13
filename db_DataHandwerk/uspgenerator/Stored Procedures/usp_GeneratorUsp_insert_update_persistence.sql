@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_GeneratorUsp_insert_update_persistence]
+﻿CREATE   PROCEDURE [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -72,7 +72,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',210,';',NULL);
 --ATTENTION, destructive!
 --we should delete only usp definitions for persistence!
 DELETE u
-FROM [repo].[GeneratorUsp] [u]
+FROM [uspgenerator].[GeneratorUsp] [u]
 WHERE LEFT([u].[usp_name], 12) = 'usp_PERSIST_'
  AND NOT EXISTS (
   SELECT 1
@@ -108,7 +108,7 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":310,"Name":"insert new usp","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[GeneratorUsp]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',310,';',NULL);
 
-INSERT INTO [repo].[GeneratorUsp] (
+INSERT INTO [uspgenerator].[GeneratorUsp] (
  [usp_schema]
  , [usp_name]
  , [has_logging]
@@ -120,7 +120,7 @@ FROM [repo].[RepoObject_gross] AS ro
 WHERE [is_persistence] = 1
  AND NOT EXISTS (
   SELECT 1
-  FROM [repo].[GeneratorUsp] AS [u]
+  FROM [uspgenerator].[GeneratorUsp] AS [u]
   WHERE [u].[usp_schema] = [ro].[RepoObject_schema_name]
    AND [u].[usp_name] = [ro].[usp_persistence_name]
   )
@@ -162,8 +162,8 @@ SET [Parent_Number] = [S].[Parent_Number]
  , [log_source_object] = [S].[log_source_object]
  , [log_target_object] = [S].[log_target_object]
  , [log_flag_InsertUpdateDelete] = [S].[log_flag_InsertUpdateDelete]
-FROM [repo].[GeneratorUspStep] [T]
-INNER JOIN [repo].[GeneratorUspStep_Persistence] AS [S]
+FROM [uspgenerator].[GeneratorUspStep] [T]
+INNER JOIN [uspgenerator].[GeneratorUspStep_Persistence] AS [S]
  ON [T].[usp_id] = [S].[usp_id]
   AND [T].[Number] = [S].[Number]
 WHERE
@@ -249,7 +249,7 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":610,"Name":"insert steps, not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',610,';',NULL);
 
-INSERT INTO [repo].[GeneratorUspStep] (
+INSERT INTO [uspgenerator].[GeneratorUspStep] (
  [usp_id]
  , [Number]
  , [Parent_Number]
@@ -284,10 +284,10 @@ SELECT [usp_id]
  , [log_source_object]
  , [log_target_object]
  , [log_flag_InsertUpdateDelete]
-FROM [repo].[GeneratorUspStep_Persistence] AS S
+FROM [uspgenerator].[GeneratorUspStep_Persistence] AS S
 WHERE NOT EXISTS (
   SELECT 1
-  FROM [repo].[GeneratorUspStep] AS [T]
+  FROM [uspgenerator].[GeneratorUspStep] AS [T]
   WHERE [T].[usp_id] = [S].[usp_id]
    AND [T].[Number] = [S].[Number]
   )
@@ -321,8 +321,8 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',710,';',NULL);
 
 UPDATE step
 SET [is_inactive] = [setpoint].[is_inactive]
-FROM [repo].[GeneratorUspStep] [step]
-INNER JOIN [repo].[GeneratorUspStep_Persistence_IsInactive_setpoint] [setpoint]
+FROM [uspgenerator].[GeneratorUspStep] [step]
+INNER JOIN [uspgenerator].[GeneratorUspStep_Persistence_IsInactive_setpoint] [setpoint]
  ON [setpoint].[usp_id] = [step].[usp_id]
   AND [setpoint].[Number] = [step].[Number]
 WHERE [setpoint].[is_inactive] <> [step].[is_inactive]
@@ -380,15 +380,15 @@ EXEC logs.usp_ExecutionLog_insert
 
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 
 
 GO
@@ -441,5 +441,5 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 |[repo].[GeneratorUspStep]
 |u
 |===
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 

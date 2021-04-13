@@ -6,11 +6,11 @@
 <<property_end>>
 
 <<property_start>>exampleUsage
-EXEC [repo].[usp_connect_database]
+EXEC [config].[usp_connect_database]
 @dwh_database_name = 'WideWorldImporters'
 <<property_end>>
 */
-CREATE Procedure [repo].[usp_connect_database]
+CREATE Procedure [config].[usp_connect_database]
 ( @dwh_database_name NVarchar(128))
 As
 Begin
@@ -101,7 +101,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'b390291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'config'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_connect_database';
 

@@ -3,7 +3,7 @@
 /*
 List of parameters without trailing comma
 */
-Create View repo.GeneratorUsp_ParameterList
+Create View [uspgenerator].GeneratorUsp_ParameterList
 As
 Select
     up.usp_id
@@ -46,7 +46,7 @@ From
       , par.Description
       , RowNumber_PerUsp = Row_Number () Over ( Partition By usp_id Order By Number )
     From
-        repo.GeneratorUspParameter As par
+        [uspgenerator].GeneratorUspParameter As par
 ) As up
 Where
     up.is_inactive = 0
@@ -58,7 +58,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'e18f291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUsp_ParameterList';
 Go
@@ -67,7 +67,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '8cf17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUsp_ParameterList'
   , @level2type = N'COLUMN'
@@ -78,7 +78,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '8ef17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUsp_ParameterList'
   , @level2type = N'COLUMN'
@@ -89,7 +89,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '8df17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
   , @level1name = N'GeneratorUsp_ParameterList'
   , @level2type = N'COLUMN'

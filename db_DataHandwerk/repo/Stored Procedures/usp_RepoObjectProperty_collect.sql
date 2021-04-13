@@ -74,7 +74,7 @@ USING (
  SELECT [RepoObject_guid]
   , [property_name] = 'AdocUspSteps'
   , [property_value] = CAST([AdocUspSteps] AS NVARCHAR(4000))
- FROM [repo].[GeneratorUsp_SqlUsp]
+ FROM [uspgenerator].[GeneratorUsp_SqlUsp]
  WHERE NOT [RepoObject_guid] IS NULL
  ) AS s
  ON t.[RepoObject_guid] = s.[RepoObject_guid]
@@ -138,7 +138,7 @@ USING (
  SELECT [RepoObject_guid]
   , [property_name] = 'UspParameters'
   , [property_value] = CAST([UspParameters] AS NVARCHAR(4000))
- FROM [repo].[GeneratorUsp_SqlUsp]
+ FROM [uspgenerator].[GeneratorUsp_SqlUsp]
  WHERE NOT [RepoObject_guid] IS NULL
  ) AS s
  ON t.[RepoObject_guid] = s.[RepoObject_guid]
@@ -202,7 +202,7 @@ USING (
  SELECT [RepoObject_guid]
   , [property_name] = 'UspExamples'
   , [property_value] = CAST([UspExamples] AS NVARCHAR(4000))
- FROM [repo].[GeneratorUsp_SqlUsp]
+ FROM [uspgenerator].[GeneratorUsp_SqlUsp]
  WHERE NOT [RepoObject_guid] IS NULL
  ) AS s
  ON t.[RepoObject_guid] = s.[RepoObject_guid]
@@ -268,7 +268,7 @@ USING (
  SELECT [RepoObject_guid]
   , [property_name] = 'MS_Description'
   , [property_value] = CAST([MS_Description] AS NVARCHAR(4000))
- FROM [repo].[GeneratorUsp_SqlUsp]
+ FROM [uspgenerator].[GeneratorUsp_SqlUsp]
  WHERE NOT [RepoObject_guid] IS NULL
  ) AS s
  ON t.[RepoObject_guid] = s.[RepoObject_guid]

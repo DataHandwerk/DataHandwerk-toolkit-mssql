@@ -175,7 +175,7 @@ ORDER BY [u].[id]
 
 
 */
-Create Function repo.ftv_GeneratorUspStep_tree
+Create Function [uspgenerator].ftv_GeneratorUspStep_tree
 (
     @usp_id        Int
   , @Parent_Number Int
@@ -204,7 +204,7 @@ Return
                                   , Null)
         --ROW_NUMBER() OVER(Partition by [usp_id], [Parent_Number] ORDER BY [Number])
         From
-            repo.GeneratorUspStep
+            [uspgenerator].GeneratorUspStep
         Where
             --
             usp_id            = @usp_id
@@ -227,7 +227,7 @@ Return
           , child.is_condition
           , child_PerParent     = parent.child_PerParent
         From
-            repo.GeneratorUspStep As child
+            [uspgenerator].GeneratorUspStep As child
             Inner Join
                 tree              As parent
                     On
@@ -298,7 +298,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '3390291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'uspgenerator'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_GeneratorUspStep_tree';
 Go
