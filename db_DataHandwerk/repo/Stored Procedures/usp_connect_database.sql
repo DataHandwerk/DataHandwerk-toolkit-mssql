@@ -1,10 +1,15 @@
 ﻿/*
+<<property_start>>MS_Description
+* connect repo datatabase to dwh database using synonyms executing
+* see details in xref:manual:create-update-connect-repo-db.adoc[]
+<<property_end>>
+
 <<property_start>>exampleUsage
 EXEC [repo].[usp_connect_database]
 @dwh_database_name = 'WideWorldImporters'
 <<property_end>>
 */
-Create Procedure repo.usp_connect_database
+CREATE Procedure [repo].[usp_connect_database]
 ( @dwh_database_name NVarchar(128))
 As
 --

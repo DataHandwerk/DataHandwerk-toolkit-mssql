@@ -1,13 +1,14 @@
 ﻿
 
+
 /*
 <<property_start>>MS_Description
 * mapping from xref:sqldb:repo.ForeignKey_virtual.adoc[] to referenced_index and referencing_indx
-* can be used to find out missing [referenced_index_guid] or [referencing_index_guid] to create them using xref:sqldb:repo.usp_Index_insert.adoc[]
+* can be used to find out missing [referenced_index_guid] or [referencing_index_guid] to create them using xref:sqldb:repo.usp_Index_virtual_set.adoc[]
 <<property_end>>
 */
 
-Create View repo.ForeignKey_virtual_Indexes
+CREATE View [repo].[ForeignKey_virtual_Indexes]
 As
 Select
     --
