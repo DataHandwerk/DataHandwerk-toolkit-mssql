@@ -1,174 +1,182 @@
-﻿Create View repo.RepoObject_SqlCreateTable
+﻿
+CREATE View [repo].[RepoObject_SqlCreateTable]
 As
 Select
     ro.RepoObject_guid
-  , DbmlTable      = Concat (
-                                'Table '
-                              , QuoteName ( ro.RepoObject_fullname, '"' )
-                              , '{'
-                              , Char ( 13 )
-                              , Char ( 10 )
-                              , ColList.DbmlColumnList
-                              --note: 'string to add notes'
-                              , Case
-                                    When Not ro.Property_ms_description Is Null
-                                        Then
-                                        Char ( 13 ) + Char ( 10 ) + 'Note: ''''''' + Char ( 13 ) + Char ( 10 )
-                                        + Replace ( Replace ( ro.Property_ms_description, '\', '\\' ), '''''''', '\''''''' )
-                                        + Char ( 13 ) + Char ( 10 ) + ''''''''
-                                End
-                              --optional Settings [setting1: value1, setting2: value2, setting3, setting4]
-                              , Char ( 13 )
-                              , Char ( 10 )
-                              , Case
-                                    When Not IndexList.DbmlIndexList Is Null
-                                        Then
-                                        Char ( 13 ) + Char ( 10 ) + 'indexes {' + Char ( 13 ) + Char ( 10 )
-                                        + IndexList.DbmlIndexList + Char ( 13 ) + Char ( 10 ) + '}' + Char ( 13 )
-                                        + Char ( 10 )
-                                End
-                              , '}'
-                              , Char ( 13 )
-                              , Char ( 10 )
-                            )
+  , Concat (
+               'Table '
+             , QuoteName ( ro.RepoObject_fullname, '"' )
+             , '{'
+             , Char ( 13 )
+             , Char ( 10 )
+             , ColList.DbmlColumnList
+             --note: 'string to add notes'
+             , Case
+                   When Not ro.Property_ms_description Is Null
+                       Then
+                       Char ( 13 ) + Char ( 10 ) + 'Note: ''''''' + Char ( 13 ) + Char ( 10 )
+                       + Replace ( Replace ( ro.Property_ms_description, '\', '\\' ), '''''''', '\''''''' )
+                       + Char ( 13 ) + Char ( 10 ) + ''''''''
+                   Else
+                       Null
+               End
+             --optional Settings [setting1: value1, setting2: value2, setting3, setting4]
+             , Char ( 13 )
+             , Char ( 10 )
+             , Case
+                   When Not IndexList.DbmlIndexList Is Null
+                       Then
+                       Char ( 13 ) + Char ( 10 ) + 'indexes {' + Char ( 13 ) + Char ( 10 ) + IndexList.DbmlIndexList
+                       + Char ( 13 ) + Char ( 10 ) + '}' + Char ( 13 ) + Char ( 10 )
+                   Else
+                       Null
+               End
+             , '}'
+             , Char ( 13 )
+             , Char ( 10 )
+           ) As DbmlTable
   , ro.RepoObject_fullname
-  , SqlCreateTable = Concat (
-                                'CREATE TABLE '
-                              , ro.RepoObject_fullname
-                              , ' ('
-                              , Char ( 13 )
-                              , Char ( 10 )
-                              , ColList.CreateColumnList
-                              --todo:
-                              --evtl noch ein Komma
-                              , Case
-                                    When Exists
-                                         (
-                                             Select
-                                                 1
-                                             From
-                                                 repo.Index_SqlConstraint_PkUq ConList
-                                             Where
-                                                 ConList.parent_RepoObject_guid = ro.RepoObject_guid
-                                         )
-                                        Then
-                                        ','
-                                End
-                              --CONSTRAINT PK, FK, depending on some settings
-                              , ConList.ConList
-                              --PERIOD FOR SYSTEM_TIME ([ValidFrom], [ValidTo])
-                              , Case
-                                    When Exists
-                                         (
-                                             Select
-                                                 1
-                                             From
-                                                 repo.RepoObjectColumn roc
-                                             Where
-                                                 roc.RepoObject_guid                = ro.RepoObject_guid
-                                                 And roc.Repo_generated_always_type = 1
-                                         )
-                                         And Exists
-                                             (
+  , Concat (
+               'CREATE TABLE '
+             , ro.RepoObject_fullname
+             , ' ('
+             , Char ( 13 )
+             , Char ( 10 )
+             , ColList.CreateColumnList
+             , Case
+                   When Exists
+                        (
+                            Select
+                                1
+                            From
+                                repo.Index_SqlConstraint_PkUq ConList
+                            Where
+                                ConList.parent_RepoObject_guid = ro.RepoObject_guid
+                        )
+                       Then
+                       ','
+                   Else
+                       Null
+               End
+             --CONSTRAINT PK, FK, depending on some settings
+             , ConList.ConList
+             --PERIOD FOR SYSTEM_TIME ([ValidFrom], [ValidTo])
+             , Case
+                   When Exists
+                        (
+                            Select
+                                1
+                            From
+                                repo.RepoObjectColumn roc
+                            Where
+                                roc.RepoObject_guid                = ro.RepoObject_guid
+                                And roc.Repo_generated_always_type = 1
+                        )
+                        And Exists
+                            (
+                                Select
+                                    1
+                                From
+                                    repo.RepoObjectColumn roc
+                                Where
+                                    roc.RepoObject_guid                = ro.RepoObject_guid
+                                    And roc.Repo_generated_always_type = 2
+                            )
+                       Then
+                       Concat (
+                                  ', PERIOD FOR SYSTEM_TIME ('
+                                , QuoteName ((
                                                  Select
-                                                     1
+                                                     Top ( 1 )
+                                                     RepoObjectColumn_name
+                                                 From
+                                                     repo.RepoObjectColumn roc
+                                                 Where
+                                                     roc.RepoObject_guid                = ro.RepoObject_guid
+                                                     And roc.Repo_generated_always_type = 1
+                                                 Order By
+                                                     RepoObjectColumn_name
+                                             )
+                                            )
+                                , ', '
+                                , QuoteName ((
+                                                 Select
+                                                     Top ( 1 )
+                                                     RepoObjectColumn_name
                                                  From
                                                      repo.RepoObjectColumn roc
                                                  Where
                                                      roc.RepoObject_guid                = ro.RepoObject_guid
                                                      And roc.Repo_generated_always_type = 2
+                                                 Order By
+                                                     RepoObjectColumn_name
                                              )
-                                        Then
-                                        Concat (
-                                                   ', PERIOD FOR SYSTEM_TIME ('
-                                                 , QuoteName ((
-                                                                  Select
-                                                                      RepoObjectColumn_name
-                                                                  From
-                                                                      repo.RepoObjectColumn roc
-                                                                  Where
-                                                                      roc.RepoObject_guid                = ro.RepoObject_guid
-                                                                      And roc.Repo_generated_always_type = 1
-                                                              )
-                                                             )
-                                                 , ', '
-                                                 , QuoteName ((
-                                                                  Select
-                                                                      RepoObjectColumn_name
-                                                                  From
-                                                                      repo.RepoObjectColumn roc
-                                                                  Where
-                                                                      roc.RepoObject_guid                = ro.RepoObject_guid
-                                                                      And roc.Repo_generated_always_type = 2
-                                                              )
-                                                             )
-                                                 , ')'
-                                                 , Char ( 13 )
-                                                 , Char ( 10 )
-                                               )
-                                End
-                              , ')'
-                              --WITH
-                              --(
-                              --SYSTEM_VERSIONING = ON ( HISTORY_TABLE = [Application].[Cities_Archive] )
-                              --)
-                              , Case ro.Repo_temporal_type
-                                    When 2
-                                        Then
-                                        Concat (
-                                                   Char ( 13 )
-                                                 , Char ( 10 )
-                                                 , 'WITH'
-                                                 , Char ( 13 )
-                                                 , Char ( 10 )
-                                                 , '('
-                                                 , Char ( 13 )
-                                                 , Char ( 10 )
-                                                 , 'SYSTEM_VERSIONING = ON ( HISTORY_TABLE = '
-                                                 --, '[Application].[Cities_Archive]'
-                                                 , Coalesce (
-                                                                ro_hist.RepoObject_fullname
-                                                              , Concat (
-                                                                           QuoteName ( IsNull (
-                                                                                                  Cast(repo.fs_get_parameter_value (
-                                                                                                                                       'Hist_Table_schema'
-                                                                                                                                     , Default
-                                                                                                                                   ) As NVarchar(128))
-                                                                                                , ro.RepoObject_schema_name
-                                                                                              )
-                                                                                     )
-                                                                         , '.'
-                                                                         , QuoteName ( Concat (
-                                                                                                  ro.RepoObject_name
-                                                                                                , Cast(repo.fs_get_parameter_value (
-                                                                                                                                       'Hist_Table_name_suffix'
-                                                                                                                                     , Default
-                                                                                                                                   ) As NVarchar(128))
-                                                                                              )
-                                                                                     )
-                                                                       )
-                                                            )
-                                                 , ' )'
-                                                 , Char ( 13 )
-                                                 , Char ( 10 )
-                                                 , ')'
-                                                 , Char ( 13 )
-                                                 , Char ( 10 )
-                                               )
-                                End
-                            )
+                                            )
+                                , ')'
+                                , Char ( 13 )
+                                , Char ( 10 )
+                              )
+                   Else
+                       Null
+               End
+             , ')'
+             --WITH
+             --(
+             --SYSTEM_VERSIONING = ON ( HISTORY_TABLE = [Application].[Cities_Archive] )
+             --)
+             , Case ro.Repo_temporal_type
+                   When 2
+                       Then
+                       Concat (
+                                  Char ( 13 )
+                                , Char ( 10 )
+                                , 'WITH'
+                                , Char ( 13 )
+                                , Char ( 10 )
+                                , '('
+                                , Char ( 13 )
+                                , Char ( 10 )
+                                , 'SYSTEM_VERSIONING = ON ( HISTORY_TABLE = '
+                                --, '[Application].[Cities_Archive]'
+                                , Coalesce (
+                                               ro_hist.RepoObject_fullname
+                                             , Concat (
+                                                          QuoteName ( IsNull (
+                                                                                 Hist_Table_schema.Parameter_value__result_nvarchar
+                                                                               , ro.RepoObject_schema_name
+                                                                             )
+                                                                    )
+                                                        , '.'
+                                                        , QuoteName ( Concat (
+                                                                                 ro.RepoObject_name
+                                                                               , Hist_Table_name_suffix.Parameter_value__result_nvarchar
+                                                                             )
+                                                                    )
+                                                      )
+                                           )
+                                , ' )'
+                                , Char ( 13 )
+                                , Char ( 10 )
+                                , ')'
+                                , Char ( 13 )
+                                , Char ( 10 )
+                              )
+                   Else
+                       Null
+               End
+           ) As SqlCreateTable
   --ConstraintList
   , ConList.ConList
   , ro.persistence_source_RepoObject_fullname
   , ro.persistence_source_RepoObject_guid
   , ro.persistence_source_SysObject_fullname
 From
-    repo.RepoObject_gross          ro
+    repo.RepoObject_gross                                                   ro
     --column list should exist, otherwise CREATE statement will be invalid
     Inner Join
-        repo.RepoObject_ColumnList As ColList
+        repo.RepoObject_ColumnList                                          As ColList
             On
-            ColList.RepoObject_guid      = ro.RepoObject_guid
+            ColList.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
     (
@@ -185,9 +193,9 @@ From
             repo.Index_SqlConstraint_PkUq Con
         Group By
             parent_RepoObject_guid
-    )                              ConList
+    )                                                                       ConList
         On
-        ConList.parent_RepoObject_guid   = ro.RepoObject_guid
+        ConList.parent_RepoObject_guid = ro.RepoObject_guid
 
     Left Join
     (
@@ -228,14 +236,16 @@ From
             )
         Group By
             parent_RepoObject_guid
-    )                              IndexList
+    )                                                                       IndexList
         On
         IndexList.parent_RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        repo.RepoObject            ro_hist
+        repo.RepoObject                                                     ro_hist
             On
-            ro_hist.RepoObject_guid      = ro.Repo_history_table_guid;
+            ro_hist.RepoObject_guid = ro.Repo_history_table_guid
+    Cross Join [repo].[ftv_get_parameter_value] ( 'Hist_Table_schema', '' ) As Hist_Table_schema
+    Cross Join [repo].[ftv_get_parameter_value] ( 'Hist_Table_name_suffix', '' ) As Hist_Table_name_suffix;
 Go
 
 Execute sp_addextendedproperty

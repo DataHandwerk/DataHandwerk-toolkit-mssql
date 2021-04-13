@@ -1,4 +1,5 @@
-﻿Create View docs.RepoObject_Plantuml
+﻿
+CREATE View docs.RepoObject_Plantuml
 As
 Select
     ro.RepoObject_guid
@@ -16,7 +17,7 @@ Select
                                             , 'set namespaceSeparator none'
                                             , Char ( 13 ) + Char ( 10 )
                                             , Char ( 13 ) + Char ( 10 )
-                                            , repo.fs_get_parameter_value ( 'puml_skinparam_class', '' )
+                                            , skin.Parameter_value__result_nvarchar
                                             , Char ( 13 ) + Char ( 10 )
                                             , Char ( 13 ) + Char ( 10 )
                                             , elist.PumlEntityList
@@ -35,15 +36,13 @@ Select
                                             , 'set namespaceSeparator none'
                                             , Char ( 13 ) + Char ( 10 )
                                             , Char ( 13 ) + Char ( 10 )
-                                            , repo.fs_get_parameter_value ( 'puml_skinparam_class', '' )
+                                            , skin.Parameter_value__result_nvarchar
                                             , Char ( 13 ) + Char ( 10 )
                                             , Char ( 13 ) + Char ( 10 )
                                             , elist.PumlEntityOnlyPkList
                                             , Char ( 13 ) + Char ( 10 )
                                             , olist.ObjectRefList
                                           )
-  --todo: needs to be implemented, this is only a placeholder
-  --other lists are required: PumlEntityFkList, FkList
   , PlantumlEntity_1_1_FkRef     = Concat (
                                               'left to right direction'
                                             , Char ( 13 ) + Char ( 10 )
@@ -54,7 +53,7 @@ Select
                                             , 'set namespaceSeparator none'
                                             , Char ( 13 ) + Char ( 10 )
                                             , Char ( 13 ) + Char ( 10 )
-                                            , repo.fs_get_parameter_value ( 'puml_skinparam_class', '' )
+                                            , skin.Parameter_value__result_nvarchar
                                             , Char ( 13 ) + Char ( 10 )
                                             , Char ( 13 ) + Char ( 10 )
                                             , EntityFkList.PumlEntityFkList
@@ -74,14 +73,15 @@ From
             olist.RepoObject_guid = ro.RepoObject_guid
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist
     Left Join
-        docs.RepoObject_PlantUml_PumlEntityFkList EntityFkList
+        docs.RepoObject_PlantUml_PumlEntityFkList                          As EntityFkList
             On
             EntityFkList.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_PlantUml_FkRefList        FkRefList
+        docs.RepoObject_PlantUml_FkRefList                                 As FkRefList
             On
-            FkRefList.RepoObject_guid    = ro.RepoObject_guid;
+            FkRefList.RepoObject_guid = ro.RepoObject_guid
+    Cross Join repo.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin;
 Go
 
 Execute sp_addextendedproperty

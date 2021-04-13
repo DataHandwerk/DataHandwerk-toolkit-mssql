@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 references on column level
 target: repo.RepoObjectSource__QueryPlan
 source: query plan analysis of the execution of a query like
@@ -15,7 +16,7 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-Create Procedure repo.usp_RepoObjectSource_QueryPlan
+CREATE Procedure [repo].[usp_RepoObjectSource_QueryPlan]
     -- some optional parameters, used for logging
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -45,6 +46,7 @@ Set @event_info =
 
 If @execution_instance_guid Is Null
     Set @execution_instance_guid = NewId ();
+
 --SET @rows = @@ROWCOUNT;
 Set @step_id = @step_id + 1;
 Set @step_name = N'start';
@@ -128,7 +130,7 @@ Exec logs.usp_ExecutionLog_insert
   , @info_08 = Null
   , @info_09 = Null;
 
-Declare object_cursor Cursor Read_Only For
+Declare object_cursor Cursor Local Fast_Forward For
 --
 Select
     ro.RepoObject_guid
@@ -285,7 +287,6 @@ Begin
 End;
 
 Close object_cursor;
-
 Deallocate object_cursor;
 
 Insert Into repo.RepoObjectColumn

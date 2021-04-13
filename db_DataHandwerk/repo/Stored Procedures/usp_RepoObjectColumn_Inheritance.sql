@@ -1,4 +1,5 @@
-﻿Create Procedure repo.usp_RepoObjectColumn_Inheritance
+﻿
+CREATE Procedure [repo].[usp_RepoObjectColumn_Inheritance]
     ----keep the code between logging parameters and "START" unchanged!
     ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -33,6 +34,7 @@ Set @event_info =
 
 If @execution_instance_guid Is Null
     Set @execution_instance_guid = NewId ();
+
 --
 --SET @rows = @@ROWCOUNT;
 Set @step_id = @step_id + 1;
@@ -66,7 +68,7 @@ Exec logs.usp_ExecutionLog_insert
 ----START
 --
 ----- start here with your own code
-Declare inheritance_cursor Cursor Read_Only For
+Declare inheritance_cursor Cursor Local Fast_Forward For
 Select
     resulting_InheritanceDefinition
 From
@@ -390,7 +392,6 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
         End;
 
         Close separator_cursor;
-
         Deallocate separator_cursor;
     End;
 
@@ -400,7 +401,6 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
 End;
 
 Close inheritance_cursor;
-
 Deallocate inheritance_cursor;
 
 --

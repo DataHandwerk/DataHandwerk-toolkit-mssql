@@ -1,4 +1,5 @@
-﻿Create View repo.RepoObjectColumn_reference_QueryPlan
+﻿
+CREATE View [repo].[RepoObjectColumn_reference_QueryPlan]
 As
 --
 Select
@@ -56,12 +57,12 @@ Select
             And ro_r.referenced_RepoObject_guid = roc2.RepoObject_guid
     )
 From
-    repo.RepoObjectSource_QueryPlan As ros
+    repo.RepoObjectSource_QueryPlan     As ros
     Inner Join
-        repo.RepoObject             As ro
+        repo.RepoObject                 As ro
             On
-            ros.RepoObject_guid                          = ro.RepoObject_guid
-
+            ros.RepoObject_guid = ro.RepoObject_guid
+    Cross Join repo.ftv_dwh_database () As dwhdb
     Left Join
         repo.RepoObjectColumn_gross As roc
             On
@@ -77,7 +78,7 @@ From
             And
             (
                 (
-                    ros.source_database_name             = QuoteName ( repo.fs_dwh_database_name ())
+                    ros.source_database_name             = QuoteName ( dwhdb.dwh_database_name )
                     And ros.source_schema_name           = QuoteName ( roc2.SysObject_schema_name )
                     And ros.source_table_name            = QuoteName ( roc2.SysObject_name )
                 )

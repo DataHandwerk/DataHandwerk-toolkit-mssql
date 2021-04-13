@@ -11,6 +11,7 @@
 , @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
 , @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
 AS
+BEGIN
 DECLARE
  --
    @current_execution_log_id BIGINT --this variable should be filled only once per procedure call, it contains the first logging call for the step 'start'.
@@ -28,8 +29,9 @@ DECLARE
 --[event_info] get's only the information about the "outer" calling process
 --wenn the procedure calls sub procedures, the [event_info] will not change
 SET @event_info = (
-  SELECT [event_info]
+  SELECT TOP 1 [event_info]
   FROM sys.dm_exec_input_buffer(@@spid, CURRENT_REQUEST_ID())
+  ORDER BY [event_info]
   )
 
 IF @execution_instance_guid IS NULL
@@ -41,7 +43,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -103,7 +105,7 @@ DECLARE @Object_fullname2 NVARCHAR(257);
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'')","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',410,';',NULL);
 
-DECLARE db_cursor CURSOR
+DECLARE db_cursor CURSOR Local Fast_Forward
 FOR
 SELECT RepoObject_fullname
  , RepoObject_fullname2
@@ -121,13 +123,13 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- --bcp "SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
+ --bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value__result_nvarchar From [repo].[ftv_get_parameter_value] ( 'Adoc_AntoraPageTemplate', DEFAULT ) As Adoc_AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N'''')" queryout ' + @outputDir + @Object_fullname2 + '.adoc'
+ SET @command = 'bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value__result_nvarchar From [repo].[ftv_get_parameter_value] ( ''Adoc_AntoraPageTemplate'', DEFAULT ) As Adoc_AntoraPageTemplate" queryout ' + @outputDir + @Object_fullname2 + '.adoc'
   --
   + ' -S ' + @instanceName
   --
-  + ' -d ' + ' dhw_self'
+  + ' -d ' + @databaseName
   --
   + ' -c'
   --
@@ -157,7 +159,7 @@ SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraPageT
 SET @source_object = '[repo].[Parameter]'
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -186,7 +188,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -200,6 +202,8 @@ EXEC [logs].usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
+
+END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'eb5bf6c2-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
 
