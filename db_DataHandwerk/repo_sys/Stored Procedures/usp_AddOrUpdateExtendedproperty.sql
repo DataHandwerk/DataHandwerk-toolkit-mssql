@@ -56,7 +56,7 @@ CREATE Procedure repo_sys.[usp_AddOrUpdateExtendedProperty]
   , @level2type Varchar(128) = Null
   , @level2name sysname      = Null
 As
-Declare @DbName sysname = repo.fs_dwh_database_name ();
+Declare @DbName sysname = [config].fs_dwh_database_name ();
 Declare
     @module_name_var_update NVarchar(500) = QuoteName ( @DbName ) + N'.sys.sp_updateextendedproperty'
   , @module_name_var_add    NVarchar(500) = QuoteName ( @DbName ) + N'.sys.sp_addextendedproperty';

@@ -90,7 +90,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
    ) + 'partials\template\')
 
 
@@ -111,7 +111,7 @@ DECLARE template_cursor CURSOR Local Fast_Forward
 FOR
 SELECT [sub_Parameter]
 --,[Parameter_value__result_nvarchar]
-FROM [repo].[Parameter]
+FROM [config].[Parameter]
 WHERE [Parameter_name] = 'Adoc_AntoraPageTemplate'
  AND [sub_Parameter] <> ''
 ORDER BY [sub_Parameter]

@@ -16,7 +16,7 @@ EXEC repo_sys.usp_dropextendedproperty_level_1
 CREATE Procedure [repo_sys].[usp_dropextendedproperty_level_1] @name Varchar(128)
 As
 Begin
-    Declare @DbName sysname = repo.fs_dwh_database_name ();
+    Declare @DbName sysname = [config].fs_dwh_database_name ();
 
     Print @DbName;
 

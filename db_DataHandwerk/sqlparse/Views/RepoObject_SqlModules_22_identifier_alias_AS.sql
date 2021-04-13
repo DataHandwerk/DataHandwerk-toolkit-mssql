@@ -20,7 +20,7 @@ Select
   , RowNumber        = Row_Number () Over ( Partition By T1.RepoObject_guid, T1.json_key Order By T2.json_key )
 From
     [sqlparse].RepoObject_SqlModules_20_statement_children As T1
-    Cross Apply repo.ftv_sqlparse ( T1.children )    As T2
+    Cross Apply [sqlparse].ftv_sqlparse ( T1.children )    As T2
 Where
     T1.class     = 'Identifier'
     And T2.class = 'Identifier';

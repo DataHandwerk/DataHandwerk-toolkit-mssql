@@ -185,7 +185,7 @@ From
         repo.RepoObject                 ro
             On
             ro.RepoObject_fullname = u.usp_fullname
-    Cross Join repo.ftv_dwh_database () As dwhdb;
+    Cross Join [config].ftv_dwh_database () As dwhdb;
 Go
 
 Execute sp_addextendedproperty

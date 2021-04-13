@@ -343,7 +343,7 @@ Set @persistence_name_suffix =
     Select
         Parameter_value__result_nvarchar
     From
-        repo.Parameter
+        [config].Parameter
     Where
         Parameter_name = 'persistence_name_suffix'
 );

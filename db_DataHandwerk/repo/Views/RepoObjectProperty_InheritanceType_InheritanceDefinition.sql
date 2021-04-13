@@ -41,37 +41,37 @@ From
             And rop.property_name         = pn.property_name
 
     Left Join
-        repo.Parameter          As par_sub
+        [config].Parameter          As par_sub
             On
             par_sub.Parameter_name        = 'InheritanceType_object'
             And par_sub.sub_Parameter     = pn.property_name
 
     Left Join
-        repo.Parameter          As par
+        [config].Parameter          As par
             On
             par.Parameter_name            = 'InheritanceType_object'
             And par.sub_Parameter         = ''
 
     Left Join
-        repo.Parameter          As par_sub_def
+        [config].Parameter          As par_sub_def
             On
             par_sub_def.Parameter_name    = 'InheritanceDefinition_object'
             And par_sub_def.sub_Parameter = pn.property_name
 
     Left Join
-        repo.Parameter          As par_def
+        [config].Parameter          As par_def
             On
             par_def.Parameter_name        = 'InheritanceDefinition_object'
             And par_def.sub_Parameter     = ''
 
     Left Join
-        repo.Parameter          As par_sub_sep
+        [config].Parameter          As par_sub_sep
             On
             par_sub_sep.Parameter_name    = 'Inheritance_StringAggSeparatorSql_object'
             And par_sub_sep.sub_Parameter = pn.property_name
 
     Left Join
-        repo.Parameter          As par_sep
+        [config].Parameter          As par_sep
             On
             par_sep.Parameter_name        = 'Inheritance_StringAggSeparatorSql_object'
             And par_sep.sub_Parameter     = '';

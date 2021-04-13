@@ -6,7 +6,7 @@
 Create Procedure config.usp_init_parameter
 As
 --
-Insert Into repo.Parameter
+Insert Into [config].Parameter
 (
     Parameter_name
   , sub_Parameter
@@ -26,7 +26,7 @@ Where
     Select
         1
     From
-        repo.Parameter As target
+        [config].Parameter As target
     Where
         target.Parameter_name    = T1.Parameter_name
         And target.sub_Parameter = T1.sub_Parameter
@@ -38,7 +38,7 @@ Set
     T2.Parameter_desciption = source.Parameter_desciption
   , T2.Parameter_default_value = source.Parameter_default_value
 From
-    repo.Parameter               As T2
+    [config].Parameter               As T2
     Inner Join
         config.Parameter_default As source
             On

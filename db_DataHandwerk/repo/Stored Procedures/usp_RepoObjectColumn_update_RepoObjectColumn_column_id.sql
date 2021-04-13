@@ -85,7 +85,7 @@ Declare @sqlCommand NVarchar(4000);
 Set @OrderBy
     = Cast((
                Select
-                   repo.fs_get_parameter_value ( 'RepoObjectColumn_column_id_OrderBy', Default )
+                   [config].fs_get_parameter_value ( 'RepoObjectColumn_column_id_OrderBy', Default )
            ) As NVarchar(1000));
 --'
 --[roc].[Repo_is_identity]

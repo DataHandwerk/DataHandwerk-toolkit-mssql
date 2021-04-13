@@ -16,7 +16,7 @@ Select
   , normalized_wo_nolock = T2.child0_normalized
 From
     [sqlparse].RepoObject_SqlModules_20_statement_children             As T1
-    Cross Apply repo.ftv_sqlparse_children_pivot ( T1.children ) As T2
+    Cross Apply [sqlparse].ftv_sqlparse_children_pivot ( T1.children ) As T2
 Where
     T1.class                 = 'Function'
     And T1.is_group          = 1

@@ -92,10 +92,10 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',120,';',NULL);
 
 SET @outputDirPartNav = ISNULL(@outputDirPartNav, (
-   SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
    ) + 'partials\navlist\')
 SET @outputDirPageNav = ISNULL(@outputDirPageNav, (
-   SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
    ) + 'pages\nav\')
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/

@@ -12,7 +12,7 @@ Select
     --
     sub_Parameter
 From
-    repo.Parameter
+    [config].Parameter
 Where
     Parameter_name In
     ( 'Inheritance_StringAggSeparatorSql_column', 'InheritanceDefinition_column', 'InheritanceType_column' )

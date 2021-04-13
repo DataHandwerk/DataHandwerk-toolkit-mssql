@@ -1,23 +1,23 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* default parameters for xref:sqldb:repo.Parameter.adoc[]
-* content can be overwritten in xref:sqldb:repo.Parameter.adoc#column-Parameter_value[repo.Parameter.Parameter_value]
+* default parameters for xref:sqldb:config.Parameter.adoc[]
+* content can be overwritten in xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
 <<property_end>>
 
 <<property_start>>example1
---merge this view into [repo].[Parameter]:
+--merge this view into [config].[Parameter]:
 
 EXEC [config].[usp_init_parameter]
 <<property_end>>
 
 <<property_start>>example2
---delete from [repo].[Parameter], what not is defined here in this view (Dangerous: possible data loss)
+--delete from [config].[Parameter], what not is defined here in this view (Dangerous: possible data loss)
 --do not delete based on [sub_Parameter]!
---they can always be added in [repo].[Parameter]!
+--they can always be added in [config].[Parameter]!
 
 DELETE T
-FROM [repo].[Parameter] T
+FROM [config].[Parameter] T
 WHERE NOT EXISTS (
   SELECT 1
   FROM [config].[Parameter_default] S

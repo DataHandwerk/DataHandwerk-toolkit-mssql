@@ -142,7 +142,7 @@ and isjson(T1.children) = 1
 
 */
 --@jsonstr should be 'children' element of en entry class IdentifierList
-Create Function repo.ftv_sqlparse_IdentifierList__TestOnly
+Create Function [sqlparse].ftv_sqlparse_IdentifierList__TestOnly
 (
     @jsonstr NVarchar(Max)
 )
@@ -282,7 +282,7 @@ Return
     From --
         --     OPENJSON(@jsonstr) AS j1
         --     CROSS APPLY
-        repo.ftv_sqlparse_with_some_children ( @jsonstr ) As T2
+        [sqlparse].ftv_sqlparse_with_some_children ( @jsonstr ) As T2
     Where
         T2.class In
         ( 'Identifier', 'Comparison' )
@@ -293,7 +293,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '5190291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'sqlparse'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_sqlparse_IdentifierList__TestOnly';
 Go

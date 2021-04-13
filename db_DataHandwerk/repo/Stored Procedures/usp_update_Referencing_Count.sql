@@ -128,7 +128,7 @@ From
           , Count ( Distinct ror.[RepoObject_guid] ) As [Referencing_Count]
         From
             [repo_sys].[RepoObjectReferenced]   As [ror]
-            Cross Join repo.ftv_dwh_database () As dwhdb
+            Cross Join [config].ftv_dwh_database () As dwhdb
         Where
             ror.[referenced_database_name] = dwhdb.dwh_database_name
             Or ror.[referenced_database_name] Is Null

@@ -54,7 +54,7 @@ LEFT JOIN repo_sys.SysColumn AS ssc2
  ON sed.referenced_id = ssc2.SysObject_id
   AND sed.referenced_minor_id = ssc2.SysObject_column_id
 --
-CROSS APPLY repo.ftv_dwh_database() AS db
+CROSS APPLY [config].ftv_dwh_database() AS db
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'sql_expression_dependencies';
 
