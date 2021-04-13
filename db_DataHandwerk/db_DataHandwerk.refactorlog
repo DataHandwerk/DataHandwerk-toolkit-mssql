@@ -1054,4 +1054,94 @@
     <Property Name="NewSchema" Value="sqlparse" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="202cbcef-9bbb-4b62-a28f-1dffcfb01e59" ChangeDateTime="04/13/2021 17:26:44">
+    <Property Name="ElementName" Value="[repo].[GeneratorUsp]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="2bad517f-38dd-42a3-8131-aadcfb5b1048" ChangeDateTime="04/13/2021 17:29:57">
+    <Property Name="ElementName" Value="[repo].[GeneratorUspParameter]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="2214648a-3635-464e-a713-191de2e5f6fd" ChangeDateTime="04/13/2021 17:35:03">
+    <Property Name="ElementName" Value="[repo].[GeneratorUspStep]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5e8962de-2d6d-471f-abc7-7d10e75004fa" ChangeDateTime="04/13/2021 17:36:41">
+    <Property Name="ElementName" Value="[repo].[ftv_GeneratorUspStep_sql]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="bab62679-04aa-4f24-b4ea-07cce8439266" ChangeDateTime="04/13/2021 17:37:31">
+    <Property Name="ElementName" Value="[repo].[ftv_GeneratorUspStep_tree]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="c9f44f85-61fe-4cfa-845a-7f8242e12e4b" ChangeDateTime="04/13/2021 17:41:11">
+    <Property Name="ElementName" Value="[repo].[usp_GeneratorUsp_insert_update_persistence]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="9d6cd79b-cde6-4503-88a2-f81aabe817c9" ChangeDateTime="04/13/2021 17:43:40">
+    <Property Name="ElementName" Value="[repo].[usp_generate_merge]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7018909e-4f51-49e3-812c-39fb0fabd502" ChangeDateTime="04/13/2021 17:45:09">
+    <Property Name="ElementName" Value="[repo].[usp_connect_database]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a57f3d3d-06f4-46e1-9159-57f32284c73f" ChangeDateTime="04/13/2021 17:46:41">
+    <Property Name="ElementName" Value="[repo].[GeneratorUsp_filter_persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="89dfe3f6-d065-4c49-9837-0ea9a5b5ec82" ChangeDateTime="04/13/2021 17:48:29">
+    <Property Name="ElementName" Value="[repo].[GeneratorUsp_ParameterList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="90bccd13-0b1b-461e-b853-ea17bf8a46f1" ChangeDateTime="04/13/2021 17:50:36">
+    <Property Name="ElementName" Value="[repo].[GeneratorUsp_SqlUsp]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="096ad592-5b2a-46c2-9a69-05d8f95a2f15" ChangeDateTime="04/13/2021 17:51:57">
+    <Property Name="ElementName" Value="[repo].[GeneratorUsp_StepList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="32dbf38a-94ba-489e-919f-790c2fdeadb6" ChangeDateTime="04/13/2021 17:53:55">
+    <Property Name="ElementName" Value="[repo].[GeneratorUspStep_Persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5c944f9f-b1ae-408d-8144-f5ce3d9f1500" ChangeDateTime="04/13/2021 17:55:08">
+    <Property Name="ElementName" Value="[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="926ec7d5-422d-41dd-8dd8-5144ad31aea2" ChangeDateTime="04/13/2021 17:56:06">
+    <Property Name="ElementName" Value="[repo].[GeneratorUspStep_Sql]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="uspgenerator" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

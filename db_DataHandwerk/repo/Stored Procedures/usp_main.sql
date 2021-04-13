@@ -168,7 +168,7 @@ EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
 
 
 /*{"ReportUspStep":[{"Number":910,"Name":"[repo].[usp_GeneratorUsp_insert_update_persistence]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_GeneratorUsp_insert_update_persistence]
+EXEC [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
 --RepoObjectColumn_column_id is required and should be updated before
 --add your own parameters
 --logging parameters

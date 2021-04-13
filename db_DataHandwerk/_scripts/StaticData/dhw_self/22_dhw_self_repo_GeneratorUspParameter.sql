@@ -31,10 +31,10 @@ GO
 
 SET NOCOUNT ON
 
-SET IDENTITY_INSERT [repo].[GeneratorUspParameter] ON
+SET IDENTITY_INSERT [uspgenerator].[GeneratorUspParameter] ON
 
-MERGE INTO [repo].[GeneratorUspParameter] AS [Target]
-USING (SELECT [id],[usp_id],[Number],[Name],[UserTypeFullname],[is_inactive],[is_out],[has_DefaultValue],[DefaultValue] FROM [repo].[GeneratorUspParameter] WHERE 1 = 0 -- Empty dataset (source table contained no rows at time of MERGE generation) 
+MERGE INTO [uspgenerator].[GeneratorUspParameter] AS [Target]
+USING (SELECT [id],[usp_id],[Number],[Name],[UserTypeFullname],[is_inactive],[is_out],[has_DefaultValue],[DefaultValue] FROM [uspgenerator].[GeneratorUspParameter] WHERE 1 = 0 -- Empty dataset (source table contained no rows at time of MERGE generation) 
 ) AS [Source] ([id],[usp_id],[Number],[Name],[UserTypeFullname],[is_inactive],[is_out],[has_DefaultValue],[DefaultValue])
 ON ([Target].[id] = [Source].[id])
 WHEN MATCHED AND (
@@ -76,6 +76,6 @@ GO
 
 
 
-SET IDENTITY_INSERT [repo].[GeneratorUspParameter] OFF
+SET IDENTITY_INSERT [uspgenerator].[GeneratorUspParameter] OFF
 SET NOCOUNT OFF
 GO

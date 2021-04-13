@@ -27,9 +27,9 @@ GO
 
 SET NOCOUNT ON
 
-SET IDENTITY_INSERT [repo].[GeneratorUsp] ON
+SET IDENTITY_INSERT [uspgenerator].[GeneratorUsp] ON
 
-MERGE INTO [repo].[GeneratorUsp] AS [Target]
+MERGE INTO [uspgenerator].[GeneratorUsp] AS [Target]
 USING (VALUES
   (1,N'repo',N'usp_sync_guid',1,NULL)
  ,(2,N'repo',N'usp_main',1,N'main procedure')
@@ -78,6 +78,6 @@ GO
 
 
 
-SET IDENTITY_INSERT [repo].[GeneratorUsp] OFF
+SET IDENTITY_INSERT [uspgenerator].[GeneratorUsp] OFF
 SET NOCOUNT OFF
 GO

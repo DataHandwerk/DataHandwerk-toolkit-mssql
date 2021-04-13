@@ -44,9 +44,9 @@ GO
 
 SET NOCOUNT ON
 
-SET IDENTITY_INSERT [repo].[GeneratorUspStep] ON
+SET IDENTITY_INSERT [uspgenerator].[GeneratorUspStep] ON
 
-MERGE INTO [repo].[GeneratorUspStep] AS [Target]
+MERGE INTO [uspgenerator].[GeneratorUspStep] AS [Target]
 USING (VALUES
   (1,1,210,NULL,N'[repo].[usp_sync_guid_RepoObject]',0,0,0,1,N'[repo].[usp_sync_guid_RepoObject]',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
  ,(2,1,310,NULL,N'[repo].[usp_sync_guid_RepoObjectColumn]',0,0,0,1,N'[repo].[usp_sync_guid_RepoObjectColumn]',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
@@ -2242,6 +2242,6 @@ GO
 
 
 
-SET IDENTITY_INSERT [repo].[GeneratorUspStep] OFF
+SET IDENTITY_INSERT [uspgenerator].[GeneratorUspStep] OFF
 SET NOCOUNT OFF
 GO
