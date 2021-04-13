@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+﻿CREATE   PROCEDURE [sqlparse].[usp_PERSIST_RepoObject_SqlModules_41_from_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -36,7 +36,7 @@ SET @step_name = 'start'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
  --these parameters should be the same for all logging execution
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
@@ -57,26 +57,26 @@ EXEC [logs].usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
+PRINT '[sqlparse].[usp_PERSIST_RepoObject_SqlModules_41_from_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',7,';',400,';',NULL);
+/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[sqlparse].[RepoObject_SqlModules_41_from_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',37,';',400,';',NULL);
 
-TRUNCATE TABLE [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+TRUNCATE TABLE [sqlparse].[RepoObject_SqlModules_41_from_T]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'truncate persistence target'
 SET @source_object = NULL
-SET @target_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
+SET @target_object = '[sqlparse].[RepoObject_SqlModules_41_from_T]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -93,41 +93,67 @@ EXEC [logs].usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]","log_target_object":"[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',7,';',800,';',NULL);
+/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[sqlparse].[RepoObject_SqlModules_41_from]","log_target_object":"[sqlparse].[RepoObject_SqlModules_41_from_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',37,';',800,';',NULL);
 
 INSERT INTO 
- [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+ [sqlparse].[RepoObject_SqlModules_41_from_T]
  (
-  [alias_QuoteName]
+  [RepoObject_guid]
+, [json_key]
+, [children]
 , [class]
+, [identifier_alias]
+, [identifier_name]
+, [is_from]
+, [is_group]
+, [is_join]
+, [is_keyword]
+, [is_whitespace]
+, [join_type]
+, [Min_RowNumber_From]
+, [Min_RowNumber_GroupBy]
+, [Min_RowNumber_Where]
 , [normalized]
-, [RepoObject_guid]
+, [normalized_PatIndex_Select]
+, [normalized_wo_nolock]
+, [patindex_nolock]
 , [RowNumber_per_Object]
-, [source_column_QuoteName]
-, [source_table_QuoteName]
 , [SysObject_fullname]
 )
 SELECT
-  [alias_QuoteName]
+  [RepoObject_guid]
+, [json_key]
+, [children]
 , [class]
+, [identifier_alias]
+, [identifier_name]
+, [is_from]
+, [is_group]
+, [is_join]
+, [is_keyword]
+, [is_whitespace]
+, [join_type]
+, [Min_RowNumber_From]
+, [Min_RowNumber_GroupBy]
+, [Min_RowNumber_Where]
 , [normalized]
-, [RepoObject_guid]
+, [normalized_PatIndex_Select]
+, [normalized_wo_nolock]
+, [patindex_nolock]
 , [RowNumber_per_Object]
-, [source_column_QuoteName]
-, [source_table_QuoteName]
 , [SysObject_fullname]
 
-FROM [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union] AS S
+FROM [sqlparse].[RepoObject_SqlModules_41_from] AS S
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'insert all'
-SET @source_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]'
-SET @target_object = '[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
+SET @source_object = '[sqlparse].[RepoObject_SqlModules_41_from]'
+SET @target_object = '[sqlparse].[RepoObject_SqlModules_41_from_T]'
 
-EXEC [logs].usp_ExecutionLog_insert 
+EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -156,7 +182,7 @@ SET @step_name = 'end'
 SET @source_object = NULL
 SET @target_object = NULL
 
-EXEC [logs].usp_ExecutionLog_insert
+EXEC logs.usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -171,45 +197,5 @@ EXEC [logs].usp_ExecutionLog_insert
  , @source_object = @source_object
  , @target_object = @target_object
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '87efc212-b764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
-
-
-GO
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-[cols="5,200,1,100,100,1"]
-|===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
-
-|400
-|truncate persistence target
-|0
-|
-|[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-|D
-
-|800
-|insert all
-|0
-|[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]
-|[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-|I
-|===
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '667581a6-3c9c-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
 
