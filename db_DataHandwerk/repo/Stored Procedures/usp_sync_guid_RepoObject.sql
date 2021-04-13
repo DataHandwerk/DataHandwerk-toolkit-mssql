@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_sync_guid_RepoObject]
+﻿CREATE   PROCEDURE repo.usp_sync_guid_RepoObject
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -826,7 +826,7 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":4110,"Name":"MERGE INTO [repo].[ProcedureInstance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[ProcedureInstance]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',4110,';',NULL);
 
-MERGE INTO [repo].[ProcedureInstance] AS T
+MERGE INTO workflow.ProcedureInstance T
 USING (
  SELECT [RepoObject_guid] AS [Procedure_RepoObject_guid]
   , '' AS [Instance]
