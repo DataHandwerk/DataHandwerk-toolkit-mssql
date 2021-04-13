@@ -16,7 +16,7 @@ Select
   , property_value = Cast(String_Agg ( es.substring_netPostEol, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                             es.pos1) As NVarchar(4000))
 From
-    repo.RepoObject_SqlModules_Repo_Sys
+    [sqlparse].RepoObject_SqlModules_Repo_Sys
     Cross Apply tool.ftv_extract_substrings (
                                                 sql_modules_definition
                                               , Char ( 13 ) + Char ( 10 ) + '<<property_start>>'

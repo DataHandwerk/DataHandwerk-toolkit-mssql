@@ -67,7 +67,7 @@ PRINT '[repo].[usp_PERSIST_RepoObject_SqlModules_41_from_T]'
 /*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_SqlModules_41_from_T]","log_flag_InsertUpdateDelete":"D"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',4,';',400,';',NULL);
 
-TRUNCATE TABLE [repo].[RepoObject_SqlModules_41_from_T]
+TRUNCATE TABLE [sqlparse].[RepoObject_SqlModules_41_from_T]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -97,7 +97,7 @@ EXEC [logs].usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',4,';',800,';',NULL);
 
 INSERT INTO 
- [repo].[RepoObject_SqlModules_41_from_T]
+ [sqlparse].[RepoObject_SqlModules_41_from_T]
  (
   [RepoObject_guid]
 , [json_key]
@@ -144,7 +144,7 @@ SELECT
 , [RowNumber_per_Object]
 , [SysObject_fullname]
 
-FROM [repo].[RepoObject_SqlModules_41_from] AS S
+FROM [sqlparse].[RepoObject_SqlModules_41_from] AS S
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

@@ -41,7 +41,7 @@ Select
   --for easy error check
   , T1.SysObject_fullname
 From
-    repo.RepoObject_SqlModules_79_reference_union As T1
+    [sqlparse].RepoObject_SqlModules_79_reference_union As T1
     Inner Join
         repo.RepoObject                           As ro_s
             On

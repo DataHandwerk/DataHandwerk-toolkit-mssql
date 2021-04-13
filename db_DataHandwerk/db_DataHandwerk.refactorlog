@@ -820,4 +820,178 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition]" />
   </Operation>
+  <Operation Name="Move Schema" Key="a0eb01dd-e7c0-4088-b1b0-d503eff7e347" ChangeDateTime="04/13/2021 08:51:18">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5af12945-2469-4409-9276-61f29652cb8e" ChangeDateTime="04/13/2021 08:55:37">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_Repo_Sys]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="161e11a0-560d-4f5e-b5f4-0a1b0f728c73" ChangeDateTime="04/13/2021 08:56:47">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_10_statement]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="fa55dedc-1af3-4a3b-9b49-710a00a6ddfa" ChangeDateTime="04/13/2021 08:58:46">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_20_statement_children]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="b072a3e8-130a-4bae-bfc0-dda02754ac85" ChangeDateTime="04/13/2021 08:59:46">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_21_statement_children_helper]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="272e727b-538c-4468-a7ab-7703decaa110" ChangeDateTime="04/13/2021 09:00:52">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_24_IdentifierList_children]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="576d1139-074a-4e04-9835-c1e18e5563ca" ChangeDateTime="04/13/2021 09:01:45">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_22_identifier_alias_AS]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="29594114-461d-4305-a28f-86b4d117cfac" ChangeDateTime="04/13/2021 09:02:47">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_23_normalized_wo_nolock]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="91a0146a-3e6e-4cbd-afd9-fd82aec61b8a" ChangeDateTime="04/13/2021 09:03:34">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="39cfe5b2-7187-4c91-b0fe-5e36a5e08966" ChangeDateTime="04/13/2021 09:04:17">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="26fcb1c2-17d8-4b13-b73f-efe8590c4b07" ChangeDateTime="04/13/2021 09:05:25">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_29_1_object_is_union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="c671e7b5-fb30-48cf-9cea-7c3d830d025f" ChangeDateTime="04/13/2021 09:06:01">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_29_2_object_is_GroupBy]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7c726d22-5c50-42c4-a5e3-75deb23e109c" ChangeDateTime="04/13/2021 09:06:43">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_31_object]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="43cc03cc-2157-4e50-abdc-fcbbcefd8118" ChangeDateTime="04/13/2021 09:07:22">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_32_ObjectClass]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="0604d0c5-636b-4124-9a76-11215a038e7f" ChangeDateTime="04/13/2021 09:08:00">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_33_ObjectNormalized]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="dde3a268-88d4-478c-850b-ee7f28af3da9" ChangeDateTime="04/13/2021 09:08:39">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_39_object]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="8a0ec9d6-b1f2-45c0-b0a3-f733afd20f13" ChangeDateTime="04/13/2021 09:09:23">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_41_from]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="e456ba66-2b73-49de-b1a1-10aebc3354b4" ChangeDateTime="04/13/2021 09:10:12">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_42_from_Identifier]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="1f98f756-b63b-43ca-939d-b39f12afe171" ChangeDateTime="04/13/2021 09:10:57">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_43_from_Identifier]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="fa789cae-59f9-4e58-b069-794c8782ee11" ChangeDateTime="04/13/2021 09:11:38">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_44_from_Identifier_QuoteName]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="dbbb4bce-e4b6-43ea-9fa5-6c80c5b5e4b1" ChangeDateTime="04/13/2021 09:12:22">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_51_Identitfier]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7164dd8b-7832-4b2a-b08d-50ef48e65b65" ChangeDateTime="04/13/2021 09:13:00">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_52_Identitfier_QuoteName]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="05782690-8d98-48ff-a1e6-dc9df78356a2" ChangeDateTime="04/13/2021 09:13:50">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5d217946-1dcb-4bee-82f2-14937d7f5143" ChangeDateTime="04/13/2021 09:14:30">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_71_reference_ExpliciteTableAlias]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="14a40d07-1e55-49a5-92d1-c9329be362fd" ChangeDateTime="04/13/2021 09:15:04">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_72_reference_NoTableAlias]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7f08478c-8509-430f-9c4b-c696c32a5032" ChangeDateTime="04/13/2021 09:15:46">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_79_reference_union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="ec28ec3e-e2f3-4a4d-b78c-cfdfb85c410b" ChangeDateTime="04/13/2021 09:17:16">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_Identitfier]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="618ac344-74d3-4dce-866c-28417ed43e21" ChangeDateTime="04/13/2021 09:19:21">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_41_from_T]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="c6b33e22-186f-45c7-a5f7-4c59f949fdc0" ChangeDateTime="04/13/2021 09:20:21">
+    <Property Name="ElementName" Value="[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

@@ -183,7 +183,7 @@ def main():
             with cursor2.execute(tsqldelete, RepoObject_guid):
                 print('Successfully deleted: ' + RepoObject_guid)
             tsqlinsert = """\
-            INSERT INTO [repo].[RepoObject_SqlModules]
+            INSERT INTO [sqlparse].[RepoObject_SqlModules]
             ([RepoObject_guid]
             --,[sql_modules_definition]
             ,[sql_modules_formatted]
