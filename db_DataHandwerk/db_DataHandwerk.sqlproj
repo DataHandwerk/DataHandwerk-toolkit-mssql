@@ -101,6 +101,8 @@
     <Folder Include="logs\Tables" />
     <Folder Include="logs\Functions" />
     <Folder Include="logs\Stored Procedures" />
+    <Folder Include="sqlparse\" />
+    <Folder Include="sqlparse\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -443,6 +445,7 @@
     <Build Include="docs\Views\AntoraTemplate_examples.sql" />
     <Build Include="repo\Views\RepoObjectColumn_RequiredRepoObjectColumnMerge.sql" />
     <Build Include="Security\sqlparse.sql" />
+    <Build Include="sqlparse\Views\test01.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
