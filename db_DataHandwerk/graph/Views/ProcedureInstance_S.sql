@@ -1,4 +1,4 @@
-﻿Create View graph.ProcedureInstance_S
+﻿CREATE View graph.ProcedureInstance_S
 As
 Select
     -- 
@@ -6,7 +6,7 @@ Select
   , T1.Instance
   , Procedure_fullname = ro.RepoObject_fullname
 From
-    repo.ProcedureInstance As T1
+    workflow.ProcedureInstance As T1
     Inner Join
         repo.RepoObject    As ro
             On

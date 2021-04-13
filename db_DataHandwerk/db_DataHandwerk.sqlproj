@@ -105,6 +105,9 @@
     <Folder Include="sqlparse\Views\" />
     <Folder Include="sqlparse\Tables" />
     <Folder Include="sqlparse\Stored Procedures\" />
+    <Folder Include="workflow\" />
+    <Folder Include="workflow\Tables\" />
+    <Folder Include="workflow\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\Parameter.sql" />
@@ -249,10 +252,6 @@
     <Build Include="graph\Views\RepoObject_S.sql" />
     <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObjectColumn.sql" />
     <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObject.sql" />
-    <Build Include="repo\Tables\WorkflowStep.sql" />
-    <Build Include="repo\Tables\Workflow.sql" />
-    <Build Include="repo\Tables\ProcedureInstanceDependency.sql" />
-    <Build Include="repo\Tables\ProcedureInstance.sql" />
     <Build Include="repo\Views\RepoObject_RequiredRepoObjectMerge.sql" />
     <Build Include="repo\Views\Match_RepoObject_referenced_UspPersistence.sql" />
     <Build Include="graph\Tables\ReferencingProcedureInstance.sql" />
@@ -307,7 +306,6 @@
     <Build Include="repo\Views\ForeignKey_Indexes.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_ForeignKey.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_finish.sql" />
-    <Build Include="repo\Views\ProcedureInstanceDependency_gross.sql" />
     <Build Include="repo\Tables\RepoObject_QueryPlan.sql" />
     <Build Include="repo\Views\RepoObject_ReferenceTree.sql" />
     <Build Include="repo\Views\RepoObject_fullname_u_v.sql" />
@@ -448,6 +446,12 @@
     <Build Include="sqlparse\Tables\RepoObject_SqlModules_61_SelectIdentifier_Union_T.sql" />
     <Build Include="sqlparse\Stored Procedures\usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.sql" />
     <Build Include="sqlparse\Stored Procedures\usp_PERSIST_RepoObject_SqlModules_41_from_T.sql" />
+    <Build Include="workflow\Tables\ProcedureInstance.sql" />
+    <Build Include="workflow\Tables\Workflow.sql" />
+    <Build Include="workflow\Tables\ProcedureInstanceDependency.sql" />
+    <Build Include="workflow\Tables\WorkflowStep.sql" />
+    <Build Include="workflow\Views\ProcedureInstanceDependency_gross.sql" />
+    <Build Include="Security\workflow.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
