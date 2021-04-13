@@ -994,4 +994,64 @@
     <Property Name="NewSchema" Value="sqlparse" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="2dddf498-6d1c-441f-9da9-43c4fa0dd815" ChangeDateTime="04/13/2021 16:06:50">
+    <Property Name="ElementName" Value="[repo].[Parameter]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a43b9f0e-bf57-4263-bcc5-37fd814e1363" ChangeDateTime="04/13/2021 16:08:09">
+    <Property Name="ElementName" Value="[repo].[usp_parameter_set]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a9513629-67d7-4b98-bcd4-16d4ee753434" ChangeDateTime="04/13/2021 16:11:34">
+    <Property Name="ElementName" Value="[repo].[fs_dwh_database_name]" />
+    <Property Name="ElementType" Value="SqlScalarFunction" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="27236695-958f-4bb0-a700-dae9cd17a916" ChangeDateTime="04/13/2021 16:20:07">
+    <Property Name="ElementName" Value="[repo].[fs_get_parameter_value]" />
+    <Property Name="ElementType" Value="SqlScalarFunction" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7198015d-cef8-4e7b-8db5-cb1d5f1aedd1" ChangeDateTime="04/13/2021 16:22:42">
+    <Property Name="ElementName" Value="[repo].[ftv_dwh_database]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="bc3de9d5-1675-44ab-a563-68cb93255cde" ChangeDateTime="04/13/2021 16:23:47">
+    <Property Name="ElementName" Value="[repo].[ftv_get_parameter_value]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="config" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="0e50bccc-c30a-425c-b7e9-d3e1e79726a4" ChangeDateTime="04/13/2021 16:25:04">
+    <Property Name="ElementName" Value="[repo].[ftv_sqlparse]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="97f91218-7467-4b5a-8939-4df6d10309ee" ChangeDateTime="04/13/2021 16:25:39">
+    <Property Name="ElementName" Value="[repo].[ftv_sqlparse_children_pivot]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="0d9d2a3a-0de1-4c41-9edd-1a68159371aa" ChangeDateTime="04/13/2021 16:26:20">
+    <Property Name="ElementName" Value="[repo].[ftv_sqlparse_IdentifierList__TestOnly]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5184e491-ec10-4a14-abdf-852299760001" ChangeDateTime="04/13/2021 16:26:53">
+    <Property Name="ElementName" Value="[repo].[ftv_sqlparse_with_some_children]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="sqlparse" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

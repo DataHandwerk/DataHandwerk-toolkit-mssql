@@ -31,7 +31,7 @@
     [RepoObject_fullname2]                AS               (concat([RepoObject_schema_name],'.',[RepoObject_name])) PERSISTED NOT NULL,
     [SysObject_fullname]                  AS               (concat('[',[SysObject_schema_name],'].[',[SysObject_name],']')) PERSISTED NOT NULL,
     [SysObject_fullname2]                 AS               (concat([SysObject_schema_name],'.',[SysObject_name])) PERSISTED NOT NULL,
-    [SysObject_query_sql]                 AS               (concat('SELECT * FROM [',[repo].[fs_dwh_database_name](),'].[',[SysObject_schema_name],'].[',[SysObject_name],']')),
+    [SysObject_query_sql]                 AS               (concat('SELECT * FROM [',[config].[fs_dwh_database_name](),'].[',[SysObject_schema_name],'].[',[SysObject_name],']')),
     [usp_persistence_name]                AS               ('usp_PERSIST_'+[RepoObject_name]) PERSISTED NOT NULL,
     CONSTRAINT [PK_RepoObject] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_Index_IndexSemanticGroup__pk_index_guid] FOREIGN KEY ([pk_index_guid]) REFERENCES [repo].[Index_Settings] ([index_guid]) ON DELETE SET NULL ON UPDATE CASCADE,

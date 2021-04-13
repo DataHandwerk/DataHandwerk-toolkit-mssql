@@ -133,7 +133,7 @@ Select
 --, [T2].[child4_children]
 From
     [sqlparse].RepoObject_SqlModules_20_statement_children                 As T1
-    Cross Apply repo.ftv_sqlparse_with_some_children ( T1.children ) As T2
+    Cross Apply [sqlparse].ftv_sqlparse_with_some_children ( T1.children ) As T2
 Where
     T1.class = 'IdentifierList'
     And T2.class In

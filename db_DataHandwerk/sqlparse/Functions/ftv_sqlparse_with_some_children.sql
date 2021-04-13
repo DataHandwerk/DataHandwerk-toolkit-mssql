@@ -1,4 +1,4 @@
-﻿Create Function repo.ftv_sqlparse_with_some_children
+﻿Create Function [sqlparse].ftv_sqlparse_with_some_children
 (
     @json_array NVarchar(Max)
 )
@@ -61,6 +61,6 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '2f90291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'sqlparse'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_sqlparse_with_some_children';

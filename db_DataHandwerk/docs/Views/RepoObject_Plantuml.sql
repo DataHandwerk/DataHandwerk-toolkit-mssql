@@ -81,7 +81,7 @@ From
         docs.RepoObject_PlantUml_FkRefList                                 As FkRefList
             On
             FkRefList.RepoObject_guid = ro.RepoObject_guid
-    Cross Join repo.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin;
+    Cross Join [config].ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin;
 Go
 
 Execute sp_addextendedproperty

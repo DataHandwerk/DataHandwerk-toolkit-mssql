@@ -106,7 +106,7 @@ Select
   , T2.child4_children
 From
     [sqlparse].RepoObject_SqlModules_10_statement                          As T1
-    Cross Apply repo.ftv_sqlparse_with_some_children ( T1.children ) As T2;
+    Cross Apply [sqlparse].ftv_sqlparse_with_some_children ( T1.children ) As T2;
 Go
 
 Execute sp_addextendedproperty

@@ -16,7 +16,7 @@ Select
     --
     sub_Parameter
 From
-    repo.Parameter
+    [config].Parameter
 Where
     Parameter_name In
     ( 'Inheritance_StringAggSeparatorSql_object', 'InheritanceDefinition_object', 'InheritanceType_object' )

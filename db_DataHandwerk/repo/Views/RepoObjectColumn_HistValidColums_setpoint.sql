@@ -22,7 +22,7 @@ From
             'Hist_ValidTo_column_name' As Parameter_name
           , 2                          As Repo_generated_always_type
     )                           ValidList
-    Cross Apply repo.ftv_get_parameter_value ( ValidList.Parameter_name, Default ) p
+    Cross Apply [config].ftv_get_parameter_value ( ValidList.Parameter_name, Default ) p
 Where
     rop.has_history_columns = 1
     Or rop.has_history      = 1;

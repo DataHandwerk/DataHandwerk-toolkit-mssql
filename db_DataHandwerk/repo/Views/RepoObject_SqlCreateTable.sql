@@ -244,8 +244,8 @@ From
         repo.RepoObject                                                     ro_hist
             On
             ro_hist.RepoObject_guid = ro.Repo_history_table_guid
-    Cross Join [repo].[ftv_get_parameter_value] ( 'Hist_Table_schema', '' ) As Hist_Table_schema
-    Cross Join [repo].[ftv_get_parameter_value] ( 'Hist_Table_name_suffix', '' ) As Hist_Table_name_suffix;
+    Cross Join [config].[ftv_get_parameter_value] ( 'Hist_Table_schema', '' ) As Hist_Table_schema
+    Cross Join [config].[ftv_get_parameter_value] ( 'Hist_Table_name_suffix', '' ) As Hist_Table_name_suffix;
 Go
 
 Execute sp_addextendedproperty

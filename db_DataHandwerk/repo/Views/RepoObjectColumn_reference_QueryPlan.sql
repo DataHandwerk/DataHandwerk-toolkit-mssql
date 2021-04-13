@@ -62,7 +62,7 @@ From
         repo.RepoObject                 As ro
             On
             ros.RepoObject_guid = ro.RepoObject_guid
-    Cross Join repo.ftv_dwh_database () As dwhdb
+    Cross Join [config].ftv_dwh_database () As dwhdb
     Left Join
         repo.RepoObjectColumn_gross As roc
             On

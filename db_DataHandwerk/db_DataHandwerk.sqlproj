@@ -108,9 +108,10 @@
     <Folder Include="workflow\" />
     <Folder Include="workflow\Tables\" />
     <Folder Include="workflow\Views\" />
+    <Folder Include="config\Functions" />
+    <Folder Include="sqlparse\Functions" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="repo\Tables\Parameter.sql" />
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
     <Build Include="repo\Tables\Index_virtual.sql" />
     <Build Include="repo\Tables\RepoObject.sql" />
@@ -154,12 +155,7 @@
     <Build Include="repo\Views\RepoObjectColumnProperty_sys_repo.sql" />
     <Build Include="repo\Views\RepoObjectProperty_sys_repo.sql" />
     <Build Include="repo\Views\RepoObjectColumn_reference_QueryPlan.sql" />
-    <Build Include="repo\Functions\fs_get_parameter_value.sql" />
-    <Build Include="repo\Functions\fs_dwh_database_name.sql" />
-    <Build Include="repo\Functions\ftv_dwh_database.sql" />
     <Build Include="repo\Functions\ftv_query_plan_extract_source.sql" />
-    <Build Include="repo\Functions\ftv_sqlparse.sql" />
-    <Build Include="repo\Functions\ftv_sqlparse_with_some_children.sql" />
     <Build Include="repo_sys\Stored Procedures\usp_dropextendedproperty_level_1.sql" />
     <Build Include="repo_sys\Stored Procedures\usp_AddOrUpdateExtendedProperty.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObject.sql" />
@@ -169,7 +165,6 @@
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObjectColumn.sql" />
     <Build Include="repo\Stored Procedures\usp_persistence_set.sql" />
     <Build Include="repo\Stored Procedures\usp_connect_database.sql" />
-    <Build Include="repo\Stored Procedures\usp_parameter_set.sql" />
     <Build Include="Security\sys_dwh.sql" />
     <Build Include="Security\repo_sys.sql" />
     <Build Include="Security\repo.sql" />
@@ -197,8 +192,6 @@
     <Build Include="sys_self\Stored Procedures\usp_dropextendedproperty_level_2.sql" />
     <Build Include="sys_self\Stored Procedures\usp_dropextendedproperty_level_1.sql" />
     <Build Include="Security\sys_self.sql" />
-    <Build Include="repo\Functions\ftv_sqlparse_IdentifierList__TestOnly.sql" />
-    <Build Include="repo\Functions\ftv_sqlparse_children_pivot.sql" />
     <Build Include="repo\Tables\RepoObjectSource_QueryPlan.sql" />
     <Build Include="repo\Tables\RepoObjectSource_FirstResultSet.sql" />
     <Build Include="repo\Views\RepoObject_gross.sql" />
@@ -217,7 +210,6 @@
     <Build Include="repo\Views\Index_SqlConstraint_PkUq.sql" />
     <Build Include="repo\Views\RepoObject_ColumnList.sql" />
     <Build Include="repo\Views\RepoObjectColumn_HistValidColums_setpoint.sql" />
-    <Build Include="repo\Functions\ftv_get_parameter_value.sql" />
     <Build Include="repo\Stored Procedures\usp_Index_virtual_set.sql" />
     <Build Include="repo\Tables\GeneratorUspStep.sql" />
     <Build Include="repo\Tables\GeneratorUspParameter.sql" />
@@ -452,6 +444,16 @@
     <Build Include="workflow\Tables\WorkflowStep.sql" />
     <Build Include="workflow\Views\ProcedureInstanceDependency_gross.sql" />
     <Build Include="Security\workflow.sql" />
+    <Build Include="config\Tables\Parameter.sql" />
+    <Build Include="config\Stored Procedures\usp_parameter_set.sql" />
+    <Build Include="config\Functions\fs_dwh_database_name.sql" />
+    <Build Include="config\Functions\fs_get_parameter_value.sql" />
+    <Build Include="config\Functions\ftv_dwh_database.sql" />
+    <Build Include="config\Functions\ftv_get_parameter_value.sql" />
+    <Build Include="sqlparse\Functions\ftv_sqlparse.sql" />
+    <Build Include="sqlparse\Functions\ftv_sqlparse_children_pivot.sql" />
+    <Build Include="sqlparse\Functions\ftv_sqlparse_IdentifierList__TestOnly.sql" />
+    <Build Include="sqlparse\Functions\ftv_sqlparse_with_some_children.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -71,7 +71,7 @@ Select
 --, [T3].[child4_children]
 From
     [sqlparse].RepoObject_SqlModules_24_IdentifierList_children                          As T1
-    Cross Apply repo.ftv_sqlparse_children_pivot ( T1.Identifier_source_children ) As T3;
+    Cross Apply [sqlparse].ftv_sqlparse_children_pivot ( T1.Identifier_source_children ) As T3;
 Go
 
 Execute sp_addextendedproperty
