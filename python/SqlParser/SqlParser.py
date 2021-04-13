@@ -127,7 +127,7 @@ def main():
         [RepoObject_guid]
         , [sql_modules_definition]
     FROM
-        [repo].[RepoObject_SqlModules_Repo_Sys]
+        [sqlparse].[RepoObject_SqlModules_Repo_Sys]
     WHERE
         is_outdated = 1
         AND sysobject_type = 'V'
@@ -179,9 +179,9 @@ def main():
             # # jsonStr = json.dumps(flattened)
             # sql_modules_json = jsonpickle.encode(flattened, keys=True, indent=1)
 
-            tsqldelete = "DELETE [repo].[RepoObject_SqlModules] WHERE RepoObject_guid = ?"
+            tsqldelete = "DELETE [sqlparse].[RepoObject_SqlModules] WHERE RepoObject_guid = ?"
             with cursor2.execute(tsqldelete, RepoObject_guid):
-                print('Successfully deleted: ' + RepoObject_guid)
+                print('deleted: ' + RepoObject_guid)
             tsqlinsert = """\
             INSERT INTO [sqlparse].[RepoObject_SqlModules]
             ([RepoObject_guid]
@@ -193,7 +193,7 @@ def main():
             (?, ?, ?, ?)
             """
             with cursor2.execute(tsqlinsert, RepoObject_guid, sql_modules_formatted, sql_modules_formatted2, sql_modules_json):
-                print('Successfully Inserted: ' + RepoObject_guid)
+                print('Inserted: ' + RepoObject_guid)
             # tsqlupdate = "UPDATE [repo].[RepoObject] SET sql_modules_formatted = ?, sql_modules_formatted2 = ?, sql_modules_json = ?, sql_modules_dt = getdate() WHERE RepoObject_guid = ?"
             # with cursor2.execute(tsqlupdate, sql_modules_formatted, sql_modules_formatted2, sql_modules_json, RepoObject_guid):
             #     print('Successfully Updated: ' + RepoObject_guid)
