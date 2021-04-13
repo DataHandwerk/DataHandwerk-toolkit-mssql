@@ -406,7 +406,6 @@
     <Build Include="docs\Views\AntoraTemplate_examples.sql" />
     <Build Include="repo\Views\RepoObjectColumn_RequiredRepoObjectColumnMerge.sql" />
     <Build Include="Security\sqlparse.sql" />
-    <Build Include="sqlparse\Views\test01.sql" />
     <Build Include="sqlparse\Tables\RepoObject_SqlModules.sql" />
     <Build Include="sqlparse\Views\RepoObject_SqlModules_Repo_Sys.sql" />
     <Build Include="sqlparse\Views\RepoObject_SqlModules_10_statement.sql" />
