@@ -16,7 +16,7 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-Create Procedure repo.usp_RepoObject_update_SysObjectQueryPlan
+CREATE Procedure [repo].[usp_RepoObject_update_SysObjectQueryPlan]
     -- some optional parameters, used for logging
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -46,6 +46,7 @@ Set @event_info =
 
 If @execution_instance_guid Is Null
     Set @execution_instance_guid = NewId ();
+
 --SET @rows = @@ROWCOUNT;
 Set @step_id = @step_id + 1;
 Set @step_name = N'start';
@@ -90,7 +91,7 @@ Declare
   , @SysObject_query_executed_dt DateTime
   , @select_into_query           As Varchar(4000);
 
-Declare view_cursor Cursor For
+Declare view_cursor Cursor Local Fast_Forward For
 --
 Select
     ro.RepoObject_guid
@@ -274,7 +275,6 @@ Begin
 End;
 
 Close view_cursor;
-
 Deallocate view_cursor;
 
 --

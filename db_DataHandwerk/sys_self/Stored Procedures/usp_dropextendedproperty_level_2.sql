@@ -5,7 +5,7 @@ EXEC [sys_self].usp_dropextendedproperty_level_2
 EXEC [sys_self].usp_dropextendedproperty_level_2
      @name = 'RepoObjectColumn_guid'
 */
-Create Procedure sys_self.usp_dropextendedproperty_level_2 @name Varchar(128)
+CREATE Procedure [sys_self].[usp_dropextendedproperty_level_2] @name Varchar(128)
 As
 Declare @DbName sysname = Db_Name ();
 
@@ -15,7 +15,7 @@ Declare @module_name_var_drop NVarchar(500) = QuoteName ( @DbName ) + N'.sys.sp_
 
 Print @module_name_var_drop;
 
-Declare delete_cursor Cursor Read_Only For
+Declare delete_cursor Cursor Local Fast_Forward For
 Select
     property_name
   , property_value

@@ -1,24 +1,21 @@
 ﻿
-
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
 - [repo].[GeneratorUspParameter]
 - [repo].[GeneratorUspStep]
 */
-Create View repo.GeneratorUsp_SqlUsp
+CREATE View [repo].[GeneratorUsp_SqlUsp]
 As
 Select
     u.id           As usp_id
   , SqlUsp         = Concat (
-                                --todo - maybe add use
                                 'USE  ['
-                              , repo.fs_dwh_database_name ()
+                              , dwhdb.dwh_database_name
                               , ']'
                               , Char ( 13 ) + Char ( 10 )
                               , 'GO'
                               , Char ( 13 ) + Char ( 10 )
-                                    --todo - maybe add description + example as comment
                               , 'CREATE OR ALTER PROCEDURE '
                               , u.usp_fullname
                               , Char ( 13 ) + Char ( 10 )
@@ -37,6 +34,7 @@ Select
 , @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
 , @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
 AS
+BEGIN
 DECLARE
  --
    @current_execution_log_id BIGINT --this variable should be filled only once per procedure call, it contains the first logging call for the step ''start''.
@@ -54,8 +52,9 @@ DECLARE
 --[event_info] get''s only the information about the "outer" calling process
 --wenn the procedure calls sub procedures, the [event_info] will not change
 SET @event_info = (
-  SELECT [event_info]
+  SELECT TOP 1 [event_info]
   FROM sys.dm_exec_input_buffer(@@spid, CURRENT_REQUEST_ID())
+  ORDER BY [event_info]
   )
 
 IF @execution_instance_guid IS NULL
@@ -134,6 +133,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @source_object = @source_object
  , @target_object = @target_object
 
+END
+
 GO
 '
                                 End --[u].[has_logging]
@@ -173,17 +174,18 @@ From
     Left Join
         repo.GeneratorUsp_ParameterList As ParameterList
             On
-            ParameterList.usp_id   = u.id
+            ParameterList.usp_id = u.id
 
     Left Join
         repo.GeneratorUsp_StepList      As StepList
             On
-            StepList.usp_id        = u.id
+            StepList.usp_id = u.id
 
     Left Join
         repo.RepoObject                 ro
             On
-            ro.RepoObject_fullname = u.usp_fullname;
+            ro.RepoObject_fullname = u.usp_fullname
+    Cross Join repo.ftv_dwh_database () As dwhdb;
 Go
 
 Execute sp_addextendedproperty
