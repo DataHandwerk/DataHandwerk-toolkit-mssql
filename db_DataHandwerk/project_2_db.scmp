@@ -158,7 +158,7 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreKeywordCasing</Name>
-        <Value>False</Value>
+        <Value>True</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnoreSemicolonBetweenStatements</Name>

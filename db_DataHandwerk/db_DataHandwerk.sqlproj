@@ -442,6 +442,7 @@
     <Build Include="logs\Stored Procedures\usp_ExecutionLog_insert.sql" />
     <Build Include="docs\Views\AntoraTemplate_examples.sql" />
     <Build Include="repo\Views\RepoObjectColumn_RequiredRepoObjectColumnMerge.sql" />
+    <Build Include="Security\sqlparse.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
