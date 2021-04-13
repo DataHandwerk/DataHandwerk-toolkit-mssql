@@ -131,7 +131,7 @@ From
             QueryPlan.RepoObject_guid           = ro.RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject_SqlModules_Repo_Sys As SqlModules
+        [sqlparse].RepoObject_SqlModules_Repo_Sys As SqlModules
             On
             SqlModules.RepoObject_guid          = ro.RepoObject_guid
 
