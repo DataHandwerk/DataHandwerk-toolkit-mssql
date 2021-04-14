@@ -221,7 +221,6 @@
     <Build Include="repo\Views\Index_referencing_IndexPatternColumnGuid.sql" />
     <Build Include="repo\Views\Index_unique_IndexPatternColumnGuid.sql" />
     <Build Include="repo\Tables\IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.sql" />
-    <Build Include="repo\Views\RepoObject_persistence_ForInput.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.sql" />
     <Build Include="graph\Tables\ReferencedObjectColumn.sql" />
     <Build Include="graph\Tables\ReferencingObjectColumn.sql" />
@@ -237,11 +236,6 @@
     <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObject.sql" />
     <Build Include="repo\Views\RepoObject_RequiredRepoObjectMerge.sql" />
     <Build Include="repo\Views\Match_RepoObject_referenced_UspPersistence.sql" />
-    <Build Include="graph\Tables\ReferencingProcedureInstance.sql" />
-    <Build Include="graph\Tables\ReferencedProcedureInstance.sql" />
-    <Build Include="graph\Tables\ProcedureInstance.sql" />
-    <Build Include="graph\Views\ProcedureInstance_S.sql" />
-    <Build Include="graph\Stored Procedures\usp_PERSIST_ProcedureInstance.sql" />
     <Build Include="repo\Views\RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
     <Build Include="repo\Views\RepoObjectColumnProperty_InheritanceType_InheritanceDefinition.sql" />
     <Build Include="repo\Views\RepoObjectProperty_InheritanceType_InheritanceDefinition.sql" />
@@ -427,11 +421,8 @@
     <Build Include="sqlparse\Tables\RepoObject_SqlModules_61_SelectIdentifier_Union_T.sql" />
     <Build Include="sqlparse\Stored Procedures\usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.sql" />
     <Build Include="sqlparse\Stored Procedures\usp_PERSIST_RepoObject_SqlModules_41_from_T.sql" />
-    <Build Include="workflow\Tables\ProcedureInstance.sql" />
     <Build Include="workflow\Tables\Workflow.sql" />
-    <Build Include="workflow\Tables\ProcedureInstanceDependency.sql" />
     <Build Include="workflow\Tables\WorkflowStep.sql" />
-    <Build Include="workflow\Views\ProcedureInstanceDependency_gross.sql" />
     <Build Include="Security\workflow.sql" />
     <Build Include="config\Tables\Parameter.sql" />
     <Build Include="config\Stored Procedures\usp_parameter_set.sql" />
@@ -459,6 +450,17 @@
     <Build Include="uspgenerator\Views\GeneratorUspStep_Persistence.sql" />
     <Build Include="uspgenerator\Views\GeneratorUspStep_Persistence_IsInactive_setpoint.sql" />
     <Build Include="uspgenerator\Views\GeneratorUspStep_Sql.sql" />
+    <Build Include="workflow\Tables\ProcedureDependency.sql" />
+    <Build Include="workflow\Views\ProcedureDependency_gross.sql" />
+    <Build Include="repo\Views\RepoObjectColumnProperty_ForUpdate.sql" />
+    <Build Include="repo\Views\RepoObject_ReferenceTree_referencing.sql" />
+    <Build Include="repo\Views\RepoObject_ReferenceTree_referenced.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_ForUpdate.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_30_0.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_0_30.sql" />
+    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_referencing.sql" />
+    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_referenced.sql" />
+    <Build Include="repo\Stored Procedures\usp_RepoObjectColumnProperty_set.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

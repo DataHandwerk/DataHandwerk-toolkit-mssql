@@ -1,17 +1,18 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 * default parameters for xref:sqldb:config.Parameter.adoc[]
 * content can be overwritten in xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
 <<property_end>>
 
-<<property_start>>example1
+<<property_start>>exampleUsage
 --merge this view into [config].[Parameter]:
 
 EXEC [config].[usp_init_parameter]
 <<property_end>>
 
-<<property_start>>example2
+<<property_start>>exampleUsage_2
 --delete from [config].[Parameter], what not is defined here in this view (Dangerous: possible data loss)
 --do not delete based on [sub_Parameter]!
 --they can always be added in [config].[Parameter]!
@@ -25,7 +26,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-Create View config.Parameter_default
+CREATE View [config].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -448,6 +449,20 @@ endif::ExistsProperty--AntoraReferencingList[]
 [plantuml, entity_1_1_objectref-{docname}, svg]
 ....
 include::partial$puml/entity_1_1_objectref/{docname}.puml[]
+....
+
+=== Object Reference Diagram 0 30
+
+[plantuml, entity_0_30_objectref-{docname}, svg]
+....
+include::partial$puml/entity_0_30_objectref/{docname}.puml[]
+....
+
+=== Object Reference Diagram 30 0
+
+[plantuml, entity_30_0_objectref-{docname}, svg]
+....
+include::partial$puml/entity_30_0_objectref/{docname}.puml[]
 ....
 
 ifdef::ExistsProperty--Columns[]

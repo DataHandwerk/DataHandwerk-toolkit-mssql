@@ -2,6 +2,8 @@
 @outputDir NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\ */
 ,@outputDir2 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_objectref\ */
 ,@outputDir3 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_fk\ */
+,@outputDir4 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_0_30_objectref\ */
+,@outputDir5 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_30_0_objectref\ */
 ,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
 ,@userName NVARCHAR(250) = 'loginName' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
 ,@password NVARCHAR(250) = 'password'
@@ -67,9 +69,11 @@ EXEC logs.usp_ExecutionLog_insert
  , @parameter_01 = @outputDir
  , @parameter_02 = @outputDir2
  , @parameter_03 = @outputDir3
- , @parameter_04 = @isTrustedConnection
- , @parameter_05 = @userName
- , @parameter_06 = @password
+ , @parameter_04 = @outputDir4
+ , @parameter_05 = @outputDir5
+ , @parameter_06 = @isTrustedConnection
+ , @parameter_07 = @userName
+ , @parameter_08 = @password
 --
 PRINT '[docs].[usp_AntoraExport_ObjectPuml]'
 --keep the code between logging parameters and "START" unchanged!
@@ -90,7 +94,7 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
-/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDir, outputDir2, outputDir3","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDir, outputDir2, outputDir3, outputDir4, outputDir5","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
@@ -102,6 +106,13 @@ SET @outputDir2 = ISNULL(@outputDir2, (
 SET @outputDir3 = ISNULL(@outputDir3, (
    SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
    ) + 'partials\puml\entity_1_1_fk\')
+SET @outputDir4 = ISNULL(@outputDir4, (
+   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   ) + 'partials\puml\entity_0_30_objectref\')
+SET @outputDir5 = ISNULL(@outputDir5, (
+   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   ) + 'partials\puml\entity_30_0_objectref\')
+   
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',210,';',NULL);
@@ -151,7 +162,7 @@ EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ColRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ColRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml_T]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',410,';',NULL);
 
 DECLARE db_cursor CURSOR Local Fast_Forward
@@ -172,7 +183,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- SET @command = 'bcp "SELECT [PlantumlEntity_1_1_ColRef] FROM [docs].[RepoObject_Plantuml] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
+ SET @command = 'bcp "SELECT [PlantumlEntity_1_1_ColRef] FROM [docs].[RepoObject_Plantuml_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
   --
   + @Object_fullname2
   --
@@ -207,7 +218,7 @@ DEALLOCATE db_cursor
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ColRef]'
-SET @source_object = '[docs].[RepoObject_Plantuml]'
+SET @source_object = '[docs].[RepoObject_Plantuml_T]'
 SET @target_object = NULL
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -227,7 +238,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":420,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ObjectRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":420,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ObjectRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml_T]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',420,';',NULL);
 
 DECLARE db_cursor CURSOR Local Fast_Forward
@@ -248,7 +259,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- SET @command = 'bcp "SELECT [PlantumlEntity_1_1_ObjectRef] FROM [docs].[RepoObject_Plantuml] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
+ SET @command = 'bcp "SELECT [PlantumlEntity_1_1_ObjectRef] FROM [docs].[RepoObject_Plantuml_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
   --
   + @Object_fullname2
   --
@@ -283,7 +294,7 @@ DEALLOCATE db_cursor
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ObjectRef]'
-SET @source_object = '[docs].[RepoObject_Plantuml]'
+SET @source_object = '[docs].[RepoObject_Plantuml_T]'
 SET @target_object = NULL
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -303,7 +314,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":430,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_FkRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":430,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_FkRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml_T]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',430,';',NULL);
 
 DECLARE db_cursor CURSOR Local Fast_Forward
@@ -324,7 +335,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- SET @command = 'bcp "SELECT [PlantumlEntity_1_1_FkRef] FROM [docs].[RepoObject_Plantuml] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
+ SET @command = 'bcp "SELECT [PlantumlEntity_1_1_FkRef] FROM [docs].[RepoObject_Plantuml_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
   --
   + @Object_fullname2
   --
@@ -359,7 +370,159 @@ DEALLOCATE db_cursor
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_FkRef]'
-SET @source_object = '[docs].[RepoObject_Plantuml]'
+SET @source_object = '[docs].[RepoObject_Plantuml_T]'
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":440,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_0_30_ObjectRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml_T]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',440,';',NULL);
+
+DECLARE db_cursor CURSOR Local Fast_Forward
+FOR
+SELECT RepoObject_fullname
+ , RepoObject_fullname2
+FROM docs.[RepoObject_OutputFilter]
+ORDER BY RepoObject_fullname
+
+OPEN db_cursor
+
+FETCH NEXT
+FROM db_cursor
+INTO @Object_fullname
+ , @Object_fullname2
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+ --Dynamically construct the BCP command
+ --
+ SET @command = 'bcp "SELECT [PlantumlEntity_0_30_ObjectRef] FROM [docs].[RepoObject_Plantuml_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
+  --
+  + @Object_fullname2
+  --
+  + '''" queryout ' + @outputDir4 + @Object_fullname2 + '.puml'
+  --
+  + ' -S ' + @instanceName
+  --
+  + ' -d ' + @databaseName
+  --
+  + ' -c'
+  --
+  + @TrustedUserPassword
+
+ PRINT @command
+
+ --Execute the BCP command
+ EXEC xp_cmdshell @command
+  , no_output
+
+ FETCH NEXT
+ FROM db_cursor
+ INTO @Object_fullname
+  , @Object_fullname2
+END
+
+CLOSE db_cursor
+
+DEALLOCATE db_cursor
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_0_30_ObjectRef]'
+SET @source_object = '[docs].[RepoObject_Plantuml_T]'
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":450,"Name":"export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_30_0_ObjectRef]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_Plantuml_T]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',450,';',NULL);
+
+DECLARE db_cursor CURSOR Local Fast_Forward
+FOR
+SELECT RepoObject_fullname
+ , RepoObject_fullname2
+FROM docs.[RepoObject_OutputFilter]
+ORDER BY RepoObject_fullname
+
+OPEN db_cursor
+
+FETCH NEXT
+FROM db_cursor
+INTO @Object_fullname
+ , @Object_fullname2
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+ --Dynamically construct the BCP command
+ --
+ SET @command = 'bcp "SELECT [PlantumlEntity_30_0_ObjectRef] FROM [docs].[RepoObject_Plantuml_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
+  --
+  + @Object_fullname2
+  --
+  + '''" queryout ' + @outputDir5 + @Object_fullname2 + '.puml'
+  --
+  + ' -S ' + @instanceName
+  --
+  + ' -d ' + @databaseName
+  --
+  + ' -c'
+  --
+  + @TrustedUserPassword
+
+ PRINT @command
+
+ --Execute the BCP command
+ EXEC xp_cmdshell @command
+  , no_output
+
+ FETCH NEXT
+ FROM db_cursor
+ INTO @Object_fullname
+  , @Object_fullname2
+END
+
+CLOSE db_cursor
+
+DEALLOCATE db_cursor
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_30_0_ObjectRef]'
+SET @source_object = '[docs].[RepoObject_Plantuml_T]'
 SET @target_object = NULL
 
 EXEC logs.usp_ExecutionLog_insert 

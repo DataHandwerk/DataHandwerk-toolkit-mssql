@@ -823,55 +823,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":4110,"Name":"MERGE INTO [repo].[ProcedureInstance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[ProcedureInstance]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',4110,';',NULL);
-
-MERGE INTO [workflow].[ProcedureInstance] AS T
-USING (
- SELECT [RepoObject_guid] AS [Procedure_RepoObject_guid]
-  , '' AS [Instance]
- FROM [repo].[RepoObject]
- WHERE [RepoObject_type] = 'P'
- ) AS S
- ON T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
-  AND T.[Instance] = S.[Instance]
-WHEN NOT MATCHED BY TARGET
- THEN
-  INSERT (
-   [Procedure_RepoObject_guid]
-   , [Instance]
-   )
-  VALUES (
-   S.[Procedure_RepoObject_guid]
-   , S.[Instance]
-   )
-   --DELETE not required, FK is ON DELETE CASCADE
-   ;
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'MERGE INTO [repo].[ProcedureInstance]'
-SET @source_object = '[repo].[RepoObject]'
-SET @target_object = '[repo].[ProcedureInstance]'
-
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
-
 /*{"ReportUspStep":[{"Number":5200,"Name":"[graph].[usp_PERSIST_RepoObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [graph].[usp_PERSIST_RepoObject]
 --add your own parameters
@@ -918,16 +869,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 -- Logging END --
-
-/*{"ReportUspStep":[{"Number":5220,"Name":"[graph].[usp_PERSIST_ProcedureInstance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [graph].[usp_PERSIST_ProcedureInstance]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
 
 --
 --finish your own code here

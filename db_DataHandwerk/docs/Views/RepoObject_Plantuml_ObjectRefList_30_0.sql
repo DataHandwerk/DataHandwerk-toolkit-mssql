@@ -1,5 +1,5 @@
 ﻿
-CREATE View docs.RepoObject_Plantuml_ObjectRefList
+Create View docs.RepoObject_Plantuml_ObjectRefList_30_0
 As
 Select
     ro.RepoObject_guid
@@ -22,9 +22,9 @@ From
       , T1.Node_guid As Node_guid_1
       , T2.Node_guid As Node_guid_2
     From
-        repo.RepoObject                                                                    As ro
-        Cross Apply repo.ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T1
-        Cross Apply repo.ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T2
+        repo.RepoObject                                                                     As ro
+        Cross Apply repo.ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 30, 0 ) As T1
+        Cross Apply repo.ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 30, 0 ) As T2
 )     ro
     Inner Join
     (
@@ -47,45 +47,18 @@ Group By
     ro.RepoObject_guid
   , ro.RepoObject_fullname2;
 --ORDER BY ro.RepoObject_fullname2
-Go
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e926ab1d-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_30_0', @level2type = N'COLUMN', @level2name = N'ObjectRefList';
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'fe0b29c2-e595-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'docs'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ObjectRefList'
-  , @level2type = N'COLUMN'
-  , @level2name = N'ObjectRefList';
-Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'fd0b29c2-e595-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'docs'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ObjectRefList'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_fullname2';
-Go
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e826ab1d-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_30_0', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'fc0b29c2-e595-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'docs'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ObjectRefList'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
-Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObject_guid'
-  , @value = 'f30b29c2-e595-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'docs'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ObjectRefList';
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e726ab1d-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_30_0', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b2c70217-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_30_0';
+

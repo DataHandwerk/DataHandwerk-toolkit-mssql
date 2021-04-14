@@ -1,16 +1,36 @@
-﻿Create View repo.Match_RepoObject_referenced_UspPersistence
+﻿
+/*
+<<property_start>>MS_Description
+* detects references between persistence procedures
+* uses referenced stored in xref:sqldb:graph.ReferencedObject.adoc[]
+* to get only relations between persistence tables the result set is limited:
++
+[source,sql]
+------
+Where
+    ro1.[is_persistence]     = 1
+    And ro2.[is_persistence] = 1;
+------
+* FirstNode and LastNode are the persistence tables
+* First_usp_persistence and Last_usp_persistence are the related persistence proccedures +
+each persistence table has a related persistence procedure
+<<property_end>>
+
+*/
+CREATE View repo.Match_RepoObject_referenced_UspPersistence
 As
 Select
-    -- 
-    Q.FirstNode
+    ro1.usp_persistence_name            As First_usp_persistence_name
+  , ro1.usp_persistence_RepoObject_guid As First_usp_persistence_RepoObject_guid
+  , ro2.usp_persistence_name            As Last_usp_persistence_name
+  , ro2.usp_persistence_RepoObject_guid As Last_usp_persistence_RepoObject_guid
+  , Q.FirstNode
+  , ro1.RepoObject_schema_name          As FirstNode_schema_name
   , Q.FirstNodeName
   , Q.LastNode
+  , ro2.RepoObject_schema_name          As LastNode_schema_name
   , Q.LastNodeName
   , Q.ListNodeName
-  , ro1.usp_persistence_RepoObject_guid As First_usp_persistence_RepoObject_guid
-  , ro2.usp_persistence_RepoObject_guid As Last_usp_persistence_RepoObject_guid
-  , ro1.usp_persistence_name            As First_usp_persistence_name
-  , ro2.usp_persistence_name            As Last_usp_persistence_name
 From
 (
     Select
@@ -150,3 +170,9 @@ Execute sp_addextendedproperty
   , @level1type = N'VIEW'
   , @level1name = N'Match_RepoObject_referenced_UspPersistence';
 Go
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '54514649-189d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'LastNode_schema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '53514649-189d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'FirstNode_schema_name';
+

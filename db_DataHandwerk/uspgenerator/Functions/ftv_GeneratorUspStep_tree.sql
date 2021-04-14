@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* xref:sqldb:repo.GeneratorUspStep.adoc[] has a parent child structure.
+* xref:sqldb:uspgenerator.GeneratorUspStep.adoc[] has a parent child structure.
 Here in this function we try to get the numbers in the right order.
 * It is not perfect if the tree is to deep and some "deep" numbers are lower.
 ** check the result per [usp_id]
@@ -18,8 +18,8 @@ Here in this function we try to get the numbers in the right order.
 
 SELECT u.*
  , t.*
-FROM [repo].[GeneratorUsp] u
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) t
+FROM [uspgenerator].[GeneratorUsp] u
+CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_tree]([id], NULL) t
 ORDER BY [u].id
  , t.[RowNumber_PerUsp]
 <<property_end>>
@@ -63,8 +63,8 @@ SELECT [s].[usp_id]
 --, [t].[Parent_Number]
 --, [t].[Parent_Sort]
 --, [t].[Sort]
-FROM [repo].[GeneratorUspStep] AS s
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
+FROM [uspgenerator].[GeneratorUspStep] AS s
+CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
 WHERE [s].[is_condition] = 1
 ORDER BY [s].[usp_id]
  , [Condition_Number]
@@ -83,8 +83,8 @@ SELECT [s].[usp_id]
  , required_Begin_count = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
  , required_End_count = sum(iif([t].[Desc_PerParentChild] = 1, 1, 0))
  , [is_required_ELSE] = MAX([t].[is_required_ELSE])
-FROM [repo].[GeneratorUspStep] AS s
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
+FROM [uspgenerator].[GeneratorUspStep] AS s
+CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
 WHERE [s].[is_condition] = 1
 GROUP BY [s].[usp_id]
  , [t].[Number]
@@ -113,16 +113,16 @@ SELECT [u].[id]
  , [BeginEnd].[required_Begin_count]
  , [BeginEnd].[required_End_count]
  , [BeginEnd].[is_required_ELSE]
-FROM [repo].[GeneratorUsp] AS u
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
+FROM [uspgenerator].[GeneratorUsp] AS u
+CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
 LEFT JOIN (
  SELECT [s].[usp_id]
   , [t].[Number]
   , [required_Begin_count] = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
   , [required_End_count] = SUM(IIF([t].[Desc_PerParentChild] = 1, 1, 0))
   , [is_required_ELSE] = MAX([t].[is_required_ELSE])
- FROM [repo].[GeneratorUspStep] AS s
- CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
+ FROM [uspgenerator].[GeneratorUspStep] AS s
+ CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
  WHERE [s].[is_condition] = 1
  GROUP BY [s].[usp_id]
   , [t].[Number]
@@ -132,7 +132,7 @@ LEFT JOIN (
 ORDER BY [u].[id]
  , [t].[RowNumber_PerUsp]
 
---and finaly use [repo].[ftv_GeneratorUspStep_sql] to create the statement per step
+--and finaly use [uspgenerator].[ftv_GeneratorUspStep_sql] to create the statement per step
 
 SELECT [u].[id]
  , [t].[Number]
@@ -153,29 +153,29 @@ SELECT [u].[id]
  --, [t].[Asc_PerParentChild]
  --, [t].[Desc_PerParentChild]
  , sql.SqlStep
-FROM [repo].[GeneratorUsp] AS u
-CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
+FROM [uspgenerator].[GeneratorUsp] AS u
+CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_tree]([id], NULL) AS t
 LEFT JOIN (
  SELECT [s].[usp_id]
   , [t].[Number]
   , [required_Begin_count] = SUM(IIF([t].[Asc_PerParentChild] = 1, 1, 0))
   , [required_End_count] = SUM(IIF([t].[Desc_PerParentChild] = 1, 1, 0))
   , [is_required_ELSE] = MAX([t].[is_required_ELSE])
- FROM [repo].[GeneratorUspStep] AS s
- CROSS APPLY [repo].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
+ FROM [uspgenerator].[GeneratorUspStep] AS s
+ CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_tree]([usp_id], [Number]) AS t
  WHERE [s].[is_condition] = 1
  GROUP BY [s].[usp_id]
   , [t].[Number]
  ) AS BeginEnd
  ON BeginEnd.usp_id = u.id
   AND BeginEnd.Number = t.Number
-CROSS APPLY [repo].[ftv_GeneratorUspStep_sql]([u].[id], [t].[Number], [u].[has_logging], [BeginEnd].[required_Begin_count], [BeginEnd].[required_End_count], [BeginEnd].[is_required_ELSE]) sql
+CROSS APPLY [uspgenerator].[ftv_GeneratorUspStep_sql]([u].[id], [t].[Number], [u].[has_logging], [BeginEnd].[required_Begin_count], [BeginEnd].[required_End_count], [BeginEnd].[is_required_ELSE]) sql
 ORDER BY [u].[id]
  , [t].[RowNumber_PerUsp]
 
 
 */
-Create Function [uspgenerator].ftv_GeneratorUspStep_tree
+CREATE Function [uspgenerator].[ftv_GeneratorUspStep_tree]
 (
     @usp_id        Int
   , @Parent_Number Int
