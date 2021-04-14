@@ -1,4 +1,5 @@
-﻿Create View repo.RepoObject_ReferenceTree
+﻿--bad performance
+CREATE View [repo].[RepoObject_ReferenceTree]
 As
 Select
     tree.*

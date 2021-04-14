@@ -102,7 +102,7 @@ SET @outputDirPageNav = ISNULL(@outputDirPageNav, (
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',210,';',NULL);
 
 DECLARE @schema_name NVARCHAR(128)
-DECLARE @type CHAR(2)
+DECLARE @type varchar(2)
 DECLARE @command NVARCHAR(4000)
 
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_schema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_schema]","log_flag_InsertUpdateDelete":"u"}]}*/

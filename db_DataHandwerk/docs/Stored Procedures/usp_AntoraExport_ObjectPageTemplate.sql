@@ -126,9 +126,9 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- --bcp "SELECT [repo].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\master-page-1.adoc -S localhost\sql2019 -d dhw_self -c -T
+ --bcp "SELECT [config].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\master-page-1.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @BaseFileName + @sub_parameter + '.adoc'
+ SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @BaseFileName + @sub_parameter + '.adoc'
   --
   + ' -S ' + @instanceName
   --

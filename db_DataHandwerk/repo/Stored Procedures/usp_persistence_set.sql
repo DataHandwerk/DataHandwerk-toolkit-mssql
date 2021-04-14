@@ -12,47 +12,43 @@ create or update code (table and procedure) for persistence
 
 TIP: see details for usage in xref:manual:persistence-generator.adoc[]
 
-possible usage:
-
-* source NULL, persistence target NULL
-** error
-* source NOT NULL, persistence target NULL
-** create new persistence
-* source not NULL, persistence target not NULL
-** insert or update xref:sqldb:repo.RepoObject_persistence.adoc[]
-** RepoObject (2 cases)
-*** update existing RepoObject which should be a table and will be marked as persistence
-*** create new RepoObject which will be a table and will be marked as persistence
-
-persistence source:
-
-* uses @source_RepoObject_guid, if not empty
-* tries to get @source_RepoObject_guid from @source_fullname
+[NOTE]
+.How does it work:
+--
+* insert or update xref:sqldb:repo.RepoObject_persistence.adoc[]
+** update existing RepoObject which should be a table and will be marked as persistence
+** create new RepoObject which will be a table and will be marked as persistence
+* persistence source
+** uses @source_RepoObject_guid, if not empty
+** tries to get @source_RepoObject_guid from @source_fullname
+* persistence target
+** if the persistene *target table* is not defined, defaults are used:
+*** same schema as persistence source
+*** name of persistence source + suffix (`FROM [repo].[Parameter] WHERE [Parameter_name] = 'persistence_name_suffix'`)
+** persistence target not NULL
+*** use the given persistence targe
+* persistence source NULL, persistence target NULL
+** => error
+--
 
 [NOTE]
-.pesistence naming
+.pesistence procedure naming
 --
-if the persistene *target table* is not defined, defaults are used:
-
-* same schema as persistence source
-* name of persistence source + suffix (`FROM [repo].[Parameter] WHERE [Parameter_name] = 'persistence_name_suffix'`)
-
 the default name for the *persistence procedure* is
 
 * 'persistence target schema'.'usp_PERSIST_' + 'persistence target name'
 +
 [source,sql]
 ------
-[dbo].[usp_PERSIST_view_1_T]
+[SchemaName].[usp_PERSIST_SourceViewName_T]
 ------
-
 --
 
 [NOTE]
 --
 after executing xref:sqldb:repo.usp_persistence_set.adoc[] you need
 
-* `EXEC repo.usp_main`
+* EXEC xref:sqldb:repo.usp_main.adoc[]
 * check and update attributes in xref:sqldb:repo.RepoObject_persistence.adoc[]
 * physically create the persistence table (the procedure xref:sqldb:repo.usp_persistence_set.adoc[] will only create the code)
 +
@@ -75,15 +71,15 @@ ORDER BY
     [RepoObject_fullname];
 ------
 ** Use the sql statement in column [SqlCreateTable] to create the table
-* get the usp code in xref:sqldb:repo.GeneratorUsp_SqlUsp.adoc[] and execute it
+* get the usp code in xref:sqldb:uspgenerator.GeneratorUsp_SqlUsp.adoc[] and execute it
 --
 <<property_end>>
 
-<<property_start>>example1
---create new default persistence [dbo].[view_1_T], 
+<<property_start>>exampleUsage
+--create new default persistence [SchemaName].[SourceViewName_T], 
 --using default properties, defined in [repo].[RepoObject_persistence]
 
-EXEC repo.[usp_persistence_set] @source_fullname = '[dbo].[view_1]';
+EXEC repo.[usp_persistence_set] @source_fullname = '[SchemaName].[SourceViewName]';
 
 EXEC repo.usp_main
 
@@ -96,7 +92,7 @@ SELECT
 FROM
     [repo].[RepoObject_SqlCreateTable]
 WHERE
-    [RepoObject_fullname] = '[dbo].[view_1_T]';
+    [RepoObject_fullname] = '[SchemaName].[SourceViewName_T]';
 
 --Execute the code from column [SqlCreateTable]
 
@@ -109,16 +105,16 @@ SELECT
   , [usp_name]
   , [usp_schema]
 FROM
-    [repo].[GeneratorUsp_SqlUsp];
+    [uspgenerator].[GeneratorUsp_SqlUsp];
 
 -- execute the code from column [SqlUsp]
 
 --try to execute the generated procedure
 
-EXEC [dbo].[usp_PERSIST_view_1_T];
+EXEC [SchemaName].[usp_PERSIST_SourceViewName_T];
 <<property_end>>
 
-<<property_start>>example2
+<<property_start>>exampleUsage_2
 --mark an existing table as persistence of a source
 --or update persistence properties
 --  if the entry already exists in [repo].[RepoObject_persistence]
@@ -137,7 +133,7 @@ SET @source_RepoObject_guid =
     FROM
         [repo].[RepoObject]
     WHERE
-        [SysObject_fullname] = '[dbo].[view_1]'
+        [SysObject_fullname] = '[SchemaName].[SourceViewName]'
 );
 
 PRINT @source_RepoObject_guid;
@@ -149,7 +145,7 @@ SET @persistence_RepoObject_guid =
     FROM
         [repo].[RepoObject]
     WHERE
-        [RepoObject_fullname] = '[dbo].[view_1_T]'
+        [RepoObject_fullname] = '[SchemaName].[SourceViewName_T]'
 );
 
 PRINT @persistence_RepoObject_guid;
@@ -157,59 +153,18 @@ PRINT @persistence_RepoObject_guid;
 EXEC repo.[usp_persistence_set]
     @source_RepoObject_guid = @source_RepoObject_guid
   , @persistence_RepoObject_guid = @persistence_RepoObject_guid
-  , @has_history = 1;
-<<property_end>>
-
-<<property_start>>example3
-DECLARE @persistence_RepoObject_guid UNIQUEIDENTIFIER;
-
-SET @persistence_RepoObject_guid =
-(
-    SELECT
-        [RepoObject_guid]
-    FROM
-        [repo].[RepoObject]
-    WHERE
-        [RepoObject_fullname] = '[graph].[Index]'
-);
-
-PRINT @persistence_RepoObject_guid;
-
-EXEC repo.[usp_persistence_set]
-    @source_fullname = '[graph].[Index_S]'
-  , @persistence_RepoObject_guid = @persistence_RepoObject_guid
-  , @is_persistence_check_for_empty_source = 1
-  , @is_persistence_truncate = 1
-  , @is_persistence_insert = 1;
-<<property_end>>
-
-<<property_start>>example4
---set some persistence properties
-
-DECLARE
-    @return_value                int
-  , @persistence_RepoObject_guid uniqueidentifier;
-
-EXEC @return_value = [repo].[usp_persistence_set]
-    @source_fullname = N'[graph].[RepoObjectColumn_S]'
-  , @persistence_RepoObject_guid = @persistence_RepoObject_guid OUTPUT
-  , @persistence_table_name = N'RepoObjectColumn'
+  , @has_history = 1 --this will create a temporal table, a table with history
   , @is_persistence_check_for_empty_source = 1
   , @is_persistence_truncate = 0
   , @is_persistence_delete_missing = 1
   , @is_persistence_delete_changed = 0
   , @is_persistence_update_changed = 1
   , @is_persistence_insert = 1;
-
-SELECT
-    @persistence_RepoObject_guid as N'@persistence_RepoObject_guid';
-
-SELECT
-    'Return Value' = @return_value;
 <<property_end>>
 
 <<property_start>>exampleWrong_Usage
 ---this will NOT work, because there is no @persistence_schema_name
+---(it is  not implemented)
 
 EXEC repo.[usp_persistence_set]
     --
@@ -220,7 +175,7 @@ EXEC repo.[usp_persistence_set]
   , @is_persistence_insert = 1;
 <<property_end>>
 */
-Create Procedure repo.usp_persistence_set
+CREATE Procedure [repo].[usp_persistence_set]
     @source_RepoObject_guid                UniqueIdentifier = Null        --
   , @source_fullname                       NVarchar(261)    = Null        --it is possible to use @source_RepoObject_guid OR @source_fullname; use: "[schema].[object_name]"
   , @persistence_RepoObject_guid           UniqueIdentifier = Null Output --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created, don't use brackts: "object_name_T"
@@ -235,7 +190,7 @@ Create Procedure repo.usp_persistence_set
   , @has_history                           Bit              = Null
   , @history_schema_name                   NVarchar(128)    = Null
   , @history_table_name                    NVarchar(128)    = Null
-                                                                          --todo:
+                                                                          --todo
                                                                           --think about an additional parameter
                                                                           --@is_remove_target_column_not_in_source
                                                                           --don't remove: persistence columns, calculated columns
@@ -274,6 +229,7 @@ Set @event_info =
 
 If @execution_instance_guid Is Null
     Set @execution_instance_guid = NewId ();
+
 --SET @rows = @@ROWCOUNT;
 Set @step_id = @step_id + 1;
 Set @step_name = N'start';
@@ -326,11 +282,13 @@ Exec logs.usp_ExecutionLog_insert
 ----START
 --
 Declare @info_01_message NVarchar(1000);
+
 --this table is used for OUTPUT to get the new assigned [RepoObject_guid] when inserting new values
 Declare @table Table
 (
     guid UniqueIdentifier
 );
+
 Declare
     @source_schema_name      NVarchar(128)
   , @source_table_name       NVarchar(128)
@@ -431,7 +389,9 @@ Begin
         --RETURN 3
         Throw 51003, @info_01_message, 1;
     End; --IF @source_RepoObject_guid IS NULL
-End; --IF NOT @persistence_RepoObject_guid IS NULL IF NOT @persistence_RepoObject_guid IS NULL AND @source_RepoObject_guid IS NULL 
+End;
+
+--IF NOT @persistence_RepoObject_guid IS NULL IF NOT @persistence_RepoObject_guid IS NULL AND @source_RepoObject_guid IS NULL 
 
 --now @source_RepoObject_guid should not be NULL, because it was assigned before
 If Not @source_RepoObject_guid Is Null
@@ -491,7 +451,9 @@ Begin
 
         --RETURN 4
         Throw 51004, @info_01_message, 1;
-    End; --IF @source_schema_name IS NULL
+    End;
+
+    --IF @source_schema_name IS NULL
 
     --insert new entry for persistence table into [repo].[RepoObject]
     --@source_schema_name is used also as @persistence_schema_name
@@ -595,7 +557,9 @@ Begin
             Select guid From @table
         );
     End; --IF Persistence Table exists
-End; --IF NOT @source_RepoObject_guid IS NULL AND @persistence_RepoObject_guid IS NULL
+End;
+
+--IF NOT @source_RepoObject_guid IS NULL AND @persistence_RepoObject_guid IS NULL
 
 --now both @source_RepoObject_guid and @persistence_RepoObject_guid should be not empty and exists in [repo].[RepoObject]
 --check this to be sure

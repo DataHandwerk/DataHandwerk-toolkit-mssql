@@ -104,20 +104,28 @@ INSERT INTO
   [RepoObject_guid]
 , [ColRefList]
 , [ObjectRefList]
+, [PlantumlEntity_0_30_ObjectRef]
 , [PlantumlEntity_1_1_ColRef]
 , [PlantumlEntity_1_1_FkRef]
 , [PlantumlEntity_1_1_ObjectRef]
+, [PlantumlEntity_30_0_ObjectRef]
 , [PumlEntityList]
+, [PumlEntityList_0_30]
+, [PumlEntityList_30_0]
 , [RepoObject_fullname2]
 )
 SELECT
   [RepoObject_guid]
 , [ColRefList]
 , [ObjectRefList]
+, [PlantumlEntity_0_30_ObjectRef]
 , [PlantumlEntity_1_1_ColRef]
 , [PlantumlEntity_1_1_FkRef]
 , [PlantumlEntity_1_1_ObjectRef]
+, [PlantumlEntity_30_0_ObjectRef]
 , [PumlEntityList]
+, [PumlEntityList_0_30]
+, [PumlEntityList_30_0]
 , [RepoObject_fullname2]
 
 FROM [docs].[RepoObject_Plantuml] AS S

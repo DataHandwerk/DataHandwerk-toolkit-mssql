@@ -1,10 +1,11 @@
 ﻿
+
 /*
 alternative columns sort order for documentation:
 - PK
 - columns by name
 */
-Create View docs.RepoObject_ColumnList
+CREATE View [docs].[RepoObject_ColumnList]
 As
 Select
     roc.RepoObject_guid
@@ -62,11 +63,11 @@ Select
                                                                    Concat (
                                                                               '.Description'
                                                                             , Char ( 13 ) + Char ( 10 )
-                                                                            , '....'
+                                                                            , '--'
                                                                             , Char ( 13 ) + Char ( 10 )
                                                                             , roc.Property_ms_description
                                                                             , Char ( 13 ) + Char ( 10 )
-                                                                            , '....'
+                                                                            , '--'
                                                                             , Char ( 13 ) + Char ( 10 )
                                                                             , Char ( 13 ) + Char ( 10 )
                                                                           )

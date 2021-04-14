@@ -1288,6 +1288,52 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":2220,"Name":"DELETE from [repo].[IndexColumn_virtual] invalid columns","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[IndexColumn_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2220,';',NULL);
+
+/*
+can't create FK on DELETE CASCADE, we will delete separately
+*/
+Delete
+icv
+From
+    repo.IndexColumn_virtual icv
+Where
+    Not Exists
+(
+    Select
+        1
+    From
+        repo.RepoObjectColumn roc
+    Where
+        roc.RepoObjectColumn_guid = icv.RepoObjectColumn_guid
+);
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'DELETE from [repo].[IndexColumn_virtual] invalid columns'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo].[IndexColumn_virtual]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":5200,"Name":"[graph].[usp_PERSIST_RepoObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [graph].[usp_PERSIST_RepoObjectColumn]
 --add your own parameters
