@@ -5,7 +5,7 @@ Select
     --
     property_name
 From
-    repo.RepoObjectColumnProperty
+    [property].RepoObjectColumnProperty
 Union
 Select
     Distinct

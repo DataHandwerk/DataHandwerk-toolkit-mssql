@@ -34,7 +34,7 @@ From
     repo.RepoObjectColumn                         As roc
     Cross Join repo.PropertyName_RepoObjectColumn As pn
     Left Join
-        repo.RepoObjectColumnProperty As rocp
+        [property].RepoObjectColumnProperty As rocp
             On
             rocp.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid
             And rocp.property_name        = pn.property_name

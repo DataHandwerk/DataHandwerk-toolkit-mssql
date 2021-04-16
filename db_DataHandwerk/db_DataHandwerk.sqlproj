@@ -126,9 +126,7 @@
     <Build Include="repo\Tables\RepoObject.sql" />
     <Build Include="repo\Tables\Index_Settings.sql" />
     <Build Include="repo\Tables\RepoObject_persistence.sql" />
-    <Build Include="repo\Tables\RepoObjectColumnProperty.sql" />
     <Build Include="repo\Tables\RepoObjectColumn.sql" />
-    <Build Include="repo\Tables\RepoObjectProperty.sql" />
     <Build Include="repo_sys\Views\IndexColumn_unique.sql" />
     <Build Include="repo_sys\Views\Index_unique.sql" />
     <Build Include="repo_sys\Views\ColumnReference.sql" />
@@ -469,6 +467,8 @@
     <Build Include="repo\Views\RepoObjectProperty_Collect_source_sql_modules_definition.sql" />
     <Build Include="repo\Views\RepoObjectProperty_Collect_source_ROGross.sql" />
     <Build Include="Security\property.sql" />
+    <Build Include="property\Tables\RepoObjectProperty.sql" />
+    <Build Include="property\Tables\RepoObjectColumnProperty.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

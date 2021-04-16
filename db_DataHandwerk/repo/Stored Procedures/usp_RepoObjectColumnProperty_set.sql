@@ -108,7 +108,7 @@ Begin
         Throw 51002, @step_name, 1;
     End;
 
-    Merge [repo].[RepoObjectColumnProperty] T
+    Merge [property].[RepoObjectColumnProperty] T
     Using
     (
         Select

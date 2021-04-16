@@ -230,7 +230,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                     --T.[property_value] can't be NULL
                     --not [property_value_new] IS NULL 
                     --we need to delete, when S.[property_value_new] IS NULL
-                    Merge Into repo.RepoObjectColumnProperty As T
+                    Merge Into [property].RepoObjectColumnProperty As T
                     Using
                     (
                         Select
@@ -300,7 +300,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                 End;
                 Else
                 Begin
-                    Merge Into repo.RepoObjectColumnProperty As T
+                    Merge Into [property].RepoObjectColumnProperty As T
                     Using
                     (
                         Select

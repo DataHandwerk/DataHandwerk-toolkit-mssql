@@ -26,7 +26,7 @@ From
             And ses.property_name      <> 'RepoObjectColumn_guid'
 
     Left Join
-        repo.RepoObjectColumnProperty As link
+        [property].RepoObjectColumnProperty As link
             On
             roc.RepoObjectColumn_guid  = link.RepoObjectColumn_guid
             And ses.property_name      = link.property_name;
