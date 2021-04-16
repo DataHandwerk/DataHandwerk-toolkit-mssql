@@ -122,10 +122,14 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',10,';',600,';',NULL);
 UPDATE T
 SET
   T.[RepoObject_fullname] = S.[RepoObject_fullname]
+, T.[RepoObject_fullname2] = S.[RepoObject_fullname2]
 , T.[RepoObject_guid] = S.[RepoObject_guid]
 , T.[RepoObject_type] = S.[RepoObject_type]
+, T.[RepoObjectColumn_fullname] = S.[RepoObjectColumn_fullname]
+, T.[RepoObjectColumn_fullname2] = S.[RepoObjectColumn_fullname2]
 , T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
 , T.[RepoObjectColumn_name] = S.[RepoObjectColumn_name]
+, T.[RepoObjectColumn_type] = S.[RepoObjectColumn_type]
 
 FROM [graph].[RepoObjectColumn] AS T
 INNER JOIN [graph].[RepoObjectColumn_S] AS S
@@ -134,10 +138,14 @@ T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
 
 WHERE
    T.[RepoObject_fullname] <> S.[RepoObject_fullname]
+OR T.[RepoObject_fullname2] <> S.[RepoObject_fullname2] OR (S.[RepoObject_fullname2] IS NULL AND NOT T.[RepoObject_fullname2] IS NULL) OR (NOT S.[RepoObject_fullname2] IS NULL AND T.[RepoObject_fullname2] IS NULL)
 OR T.[RepoObject_guid] <> S.[RepoObject_guid]
 OR T.[RepoObject_type] <> S.[RepoObject_type]
+OR T.[RepoObjectColumn_fullname] <> S.[RepoObjectColumn_fullname]
+OR T.[RepoObjectColumn_fullname2] <> S.[RepoObjectColumn_fullname2] OR (S.[RepoObjectColumn_fullname2] IS NULL AND NOT T.[RepoObjectColumn_fullname2] IS NULL) OR (NOT S.[RepoObjectColumn_fullname2] IS NULL AND T.[RepoObjectColumn_fullname2] IS NULL)
 OR T.[RepoObjectColumn_guid] <> S.[RepoObjectColumn_guid]
 OR T.[RepoObjectColumn_name] <> S.[RepoObjectColumn_name]
+OR T.[RepoObjectColumn_type] <> S.[RepoObjectColumn_type] OR (S.[RepoObjectColumn_type] IS NULL AND NOT T.[RepoObjectColumn_type] IS NULL) OR (NOT S.[RepoObjectColumn_type] IS NULL AND T.[RepoObjectColumn_type] IS NULL)
 
 
 -- Logging START --
@@ -171,17 +179,25 @@ INSERT INTO
  [graph].[RepoObjectColumn]
  (
   [RepoObject_fullname]
+, [RepoObject_fullname2]
 , [RepoObject_guid]
 , [RepoObject_type]
+, [RepoObjectColumn_fullname]
+, [RepoObjectColumn_fullname2]
 , [RepoObjectColumn_guid]
 , [RepoObjectColumn_name]
+, [RepoObjectColumn_type]
 )
 SELECT
   [RepoObject_fullname]
+, [RepoObject_fullname2]
 , [RepoObject_guid]
 , [RepoObject_type]
+, [RepoObjectColumn_fullname]
+, [RepoObjectColumn_fullname2]
 , [RepoObjectColumn_guid]
 , [RepoObjectColumn_name]
+, [RepoObjectColumn_type]
 
 FROM [graph].[RepoObjectColumn_S] AS S
 WHERE

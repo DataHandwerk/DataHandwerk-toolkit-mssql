@@ -132,73 +132,73 @@ Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
   , Parameter_default_value = Cast(Null As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N'MS_Description'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
   , Parameter_default_value = Cast('CAST(COALESCE(referencing.[Repo_definition], repo.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(4000))' As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N'ReferencedObjectColumnList'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
   , Parameter_default_value = Cast('''* '' + referenced.[RepoObjectColumn_fullname]' As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
   , Parameter_default_value = Cast(Null As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N'MS_Description'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
   , Parameter_default_value = Cast(Null As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N'ReferencedObjectList'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [repo].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
   , Parameter_default_value = Cast('''* '' + referenced.[RepoObject_fullname]' As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'InheritanceType_column'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'TINYINT; InheritanceType for column: possible values in [repo].[InheritanceType]'
+  , Parameter_desciption    = N'TINYINT; InheritanceType for column: possible values in [config].[InheritanceType]'
   , Parameter_default_value = Cast(0 As TinyInt)
 Union All
 Select
     Parameter_name          = 'InheritanceType_column'
   , sub_Parameter           = N'MS_Description'
-  , Parameter_desciption    = N'TINYINT; InheritanceType for column: possible values in [repo].[InheritanceType]'
+  , Parameter_desciption    = N'TINYINT; InheritanceType for column: possible values in [config].[InheritanceType]'
   , Parameter_default_value = Cast(0 As TinyInt)
 Union All
 Select
     Parameter_name          = 'InheritanceType_column'
   , sub_Parameter           = N'ReferencedObjectColumnList'
-  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
   , Parameter_default_value = Cast(14 As TinyInt)
 Union All
 Select
     Parameter_name          = 'InheritanceType_object'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
   , Parameter_default_value = Cast(0 As TinyInt)
 Union All
 Select
     Parameter_name          = 'InheritanceType_object'
   , sub_Parameter           = N'MS_Description'
-  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
   , Parameter_default_value = Cast(0 As TinyInt)
 Union All
 Select
     Parameter_name          = 'InheritanceType_object'
   , sub_Parameter           = N'ReferencedObjectList'
-  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [repo].[InheritanceType]'
+  , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
   , Parameter_default_value = Cast(14 As TinyInt)
 
 ----todo: Warum sollte es eine Unterscheidung zwischen Sichten und Tabellen geben?
@@ -206,14 +206,14 @@ Select
 
 --SELECT [Parameter_name] = 'InheritanceType_object_type_u'
 -- , [sub_Parameter] = N''
--- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [repo].[InheritanceType]'
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [config].[InheritanceType]'
 -- , [Parameter_default_value] = CAST(0 AS TINYINT)
 
 --UNION ALL
 
 --SELECT [Parameter_name] = 'InheritanceType_object_type_u'
 -- , [sub_Parameter] = N'MS_Description'
--- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [repo].[InheritanceType]'
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [config].[InheritanceType]'
 -- , [Parameter_default_value] = CAST(0 AS TINYINT)
 
 
@@ -221,14 +221,14 @@ Select
 
 --SELECT [Parameter_name] = 'InheritanceType_object_type_v'
 -- , [sub_Parameter] = N''
--- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [repo].[InheritanceType]'
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [config].[InheritanceType]'
 -- , [Parameter_default_value] = CAST(0 AS TINYINT)
 
 --UNION ALL
 
 --SELECT [Parameter_name] = 'InheritanceType_object_type_v'
 -- , [sub_Parameter] = N'MS_Description'
--- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [repo].[InheritanceType]'
+-- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [config].[InheritanceType]'
 -- , [Parameter_default_value] = CAST(0 AS TINYINT)
 
 
@@ -301,23 +301,9 @@ ifdef::ExistsProperty--MS_Description[]
 
 == Description
 
-include::partial${docname}.adoc[tag=MS_Description]
+include::partial${docname}.adoc[tag=ms_description]
 
-endif::ExistsProperty--MS_Description[]
-
-== Examples
-
-ifdef::ExistsProperty--UspExamples[]
-
-.UspExamples
-====
-[source,sql]
-----
-include::partial${docname}.adoc[tag=UspExamples]
-----
-====
-
-endif::ExistsProperty--UspExamples[]
+endif::ExistsProperty--ms_description[]
 ' As NVarchar(4000))
 Union All
 Select
@@ -333,26 +319,26 @@ include::partial${docname}.adoc[tag=AntoraParameterList]
 
 endif::ExistsProperty--AntoraParameterList[]
 
-ifdef::ExistsProperty--AdocUspSteps[]
+ifdef::ExistsProperty--adocuspsteps[]
 
 == Procedure steps
 
-include::partial${docname}.adoc[tag=AdocUspSteps]
+include::partial${docname}.adoc[tag=adocuspsteps]
 
-endif::ExistsProperty--AdocUspSteps[]
+endif::ExistsProperty--adocuspsteps[]
 
 //ifdef::ExistsProperty--pk_index_guid[]
 //
 //== PK
 //
 //PK SemanticGroup:
-//include::partial${docname}.adoc[tag=pk_IndexSemanticGroup]
+//include::partial${docname}.adoc[tag=pk_indexsemanticgroup]
 //
 //PK Column Name(s):
-//include::partial${docname}.adoc[tag=pk_IndexPatternColumnName]
+//include::partial${docname}.adoc[tag=pk_indexpatterncolumnname]
 //
 //PK Column Datatype(s):
-//include::partial${docname}.adoc[tag=pk_IndexPatternColumnDatatype]
+//include::partial${docname}.adoc[tag=pk_indexpatterncolumndatatype]
 //
 //.PK columns of {docname}
 //[cols="d,m,m,m,m,d"]
@@ -387,7 +373,7 @@ ifdef::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty
 == Persistence, History Table
 
 * persistence source:
-include::partial${docname}.adoc[tag=persistence_source_RepoObject_xref]
+include::partial${docname}.adoc[tag=persistence_source_repoobject_xref]
 * is_persistence:
 include::partial${docname}.adoc[tag=is_persistence]
 * is_persistence_check_duplicate_per_pk:
@@ -428,21 +414,22 @@ Select
   , sub_Parameter           = N'5'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
   , Parameter_default_value = Cast(N'
+
 == References
 
-ifdef::ExistsProperty--AntoraReferencedList[]
+ifdef::ExistsProperty--antorareferencedlist[]
 
 === Referenced Objects
 
-include::partial${docname}.adoc[tag=AntoraReferencedList]
-endif::ExistsProperty--AntoraReferencedList[]
+include::partial${docname}.adoc[tag=antorareferencedlist]
+endif::ExistsProperty--antorareferencedlist[]
 
-ifdef::ExistsProperty--AntoraReferencingList[]
+ifdef::ExistsProperty--antorareferencinglist[]
 
 === Referencing Objects
 
-include::partial${docname}.adoc[tag=AntoraReferencingList]
-endif::ExistsProperty--AntoraReferencingList[]
+include::partial${docname}.adoc[tag=antorareferencinglist]
+endif::ExistsProperty--antorareferencinglist[]
 
 === Object Reference Diagram
 
@@ -451,18 +438,18 @@ endif::ExistsProperty--AntoraReferencingList[]
 include::partial$puml/entity_1_1_objectref/{docname}.puml[]
 ....
 
-=== Object Reference Diagram 0 30
-
-[plantuml, entity_0_30_objectref-{docname}, svg]
-....
-include::partial$puml/entity_0_30_objectref/{docname}.puml[]
-....
-
-=== Object Reference Diagram 30 0
+=== Object Reference Diagram - Referenced
 
 [plantuml, entity_30_0_objectref-{docname}, svg]
 ....
 include::partial$puml/entity_30_0_objectref/{docname}.puml[]
+....
+
+=== Object Reference Diagram - Referencing
+
+[plantuml, entity_0_30_objectref-{docname}, svg]
+....
+include::partial$puml/entity_0_30_objectref/{docname}.puml[]
 ....
 
 ifdef::ExistsProperty--Columns[]

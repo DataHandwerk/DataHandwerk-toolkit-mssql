@@ -139,7 +139,7 @@ SELECT
  , [referenced_RepoObject_name] = [referenced].[RepoObject_name]
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
  , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
-FROM [repo].[RepoObject_InheritanceType_resulting_InheritanceDefinition] AS T1
+FROM [repo].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
 INNER JOIN [repo].[RepoObject_reference_union] AS T2
  ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
 INNER JOIN [repo].[RepoObject_gross] AS referencing
@@ -188,7 +188,7 @@ SELECT
  , [referenced_RepoObject_name] = [referenced].[RepoObject_name]
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
  , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
-FROM [repo].[RepoObject_InheritanceType_resulting_InheritanceDefinition] AS T1
+FROM [repo].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
 INNER JOIN [repo].[RepoObject_reference_union] AS T2
  ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
 INNER JOIN [repo].[RepoObject_gross] AS referencing

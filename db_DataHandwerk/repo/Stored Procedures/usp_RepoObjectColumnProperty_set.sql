@@ -1,15 +1,13 @@
-﻿
-/*
+﻿/*
 <<property_start>>exampleUsage
-EXEC [repo].[usp_RepoObjectColumnProperty_set]
-@RepoObject_fullname2 = 'repo.RepoObject_persistence'
-, @RepoObjectColumn_name = 'has_history'
-, @property_name = 'MS_Description'
-, @property_value =
-'temporal table should be created, it will also automatically reate the colums required for the history'
+Exec repo.usp_RepoObjectColumnProperty_set
+    @RepoObject_fullname2 = 'SchemaName.TableName'
+  , @RepoObjectColumn_name = 'ColumnName'
+  , @property_name = 'MS_Description'
+  , @property_value = 'some text, multiples lines are OK';
 <<property_end>>
 */
-Create Procedure [repo].[usp_RepoObjectColumnProperty_set]
+CREATE Procedure [repo].[usp_RepoObjectColumnProperty_set]
     --
     @RepoObjectColumn_guid UniqueIdentifier = Null --if @RepoObjectColumn_guid is NULL, then @RepoObjectColumn_name, @RepoObject_guid, @RepoObject_fullname or @RepoObject_fullname2 are used
   , @RepoObjectColumn_name NVarchar(128)    = Null --can be used to define @RepoObjectColumn_guid; use 'ColumnName'
