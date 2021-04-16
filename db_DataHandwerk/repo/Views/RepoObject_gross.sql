@@ -87,7 +87,7 @@ Select
   , ColumnList.PersistenceCompareColumnList
   , ColumnList.PersistenceInsertColumnList
   , ColumnList.PersistenceUpdateColumnList
-  , Property_ms_description                           = repo.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
+  , Property_ms_description                           = [property].fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
   , SqlModules.sql_modules_definition
   , Replace (
                 Replace (

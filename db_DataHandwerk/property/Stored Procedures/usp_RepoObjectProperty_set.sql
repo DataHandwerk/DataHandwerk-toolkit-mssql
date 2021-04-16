@@ -11,7 +11,7 @@ see details in xref:manual:create-update-connect-repo-db.adoc[]
 '
 <<property_end>>
 */
-CREATE Procedure [repo].[usp_RepoObjectProperty_set]
+CREATE Procedure [property].[usp_RepoObjectProperty_set]
     --
     @RepoObject_guid      UniqueIdentifier = Null --if @RepoObject_guid is NULL, then @RepoObject_fullname or @RepoObject_fullname2 is used
   , @RepoObject_fullname  NVarchar(261)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
@@ -107,7 +107,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '9edfbe88-ca97-eb11-84f4-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_RepoObjectProperty_set';
 

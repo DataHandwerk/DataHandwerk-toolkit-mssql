@@ -7,7 +7,7 @@ Exec repo.usp_RepoObjectColumnProperty_set
   , @property_value = 'some text, multiples lines are OK';
 <<property_end>>
 */
-CREATE Procedure [repo].[usp_RepoObjectColumnProperty_set]
+CREATE Procedure [property].[usp_RepoObjectColumnProperty_set]
     --
     @RepoObjectColumn_guid UniqueIdentifier = Null --if @RepoObjectColumn_guid is NULL, then @RepoObjectColumn_name, @RepoObject_guid, @RepoObject_fullname or @RepoObject_fullname2 are used
   , @RepoObjectColumn_name NVarchar(128)    = Null --can be used to define @RepoObjectColumn_guid; use 'ColumnName'
@@ -143,5 +143,5 @@ Begin
       , inserted.*;
 End;
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2f12ce32-0e9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnProperty_set';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2f12ce32-0e9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnProperty_set';
 

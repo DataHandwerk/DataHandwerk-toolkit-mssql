@@ -65,7 +65,7 @@ Select
   , ic.index_column_id
   , ic.index_name
   , ic.is_index_primary_key
-  , Property_ms_description    = repo.fs_get_RepoObjectColumnProperty_nvarchar (
+  , Property_ms_description    = [property].fs_get_RepoObjectColumnProperty_nvarchar (
                                                                                    roc.RepoObjectColumn_guid
                                                                                  , 'ms_description'
                                                                                )

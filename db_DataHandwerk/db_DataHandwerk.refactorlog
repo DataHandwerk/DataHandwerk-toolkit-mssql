@@ -1270,4 +1270,34 @@
     <Property Name="NewSchema" Value="property" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="cffab02a-ff72-448d-ace4-175711647cfe" ChangeDateTime="04/16/2021 16:38:55">
+    <Property Name="ElementName" Value="[repo].[fs_get_RepoObjectColumnProperty_nvarchar]" />
+    <Property Name="ElementType" Value="SqlScalarFunction" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="ee1710ee-fbca-4b39-aadb-b50d6e1fab27" ChangeDateTime="04/16/2021 16:39:32">
+    <Property Name="ElementName" Value="[repo].[fs_get_RepoObjectProperty_nvarchar]" />
+    <Property Name="ElementType" Value="SqlScalarFunction" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="8a863d2f-49d5-4b46-b37a-9eda877f00d7" ChangeDateTime="04/16/2021 16:43:00">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObjectProperty_collect]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="96d72869-02b9-4fe3-88ec-e581dc459abd" ChangeDateTime="04/16/2021 16:44:03">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObjectProperty_set]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="aba56421-c82f-4801-8c7b-52d0c59c3459" ChangeDateTime="04/16/2021 16:45:33">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObjectColumnProperty_set]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

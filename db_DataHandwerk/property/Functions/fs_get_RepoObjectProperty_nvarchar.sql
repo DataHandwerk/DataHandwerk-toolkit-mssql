@@ -1,4 +1,4 @@
-﻿Create Function repo.fs_get_RepoObjectProperty_nvarchar
+﻿Create Function [property].fs_get_RepoObjectProperty_nvarchar
 (
     @RepoObject_guid UniqueIdentifier
   , @property_name   NVarchar(128)
@@ -23,6 +23,6 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '67b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'FUNCTION'
   , @level1name = N'fs_get_RepoObjectProperty_nvarchar';

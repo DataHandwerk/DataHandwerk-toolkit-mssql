@@ -119,6 +119,8 @@
     <Folder Include="property" />
     <Folder Include="property\Tables" />
     <Folder Include="property\Views" />
+    <Folder Include="property\Functions" />
+    <Folder Include="property\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -236,8 +238,6 @@
     <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObject.sql" />
     <Build Include="repo\Views\RepoObject_RequiredRepoObjectMerge.sql" />
     <Build Include="repo\Views\Match_RepoObject_referenced_UspPersistence.sql" />
-    <Build Include="repo\Functions\fs_get_RepoObjectProperty_nvarchar.sql" />
-    <Build Include="repo\Functions\fs_get_RepoObjectColumnProperty_nvarchar.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_Delete.sql" />
@@ -355,7 +355,6 @@
     <Build Include="docs\Views\AntoraPage_ObjectBySchema.sql" />
     <Build Include="docs\Views\AntoraNavListPage_by_schema.sql" />
     <Build Include="tool\Functions\ftv_extract_substrings.sql" />
-    <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_collect.sql" />
     <Build Include="Security\tool.sql" />
     <Build Include="tool\Stored Procedures\usp_longprint.sql" />
     <Build Include="repo\Views\RepoObject_related_FK_union.sql" />
@@ -363,7 +362,6 @@
     <Build Include="docs\Views\RepoObject_PlantUml_FkRefList.sql" />
     <Build Include="repo\Tables\ForeignKey_Indexes_union_T.sql" />
     <Build Include="docs\Tables\RepoObject_Plantuml_T.sql" />
-    <Build Include="repo\Stored Procedures\usp_RepoObjectProperty_set.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_ForeignKey_Indexes_union_T.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Plantuml_T.sql" />
     <Build Include="Security\logs.sql" />
@@ -445,7 +443,6 @@
     <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_0_30.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_referencing.sql" />
     <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_referenced.sql" />
-    <Build Include="repo\Stored Procedures\usp_RepoObjectColumnProperty_set.sql" />
     <Build Include="dbo\Tables\zzz.sql" />
     <Build Include="Security\property.sql" />
     <Build Include="property\Tables\RepoObjectProperty.sql" />
@@ -469,6 +466,11 @@
     <Build Include="property\Views\RepoObjectProperty_InheritanceType_InheritanceDefinition.sql" />
     <Build Include="property\Views\RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
     <Build Include="property\Views\RepoObjectProperty_sys_repo.sql" />
+    <Build Include="property\Functions\fs_get_RepoObjectColumnProperty_nvarchar.sql" />
+    <Build Include="property\Functions\fs_get_RepoObjectProperty_nvarchar.sql" />
+    <Build Include="property\Stored Procedures\usp_RepoObjectProperty_collect.sql" />
+    <Build Include="property\Stored Procedures\usp_RepoObjectProperty_set.sql" />
+    <Build Include="property\Stored Procedures\usp_RepoObjectColumnProperty_set.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
