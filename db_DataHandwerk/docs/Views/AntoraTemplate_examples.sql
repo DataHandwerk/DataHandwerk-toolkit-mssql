@@ -56,7 +56,7 @@ Select
                                 ) Within Group(Order By
                                                    property_name)
 From
-    repo.PropertyName_RepoObject
+    [property].PropertyName_RepoObject
 Where
     property_name Like 'example%';
 Go

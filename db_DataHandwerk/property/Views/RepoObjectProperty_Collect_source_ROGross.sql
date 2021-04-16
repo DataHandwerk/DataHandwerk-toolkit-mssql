@@ -1,5 +1,5 @@
 ﻿
-CREATE View repo.RepoObjectProperty_Collect_source_ROGross
+CREATE View [property].RepoObjectProperty_Collect_source_ROGross
 As
 Select
     ro.RepoObject_guid
@@ -119,17 +119,17 @@ From
 Where
     Not RepoObject_guid Is Null;
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bcfe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross', @level2type = N'COLUMN', @level2name = N'property_value';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bcfe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross', @level2type = N'COLUMN', @level2name = N'property_value';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bbfe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross', @level2type = N'COLUMN', @level2name = N'property_name';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bbfe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross', @level2type = N'COLUMN', @level2name = N'property_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bafe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bafe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b6fe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b6fe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_ROGross';
 

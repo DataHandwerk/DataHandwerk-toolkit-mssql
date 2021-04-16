@@ -72,7 +72,7 @@ Declare inheritance_cursor Cursor Local Fast_Forward For
 Select
     resulting_InheritanceDefinition
 From
-    repo.RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
+    [property].RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
 Group By
     resulting_InheritanceDefinition
 Having

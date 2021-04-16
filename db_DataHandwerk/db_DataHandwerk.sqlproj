@@ -159,8 +159,6 @@
     <Build Include="repo\Views\RepoObject_reference_union.sql" />
     <Build Include="repo\Views\RepoObjectColumn_reference_Persistence.sql" />
     <Build Include="repo\Views\SysObjectColumn_QueryPlanExpression.sql" />
-    <Build Include="repo\Views\RepoObjectColumnProperty_sys_repo.sql" />
-    <Build Include="repo\Views\RepoObjectProperty_sys_repo.sql" />
     <Build Include="repo\Views\RepoObjectColumn_reference_QueryPlan.sql" />
     <Build Include="repo\Functions\ftv_query_plan_extract_source.sql" />
     <Build Include="repo_sys\Stored Procedures\usp_dropextendedproperty_level_1.sql" />
@@ -238,17 +236,11 @@
     <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObject.sql" />
     <Build Include="repo\Views\RepoObject_RequiredRepoObjectMerge.sql" />
     <Build Include="repo\Views\Match_RepoObject_referenced_UspPersistence.sql" />
-    <Build Include="repo\Views\RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
-    <Build Include="repo\Views\RepoObjectColumnProperty_InheritanceType_InheritanceDefinition.sql" />
-    <Build Include="repo\Views\RepoObjectProperty_InheritanceType_InheritanceDefinition.sql" />
-    <Build Include="repo\Views\PropertyName_RepoObjectColumn.sql" />
-    <Build Include="repo\Views\PropertyName_RepoObject.sql" />
     <Build Include="repo\Functions\fs_get_RepoObjectProperty_nvarchar.sql" />
     <Build Include="repo\Functions\fs_get_RepoObjectColumnProperty_nvarchar.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_Delete.sql" />
-    <Build Include="repo\Views\RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumn_Inheritance.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObject_Inheritance.sql" />
     <None Include="_scripts\StaticData\dhw_self\21_dhw_self_repo_GeneratorUsp.sql" />
@@ -312,7 +304,6 @@
     <Build Include="dbeaver\Tables\DataSources.sql" />
     <Build Include="Security\test.sql" />
     <Build Include="docs\Tables\RepoObject_Adoc_T.sql" />
-    <Build Include="repo\Views\RepoObjectProperty_cross.sql" />
     <Build Include="repo\Views\RepoObject_ReferencingList.sql" />
     <Build Include="repo\Views\RepoObject_ReferencedList.sql" />
     <Build Include="docs\Views\RepoObject_Adoc.sql" />
@@ -447,7 +438,6 @@
     <Build Include="uspgenerator\Views\GeneratorUspStep_Sql.sql" />
     <Build Include="workflow\Tables\ProcedureDependency.sql" />
     <Build Include="workflow\Views\ProcedureDependency_gross.sql" />
-    <Build Include="repo\Views\RepoObjectColumnProperty_ForUpdate.sql" />
     <Build Include="repo\Views\RepoObject_ReferenceTree_referencing.sql" />
     <Build Include="repo\Views\RepoObject_ReferenceTree_referenced.sql" />
     <Build Include="repo\Views\RepoObject_persistence_ForUpdate.sql" />
@@ -457,9 +447,6 @@
     <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_referenced.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumnProperty_set.sql" />
     <Build Include="dbo\Tables\zzz.sql" />
-    <Build Include="repo\Views\RepoObjectProperty_Collect_source_uspgenerator.sql" />
-    <Build Include="repo\Views\RepoObjectProperty_Collect_source_sql_modules_definition.sql" />
-    <Build Include="repo\Views\RepoObjectProperty_Collect_source_ROGross.sql" />
     <Build Include="Security\property.sql" />
     <Build Include="property\Tables\RepoObjectProperty.sql" />
     <Build Include="property\Tables\RepoObjectColumnProperty.sql" />
@@ -469,6 +456,19 @@
     <Build Include="property\Views\ExtendedProperty_Repo2Sys_level2_RepoObject.sql" />
     <Build Include="property\Views\ExtendedProperty_Repo2Sys_level2_RepoObjectColumn.sql" />
     <Build Include="property\Views\ExtendedProperty_Repo2Sys_level2_Union.sql" />
+    <Build Include="property\Views\PropertyName_RepoObject.sql" />
+    <Build Include="property\Views\PropertyName_RepoObjectColumn.sql" />
+    <Build Include="property\Views\RepoObjectColumnProperty_ForUpdate.sql" />
+    <Build Include="property\Views\RepoObjectColumnProperty_InheritanceType_InheritanceDefinition.sql" />
+    <Build Include="property\Views\RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
+    <Build Include="property\Views\RepoObjectColumnProperty_sys_repo.sql" />
+    <Build Include="property\Views\RepoObjectProperty_Collect_source_ROGross.sql" />
+    <Build Include="property\Views\RepoObjectProperty_Collect_source_sql_modules_definition.sql" />
+    <Build Include="property\Views\RepoObjectProperty_Collect_source_uspgenerator.sql" />
+    <Build Include="property\Views\RepoObjectProperty_cross.sql" />
+    <Build Include="property\Views\RepoObjectProperty_InheritanceType_InheritanceDefinition.sql" />
+    <Build Include="property\Views\RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
+    <Build Include="property\Views\RepoObjectProperty_sys_repo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

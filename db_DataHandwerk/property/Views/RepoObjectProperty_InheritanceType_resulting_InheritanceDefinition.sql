@@ -14,7 +14,7 @@ HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 */
 --todo: refactoring [RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]
 
-Create View repo.RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
+Create View [property].RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
 As
 Select
     --
@@ -68,14 +68,14 @@ Select
   , inh.RepoObject_fullname
   , inh.RepoObject_type
 From
-    repo.RepoObjectProperty_InheritanceType_InheritanceDefinition As inh;
+    [property].RepoObjectProperty_InheritanceType_InheritanceDefinition As inh;
 Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '61b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition';
 Go
@@ -84,7 +84,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'bdb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -95,7 +95,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'c0b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -106,7 +106,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b6b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -117,7 +117,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'bfb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -128,7 +128,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b8b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -139,7 +139,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b7b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -150,7 +150,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'bbb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -161,7 +161,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'bab33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -172,7 +172,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b9b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -183,7 +183,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'beb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'
@@ -194,7 +194,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'bcb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition'
   , @level2type = N'COLUMN'

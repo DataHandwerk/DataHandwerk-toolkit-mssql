@@ -7,7 +7,7 @@
 * The correct sequence must be followed. Nested parsing is not supported.
 <<property_end>>
 */
-Create View repo.[RepoObjectProperty_Collect_source_sql_modules_definition]
+Create View [property].[RepoObjectProperty_Collect_source_sql_modules_definition]
 As
 Select
     --
@@ -28,17 +28,17 @@ Group By
     RepoObject_guid
   , es.substring_netPreEol;
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c324df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'property_value';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c324df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'property_value';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c224df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'property_name';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c224df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'property_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c124df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c124df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bc24df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bc24df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition';
 
