@@ -151,7 +151,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = 'COALESCE(referencing.[Repo_defin
 */
         Set @stmt
             = N'
-INSERT INTO [repo].[RepoObjectColumn_Inheritance_temp] (
+INSERT INTO [property].[RepoObjectColumn_Inheritance_temp] (
  [RepoObjectColumn_guid]
  , [property_name]
  , [property_value]

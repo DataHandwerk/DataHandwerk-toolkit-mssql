@@ -81,7 +81,7 @@ DECLARE
  , @level2type VARCHAR(128)
  , @level2name NVARCHAR(128)
 
-/*{"ReportUspStep":[{"Number":410,"Name":"Level1-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[ExtendedProperty_Repo2Sys_level1]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"Level1-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[ExtendedProperty_Repo2Sys_level1]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',14,';',410,';',NULL);
 
 DECLARE property_cursor CURSOR READ_ONLY
@@ -173,7 +173,7 @@ DEALLOCATE property_cursor
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'Level1-Properties - DROP'
-SET @source_object = '[repo].[ExtendedProperty_Repo2Sys_level1]'
+SET @source_object = '[property].[ExtendedProperty_Repo2Sys_level1]'
 SET @target_object = '[sys].[sp_dropextendedproperty]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -193,7 +193,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":420,"Name":"Level2-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[ExtendedProperty_Repo2Sys_level2_Union]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
+/*{"ReportUspStep":[{"Number":420,"Name":"Level2-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[ExtendedProperty_Repo2Sys_level2_Union]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',14,';',420,';',NULL);
 
 DECLARE property_cursor CURSOR READ_ONLY
@@ -285,7 +285,7 @@ DEALLOCATE property_cursor
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'Level2-Properties - DROP'
-SET @source_object = '[repo].[ExtendedProperty_Repo2Sys_level2_Union]'
+SET @source_object = '[property].[ExtendedProperty_Repo2Sys_level2_Union]'
 SET @target_object = '[sys].[sp_dropextendedproperty]'
 
 EXEC logs.usp_ExecutionLog_insert 

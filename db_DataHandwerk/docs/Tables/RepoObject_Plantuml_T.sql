@@ -2,6 +2,8 @@
     [RepoObject_guid]               UNIQUEIDENTIFIER NOT NULL,
     [ColRefList]                    NVARCHAR (MAX)   NULL,
     [ObjectRefList]                 NVARCHAR (MAX)   NULL,
+    [ObjectRefList_0_30]            NVARCHAR (MAX)   NULL,
+    [ObjectRefList_30_0]            NVARCHAR (MAX)   NULL,
     [PlantumlEntity_0_30_ObjectRef] NVARCHAR (MAX)   NOT NULL,
     [PlantumlEntity_1_1_ColRef]     NVARCHAR (MAX)   NOT NULL,
     [PlantumlEntity_1_1_FkRef]      NVARCHAR (MAX)   NOT NULL,
@@ -12,6 +14,10 @@
     [PumlEntityList_30_0]           NVARCHAR (MAX)   NULL,
     [RepoObject_fullname2]          NVARCHAR (257)   NOT NULL
 );
+
+
+
+
 
 
 
@@ -66,4 +72,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '168e6
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '198e62ad-4a9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_T', @level2type = N'COLUMN', @level2name = N'PlantumlEntity_0_30_ObjectRef';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee26ab1d-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_T', @level2type = N'COLUMN', @level2name = N'ObjectRefList_30_0';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ec26ab1d-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_T', @level2type = N'COLUMN', @level2name = N'ObjectRefList_0_30';
 
