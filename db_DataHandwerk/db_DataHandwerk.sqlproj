@@ -252,7 +252,6 @@
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_Delete.sql" />
-    <Build Include="repo\Tables\RepoObjectColumn_Inheritance_temp.sql" />
     <Build Include="repo\Tables\RepoObject_Inheritance_temp.sql" />
     <Build Include="repo\Views\RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition.sql" />
     <Build Include="repo\Stored Procedures\usp_RepoObjectColumn_Inheritance.sql" />
@@ -469,6 +468,7 @@
     <Build Include="Security\property.sql" />
     <Build Include="property\Tables\RepoObjectProperty.sql" />
     <Build Include="property\Tables\RepoObjectColumnProperty.sql" />
+    <Build Include="property\Tables\RepoObjectColumn_Inheritance_temp.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

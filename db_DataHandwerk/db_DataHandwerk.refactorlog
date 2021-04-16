@@ -1156,4 +1156,10 @@
     <Property Name="NewSchema" Value="property" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="89b62b58-0f3a-44e7-9a8d-6cf4b2db8a29" ChangeDateTime="04/16/2021 15:13:34">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_Inheritance_temp]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>
