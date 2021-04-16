@@ -99,7 +99,7 @@ Begin
         Set @resulting_InheritanceDefinition_ForSql = Replace ( @resulting_InheritanceDefinition, '''', '''''' );
 
         --PRINT @resulting_InheritanceDefinition_ForSql
-        Truncate Table repo.RepoObjectColumn_Inheritance_temp;
+        Truncate Table [property].RepoObjectColumn_Inheritance_temp;
 
         /*
 INSERT INTO [repo].[RepoObjectColumn_Inheritance_temp] (
@@ -207,7 +207,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
         Select
             Inheritance_StringAggSeparatorSql
         From
-            repo.RepoObjectColumn_Inheritance_temp
+            [property].RepoObjectColumn_Inheritance_temp
         Group By
             Inheritance_StringAggSeparatorSql;
 
@@ -250,7 +250,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                         --, [referencing_RepoObjectColumn_fullname]
                         --, [referencing_RepoObjectColumn_name]
                         From
-                            repo.RepoObjectColumn_Inheritance_temp
+                            [property].RepoObjectColumn_Inheritance_temp
                         Where
                             --
                             is_StringAggAllSources                    = 0
@@ -334,7 +334,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                         --, [referencing_RepoObjectColumn_fullname]
                         --, [referencing_RepoObjectColumn_name]
                         From
-                            repo.RepoObjectColumn_Inheritance_temp
+                            [property].RepoObjectColumn_Inheritance_temp
                         Where
                             --
                             is_StringAggAllSources = 1
