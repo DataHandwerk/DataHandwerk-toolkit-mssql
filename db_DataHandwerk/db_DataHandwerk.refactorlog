@@ -1150,4 +1150,10 @@
     <Property Name="NewSchema" Value="property" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="9d38d89a-009e-498b-afd1-7416cad71736" ChangeDateTime="04/16/2021 15:11:43">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumnProperty]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

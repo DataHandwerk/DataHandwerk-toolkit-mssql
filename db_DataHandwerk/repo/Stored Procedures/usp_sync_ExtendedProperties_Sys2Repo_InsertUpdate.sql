@@ -155,7 +155,7 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":410,"Name":"repo.RepoObjectColumnProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[repo].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',410,';',NULL);
 
-INSERT INTO repo.RepoObjectColumnProperty (
+INSERT INTO [property].RepoObjectColumnProperty (
  [RepoObjectColumn_guid]
  , [property_name]
  , [property_value]

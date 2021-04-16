@@ -15,7 +15,7 @@ Select
   , rocg.RepoObject_fullname2
   , rocg.RepoObject_guid
 From
-    [repo].[RepoObjectColumnProperty] rocp
+    [property].[RepoObjectColumnProperty] rocp
     Inner Join
         repo.RepoObjectColumn_gross   rocg
             On
