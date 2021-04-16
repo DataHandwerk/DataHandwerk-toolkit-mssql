@@ -12,8 +12,8 @@ https://documentation.red-gate.com/rr1/key-concepts/data-population/static-data#
 ATTENTION:
 for sql_variant type the procedure generates wrong code:
 [repo].[Parameter]
-[repo].[RepoObjectColumnProperty]
-[repo].[RepoObjectProperty]
+[property].[RepoObjectColumnProperty]
+[property].[RepoObjectProperty]
 
 */
 
@@ -79,7 +79,7 @@ Exec sp_generate_merge
 
 ----not required, get properties using [repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]
 ----issues with sql_variant
---EXEC sp_generate_merge @table_name = 'RepoObjectProperty', @schema = 'repo', @debug_mode = 1
+--EXEC sp_generate_merge @table_name = 'RepoObjectProperty', @schema = 'property', @debug_mode = 1
 
 Exec sp_generate_merge
     @table_name = 'RepoObjectColumn'
@@ -87,7 +87,7 @@ Exec sp_generate_merge
   , @debug_mode = 1;
 ----not required, get properties using [repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]
 ----issues with sql_variant
---EXEC sp_generate_merge @table_name = 'RepoObjectColumnProperty', @schema = 'repo', @debug_mode = 1
+--EXEC sp_generate_merge @table_name = 'RepoObjectColumnProperty', @schema = 'property', @debug_mode = 1
 
 ----currently only the SqlParser data is used
 --EXEC sp_generate_merge @table_name = 'RepoObjectSource_FirstResultSet', @schema = 'repo', @debug_mode = 1

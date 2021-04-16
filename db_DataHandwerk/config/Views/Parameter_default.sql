@@ -139,7 +139,7 @@ Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N'MS_Description'
   , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = Cast('CAST(COALESCE(referencing.[Repo_definition], repo.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(4000))' As NVarchar(4000))
+  , Parameter_default_value = Cast('CAST(COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(4000))' As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'

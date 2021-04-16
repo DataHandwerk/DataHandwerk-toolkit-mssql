@@ -1,5 +1,5 @@
 ﻿/*
-all used [property_name] in any RepoObject, and additinally some [repo].[Parameter].[sub_Parameter]
+all used [property_name] in any RepoObject, and additinally some [config].[Parameter].[sub_Parameter]
 */
 
 Create View [property].PropertyName_RepoObject

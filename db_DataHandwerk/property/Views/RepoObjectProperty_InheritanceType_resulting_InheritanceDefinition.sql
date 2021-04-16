@@ -5,14 +5,13 @@
 
 SELECT is_StringAggAllSources
  , resulting_InheritanceDefinition
-FROM repo.RepoObject_InheritanceType_resulting_InheritanceDefinition
+FROM [property].RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
 GROUP BY is_StringAggAllSources
  , resulting_InheritanceDefinition
 HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 
 
 */
---todo: refactoring [RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]
 
 Create View [property].RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
 As
@@ -58,7 +57,7 @@ Select
           Then
           IsNull (
                      InheritanceDefinition
-                   , '[repo].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], [referencing].[property_name])'
+                   , '[property].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], [referencing].[property_name])'
                  )
   End
   --normally the result from [resulting_InheritanceDefinition] should not be empty to be inherited
