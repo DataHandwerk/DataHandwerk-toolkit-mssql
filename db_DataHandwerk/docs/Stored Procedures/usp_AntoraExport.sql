@@ -67,7 +67,7 @@ PRINT '[docs].[usp_AntoraExport]'
 ----- start here with your own code
 --
 /*{"ReportUspStep":[{"Number":300,"Name":"[repo].[usp_RepoObjectProperty_collect]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_RepoObjectProperty_collect]
+EXEC [property].[usp_RepoObjectProperty_collect]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

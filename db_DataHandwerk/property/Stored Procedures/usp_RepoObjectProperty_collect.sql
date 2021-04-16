@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_RepoObjectProperty_collect]
+﻿CREATE   PROCEDURE [property].[usp_RepoObjectProperty_collect]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -333,5 +333,5 @@ EXEC logs.usp_ExecutionLog_insert
 
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bd24df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bd24df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
 
