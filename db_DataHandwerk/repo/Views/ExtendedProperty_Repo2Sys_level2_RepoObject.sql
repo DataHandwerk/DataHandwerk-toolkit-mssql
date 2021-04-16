@@ -14,7 +14,7 @@ Select
   , parent_RepoObject_guid = ro_parent.RepoObject_guid
   , parent_RepoObject_type = ro_parent.RepoObject_type
 From
-    repo.RepoObjectProperty               As prop
+    [property].RepoObjectProperty               As prop
     Inner Join
         repo.RepoObject                   As ro
             On

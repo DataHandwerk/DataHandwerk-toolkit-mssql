@@ -23,7 +23,7 @@ From
             And ses.property_name     <> 'RepoObject_guid'
 
     Left Join
-        repo.RepoObjectProperty As link
+        [property].RepoObjectProperty As link
             On
             ro.RepoObject_guid        = link.RepoObject_guid
             And ses.property_name     = link.property_name;
