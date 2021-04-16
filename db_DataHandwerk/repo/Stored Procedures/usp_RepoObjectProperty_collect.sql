@@ -77,7 +77,7 @@ Using
       , property_name
       , property_value
     From
-        repo.RepoObjectProperty_Collect_source_uspgenerator
+        [property].RepoObjectProperty_Collect_source_uspgenerator
 ) As s
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
@@ -146,7 +146,7 @@ Using
       , property_name
       , property_value
     From
-        repo.RepoObjectProperty_Collect_source_ROGross
+        [property].RepoObjectProperty_Collect_source_ROGross
 ) As s
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
@@ -215,7 +215,7 @@ Using
       , property_name
       , property_value
     From
-        repo.RepoObjectProperty_Collect_source_sql_modules_definition
+        [property].RepoObjectProperty_Collect_source_sql_modules_definition
 ) As s
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name

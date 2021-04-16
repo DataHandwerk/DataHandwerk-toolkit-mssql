@@ -315,7 +315,7 @@ Select
 From
     repo.RepoObject_gross             ro
     Left Join
-        repo.RepoObjectProperty_cross rop_cross
+        [property].RepoObjectProperty_cross rop_cross
             On
             rop_cross.RepoObject_guid = ro.RepoObject_guid
 

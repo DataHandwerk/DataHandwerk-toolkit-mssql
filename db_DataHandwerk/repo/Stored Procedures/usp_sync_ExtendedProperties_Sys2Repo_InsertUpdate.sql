@@ -92,7 +92,7 @@ INSERT INTO [property].RepoObjectProperty (
 SELECT DISTINCT [RepoObject_guid]
  , [property_name]
  , [property_value]
-FROM repo.RepoObjectProperty_sys_repo AS T1
+FROM [property].RepoObjectProperty_sys_repo AS T1
 WHERE [RepoObjectProperty_id] IS NULL
 
 -- Logging START --
@@ -123,7 +123,7 @@ EXEC logs.usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',320,';',NULL);
 
 --update table [repo].[RepoObjectProperty] via view
-UPDATE repo.RepoObjectProperty_sys_repo
+UPDATE [property].RepoObjectProperty_sys_repo
 SET [RepoObjectProperty_property_value] = [property_value]
 WHERE NOT [RepoObjectProperty_id] IS NULL
  AND [RepoObjectProperty_property_value] <> [property_value]
@@ -163,7 +163,7 @@ INSERT INTO [property].RepoObjectColumnProperty (
 SELECT DISTINCT [RepoObjectColumn_guid]
  , [property_name]
  , [property_value]
-FROM repo.RepoObjectColumnProperty_sys_repo AS T1
+FROM [property].RepoObjectColumnProperty_sys_repo AS T1
 WHERE [RepoObjectColumnProperty_id] IS NULL
 
 -- Logging START --
@@ -194,7 +194,7 @@ EXEC logs.usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',420,';',NULL);
 
 --update table [repo].[RepoObjectColumnProperty] via view
-UPDATE repo.RepoObjectColumnProperty_sys_repo
+UPDATE [property].RepoObjectColumnProperty_sys_repo
 SET [RepoObjectColumnProperty_property_value] = [property_value]
 WHERE NOT [RepoObjectColumnProperty_id] IS NULL
  AND [RepoObjectColumnProperty_property_value] <> [property_value]
