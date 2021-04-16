@@ -124,7 +124,7 @@ SELECT
  [T1].[RepoObject_guid]
  , [T1].[property_name]
  , [T1].[property_value]
- , [property_value_new] = COALESCE([referencing].[Repo_definition], [repo].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], 'MS_Description'))
+ , [property_value_new] = COALESCE([referencing].[Repo_definition], [property].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], 'MS_Description'))
  , [T1].[InheritanceType]
  , [T1].[Inheritance_StringAggSeparatorSql]
  , [T1].[is_force_inherit_empty_source]
@@ -139,14 +139,14 @@ SELECT
  , [referenced_RepoObject_name] = [referenced].[RepoObject_name]
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
  , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
-FROM [repo].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
+FROM [property].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
 INNER JOIN [repo].[RepoObject_reference_union] AS T2
  ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
 INNER JOIN [repo].[RepoObject_gross] AS referencing
  ON referencing.[RepoObject_guid] = T1.[RepoObject_guid]
 INNER JOIN [repo].[RepoObject_gross] AS referenced
  ON referenced.[RepoObject_guid] = T2.[referenced_RepoObject_guid]
-WHERE [T1].[resulting_InheritanceDefinition] = 'COALESCE(referencing.[Repo_definition], repo.fs_get_RepoObjectProperty_nvarchar(referenced.[RepoObject_guid], ''MS_Description''))'
+WHERE [T1].[resulting_InheritanceDefinition] = 'COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectProperty_nvarchar(referenced.[RepoObject_guid], ''MS_Description''))'
 
 */
         Set @stmt
@@ -188,7 +188,7 @@ SELECT
  , [referenced_RepoObject_name] = [referenced].[RepoObject_name]
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
  , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
-FROM [repo].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
+FROM [property].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
 INNER JOIN [repo].[RepoObject_reference_union] AS T2
  ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
 INNER JOIN [repo].[RepoObject_gross] AS referencing
