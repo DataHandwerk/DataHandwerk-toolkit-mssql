@@ -116,6 +116,9 @@
     <Folder Include="uspgenerator\Functions" />
     <Folder Include="uspgenerator\Stored Procedures" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="property" />
+    <Folder Include="property\Tables" />
+    <Folder Include="property\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />

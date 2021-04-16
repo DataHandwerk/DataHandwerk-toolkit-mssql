@@ -1,4 +1,4 @@
-﻿CREATE SCHEMA [properties]
+﻿CREATE SCHEMA [property]
     AUTHORIZATION [dbo];
 
 
