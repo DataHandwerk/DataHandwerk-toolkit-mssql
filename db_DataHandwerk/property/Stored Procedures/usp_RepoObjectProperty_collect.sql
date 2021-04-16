@@ -59,17 +59,17 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_RepoObjectProperty_collect]'
+PRINT '[property].[usp_RepoObjectProperty_collect]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[repo].[RepoObjectProperty_Collect_source_uspgenerator]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":210,"Name":"[property].[RepoObjectProperty_Collect_source_uspgenerator]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[property].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',210,';',NULL);
 
-Merge [property].RepoObjectProperty As t
+Merge property.RepoObjectProperty As t
 Using
 (
     Select
@@ -77,7 +77,7 @@ Using
       , property_name
       , property_value
     From
-        [property].RepoObjectProperty_Collect_source_uspgenerator
+        property.RepoObjectProperty_Collect_source_uspgenerator
 ) As s
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
@@ -114,9 +114,9 @@ When Not Matched And Not s.property_value Is Null
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = '[repo].[RepoObjectProperty_Collect_source_uspgenerator]'
+SET @step_name = '[property].[RepoObjectProperty_Collect_source_uspgenerator]'
 SET @source_object = '[repo].[GeneratorUsp_SqlUsp]'
-SET @target_object = '[repo].[RepoObjectProperty]'
+SET @target_object = '[property].[RepoObjectProperty]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -135,10 +135,10 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":310,"Name":"[repo].[RepoObjectProperty_Collect_source_ROGross]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":310,"Name":"[property].[RepoObjectProperty_Collect_source_ROGross]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[property].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',310,';',NULL);
 
-Merge [property].RepoObjectProperty As t
+Merge property.RepoObjectProperty As t
 Using
 (
     Select
@@ -146,7 +146,7 @@ Using
       , property_name
       , property_value
     From
-        [property].RepoObjectProperty_Collect_source_ROGross
+        property.RepoObjectProperty_Collect_source_ROGross
 ) As s
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
@@ -183,9 +183,9 @@ When Not Matched And Not s.property_value Is Null
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = '[repo].[RepoObjectProperty_Collect_source_ROGross]'
+SET @step_name = '[property].[RepoObjectProperty_Collect_source_ROGross]'
 SET @source_object = '[repo].[RepoObject_gross]'
-SET @target_object = '[repo].[RepoObjectProperty]'
+SET @target_object = '[property].[RepoObjectProperty]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -204,10 +204,10 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":410,"Name":"[repo].[RepoObjectProperty_Collect_source_sql_modules_definition]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_from_sql_modules_definition]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"[property].[RepoObjectProperty_Collect_source_sql_modules_definition]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[RepoObjectProperty_from_sql_modules_definition]","log_target_object":"[property].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',410,';',NULL);
 
-Merge [property].RepoObjectProperty As t
+Merge property.RepoObjectProperty As t
 Using
 (
     Select
@@ -215,7 +215,7 @@ Using
       , property_name
       , property_value
     From
-        [property].RepoObjectProperty_Collect_source_sql_modules_definition
+        property.RepoObjectProperty_Collect_source_sql_modules_definition
 ) As s
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
@@ -252,9 +252,9 @@ When Not Matched And Not s.property_value Is Null
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = '[repo].[RepoObjectProperty_Collect_source_sql_modules_definition]'
-SET @source_object = '[repo].[RepoObjectProperty_from_sql_modules_definition]'
-SET @target_object = '[repo].[RepoObjectProperty]'
+SET @step_name = '[property].[RepoObjectProperty_Collect_source_sql_modules_definition]'
+SET @source_object = '[property].[RepoObjectProperty_from_sql_modules_definition]'
+SET @target_object = '[property].[RepoObjectProperty]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -273,7 +273,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":3000,"Name":"DELETE WHERE [property_value] IS NULL","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"d"}]}*/
+/*{"ReportUspStep":[{"Number":3000,"Name":"DELETE WHERE [property_value] IS NULL","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[RepoObjectProperty]","log_target_object":"[property].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',3000,';',NULL);
 
 DELETE
@@ -284,8 +284,8 @@ WHERE [property_value] IS NULL
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'DELETE WHERE [property_value] IS NULL'
-SET @source_object = '[repo].[RepoObjectProperty]'
-SET @target_object = '[repo].[RepoObjectProperty]'
+SET @source_object = '[property].[RepoObjectProperty]'
+SET @target_object = '[property].[RepoObjectProperty]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid

@@ -986,14 +986,23 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":1410,"Name":"persistence: SET [persistence_source_RepoObjectColumn_guid] = NULL (missing source column)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1410,';',NULL);
 
-UPDATE roc
-SET [persistence_source_RepoObjectColumn_guid] = NULL
-FROM [repo].[RepoObjectColumn] roc
-WHERE NOT EXISTS (
-  SELECT [RepoObjectColumn_guid]
-  FROM [repo].[RepoObjectColumn] roc_s
-  WHERE roc_s.[RepoObjectColumn_guid] = roc.[persistence_source_RepoObjectColumn_guid]
-  )
+Update
+    roc
+Set
+    persistence_source_RepoObjectColumn_guid = Null
+From
+    repo.RepoObjectColumn roc
+Where
+    Not Exists
+(
+    Select
+        RepoObjectColumn_guid
+    From
+        repo.RepoObjectColumn roc_s
+    Where
+        roc_s.RepoObjectColumn_guid = roc.persistence_source_RepoObjectColumn_guid
+)
+    And Not roc.persistence_source_RepoObjectColumn_guid Is Null;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
