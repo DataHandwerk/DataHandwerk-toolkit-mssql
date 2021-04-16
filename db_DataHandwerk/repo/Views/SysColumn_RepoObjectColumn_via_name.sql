@@ -1,4 +1,5 @@
-﻿Create View repo.SysColumn_RepoObjectColumn_via_name
+﻿
+CREATE View [repo].[SysColumn_RepoObjectColumn_via_name]
 As
 --
 Select
@@ -55,12 +56,15 @@ Select
   , sc.user_type_fullname
   , sc.user_type_name
   , sc.uses_database_collation
-  --sometimes by error we have same named columns in repo.RepoObjectColumn, additinal columns should be deleted in [repo].[usp_sync_guid_RepoObjectColumn]
+  --sometimes we have columns with same name but different guid in repo.RepoObjectColumn, additional columns should be deleted in [repo].[usp_sync_guid_RepoObjectColumn]
+  --here we prepare, which to keep (RowNumberOverName = 1)
+  --we should keep RepoObjectColumn_name, because there could be PK defined and other properties
   , RowNumberOverName = Row_Number () Over ( Partition By
                                                  sc.SysObject_RepoObject_guid
                                                , sc.SysObject_column_name
                                              Order By
-                                                 roc.RepoObjectColumn_guid
+                                                 roc.is_RepoObjectColumn_name_uniqueidentifier
+                                               , roc.is_SysObjectColumn_name_uniqueidentifier
                                            )
 From
     repo_sys.SysColumn        As sc

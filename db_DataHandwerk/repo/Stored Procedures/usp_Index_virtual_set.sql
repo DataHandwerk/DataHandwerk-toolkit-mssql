@@ -28,33 +28,30 @@ Type of index:
 
 <<property_end>>
 
-<<property_start>>example1
+<<property_start>>exampleUsage
 EXEC repo.usp_Index_virtual_set
-    @RepoObject_fullname = '[dbo].[view_1]'
-  , @IndexPatternColumnName = 'aaa_id,bbb';
+    @RepoObject_fullname2 = 'SchemaName.EntityName'
+  , @IndexPatternColumnName = 'aaa,bbb'
+  , @is_index_primary_key = 1;
 <<property_end>>
 
-<<property_start>>example2
+<<property_start>>exampleUsage_2
+--set multiple indexes
+
 EXEC repo.usp_Index_virtual_set
-    @RepoObject_fullname2 = 'dbo.view_1'
-  , @IndexPatternColumnName = 'aaa_id'
+    @RepoObject_fullname = '[SchemaName].[EntityName]'
+  , @IndexPatternColumnName = 'ccc'
   , @is_index_primary_key = 1;
 
 EXEC repo.usp_Index_virtual_set
-    @RepoObject_fullname = '[repo].[RepoObjectColumn_gross]'
-  , @IndexPatternColumnName = 'RepoObjectColumn_guid'
-  , @is_index_primary_key = 1;
-
-EXEC repo.usp_Index_virtual_set
-    @RepoObject_fullname = '[graph].[RepoObjectColumn_S]'
-  , @IndexPatternColumnName = 'RepoObjectColumn_guid'
-  , @is_index_primary_key = 1;
+    @RepoObject_fullname2 = 'SchemaName.EntityName2'
+  , @IndexPatternColumnName = 'ccc'
 
 EXEC [repo].[usp_Index_finish];
 <<property_end>>
 
 */
-Create Procedure repo.usp_Index_virtual_set
+CREATE Procedure [repo].[usp_Index_virtual_set]
     @RepoObject_guid         UniqueIdentifier = Null --if @RepoObject_guid is NULL, then @RepoObject_fullname is used
   , @RepoObject_fullname     NVarchar(261)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
   , @RepoObject_fullname2    NVarchar(257)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use schema.TableOrView

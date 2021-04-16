@@ -1,56 +1,60 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 * generates the content for the 'partial$template/master-page-examples.adoc[]'
-* uses all properties with prefix 'example'
+* uses all properties with prefix 'example' (here: exampleAbc)
 
 ====
 ....
-	ifdef::ExistsProperty--example1[]
+	ifdef::ExistsProperty--exampleabc[]
 
-	.1
+	.Abc
 	====
 	[source,sql]
 	----
-	include::partial${docname}.adoc[tag=example1]
+	include::partial${docname}.adoc[tag=exampleabc]
 	----
 	====
 
-	endif::ExistsProperty--example1[]
+	endif::ExistsProperty--exampleabc[]
 ....
 ====
 <<property_end>>
 */
-Create View docs.AntoraTemplate_examples
+CREATE View [docs].[AntoraTemplate_examples]
 As
 Select
-    page_content = String_Agg (
-                                  Concat (
-                                             Cast(N'' As Varchar(Max))
-                                           , 'ifdef::ExistsProperty--' + property_name + '[]'
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , '.' + Substring ( property_name, 8, Len ( property_name ))
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , '===='
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , '[source,sql]'
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , '----'
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , 'include::partial${docname}.adoc[tag=' + property_name + ']'
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , '----'
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , '===='
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , Char ( 13 ) + Char ( 10 )
-                                           , 'endif::ExistsProperty--' + property_name + '[]'
-                                           , Char ( 13 ) + Char ( 10 )
-                                         )
-                                , Char ( 13 ) + Char ( 10 )
-                              ) Within Group(Order By
-                                                 property_name)
+    page_content = Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + '== Examples'
+                   --
+                   + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                   + String_Agg (
+                                    Concat (
+                                               Cast(N'' As Varchar(Max))
+                                             , 'ifdef::ExistsProperty--' + Lower ( property_name ) + '[]'
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , '.' + Substring ( property_name, 8, Len ( property_name ))
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , '===='
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , '[source,sql]'
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , '----'
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , 'include::partial${docname}.adoc[tag=' + Lower ( property_name ) + ']'
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , '----'
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , '===='
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , 'endif::ExistsProperty--' + Lower ( property_name ) + '[]'
+                                             , Char ( 13 ) + Char ( 10 )
+                                           )
+                                  , Char ( 13 ) + Char ( 10 )
+                                ) Within Group(Order By
+                                                   property_name)
 From
     repo.PropertyName_RepoObject
 Where

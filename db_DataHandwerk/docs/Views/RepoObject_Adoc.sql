@@ -1,12 +1,11 @@
 ﻿
-
 /*
 todo - direkt oder über extended properties
 - Index List
 - referencing
 - referenced
 */
-Create View docs.RepoObject_Adoc
+CREATE View [docs].[RepoObject_Adoc]
 As
 Select
     ro.RepoObject_guid
@@ -41,7 +40,7 @@ Select
                                                                 , Case
                                                                       When Not rop.property_nvarchar Is Null
                                                                           Then
-                                                                          ':ExistsProperty--' + rop.property_name + ':'
+                                                                          ':ExistsProperty--' + Lower ( rop.property_name ) + ':'
                                                                           + Char ( 13 ) + Char ( 10 )
                                                                       Else
                                                                           ''
@@ -49,7 +48,7 @@ Select
                                                               )
                                                      , ''
                                                    ) Within Group(Order By
-                                                                      rop.property_name)
+                                                                      rop_cross.property_name)
                                       , Case
                                             When Max ( ro.sql_modules_antora ) <> ''
                                                 Then
@@ -250,114 +249,6 @@ Select
                                       , '// end::AntoraParameterList[]'
                                       , Char ( 13 )
                                       , Char ( 10 )
-                                      ----
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '== pk_index_guid'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// tag::pk_index_guid[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, max(ro.pk_index_guid)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// end::pk_index_guid[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      ----
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '== pk_IndexPatternColumnDatatype'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// tag::pk_IndexPatternColumnDatatype[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, max(ro.pk_IndexPatternColumnDatatype)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// end::pk_IndexPatternColumnDatatype[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      ----
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '== pk_IndexPatternColumnName'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// tag::pk_IndexPatternColumnName[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, max(ro.pk_IndexPatternColumnName)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// end::pk_IndexPatternColumnName[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      ----
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '== pk_IndexSemanticGroup'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// tag::pk_IndexSemanticGroup[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, max(ro.pk_IndexSemanticGroup)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// end::pk_IndexSemanticGroup[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --
-                                      --
-                                      --
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '== CreateColumnList'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// tag::CreateColumnList[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, max(ro.CreateColumnList)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// end::CreateColumnList[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      ----
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '== DbmlColumnList'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// tag::DbmlColumnList[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, max(ro.DbmlColumnList)
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --, '// end::DbmlColumnList[]'
-                                      --, CHAR(13)
-                                      --, CHAR(10)
-                                      --
-                                      --CASE 
-                                      -- WHEN COUNT(DISTINCT rop.property_name) > 1
-                                      --  THEN 
                                       , String_Agg (
                                                        Concat (
                                                                   Cast('' As NVarchar(Max))
@@ -370,7 +261,7 @@ Select
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
                                                                 , '// tag::'
-                                                                , rop_cross.property_name
+                                                                , Lower ( rop_cross.property_name )
                                                                 , '[]'
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
@@ -378,14 +269,14 @@ Select
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
                                                                 , '// end::'
-                                                                , rop_cross.property_name
+                                                                , Lower ( rop_cross.property_name )
                                                                 , '[]'
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
                                                               )
                                                      , Char ( 13 ) + Char ( 10 )
                                                    ) Within Group(Order By
-                                                                      rop.property_name)
+                                                                      rop_cross.property_name)
                                       --END
                                       --
                                       , Char ( 13 )

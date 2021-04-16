@@ -8,7 +8,7 @@
 <<property_end>>
 
 
-<<property_start>>example1
+<<property_start>>exampleUsage
 DECLARE 
  @string NVARCHAR(max)
  , @pattern1 NVARCHAR(1000)
@@ -31,7 +31,7 @@ SELECT *
 FROM tool.[ftv_extract_substrings](@string, @pattern1, @pattern2)
 <<property_end>>
 
-<<property_start>>example2
+<<property_start>>exampleUsage_2
 SELECT
  --
  [RepoObject_guid]
@@ -43,7 +43,7 @@ CROSS APPLY tool.[ftv_extract_substrings]([sql_modules_definition], CHAR(13) + C
 
 
 */
-Create Function tool.ftv_extract_substrings
+CREATE Function [tool].[ftv_extract_substrings]
 (
     @string   NVarchar(Max)
   , @pattern1 NVarchar(1000)

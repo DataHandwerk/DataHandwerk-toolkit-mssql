@@ -1,4 +1,25 @@
 ﻿
+/*
+<<property_start>>exampleUsage
+--get sql code CREATE OR ALTER TABLE for persistence tables
+Select
+    RepoObject_guid
+  , RepoObject_fullname
+  , SqlCreateTable
+--, DbmlTable
+--, ConList
+--, persistence_source_RepoObject_fullname
+--, persistence_source_RepoObject_guid
+--, persistence_source_SysObject_fullname
+From
+    dhw_self.repo.RepoObject_SqlCreateTable
+Where
+    Not persistence_source_RepoObject_guid Is Null
+Order By
+    RepoObject_fullname;
+<<property_end>>
+
+*/
 CREATE View [repo].[RepoObject_SqlCreateTable]
 As
 Select

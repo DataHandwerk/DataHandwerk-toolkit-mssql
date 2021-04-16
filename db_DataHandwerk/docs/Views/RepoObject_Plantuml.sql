@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [docs].[RepoObject_Plantuml]
 As
 Select
@@ -49,7 +50,7 @@ Select
                                              , olist_1_1.ObjectRefList
                                            )
   , PlantumlEntity_0_30_ObjectRef = Concat (
-                                               'left to right direction'
+                                               '''Left to right direction'
                                              , Char ( 13 ) + Char ( 10 )
                                              , 'hide circle'
                                              , Char ( 13 ) + Char ( 10 )
@@ -83,7 +84,7 @@ Select
                                              , olist_30_0.ObjectRefList
                                            )
   , PlantumlEntity_1_1_FkRef      = Concat (
-                                               '''Left to right direction'
+                                               'Left to right direction'
                                              , Char ( 13 ) + Char ( 10 )
                                              , 'hide circle'
                                              , Char ( 13 ) + Char ( 10 )
