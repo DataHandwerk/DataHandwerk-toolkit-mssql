@@ -9,7 +9,7 @@ Select
     --
     property_name
 From
-    repo.RepoObjectProperty
+    [property].RepoObjectProperty
 Union
 Select
     Distinct

@@ -69,7 +69,7 @@ PRINT '[repo].[usp_RepoObjectProperty_collect]'
 /*{"ReportUspStep":[{"Number":210,"Name":"[repo].[RepoObjectProperty_Collect_source_uspgenerator]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUsp_SqlUsp]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',210,';',NULL);
 
-Merge repo.RepoObjectProperty As t
+Merge [property].RepoObjectProperty As t
 Using
 (
     Select
@@ -138,7 +138,7 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":310,"Name":"[repo].[RepoObjectProperty_Collect_source_ROGross]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',310,';',NULL);
 
-Merge repo.RepoObjectProperty As t
+Merge [property].RepoObjectProperty As t
 Using
 (
     Select
@@ -207,7 +207,7 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":410,"Name":"[repo].[RepoObjectProperty_Collect_source_sql_modules_definition]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_from_sql_modules_definition]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',410,';',NULL);
 
-Merge repo.RepoObjectProperty As t
+Merge [property].RepoObjectProperty As t
 Using
 (
     Select

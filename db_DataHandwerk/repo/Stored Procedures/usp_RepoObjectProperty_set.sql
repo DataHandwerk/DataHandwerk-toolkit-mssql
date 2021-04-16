@@ -68,7 +68,7 @@ Begin
         Throw 51001, @step_name, 1;
     End;
 
-    Merge repo.RepoObjectProperty T
+    Merge [property].RepoObjectProperty T
     Using
     (
         Select

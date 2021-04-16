@@ -12,7 +12,7 @@ Select
   , prop.RepoObject_guid
   , ro.RepoObject_type
 From
-    repo.RepoObjectProperty               As prop
+    [property].RepoObjectProperty               As prop
     Inner Join
         repo.RepoObject                   As ro
             On

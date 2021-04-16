@@ -320,7 +320,7 @@ From
             rop_cross.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        repo.RepoObjectProperty       rop
+        [property].RepoObjectProperty       rop
             On
             rop.RepoObject_guid       = rop_cross.RepoObject_guid
             And rop.property_name     = rop_cross.property_name

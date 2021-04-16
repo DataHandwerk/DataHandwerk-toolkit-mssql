@@ -11,7 +11,7 @@ Begin
         Select
             property_nvarchar
         From
-            repo.RepoObjectProperty
+            [property].RepoObjectProperty
         Where
             RepoObject_guid   = @RepoObject_guid
             And property_name = @property_name

@@ -35,7 +35,7 @@ From
     repo.RepoObject                         As ro
     Cross Join repo.PropertyName_RepoObject As pn
     Left Join
-        repo.RepoObjectProperty As rop
+        [property].RepoObjectProperty As rop
             On
             rop.RepoObject_guid           = ro.RepoObject_guid
             And rop.property_name         = pn.property_name

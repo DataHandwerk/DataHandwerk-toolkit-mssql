@@ -84,7 +84,7 @@ DECLARE
 /*{"ReportUspStep":[{"Number":310,"Name":"repo.RepoObjectProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectProperty_sys_repo]","log_target_object":"[repo].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',310,';',NULL);
 
-INSERT INTO repo.RepoObjectProperty (
+INSERT INTO [property].RepoObjectProperty (
  [RepoObject_guid]
  , [property_name]
  , [property_value]

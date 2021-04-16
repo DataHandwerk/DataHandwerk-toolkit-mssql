@@ -1144,4 +1144,10 @@
     <Property Name="NewSchema" Value="uspgenerator" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="263c1ff5-7d6f-4d9b-a8b9-6d13264f51ee" ChangeDateTime="04/16/2021 15:05:05">
+    <Property Name="ElementName" Value="[repo].[RepoObjectProperty]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>
