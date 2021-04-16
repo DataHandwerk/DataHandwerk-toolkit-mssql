@@ -96,7 +96,7 @@ SELECT [property_name]
  , [level1name]
  , [level2type]
  , [level2name]
-FROM [repo].[ExtendedProperty_Repo2Sys_level1] AS S
+FROM [property].[ExtendedProperty_Repo2Sys_level1] AS S
 --do not change extended properties with exact match
 WHERE NOT EXISTS (
   SELECT 1
@@ -207,7 +207,7 @@ SELECT [property_name]
  , [level1name]
  , [level2type]
  , [level2name]
-FROM [repo].[ExtendedProperty_Repo2Sys_level2_Union] AS S
+FROM [property].[ExtendedProperty_Repo2Sys_level2_Union] AS S
 --do not change extended properties with exact match
 WHERE NOT EXISTS (
   SELECT 1

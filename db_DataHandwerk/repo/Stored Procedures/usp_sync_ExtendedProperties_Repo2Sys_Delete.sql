@@ -103,7 +103,7 @@ WHERE NOT [T].[property_name] = 'RepoObject_guid'
  AND [T].[level2name] IS NULL
  AND NOT EXISTS (
   SELECT 1
-  FROM [repo].[ExtendedProperty_Repo2Sys_level1] AS [S]
+  FROM [property].[ExtendedProperty_Repo2Sys_level1] AS [S]
   WHERE [T].[property_name] = [S].[property_name]
    AND [T].[level0type] = [S].[level0type]
    AND [T].[level0name] = [S].[level0name]
@@ -215,7 +215,7 @@ WHERE NOT [T].[property_name] = 'RepoObject_guid'
  AND NOT [T].[level2name] IS NULL
  AND NOT EXISTS (
   SELECT 1
-  FROM [repo].[ExtendedProperty_Repo2Sys_level2_Union] AS [S]
+  FROM [property].[ExtendedProperty_Repo2Sys_level2_Union] AS [S]
   WHERE [T].[property_name] = [S].[property_name]
    AND [T].[level0type] = [S].[level0type]
    AND [T].[level0name] = [S].[level0name]

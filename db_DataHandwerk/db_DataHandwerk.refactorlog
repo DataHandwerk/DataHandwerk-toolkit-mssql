@@ -1162,4 +1162,34 @@
     <Property Name="NewSchema" Value="property" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="d02fe891-4837-43dc-8953-1b6d7a448537" ChangeDateTime="04/16/2021 15:18:09">
+    <Property Name="ElementName" Value="[repo].[RepoObject_Inheritance_temp]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="68753388-355c-40e6-8e48-92a837047524" ChangeDateTime="04/16/2021 16:13:26">
+    <Property Name="ElementName" Value="[repo].[ExtendedProperty_Repo2Sys_level1]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="6d568093-df78-4319-b604-b064d0b3ef86" ChangeDateTime="04/16/2021 16:14:28">
+    <Property Name="ElementName" Value="[repo].[ExtendedProperty_Repo2Sys_level2_RepoObject]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7ba52258-45ef-457c-a7fb-34fcf1e89399" ChangeDateTime="04/16/2021 16:15:26">
+    <Property Name="ElementName" Value="[repo].[ExtendedProperty_Repo2Sys_level2_RepoObjectColumn]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="000380ff-ed11-429b-9599-73d4533609ac" ChangeDateTime="04/16/2021 16:17:05">
+    <Property Name="ElementName" Value="[repo].[ExtendedProperty_Repo2Sys_level2_Union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>
