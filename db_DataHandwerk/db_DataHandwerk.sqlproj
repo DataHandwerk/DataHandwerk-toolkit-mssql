@@ -465,6 +465,7 @@
     <Build Include="repo\Views\RepoObjectProperty_Collect_source_uspgenerator.sql" />
     <Build Include="repo\Views\RepoObjectProperty_Collect_source_sql_modules_definition.sql" />
     <Build Include="repo\Views\RepoObjectProperty_Collect_source_ROGross.sql" />
+    <Build Include="Security\property.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
