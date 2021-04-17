@@ -277,7 +277,7 @@ EXEC logs.usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',20,';',3000,';',NULL);
 
 DELETE
-FROM [dhw_self].[repo].[RepoObjectProperty]
+FROM [dhw_self].[property].[RepoObjectProperty]
 WHERE [property_value] IS NULL
 
 -- Logging START --
