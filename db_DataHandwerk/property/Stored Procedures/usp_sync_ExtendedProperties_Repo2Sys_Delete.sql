@@ -59,7 +59,7 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_sync_ExtendedProperties_Repo2Sys_Delete]'
+PRINT '[property].[usp_sync_ExtendedProperties_Repo2Sys_Delete]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START

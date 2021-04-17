@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [reference].[usp_PERSIST_RepoObject_referencing_level_T]
+﻿CREATE   PROCEDURE [repo].[usp_update_Referencing_Count]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -59,24 +59,34 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[reference].[usp_PERSIST_RepoObject_referencing_level_T]'
+PRINT '[repo].[usp_update_Referencing_Count]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[reference].[RepoObject_referencing_level_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',25,';',400,';',NULL);
+/*{"ReportUspStep":[{"Number":210,"Name":"SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[RepoObjectReferencing]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',19,';',210,';',NULL);
 
-TRUNCATE TABLE [reference].[RepoObject_referencing_level_T]
+UPDATE repo.RepoObject
+SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]
+FROM [repo].[RepoObject]
+LEFT OUTER JOIN (
+ SELECT [RepoObject_guid]
+  , COUNT(*) AS [Referencing_Count]
+ FROM [repo_sys].[RepoObjectReferencing] AS [ror]
+ GROUP BY [RepoObject_guid]
+ ) AS [rorc]
+ ON [repo].[RepoObject].[RepoObject_guid] = [rorc].[RepoObject_guid]
+WHERE ISNULL([repo].[RepoObject].[RepoObject_Referencing_Count], 0) <> ISNULL([rorc].[Referencing_Count], 0)
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'truncate persistence target'
-SET @source_object = NULL
-SET @target_object = '[reference].[RepoObject_referencing_level_T]'
+SET @step_name = 'SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]'
+SET @source_object = '[repo_sys].[RepoObjectReferencing]'
+SET @target_object = '[repo].[RepoObject]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -92,42 +102,54 @@ EXEC logs.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @deleted = @rows
+ , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_referencing_level]","log_target_object":"[reference].[RepoObject_referencing_level_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',25,';',800,';',NULL);
+/*{"ReportUspStep":[{"Number":310,"Name":"SET [Referencing_Count] = [rorc].[Referencing_Count]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[RepoObjectReferenced]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',19,';',310,';',NULL);
 
-INSERT INTO 
- [reference].[RepoObject_referencing_level_T]
- (
-  [StartingNode_guid]
-, [LastNode_guid]
-, [referencing_level]
-, [LastNode_fullname]
-, [LastNode_fullname2]
-, [ListNode]
-, [StartingNode_fullname]
-, [StartingNode_fullname2]
-)
-SELECT
-  [StartingNode_guid]
-, [LastNode_guid]
-, [referencing_level]
-, [LastNode_fullname]
-, [LastNode_fullname2]
-, [ListNode]
-, [StartingNode_fullname]
-, [StartingNode_fullname2]
+Update
+    roc
+Set
+    [Referencing_Count] = [rorc].[Referencing_Count]
+From
+    [repo].[RepoObjectColumn] roc
+    Left Outer Join
+        [repo].[RepoObject]   [ro]
+            On
+            roc.[RepoObject_guid]        = [ro].[RepoObject_guid]
 
-FROM [reference].[RepoObject_referencing_level] AS S
+    Left Outer Join
+    (
+        Select
+            ror.[referenced_schema_name]
+          , ror.[referenced_entity_name]
+          , ror.[referenced_minor_name]
+          , Count ( Distinct ror.[RepoObject_guid] ) As [Referencing_Count]
+        From
+            [repo_sys].[RepoObjectReferenced]   As [ror]
+            Cross Join config.ftv_dwh_database () As dwhdb
+        Where
+            ror.[referenced_database_name] = dwhdb.dwh_database_name
+            Or ror.[referenced_database_name] Is Null
+        Group By
+            ror.[referenced_schema_name]
+          , ror.[referenced_entity_name]
+          , ror.[referenced_minor_name]
+    )                         As [rorc]
+        On
+        roc.[SysObjectColumn_name]       = [rorc].[referenced_minor_name]
+        And [ro].[SysObject_name]        = [rorc].[referenced_entity_name]
+        And [ro].[SysObject_schema_name] = rorc.[referenced_schema_name]
+Where
+    IsNull ( roc.[Referencing_Count], 0 ) <> IsNull ( [rorc].[Referencing_Count], 0 );
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'insert all'
-SET @source_object = '[reference].[RepoObject_referencing_level]'
-SET @target_object = '[reference].[RepoObject_referencing_level_T]'
+SET @step_name = 'SET [Referencing_Count] = [rorc].[Referencing_Count]'
+SET @source_object = '[repo_sys].[RepoObjectReferenced]'
+SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -143,7 +165,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @inserted = @rows
+ , @updated = @rows
 -- Logging END --
 
 --
@@ -174,6 +196,3 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8c18814c-9295-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referencing_level_T';
-

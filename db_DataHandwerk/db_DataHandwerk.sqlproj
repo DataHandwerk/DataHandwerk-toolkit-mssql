@@ -477,6 +477,7 @@
     <Build Include="reference\Views\RepoObjectColumn_ReferencingReferenced.sql" />
     <Build Include="reference\Views\RepoObject_ReferencingReferenced_u_v.sql" />
     <Build Include="reference\Views\RepoObject_ReferencingReferenced.sql" />
+    <Build Include="repo\Stored Procedures\usp_update_Referencing_Count.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
