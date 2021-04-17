@@ -1,5 +1,5 @@
 ﻿
-CREATE Procedure [repo].[usp_RepoObject_Inheritance]
+CREATE Procedure [property].[usp_RepoObjectColumn_Inheritance]
     ----keep the code between logging parameters and "START" unchanged!
     ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -72,7 +72,7 @@ Declare inheritance_cursor Cursor Local Fast_Forward For
 Select
     resulting_InheritanceDefinition
 From
-    [property].RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
+    [property].[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition]
 Group By
     resulting_InheritanceDefinition
 Having
@@ -99,11 +99,11 @@ Begin
         Set @resulting_InheritanceDefinition_ForSql = Replace ( @resulting_InheritanceDefinition, '''', '''''' );
 
         --PRINT @resulting_InheritanceDefinition_ForSql
-        Truncate Table [property].RepoObject_Inheritance_temp;
+        Truncate Table [property].RepoObjectColumn_Inheritance_temp;
 
         /*
-INSERT INTO [repo].[RepoObject_Inheritance_temp] (
- [RepoObject_guid]
+INSERT INTO [repo].[RepoObjectColumn_Inheritance_temp] (
+ [RepoObjectColumn_guid]
  , [property_name]
  , [property_value]
  , [property_value_new]
@@ -113,46 +113,46 @@ INSERT INTO [repo].[RepoObject_Inheritance_temp] (
  , [is_StringAggAllSources]
  , [resulting_InheritanceDefinition]
  , [RowNumberSource]
- , [referenced_RepoObject_guid]
+ , [referenced_RepoObjectColumn_guid]
  , [referenced_RepoObject_fullname]
- , [referenced_RepoObject_name]
+ , [referenced_RepoObjectColumn_name]
  , [referencing_RepoObject_fullname]
- , [referencing_RepoObject_name]
+ , [referencing_RepoObjectColumn_name]
  )
 SELECT
  --
- [T1].[RepoObject_guid]
+ [T1].[RepoObjectColumn_guid]
  , [T1].[property_name]
  , [T1].[property_value]
- , [property_value_new] = COALESCE([referencing].[Repo_definition], [property].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], 'MS_Description'))
+ , [property_value_new] = COALESCE([referencing].[Repo_definition], [property].[fs_get_RepoObjectColumnProperty_nvarchar]([referenced].[RepoObjectColumn_guid], 'MS_Description'))
  , [T1].[InheritanceType]
  , [T1].[Inheritance_StringAggSeparatorSql]
  , [T1].[is_force_inherit_empty_source]
  , [T1].[is_StringAggAllSources]
  , [T1].[resulting_InheritanceDefinition]
  , [RowNumberSource] = ROW_NUMBER() OVER (
-  PARTITION BY [T1].[RepoObject_guid] ORDER BY [referenced].[RepoObject_fullname]
-   , [referenced].[RepoObject_name]
+  PARTITION BY [T1].[RepoObjectColumn_guid] ORDER BY [referenced].[RepoObject_fullname]
+   , [referenced].[RepoObjectColumn_name]
   )
- , [T2].[referenced_RepoObject_guid]
+ , [T2].[referenced_RepoObjectColumn_guid]
  , [referenced_RepoObject_fullname] = [referenced].[RepoObject_fullname]
- , [referenced_RepoObject_name] = [referenced].[RepoObject_name]
+ , [referenced_RepoObjectColumn_name] = [referenced].[RepoObjectColumn_name]
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
- , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
-FROM [property].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
-INNER JOIN [repo].[RepoObject_reference_union] AS T2
- ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
-INNER JOIN [repo].[RepoObject_gross] AS referencing
- ON referencing.[RepoObject_guid] = T1.[RepoObject_guid]
-INNER JOIN [repo].[RepoObject_gross] AS referenced
- ON referenced.[RepoObject_guid] = T2.[referenced_RepoObject_guid]
-WHERE [T1].[resulting_InheritanceDefinition] = 'COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectProperty_nvarchar(referenced.[RepoObject_guid], ''MS_Description''))'
+ , [referencing_RepoObjectColumn_name] = [referencing].[RepoObjectColumn_name]
+FROM [property].[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
+INNER JOIN [repo].[RepoObjectColumn_reference_union] AS T2
+ ON T2.[referencing_RepoObjectColumn_guid] = T1.[RepoObjectColumn_guid]
+INNER JOIN [repo].[RepoObjectColumn_gross] AS referencing
+ ON referencing.[RepoObjectColumn_guid] = T1.[RepoObjectColumn_guid]
+INNER JOIN [repo].[RepoObjectColumn_gross] AS referenced
+ ON referenced.[RepoObjectColumn_guid] = T2.[referenced_RepoObjectColumn_guid]
+WHERE [T1].[resulting_InheritanceDefinition] = 'COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description''))'
 
 */
         Set @stmt
             = N'
-INSERT INTO [property].[RepoObject_Inheritance_temp] (
- [RepoObject_guid]
+INSERT INTO [property].[RepoObjectColumn_Inheritance_temp] (
+ [RepoObjectColumn_guid]
  , [property_name]
  , [property_value]
  , [property_value_new]
@@ -162,15 +162,15 @@ INSERT INTO [property].[RepoObject_Inheritance_temp] (
  , [is_StringAggAllSources]
  , [resulting_InheritanceDefinition]
  , [RowNumberSource]
- , [referenced_RepoObject_guid]
+ , [referenced_RepoObjectColumn_guid]
  , [referenced_RepoObject_fullname]
- , [referenced_RepoObject_name]
+ , [referenced_RepoObjectColumn_name]
  , [referencing_RepoObject_fullname]
- , [referencing_RepoObject_name]
+ , [referencing_RepoObjectColumn_name]
  )
 SELECT
  --
- [T1].[RepoObject_guid]
+ [T1].[RepoObjectColumn_guid]
  , [T1].[property_name]
  , [T1].[property_value]
  , [property_value_new] = ' + @resulting_InheritanceDefinition
@@ -181,20 +181,21 @@ SELECT
  , [T1].[is_StringAggAllSources]
  , [T1].[resulting_InheritanceDefinition]
  , [RowNumberSource] = ROW_NUMBER() OVER (
-  PARTITION BY [T1].[RepoObject_guid] ORDER BY [referenced].[RepoObject_fullname]
+  PARTITION BY [T1].[RepoObjectColumn_guid] ORDER BY [referenced].[RepoObject_fullname]
+   , [referenced].[RepoObjectColumn_name]
   )
- , [T2].[referenced_RepoObject_guid]
+ , [T2].[referenced_RepoObjectColumn_guid]
  , [referenced_RepoObject_fullname] = [referenced].[RepoObject_fullname]
- , [referenced_RepoObject_name] = [referenced].[RepoObject_name]
+ , [referenced_RepoObjectColumn_name] = [referenced].[RepoObjectColumn_name]
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
- , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
-FROM [property].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
-INNER JOIN [repo].[RepoObject_reference_union] AS T2
- ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
-INNER JOIN [repo].[RepoObject_gross] AS referencing
- ON referencing.[RepoObject_guid] = T1.[RepoObject_guid]
-INNER JOIN [repo].[RepoObject_gross] AS referenced
- ON referenced.[RepoObject_guid] = T2.[referenced_RepoObject_guid]
+ , [referencing_RepoObjectColumn_name] = [referencing].[RepoObjectColumn_name]
+FROM [property].[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
+INNER JOIN [repo].[RepoObjectColumn_reference_union] AS T2
+ ON T2.[referencing_RepoObjectColumn_guid] = T1.[RepoObjectColumn_guid]
+INNER JOIN [repo].[RepoObjectColumn_gross] AS referencing
+ ON referencing.[RepoObjectColumn_guid] = T1.[RepoObjectColumn_guid]
+INNER JOIN [repo].[RepoObjectColumn_gross] AS referenced
+ ON referenced.[RepoObjectColumn_guid] = T2.[referenced_RepoObjectColumn_guid]
 WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefinition_ForSql + N'''
 '       ;
 
@@ -206,7 +207,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
         Select
             Inheritance_StringAggSeparatorSql
         From
-            [property].RepoObject_Inheritance_temp
+            [property].RepoObjectColumn_Inheritance_temp
         Group By
             Inheritance_StringAggSeparatorSql;
 
@@ -229,11 +230,11 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                     --T.[property_value] can't be NULL
                     --not [property_value_new] IS NULL 
                     --we need to delete, when S.[property_value_new] IS NULL
-                    Merge Into [property].RepoObjectProperty As T
+                    Merge Into [property].RepoObjectColumnProperty As T
                     Using
                     (
                         Select
-                            RepoObject_guid
+                            RepoObjectColumn_guid
                           , property_name
                           , property_value
                           , property_value_new
@@ -243,13 +244,13 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                         --, [is_StringAggAllSources]
                         --, [resulting_InheritanceDefinition]
                         --, [RowNumberSource]
-                        --, [referenced_RepoObject_guid]
-                        --, [referenced_RepoObject_fullname]
-                        --, [referenced_RepoObject_name]
-                        --, [referencing_RepoObject_fullname]
-                        --, [referencing_RepoObject_name]
+                        --, [referenced_RepoObjectColumn_guid]
+                        --, [referenced_RepoObjectColumn_fullname]
+                        --, [referenced_RepoObjectColumn_name]
+                        --, [referencing_RepoObjectColumn_fullname]
+                        --, [referencing_RepoObjectColumn_name]
                         From
-                            [property].RepoObject_Inheritance_temp
+                            [property].RepoObjectColumn_Inheritance_temp
                         Where
                             --
                             is_StringAggAllSources                    = 0
@@ -272,7 +273,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                                 )
                             )
                     ) As S
-                    On S.RepoObject_guid = T.RepoObject_guid
+                    On S.RepoObjectColumn_guid = T.RepoObjectColumn_guid
                        And S.property_name = T.property_name
                     When Matched And Not S.property_value_new Is Null
                         Then Update Set
@@ -282,13 +283,13 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                     When Not Matched By Target And Not S.property_value_new Is Null
                         Then Insert
                              (
-                                 RepoObject_guid
+                                 RepoObjectColumn_guid
                                , property_name
                                , property_value
                              )
                              Values
                                  (
-                                     S.RepoObject_guid
+                                     S.RepoObjectColumn_guid
                                    , S.property_name
                                    , S.property_value_new
                                  )
@@ -299,11 +300,11 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                 End;
                 Else
                 Begin
-                    Merge Into [property].RepoObjectProperty As T
+                    Merge Into [property].RepoObjectColumnProperty As T
                     Using
                     (
                         Select
-                            RepoObject_guid
+                            RepoObjectColumn_guid
                           , property_name
                           , property_value
                           , property_value_new
@@ -312,7 +313,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                         From
                     (
                         Select
-                            RepoObject_guid
+                            RepoObjectColumn_guid
                           , property_name
                           , property_value                = Max ( property_value )
                           , property_value_new            = Cast(String_Agg (
@@ -327,18 +328,18 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                           --, [is_StringAggAllSources]
                           --, [resulting_InheritanceDefinition]
                           , RowNumberSource               = Max ( RowNumberSource )
-                        --, [referenced_RepoObject_guid]
-                        --, [referenced_RepoObject_fullname]
-                        --, [referenced_RepoObject_name]
-                        --, [referencing_RepoObject_fullname]
-                        --, [referencing_RepoObject_name]
+                        --, [referenced_RepoObjectColumn_guid]
+                        --, [referenced_RepoObjectColumn_fullname]
+                        --, [referenced_RepoObjectColumn_name]
+                        --, [referencing_RepoObjectColumn_fullname]
+                        --, [referencing_RepoObjectColumn_name]
                         From
-                            [property].RepoObject_Inheritance_temp
+                            [property].RepoObjectColumn_Inheritance_temp
                         Where
                             --
                             is_StringAggAllSources = 1
                         Group By
-                            RepoObject_guid
+                            RepoObjectColumn_guid
                           , property_name
                     ) T1
                         Where
@@ -358,7 +359,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                                 )
                             )
                     ) As S
-                    On S.RepoObject_guid = T.RepoObject_guid
+                    On S.RepoObjectColumn_guid = T.RepoObjectColumn_guid
                        And S.property_name = T.property_name
                     When Matched And Not S.property_value_new Is Null
                         Then Update Set
@@ -368,13 +369,13 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                     When Not Matched By Target And Not S.property_value_new Is Null
                         Then Insert
                              (
-                                 RepoObject_guid
+                                 RepoObjectColumn_guid
                                , property_name
                                , property_value
                              )
                              Values
                                  (
-                                     S.RepoObject_guid
+                                     S.RepoObjectColumn_guid
                                    , S.property_name
                                    , S.property_value_new
                                  )
@@ -431,9 +432,9 @@ Exec logs.usp_ExecutionLog_insert
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
-  , @value = '63b33a4a-426d-eb11-84e2-a81e8446d5b0'
+  , @value = '60b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'property'
   , @level1type = N'PROCEDURE'
-  , @level1name = N'usp_RepoObject_Inheritance';
+  , @level1name = N'usp_RepoObjectColumn_Inheritance';
 
