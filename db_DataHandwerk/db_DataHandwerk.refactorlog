@@ -1348,4 +1348,22 @@
     <Property Name="NewSchema" Value="property" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="acbdcd9d-2dc8-4269-8d18-4a87d77132cc" ChangeDateTime="04/17/2021 10:34:46">
+    <Property Name="ElementName" Value="[repo].[usp_sync_ExtendedProperties_Repo2Sys_Delete]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="9f400cef-210a-4b6d-8dfc-799171961633" ChangeDateTime="04/17/2021 10:35:39">
+    <Property Name="ElementName" Value="[repo].[usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="6ea81a63-b893-4b9d-924a-50ba926cd537" ChangeDateTime="04/17/2021 10:36:32">
+    <Property Name="ElementName" Value="[repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>
