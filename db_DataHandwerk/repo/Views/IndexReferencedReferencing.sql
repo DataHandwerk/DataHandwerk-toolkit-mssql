@@ -44,7 +44,7 @@ Select
 From
     repo.Index_union                    As i_s --index source: index in referenced source object(s)
     Inner Join
-        repo.RepoObject_reference_union As ror
+        [reference].RepoObject_reference_union As ror
             On
             ror.referenced_RepoObject_guid = i_s.parent_RepoObject_guid
 

@@ -123,7 +123,7 @@ DECLARE @Object_fullname2 NVARCHAR(257);
 
 
 /*{"ReportUspStep":[{"Number":310,"Name":"[repo].[usp_PERSIST_RepoObject_referenced_level_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_PERSIST_RepoObject_referenced_level_T]
+EXEC [reference].[usp_PERSIST_RepoObject_referenced_level_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -133,7 +133,7 @@ EXEC [repo].[usp_PERSIST_RepoObject_referenced_level_T]
 
 
 /*{"ReportUspStep":[{"Number":320,"Name":"[repo].[usp_PERSIST_RepoObject_referencing_level_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_PERSIST_RepoObject_referencing_level_T]
+EXEC [reference].[usp_PERSIST_RepoObject_referencing_level_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

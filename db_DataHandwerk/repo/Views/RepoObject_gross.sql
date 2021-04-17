@@ -21,7 +21,7 @@ Select
                                                                      Select
                                                                          1
                                                                      From
-                                                                         graph.RepoObject_ReferencingReferenced As ref
+                                                                         [reference].RepoObject_ReferencingReferenced As ref
                                                                      Where
                                                                          ref.Referenced_guid     = ro.RepoObject_guid
                                                                          Or ref.Referencing_guid = ro.RepoObject_guid
@@ -141,12 +141,12 @@ From
             ipk.index_guid                      = ro.pk_index_guid
 
     Left Join
-        repo.RepoObject_ReferencedList      As ro_referenced
+        [reference].RepoObject_ReferencedList      As ro_referenced
             On
             ro_referenced.Referencing_guid      = ro.RepoObject_guid
 
     Left Join
-        repo.RepoObject_ReferencingList     As ro_referencing
+        [reference].RepoObject_ReferencingList     As ro_referencing
             On
             ro_referencing.Referenced_guid      = ro.RepoObject_guid
 

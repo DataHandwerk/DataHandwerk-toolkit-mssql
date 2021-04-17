@@ -302,7 +302,7 @@ Select
   , SysObjectColumn_column_id
   , 1 As is_query_plan_expression
 From
-    repo.SysObjectColumn_QueryPlanExpression As T1
+    [reference].SysObjectColumn_QueryPlanExpression As T1
 Where
     Not Exists
 (
@@ -359,7 +359,7 @@ Where
     Select
         SysObjectColumn_name
     From
-        repo.SysObjectColumn_QueryPlanExpression As T1
+        [reference].SysObjectColumn_QueryPlanExpression As T1
     Where
         roc.RepoObject_guid          = T1.RepoObject_guid
         And roc.SysObjectColumn_name = T1.SysObjectColumn_name

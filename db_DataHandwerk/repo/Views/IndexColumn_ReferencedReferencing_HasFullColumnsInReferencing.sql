@@ -76,7 +76,7 @@ From
     repo.IndexColumn_union                    As ic
     Inner Join --todo: maybe use another source for RepoObject references 
         --repo.[RepoObjectColumn_reference_FirstResultSet] AS ref
-        repo.RepoObjectColumn_reference_union ref
+        [reference].RepoObjectColumn_reference_union ref
             On
             ref.referenced_RepoObjectColumn_guid = ic.RepoObjectColumn_guid
 Where

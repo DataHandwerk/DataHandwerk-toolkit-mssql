@@ -33,7 +33,7 @@ ORDER BY
 
 
 */
-Create View repo.RepoObjectColumn_reference_union
+Create View [reference].RepoObjectColumn_reference_union
 As
 --
 --repo.RepoObjectColumn_reference__sql_expression_dependencies
@@ -65,7 +65,7 @@ Select
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
 From
-    repo.RepoObjectColumn_reference_SqlExpressionDependencies
+    [reference].RepoObjectColumn_reference_SqlExpressionDependencies
 --[repo].[RepoObjectColumn_reference__persistence]
 --contains virtual references for persistence tables
 --these references can't exist in the real database but only in the repository
@@ -96,7 +96,7 @@ Select
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
 From
-    repo.RepoObjectColumn_reference_Persistence
+    [reference].RepoObjectColumn_reference_Persistence
 Union All
 Select
     --
@@ -124,7 +124,7 @@ Select
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
 From
-    repo.RepoObjectColumn_reference_SqlModules;
+    [reference].RepoObjectColumn_reference_SqlModules;
 --UNION ALL
 ----repo.RepoObjectColumn_reference__first_result_set
 ----"common" references
@@ -254,7 +254,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '7590291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union';
 Go
@@ -263,7 +263,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'aaf67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -274,7 +274,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'abf67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -285,7 +285,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a7f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -296,7 +296,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a6f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -307,7 +307,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a2f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -318,7 +318,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a1f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -329,7 +329,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a0f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -340,7 +340,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'acf67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -351,7 +351,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'adf67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -362,7 +362,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b1f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -373,7 +373,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'aef67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -384,7 +384,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a9f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -395,7 +395,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a8f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -406,7 +406,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a5f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -417,7 +417,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a4f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -428,7 +428,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a3f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -439,7 +439,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'aff67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -450,7 +450,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b0f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -461,7 +461,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b5f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -472,7 +472,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b6f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -483,7 +483,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b3f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -494,7 +494,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b2f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'
@@ -505,7 +505,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b4f67926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_reference_union'
   , @level2type = N'COLUMN'

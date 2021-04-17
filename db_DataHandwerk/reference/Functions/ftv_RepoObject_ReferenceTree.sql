@@ -51,7 +51,7 @@ Return
           , 1 As Referenced_Depth
           , 0 As Referencing_Depth
         From
-            graph.RepoObject_ReferencingReferenced As FirstNode
+            [reference].RepoObject_ReferencingReferenced As FirstNode
         --INNER JOIN [config].[type] t1
         -- ON t1.[type] = FirstNode.Referenced_type
         --INNER JOIN [config].[type] t2
@@ -67,7 +67,7 @@ Return
           , Referenced_Depth = parent.Referenced_Depth + 1
           , 0
         From
-            graph.RepoObject_ReferencingReferenced As child
+            [reference].RepoObject_ReferencingReferenced As child
             Inner Join
                 tree_referenced                    As parent
                     On
@@ -90,7 +90,7 @@ Return
           , 0 As Referenced_Depth
           , 1 As Referencing_Depth
         From
-            graph.RepoObject_ReferencingReferenced As FirstNode
+            [reference].RepoObject_ReferencingReferenced As FirstNode
         --INNER JOIN [config].[type] t1
         -- ON t1.[type] = FirstNode.Referenced_type
         --INNER JOIN [config].[type] t2
@@ -106,7 +106,7 @@ Return
           , 0
           , Referencing_Depth = parent.Referencing_Depth + 1
         From
-            graph.RepoObject_ReferencingReferenced As child
+            [reference].RepoObject_ReferencingReferenced As child
             Inner Join
                 tree_referencing                   As parent
                     On

@@ -1426,4 +1426,190 @@
     <Property Name="NewSchema" Value="reference" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="f70ba739-49d6-480f-b8ab-1e218e8e61c4" ChangeDateTime="04/17/2021 10:53:56">
+    <Property Name="ElementName" Value="[repo].[Match_RepoObject_referenced_UspPersistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="fa960244-f41c-47b8-8b65-a299663d217b" ChangeDateTime="04/17/2021 10:55:14">
+    <Property Name="ElementName" Value="[repo].[Reference_UspPersistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a7611571-e8b6-4306-ac89-4aabc36e3c1f" ChangeDateTime="04/17/2021 10:56:35">
+    <Property Name="ElementName" Value="[repo].[RepoObject_reference_persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="8f826625-2dcd-4500-b9f7-5ba18e1932d8" ChangeDateTime="04/17/2021 10:57:23">
+    <Property Name="ElementName" Value="[repo].[RepoObject_reference_SqlExpressionDependencies]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="ea6a4b68-ed5a-4cb4-bed0-3508d474727f" ChangeDateTime="04/17/2021 10:59:28">
+    <Property Name="ElementName" Value="[repo].[RepoObject_reference_union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="b8ba24ba-4564-42c2-bae3-ad11aaa87e7b" ChangeDateTime="04/17/2021 11:02:49">
+    <Property Name="ElementName" Value="[repo].[RepoObject_ReferencedList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="0472f9cf-82d5-4d31-a622-a134ce1756bd" ChangeDateTime="04/17/2021 11:03:55">
+    <Property Name="ElementName" Value="[repo].[RepoObject_ReferenceTree]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="3a2d376d-1239-4763-a3a2-e4ed2c41a2f5" ChangeDateTime="04/17/2021 11:04:31">
+    <Property Name="ElementName" Value="[repo].[RepoObject_ReferenceTree_referenced]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="66c98f91-795f-40ac-aeb0-083ce6a69b8a" ChangeDateTime="04/17/2021 11:05:07">
+    <Property Name="ElementName" Value="[repo].[RepoObject_ReferenceTree_referencing]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7977c720-2ba8-4aeb-bfb1-0bcc93de633d" ChangeDateTime="04/17/2021 11:07:10">
+    <Property Name="ElementName" Value="[repo].[RepoObject_ReferencingList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="90f6719f-77f5-49d3-8871-8d2ccc652dde" ChangeDateTime="04/17/2021 11:08:33">
+    <Property Name="ElementName" Value="[repo].[RepoObject_referenced_level]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="ff9fdb97-16bf-4725-aad1-d7f736eb4463" ChangeDateTime="04/17/2021 11:09:13">
+    <Property Name="ElementName" Value="[repo].[RepoObject_referencing_level]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="666ddd23-e123-4e0e-9d8c-0e5ab2319f47" ChangeDateTime="04/17/2021 11:11:00">
+    <Property Name="ElementName" Value="[repo].[RepoObject_referencing_level_T]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="e9139506-05c9-448c-9052-bc3f219050c7" ChangeDateTime="04/17/2021 11:11:52">
+    <Property Name="ElementName" Value="[repo].[RepoObject_referenced_level_T]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="64d75bdc-a99e-48f3-8ad6-6853d2950f3a" ChangeDateTime="04/17/2021 11:14:21">
+    <Property Name="ElementName" Value="[repo].[usp_PERSIST_RepoObject_referenced_level_T]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="2fe42c6c-2844-4641-9bc1-0b73155d6fb3" ChangeDateTime="04/17/2021 11:14:59">
+    <Property Name="ElementName" Value="[repo].[usp_PERSIST_RepoObject_referencing_level_T]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="e93df536-f8b2-4483-9607-d112604e081d" ChangeDateTime="04/17/2021 11:16:13">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference_BySamePredecessors]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="3f875ce0-6f58-44c8-ab67-fbcd3d2477a7" ChangeDateTime="04/17/2021 11:16:59">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference_FirstResultSet]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="0b115d17-1c87-434e-9c13-7b1a13b446c3" ChangeDateTime="04/17/2021 11:17:38">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference_Persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="1ceb2b5a-9876-43f5-8713-2e03a52aa0b3" ChangeDateTime="04/17/2021 11:18:18">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference_QueryPlan]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="bfcb9926-476d-4a5e-bacd-c73eb07d18dd" ChangeDateTime="04/17/2021 11:18:55">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference_SqlExpressionDependencies]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a9871c84-46eb-40ac-bd82-a371a8fe4e7c" ChangeDateTime="04/17/2021 11:19:29">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference_SqlModules]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5a22e300-1615-4c22-8968-d34581f66fa3" ChangeDateTime="04/17/2021 11:21:36">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_reference_union]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="796f01a5-f2a9-43d3-a193-af94c9efbae9" ChangeDateTime="04/17/2021 11:22:53">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_ReferencedList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="bf31021b-1457-4056-b17c-78930d23cb0d" ChangeDateTime="04/17/2021 11:23:35">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_ReferenceTree]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="d1412d85-b477-496c-aee0-86e8be8aa6ac" ChangeDateTime="04/17/2021 11:24:13">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_ReferencingList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="15b6913b-779f-4f0d-b730-08a5e93320da" ChangeDateTime="04/17/2021 11:25:16">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn_RelationScript]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="91b3a3af-8b36-42bc-8650-d8e6d695ad02" ChangeDateTime="04/17/2021 11:26:31">
+    <Property Name="ElementName" Value="[repo].[SysObjectColumn_QueryPlanExpression]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="58751cb4-5b98-4104-9839-333df6750f3e" ChangeDateTime="04/17/2021 11:28:59">
+    <Property Name="ElementName" Value="[graph].[RepoObject_ReferencingReferenced]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a68f98dd-25d6-4176-ab03-0c4216042f53" ChangeDateTime="04/17/2021 11:29:34">
+    <Property Name="ElementName" Value="[graph].[RepoObject_ReferencingReferenced_u_v]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="00fcc9a1-1836-49c4-8f50-75e7c0e68ced" ChangeDateTime="04/17/2021 11:30:16">
+    <Property Name="ElementName" Value="[graph].[RepoObjectColumn_ReferencingReferenced]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

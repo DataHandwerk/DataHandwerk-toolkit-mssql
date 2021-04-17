@@ -45,7 +45,7 @@ Where
     Select
         1
     From
-        repo.RepoObjectColumn_reference_union As roc_r
+        [reference].RepoObjectColumn_reference_union As roc_r
     Where
         roc_r.referencing_RepoObject_guid                          = roc.RepoObject_guid
         And roc_r.referencing_RepoObjectColumn_guid                = roc.RepoObjectColumn_guid

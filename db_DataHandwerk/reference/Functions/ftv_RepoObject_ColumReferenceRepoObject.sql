@@ -41,7 +41,7 @@ Return
           , Null                       As DbmlRelation
           , @RepoObject_guid           As Parameter_RepoObject_guid
         From
-            repo.RepoObjectColumn_ReferenceTree
+            [reference].RepoObjectColumn_ReferenceTree
         Where
             Referenced_RepoObject_guid = @RepoObject_guid
         Union
@@ -53,7 +53,7 @@ Return
           , Null                       As DbmlRelation
           , @RepoObject_guid
         From
-            repo.RepoObjectColumn_ReferenceTree
+            [reference].RepoObjectColumn_ReferenceTree
         Where
             Referencing_RepoObject_guid = @RepoObject_guid
         Union
@@ -67,9 +67,9 @@ Return
           , rs.DbmlRelation
           , @RepoObject_guid
         From
-            repo.RepoObjectColumn_ReferenceTree      As rt
+            [reference].RepoObjectColumn_ReferenceTree      As rt
             Left Join
-                repo.RepoObjectColumn_RelationScript As rs
+                [reference].RepoObjectColumn_RelationScript As rs
                     On
                     rs.referenced_RepoObject_guid      = rt.Referenced_RepoObject_guid
                     And rs.referencing_RepoObject_guid = @RepoObject_guid
@@ -88,9 +88,9 @@ Return
           , rs.DbmlRelation
           , @RepoObject_guid
         From
-            repo.RepoObjectColumn_ReferenceTree      As rt
+            [reference].RepoObjectColumn_ReferenceTree      As rt
             Left Join
-                repo.RepoObjectColumn_RelationScript As rs
+                [reference].RepoObjectColumn_RelationScript As rs
                     On
                     rs.referenced_RepoObject_guid      = @RepoObject_guid
                     And rs.referencing_RepoObject_guid = rt.Referencing_RepoObject_guid

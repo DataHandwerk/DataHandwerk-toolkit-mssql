@@ -42,7 +42,7 @@ Return
           , 1 As Referenced_Depth
           , 0 As Referencing_Depth
         From
-            graph.RepoObjectColumn_ReferencingReferenced As FirstNode
+            [reference].RepoObjectColumn_ReferencingReferenced As FirstNode
         Where
             Referencing_RepoObject_guid = @RepoObject_guid
             And 1                       <= @Referenced_Depth
@@ -52,7 +52,7 @@ Return
           , Referenced_Depth = parent.Referenced_Depth + 1
           , 0
         From
-            graph.RepoObjectColumn_ReferencingReferenced As child
+            [reference].RepoObjectColumn_ReferencingReferenced As child
             Inner Join
                 tree_referenced                          As parent
                     On
@@ -69,7 +69,7 @@ Return
           , 0 As Referenced_Depth
           , 1 As Referencing_Depth
         From
-            graph.RepoObjectColumn_ReferencingReferenced As FirstNode
+            [reference].RepoObjectColumn_ReferencingReferenced As FirstNode
         Where
             Referenced_guid = @RepoObject_guid
             And 1           <= @Referencing_Depth
@@ -79,7 +79,7 @@ Return
           , 0
           , Referencing_Depth = parent.Referencing_Depth + 1
         From
-            graph.RepoObjectColumn_ReferencingReferenced As child
+            [reference].RepoObjectColumn_ReferencingReferenced As child
             Inner Join
                 tree_referencing                         As parent
                     On

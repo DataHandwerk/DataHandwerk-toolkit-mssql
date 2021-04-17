@@ -52,7 +52,7 @@ Return
           , LastNode_guid
           , LastNode_fullname2
         From
-            repo.RepoObject_referenced_level_T
+            [reference].RepoObject_referenced_level_T
         Where
             StartingNode_guid    = @RepoObject_guid
             And referenced_level <= @Referenced_Depth
@@ -62,7 +62,7 @@ Return
           , LastNode_guid
           , LastNode_fullname2
         From
-            repo.RepoObject_referencing_level_T
+            [reference].RepoObject_referencing_level_T
         Where
             StartingNode_guid     = @RepoObject_guid
             And referencing_level <= @Referencing_Depth

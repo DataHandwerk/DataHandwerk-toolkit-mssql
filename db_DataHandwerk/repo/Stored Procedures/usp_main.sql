@@ -188,7 +188,7 @@ USING (
    --
    [referencing_RepoObject_guid]
    , [referenced_RepoObject_guid]
-  FROM [repo].[RepoObject_reference_union]
+  FROM [reference].[RepoObject_reference_union]
   ) AS S
  --
  JOIN [graph].[RepoObject] referencing
@@ -248,7 +248,7 @@ USING (
    --
    [referencing_RepoObject_guid]
    , [referenced_RepoObject_guid]
-  FROM [repo].[RepoObject_reference_union]
+  FROM [reference].[RepoObject_reference_union]
   ) AS S
  --
  JOIN [graph].[RepoObject] referencing
@@ -308,7 +308,7 @@ USING (
    --
    [referencing_RepoObjectColumn_guid]
    , [referenced_RepoObjectColumn_guid]
-  FROM [repo].[RepoObjectColumn_reference_union]
+  FROM [reference].[RepoObjectColumn_reference_union]
   where not [referencing_RepoObjectColumn_guid] is null
   and not [referenced_RepoObjectColumn_guid] is null
   ) AS S
@@ -370,7 +370,7 @@ USING (
    --
    [referencing_RepoObjectColumn_guid]
    , [referenced_RepoObjectColumn_guid]
-  FROM [repo].[RepoObjectColumn_reference_union]
+  FROM [reference].[RepoObjectColumn_reference_union]
   where not [referencing_RepoObjectColumn_guid] is null
   and not [referenced_RepoObjectColumn_guid] is null
   ) AS S
@@ -433,7 +433,7 @@ Using
       , Last_usp_persistence_RepoObject_guid
       , 1 As is_PersistenceDependency
     From
-        repo.Match_RepoObject_referenced_UspPersistence T1
+        [reference].Match_RepoObject_referenced_UspPersistence T1
 ) S
 On S.First_usp_persistence_RepoObject_guid = T.referenced_Procedure_RepoObject_guid
    And S.Last_usp_persistence_RepoObject_guid = T.referencing_Procedure_RepoObject_guid
