@@ -125,6 +125,7 @@
     <Folder Include="reference\Views\" />
     <Folder Include="reference\Tables" />
     <Folder Include="reference\Stored Procedure" />
+    <Folder Include="reference\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -166,14 +167,11 @@
     <Build Include="repo\Views\RepoObjectColumn_reference_Persistence.sql" />
     <Build Include="repo\Views\SysObjectColumn_QueryPlanExpression.sql" />
     <Build Include="repo\Views\RepoObjectColumn_reference_QueryPlan.sql" />
-    <Build Include="repo\Functions\ftv_query_plan_extract_source.sql" />
     <Build Include="repo_sys\Stored Procedures\usp_dropextendedproperty_level_1.sql" />
     <Build Include="repo_sys\Stored Procedures\usp_AddOrUpdateExtendedProperty.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObject.sql" />
-    <Build Include="repo\Stored Procedures\usp_update_Referencing_Count.sql" />
     <Build Include="repo\Stored Procedures\usp_index_inheritance.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_guid.sql" />
-    <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObjectColumn.sql" />
     <Build Include="repo\Stored Procedures\usp_persistence_set.sql" />
     <Build Include="Security\sys_dwh.sql" />
     <Build Include="Security\repo_sys.sql" />
@@ -267,16 +265,11 @@
     <Build Include="repo\Views\RepoObject_ReferenceTree.sql" />
     <Build Include="repo\Views\RepoObject_fullname_u_v.sql" />
     <Build Include="graph\Views\RepoObject_ReferencingReferenced_u_v.sql" />
-    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree.sql" />
-    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_via_fullname.sql" />
     <Build Include="repo\Views\RepoObjectColumn_ReferenceTree.sql" />
     <Build Include="graph\Views\RepoObjectColumn_ReferencingReferenced.sql" />
-    <Build Include="repo\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
     <Build Include="graph\Views\RepoObject_ReferencingReferenced.sql" />
     <Build Include="repo\Views\RepoObjectColumn_RelationScript.sql" />
     <Build Include="repo\Views\Reference_UspPersistence.sql" />
-    <Build Include="repo\Functions\ftv_RepoObject_DbmlColumnRelation.sql" />
-    <Build Include="repo\Functions\ftv_RepoObject_ColumReferenceRepoObject.sql" />
     <Build Include="Security\docs.sql" />
     <Build Include="Security\dbeaver.sql" />
     <Build Include="dbeaver\Views\DataSources_connection.sql" />
@@ -322,7 +315,6 @@
     <Build Include="docs\Views\RepoObject_Plantuml.sql" />
     <Build Include="docs\Views\RepoObject_OutputFilter.sql" />
     <Build Include="docs\Views\RepoObject_ColumnList.sql" />
-    <Build Include="repo\Functions\ftv_RepoObject_ReferencedReferencing.sql" />
     <Build Include="docs\Functions\ftv_RepoObject_Reference_PlantUml_EntityRefList.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_referencing_level_T.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_referenced_level_T.sql" />
@@ -434,8 +426,6 @@
     <Build Include="repo\Views\RepoObject_persistence_ForUpdate.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_30_0.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_0_30.sql" />
-    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_referencing.sql" />
-    <Build Include="repo\Functions\ftv_RepoObject_ReferenceTree_referenced.sql" />
     <Build Include="dbo\Tables\zzz.sql" />
     <Build Include="Security\property.sql" />
     <Build Include="property\Tables\RepoObjectProperty.sql" />
@@ -476,6 +466,17 @@
     <Build Include="property\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_Delete.sql" />
     <Build Include="property\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.sql" />
     <Build Include="property\Stored Procedures\usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.sql" />
+    <Build Include="reference\Stored Procedure\usp_update_Referencing_Count.sql" />
+    <Build Include="reference\Stored Procedure\usp_sync_guid_RepoObjectColumn.sql" />
+    <Build Include="reference\Functions\ftv_query_plan_extract_source.sql" />
+    <Build Include="reference\Functions\ftv_RepoObject_ColumReferenceRepoObject.sql" />
+    <Build Include="reference\Functions\ftv_RepoObject_DbmlColumnRelation.sql" />
+    <Build Include="reference\Functions\ftv_RepoObject_ReferencedReferencing.sql" />
+    <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree.sql" />
+    <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_referenced.sql" />
+    <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_referencing.sql" />
+    <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_via_fullname.sql" />
+    <Build Include="reference\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

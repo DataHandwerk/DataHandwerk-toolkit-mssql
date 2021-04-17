@@ -1,32 +1,39 @@
 ﻿/*
-Wahrscheinlich unnötig, da auch alle Daten in [repo].[RepoObjectColumn_ReferenceTree] enthalten sind
-
-
 --Duplicates are possible, if exists alternative path between objects with different depth
 --to elimenate them, exclude Referenced_Depth and Referencing_Depth and use DISTINCT
 
 
-DECLARE @RepoObject_guid uniqueidentifier
+DECLARE @RepoObjectColumn_guid uniqueidentifier
 
-SET @RepoObject_guid = (SELECT RepoObject_guid from [repo].[RepoObject] where RepoObject_fullname = '[repo].[RepoObject_gross]')
+SET @RepoObjectColumn_guid = (SELECT RepoObjectColumn_guid from [repo].[RepoObjectColumn_gross] where RepoObjectColumn_fullname = '[repo].[RepoObjectColumn_gross].[RepoObjectColumn_guid]')
 
 SELECT *
-FROM [repo].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, DEFAULT, DEFAULT)
+FROM [repo].[ftv_RepoObjectColumn_ReferenceTree](@RepoObjectColumn_guid, DEFAULT, DEFAULT)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 SELECT *
-FROM [repo].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, 1, 1)
+FROM [repo].[ftv_RepoObjectColumn_ReferenceTree](@RepoObjectColumn_guid, 1, 1)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+SELECT *
+FROM [repo].[ftv_RepoObjectColumn_ReferenceTree](@RepoObjectColumn_guid, 0, 6)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+SELECT *
+FROM [repo].[ftv_RepoObjectColumn_ReferenceTree](@RepoObjectColumn_guid, 100, 100)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 
 */
-Create Function repo.ftv_RepoObject_DbmlColumnRelation
+Create Function [reference].ftv_RepoObjectColumn_ReferenceTree
 (
-    @RepoObject_guid   UniqueIdentifier
-  , @Referenced_Depth  Int = 1
-  , @Referencing_Depth Int = 1
+    @RepoObjectColumn_guid UniqueIdentifier
+  , @Referenced_Depth      Int = 0
+  , @Referencing_Depth     Int = 0
 )
 Returns Table
 As
@@ -44,8 +51,8 @@ Return
         From
             graph.RepoObjectColumn_ReferencingReferenced As FirstNode
         Where
-            Referencing_RepoObject_guid = @RepoObject_guid
-            And 1                       <= @Referenced_Depth
+            Referencing_guid = @RepoObjectColumn_guid
+            And 1            <= @Referenced_Depth
         Union All
         Select
             child.*
@@ -71,7 +78,7 @@ Return
         From
             graph.RepoObjectColumn_ReferencingReferenced As FirstNode
         Where
-            Referenced_guid = @RepoObject_guid
+            Referenced_guid = @RepoObjectColumn_guid
             And 1           <= @Referencing_Depth
         Union All
         Select
@@ -89,13 +96,13 @@ Return
         )
     Select
         *
-      , @RepoObject_guid As RepoObject_guid
+      , @RepoObjectColumn_guid As RepoObjectColumn_guid
     From
         tree_referenced
     Union
     Select
         *
-      , @RepoObject_guid As RepoObject_guid
+      , @RepoObjectColumn_guid As RepoObjectColumn_guid
     From
         tree_referencing
 );
@@ -103,8 +110,8 @@ Go
 
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
-  , @value = '9abe898f-9381-eb11-84e9-a81e8446d5b0'
+  , @value = '3f4679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'FUNCTION'
-  , @level1name = N'ftv_RepoObject_DbmlColumnRelation';
+  , @level1name = N'ftv_RepoObjectColumn_ReferenceTree';

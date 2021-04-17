@@ -18,7 +18,7 @@ SELECT *
 FROM [repo].[ftv_RepoObject_ColumReferenceRepoObject](@RepoObject_guid, 1, 1)
 
 */
-Create Function repo.ftv_RepoObject_ColumReferenceRepoObject
+Create Function [reference].ftv_RepoObject_ColumReferenceRepoObject
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -131,6 +131,6 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '9bbe898f-9381-eb11-84e9-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObject_ColumReferenceRepoObject';

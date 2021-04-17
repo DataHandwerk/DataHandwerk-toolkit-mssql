@@ -125,7 +125,7 @@ EXEC [reference].[usp_RepoObjectSource_QueryPlan]
 END;
 
 /*{"ReportUspStep":[{"Number":610,"Name":"[repo].[usp_update_Referencing_Count]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_update_Referencing_Count]
+EXEC [reference].[usp_update_Referencing_Count]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
