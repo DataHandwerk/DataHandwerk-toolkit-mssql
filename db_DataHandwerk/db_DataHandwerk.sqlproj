@@ -240,8 +240,6 @@
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_ExtendedProperties_Repo2Sys_Delete.sql" />
-    <Build Include="repo\Stored Procedures\usp_RepoObjectColumn_Inheritance.sql" />
-    <Build Include="repo\Stored Procedures\usp_RepoObject_Inheritance.sql" />
     <None Include="_scripts\StaticData\dhw_self\21_dhw_self_repo_GeneratorUsp.sql" />
     <None Include="_scripts\StaticData\dhw_self\_dhw_self_repo_.sql" />
     <None Include="_scripts\StaticData\dhw_self\22_dhw_self_repo_GeneratorUspParameter.sql" />
@@ -476,6 +474,8 @@
     <Build Include="reference\Tables\RepoObject_QueryPlan.sql" />
     <Build Include="reference\Stored Procedure\usp_RepoObject_update_SysObjectQueryPlan.sql" />
     <Build Include="reference\Stored Procedure\usp_RepoObjectSource_QueryPlan.sql" />
+    <Build Include="property\Stored Procedures\usp_RepoObject_Inheritance.sql" />
+    <Build Include="property\Stored Procedures\usp_RepoObjectColumn_Inheritance.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

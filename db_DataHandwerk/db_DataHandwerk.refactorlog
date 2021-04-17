@@ -1336,4 +1336,16 @@
     <Property Name="NewSchema" Value="reference" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="56cc3c25-479f-4688-be95-3f2f3ef613f5" ChangeDateTime="04/17/2021 10:28:09">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObject_Inheritance]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="75729840-3b03-4891-ab96-f1316ac17abe" ChangeDateTime="04/17/2021 10:29:35">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObjectColumn_Inheritance]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="property" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

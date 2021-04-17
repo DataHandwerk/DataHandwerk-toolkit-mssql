@@ -482,7 +482,7 @@ EXEC logs.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":4110,"Name":"[repo].[usp_RepoObject_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_RepoObject_Inheritance]
+EXEC [property].[usp_RepoObject_Inheritance]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -492,7 +492,7 @@ EXEC [repo].[usp_RepoObject_Inheritance]
 
 
 /*{"ReportUspStep":[{"Number":4120,"Name":"[repo].[usp_RepoObjectColumn_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [repo].[usp_RepoObjectColumn_Inheritance]
+EXEC [property].[usp_RepoObjectColumn_Inheritance]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
