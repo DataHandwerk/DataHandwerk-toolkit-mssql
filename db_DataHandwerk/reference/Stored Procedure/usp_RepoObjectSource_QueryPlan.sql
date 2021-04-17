@@ -16,7 +16,7 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-CREATE Procedure [repo].[usp_RepoObjectSource_QueryPlan]
+CREATE Procedure [reference].[usp_RepoObjectSource_QueryPlan]
     -- some optional parameters, used for logging
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -88,14 +88,14 @@ Declare @message NVarchar(1000);
 
 -- delete outdated entries, which need to be analyzed again
 Delete From
-repo.RepoObjectSource_QueryPlan
+[reference].RepoObjectSource_QueryPlan
 From
     repo.RepoObject_gross As ro
     Inner Join
-        repo.RepoObjectSource_QueryPlan
+        [reference].RepoObjectSource_QueryPlan
             On
-            ro.RepoObject_guid                 = repo.RepoObjectSource_QueryPlan.RepoObject_guid
-            And ro.SysObject_query_executed_dt > repo.RepoObjectSource_QueryPlan.SysObject_query_executed_dt;
+            ro.RepoObject_guid                 = [reference].RepoObjectSource_QueryPlan.RepoObject_guid
+            And ro.SysObject_query_executed_dt > [reference].RepoObjectSource_QueryPlan.SysObject_query_executed_dt;
 
 Set @rows = @@RowCount;
 Set @step_id = @step_id + 1;
@@ -150,7 +150,7 @@ Where
     Select
         RepoObject_guid
     From
-        repo.RepoObjectSource_QueryPlan As TFilter
+        [reference].RepoObjectSource_QueryPlan As TFilter
     Where
         ro.RepoObject_guid                 = TFilter.RepoObject_guid
         And ro.SysObject_query_executed_dt = TFilter.SysObject_query_executed_dt
@@ -183,7 +183,7 @@ Begin
         Print Concat ( @RepoObject_guid, ' ', @SysObject_fullname );
 
         Begin Try
-            Insert Into repo.RepoObjectSource_QueryPlan
+            Insert Into [reference].RepoObjectSource_QueryPlan
             (
                 RepoObject_guid
               , SysObject_query_executed_dt
@@ -439,7 +439,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '8f90291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_RepoObjectSource_QueryPlan';
 

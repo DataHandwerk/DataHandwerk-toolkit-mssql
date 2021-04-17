@@ -7,7 +7,7 @@ source: sys.dm_exec_describe_first_result_set
 sometimes required
 truncate table [repo].[RepoObjectSource__dm_exec_describe_first_result_set]
 */
-Create Procedure repo.usp_RepoObjectSource_FirstResultSet
+Create Procedure [reference].usp_RepoObjectSource_FirstResultSet
     -- some optional parameters, used for logging
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -82,15 +82,15 @@ Exec logs.usp_ExecutionLog_insert
 --   , @parent_execution_log_id = @current_execution_log_id
 --delete FROM repo.RepoObjectSource where query_sql was updated
 Delete From
-repo.RepoObjectSource_FirstResultSet
+[reference].RepoObjectSource_FirstResultSet
 From
-    repo.RepoObjectSource_FirstResultSet
+    [reference].RepoObjectSource_FirstResultSet
     Left Outer Join
         repo.RepoObject As ro
             On
-            repo.RepoObjectSource_FirstResultSet.RepoObject_guid = ro.RepoObject_guid
+            [reference].RepoObjectSource_FirstResultSet.RepoObject_guid = ro.RepoObject_guid
 Where
-    repo.RepoObjectSource_FirstResultSet.created_dt < ro.SysObject_modify_date
+    [reference].RepoObjectSource_FirstResultSet.created_dt < ro.SysObject_modify_date
     Or ro.SysObject_modify_date Is Null
     --wrong inserts from prev execution
     Or target_column_name Is Null;
@@ -128,7 +128,7 @@ Exec logs.usp_ExecutionLog_insert
   , @info_08 = Null
   , @info_09 = Null;
 
-Insert Into repo.RepoObjectSource_FirstResultSet
+Insert Into [reference].RepoObjectSource_FirstResultSet
 (
     RepoObject_guid
   , column_ordinal
@@ -169,7 +169,7 @@ From
                 RepoObject_guid
               , Min ( created_dt ) As created_dt_min
             From
-                repo.RepoObjectSource_FirstResultSet As ros
+                [reference].RepoObjectSource_FirstResultSet As ros
             Group By
                 RepoObject_guid
         )                     As ros
@@ -268,7 +268,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '9390291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_RepoObjectSource_FirstResultSet';
 
