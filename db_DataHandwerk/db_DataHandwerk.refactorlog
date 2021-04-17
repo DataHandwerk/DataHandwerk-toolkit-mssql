@@ -1300,4 +1300,40 @@
     <Property Name="NewSchema" Value="property" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="57dfe0f7-2a68-440c-9273-46d819fea0b6" ChangeDateTime="04/17/2021 10:09:02">
+    <Property Name="ElementName" Value="[repo].[RepoObjectSource_FirstResultSet]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="02ddfe17-1ba4-402a-b573-c9fcbcc3c6b7" ChangeDateTime="04/17/2021 10:10:45">
+    <Property Name="ElementName" Value="[repo].[RepoObjectSource_QueryPlan]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5750b9be-8e78-4e70-8d2f-6d9b3fcff5e3" ChangeDateTime="04/17/2021 10:12:06">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObjectSource_FirstResultSet]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="dc7d628b-d89b-4002-8cd2-fe2f9c6b2b61" ChangeDateTime="04/17/2021 10:18:58">
+    <Property Name="ElementName" Value="[repo].[RepoObject_QueryPlan]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5cc39549-d250-4e77-bb11-dfdac91648c5" ChangeDateTime="04/17/2021 10:23:06">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObject_update_SysObjectQueryPlan]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="13d9654c-ea91-4d31-8e12-6c4d79142dcf" ChangeDateTime="04/17/2021 10:24:36">
+    <Property Name="ElementName" Value="[repo].[usp_RepoObjectSource_QueryPlan]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

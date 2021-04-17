@@ -81,7 +81,7 @@ IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_F
 
 /*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"[repo].[usp_RepoObjectSource_FirstResultSet]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
-EXEC [repo].[usp_RepoObjectSource_FirstResultSet]
+EXEC [reference].[usp_RepoObjectSource_FirstResultSet]
 --This can take a very long time
 --add your own parameters
 --logging parameters
@@ -97,7 +97,7 @@ IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObject_update_
 
 /*{"ReportUspStep":[{"Number":410,"Parent_Number":400,"Name":"[repo].[usp_RepoObject_update_SysObjectQueryPlan]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
-EXEC [repo].[usp_RepoObject_update_SysObjectQueryPlan]
+EXEC [reference].[usp_RepoObject_update_SysObjectQueryPlan]
 --This can take a very long time
 --add your own parameters
 --logging parameters
@@ -113,7 +113,7 @@ IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_Q
 
 /*{"ReportUspStep":[{"Number":510,"Parent_Number":500,"Name":"[repo].[usp_RepoObjectSource_QueryPlan]\r\n--This can take a very long time","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
-EXEC [repo].[usp_RepoObjectSource_QueryPlan]
+EXEC [reference].[usp_RepoObjectSource_QueryPlan]
 --This can take a very long time
 --add your own parameters
 --logging parameters

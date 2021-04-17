@@ -16,7 +16,7 @@ in this case mark the RepoObject in repo.RepoObject
 SET [has_execution_plan_issue] = 1
 
 */
-CREATE Procedure [repo].[usp_RepoObject_update_SysObjectQueryPlan]
+CREATE Procedure [reference].[usp_RepoObject_update_SysObjectQueryPlan]
     -- some optional parameters, used for logging
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -201,7 +201,7 @@ Begin
         --        RAISERROR(N'Can''t extract XML query plan from cache.' , 10 , 0);
         --        RETURN;
         --END;
-        Merge Into repo.RepoObject_QueryPlan T
+        Merge Into [reference].RepoObject_QueryPlan T
         Using
         (
             Select
@@ -318,7 +318,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '9d90291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_RepoObject_update_SysObjectQueryPlan';
 

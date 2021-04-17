@@ -57,7 +57,7 @@ Select
             And ro_r.referenced_RepoObject_guid = roc2.RepoObject_guid
     )
 From
-    repo.RepoObjectSource_QueryPlan     As ros
+    [reference].RepoObjectSource_QueryPlan     As ros
     Inner Join
         repo.RepoObject                 As ro
             On

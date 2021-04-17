@@ -46,7 +46,7 @@ Select
     )
   , ros.is_hidden
 From
-    repo.RepoObjectSource_FirstResultSet As ros
+    [reference].RepoObjectSource_FirstResultSet As ros
     Inner Join
         repo.RepoObject                  As ro
             On

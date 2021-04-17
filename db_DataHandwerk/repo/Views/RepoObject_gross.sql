@@ -126,7 +126,7 @@ From
             ColumnList.RepoObject_guid          = ro.RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject_QueryPlan           As QueryPlan
+        [reference].RepoObject_QueryPlan           As QueryPlan
             On
             QueryPlan.RepoObject_guid           = ro.RepoObject_guid
 
