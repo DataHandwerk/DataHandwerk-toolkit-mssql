@@ -32,7 +32,7 @@ ORDER BY [Referenced_Depth]
 
 
 */
-create Function [repo].[ftv_RepoObject_ReferenceTree_referenced]
+create Function [reference].[ftv_RepoObject_ReferenceTree_referenced]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 0
@@ -134,5 +134,5 @@ Return
     --    tree_referencing
 );
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '63cda946-459d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_referenced';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '63cda946-459d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_referenced';
 

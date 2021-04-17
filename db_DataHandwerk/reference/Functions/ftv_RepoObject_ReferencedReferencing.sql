@@ -24,7 +24,7 @@ ORDER BY ro.RepoObject_fullname2
 
 
 */
-Create Function repo.ftv_RepoObject_ReferencedReferencing
+Create Function [reference].ftv_RepoObject_ReferencedReferencing
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -84,6 +84,6 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'dc7d598b-7d95-eb11-84f4-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObject_ReferencedReferencing';

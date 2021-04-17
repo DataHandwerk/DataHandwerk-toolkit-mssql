@@ -4,7 +4,7 @@ Select
     tree.*
 From
     repo.RepoObjectColumn                                                                         As roc
-    Cross Apply repo.ftv_RepoObjectColumn_ReferenceTree ( roc.RepoObjectColumn_guid, 1000, 1000 ) As tree;
+    Cross Apply [reference].ftv_RepoObjectColumn_ReferenceTree ( roc.RepoObjectColumn_guid, 1000, 1000 ) As tree;
 Go
 
 Execute sp_addextendedproperty

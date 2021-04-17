@@ -213,7 +213,7 @@ Begin
               , sc.const_info
             From
                 repo.RepoObject_gross                                                   As ro
-                Cross Apply repo.ftv_query_plan_extract_source ( SysObject_query_plan ) As sc
+                Cross Apply [reference].ftv_query_plan_extract_source ( SysObject_query_plan ) As sc
             Where
                 ro.RepoObject_guid = @RepoObject_guid
             Option ( MaxRecursion 100 );

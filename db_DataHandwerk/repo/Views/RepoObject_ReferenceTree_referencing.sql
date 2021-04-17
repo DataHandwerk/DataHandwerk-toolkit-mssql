@@ -6,7 +6,7 @@ Select
     tree.*
 From
     repo.RepoObject_gross                                                                     As ro
-    Cross Apply repo.ftv_RepoObject_ReferenceTree_referencing ( ro.RepoObject_guid, 100, 100 ) As tree
+    Cross Apply [reference].ftv_RepoObject_ReferenceTree_referencing ( ro.RepoObject_guid, 100, 100 ) As tree
 Where
     ro.is_in_reference = 1;
 GO

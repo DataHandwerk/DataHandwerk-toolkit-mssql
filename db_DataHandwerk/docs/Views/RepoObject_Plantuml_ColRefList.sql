@@ -29,8 +29,8 @@ From
       , T2.Node_guid As Node_guid_2
     From
         repo.RepoObject                                                                    As ro
-        Cross Apply repo.ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T1
-        Cross Apply repo.ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T2
+        Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T1
+        Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T2
 )     ro
     Inner Join
     (

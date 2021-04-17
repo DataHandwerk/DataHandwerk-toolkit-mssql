@@ -1366,4 +1366,64 @@
     <Property Name="NewSchema" Value="property" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="837eaee2-3381-4f66-a2d7-26ae0d207072" ChangeDateTime="04/17/2021 10:39:15">
+    <Property Name="ElementName" Value="[repo].[usp_update_Referencing_Count]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="9deb7256-ccc9-4e3c-92a2-10a405e7bc16" ChangeDateTime="04/17/2021 10:41:48">
+    <Property Name="ElementName" Value="[repo].[ftv_query_plan_extract_source]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="3df80a69-2c7c-4db3-aa40-72cdf8172959" ChangeDateTime="04/17/2021 10:43:44">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObject_ColumReferenceRepoObject]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="b9858ac3-7ac7-47a5-84fe-4a572063ceca" ChangeDateTime="04/17/2021 10:46:21">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObject_DbmlColumnRelation]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="a90f0b70-a45a-4531-9cfa-b86e0a1d19d5" ChangeDateTime="04/17/2021 10:47:23">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObject_ReferencedReferencing]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="eb82bf89-0334-49d6-a20f-e0ab6bd4e0d1" ChangeDateTime="04/17/2021 10:48:08">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObject_ReferenceTree]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="52b84e6a-fcfe-4b3c-bec7-e8411645611c" ChangeDateTime="04/17/2021 10:48:41">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObject_ReferenceTree_referenced]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5c0c8c85-94fc-4865-bc89-2c29edb98837" ChangeDateTime="04/17/2021 10:49:12">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObject_ReferenceTree_referencing]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="8ece7c51-568d-41c4-99e9-731ec3ce0879" ChangeDateTime="04/17/2021 10:49:43">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObject_ReferenceTree_via_fullname]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="c31bceda-71ac-4af4-aca1-837ba98309ba" ChangeDateTime="04/17/2021 10:50:16">
+    <Property Name="ElementName" Value="[repo].[ftv_RepoObjectColumn_ReferenceTree]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="NewSchema" Value="reference" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>
