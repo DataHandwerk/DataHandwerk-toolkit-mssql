@@ -76,10 +76,10 @@ EXEC [repo].[usp_sync_guid]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":300,"Name":"(select [repo].[fs_get_parameter_value]('main enable usp_RepoObjectSource_FirstResultSet', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+/*{"ReportUspStep":[{"Number":300,"Name":"(select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_FirstResultSet', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_FirstResultSet', DEFAULT)) = 1
 
-/*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"[repo].[usp_RepoObjectSource_FirstResultSet]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"[reference].[usp_RepoObjectSource_FirstResultSet]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObjectSource_FirstResultSet]
 --This can take a very long time
@@ -92,10 +92,10 @@ EXEC [reference].[usp_RepoObjectSource_FirstResultSet]
 
 END;
 
-/*{"ReportUspStep":[{"Number":400,"Name":"(select [repo].[fs_get_parameter_value]('main enable usp_RepoObject_update_SysObjectQueryPlan', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+/*{"ReportUspStep":[{"Number":400,"Name":"(select [config].[fs_get_parameter_value]('main enable usp_RepoObject_update_SysObjectQueryPlan', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObject_update_SysObjectQueryPlan', DEFAULT)) = 1
 
-/*{"ReportUspStep":[{"Number":410,"Parent_Number":400,"Name":"[repo].[usp_RepoObject_update_SysObjectQueryPlan]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":410,"Parent_Number":400,"Name":"[reference].[usp_RepoObject_update_SysObjectQueryPlan]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObject_update_SysObjectQueryPlan]
 --This can take a very long time
@@ -108,10 +108,10 @@ EXEC [reference].[usp_RepoObject_update_SysObjectQueryPlan]
 
 END;
 
-/*{"ReportUspStep":[{"Number":500,"Name":"(select [repo].[fs_get_parameter_value]('main enable usp_RepoObjectSource_QueryPlan', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+/*{"ReportUspStep":[{"Number":500,"Name":"(select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_QueryPlan', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_QueryPlan', DEFAULT)) = 1
 
-/*{"ReportUspStep":[{"Number":510,"Parent_Number":500,"Name":"[repo].[usp_RepoObjectSource_QueryPlan]\r\n--This can take a very long time","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":510,"Parent_Number":500,"Name":"[reference].[usp_RepoObjectSource_QueryPlan]\r\n--This can take a very long time","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObjectSource_QueryPlan]
 --This can take a very long time
@@ -124,7 +124,7 @@ EXEC [reference].[usp_RepoObjectSource_QueryPlan]
 
 END;
 
-/*{"ReportUspStep":[{"Number":610,"Name":"[repo].[usp_update_Referencing_Count]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":610,"Name":"[reference].[usp_update_Referencing_Count]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_update_Referencing_Count]
 --add your own parameters
 --logging parameters
@@ -178,7 +178,7 @@ EXEC [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":2110,"Name":"MERGE [graph].[ReferencedObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencedObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":2110,"Name":"MERGE [graph].[ReferencedObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencedObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2110,';',NULL);
 
 MERGE [graph].[ReferencedObject]
@@ -218,7 +218,7 @@ OUTPUT deleted.*
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'MERGE [graph].[ReferencedObject]'
-SET @source_object = '[repo].[RepoObject_reference_union]'
+SET @source_object = '[reference].[RepoObject_reference_union]'
 SET @target_object = '[graph].[ReferencedObject]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -238,7 +238,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2120,"Name":"MERGE [graph].[ReferencingObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencingObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":2120,"Name":"MERGE [graph].[ReferencingObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_reference_union]","log_target_object":"[graph].[ReferencingObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2120,';',NULL);
 
 MERGE [graph].[ReferencingObject]
@@ -278,7 +278,7 @@ OUTPUT deleted.*
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'MERGE [graph].[ReferencingObject]'
-SET @source_object = '[repo].[RepoObject_reference_union]'
+SET @source_object = '[reference].[RepoObject_reference_union]'
 SET @target_object = '[graph].[ReferencingObject]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -298,7 +298,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2210,"Name":"MERGE [graph].[ReferencedObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn_reference_union]","log_target_object":"[graph].[ReferencedObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":2210,"Name":"MERGE [graph].[ReferencedObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObjectColumn_reference_union]","log_target_object":"[graph].[ReferencedObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2210,';',NULL);
 
 MERGE [graph].[ReferencedObjectColumn]
@@ -340,7 +340,7 @@ OUTPUT deleted.*
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'MERGE [graph].[ReferencedObjectColumn]'
-SET @source_object = '[repo].[RepoObjectColumn_reference_union]'
+SET @source_object = '[reference].[RepoObjectColumn_reference_union]'
 SET @target_object = '[graph].[ReferencedObjectColumn]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -360,7 +360,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2220,"Name":"MERGE [graph].[ReferencingObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn_reference_union]","log_target_object":"[graph].[ReferencingObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":2220,"Name":"MERGE [graph].[ReferencingObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObjectColumn_reference_union]","log_target_object":"[graph].[ReferencingObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',2220,';',NULL);
 
 MERGE [graph].[ReferencingObjectColumn]
@@ -402,7 +402,7 @@ OUTPUT deleted.*
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'MERGE [graph].[ReferencingObjectColumn]'
-SET @source_object = '[repo].[RepoObjectColumn_reference_union]'
+SET @source_object = '[reference].[RepoObjectColumn_reference_union]'
 SET @target_object = '[graph].[ReferencingObjectColumn]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -433,7 +433,7 @@ Using
       , Last_usp_persistence_RepoObject_guid
       , 1 As is_PersistenceDependency
     From
-        [reference].Match_RepoObject_referenced_UspPersistence T1
+        reference.Match_RepoObject_referenced_UspPersistence T1
 ) S
 On S.First_usp_persistence_RepoObject_guid = T.referenced_Procedure_RepoObject_guid
    And S.Last_usp_persistence_RepoObject_guid = T.referencing_Procedure_RepoObject_guid
@@ -481,7 +481,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":4110,"Name":"[repo].[usp_RepoObject_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":4110,"Name":"[property].[usp_RepoObject_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObject_Inheritance]
 --add your own parameters
 --logging parameters
@@ -491,7 +491,7 @@ EXEC [property].[usp_RepoObject_Inheritance]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":4120,"Name":"[repo].[usp_RepoObjectColumn_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":4120,"Name":"[property].[usp_RepoObjectColumn_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObjectColumn_Inheritance]
 --add your own parameters
 --logging parameters

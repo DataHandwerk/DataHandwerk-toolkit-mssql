@@ -59,14 +59,14 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_PERSIST_RepoObject_referenced_level_T]'
+PRINT '[reference].[usp_PERSIST_RepoObject_referenced_level_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_referenced_level_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[reference].[RepoObject_referenced_level_T]","log_flag_InsertUpdateDelete":"D"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',24,';',400,';',NULL);
 
 TRUNCATE TABLE [reference].[RepoObject_referenced_level_T]
@@ -76,7 +76,7 @@ SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'truncate persistence target'
 SET @source_object = NULL
-SET @target_object = '[repo].[RepoObject_referenced_level_T]'
+SET @target_object = '[reference].[RepoObject_referenced_level_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -95,7 +95,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_referenced_level]","log_target_object":"[repo].[RepoObject_referenced_level_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_referenced_level]","log_target_object":"[reference].[RepoObject_referenced_level_T]","log_flag_InsertUpdateDelete":"I"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',24,';',800,';',NULL);
 
 INSERT INTO 
@@ -126,8 +126,8 @@ FROM [reference].[RepoObject_referenced_level] AS S
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'insert all'
-SET @source_object = '[repo].[RepoObject_referenced_level]'
-SET @target_object = '[repo].[RepoObject_referenced_level_T]'
+SET @source_object = '[reference].[RepoObject_referenced_level]'
+SET @target_object = '[reference].[RepoObject_referenced_level_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid

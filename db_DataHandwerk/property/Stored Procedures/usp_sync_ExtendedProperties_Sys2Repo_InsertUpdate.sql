@@ -59,7 +59,7 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]'
+PRINT '[property].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START

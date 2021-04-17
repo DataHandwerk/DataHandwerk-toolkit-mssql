@@ -63,6 +63,7 @@ Exec logs.usp_ExecutionLog_insert
 ----you can log the content of your own parameters, do this only in the start-step
 ----data type is sql_variant
 --
+PRINT '[property].[usp_RepoObject_Inheritance]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -102,7 +103,7 @@ Begin
         Truncate Table [property].RepoObject_Inheritance_temp;
 
         /*
-INSERT INTO [repo].[RepoObject_Inheritance_temp] (
+INSERT INTO [property].[RepoObject_Inheritance_temp] (
  [RepoObject_guid]
  , [property_name]
  , [property_value]
@@ -140,7 +141,7 @@ SELECT
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
  , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
 FROM [property].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
-INNER JOIN [repo].[RepoObject_reference_union] AS T2
+INNER JOIN [reference].[RepoObject_reference_union] AS T2
  ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
 INNER JOIN [repo].[RepoObject_gross] AS referencing
  ON referencing.[RepoObject_guid] = T1.[RepoObject_guid]
@@ -189,7 +190,7 @@ SELECT
  , [referencing_RepoObject_fullname] = [referencing].[RepoObject_fullname]
  , [referencing_RepoObject_name] = [referencing].[RepoObject_name]
 FROM [property].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition] AS T1
-INNER JOIN [repo].[RepoObject_reference_union] AS T2
+INNER JOIN [reference].[RepoObject_reference_union] AS T2
  ON T2.[referencing_RepoObject_guid] = T1.[RepoObject_guid]
 INNER JOIN [repo].[RepoObject_gross] AS referencing
  ON referencing.[RepoObject_guid] = T1.[RepoObject_guid]

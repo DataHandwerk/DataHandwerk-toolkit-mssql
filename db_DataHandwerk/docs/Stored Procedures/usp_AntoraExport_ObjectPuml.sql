@@ -122,7 +122,7 @@ DECLARE @Object_fullname NVARCHAR(261);
 DECLARE @Object_fullname2 NVARCHAR(257);
 
 
-/*{"ReportUspStep":[{"Number":310,"Name":"[repo].[usp_PERSIST_RepoObject_referenced_level_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":310,"Name":"[reference].[usp_PERSIST_RepoObject_referenced_level_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObject_referenced_level_T]
 --add your own parameters
 --logging parameters
@@ -132,7 +132,7 @@ EXEC [reference].[usp_PERSIST_RepoObject_referenced_level_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":320,"Name":"[repo].[usp_PERSIST_RepoObject_referencing_level_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":320,"Name":"[reference].[usp_PERSIST_RepoObject_referencing_level_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObject_referencing_level_T]
 --add your own parameters
 --logging parameters
