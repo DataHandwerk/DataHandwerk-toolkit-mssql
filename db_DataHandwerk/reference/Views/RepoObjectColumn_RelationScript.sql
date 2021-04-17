@@ -1,4 +1,4 @@
-﻿Create View repo.RepoObjectColumn_RelationScript
+﻿Create View [reference].RepoObjectColumn_RelationScript
 As
 --
 Select
@@ -31,7 +31,7 @@ Select
                             , '"'
                           )
 From
-    repo.RepoObjectColumn_reference_union As rocu
+    [reference].RepoObjectColumn_reference_union As rocu
     Inner Join
         repo.RepoObjectColumn             As roc1
             On
@@ -55,7 +55,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'e779297f-447f-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_RelationScript'
   , @level2type = N'COLUMN'
@@ -66,7 +66,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'e679297f-447f-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_RelationScript'
   , @level2type = N'COLUMN'
@@ -77,7 +77,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'e579297f-447f-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_RelationScript'
   , @level2type = N'COLUMN'
@@ -88,6 +88,6 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '06df2fe1-ae7a-eb11-84e5-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObjectColumn_RelationScript';

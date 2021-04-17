@@ -25,7 +25,7 @@ Select
   , referenced_node_id
   , EdgeListElement = Concat ( '{ from: ', referenced_node_id, ', to:', referencing_node_id, ' },' )
 From
-    repo.RepoObject_reference_SqlExpressionDependencies;
+    [reference].RepoObject_reference_SqlExpressionDependencies;
 Go
 
 Execute sp_addextendedproperty

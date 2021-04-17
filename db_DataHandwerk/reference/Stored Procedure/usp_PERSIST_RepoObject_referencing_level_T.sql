@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [repo].[usp_PERSIST_RepoObject_referenced_level_T]
+﻿CREATE   PROCEDURE [reference].[usp_PERSIST_RepoObject_referencing_level_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -59,24 +59,24 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[repo].[usp_PERSIST_RepoObject_referenced_level_T]'
+PRINT '[repo].[usp_PERSIST_RepoObject_referencing_level_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_referenced_level_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',24,';',400,';',NULL);
+/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[repo].[RepoObject_referencing_level_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',25,';',400,';',NULL);
 
-TRUNCATE TABLE [repo].[RepoObject_referenced_level_T]
+TRUNCATE TABLE [reference].[RepoObject_referencing_level_T]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'truncate persistence target'
 SET @source_object = NULL
-SET @target_object = '[repo].[RepoObject_referenced_level_T]'
+SET @target_object = '[repo].[RepoObject_referencing_level_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -95,15 +95,15 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_referenced_level]","log_target_object":"[repo].[RepoObject_referenced_level_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',24,';',800,';',NULL);
+/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_referencing_level]","log_target_object":"[repo].[RepoObject_referencing_level_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',25,';',800,';',NULL);
 
 INSERT INTO 
- [repo].[RepoObject_referenced_level_T]
+ [reference].[RepoObject_referencing_level_T]
  (
   [StartingNode_guid]
 , [LastNode_guid]
-, [referenced_level]
+, [referencing_level]
 , [LastNode_fullname]
 , [LastNode_fullname2]
 , [ListNode]
@@ -113,21 +113,21 @@ INSERT INTO
 SELECT
   [StartingNode_guid]
 , [LastNode_guid]
-, [referenced_level]
+, [referencing_level]
 , [LastNode_fullname]
 , [LastNode_fullname2]
 , [ListNode]
 , [StartingNode_fullname]
 , [StartingNode_fullname2]
 
-FROM [repo].[RepoObject_referenced_level] AS S
+FROM [reference].[RepoObject_referencing_level] AS S
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'insert all'
-SET @source_object = '[repo].[RepoObject_referenced_level]'
-SET @target_object = '[repo].[RepoObject_referenced_level_T]'
+SET @source_object = '[repo].[RepoObject_referencing_level]'
+SET @target_object = '[repo].[RepoObject_referencing_level_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -175,5 +175,5 @@ EXEC logs.usp_ExecutionLog_insert
 
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8b18814c-9295-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referenced_level_T';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8c18814c-9295-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referencing_level_T';
 

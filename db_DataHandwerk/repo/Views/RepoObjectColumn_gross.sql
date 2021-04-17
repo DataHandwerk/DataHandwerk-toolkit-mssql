@@ -85,12 +85,12 @@ From
             And ic.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid
 
     Left Join
-        repo.RepoObjectColumn_ReferencedList  As roc_referenced
+        [reference].RepoObjectColumn_ReferencedList  As roc_referenced
             On
             roc_referenced.Referencing_guid = roc.RepoObjectColumn_guid
 
     Left Join
-        repo.RepoObjectColumn_ReferencingList As roc_referencing
+        [reference].RepoObjectColumn_ReferencingList As roc_referencing
             On
             roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid;
 Go

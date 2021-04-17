@@ -1,4 +1,4 @@
-﻿Create View repo.RepoObject_ReferencedList
+﻿Create View [reference].RepoObject_ReferencedList
 As
 Select
     ror.Referencing_guid
@@ -21,7 +21,7 @@ Select
   , Max ( ror.Referencing_fullname2 ) As Referencing_fullname2
   , Max ( ror.Referencing_type )      As Referencing_type
 From
-    graph.RepoObject_ReferencingReferenced As ror
+    [reference].RepoObject_ReferencingReferenced As ror
 Group By
     ror.Referencing_guid;
 Go
@@ -30,7 +30,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '631254dc-0593-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencedList'
   , @level2type = N'COLUMN'
@@ -41,7 +41,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '621254dc-0593-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencedList'
   , @level2type = N'COLUMN'
@@ -52,7 +52,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '611254dc-0593-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencedList'
   , @level2type = N'COLUMN'
@@ -63,7 +63,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '601254dc-0593-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencedList'
   , @level2type = N'COLUMN'
@@ -74,7 +74,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '5f1254dc-0593-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencedList'
   , @level2type = N'COLUMN'
@@ -85,6 +85,6 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'e85bf6c2-0593-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencedList';

@@ -14,7 +14,7 @@ uses graph tables
 * [graph].[ReferencedObject]
 
 */
-Create View graph.RepoObject_ReferencingReferenced
+Create View [reference].RepoObject_ReferencingReferenced
 As
 Select
     Object1.RepoObject_fullname  As Referencing_fullname
@@ -36,7 +36,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '714679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
@@ -48,7 +48,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '704679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
@@ -60,7 +60,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '6f4679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
@@ -72,7 +72,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '6e4679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
@@ -84,7 +84,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '6d4679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
@@ -96,7 +96,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '6c4679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
@@ -108,7 +108,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '414679b8-147c-eb11-84e6-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced';
 
@@ -118,7 +118,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '8371b9ec-0892-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
@@ -130,7 +130,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '8471b9ec-0892-eb11-84f2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
+  , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ReferencingReferenced'
   , @level2type = N'COLUMN'
