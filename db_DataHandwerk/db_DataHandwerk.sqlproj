@@ -478,6 +478,7 @@
     <Build Include="reference\Views\RepoObject_ReferencingReferenced_u_v.sql" />
     <Build Include="reference\Views\RepoObject_ReferencingReferenced.sql" />
     <Build Include="repo\Stored Procedures\usp_update_Referencing_Count.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_DocSnippet.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

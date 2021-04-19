@@ -196,3 +196,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a69108f2-739f-eb11-84f8-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+

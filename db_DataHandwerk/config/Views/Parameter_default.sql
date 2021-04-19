@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 <<property_start>>MS_Description
 * default parameters for xref:sqldb:config.Parameter.adoc[]
@@ -486,7 +487,93 @@ ifdef::ExistsProperty--sql_modules_definition[]
 .{docname} script
 include::partial${docname}.adoc[tag=sql_modules_definition]
 endif::ExistsProperty--sql_modules_definition[]
-' As NVarchar(4000));
+' As NVarchar(4000))
+
+Union All
+Select
+    Parameter_name          = 'Adoc_AntoraDocSnippet'
+  , sub_Parameter           = N'antora-export-prerequisites'
+  , Parameter_desciption    = N'Documentation snippet for Antora export documentation.'
+  , Parameter_default_value = Cast(N'
+[discrete]
+=== Prerequisites
+
+* export folders should exist, no error message is generated, if they are missing
++
+[source,sql]
+----
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''pages\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''pages\index\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''pages\nav\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\docsnippet\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\navlist\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\puml\entity_0_30_objectref\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\puml\entity_1_1_colref\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\puml\entity_1_1_fk\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\puml\entity_1_1_objectref\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\puml\entity_30_0_objectref\''
+UNION ALL
+SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
++ ''partials\template\''
+----
++
+* uses `xp_cmdshell`, to call `bcp`, you need to enable:
++
+====
+[source,sql]
+----
+--before executing the procedure:
+--Temporarily or permanently enable xp_cmdshell
+sp_configure ''show advanced options''
+ , 1;
+
+RECONFIGURE
+GO
+
+sp_configure ''xp_cmdshell''
+ , 1;
+
+RECONFIGURE
+GO
+
+EXEC docs.usp_AntoraExport
+
+--you can also disable later again:
+--Disable xp_cmdshell
+sp_configure ''xp_cmdshell''
+ , 0
+
+RECONFIGURE
+GO
+
+sp_configure ''show advanced options''
+ , 0
+
+RECONFIGURE
+GO
+----
+====
+' As NVarchar(4000))
+;
 
 Go
 Execute sp_addextendedproperty
