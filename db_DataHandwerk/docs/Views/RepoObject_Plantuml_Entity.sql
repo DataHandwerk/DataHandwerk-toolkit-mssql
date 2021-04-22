@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -7,7 +8,7 @@ to be used in composed PlantUML diagrams
 you need to persist:
 EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
 */
-Create View docs.RepoObject_Plantuml_Entity
+CREATE View [docs].[RepoObject_Plantuml_Entity]
 As
 Select
     ro.RepoObject_guid
@@ -31,6 +32,8 @@ Select
                                         , ' {'
                                         , Char ( 13 ) + Char ( 10 )
                                         , collist.PlantumlPkEntityColumns
+                                        , '  --'
+                                        , Char ( 13 ) + Char ( 10 )
                                         , '}'
                                         , Char ( 13 ) + Char ( 10 )
                                       )

@@ -1,11 +1,11 @@
 ﻿
 /*
 <<property_start>>exampleUsage
-[repo].[usp_RepoObjectProperty_set]
-@RepoObject_fullname2 = 'repo.usp_connect_database'
+EXEC [property].[usp_RepoObjectProperty_set]
+@RepoObject_fullname2 = 'SchemaName.ObjectName'
 , @property_name = 'MS_Description'
 , @property_value =
-'connect repo datatabase to dwh database using synonyms
+'description for SchemaName.ObjectName
 
 see details in xref:manual:create-update-connect-repo-db.adoc[]
 '

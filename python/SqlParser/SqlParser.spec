@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['SqlParser.py'],
-             pathex=['D:\\Repos\\GitHub\\DataHandwerk\\DataHandwerk-toolkit-mssql\\python\\PythonApp_SqlParser'],
+             pathex=['D:\\Repos\\GitHub\\DataHandwerk\\DataHandwerk-toolkit-mssql\\python\\sqlparser'],
              binaries=[],
              datas=[],
              hiddenimports=[],

@@ -1,6 +1,6 @@
 ﻿/*
 <<property_start>>exampleUsage
-Exec repo.usp_RepoObjectColumnProperty_set
+EXEC property.usp_RepoObjectColumnProperty_set
     @RepoObject_fullname2 = 'SchemaName.TableName'
   , @RepoObjectColumn_name = 'ColumnName'
   , @property_name = 'MS_Description'
