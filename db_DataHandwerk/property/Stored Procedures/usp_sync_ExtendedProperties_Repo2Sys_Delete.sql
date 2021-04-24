@@ -81,37 +81,46 @@ DECLARE
  , @level2type VARCHAR(128)
  , @level2name NVARCHAR(128)
 
-/*{"ReportUspStep":[{"Number":410,"Name":"Level1-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[ExtendedProperty_Repo2Sys_level1]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',14,';',410,';',NULL);
+/*{"ReportUspStep":[{"Number":400,"Name":"Level0-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[ExtendedProperty_Repo2Sys_level0]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',14,';',400,';',NULL);
 
-DECLARE property_cursor CURSOR READ_ONLY
-FOR
+Declare property_cursor Cursor Read_Only For
 --
---level 1 extended properties
-SELECT [property_name]
- , [property_value]
- , [level0type]
- , [level0name]
- , [level1type]
- , [level1name]
- , [level2type]
- , [level2name]
-FROM [repo_sys].[ExtendedProperties_ParameterForAddUpdateDrop] AS [T]
-WHERE NOT [T].[property_name] = 'RepoObject_guid'
- AND NOT [T].[property_name] = 'RepoObjectColumn_guid'
- AND [T].[level2type] IS NULL
- AND [T].[level2name] IS NULL
- AND NOT EXISTS (
-  SELECT 1
-  FROM [property].[ExtendedProperty_Repo2Sys_level1] AS [S]
-  WHERE [T].[property_name] = [S].[property_name]
-   AND [T].[level0type] = [S].[level0type]
-   AND [T].[level0name] = [S].[level0name]
-   AND [T].[level1type] = [S].[level1type]
-   AND [T].[level1name] = [S].[level1name]
-   AND [S].[level2type] IS NULL
-   AND [S].[level2name] IS NULL
-  )
+--level 0 extended properties
+Select
+    property_name
+  , property_value
+  , level0type
+  , level0name
+  , level1type
+  , level1name
+  , level2type
+  , level2name
+From
+    repo_sys.ExtendedProperties_ParameterForAddUpdateDrop As T
+Where
+    Not T.property_name = 'RepoObject_guid'
+    And Not T.property_name = 'RepoObjectColumn_guid'
+    And Not T.property_name = 'RepoSchema_guid'
+    And T.level1type Is Null
+    And T.level1name Is Null
+    And T.level2type Is Null
+    And T.level2name Is Null
+    And Not Exists
+(
+    Select
+        1
+    From
+        property.ExtendedProperty_Repo2Sys_level0 As S
+    Where
+        T.property_name  = S.property_name
+        And T.level0type = S.level0type
+        And T.level0name = S.level0name
+        And T.level1type Is Null
+        And T.level1name Is Null
+        And S.level2type Is Null
+        And S.level2name Is Null
+);
 
 --DECLARE @property_name NVARCHAR(128)
 -- , @property_value SQL_VARIANT
@@ -122,52 +131,171 @@ WHERE NOT [T].[property_name] = 'RepoObject_guid'
 -- , @level1name NVARCHAR(128)
 -- , @level2type VARCHAR(128)
 -- , @level2name NVARCHAR(128)
+Set @rows = 0;
 
-SET @rows = 0;
+Open property_cursor;
 
-OPEN property_cursor;
-
-FETCH NEXT
-FROM property_cursor
-INTO @property_name
- , @property_value
- , @level0type
- , @level0name
- , @level1type
- , @level1name
- , @level2type
- , @level2name
-
-WHILE @@fetch_status <> - 1
-BEGIN
- IF @@fetch_status <> - 2
- BEGIN
-  EXEC sys.sp_dropextendedproperty @name = @property_name
-   , @level0type = @level0type
-   , @level0name = @level0name
-   , @level1type = @level1type
-   , @level1name = @level1name
-   , @level2type = @level2type
-   , @level2name = @level2name
-
-  SET @rows = @rows + 1;
- END;
-
- FETCH NEXT
- FROM property_cursor
- INTO @property_name
+Fetch Next From property_cursor
+Into
+    @property_name
   , @property_value
   , @level0type
   , @level0name
   , @level1type
   , @level1name
   , @level2type
-  , @level2name
-END
+  , @level2name;
 
-CLOSE property_cursor;
+While @@Fetch_Status <> -1
+Begin
+    If @@Fetch_Status <> -2
+    Begin
+        Exec sys.sp_dropextendedproperty
+            @name = @property_name
+          , @level0type = @level0type
+          , @level0name = @level0name
+          , @level1type = @level1type
+          , @level1name = @level1name
+          , @level2type = @level2type
+          , @level2name = @level2name;
 
-DEALLOCATE property_cursor
+        Set @rows = @rows + 1;
+    End;
+
+    Fetch Next From property_cursor
+    Into
+        @property_name
+      , @property_value
+      , @level0type
+      , @level0name
+      , @level1type
+      , @level1name
+      , @level2type
+      , @level2name;
+End;
+
+Close property_cursor;
+Deallocate property_cursor;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Level0-Properties - DROP'
+SET @source_object = '[property].[ExtendedProperty_Repo2Sys_level0]'
+SET @target_object = '[sys].[sp_dropextendedproperty]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":410,"Name":"Level1-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[ExtendedProperty_Repo2Sys_level1]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',14,';',410,';',NULL);
+
+Declare property_cursor Cursor Read_Only For
+--
+--level 1 extended properties
+Select
+    property_name
+  , property_value
+  , level0type
+  , level0name
+  , level1type
+  , level1name
+  , level2type
+  , level2name
+From
+    repo_sys.ExtendedProperties_ParameterForAddUpdateDrop As T
+Where
+    Not T.property_name = 'RepoObject_guid'
+    And Not T.property_name = 'RepoObjectColumn_guid'
+    And Not T.property_name = 'RepoSchema_guid'
+    And Not T.level1type Is Null
+    And Not T.level1name Is Null
+    And T.level2type Is Null
+    And T.level2name Is Null
+    And Not Exists
+(
+    Select
+        1
+    From
+        property.ExtendedProperty_Repo2Sys_level1 As S
+    Where
+        T.property_name  = S.property_name
+        And T.level0type = S.level0type
+        And T.level0name = S.level0name
+        And T.level1type = S.level1type
+        And T.level1name = S.level1name
+        And S.level2type Is Null
+        And S.level2name Is Null
+);
+
+--DECLARE @property_name NVARCHAR(128)
+-- , @property_value SQL_VARIANT
+-- , @schema_name NVARCHAR(128)
+-- , @level0type VARCHAR(128)
+-- , @level0name NVARCHAR(128)
+-- , @level1type VARCHAR(128)
+-- , @level1name NVARCHAR(128)
+-- , @level2type VARCHAR(128)
+-- , @level2name NVARCHAR(128)
+Set @rows = 0;
+
+Open property_cursor;
+
+Fetch Next From property_cursor
+Into
+    @property_name
+  , @property_value
+  , @level0type
+  , @level0name
+  , @level1type
+  , @level1name
+  , @level2type
+  , @level2name;
+
+While @@Fetch_Status <> -1
+Begin
+    If @@Fetch_Status <> -2
+    Begin
+        Exec sys.sp_dropextendedproperty
+            @name = @property_name
+          , @level0type = @level0type
+          , @level0name = @level0name
+          , @level1type = @level1type
+          , @level1name = @level1name
+          , @level2type = @level2type
+          , @level2name = @level2name;
+
+        Set @rows = @rows + 1;
+    End;
+
+    Fetch Next From property_cursor
+    Into
+        @property_name
+      , @property_value
+      , @level0type
+      , @level0name
+      , @level1type
+      , @level1name
+      , @level2type
+      , @level2name;
+End;
+
+Close property_cursor;
+Deallocate property_cursor;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -196,34 +324,43 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":420,"Name":"Level2-Properties - DROP","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[ExtendedProperty_Repo2Sys_level2_Union]","log_target_object":"[sys].[sp_dropextendedproperty]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',14,';',420,';',NULL);
 
-DECLARE property_cursor CURSOR READ_ONLY
-FOR
+Declare property_cursor Cursor Read_Only For
 --
 --level 2 extended properties
-SELECT [property_name]
- , [property_value]
- , [level0type]
- , [level0name]
- , [level1type]
- , [level1name]
- , [level2type]
- , [level2name]
-FROM [repo_sys].[ExtendedProperties_ParameterForAddUpdateDrop] AS [T]
-WHERE NOT [T].[property_name] = 'RepoObject_guid'
- AND NOT [T].[property_name] = 'RepoObjectColumn_guid'
- AND NOT [T].[level2type] IS NULL
- AND NOT [T].[level2name] IS NULL
- AND NOT EXISTS (
-  SELECT 1
-  FROM [property].[ExtendedProperty_Repo2Sys_level2_Union] AS [S]
-  WHERE [T].[property_name] = [S].[property_name]
-   AND [T].[level0type] = [S].[level0type]
-   AND [T].[level0name] = [S].[level0name]
-   AND [T].[level1type] = [S].[level1type]
-   AND [T].[level1name] = [S].[level1name]
-   AND [T].[level2type] = [S].[level2type]
-   AND [T].[level2name] = [S].[level2name]
-  )
+Select
+    property_name
+  , property_value
+  , level0type
+  , level0name
+  , level1type
+  , level1name
+  , level2type
+  , level2name
+From
+    repo_sys.ExtendedProperties_ParameterForAddUpdateDrop As T
+Where
+    Not T.property_name = 'RepoObject_guid'
+    And Not T.property_name = 'RepoObjectColumn_guid'
+    And Not T.property_name = 'RepoSchema_guid'
+    And Not T.level1type Is Null
+    And Not T.level1name Is Null
+    And Not T.level2type Is Null
+    And Not T.level2name Is Null
+    And Not Exists
+(
+    Select
+        1
+    From
+        property.ExtendedProperty_Repo2Sys_level2_Union As S
+    Where
+        T.property_name  = S.property_name
+        And T.level0type = S.level0type
+        And T.level0name = S.level0name
+        And T.level1type = S.level1type
+        And T.level1name = S.level1name
+        And T.level2type = S.level2type
+        And T.level2name = S.level2name
+);
 
 --DECLARE @property_name NVARCHAR(128)
 -- , @property_value SQL_VARIANT
@@ -234,52 +371,51 @@ WHERE NOT [T].[property_name] = 'RepoObject_guid'
 -- , @level1name NVARCHAR(128)
 -- , @level2type VARCHAR(128)
 -- , @level2name NVARCHAR(128)
+Set @rows = 0;
 
-SET @rows = 0;
+Open property_cursor;
 
-OPEN property_cursor;
-
-FETCH NEXT
-FROM property_cursor
-INTO @property_name
- , @property_value
- , @level0type
- , @level0name
- , @level1type
- , @level1name
- , @level2type
- , @level2name
-
-WHILE @@fetch_status <> - 1
-BEGIN
- IF @@fetch_status <> - 2
- BEGIN
-  EXEC sys.sp_dropextendedproperty @name = @property_name
-   , @level0type = @level0type
-   , @level0name = @level0name
-   , @level1type = @level1type
-   , @level1name = @level1name
-   , @level2type = @level2type
-   , @level2name = @level2name
-
-  SET @rows = @rows + 1;
- END;
-
- FETCH NEXT
- FROM property_cursor
- INTO @property_name
+Fetch Next From property_cursor
+Into
+    @property_name
   , @property_value
   , @level0type
   , @level0name
   , @level1type
   , @level1name
   , @level2type
-  , @level2name
-END
+  , @level2name;
 
-CLOSE property_cursor;
+While @@Fetch_Status <> -1
+Begin
+    If @@Fetch_Status <> -2
+    Begin
+        Exec sys.sp_dropextendedproperty
+            @name = @property_name
+          , @level0type = @level0type
+          , @level0name = @level0name
+          , @level1type = @level1type
+          , @level1name = @level1name
+          , @level2type = @level2type
+          , @level2name = @level2name;
 
-DEALLOCATE property_cursor
+        Set @rows = @rows + 1;
+    End;
+
+    Fetch Next From property_cursor
+    Into
+        @property_name
+      , @property_value
+      , @level0type
+      , @level0name
+      , @level1type
+      , @level1name
+      , @level2type
+      , @level2name;
+End;
+
+Close property_cursor;
+Deallocate property_cursor;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

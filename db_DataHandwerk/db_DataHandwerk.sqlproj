@@ -479,6 +479,14 @@
     <Build Include="reference\Views\RepoObject_ReferencingReferenced.sql" />
     <Build Include="repo\Stored Procedures\usp_update_Referencing_Count.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_DocSnippet.sql" />
+    <Build Include="repo\Tables\RepoSchema.sql" />
+    <Build Include="property\Tables\RepoSchemaProperty.sql" />
+    <Build Include="repo_sys\Views\SysSchema.sql" />
+    <Build Include="repo\Views\SysSchema_RepoSchema_via_name.sql" />
+    <Build Include="repo\Views\SysSchema_RepoSchema_via_guid.sql" />
+    <Build Include="property\Views\ExtendedProperty_Repo2Sys_level0.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid_RepoSchema.sql" />
+    <Build Include="ExtendedProperties.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

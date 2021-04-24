@@ -66,7 +66,17 @@ PRINT '[repo].[usp_sync_guid]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[repo].[usp_sync_guid_RepoObject]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":200,"Name":"[repo].[usp_sync_guid_RepoSchema]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_sync_guid_RepoSchema]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":300,"Name":"[repo].[usp_sync_guid_RepoObject]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_sync_guid_RepoObject]
 --add your own parameters
 --logging parameters
@@ -76,7 +86,7 @@ EXEC [repo].[usp_sync_guid_RepoObject]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":310,"Name":"[repo].[usp_sync_guid_RepoObjectColumn]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":400,"Name":"[repo].[usp_sync_guid_RepoObjectColumn]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_sync_guid_RepoObjectColumn]
 --add your own parameters
 --logging parameters

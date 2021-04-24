@@ -1,4 +1,5 @@
-﻿Create View docs.AntoraNavListPage_by_schema
+﻿
+CREATE View docs.AntoraNavListPage_by_schema
 As
 Select
     RepoObject_schema_name
@@ -7,11 +8,24 @@ Select
                         , RepoObject_schema_name
                         , Char ( 13 ) + Char ( 10 )
                         , Char ( 13 ) + Char ( 10 )
+                        , '== Description'
+                        , Char ( 13 ) + Char ( 10 )
+                        , Char ( 13 ) + Char ( 10 )
+                        , Max ( rs.RepoSchema_ms_description )
+                        , Char ( 13 ) + Char ( 10 )
+                        , Char ( 13 ) + Char ( 10 )
+                        , '== Objects'
+                        , Char ( 13 ) + Char ( 10 )
+                        , Char ( 13 ) + Char ( 10 )
                         , 'include::partial$navlist/navlist-schema-' + RepoObject_schema_name + '.adoc[]'
                         , Char ( 13 ) + Char ( 10 )
                       )
 From
-    repo.RepoObject ro
+    repo.RepoObject     ro
+    Left Join
+        repo.RepoSchema rs
+            On
+            rs.RepoSchema_name = ro.RepoObject_schema_name
 Group By
     RepoObject_schema_name;
 Go
