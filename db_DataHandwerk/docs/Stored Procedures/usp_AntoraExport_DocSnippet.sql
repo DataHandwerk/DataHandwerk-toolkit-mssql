@@ -133,7 +133,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 

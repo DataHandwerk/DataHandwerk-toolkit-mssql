@@ -132,7 +132,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -204,7 +204,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -278,7 +278,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -349,7 +349,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -481,7 +481,7 @@ SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySc
  --
  + ' -d ' + @databaseName
  --
- + ' -c'
+ + ' -c -C 65001'
  --
  + @TrustedUserPassword
 
@@ -526,7 +526,7 @@ SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByTy
  --
  + ' -d ' + @databaseName
  --
- + ' -c'
+ + ' -c -C 65001'
  --
  + @TrustedUserPassword
 
