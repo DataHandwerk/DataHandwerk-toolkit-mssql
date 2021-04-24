@@ -182,7 +182,7 @@ use objects with [RepoObject_guid] stored in extended properties
 - SysObject names are restored as SysObject names
 - a conflict could happen when some RepoObject have been renamed and when they now conflict with existing RepoObject names  
 	[UK_RepoObject_Names]
-	=> thats way we use [RepoObject_guid] as [RepoObject_name] to avoid conflicts we will later rename [RepoObject_name] to [SysObject_name] where this is possible
+	=> thats why we use [RepoObject_guid] as [RepoObject_name] to avoid conflicts we will later rename [RepoObject_name] to [SysObject_name] where this is possible
 */
 INSERT INTO repo.RepoObject (
  [RepoObject_guid]
@@ -652,7 +652,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2010,';',NULL);
 
 /*
 objects deleted or renamed in database but still referenced in [repo].[RepoObject] will be marked in RepoObject with is_SysObject_missing = 1
-check is reuqired by `schema_name` and `name` but not by SysObject_ID, because SysObject_ID can change when objects are recreated
+check is required by `schema_name` and `name` but not by SysObject_ID, because SysObject_ID can change when objects are recreated
 */
 UPDATE repo.RepoObject
 SET [is_SysObject_missing] = 1

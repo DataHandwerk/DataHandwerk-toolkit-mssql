@@ -107,9 +107,9 @@ SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemantic
  --
  + ' -S ' + @instanceName
  --
- + ' -d ' + ' dhw_self'
+ + ' -d ' + @databaseName
  --
- + ' -c'
+ + ' -c -C 65001'
  --
  + @TrustedUserPassword
 

@@ -193,7 +193,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -269,7 +269,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -345,7 +345,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -421,7 +421,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -497,7 +497,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 

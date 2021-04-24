@@ -66,19 +66,6 @@ PRINT '[graph].[usp_PERSIST_Index]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":100,"Name":"check for empty source","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[Index_S]"}]}*/
-IF (SELECT count(*) FROM [graph].[Index_S]) = 0
-
-/*{"ReportUspStep":[{"Number":110,"Parent_Number":100,"Name":"ERROR 50110: persistence source is empty","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-BEGIN
-PRINT CONCAT('usp_id;Number;Parent_Number: ',22,';',110,';',100);
-
- THROW 50110
-  , 'persistence source is empty: [graph].[Index_S]'
-  , 1;
-
-END;
-
 /*{"ReportUspStep":[{"Number":300,"Name":"check duplicate per PK","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[graph].[Index_S]"}]}*/
 IF EXISTS(SELECT TOP 1 1 FROM [graph].[Index_S] GROUP BY  [Index_guid] HAVING COUNT(*) > 1)
 

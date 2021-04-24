@@ -1,5 +1,5 @@
 ﻿CREATE   PROCEDURE [docs].[usp_AntoraExport_ObjectPageTemplate]
-@outputDir NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\tempalte\ */
+@outputDir NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\ */
 ,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
 ,@userName NVARCHAR(250) = 'loginName' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
 ,@password NVARCHAR(250) = 'password'
@@ -134,7 +134,7 @@ BEGIN
   --
   + ' -d ' + @databaseName
   --
-  + ' -c'
+  + ' -c -C 65001'
   --
   + @TrustedUserPassword
 
@@ -188,7 +188,7 @@ SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraTemplate_examples]
  --
  + ' -d ' + @databaseName
  --
- + ' -c'
+ + ' -c -C 65001'
  --
  + @TrustedUserPassword
 
