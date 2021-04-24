@@ -84,16 +84,21 @@ DECLARE
 /*{"ReportUspStep":[{"Number":310,"Name":"property.RepoObjectProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[RepoObjectProperty_sys_repo]","log_target_object":"[property].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',310,';',NULL);
 
-INSERT INTO property.RepoObjectProperty (
- [RepoObject_guid]
- , [property_name]
- , [property_value]
- )
-SELECT DISTINCT [RepoObject_guid]
- , [property_name]
- , [property_value]
-FROM property.RepoObjectProperty_sys_repo AS T1
-WHERE [RepoObjectProperty_id] IS NULL
+Insert Into property.RepoObjectProperty
+(
+    RepoObject_guid
+  , property_name
+  , property_value
+)
+Select
+    Distinct
+    RepoObject_guid
+  , property_name
+  , property_value
+From
+    property.RepoObjectProperty_sys_repo As T1
+Where
+    RepoObjectProperty_id Is Null;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -123,10 +128,13 @@ EXEC logs.usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',320,';',NULL);
 
 --update table [property].[RepoObjectProperty] via view
-UPDATE property.RepoObjectProperty_sys_repo
-SET [RepoObjectProperty_property_value] = [property_value]
-WHERE NOT [RepoObjectProperty_id] IS NULL
- AND [RepoObjectProperty_property_value] <> [property_value]
+Update
+    property.RepoObjectProperty_sys_repo
+Set
+    RepoObjectProperty_property_value = property_value
+Where
+    Not RepoObjectProperty_id Is Null
+    And RepoObjectProperty_property_value <> property_value;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -155,16 +163,21 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":410,"Name":"property.RepoObjectColumnProperty - INSERT","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[property].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',410,';',NULL);
 
-INSERT INTO property.RepoObjectColumnProperty (
- [RepoObjectColumn_guid]
- , [property_name]
- , [property_value]
- )
-SELECT DISTINCT [RepoObjectColumn_guid]
- , [property_name]
- , [property_value]
-FROM property.RepoObjectColumnProperty_sys_repo AS T1
-WHERE [RepoObjectColumnProperty_id] IS NULL
+Insert Into property.RepoObjectColumnProperty
+(
+    RepoObjectColumn_guid
+  , property_name
+  , property_value
+)
+Select
+    Distinct
+    RepoObjectColumn_guid
+  , property_name
+  , property_value
+From
+    property.RepoObjectColumnProperty_sys_repo As T1
+Where
+    RepoObjectColumnProperty_id Is Null;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -194,10 +207,13 @@ EXEC logs.usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',420,';',NULL);
 
 --update table [property].[RepoObjectColumnProperty] via view
-UPDATE property.RepoObjectColumnProperty_sys_repo
-SET [RepoObjectColumnProperty_property_value] = [property_value]
-WHERE NOT [RepoObjectColumnProperty_id] IS NULL
- AND [RepoObjectColumnProperty_property_value] <> [property_value]
+Update
+    property.RepoObjectColumnProperty_sys_repo
+Set
+    RepoObjectColumnProperty_property_value = property_value
+Where
+    Not RepoObjectColumnProperty_id Is Null
+    And RepoObjectColumnProperty_property_value <> property_value;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -205,6 +221,50 @@ SET @step_id = @step_id + 1
 SET @step_name = 'property.RepoObjectColumnProperty - UPDATE'
 SET @source_object = '[property].[RepoObjectColumnProperty_sys_repo]'
 SET @target_object = '[property].[RepoObjectColumnProperty]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":520,"Name":"UPDATE [repo].[RepoSchema] - [RepoSchema_ms_description]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[ExtendedProperties]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',520,';',NULL);
+
+Update
+    rs
+Set
+    RepoSchema_ms_description = Cast(ses.property_value As NVarchar(4000))
+From
+    repo.RepoSchema                 rs
+    Inner Join
+        repo_sys.ExtendedProperties As ses
+            On
+            ses.major_id          = rs.SysSchema_id
+            And ses.class         = 3 --schema
+            And ses.property_name = 'MS_Description'
+Where
+    rs.RepoSchema_ms_description Is Null
+    Or rs.RepoSchema_ms_description <> ses.property_value;
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'UPDATE [repo].[RepoSchema] - [RepoSchema_ms_description]'
+SET @source_object = '[repo_sys].[ExtendedProperties]'
+SET @target_object = '[repo].[RepoSchema]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid

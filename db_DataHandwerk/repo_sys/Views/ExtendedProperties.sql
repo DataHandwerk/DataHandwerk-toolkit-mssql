@@ -1,87 +1,119 @@
-﻿/*
+﻿
+/*
 database_id required in
 - OBJECT_SCHEMA_NAME
 - OBJECT_NAME
 */
-CREATE VIEW [repo_sys].[ExtendedProperties]
-AS
+CREATE View repo_sys.ExtendedProperties
+As
 --
-SELECT [sep].[class]
- , [sep].[major_id]
- , [sep].[minor_id]
- , [sep].[name] COLLATE database_default AS [property_name]
- , [sep].[class_desc]
- , [sep].value AS [property_value]
- , CASE 
-  WHEN [sep].[class] IN (
-    1
-    , 2
-    , 7
-    )
-   THEN OBJECT_SCHEMA_NAME([sep].[major_id], [db].[dwh_database_id])
-  END AS [SysObject_schema_name]
- , CASE 
-  WHEN [sep].[class] IN (
-    1
-    , 2
-    , 7
-    )
-   THEN OBJECT_NAME([sep].[major_id], [db].[dwh_database_id])
-  END AS [SysObject_name]
- , CASE [sep].[class]
-  WHEN 1
-   THEN [sc].[name]
-  WHEN 2
-   THEN [sp].[name]
-  WHEN 3
-   THEN [si].[name]
-  END COLLATE database_default AS [minor_name]
- , CASE 
-  WHEN [sep].[class] = 1
-   THEN [sc].[name]
-  END COLLATE database_default AS [entity_column_name]
- , CASE 
-  WHEN [sep].[class] = 2
-   THEN [sp].[name]
-  END COLLATE database_default AS [entity_parameter_name]
- , CASE 
-  WHEN [sep].[class] = 7
-   THEN [si].[name]
-  END COLLATE database_default AS [entity_index_name]
- , [level2type] = CASE 
-  WHEN [sep].[class] = 1
-   AND [sep].[minor_id] > 0
-   THEN 'COLUMN'
-  WHEN [sep].[class] = 2
-   AND [sep].[minor_id] > 0
-   THEN 'PARAMETER'
-  WHEN [sep].[class] = 7
-   AND [sep].[minor_id] > 0
-   THEN 'INDEX'
-  END
- , [property_basetype] = SQL_VARIANT_PROPERTY([sep].value, 'BaseType')
- , [property_nvarchar] = TRY_CAST([sep].value AS NVARCHAR(4000))
- , [so].[parent_object_id]
- , [parent_name] = [parent].[name]
- , [parent_type] = [parent].[type]
+Select
+    sep.class
+  , sep.major_id
+  , sep.minor_id
+  , sep.name Collate Database_Default As property_name
+  , sep.class_desc
+  , sep.value                         As property_value
+  , Case
+        When sep.class In
+        ( 1, 2, 7 )
+            Then
+            Object_Schema_Name ( sep.major_id, db.dwh_database_id )
+        When sep.class = 3
+            Then
+            sch.name
+    End Collate Database_Default      As SysObject_schema_name
+  , Case
+        When sep.class In
+        ( 1, 2, 7 )
+            Then
+            Object_Name ( sep.major_id, db.dwh_database_id )
+    End                               As SysObject_name
+  , Case sep.class
+        When 1
+            Then
+            sc.name
+        When 2
+            Then
+            sp.name
+        When 3
+            Then
+            si.name
+    End Collate Database_Default      As minor_name
+  , Case
+        When sep.class = 1
+            Then
+            sc.name
+    End Collate Database_Default      As entity_column_name
+  , Case
+        When sep.class = 2
+            Then
+            sp.name
+    End Collate Database_Default      As entity_parameter_name
+  , Case
+        When sep.class = 7
+            Then
+            si.name
+    End Collate Database_Default      As entity_index_name
+  , level2type                        = Case
+                                            When sep.class = 1
+                                                 And sep.minor_id > 0
+                                                Then
+                                                'COLUMN'
+                                            When sep.class = 2
+                                                 And sep.minor_id > 0
+                                                Then
+                                                'PARAMETER'
+                                            When sep.class = 7
+                                                 And sep.minor_id > 0
+                                                Then
+                                                'INDEX'
+                                        End
+  , property_basetype                 = Sql_Variant_Property ( sep.value, 'BaseType' )
+  , property_nvarchar                 = Try_Cast(sep.value As NVarchar(4000))
+  , so.parent_object_id
+  , parent_name                       = parent.name
+  , parent_type                       = parent.type
 -- Explicit conversion from data type int to uniqueidentifier is not allowed.
 --, [property_value_uniqueidentifier] = TRY_CAST([sep].value As UniqueIdentifier)
-FROM sys_dwh.extended_properties AS sep
-LEFT OUTER JOIN sys_dwh.columns AS sc
- ON sep.major_id = sc.object_id
-  AND sep.minor_id = sc.column_id
-LEFT OUTER JOIN sys_dwh.parameters AS sp
- ON sep.major_id = sp.object_id
-  AND sep.minor_id = sp.parameter_id
-LEFT OUTER JOIN sys_dwh.indexes AS si
- ON sep.major_id = si.object_id
-  AND sep.minor_id = si.index_id
-LEFT OUTER JOIN sys_dwh.objects AS so
- ON sep.major_id = so.object_id
-LEFT OUTER JOIN sys_dwh.objects AS parent
- ON parent.object_id = so.parent_object_id
---
-CROSS APPLY [config].ftv_dwh_database() AS db
+From
+    sys_dwh.extended_properties            As sep
+    Left Outer Join
+        sys_dwh.columns                    As sc
+            On
+            sep.major_id = sc.object_id
+            And sep.minor_id = sc.column_id
+
+    Left Outer Join
+        sys_dwh.parameters                 As sp
+            On
+            sep.major_id = sp.object_id
+            And sep.minor_id = sp.parameter_id
+
+    Left Outer Join
+        sys_dwh.indexes                    As si
+            On
+            sep.major_id = si.object_id
+            And sep.minor_id = si.index_id
+
+    Left Outer Join
+        sys_dwh.objects                    As so
+            On
+            sep.major_id = so.object_id
+
+    Left Outer Join
+        sys_dwh.objects                    As parent
+            On
+            parent.object_id = so.parent_object_id
+
+    Left Outer Join
+        sys_dwh.schemas                    As sch
+            On
+            sch.schema_id = sep.major_id
+            And sep.minor_id = 0
+            And sep.class = 3
+    --
+    Cross Apply config.ftv_dwh_database () As db;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4b90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
 
