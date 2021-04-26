@@ -135,3 +135,6 @@ Begin
               , @Source_RepoObject_guid
             );
 End;
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7e9a3468-7da6-eb11-84fb-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource_virtual_set';
+
