@@ -33,7 +33,7 @@ ORDER BY
 
 
 */
-Create View [reference].RepoObjectColumn_reference_union
+CREATE View reference.RepoObjectColumn_reference_union
 As
 --
 --repo.RepoObjectColumn_reference__sql_expression_dependencies
@@ -65,7 +65,7 @@ Select
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
 From
-    [reference].RepoObjectColumn_reference_SqlExpressionDependencies
+    reference.RepoObjectColumn_reference_SqlExpressionDependencies
 --[repo].[RepoObjectColumn_reference__persistence]
 --contains virtual references for persistence tables
 --these references can't exist in the real database but only in the repository
@@ -96,7 +96,7 @@ Select
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
 From
-    [reference].RepoObjectColumn_reference_Persistence
+    reference.RepoObjectColumn_reference_Persistence
 Union All
 Select
     --
@@ -124,7 +124,36 @@ Select
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
 From
-    [reference].RepoObjectColumn_reference_SqlModules;
+    reference.RepoObjectColumn_reference_SqlModules
+Union All
+Select
+    --
+    referenced_schema_name
+  , referenced_entity_name
+  , referenced_column_name
+  , referencing_schema_name
+  , referencing_entity_name
+  , referencing_column_name
+  , referencing_id
+  , referencing_minor_id
+  , referencing_node_id
+  , referenced_id
+  , referenced_minor_id
+  , referenced_node_id
+  , referencing_RepoObject_guid
+  , referencing_RepoObjectColumn_guid
+  , referenced_RepoObject_guid
+  , referenced_RepoObjectColumn_guid
+  , referencing_type
+  , referenced_type
+  , InformationSource
+  , is_computed
+  , definition
+  , is_referencing_object_equal_referenced_object
+  , is_referenced_object
+From
+    reference.RepoObjectColumn_reference_virtual;
+
 --UNION ALL
 ----repo.RepoObjectColumn_reference__first_result_set
 ----"common" references

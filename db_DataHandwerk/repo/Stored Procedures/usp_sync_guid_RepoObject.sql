@@ -784,6 +784,49 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":3010,"Name":"DELETE [reference].[RepoObjectSource_virtual] missing Source_RepoObject_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[reference].[RepoObjectSource_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',3010,';',NULL);
+
+Delete
+ros
+From
+    reference.RepoObjectSource_virtual ros
+Where
+    Not Exists
+(
+    Select
+        1
+    From
+        repo.RepoObject ro
+    Where
+        ro.RepoObject_guid = ros.Source_RepoObject_guid
+);
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'DELETE [reference].[RepoObjectSource_virtual] missing Source_RepoObject_guid'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[reference].[RepoObjectSource_virtual]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":4010,"Name":"SET [Repo_temporal_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',4010,';',NULL);
 
