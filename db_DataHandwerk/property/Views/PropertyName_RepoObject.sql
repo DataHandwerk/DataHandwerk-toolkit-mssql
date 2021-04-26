@@ -1,22 +1,23 @@
-﻿/*
+﻿
+/*
 all used [property_name] in any RepoObject, and additinally some [config].[Parameter].[sub_Parameter]
 */
 
-Create View [property].PropertyName_RepoObject
+CREATE View property.PropertyName_RepoObject
 As
 Select
     Distinct
     --
-    property_name
+    Trim ( property_name ) As property_name
 From
-    [property].RepoObjectProperty
+    property.RepoObjectProperty
 Union
 Select
     Distinct
     --
-    sub_Parameter
+    Trim ( sub_Parameter )
 From
-    [config].Parameter
+    config.Parameter
 Where
     Parameter_name In
     ( 'Inheritance_StringAggSeparatorSql_object', 'InheritanceDefinition_object', 'InheritanceType_object' )
