@@ -505,6 +505,7 @@
     <None Include="readme.adoc" />
     <None Include="xcopy-exclude.txt" />
     <None Include="xcopy-readme.txt" />
+    <None Include="Snapshots\db_DataHandwerk_20210426_19-52-33.dacpac" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">
