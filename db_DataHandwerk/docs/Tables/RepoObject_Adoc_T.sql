@@ -11,7 +11,10 @@
     [SysObject_schema_name]  NVARCHAR (128)   NULL,
     [SysObject_type]         CHAR (2)         NULL,
     [SysObject_type_name]    NVARCHAR (128)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

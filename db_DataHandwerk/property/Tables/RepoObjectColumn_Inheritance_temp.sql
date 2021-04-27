@@ -14,7 +14,10 @@
     [referenced_RepoObjectColumn_name]  NVARCHAR (128)   NOT NULL,
     [referencing_RepoObject_fullname]   NVARCHAR (261)   NOT NULL,
     [referencing_RepoObjectColumn_name] NVARCHAR (128)   NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

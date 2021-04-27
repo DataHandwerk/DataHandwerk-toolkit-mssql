@@ -7,7 +7,10 @@
     [source_column_QuoteName] NVARCHAR (MAX)   NULL,
     [source_table_QuoteName]  NVARCHAR (MAX)   NULL,
     [SysObject_fullname]      NVARCHAR (261)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

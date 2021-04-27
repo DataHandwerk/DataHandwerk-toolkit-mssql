@@ -7,7 +7,10 @@
     [StartingNode_fullname]  NVARCHAR (261)   NULL,
     [StartingNode_fullname2] NVARCHAR (257)   NULL,
     [StartingNode_guid]      UNIQUEIDENTIFIER NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO

@@ -33,11 +33,13 @@
     [SysObject_fullname2]                 AS               (concat([SysObject_schema_name],'.',[SysObject_name])) PERSISTED NOT NULL,
     [SysObject_query_sql]                 AS               (concat('SELECT * FROM [',[config].[fs_dwh_database_name](),'].[',[SysObject_schema_name],'].[',[SysObject_name],']')),
     [usp_persistence_name]                AS               ('usp_PERSIST_'+[RepoObject_name]) PERSISTED NOT NULL,
-    CONSTRAINT [PK_RepoObject] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC),
+    CONSTRAINT [PK_RepoObject] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_Index_IndexSemanticGroup__pk_index_guid] FOREIGN KEY ([pk_index_guid]) REFERENCES [repo].[Index_Settings] ([index_guid]) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 

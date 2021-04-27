@@ -20,7 +20,10 @@
     [RepoObject_guid]            UNIQUEIDENTIFIER NOT NULL,
     [RowNumber_per_Object]       BIGINT           NULL,
     [SysObject_fullname]         NVARCHAR (261)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

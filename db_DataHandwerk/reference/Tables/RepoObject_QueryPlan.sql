@@ -2,9 +2,11 @@
     [RepoObject_guid]             UNIQUEIDENTIFIER NOT NULL,
     [SysObject_query_executed_dt] DATETIME         NULL,
     [SysObject_query_plan]        XML              NULL,
-    CONSTRAINT [PK_RepoObject_QueryPlan] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC),
+    CONSTRAINT [PK_RepoObject_QueryPlan] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_QueryPlan__RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 

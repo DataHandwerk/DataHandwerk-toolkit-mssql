@@ -21,10 +21,12 @@
     [info_07]                     NVARCHAR (MAX)  NULL,
     [info_08]                     NVARCHAR (MAX)  NULL,
     [info_09]                     NVARCHAR (MAX)  NULL,
-    CONSTRAINT [PK_GeneratorUspStep] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [PK_GeneratorUspStep] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_GeneratorUspStep_GeneratorUsp] FOREIGN KEY ([usp_id]) REFERENCES [uspgenerator].[GeneratorUsp] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_GeneratorUspStep_Number] UNIQUE NONCLUSTERED ([usp_id] ASC, [Number] ASC)
 );
+
+
 
 
 
