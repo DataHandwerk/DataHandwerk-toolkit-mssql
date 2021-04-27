@@ -14,7 +14,10 @@
     [is_target_column_name_expression] AS               (CONVERT([bit],case when [target_column_name] like 'EXPR[0-9][0-9][0-9][0-9]' then (1) else (0) end)),
     [is_source_column_name_expression] AS               (CONVERT([bit],case when [source_column_name] like 'EXPR[0-9][0-9][0-9][0-9]' then (1) else (0) end)),
     CONSTRAINT [FK_RepoObjectSource_QueryPlan__RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

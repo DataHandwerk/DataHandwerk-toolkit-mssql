@@ -13,7 +13,10 @@
     [PumlEntityList_0_30]           NVARCHAR (MAX)   NULL,
     [PumlEntityList_30_0]           NVARCHAR (MAX)   NULL,
     [RepoObject_fullname2]          NVARCHAR (257)   NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

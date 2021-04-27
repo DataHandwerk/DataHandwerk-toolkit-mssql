@@ -5,9 +5,11 @@
     [sql_modules_formatted2]   NVARCHAR (MAX)   NULL,
     [sql_modules_json]         NVARCHAR (MAX)   NULL,
     [is_json_sql_modules_json] AS               (isjson([sql_modules_json])) PERSISTED,
-    CONSTRAINT [PK_RepoObject_SqlModules] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC),
+    CONSTRAINT [PK_RepoObject_SqlModules] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_SqlModules__RepoObject1] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
