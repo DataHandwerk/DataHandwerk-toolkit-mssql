@@ -1,4 +1,5 @@
-﻿Create Function [uspgenerator].ftv_GeneratorUspStep_sql
+﻿
+CREATE Function [uspgenerator].[ftv_GeneratorUspStep_sql]
 (
     @usp_id               Int
   , @number               Int
@@ -158,6 +159,8 @@ Return
                                     , ');'
                                     , Char ( 13 ) + Char ( 10 )
                                     , Char ( 13 ) + Char ( 10 )
+                                    , '/*' + Char ( 13 ) + Char ( 10 ) + Description + Char ( 13 ) + Char ( 10 ) + '*/'
+                                      + Char ( 13 ) + Char ( 10 )
                                     , Statement
                                     --logging depending on parameter @usp_has_logging
                                     , Case

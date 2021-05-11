@@ -1,5 +1,4 @@
 ﻿
-
 /*
 --usage:
 
@@ -10,7 +9,7 @@ ORDER BY [id]
 
 
 */
-Create View [uspgenerator].GeneratorUspStep_Sql
+CREATE View [uspgenerator].[GeneratorUspStep_Sql]
 As
 Select
     u.id     As usp_id
@@ -86,6 +85,7 @@ Select
                               , '* ' + step.log_target_object + Char ( 13 ) + Char ( 10 )
                               , Null)
                         , Char ( 13 ) + Char ( 10 )
+                        , Char ( 13 ) + Char ( 10 ) + step.Description + Char ( 13 ) + Char ( 10 )
                         , '|'
                         , step.Parent_Number
                         , Char ( 13 ) + Char ( 10 )
@@ -109,7 +109,7 @@ From
         Group By
             s.usp_id
           , t.Number
-    )                                           As BeginEnd
+    )                                                     As BeginEnd
         On
         BeginEnd.usp_id = u.id
         And BeginEnd.Number = t.Number
@@ -120,13 +120,13 @@ From
             step.usp_id = u.id
             And step.Number = t.Number
     Cross Apply [uspgenerator].ftv_GeneratorUspStep_sql (
-                                                  u.id
-                                                , t.Number
-                                                , u.has_logging
-                                                , BeginEnd.required_Begin_count
-                                                , BeginEnd.required_End_count
-                                                , BeginEnd.is_required_ELSE
-                                              ) sql;
+                                                            u.id
+                                                          , t.Number
+                                                          , u.has_logging
+                                                          , BeginEnd.required_Begin_count
+                                                          , BeginEnd.required_End_count
+                                                          , BeginEnd.is_required_ELSE
+                                                        ) sql;
 Go
 
 Execute sp_addextendedproperty
