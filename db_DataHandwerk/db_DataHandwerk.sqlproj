@@ -496,6 +496,7 @@
     <Build Include="logs\Functions\ftv_ExecutionLog_puml_sequence_start_stop_per_execution.sql" />
     <Build Include="reference\Stored Procedures\usp_RepoObjectSource_virtual_set.sql" />
     <Build Include="reference\Stored Procedures\usp_RepoObjectColumnSource_virtual_set.sql" />
+    <Build Include="docs\Functions\fs_cleanStringForAnchorId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

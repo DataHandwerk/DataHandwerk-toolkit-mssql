@@ -1,33 +1,34 @@
-﻿Create View docs.AntoraIndexSemanticgroupPatterndatatype
+﻿
+CREATE View docs.AntoraIndexSemanticgroupPatterndatatype
 As
 Select
     IndexSemanticGroup
   , IndexPatternColumnDatatype
-  , AntoraIndexSemanticgroupPatterndatatype = String_Agg (
-                                                             Concat (
-                                                                        Cast(N'' As NVarchar(Max))
-                                                                      --** xref:aaa.bbb.adoc#index-pk_ccc[aaa.bbb pk_abc]
-                                                                      , '** xref:' + RepoObject_fullname2
-                                                                        + '.adoc[], xref:' + RepoObject_fullname2
-                                                                        + '.adoc#' + 'index-' + index_name + '['
-                                                                        + index_name + '] +'
-                                                                      , Char ( 13 ) + Char ( 10 )
-                                                                      , IndexPatternColumnName
-                                                                      , ' +'
-                                                                      , Char ( 13 ) + Char ( 10 )
-                                                                      , IndexPatternColumnDatatype
-                                                                      , ' +'
-                                                                      , Char ( 13 ) + Char ( 10 )
-                                                                      , 'PK, Unique, Real: '
-                                                                      , is_index_primary_key
-                                                                      , ', '
-                                                                      , is_index_unique
-                                                                      , ', '
-                                                                      , is_index_real
-                                                                    )
-                                                           , Char ( 13 ) + Char ( 10 )
-                                                         ) Within Group(Order By
-                                                                            RepoObject_fullname2)
+  , AntoraIndexSemanticgroupPatterndatatype =
+  --
+  String_Agg (
+                 Concat (
+                            Cast(N'' As NVarchar(Max))
+                          --** xref:aaa.bbb.adoc#index-pk_ccc[aaa.bbb pk_abc]
+                          , '** xref:' + RepoObject_fullname2 + '.adoc[], xref:' + RepoObject_fullname2 + '.adoc#'
+                            + 'index-' + docs.fs_cleanStringForAnchorId ( index_name ) + '[+' + index_name + '+] +'
+                          , Char ( 13 ) + Char ( 10 )
+                          , IndexPatternColumnName
+                          , ' +'
+                          , Char ( 13 ) + Char ( 10 )
+                          , IndexPatternColumnDatatype
+                          , ' +'
+                          , Char ( 13 ) + Char ( 10 )
+                          , 'PK, Unique, Real: '
+                          , is_index_primary_key
+                          , ', '
+                          , is_index_unique
+                          , ', '
+                          , is_index_real
+                        )
+               , Char ( 13 ) + Char ( 10 )
+             ) Within Group(Order By
+                                RepoObject_fullname2)
 From
     repo.Index_gross
 Group By
