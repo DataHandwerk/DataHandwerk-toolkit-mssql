@@ -1,19 +1,22 @@
-﻿Create View [reference].RepoObjectColumn_ReferencedList
+﻿
+CREATE View [reference].[RepoObjectColumn_ReferencedList]
 As
 Select
     ror.Referencing_guid
-  , AntoraReferencedColumnList              = String_Agg (
-                                                             Concat (
-                                                                        --* xref:target-page-filename.adoc[link text]
-                                                                        --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                                                                        Cast('* xref:' As NVarchar(Max))
-                                                                      , ror.Referenced_fullname2
-                                                                      , '.adoc#column-' + ror.ReferencedColumn_name + '['
-                                                                        + ror.ReferencedColumn_fullname2 + ']'
-                                                                    )
-                                                           , Char ( 13 ) + Char ( 10 )
-                                                         ) Within Group(Order By
-                                                                            ror.Referenced_fullname)
+  , AntoraReferencedColumnList              =
+  --
+  String_Agg (
+                 Concat (
+                            --* xref:target-page-filename.adoc[link text]
+                            --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                            Cast('* xref:' As NVarchar(Max))
+                          , ror.Referenced_fullname2
+                          , '.adoc#column-' + docs.fs_cleanStringForAnchorId ( ror.ReferencedColumn_name ) + '[+'
+                            + ror.ReferencedColumn_fullname2 + '+]'
+                        )
+               , Char ( 13 ) + Char ( 10 )
+             ) Within Group(Order By
+                                ror.Referenced_fullname)
   , Max ( ror.Referencing_fullname )        As Referencing_fullname
   , Max ( ror.Referencing_fullname2 )       As Referencing_fullname2
   , Max ( ror.ReferencingColumn_fullname )  As ReferencingColumn_fullname
