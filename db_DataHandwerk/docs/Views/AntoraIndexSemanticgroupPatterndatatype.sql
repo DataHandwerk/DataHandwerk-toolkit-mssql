@@ -9,9 +9,11 @@ Select
   String_Agg (
                  Concat (
                             Cast(N'' As NVarchar(Max))
-                          --** xref:aaa.bbb.adoc#index-pk_ccc[aaa.bbb pk_abc]
-                          , '** xref:' + RepoObject_fullname2 + '.adoc[], xref:' + RepoObject_fullname2 + '.adoc#'
-                            + 'index-' + docs.fs_cleanStringForAnchorId ( index_name ) + '[+' + index_name + '+] +'
+                          --** xref:aaa.bbb.adoc#index-pk_ccc[aaa.bbb - pk_abc]
+                          , '** xref:' + RepoObject_fullname2 + '.adoc#' + 'index-'
+                            + docs.fs_cleanStringForAnchorId ( index_name ) + '['
+                            + docs.fs_cleanStringForLabel ( RepoObject_fullname2 ) + ' - '
+                            + docs.fs_cleanStringForLabel ( index_name ) + '] +'
                           , Char ( 13 ) + Char ( 10 )
                           , IndexPatternColumnName
                           , ' +'
