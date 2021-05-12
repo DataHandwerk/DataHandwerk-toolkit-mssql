@@ -19,7 +19,7 @@ Select
                           , ']]'
                           , Char ( 13 ) + Char ( 10 )
                           , '=== '
-                          , roc.RepoObjectColumn_name
+                          , docs.fs_cleanStringForLabel ( roc.RepoObjectColumn_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
                           , '[cols="d,m,m,m,m,d"]'

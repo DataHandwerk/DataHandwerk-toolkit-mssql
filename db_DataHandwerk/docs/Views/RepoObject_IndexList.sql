@@ -15,7 +15,7 @@ Select
                           , ']]'
                           , Char ( 13 ) + Char ( 10 )
                           , '=== '
-                          , ix.index_name
+                          , docs.fs_cleanStringForLabel ( ix.index_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
                           , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_'

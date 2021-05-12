@@ -497,6 +497,7 @@
     <Build Include="reference\Stored Procedures\usp_RepoObjectSource_virtual_set.sql" />
     <Build Include="reference\Stored Procedures\usp_RepoObjectColumnSource_virtual_set.sql" />
     <Build Include="docs\Functions\fs_cleanStringForAnchorId.sql" />
+    <Build Include="docs\Functions\fs_cleanStringForLabel.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
