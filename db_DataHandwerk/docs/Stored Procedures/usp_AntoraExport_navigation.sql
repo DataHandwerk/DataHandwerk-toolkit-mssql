@@ -396,7 +396,6 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":520,"Name":"export FROM [docs].[AntoraNavListPage_by_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListPage_by_type]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',520,';',NULL);
 
-
 DECLARE page_cursor CURSOR Local Fast_Forward
 FOR
 SELECT type
@@ -474,7 +473,10 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":610,"Name":"export FROM [docs].[AntoraPage_ObjectBySchema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectBySchema]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',610,';',NULL);
 
+/*
 --nav-by-schema.adoc
+
+*/
 SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout ' + @outputDirPartNav + 'nav-by-schema.adoc'
  --
  + ' -S ' + @instanceName
@@ -519,7 +521,10 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":620,"Name":"export FROM [docs].[AntoraPage_ObjectByType]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectByType]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',620,';',NULL);
 
---nav-by-type.adoc
+/*
+nav-by-type.adoc
+
+*/
 SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]"  queryout ' + @outputDirPartNav + 'nav-by-type.adoc'
  --
  + ' -S ' + @instanceName

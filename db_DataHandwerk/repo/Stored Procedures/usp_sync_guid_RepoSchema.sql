@@ -72,9 +72,10 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',210,';',NULL);
 /*
 use Schemas with [RepoSchema_guid] stored in extended properties
 	
-- SysSchema could be renamed after previous sync
-	- => update SysSchema properties in RepoSchema
-	- don't change RepoSchema names
+* SysSchema could be renamed after previous sync
+** => update SysSchema properties in RepoSchema
+** don't change RepoSchema names
+
 */
 Update
     repo.SysSchema_RepoSchema_via_guid
@@ -120,9 +121,11 @@ EXEC logs.usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',310,';',NULL);
 
 /*
-in case of possible conflict when inserting missing guid because auf [UK_RepoSchema__SysNames] conflicting entries get 
+in case of possible conflict when inserting missing guid because of [UK_RepoSchema__SysNames] conflicting entries get 
 [SysSchema_name] = [repo].[RepoSchema].[RepoSchema_guid]
+
 this will allow INSERT in the next step without issues
+
 */
 Update
     repo.RepoSchema
@@ -176,13 +179,14 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',410,';',NULL);
 
 /*
 if a [RepoSchema_guid] is stored in extended properties but missing in RepoSchema, it should be restored
+
 use schemas with [RepoSchema_guid] stored in extended properties
 	
-- restore / insert RepoSchema_guid from [SysSchema_RepoSchema_guid]
-- SysSchema names are restored as SysSchema names
-- a conflict could happen when some RepoSchema have been renamed and when they now conflict with existing RepoSchema names  
-	[UK_RepoSchema_Names]
-	=> thats why we use [RepoSchema_guid] as [RepoSchema_name] to avoid conflicts we will later rename [RepoSchema_name] to [SysSchema_name] where this is possible
+* restore / insert RepoSchema_guid from [SysSchema_RepoSchema_guid]
+* SysSchema names are restored as SysSchema names
+* a conflict could happen when some RepoSchema have been renamed and when they now conflict with existing RepoSchema names +
+  [UK_RepoSchema_Names] +
+  => thats why we use [RepoSchema_guid] as [RepoSchema_name] to avoid conflicts we will later rename [RepoSchema_name] to [SysSchema_name] where this is possible
 */
 Insert Into repo.RepoSchema
 (
@@ -230,11 +234,13 @@ EXEC logs.usp_ExecutionLog_insert
 PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',510,';',NULL);
 
 /*
+
 ensure all schemas existing in database (as SysSchema) are also included into [repo].[RepoSchema]
 	
-- this should be SysSchema without RepoSchema_guid in extended properties
-- when inserting they get a RepoSchema_guid
-- we should use this new RepoSchema_guid as [RepoSchema_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()
+* this should be SysSchema without RepoSchema_guid in extended properties
+* when inserting they get a RepoSchema_guid
+* we should use this new RepoSchema_guid as [RepoSchema_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()
+
 */
 Insert Into repo.RepoSchema
 (
@@ -278,8 +284,12 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":610,"Name":"SET [RepoSchema_name] = [SysSchema_name]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',610,';',NULL);
 
---now we try to set [RepoSchema_name] = [SysSchema_name] where this is possible whithout conflicts
---remaining [RepoSchema_name] still could have some guid, and this needs to solved separately
+/*
+now we try to set [RepoSchema_name] = [SysSchema_name] where this is possible whithout conflicts
+
+remaining [RepoSchema_name] still could have some guid, and this needs to solved separately
+
+*/
 Update
     repo.RepoSchema
 Set
@@ -326,8 +336,12 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1010,"Name":"write RepoSchema_guid into extended properties of SysSchema","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema]","log_target_object":"[repo_sys].[SysSchema]"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',1010,';',NULL);
+/*{"ReportUspStep":[{"Number":2000,"Name":"config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0
+
+/*{"ReportUspStep":[{"Number":2010,"Parent_Number":2000,"Name":"write RepoSchema_guid into extended properties of SysSchema","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema]","log_target_object":"[repo_sys].[SysSchema]"}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',2010,';',2000);
 
 Declare property_cursor Cursor Local Fast_Forward For
 --
@@ -422,12 +436,14 @@ EXEC logs.usp_ExecutionLog_insert
 
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2010,"Name":"SET is_SysSchema_missing = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',2010,';',NULL);
+/*{"ReportUspStep":[{"Number":2110,"Parent_Number":2010,"Name":"SET is_SysSchema_missing = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',2110,';',2010);
 
 /*
 objects deleted or renamed in database but still referenced in [repo].[RepoSchema] will be marked in RepoSchema with is_SysSchema_missing = 1
+
 check is required by `schema_name` and `name` but not by SysSchema_ID, because SysSchema_ID can change when objects are recreated
+
 */
 Update
     repo.RepoSchema
@@ -470,8 +486,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2110,"Name":"DELETE; marked missing SysSchema","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"d"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',2110,';',NULL);
+/*{"ReportUspStep":[{"Number":2120,"Parent_Number":2110,"Name":"DELETE; marked missing SysSchema","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',2120,';',2110);
 
 /*
 delete objects, missing in SysSchemas
@@ -504,6 +520,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @deleted = @rows
 -- Logging END --
+END;
 
 --
 --finish your own code here

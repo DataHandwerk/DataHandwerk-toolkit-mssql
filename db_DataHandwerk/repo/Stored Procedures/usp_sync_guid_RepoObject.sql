@@ -72,9 +72,10 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',210,';',NULL);
 /*
 use objects with [RepoObject_guid] stored in extended properties
 	
-- SysObject could be renamed after previous sync
-	- => update SysObject properties in RepoObject
-	- don't change RepoObject names
+* SysObject could be renamed after previous sync
+** => update SysObject properties in RepoObject
+** don't change RepoObject names
+
 */
 UPDATE repo.SysObject_RepoObject_via_guid
 SET [RepoObject_SysObject_id] = [SysObject_id]
@@ -126,8 +127,11 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',310,';',NULL);
 
 /*
 in case of possible conflict when inserting missing guid because auf [UK_RepoObject__SysNames] conflicting entries get 
+
 [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
+
 this will allow INSERT in the next step without issues
+
 */
 UPDATE repo.RepoObject
 SET [SysObject_name] = [repo].[RepoObject].[RepoObject_guid]
@@ -176,13 +180,15 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',410,';',NULL);
 
 /*
 if a [RepoObject_guid] is stored in extended properties but missing in RepoObject, it should be restored
+
 use objects with [RepoObject_guid] stored in extended properties
 	
-- restore / insert RepoObject_guid from [SysObject_RepoObject_guid]
-- SysObject names are restored as SysObject names
-- a conflict could happen when some RepoObject have been renamed and when they now conflict with existing RepoObject names  
-	[UK_RepoObject_Names]
-	=> thats why we use [RepoObject_guid] as [RepoObject_name] to avoid conflicts we will later rename [RepoObject_name] to [SysObject_name] where this is possible
+* restore / insert RepoObject_guid from [SysObject_RepoObject_guid]
+* SysObject names are restored as SysObject names
+* a conflict could happen when some RepoObject have been renamed and when they now conflict with existing RepoObject names +
+  [UK_RepoObject_Names] +
+  => thats why we use [RepoObject_guid] as [RepoObject_name] to avoid conflicts we will later rename [RepoObject_name] to [SysObject_name] where this is possible
+
 */
 INSERT INTO repo.RepoObject (
  [RepoObject_guid]
@@ -240,9 +246,10 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',510,';',NULL);
 /*
 ensure all objects existing in database (as SysObject) are also included into [repo].[RepoObject]
 	
-- this should be SysObject without RepoObject_guid in extended properties
-- when inserting they get a RepoObject_guid
-- we should use this new RepoObject_guid as [RepoObject_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()
+* this should be SysObject without RepoObject_guid in extended properties
+* when inserting they get a RepoObject_guid
+* we should use this new RepoObject_guid as [RepoObject_name], but we don't know it, when we insert. That's why we use anything else unique: NEWID()
+
 */
 INSERT INTO repo.RepoObject (
  [SysObject_id]
@@ -294,8 +301,12 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":610,"Name":"SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',610,';',NULL);
 
---now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
---remaining [RepoObject_name] still could have some guid, and this needs to solved separately
+/*
+now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
+
+remaining [RepoObject_name] still could have some guid, and this needs to solved separately
+
+*/
 UPDATE repo.RepoObject
 SET [RepoObject_schema_name] = [SysObject_schema_name]
  , [RepoObject_name] = [SysObject_name]
@@ -471,8 +482,12 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":720,"Parent_Number":710,"Name":"SET [RepoObject_schema_name] = [SysObject_schema_name] , [RepoObject_name] = [SysObject_name]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',720,';',710);
 
---now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
---remaining [RepoObject_name] still could have some guid, and this needs to solved separately
+/*
+now we try to set [RepoObject_name] = [SysObject_name] where this is possible whithout conflicts
+
+remaining [RepoObject_name] still could have some guid, and this needs to solved separately
+
+*/
 UPDATE repo.RepoObject
 SET [RepoObject_schema_name] = [SysObject_schema_name]
  , [RepoObject_name] = [SysObject_name]
@@ -518,8 +533,12 @@ EXEC logs.usp_ExecutionLog_insert
 -- Logging END --
 END;
 
-/*{"ReportUspStep":[{"Number":1010,"Name":"write RepoObject_guid into extended properties of SysObject","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo_sys].[SysObject]"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',1010,';',NULL);
+/*{"ReportUspStep":[{"Number":2000,"Name":"config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0
+
+/*{"ReportUspStep":[{"Number":2010,"Parent_Number":2000,"Name":"write RepoObject_guid into extended properties of SysObject","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo_sys].[SysObject]"}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2010,';',2000);
 
 DECLARE property_cursor CURSOR Local Fast_Forward
 FOR
@@ -647,11 +666,12 @@ EXEC logs.usp_ExecutionLog_insert
 
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2010,"Name":"SET is_SysObject_missing = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2010,';',NULL);
+/*{"ReportUspStep":[{"Number":2110,"Parent_Number":2010,"Name":"SET is_SysObject_missing = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2110,';',2010);
 
 /*
 objects deleted or renamed in database but still referenced in [repo].[RepoObject] will be marked in RepoObject with is_SysObject_missing = 1
+
 check is required by `schema_name` and `name` but not by SysObject_ID, because SysObject_ID can change when objects are recreated
 */
 UPDATE repo.RepoObject
@@ -688,12 +708,13 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2110,"Name":"DELETE; marked missing SysObject, but not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2110,';',NULL);
+/*{"ReportUspStep":[{"Number":2120,"Parent_Number":2110,"Name":"DELETE; marked missing SysObject, but not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2120,';',2110);
 
 /*
-delete objects, missing in SysObjects, if they are not is_repo_managed
+delete objects, missing in SysObjects, if they are not is_repo_managed +
 if they are is_repo_managed we don't want to delete them but there should be some handling
+
 */
 DELETE repo.RepoObject
 WHERE ISNULL([is_repo_managed], 0) = 0
@@ -723,11 +744,15 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2210,"Name":"UPDATE other properties, where not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2210,';',NULL);
+/*{"ReportUspStep":[{"Number":2310,"Parent_Number":2120,"Name":"UPDATE other properties, where not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2310,';',2120);
 
---update other properties for RepoObject which are not is_repo_managed
---we do this after updating guid in SysObjects to ensure the guid can be used to get [history_table_guid]
+/*
+update other properties for RepoObject which are not is_repo_managed
+
+we do this after updating guid in SysObjects to ensure the guid can be used to get [history_table_guid]
+
+*/
 UPDATE ro
 SET [Repo_history_table_guid] = [history_table_guid]
  , [Repo_temporal_type] = [temporal_type]
@@ -783,6 +808,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @updated = @rows
 -- Logging END --
+END;
 
 /*{"ReportUspStep":[{"Number":3010,"Name":"DELETE [reference].[RepoObjectSource_virtual] missing Source_RepoObject_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[reference].[RepoObjectSource_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',3010,';',NULL);
@@ -830,10 +856,13 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":4010,"Name":"SET [Repo_temporal_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',4010,';',NULL);
 
---set temporal_type
---0 = NON_TEMPORAL_TABLE
---1 = HISTORY_TABLE
---2 = SYSTEM_VERSIONED_TEMPORAL_TABLE
+/*
+set temporal_type
+
+* 0 = NON_TEMPORAL_TABLE
+* 1 = HISTORY_TABLE
+* 2 = SYSTEM_VERSIONED_TEMPORAL_TABLE
+*/
 UPDATE ro
 SET [Repo_temporal_type] = rop.temporal_type
 FROM [repo].[RepoObject] ro

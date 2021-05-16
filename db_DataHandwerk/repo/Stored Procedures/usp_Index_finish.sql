@@ -151,10 +151,15 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":510,"Name":"SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup] (via [T1].[referenced_index_guid] = [TSource].[index_guid])","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_Settings]","log_target_object":"[repo].[Index_Settings]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',510,';',NULL);
 
---ATTENTION:
---repo.Index_IndexSemanticGroup.[IndexSemanticGroup] could also be set to NULL where it was assigned before
---maybe this should be avoided?
---but the strict inheritance is consequent
+/*
+ATTENTION:
+
+repo.Index_IndexSemanticGroup.[IndexSemanticGroup] could also be set to NULL where it was assigned before
+
+maybe this should be avoided?
+
+but the strict inheritance is consequent
+*/
 UPDATE repo.[Index_Settings]
 SET [IndexSemanticGroup] = [TSource].[IndexSemanticGroup]
 FROM [repo].[Index_virtual] AS [T1]
@@ -229,21 +234,26 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":610,"Name":"SET [is_index_primary_key] = 1, [is_index_unique] = 1 (propagate PK from [repo].[RepoObject] into [repo].[Index_virtual])","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',610,';',NULL);
 
---PK synchronizing between [repo].[RepoObject].[pk_index_guid] and [repo].[Index_virtual]
---
---PK can be defined in several ways:
----real PK for tables in database
----index can be marked as PK in [repo].[Index_virtual]
----index can be marked as PK by using it in [repo].[RepoObject].[pk_index_guid]
---
---PK could be defined in [repo].[RepoObject].[pk_index_guid] by using an index_guid in an manual process
---first we need to propagate this PK into [repo].[Index_virtual]
---atention, this will propagate only real existing PK from SysObject ("real PK")
---now we could have two or more PK defined in [repo].[Index_virtual]
---
---Attention, PK inheritance sould happen only if there is not yet a PK in [repo].[Index_virtual]
---otherwise it could happen that the wrong PK will be enforced
---
+/*
+PK synchronizing between [repo].[RepoObject].[pk_index_guid] and [repo].[Index_virtual]
+
+PK can be defined in several ways:
+
+* real PK for tables in database
+* index can be marked as PK in [repo].[Index_virtual]
+* index can be marked as PK by using it in [repo].[RepoObject].[pk_index_guid]
+
+PK could be defined in [repo].[RepoObject].[pk_index_guid] by using an index_guid in an manual process
+
+* first we need to propagate this PK into [repo].[Index_virtual] +
+atention, this will propagate only real existing PK from SysObject ("real PK")
+* now we could have two or more PK defined in [repo].[Index_virtual]
+
+Attention, PK inheritance sould happen only if there is not yet a PK in [repo].[Index_virtual],
+otherwise it could happen that the wrong PK will be enforced
+
+
+*/
 UPDATE iv
 SET [is_index_primary_key] = 1
  , [is_index_unique] = 1
@@ -291,12 +301,17 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":620,"Name":"SET [is_index_primary_key] = 1 (WHERE rop.has_history = 1 and source-index is PK)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_union]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',620,';',NULL);
 
---persistence:
---persistence with [has_history] = 1 require PK
---default index inserting doesn't mark inherited index as PK or UK
---[repo].[RepoObject_SqlCreateTable] will be invalid for these tables
---
 /*
+persistence:
+
+persistence with [has_history] = 1 require PK
+
+default index inserting doesn't mark inherited index as PK or UK
+
+[repo].[RepoObject_SqlCreateTable] will be invalid for these tables
+
+[source,sql]
+------
 SELECT iv_p.is_index_primary_key
  , iv_p.is_index_unique
  , iv_s.is_index_primary_key AS is_index_primary_key_s
@@ -314,9 +329,11 @@ INNER JOIN repo.Index_union AS iv_s
  ON iv_p.referenced_index_guid = iv_s.index_guid
 --INNER JOIN repo.RepoObject AS ro
 -- ON ro.RepoObject_guid = iv_p.parent_RepoObject_guid
-*/
---
+------
 
+
+
+*/
 UPDATE iv_p
 SET [is_index_primary_key] = [iv_s].[is_index_primary_key]
  , [is_index_unique] = [iv_s].[is_index_unique]
@@ -356,8 +373,10 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":710,"Name":"SET [is_create_constraint] = 1 (WHERE persistence has_history = 1)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_union]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',710,';',NULL);
 
---PK constraint creation needs to be enables in [repo].[Index_Settings]
+/*
+PK constraint creation needs to be enables in [repo].[Index_Settings]
 
+*/
 UPDATE iset
 SET [is_create_constraint] = 1
 FROM [repo].[Index_Settings] [iset]
@@ -432,9 +451,13 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":920,"Name":"SET [is_index_primary_key] = 0 (where RowNumber_PkPerParentObject > 1)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',920,';',NULL);
 
---because there could be several PK defined per [parent_RepoObject_guid], this should be corrected
---only [repo].[Index_virtual] needs to be corrected because the real PK consistence should be controled by mssql
+/*
+because there could be several PK defined per [parent_RepoObject_guid], this should be corrected
 
+only [repo].[Index_virtual] needs to be corrected because the real PK consistence should be controled by mssql
+
+
+*/
 UPDATE iv
 SET [is_index_primary_key] = 0
 FROM [repo].[Index_virtual] [iv]
@@ -475,9 +498,13 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":930,"Name":"SET [pk_index_guid] = [pk].[index_guid] (WHERE [is_index_primary_key] = 1 and [RowNumber_PkPerParentObject] = 1)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Index_gross]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',930,';',NULL);
 
---only one PK per RepoObject is possible
---we use some priority in [RowNumber_PkPerParentObject] in case that several PK are defined per RepoObject
+/*
+only one PK per RepoObject is possible
 
+we use some priority in [RowNumber_PkPerParentObject] in case that several PK are defined per RepoObject
+
+
+*/
 UPDATE ro
 SET [pk_index_guid] = [pk].[index_guid]
 FROM [repo].[RepoObject] [ro]
@@ -527,10 +554,15 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":1010,"Name":"SET [index_name] = [T2].[index_name_new]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',15,';',1010,';',NULL);
 
---index_name is required, it will be assigned, where it is missing or where [has_managedName] = 1 and it is differenc 
---could be problematic, if the ROW_NUMBER() and the assigned name is occupied
---maye an attribute is requird, to distinguish between managed named and manually assigned names
+/*
+index_name is required, it will be assigned, where it is missing or where [has_managedName] = 1 and it is differenc 
 
+could be problematic, if the ROW_NUMBER() and the assigned name is occupied
+
+maye an attribute is requird, to distinguish between managed named and manually assigned names
+
+
+*/
 UPDATE iv
 SET [index_name] = [T2].[index_name_new]
 FROM [repo].[Index_virtual] AS [iv]
