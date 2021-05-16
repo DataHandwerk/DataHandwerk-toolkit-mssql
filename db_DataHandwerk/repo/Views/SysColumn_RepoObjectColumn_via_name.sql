@@ -1,5 +1,5 @@
 ﻿
-CREATE View [repo].[SysColumn_RepoObjectColumn_via_name]
+CREATE View repo.SysColumn_RepoObjectColumn_via_name
 As
 --
 Select
@@ -49,7 +49,7 @@ Select
   , sc.increment_value
   , sc.SysObject_column_name
   , sc.SysObject_name
-  , sc.SysObject_RepoObject_guid
+  , SysObject_RepoObject_guid = Coalesce ( sc.SysObject_RepoObject_guid, ro.RepoObject_guid )
   , sc.SysObject_RepoObjectColumn_guid
   , sc.SysObject_schema_name
   , sc.SysObject_type
@@ -59,13 +59,13 @@ Select
   --sometimes we have columns with same name but different guid in repo.RepoObjectColumn, additional columns should be deleted in [repo].[usp_sync_guid_RepoObjectColumn]
   --here we prepare, which to keep (RowNumberOverName = 1)
   --we should keep RepoObjectColumn_name, because there could be PK defined and other properties
-  , RowNumberOverName = Row_Number () Over ( Partition By
-                                                 sc.SysObject_RepoObject_guid
-                                               , sc.SysObject_column_name
-                                             Order By
-                                                 roc.is_RepoObjectColumn_name_uniqueidentifier
-                                               , roc.is_SysObjectColumn_name_uniqueidentifier
-                                           )
+  , RowNumberOverName         = Row_Number () Over ( Partition By
+                                                         sc.SysObject_RepoObject_guid
+                                                       , sc.SysObject_column_name
+                                                     Order By
+                                                         roc.is_RepoObjectColumn_name_uniqueidentifier
+                                                       , roc.is_SysObjectColumn_name_uniqueidentifier
+                                                   )
 From
     repo_sys.SysColumn        As sc
     Left Join
@@ -77,7 +77,8 @@ From
     Left Join
         repo.RepoObject       As ro
             On
-            roc.RepoObject_guid          = ro.RepoObject_guid;
+            --roc.RepoObject_guid          = ro.RepoObject_guid;
+            ro.SysObject_fullname2       = sc.SysObject_fullname2;
 Go
 
 Execute sp_addextendedproperty

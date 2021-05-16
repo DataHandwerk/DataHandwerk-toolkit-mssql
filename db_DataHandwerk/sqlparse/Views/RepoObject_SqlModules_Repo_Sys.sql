@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_Repo_Sys
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_Repo_Sys
 As
 --
 Select
@@ -33,16 +34,17 @@ Select
                                0
                        End As Bit)
 From
-    repo.RepoObject                As ro
+    repo.RepoObject                    As ro
     Inner Join
-        repo_sys.SysObject         As so
+        repo_sys.SysObject             As so
             On
-            ro.RepoObject_guid  = so.SysObject_RepoObject_guid
+            --ro.RepoObject_guid  = so.SysObject_RepoObject_guid
+            so.SysObject_fullname2 = ro.SysObject_fullname2
 
     Left Join
-        [sqlparse].RepoObject_SqlModules As ros
+        sqlparse.RepoObject_SqlModules As ros
             On
-            ros.RepoObject_guid = ro.RepoObject_guid
+            ros.RepoObject_guid    = ro.RepoObject_guid
 Where
     Not so.sql_modules_definition Is Null;
 Go
