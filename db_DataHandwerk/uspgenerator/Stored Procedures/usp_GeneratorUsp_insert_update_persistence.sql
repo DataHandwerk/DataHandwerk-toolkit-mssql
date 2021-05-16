@@ -69,8 +69,12 @@ PRINT '[uspgenerator].[usp_GeneratorUsp_insert_update_persistence]'
 /*{"ReportUspStep":[{"Number":210,"Name":"delete old usp, which doesn't exist anymore","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":" [repo].[GeneratorUsp]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',210,';',NULL);
 
---ATTENTION, destructive!
---we should delete only usp definitions for persistence!
+/*
+ATTENTION, destructive!
+
+we should delete only usp definitions for persistence!
+
+*/
 DELETE u
 FROM [uspgenerator].[GeneratorUsp] [u]
 WHERE LEFT([u].[usp_name], 12) = 'usp_PERSIST_'

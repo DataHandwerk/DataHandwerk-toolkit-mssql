@@ -127,7 +127,10 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":320,"Name":"property.RepoObjectProperty - UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[RepoObjectProperty_sys_repo]","log_target_object":"[property].[RepoObjectProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',320,';',NULL);
 
---update table [property].[RepoObjectProperty] via view
+/*
+update table [property].[RepoObjectProperty] via view
+
+*/
 Update
     property.RepoObjectProperty_sys_repo
 Set
@@ -206,7 +209,10 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":420,"Name":"property.RepoObjectColumnProperty - UPDATE","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[property].[RepoObjectColumnProperty_sys_repo]","log_target_object":"[property].[RepoObjectColumnProperty]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',420,';',NULL);
 
---update table [property].[RepoObjectColumnProperty] via view
+/*
+update table [property].[RepoObjectColumnProperty] via view
+
+*/
 Update
     property.RepoObjectColumnProperty_sys_repo
 Set

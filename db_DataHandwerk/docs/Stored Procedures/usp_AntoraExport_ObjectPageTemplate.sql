@@ -181,7 +181,9 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":510,"Name":"export FROM [docs].[AntoraTemplate_examples]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_IndexSemanticGroup]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',510,';',NULL);
 
---nav-by-type.adoc
+/*
+master-page-examples.adoc
+*/
 SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraTemplate_examples]"  queryout ' + @outputDir + 'master-page-examples.adoc'
  --
  + ' -S ' + @instanceName

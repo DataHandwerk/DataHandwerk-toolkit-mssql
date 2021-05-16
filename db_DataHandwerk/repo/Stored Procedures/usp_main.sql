@@ -98,7 +98,6 @@ IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObject_update_
 /*{"ReportUspStep":[{"Number":410,"Parent_Number":400,"Name":"[reference].[usp_RepoObject_update_SysObjectQueryPlan]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObject_update_SysObjectQueryPlan]
---This can take a very long time
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -114,7 +113,6 @@ IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_Q
 /*{"ReportUspStep":[{"Number":510,"Parent_Number":500,"Name":"[reference].[usp_RepoObjectSource_QueryPlan]\r\n--This can take a very long time","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObjectSource_QueryPlan]
---This can take a very long time
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -136,8 +134,6 @@ EXEC [reference].[usp_update_Referencing_Count]
 
 /*{"ReportUspStep":[{"Number":710,"Name":"[repo].[usp_index_inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_index_inheritance]
---todo:
---should or could be executed several times until no new indexes are inherited
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -158,7 +154,6 @@ EXEC [repo].[usp_Index_ForeignKey]
 
 /*{"ReportUspStep":[{"Number":810,"Name":"[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
---This must happen later than the index logic, because the PK can change there. And this affects the order of the columns.
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -169,7 +164,6 @@ EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
 
 /*{"ReportUspStep":[{"Number":910,"Name":"[repo].[usp_GeneratorUsp_insert_update_persistence]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
---RepoObjectColumn_column_id is required and should be updated before
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

@@ -102,7 +102,10 @@ DECLARE @command NVARCHAR(4000)
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [docs].[AntoraPage_IndexSemanticGroup]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_IndexSemanticGroup]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',33,';',410,';',NULL);
 
---nav-by-type.adoc
+/*
+IndexSemanticGroup.adoc
+
+*/
 SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemanticGroup]"  queryout ' + @outputDir + 'IndexSemanticGroup.adoc'
  --
  + ' -S ' + @instanceName
