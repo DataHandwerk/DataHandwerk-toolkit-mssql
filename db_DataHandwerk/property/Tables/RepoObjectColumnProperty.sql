@@ -5,17 +5,19 @@
     [property_value]              SQL_VARIANT      NOT NULL,
     [inheritance]                 TINYINT          NULL,
     [property_basetype]           AS               (sql_variant_property([property_value],'BaseType')),
-    [property_int]                AS               (TRY_CAST([property_value] AS [int])),
-    [property_bigint]             AS               (TRY_CAST([property_value] AS [bigint])),
+    [property_int]                AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [int])  end),
+    [property_bigint]             AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [bigint])  end),
     [property_varchar]            AS               (TRY_CAST([property_value] AS [varchar](8000))),
     [property_nvarchar]           AS               (TRY_CAST([property_value] AS [nvarchar](4000))),
-    [property_real]               AS               (TRY_CAST([property_value] AS [real])),
-    [property_float]              AS               (TRY_CAST([property_value] AS [float])),
-    [property_money]              AS               (TRY_CAST([property_value] AS [money])),
+    [property_real]               AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [real])  end),
+    [property_float]              AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [float])  end),
+    [property_money]              AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [money])  end),
     CONSTRAINT [PK_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumnProperty_id] ASC),
     CONSTRAINT [FK_RepoObjectColumnProperty__RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObjectColumnProperty] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 
