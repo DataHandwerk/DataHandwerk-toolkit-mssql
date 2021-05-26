@@ -8,7 +8,7 @@ Select
                                                   , name
                                                   , ' (' + user_type_fullname + ')'
                                                   , Iif(has_default_value = 1
-                                                        , ' = ' + Try_Cast(default_value As NVarchar(4000))
+                                                        , ' = ' + Try_Cast(default_value As NVarchar(4000)) COLLATE database_default
                                                         , Null)
                                                 )
                                        , Char ( 13 ) + Char ( 10 )
