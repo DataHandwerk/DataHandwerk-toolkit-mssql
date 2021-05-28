@@ -255,21 +255,21 @@ Select
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
                                                                 , '== '
-                                                                , rop_cross.property_name
+                                                                , rop_cross.property_name COLLATE database_default
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
                                                                 , '// tag::'
-                                                                , Lower ( rop_cross.property_name )
+                                                                , Lower ( rop_cross.property_name ) COLLATE database_default
                                                                 , '[]'
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
-                                                                , rop.property_nvarchar
+                                                                , rop.property_nvarchar COLLATE database_default
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
                                                                 , '// end::'
-                                                                , Lower ( rop_cross.property_name )
+                                                                , Lower ( rop_cross.property_name ) COLLATE database_default
                                                                 , '[]'
                                                                 , Char ( 13 )
                                                                 , Char ( 10 )
