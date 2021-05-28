@@ -3,7 +3,7 @@ As
 Select
     ForeignKey_guid
   , is_MatchingDatatypePattern
-  , ForeignKey_name
+  , ForeignKey_name = ForeignKey_name COLLATE database_default
   , ForeignKey_fullname
   , referenced_index_guid
   , referenced_index_name
@@ -31,7 +31,7 @@ Union All
 Select
     ForeignKey_guid
   , is_MatchingDatatypePattern
-  , ForeignKey_name
+  , ForeignKey_name COLLATE database_default
   , ForeignKey_fullname
   , referenced_index_guid
   , referenced_index_name
