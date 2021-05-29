@@ -29,14 +29,21 @@ Type of index:
 <<property_end>>
 
 <<property_start>>exampleUsage
+--use @RepoObject_fullname with square brackets
+--use @RepoObject_fullname2 without square brackets
+--@IndexPatternColumnName can be used only without square brackets
+
 EXEC repo.usp_Index_virtual_set
     @RepoObject_fullname2 = 'SchemaName.EntityName'
   , @IndexPatternColumnName = 'aaa,bbb'
-  , @is_index_primary_key = 1;
+  , @is_index_primary_key = 1
+  , @IndexSemanticGroup = 'OptionalSemanticGroup';
+
+EXEC [repo].[usp_Index_finish];
 <<property_end>>
 
 <<property_start>>exampleUsage_2
---set multiple indexes
+--set multiple indexes and finish them
 
 EXEC repo.usp_Index_virtual_set
     @RepoObject_fullname = '[SchemaName].[EntityName]'
@@ -46,6 +53,10 @@ EXEC repo.usp_Index_virtual_set
 EXEC repo.usp_Index_virtual_set
     @RepoObject_fullname2 = 'SchemaName.EntityName2'
   , @IndexPatternColumnName = 'ccc'
+  , @is_index_primary_key = 0
+  , @is_index_unique = 1
+  , @IndexSemanticGroup = 'OptionalSemanticGroup';
+
 
 EXEC [repo].[usp_Index_finish];
 <<property_end>>
@@ -61,6 +72,7 @@ CREATE Procedure [repo].[usp_Index_virtual_set]
   , @is_index_disabled       Bit              = 0
   , @is_index_primary_key    Bit              = 0
   , @is_index_unique         Bit              = 0
+  , @IndexSemanticGroup      NVarchar(512)    = Null --optional IndexSemanticGroup
                                                      -- some optional parameters, used for logging
   , @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -90,6 +102,7 @@ Set @event_info =
 
 If @execution_instance_guid Is Null
     Set @execution_instance_guid = NewId ();
+
 --SET @rows = @@ROWCOUNT;
 Set @step_id = @step_id + 1;
 Set @step_name = N'start';
@@ -131,7 +144,8 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_06 = @index_type
   , @parameter_07 = @is_index_disabled
   , @parameter_08 = @is_index_primary_key
-  , @parameter_09 = @is_index_unique;
+  , @parameter_09 = @is_index_unique
+  , @parameter_10 = @IndexSemanticGroup;
 
 --
 ----START
@@ -264,7 +278,7 @@ FROM STRING_SPLIT(@IndexPatternColumnName, ',')
     --or update manually if required
     Insert Into repo.IndexColumn_virtual
     (
-        Index_guid
+        index_guid
       , index_column_id
       , RepoObjectColumn_guid
       , is_descending_key
@@ -342,6 +356,34 @@ Begin
         And iv.parent_RepoObject_guid = @RepoObject_guid
         And ig.IndexPatternColumnName <> @IndexPatternColumnName;
 End;
+
+If Not @IndexSemanticGroup Is Null
+    Merge Into [repo].[Index_Settings] As target
+    Using
+    (
+        Select
+            @index_guid
+          , @IndexSemanticGroup
+    ) As source
+    ( index_guid, IndexSemanticGroup )
+    On target.index_guid = source.index_guid
+    When Matched
+        Then Update Set
+                 IndexSemanticGroup = source.IndexSemanticGroup
+    When Not Matched
+        Then Insert
+             (
+                 index_guid
+               , IndexSemanticGroup
+             )
+             Values
+                 (
+                     source.index_guid
+                   , source.IndexSemanticGroup
+                 )
+    Output
+        $action
+      , inserted.*;
 
 --
 --

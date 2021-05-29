@@ -499,6 +499,7 @@
     <Build Include="reference\Stored Procedures\usp_RepoObjectColumnSource_virtual_set.sql" />
     <Build Include="docs\Functions\fs_cleanStringForAnchorId.sql" />
     <Build Include="docs\Functions\fs_cleanStringForLabel.sql" />
+    <Build Include="repo\Views\Index_Settings_ForUpdate.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
