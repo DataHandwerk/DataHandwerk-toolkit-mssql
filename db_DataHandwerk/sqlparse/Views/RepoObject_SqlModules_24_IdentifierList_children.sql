@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_24_IdentifierList_children
+﻿
+CREATE View [sqlparse].[RepoObject_SqlModules_24_IdentifierList_children]
 As
 --
 Select
@@ -24,12 +25,12 @@ Select
                                              When T2.child1_normalized = 'AS'
                                                  Then
                                                  T2.child2_normalized
-                                             When T2.child1_normalized = '.'
-                                                 Then
-                                                 T2.child2_normalized
                                              When T2.child3_normalized = 'AS'
                                                  Then
                                                  T2.child4_normalized
+                                             When T2.child1_normalized = '.'
+                                                 Then
+                                                 T2.child2_normalized
                                          End
                                      When 'Comparison'
                                          Then
@@ -96,41 +97,41 @@ Select
                                                  T2.child2_children
                                          End
                                  End
---, [T2].[is_group]
---, [T2].[is_keyword]
---, [T2].[is_whitespace]
+, [T2].[is_group]
+, [T2].[is_keyword]
+, [T2].[is_whitespace]
 --, [T2].[normalized]
---, [T2].[children]
---, [T2].[child0_class]
---, [T2].[child0_is_group]
---, [T2].[child0_is_keyword]
---, [T2].[child0_is_whitespace]
---, [T2].[child0_normalized]
---, [T2].[child0_children]
---, [T2].[child1_class]
---, [T2].[child1_is_group]
---, [T2].[child1_is_keyword]
---, [T2].[child1_is_whitespace]
---, [T2].[child1_normalized]
---, [T2].[child1_children]
---, [T2].[child2_class]
---, [T2].[child2_is_group]
---, [T2].[child2_is_keyword]
---, [T2].[child2_is_whitespace]
---, [T2].[child2_normalized]
---, [T2].[child2_children]
---, [T2].[child3_class]
---, [T2].[child3_is_group]
---, [T2].[child3_is_keyword]
---, [T2].[child3_is_whitespace]
---, [T2].[child3_normalized]
---, [T2].[child3_children]
---, [T2].[child4_class]
---, [T2].[child4_is_group]
---, [T2].[child4_is_keyword]
---, [T2].[child4_is_whitespace]
---, [T2].[child4_normalized]
---, [T2].[child4_children]
+, [T2].[children]
+, [T2].[child0_class]
+, [T2].[child0_is_group]
+, [T2].[child0_is_keyword]
+, [T2].[child0_is_whitespace]
+, [T2].[child0_normalized]
+, [T2].[child0_children]
+, [T2].[child1_class]
+, [T2].[child1_is_group]
+, [T2].[child1_is_keyword]
+, [T2].[child1_is_whitespace]
+, [T2].[child1_normalized]
+, [T2].[child1_children]
+, [T2].[child2_class]
+, [T2].[child2_is_group]
+, [T2].[child2_is_keyword]
+, [T2].[child2_is_whitespace]
+, [T2].[child2_normalized]
+, [T2].[child2_children]
+, [T2].[child3_class]
+, [T2].[child3_is_group]
+, [T2].[child3_is_keyword]
+, [T2].[child3_is_whitespace]
+, [T2].[child3_normalized]
+, [T2].[child3_children]
+, [T2].[child4_class]
+, [T2].[child4_is_group]
+, [T2].[child4_is_keyword]
+, [T2].[child4_is_whitespace]
+, [T2].[child4_normalized]
+, [T2].[child4_children]
 From
     [sqlparse].RepoObject_SqlModules_20_statement_children                 As T1
     Cross Apply [sqlparse].ftv_sqlparse_with_some_children ( T1.children ) As T2
