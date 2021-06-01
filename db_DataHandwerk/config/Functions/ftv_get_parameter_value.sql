@@ -1,4 +1,5 @@
-﻿Create Function [config].ftv_get_parameter_value
+﻿
+CREATE FUNCTION [config].[ftv_get_parameter_value]
 (
     @Parameter_name Varchar(100)
   , @sub_Parameter  NVarchar(128) = N''
@@ -9,6 +10,9 @@ Return
 (
     Select
         Parameter_value__result_nvarchar
+		, Parameter_value__result_int
+		, Parameter_value__result_date
+		, Parameter_value__result_datetime
     From
         [config].Parameter
     Where
