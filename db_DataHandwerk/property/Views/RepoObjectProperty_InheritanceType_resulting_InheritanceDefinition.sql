@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 --The result must be grouped to determine all required calculation variants of an inheritance
 
@@ -13,7 +15,7 @@ HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 
 */
 
-Create View [property].RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
+CREATE View [property].[RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition]
 As
 Select
     --
@@ -57,7 +59,7 @@ Select
           Then
           IsNull (
                      InheritanceDefinition
-                   , '[property].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], [referencing].[property_name])'
+                   , '[property].[fs_get_RepoObjectProperty_nvarchar]([referenced].[RepoObject_guid], ''' + inh.property_name + ''')'
                  )
   End
   --normally the result from [resulting_InheritanceDefinition] should not be empty to be inherited
