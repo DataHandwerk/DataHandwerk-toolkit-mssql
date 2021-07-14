@@ -501,6 +501,7 @@
     <Build Include="docs\Functions\fs_cleanStringForLabel.sql" />
     <Build Include="repo\Views\Index_Settings_ForUpdate.sql" />
     <Build Include="repo\Views\IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_check.sql" />
+    <Build Include="property\Views\RepoObjectProperty_ForUpdate.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
