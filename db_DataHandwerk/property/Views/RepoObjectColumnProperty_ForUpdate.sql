@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [property].[RepoObjectColumnProperty_ForUpdate]
+CREATE VIEW [property].[RepoObjectColumnProperty_ForUpdate]
 As
 Select
     rocp.[RepoObjectColumnProperty_id]
@@ -15,6 +14,8 @@ Select
   , rocg.RepoObject_fullname
   , rocg.RepoObject_fullname2
   , rocg.RepoObject_guid
+  , rocg.RepoObject_schema_name
+  , rocg.RepoObject_name
 From
     [property].[RepoObjectColumnProperty] rocp
     Inner Join

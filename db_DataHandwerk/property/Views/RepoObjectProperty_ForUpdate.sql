@@ -1,4 +1,5 @@
-﻿Create View [property].[RepoObjectProperty_ForUpdate]
+﻿
+CREATE VIEW [property].[RepoObjectProperty_ForUpdate]
 As
 Select
     T1.[RepoObjectProperty_id]
@@ -16,6 +17,8 @@ Select
   --,T1.[property_money]
   , T2.RepoObject_fullname
   , T2.RepoObject_fullname2
+  , T2.RepoObject_schema_name
+  , T2.RepoObject_name
 From
     [property].[RepoObjectProperty] T1
     Inner Join
