@@ -38,6 +38,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'use info_01, info_02, ... to define parameters for sub procedure call', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep', @level2type = N'COLUMN', @level2name = N'is_SubProcedure';
 
@@ -160,4 +162,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '95f47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9af47926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep', @level2type = N'COLUMN', @level2name = N'has_logging';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'af7159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep', @level2type = N'COLUMN', @level2name = N'Description';
 

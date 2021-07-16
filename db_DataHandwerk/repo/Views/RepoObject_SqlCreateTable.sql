@@ -58,7 +58,13 @@ Select
            ) As DbmlTable
   , ro.RepoObject_fullname
   , Concat (
-               'CREATE TABLE '
+               'USE  ['
+             , dwhdb.dwh_database_name
+             , ']'
+             , Char ( 13 ) + Char ( 10 )
+             , 'GO'
+             , Char ( 13 ) + Char ( 10 )
+             , 'CREATE TABLE '
              , ro.RepoObject_fullname
              , ' ('
              , Char ( 13 )
@@ -192,10 +198,10 @@ Select
   , ro.persistence_source_RepoObject_guid
   , ro.persistence_source_SysObject_fullname
 From
-    repo.RepoObject_gross                                                   ro
+    repo.RepoObject_gross                                                     ro
     --column list should exist, otherwise CREATE statement will be invalid
     Inner Join
-        repo.RepoObject_ColumnList                                          As ColList
+        repo.RepoObject_ColumnList                                            As ColList
             On
             ColList.RepoObject_guid = ro.RepoObject_guid
 
@@ -214,7 +220,7 @@ From
             repo.Index_SqlConstraint_PkUq Con
         Group By
             parent_RepoObject_guid
-    )                                                                       ConList
+    )                                                                         ConList
         On
         ConList.parent_RepoObject_guid = ro.RepoObject_guid
 
@@ -257,16 +263,17 @@ From
             )
         Group By
             parent_RepoObject_guid
-    )                                                                       IndexList
+    )                                                                         IndexList
         On
         IndexList.parent_RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        repo.RepoObject                                                     ro_hist
+        repo.RepoObject                                                       ro_hist
             On
             ro_hist.RepoObject_guid = ro.Repo_history_table_guid
     Cross Join [config].[ftv_get_parameter_value] ( 'Hist_Table_schema', '' ) As Hist_Table_schema
-    Cross Join [config].[ftv_get_parameter_value] ( 'Hist_Table_name_suffix', '' ) As Hist_Table_name_suffix;
+    Cross Join [config].[ftv_get_parameter_value] ( 'Hist_Table_name_suffix', '' ) As Hist_Table_name_suffix
+    Cross Join [config].ftv_dwh_database () As dwhdb;
 Go
 
 Execute sp_addextendedproperty
