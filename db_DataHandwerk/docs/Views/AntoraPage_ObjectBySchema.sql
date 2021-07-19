@@ -1,4 +1,5 @@
 ﻿
+
 /*
 output example partial_content:
 
@@ -26,7 +27,7 @@ Select
     partial_content
     --
     = Concat (
-                 '* Objects by schema'
+                 '* xref:nav/objects-by-schema.adoc[]'
                , Char ( 13 ) + Char ( 10 )
                , String_Agg (
                                 Concat (

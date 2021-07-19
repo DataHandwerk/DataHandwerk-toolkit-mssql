@@ -1,4 +1,5 @@
-﻿Create View repo.SysObject_RepoObject_via_guid
+﻿
+CREATE View [repo].[SysObject_RepoObject_via_guid]
 As
 --
 Select
@@ -7,6 +8,7 @@ Select
   , so.SysObject_schema_name
   , so.SysObject_name
   , so.type                       As SysObject_type
+  , so.type_desc                  As SysObject_type_desc
   , so.modify_date                As modify_date
   , so.parent_object_id           As parent_object_id
   , so.SysObject_RepoObject_guid  As SysObject_RepoObject_guid
