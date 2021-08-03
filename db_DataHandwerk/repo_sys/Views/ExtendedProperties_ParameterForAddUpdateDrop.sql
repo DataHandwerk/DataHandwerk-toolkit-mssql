@@ -18,7 +18,7 @@ SELECT [sep].[property_name]
 FROM repo_sys.[ExtendedProperties] AS sep
 INNER JOIN sys_dwh.objects AS so
  ON sep.major_id = so.object_id
-INNER JOIN [config].[type_level1type_level2type] AS stl
+INNER JOIN [configT].[type_level1type_level2type] AS stl
  ON so.type COLLATE database_default = stl.type
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4d90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';

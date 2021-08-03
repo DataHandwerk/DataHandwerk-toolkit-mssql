@@ -1,4 +1,4 @@
-﻿Create View config.join_type
+﻿Create View [configT].join_type
 As
 --
 Select
@@ -34,7 +34,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'c190291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'join_type';
 
@@ -44,7 +44,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b4f77926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'join_type'
   , @level2type = N'COLUMN'
@@ -56,7 +56,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'b5f77926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'join_type'
   , @level2type = N'COLUMN'

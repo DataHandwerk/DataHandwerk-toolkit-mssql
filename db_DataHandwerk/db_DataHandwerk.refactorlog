@@ -1612,4 +1612,52 @@
     <Property Name="NewSchema" Value="reference" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Move Schema" Key="3e171125-1729-48e0-8680-1ca3762c6737" ChangeDateTime="08/03/2021 11:57:31">
+    <Property Name="ElementName" Value="[config].[spt_values]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="configT" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="af972a26-8d8b-46e6-b51e-3eac64a78bdb" ChangeDateTime="08/03/2021 11:59:08">
+    <Property Name="ElementName" Value="[config].[usp_init_spt_values]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="configT" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="595b19ff-258e-4ac2-87e0-cef45074fad3" ChangeDateTime="08/03/2021 12:02:18">
+    <Property Name="ElementName" Value="[config].[usp_generate_merge]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="NewSchema" Value="tool" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="09dd9189-1326-423e-bd19-c17148bd1592" ChangeDateTime="08/03/2021 12:03:57">
+    <Property Name="ElementName" Value="[config].[InheritanceType]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="configT" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="4dda67be-ca1a-48f2-b133-46734542cf26" ChangeDateTime="08/03/2021 12:05:03">
+    <Property Name="ElementName" Value="[config].[join_type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="configT" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="3665818e-1b55-4491-9bb3-1f246d792584" ChangeDateTime="08/03/2021 12:06:05">
+    <Property Name="ElementName" Value="[config].[Parameter_default]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="configT" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="316d3e57-bbff-400d-930e-4a826593123d" ChangeDateTime="08/03/2021 12:07:41">
+    <Property Name="ElementName" Value="[config].[type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="configT" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="40944adc-8d14-4f26-a76b-579012aa8d78" ChangeDateTime="08/03/2021 12:14:22">
+    <Property Name="ElementName" Value="[config].[type_level1type_level2type]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="NewSchema" Value="configT" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

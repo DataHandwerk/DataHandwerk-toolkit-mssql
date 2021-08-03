@@ -128,6 +128,10 @@
     <Folder Include="reference\Stored Procedure" />
     <Folder Include="reference\Functions" />
     <Folder Include="reference\Stored Procedures\" />
+    <Folder Include="configT" />
+    <Folder Include="configT\Views" />
+    <Folder Include="configT\Tables" />
+    <Folder Include="configT\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -260,16 +264,9 @@
     <Build Include="dbeaver\Views\DataSources_DbSchemaTable_constraint.sql" />
     <Build Include="dbeaver\Views\DataSources_DbSchemaTable_FK.sql" />
     <Build Include="Security\config.sql" />
-    <Build Include="config\Views\join_type.sql" />
-    <Build Include="config\Views\Parameter_default.sql" />
     <Build Include="config\Stored Procedures\usp_init_parameter.sql" />
-    <Build Include="config\Stored Procedures\usp_init_spt_values.sql" />
-    <Build Include="config\Views\InheritanceType.sql" />
     <Build Include="docs\Views\visjs_EdgeList_object_test01.sql" />
     <Build Include="docs\Views\visjs_nodelist_object_test01.sql" />
-    <Build Include="config\Views\type.sql" />
-    <Build Include="config\Views\type_level1type_level2type.sql" />
-    <Build Include="config\Tables\spt_values.sql" />
     <Build Include="dbeaver\Tables\DataSources.sql" />
     <Build Include="Security\test.sql" />
     <Build Include="docs\Tables\RepoObject_Adoc_T.sql" />
@@ -381,7 +378,6 @@
     <Build Include="uspgenerator\Functions\ftv_GeneratorUspStep_sql.sql" />
     <Build Include="uspgenerator\Functions\ftv_GeneratorUspStep_tree.sql" />
     <Build Include="uspgenerator\Stored Procedures\usp_GeneratorUsp_insert_update_persistence.sql" />
-    <Build Include="config\Stored Procedures\usp_generate_merge.sql" />
     <Build Include="config\Stored Procedures\usp_connect_database.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_filter_persistence.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_ParameterList.sql" />
@@ -502,6 +498,15 @@
     <Build Include="repo\Views\Index_Settings_ForUpdate.sql" />
     <Build Include="repo\Views\IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_check.sql" />
     <Build Include="property\Views\RepoObjectProperty_ForUpdate.sql" />
+    <Build Include="Security\configT.sql" />
+    <Build Include="configT\Tables\spt_values.sql" />
+    <Build Include="configT\Stored Procedures\usp_init_spt_values.sql" />
+    <Build Include="tool\Stored Procedures\usp_generate_merge.sql" />
+    <Build Include="configT\Views\InheritanceType.sql" />
+    <Build Include="configT\Views\join_type.sql" />
+    <Build Include="configT\Views\Parameter_default.sql" />
+    <Build Include="configT\Views\type.sql" />
+    <Build Include="configT\Views\type_level1type_level2type.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

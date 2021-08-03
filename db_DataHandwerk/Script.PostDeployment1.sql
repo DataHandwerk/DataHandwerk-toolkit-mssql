@@ -10,6 +10,6 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-EXEC [config].usp_init_spt_values
+EXEC [configT].usp_init_spt_values
 
 EXEC [config].usp_init_parameter

@@ -26,7 +26,7 @@ From
             ro_parent.RepoObject_guid = roc.RepoObject_guid
 
     Inner Join
-        config.type_level1type_level2type As lev_parent
+        [configT].type_level1type_level2type As lev_parent
             On
             lev_parent.type           = ro_parent.RepoObject_type
 Where

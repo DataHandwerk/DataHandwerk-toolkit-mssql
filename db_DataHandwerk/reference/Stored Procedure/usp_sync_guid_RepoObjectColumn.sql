@@ -1161,7 +1161,7 @@ SELECT [T1].[RepoObjectColumn_guid]
  , [T1].[SysObject_column_name]
  , [T1].[SysObject_type]
 FROM repo.SysColumn_RepoObjectColumn_via_name AS T1
-INNER JOIN [config].[type_level1type_level2type] AS T2
+INNER JOIN [configT].[type_level1type_level2type] AS T2
  ON T1.SysObject_type = T2.type
 WHERE NOT [T1].[RepoObjectColumn_guid] IS NULL
  AND [T1].[SysObject_RepoObjectColumn_guid] IS NULL

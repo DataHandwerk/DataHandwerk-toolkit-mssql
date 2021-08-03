@@ -399,7 +399,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',520,';',NULL);
 DECLARE page_cursor CURSOR Local Fast_Forward
 FOR
 SELECT type
-FROM config.type
+FROM [configT].type
 WHERE (is_DocsOutput = 1)
 ORDER BY type
 

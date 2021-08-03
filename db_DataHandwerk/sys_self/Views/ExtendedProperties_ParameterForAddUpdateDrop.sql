@@ -24,7 +24,7 @@ From
             sep.major_id                     = so.object_id
 
     Inner Join
-        config.type_level1type_level2type As stl
+        [configT].type_level1type_level2type As stl
             On
             so.type Collate Database_Default = stl.type;
 Go

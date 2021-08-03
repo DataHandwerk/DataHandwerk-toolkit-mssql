@@ -55,7 +55,7 @@ From
     --   AND T23.[key] = T1.[key]
 
     Left Outer Join
-        config.join_type                                  As T4
+        [configT].join_type                                  As T4
             On
             T4.join_type_variant = T1.normalized
             And T1.is_keyword    = 1

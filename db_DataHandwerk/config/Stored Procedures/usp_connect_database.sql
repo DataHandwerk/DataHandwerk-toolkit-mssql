@@ -19,7 +19,7 @@ Begin
     Exec config.usp_init_parameter;
 
     --ensure [repo].[spt_values] is filled, otherwise extended properties will not be written into database
-    Exec config.usp_init_spt_values;
+    Exec [configT].usp_init_spt_values;
 
     Exec [config].usp_parameter_set
         @Parameter_name = 'dwh_database_name'

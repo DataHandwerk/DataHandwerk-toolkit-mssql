@@ -35,7 +35,7 @@ Select
                                                                ct.type_desc Desc)
                              )
 From
-    config.type                              ct
+    [configT].type                              ct
     --only existing objects
     Inner Join
         docs.AntoraNavListRepoObject_by_type existing

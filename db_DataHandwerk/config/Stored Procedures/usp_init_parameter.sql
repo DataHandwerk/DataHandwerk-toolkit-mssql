@@ -19,7 +19,7 @@ Select
   , Parameter_desciption
   , Parameter_default_value
 From
-    config.Parameter_default As T1
+    [configT].Parameter_default As T1
 Where
     Not Exists
 (
@@ -40,7 +40,7 @@ Set
 From
     [config].Parameter               As T2
     Inner Join
-        config.Parameter_default As source
+        [configT].Parameter_default As source
             On
             source.Parameter_name    = T2.Parameter_name
             And source.sub_Parameter = T2.sub_Parameter

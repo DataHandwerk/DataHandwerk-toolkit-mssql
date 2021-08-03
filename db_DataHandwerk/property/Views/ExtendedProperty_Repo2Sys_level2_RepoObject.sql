@@ -21,7 +21,7 @@ From
             ro.RepoObject_guid     = prop.RepoObject_guid
 
     Inner Join
-        config.type_level1type_level2type As lev
+        [configT].type_level1type_level2type As lev
             On
             lev.type               = ro.RepoObject_type
 
@@ -31,7 +31,7 @@ From
             ro_parent.SysObject_id = ro.SysObject_parent_object_id
 
     Inner Join
-        config.type_level1type_level2type As lev_parent
+        [configT].type_level1type_level2type As lev_parent
             On
             lev_parent.type        = ro_parent.RepoObject_type
 Where

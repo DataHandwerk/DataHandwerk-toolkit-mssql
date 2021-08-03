@@ -2,7 +2,7 @@
 Mappping from repo_sys.type (used in [type] in system catalog views)
 to level1type (used in sp_addextendedproperty, sp_updateextendedproperty) 
 */
-Create View config.type_level1type_level2type
+Create View [configT].type_level1type_level2type
 --WITH SCHEMABINDING
 As
 --
@@ -64,14 +64,14 @@ Select
                          'CONSTRAINT' --UNIQUE_CONSTRAINT
                  End
 From
-    config.type;
+    [configT].type;
 
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'db8f291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type_level1type_level2type';
 
@@ -81,7 +81,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '7ff17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type_level1type_level2type'
   , @level2type = N'COLUMN'
@@ -93,7 +93,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '7ef17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type_level1type_level2type'
   , @level2type = N'COLUMN'
@@ -105,7 +105,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '81f17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type_level1type_level2type'
   , @level2type = N'COLUMN'
@@ -117,7 +117,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '80f17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type_level1type_level2type'
   , @level2type = N'COLUMN'

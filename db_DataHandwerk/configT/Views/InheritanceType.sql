@@ -1,4 +1,4 @@
-﻿Create View config.InheritanceType
+﻿Create View [configT].InheritanceType
 As
 --
 Select
@@ -58,7 +58,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = '5cb33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'InheritanceType';
 
@@ -68,7 +68,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a4b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'InheritanceType'
   , @level2type = N'COLUMN'
@@ -80,7 +80,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = 'a3b33a4a-426d-eb11-84e2-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'InheritanceType'
   , @level2type = N'COLUMN'

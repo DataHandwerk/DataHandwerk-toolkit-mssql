@@ -151,17 +151,17 @@ From
             ro_referencing.Referenced_guid      = ro.RepoObject_guid
 
     Left Join
-        config.type                         As repo_type
+        [configT].type                         As repo_type
             On
             repo_type.type                      = ro.RepoObject_type
 
     Left Join
-        config.type                         As sys_type
+        [configT].type                         As sys_type
             On
             sys_type.type                       = ro.SysObject_type
 
     Left Join
-        config.type                         ty
+        [configT].type                         ty
             On
             ty.type                             = ro.RepoObject_type;
 Go

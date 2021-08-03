@@ -1,11 +1,4 @@
-﻿
-
-
-
-
-
-
-/*
+﻿/*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
 * default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
@@ -29,12 +22,12 @@ DELETE T
 FROM [config].[Parameter] T
 WHERE NOT EXISTS (
   SELECT 1
-  FROM [config].[Parameter_default] S
+  FROM [configT].[Parameter_default] S
   WHERE S.[Parameter_name] = T.[Parameter_name]
   )
 <<property_end>>
 */
-CREATE View [config].[Parameter_default]
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -593,7 +586,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'dd8f291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'Parameter_default';
 
@@ -603,7 +596,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '83f17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'Parameter_default'
   , @level2type = N'COLUMN'
@@ -615,7 +608,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '82f17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'Parameter_default'
   , @level2type = N'COLUMN'
@@ -627,7 +620,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '84f17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'Parameter_default'
   , @level2type = N'COLUMN'
@@ -639,7 +632,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '85f17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'Parameter_default'
   , @level2type = N'COLUMN'

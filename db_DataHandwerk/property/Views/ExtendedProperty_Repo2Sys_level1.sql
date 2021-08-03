@@ -19,7 +19,7 @@ From
             ro.RepoObject_guid = prop.RepoObject_guid
 
     Inner Join
-        config.type_level1type_level2type As lev
+        [configT].type_level1type_level2type As lev
             On
             lev.type           = ro.RepoObject_type
 Where

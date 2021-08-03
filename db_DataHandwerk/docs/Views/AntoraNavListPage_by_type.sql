@@ -12,7 +12,7 @@ Select
                         , Char ( 13 ) + Char ( 10 )
                       )
 From
-    config.type t
+    [configT].type t
 Where
     ( is_DocsOutput = 1 )
     And Exists

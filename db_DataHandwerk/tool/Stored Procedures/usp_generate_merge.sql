@@ -17,7 +17,7 @@ for sql_variant type the procedure generates wrong code:
 
 */
 
-Create Procedure [config].usp_generate_merge
+Create Procedure [tool].usp_generate_merge
 As
 
 --issues with sql_variant
@@ -127,7 +127,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'fcafba8c-ad72-eb11-84e3-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'tool'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_generate_merge';
 

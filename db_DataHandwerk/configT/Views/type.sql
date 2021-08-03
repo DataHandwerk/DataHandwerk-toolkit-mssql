@@ -1,12 +1,10 @@
-﻿
-
-/*
+﻿/*
 <<property_start>>MS_Description
 * based on master.dbo.spt_values, which  is an undocumemted hidden view or table, containing useful entries 
 * master.dbo.spt_values content is available as copy in xref:sqldb:config.spt_values.adoc[]
 <<property_end>>
 */
-Create View config.type
+Create View [configT].type
 As
 --
 Select
@@ -26,7 +24,7 @@ From
         ParseName ( Replace ( name, ':', '.' ), 2 )         As type
       , Trim ( ParseName ( Replace ( name, ':', '.' ), 1 )) As type_desc
     From
-        config.spt_values
+        [configT].spt_values
     Where
         type       = 'O9T'
         And number = -1
@@ -37,7 +35,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'd98f291c-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type';
 
@@ -47,7 +45,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '7df17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type'
   , @level2type = N'COLUMN'
@@ -59,7 +57,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '7cf17926-9d61-eb11-84dc-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type'
   , @level2type = N'COLUMN'
@@ -71,7 +69,7 @@ Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
   , @value = '2ae90a1e-7495-eb11-84f4-a81e8446d5b0'
   , @level0type = N'SCHEMA'
-  , @level0name = N'config'
+  , @level0name = N'configT'
   , @level1type = N'VIEW'
   , @level1name = N'type'
   , @level2type = N'COLUMN'
