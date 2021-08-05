@@ -509,6 +509,7 @@
     <Build Include="configT\Views\type_level1type_level2type.sql" />
     <Build Include="tool\Stored Procedures\usp_RefreshViews.sql" />
     <Build Include="tool\Stored Procedures\usp_TruncateTables.sql" />
+    <Build Include="configT\Views\numbers_0_2047.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
