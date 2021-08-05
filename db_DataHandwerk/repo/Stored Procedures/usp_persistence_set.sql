@@ -162,6 +162,22 @@ EXEC repo.[usp_persistence_set]
   , @is_persistence_insert = 1;
 <<property_end>>
 
+<<property_start>>exampleUsage_3
+--create new persistence [SchemaName].[SourceViewName_T], 
+--use explicite parameters
+
+EXEC repo.[usp_persistence_set] 
+    @source_fullname = '[SchemaName].[SourceViewName]'
+  , @has_history = 0
+  , @has_history_columns = 0
+  , @is_persistence_check_for_empty_source = 0
+  , @is_persistence_truncate = 0
+  , @is_persistence_delete_missing = 1
+  , @is_persistence_delete_changed = 0
+  , @is_persistence_update_changed = 1
+  , @is_persistence_insert = 1
+<<property_end>>
+
 <<property_start>>exampleWrong_Usage
 ---this will NOT work, because there is no @persistence_schema_name
 ---(it is  not implemented)

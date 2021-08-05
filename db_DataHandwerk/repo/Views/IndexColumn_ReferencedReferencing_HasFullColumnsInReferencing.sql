@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 we use all Index from repo.IndexColumn__union (real and virtual)
 and we use Object references
@@ -41,7 +42,7 @@ ORDER BY
 
 
 */
-Create View repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing
+CREATE View [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
 As
 --
 --referencing columns, that inherit an index
@@ -76,7 +77,7 @@ From
     repo.IndexColumn_union                    As ic
     Inner Join --todo: maybe use another source for RepoObject references 
         --repo.[RepoObjectColumn_reference_FirstResultSet] AS ref
-        [reference].RepoObjectColumn_reference_union ref
+        [reference].RepoObjectColumn_reference_T ref
             On
             ref.referenced_RepoObjectColumn_guid = ic.RepoObjectColumn_guid
 Where

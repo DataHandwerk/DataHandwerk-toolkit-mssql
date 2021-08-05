@@ -1,4 +1,5 @@
 ﻿
+
 /*
 per referencing RepoObject all directly referenced RepoOobject are listed
 
@@ -7,15 +8,15 @@ can be used in both directions:
 * get all referenced per referencing
 * get all referencing per referenced
 
+////
+old logic:
 
 uses graph tables
 
 * [graph].[RepoObject]
 * [graph].[ReferencedObject]
 
-*/
-Create View [reference].RepoObject_ReferencingReferenced
-As
+----
 Select
     Object1.RepoObject_fullname  As Referencing_fullname
   , Object1.RepoObject_fullname2 As Referencing_fullname2
@@ -31,6 +32,23 @@ From
   , graph.RepoObject As Object2
 Where Match(
     Object1-(referenced)->Object2);
+----
+////
+
+*/
+CREATE View [reference].[RepoObject_ReferencingReferenced]
+As
+Select
+    Referencing_fullname
+  , Referencing_fullname2
+  , Referencing_guid     = referencing_RepoObject_guid
+  , Referencing_type
+  , Referenced_fullname
+  , Referenced_fullname2
+  , Referenced_guid      = referenced_RepoObject_guid
+  , Referenced_type
+From
+    [reference].[RepoObject_reference_T]
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'

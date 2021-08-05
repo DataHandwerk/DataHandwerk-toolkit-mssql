@@ -1,4 +1,5 @@
-﻿Create View [reference].RepoObjectColumn_RelationScript
+﻿
+CREATE View [reference].[RepoObjectColumn_RelationScript]
 As
 --
 Select
@@ -31,7 +32,7 @@ Select
                             , '"'
                           )
 From
-    [reference].RepoObjectColumn_reference_union As rocu
+    [reference].RepoObjectColumn_reference_T As rocu
     Inner Join
         repo.RepoObjectColumn             As roc1
             On

@@ -471,7 +471,6 @@
     <Build Include="reference\Views\RepoObjectColumn_RelationScript.sql" />
     <Build Include="reference\Views\SysObjectColumn_QueryPlanExpression.sql" />
     <Build Include="reference\Views\RepoObjectColumn_ReferencingReferenced.sql" />
-    <Build Include="reference\Views\RepoObject_ReferencingReferenced_u_v.sql" />
     <Build Include="reference\Views\RepoObject_ReferencingReferenced.sql" />
     <Build Include="repo\Stored Procedures\usp_update_Referencing_Count.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_DocSnippet.sql" />
@@ -510,6 +509,12 @@
     <Build Include="tool\Stored Procedures\usp_RefreshViews.sql" />
     <Build Include="tool\Stored Procedures\usp_TruncateTables.sql" />
     <Build Include="configT\Views\numbers_0_2047.sql" />
+    <Build Include="reference\Tables\RepoObjectColumn_reference_T.sql" />
+    <Build Include="reference\Tables\RepoObject_reference_T.sql" />
+    <Build Include="reference\Views\RepoObjectColumn_reference.sql" />
+    <Build Include="reference\Views\RepoObject_reference.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObjectColumn_reference_T.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_reference_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

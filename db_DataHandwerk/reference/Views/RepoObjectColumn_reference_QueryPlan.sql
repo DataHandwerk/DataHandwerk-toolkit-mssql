@@ -1,4 +1,5 @@
 ﻿
+
 CREATE View [reference].[RepoObjectColumn_reference_QueryPlan]
 As
 --
@@ -51,7 +52,7 @@ Select
             Top 1
             Cast(1 As Bit)
         From
-            [reference].RepoObject_reference_union As ro_r
+            [reference].RepoObject_reference_T As ro_r
         Where
             ro_r.referencing_RepoObject_guid    = ros.RepoObject_guid
             And ro_r.referenced_RepoObject_guid = roc2.RepoObject_guid

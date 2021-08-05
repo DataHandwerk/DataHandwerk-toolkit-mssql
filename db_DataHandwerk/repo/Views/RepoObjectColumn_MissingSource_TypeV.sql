@@ -1,4 +1,5 @@
-﻿Create View repo.RepoObjectColumn_MissingSource_TypeV
+﻿
+CREATE View [repo].[RepoObjectColumn_MissingSource_TypeV]
 As
 --
 Select
@@ -45,7 +46,7 @@ Where
     Select
         1
     From
-        [reference].RepoObjectColumn_reference_union As roc_r
+        [reference].RepoObjectColumn_reference_T As roc_r
     Where
         roc_r.referencing_RepoObject_guid                          = roc.RepoObject_guid
         And roc_r.referencing_RepoObjectColumn_guid                = roc.RepoObjectColumn_guid

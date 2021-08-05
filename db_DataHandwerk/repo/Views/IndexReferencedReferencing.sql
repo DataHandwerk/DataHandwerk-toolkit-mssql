@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 Was ist der Sinn dieser Sicht?
 
@@ -31,7 +32,7 @@ ORDER BY
          [Anz] DESC
 
 */
-Create View repo.IndexReferencedReferencing
+CREATE View [repo].[IndexReferencedReferencing]
 As
 --
 Select
@@ -44,7 +45,7 @@ Select
 From
     repo.Index_union                    As i_s --index source: index in referenced source object(s)
     Inner Join
-        [reference].RepoObject_reference_union As ror
+        [reference].RepoObject_reference_T As ror
             On
             ror.referenced_RepoObject_guid = i_s.parent_RepoObject_guid
 

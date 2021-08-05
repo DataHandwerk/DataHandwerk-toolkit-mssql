@@ -1,4 +1,5 @@
-﻿Create View [reference].RepoObjectColumn_reference_SqlExpressionDependencies
+﻿
+CREATE View [reference].[RepoObjectColumn_reference_SqlExpressionDependencies]
 As
 --
 Select
@@ -37,7 +38,7 @@ Select
             Top 1
             Cast(1 As Bit)
         From
-            [reference].RepoObject_reference_union As ro_r
+            [reference].RepoObject_reference_T As ro_r
         Where
             ro_r.referencing_RepoObject_guid    = sed.referencing_RepoObject_guid
             And ro_r.referenced_RepoObject_guid = sed.referenced_RepoObject_guid

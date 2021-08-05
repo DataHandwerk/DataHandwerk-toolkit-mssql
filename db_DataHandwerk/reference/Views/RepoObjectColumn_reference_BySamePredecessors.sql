@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 repo.RepoObjectColumn_reference__first_result_set
 for view columns the referenced columns in a predecessor table is shown, not the referenced colum in a predecessor view
 but we are looking for the referenced column in a predecessor view
@@ -35,7 +36,7 @@ and we get what we need:
 dbo.view_2.aaa -> dbo.view_1.aaa
 
 */
-Create View [reference].RepoObjectColumn_reference_BySamePredecessors
+CREATE View [reference].[RepoObjectColumn_reference_BySamePredecessors]
 As
 --
 Select
@@ -70,7 +71,7 @@ Select
                                                          End As Bit)
   , is_referenced_object                          = Cast(1 As Bit)
 From
-    [reference].RepoObject_reference_union                    As ro_r
+    [reference].RepoObject_reference_T                        As ro_r
     Inner Join
         [reference].RepoObjectColumn_reference_FirstResultSet As roc_r_t2
             On

@@ -76,6 +76,26 @@ EXEC [repo].[usp_sync_guid]
  , @parent_execution_log_id = @current_execution_log_id
 
 
+/*{"ReportUspStep":[{"Number":220,"Name":"[reference].[usp_PERSIST_RepoObject_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_PERSIST_RepoObject_reference_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":230,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_PERSIST_RepoObjectColumn_reference_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 /*{"ReportUspStep":[{"Number":300,"Name":"(select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_FirstResultSet', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_FirstResultSet', DEFAULT)) = 1
 
@@ -182,7 +202,7 @@ USING (
    --
    [referencing_RepoObject_guid]
    , [referenced_RepoObject_guid]
-  FROM [reference].[RepoObject_reference_union]
+  FROM [reference].[RepoObject_reference_T]
   ) AS S
  --
  JOIN [graph].[RepoObject] referencing
@@ -242,7 +262,7 @@ USING (
    --
    [referencing_RepoObject_guid]
    , [referenced_RepoObject_guid]
-  FROM [reference].[RepoObject_reference_union]
+  FROM [reference].[RepoObject_reference_T]
   ) AS S
  --
  JOIN [graph].[RepoObject] referencing
@@ -302,7 +322,7 @@ USING (
    --
    [referencing_RepoObjectColumn_guid]
    , [referenced_RepoObjectColumn_guid]
-  FROM [reference].[RepoObjectColumn_reference_union]
+  FROM [reference].[RepoObjectColumn_reference_T]
   where not [referencing_RepoObjectColumn_guid] is null
   and not [referenced_RepoObjectColumn_guid] is null
   ) AS S
@@ -364,7 +384,7 @@ USING (
    --
    [referencing_RepoObjectColumn_guid]
    , [referenced_RepoObjectColumn_guid]
-  FROM [reference].[RepoObjectColumn_reference_union]
+  FROM [reference].[RepoObjectColumn_reference_T]
   where not [referencing_RepoObjectColumn_guid] is null
   and not [referenced_RepoObjectColumn_guid] is null
   ) AS S
@@ -427,7 +447,10 @@ Using
       , Last_usp_persistence_RepoObject_guid
       , 1 As is_PersistenceDependency
     From
-        reference.Match_RepoObject_referenced_UspPersistence T1
+        reference.Match_RepoObject_referenced_UspPersistence As T1
+    Where
+        ( Not ( First_usp_persistence_RepoObject_guid Is Null ))
+        And ( Not ( Last_usp_persistence_RepoObject_guid Is Null ))
 ) S
 On S.First_usp_persistence_RepoObject_guid = T.referenced_Procedure_RepoObject_guid
    And S.Last_usp_persistence_RepoObject_guid = T.referencing_Procedure_RepoObject_guid

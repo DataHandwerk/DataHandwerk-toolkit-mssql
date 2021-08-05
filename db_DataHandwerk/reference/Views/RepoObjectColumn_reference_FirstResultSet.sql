@@ -1,8 +1,9 @@
-﻿--"common" references
+﻿
+--"common" references
 --these should be "common" columns in views, not containing expressions
 --Attention: views on views are "resolved" like views on the underlaying tables!
 --it looks like we don't get references between views here!
-Create View [reference].RepoObjectColumn_reference_FirstResultSet
+CREATE View [reference].[RepoObjectColumn_reference_FirstResultSet]
 As
 --
 Select
@@ -39,7 +40,7 @@ Select
             Top 1
             Cast(1 As Bit)
         From
-            [reference].RepoObject_reference_union As ro_r
+            [reference].RepoObject_reference_T As ro_r
         Where
             ro_r.referencing_RepoObject_guid    = ros.RepoObject_guid
             And ro_r.referenced_RepoObject_guid = roc2.RepoObject_guid

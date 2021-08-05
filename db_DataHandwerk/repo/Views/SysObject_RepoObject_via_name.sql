@@ -601,3 +601,7 @@ Execute sp_addextendedproperty
   , @level1name = N'SysObject_RepoObject_via_name'
   , @level2type = N'COLUMN'
   , @level2name = N'history_table_id';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1facb147-4af5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysObject_RepoObject_via_name', @level2type = N'COLUMN', @level2name = N'SysObject_type_desc';
+
