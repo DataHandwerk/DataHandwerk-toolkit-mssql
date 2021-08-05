@@ -31,7 +31,7 @@ ORDER BY [Referenced_Depth]
 
 
 */
-Create Function [reference].ftv_RepoObject_ReferenceTree_via_fullname
+CREATE Function [reference].ftv_RepoObject_ReferenceTree_via_fullname
 (
     @RepoObject_fullname NVarchar(261)
   , @Referenced_Depth    Int = 0
@@ -117,3 +117,15 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObject_ReferenceTree_via_fullname';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_ReferencingReferenced]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_via_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_get_referenced_issue', @value = N'1', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_via_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_ReferencingReferenced.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_via_fullname';
+

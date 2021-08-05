@@ -1,28 +1,28 @@
 ﻿/*
-Wahrscheinlich unnötig, da auch alle Daten in [repo].[RepoObjectColumn_ReferenceTree] enthalten sind
+Probably unnecessary, since all data is also contained in [reference].[RepoObjectColumn_ReferenceTree].
 
 
 --Duplicates are possible, if exists alternative path between objects with different depth
 --to elimenate them, exclude Referenced_Depth and Referencing_Depth and use DISTINCT
 
-
+<<property_start>>exampleUsage
 DECLARE @RepoObject_guid uniqueidentifier
 
 SET @RepoObject_guid = (SELECT RepoObject_guid from [repo].[RepoObject] where RepoObject_fullname = '[repo].[RepoObject_gross]')
 
 SELECT *
-FROM [repo].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, DEFAULT, DEFAULT)
+FROM [reference].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, DEFAULT, DEFAULT)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 SELECT *
-FROM [repo].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, 1, 1)
+FROM [reference].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, 1, 1)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
-
+<<property_end>>
 
 */
-Create Function [reference].ftv_RepoObject_DbmlColumnRelation
+CREATE Function [reference].[ftv_RepoObject_DbmlColumnRelation]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -108,3 +108,11 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObject_DbmlColumnRelation';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObjectColumn_ReferencingReferenced]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_DbmlColumnRelation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumn_ReferencingReferenced.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_DbmlColumnRelation';
+

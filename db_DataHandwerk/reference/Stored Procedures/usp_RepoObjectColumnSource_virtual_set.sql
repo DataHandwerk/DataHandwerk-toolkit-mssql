@@ -138,3 +138,31 @@ End;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7d9a3468-7da6-eb11-84fb-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnSource_virtual_set';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObjectColumnSource_virtual]
+* [repo].[RepoObjectColumn]
+* [repo].[RepoObjectColumn_gross]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnSource_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+insert entries into xref:sqldb:reference.RepoObjectColumnSource_virtual.adoc[], using guid, fullname or fullname2', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnSource_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+EXEC reference.usp_RepoObjectColumnSource_virtual_set
+    @RepoObjectColumn_fullname2 = ''SchemaName.ObjectName.ColumnName''
+  , @Source_RepoObjectColumn_fullname2 = ''SourceSchemaName.SourceObjectName.SourceColumnName'';
+
+EXEC reference.usp_RepoObjectColumnSource_virtual_set
+    @RepoObjectColumn_fullname = ''[SchemaName].[ObjectName].[ColumnName]''
+  , @Source_RepoObjectColumn_fullname = ''[SourceSchemaName].[SourceObjectName].[SourceColumnName]'';', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnSource_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumnSource_virtual.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]
+* xref:repo.RepoObjectColumn_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnSource_virtual_set';
+

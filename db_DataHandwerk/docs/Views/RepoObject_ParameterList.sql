@@ -1,4 +1,4 @@
-﻿Create View docs.RepoObject_ParameterList
+﻿CREATE View docs.RepoObject_ParameterList
 As
 Select
     RepoObject_guid     = SysObject_RepoObject_guid
@@ -49,3 +49,35 @@ Execute sp_addextendedproperty
   , @level0name = N'docs'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ParameterList';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo_sys].[parameters]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'14B19516-1799-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Adoc.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo_sys.parameters.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo_sys].[parameters].[SysObject_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ParameterList', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+

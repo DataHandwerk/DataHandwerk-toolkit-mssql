@@ -200,3 +200,38 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'index_column_id';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[IndexColumn_virtual_gross]
+* [repo_sys].[IndexColumn_unique]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'index_guid,index_column_id', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'index_guid,index_column_id', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,int', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'FD0EFFE1-0896-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_execution_plan_issue', @value = N'1', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.Index_ColumList.adoc[]
+* xref:repo.Index_IndexPattern.adoc[]
+* xref:repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing.adoc[]
+* xref:repo.RepoObjectColumn_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.IndexColumn_virtual_gross.adoc[]
+* xref:repo_sys.IndexColumn_unique.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+

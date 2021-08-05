@@ -144,3 +144,18 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'alias_QuoteName';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [sqlparse].[RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName]
+* [sqlparse].[RepoObject_SqlModules_39_object]
+* [sqlparse].[RepoObject_SqlModules_52_Identitfier_QuoteName]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]
+* xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:sqlparse.RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_39_object.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_52_Identitfier_QuoteName.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union';
+

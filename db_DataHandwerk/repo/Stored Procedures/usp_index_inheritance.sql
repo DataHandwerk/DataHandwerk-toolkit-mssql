@@ -464,77 +464,144 @@ GO
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_Index_inheritance]
-[cols="5,200,1,100,100,1"]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |200
-|[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
-|0
 |
-|
+*[repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]*
+
+* `EXEC [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]`
+
 |
 
 |310
-|DELETE (if it is a referencing index (NOT [referenced_index_guid] IS NULL), but referenced index is missing)
-|0
-|[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
-|[repo].[Index_virtual]
-|d
+|
+*DELETE (if it is a referencing index (NOT [referenced_index_guid] IS NULL), but referenced index is missing)*
+
+* d
+* [repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
+* [repo].[Index_virtual]
+
+|
 
 |410
-|INSERT (Index which should be inherited in referenced, but not yet referenced)
-|0
-|[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
-|[repo].[Index_virtual]
-|i
+|
+*INSERT (Index which should be inherited in referenced, but not yet referenced)*
+
+* i
+* [repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
+* [repo].[Index_virtual]
+
+|
 
 |420
-|UPDATE [referenced_index_guid], if NULL but should be inherited
-|0
-|[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
-|[repo].[Index_virtual]
-|u
+|
+*UPDATE [referenced_index_guid], if NULL but should be inherited*
+
+* u
+* [repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
+* [repo].[Index_virtual]
+
+|
 
 |510
-|DELETE (referenced index, where entries are missing in setpoint)
-|0
-|[repo].[IndexColumn_virtual_referenced_setpoint]
-|[repo].[IndexColumn_virtual]
-|d
+|
+*DELETE (referenced index, where entries are missing in setpoint)*
+
+* d
+* [repo].[IndexColumn_virtual_referenced_setpoint]
+* [repo].[IndexColumn_virtual]
+
+|
 
 |610
-|INSERT missing
-|0
-|[repo].[IndexColumn_virtual_referenced_setpoint]
-|[repo].[Index_virtual]
-|i
+|
+*INSERT missing*
+
+* i
+* [repo].[IndexColumn_virtual_referenced_setpoint]
+* [repo].[Index_virtual]
+
+|
+
+|650
+|
+*Persistence: UPDATE some persistence target index attributes from persistence source indexes*
+
+* u
+* [repo].[Index_virtual]
+* [repo].[Index_virtual]
+
+|
 
 |710
-|DELETE duplicates by pattern
-|0
-|[repo].[Index_gross]
-|[repo].[Index_virtual]
-|d
+|
+*DELETE duplicates by pattern*
+
+* d
+* [repo].[Index_gross]
+* [repo].[Index_virtual]
+
+|
 
 |810
-|SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid], [is_descending_key] = [setpoint].[is_descending_key]
-|0
-|[repo].[IndexColumn_virtual_referenced_setpoint]
-|[repo].[IndexColumn_virtual]
-|u
+|
+*SET [RepoObjectColumn_guid] = [setpoint].[referencing_RepoObjectColumn_guid], [is_descending_key] = [setpoint].[is_descending_key]*
+
+* u
+* [repo].[IndexColumn_virtual_referenced_setpoint]
+* [repo].[IndexColumn_virtual]
+
+|
 
 |900
-|[repo].[usp_Index_finish]
-|0
-|[repo].[IndexColumn_virtual_referenced_setpoint]
-|[repo].[Index_virtual]
-|u
+|
+*[repo].[usp_Index_finish]*
+
+* `EXEC [repo].[usp_Index_finish]`
+* u
+* [repo].[IndexColumn_virtual_referenced_setpoint]
+* [repo].[Index_virtual]
+
+|
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[Index_gross]
+* [repo].[Index_virtual]
+* [repo].[Index_virtual_ForUpdate]
+* [repo].[Index_virtual_IndexPatternColumnGuid]
+* [repo].[IndexColumn_virtual]
+* [repo].[IndexColumn_virtual_referenced_setpoint]
+* [repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]
+* [repo].[usp_Index_finish]
+* [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_Index_inheritance]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.Index_gross.adoc[]
+* xref:repo.Index_virtual.adoc[]
+* xref:repo.Index_virtual_ForUpdate.adoc[]
+* xref:repo.Index_virtual_IndexPatternColumnGuid.adoc[]
+* xref:repo.IndexColumn_virtual.adoc[]
+* xref:repo.IndexColumn_virtual_referenced_setpoint.adoc[]
+* xref:repo.IndexReferencedReferencing_HasFullColumnsInReferencing.adoc[]
+* xref:repo.usp_Index_finish.adoc[]
+* xref:repo.usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_index_inheritance';
 

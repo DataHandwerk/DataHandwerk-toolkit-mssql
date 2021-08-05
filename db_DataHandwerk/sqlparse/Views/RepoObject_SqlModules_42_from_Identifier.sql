@@ -291,3 +291,21 @@ Execute sp_addextendedproperty
   , @level1name = N'RepoObject_SqlModules_42_from_Identifier'
   , @level2type = N'COLUMN'
   , @level2name = N'class';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [sqlparse].[RepoObject_SqlModules_29_1_object_is_union]
+* [sqlparse].[RepoObject_SqlModules_41_from_T]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_42_from_Identifier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_43_from_Identifier.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_42_from_Identifier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:sqlparse.RepoObject_SqlModules_29_1_object_is_union.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_41_from_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_42_from_Identifier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_42_from_Identifier', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+

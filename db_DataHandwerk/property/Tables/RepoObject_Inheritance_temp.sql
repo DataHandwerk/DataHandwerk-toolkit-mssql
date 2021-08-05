@@ -22,6 +22,8 @@ WITH (DATA_COMPRESSION = PAGE);
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '62b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObject_Inheritance_temp';
 
@@ -84,4 +86,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c5b33
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c6b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObject_Inheritance_temp', @level2type = N'COLUMN', @level2name = N'Inheritance_StringAggSeparatorSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.usp_RepoObject_Inheritance.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObject_Inheritance_temp';
 

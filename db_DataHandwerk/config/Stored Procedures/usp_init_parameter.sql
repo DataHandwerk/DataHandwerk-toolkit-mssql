@@ -1,4 +1,4 @@
-﻿/*
+/*
 <<property_start>>MS_Description
 * merges default values for parameters from xref:sqldb:config.Parameter_default.adoc[] into xref:sqldb:config.Parameter.adoc[]
 <<property_end>>
@@ -79,5 +79,20 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[Parameter]
+* [config].[Parameter_default]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* merges default values for parameters from xref:sqldb:config.Parameter_default.adoc[] into xref:sqldb:config.Parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:config.usp_connect_database.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]
+* xref:configT.Parameter_default.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
 

@@ -29,7 +29,7 @@ ORDER BY [Referenced_Depth]
 
 
 */
-Create Function [reference].ftv_RepoObjectColumn_ReferenceTree
+CREATE Function [reference].[ftv_RepoObjectColumn_ReferenceTree]
 (
     @RepoObjectColumn_guid UniqueIdentifier
   , @Referenced_Depth      Int = 0
@@ -115,3 +115,15 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObjectColumn_ReferenceTree';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObjectColumn_ReferencingReferenced]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObjectColumn_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_ReferenceTree.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObjectColumn_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumn_ReferencingReferenced.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObjectColumn_ReferenceTree';
+

@@ -24,6 +24,8 @@ WITH (DATA_COMPRESSION = PAGE);
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'references on column level
 target: repo.RepoObjectSource_from_query_plan
@@ -119,4 +121,9 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [source_column_name] like ''EXPR[0-9][0-9][0-9][0-9]'' then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_reference_QueryPlan.adoc[]
+* xref:reference.usp_RepoObjectSource_QueryPlan.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan';
 

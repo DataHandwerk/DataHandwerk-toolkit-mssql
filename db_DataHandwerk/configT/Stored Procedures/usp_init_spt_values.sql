@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [configT].usp_init_spt_values
+CREATE PROCEDURE [configT].usp_init_spt_values
 AS
 --
 TRUNCATE TABLE [configT].[spt_values]
@@ -2577,5 +2577,13 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9590291c-9d
 
 
 GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[spt_values]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'PROCEDURE', @level1name = N'usp_init_spt_values';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:config.usp_connect_database.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'PROCEDURE', @level1name = N'usp_init_spt_values';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.spt_values.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'PROCEDURE', @level1name = N'usp_init_spt_values';
 

@@ -294,3 +294,21 @@ Execute sp_addextendedproperty
   , @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias'
   , @level2type = N'COLUMN'
   , @level2name = N'RepoObjectColumn_guid';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[RepoObject]
+* [repo].[RepoObjectColumn]
+* [sqlparse].[RepoObject_SqlModules_44_from_Identifier_QuoteName]
+* [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_79_reference_union.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_44_from_Identifier_QuoteName.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias';
+

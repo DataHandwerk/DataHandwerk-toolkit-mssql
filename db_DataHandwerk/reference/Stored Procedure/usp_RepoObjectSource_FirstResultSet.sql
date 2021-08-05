@@ -1,4 +1,4 @@
-﻿/*
+/*
 references on column level
 target: repo.RepoObjectSource
 source: sys.dm_exec_describe_first_result_set
@@ -7,7 +7,7 @@ source: sys.dm_exec_describe_first_result_set
 sometimes required
 truncate table [repo].[RepoObjectSource__dm_exec_describe_first_result_set]
 */
-Create Procedure [reference].usp_RepoObjectSource_FirstResultSet
+CREATE Procedure [reference].usp_RepoObjectSource_FirstResultSet
     -- some optional parameters, used for logging
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id       BigInt           = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -274,5 +274,19 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [reference].[RepoObjectSource_FirstResultSet]
+* [repo].[RepoObject]
+* [repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource_FirstResultSet';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource_FirstResultSet';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.RepoObjectSource_FirstResultSet.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource_FirstResultSet';
 

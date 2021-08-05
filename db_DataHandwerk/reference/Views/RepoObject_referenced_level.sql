@@ -1,4 +1,4 @@
-﻿Create View [reference].RepoObject_referenced_level
+﻿CREATE View [reference].RepoObject_referenced_level
 As
 Select
     Object1.RepoObject_guid                                                     As StartingNode_guid
@@ -112,3 +112,30 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_referenced_level';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [graph].[ReferencedObject]
+* [graph].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'StartingNode_guid,LastNode_guid,referenced_level', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier,int', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'E6C342F4-0D96-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_referenced_level_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_referenced_level_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.ReferencedObject.adoc[]
+* xref:graph.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level';
+

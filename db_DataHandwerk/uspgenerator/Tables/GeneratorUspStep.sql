@@ -40,6 +40,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'use info_01, info_02, ... to define parameters for sub procedure call', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep', @level2type = N'COLUMN', @level2name = N'is_SubProcedure';
 
@@ -166,4 +168,27 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9af47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'af7159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep', @level2type = N'COLUMN', @level2name = N'Description';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'UspStep_id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'5890291C-9D61-EB11-84DC-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:uspgenerator.ftv_GeneratorUspStep_sql.adoc[]
+* xref:uspgenerator.ftv_GeneratorUspStep_tree.adoc[]
+* xref:uspgenerator.GeneratorUspStep_Sql.adoc[]
+* xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep';
 

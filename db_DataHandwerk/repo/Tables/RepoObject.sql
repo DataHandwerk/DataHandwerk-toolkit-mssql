@@ -70,6 +70,8 @@
 
 
 
+
+
 GO
 CREATE TRIGGER [repo].[RepoObject__after_update] ON repo.RepoObject
 AFTER UPDATE
@@ -519,4 +521,101 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''[
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '077bec7a-a69b-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'is_required_ObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'ED8F291C-9D61-EB11-84DC-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.AntoraNavListPage_by_schema.adoc[]
+* xref:docs.ftv_RepoObject_Reference_PlantUml_EntityRefList.adoc[]
+* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[]
+* xref:docs.visjs_nodelist_object_test01.adoc[]
+* xref:graph.RepoObject_S.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level1.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level2_RepoObject.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level2_RepoObjectColumn.adoc[]
+* xref:property.RepoObjectColumnProperty_sys_repo.adoc[]
+* xref:property.RepoObjectProperty_cross.adoc[]
+* xref:property.RepoObjectProperty_ForUpdate.adoc[]
+* xref:property.RepoObjectProperty_InheritanceType_InheritanceDefinition.adoc[]
+* xref:property.RepoObjectProperty_sys_repo.adoc[]
+* xref:property.usp_RepoObjectColumnProperty_set.adoc[]
+* xref:property.usp_RepoObjectProperty_set.adoc[]
+* xref:reference.ftv_RepoObject_ReferencedReferencing.adoc[]
+* xref:reference.RepoObject_reference_persistence.adoc[]
+* xref:reference.RepoObject_reference_virtual.adoc[]
+* xref:reference.RepoObjectColumn_reference_FirstResultSet.adoc[]
+* xref:reference.RepoObjectColumn_reference_Persistence.adoc[]
+* xref:reference.RepoObjectColumn_reference_QueryPlan.adoc[]
+* xref:reference.RepoObjectColumn_reference_SqlModules.adoc[]
+* xref:reference.usp_RepoObject_update_SysObjectQueryPlan.adoc[]
+* xref:reference.usp_RepoObjectSource_FirstResultSet.adoc[]
+* xref:reference.usp_RepoObjectSource_QueryPlan.adoc[]
+* xref:reference.usp_RepoObjectSource_virtual_set.adoc[]
+* xref:reference.usp_update_Referencing_Count.adoc[]
+* xref:repo.check_IndexColumn_virtual_referenced_setpoint.adoc[]
+* xref:repo.Index_Settings_ForUpdate.adoc[]
+* xref:repo.Index_virtual_ForUpdate.adoc[]
+* xref:repo.Index_virtual_SysObject.adoc[]
+* xref:repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_check.adoc[]
+* xref:repo.IndexColumn_virtual_gross.adoc[]
+* xref:repo.RepoObject__after_update.adoc[]
+* xref:repo.RepoObject_fullname_u_v.adoc[]
+* xref:repo.RepoObject_gross.adoc[]
+* xref:repo.RepoObject_persistence_column.adoc[]
+* xref:repo.RepoObject_persistence_ForUpdate.adoc[]
+* xref:repo.RepoObject_persistence_ObjectNames.adoc[]
+* xref:repo.RepoObject_related_FK_union.adoc[]
+* xref:repo.RepoObject_RequiredRepoObjectMerge.adoc[]
+* xref:repo.RepoObject_SqlCreateTable.adoc[]
+* xref:repo.RepoObjectColumn_gross.adoc[]
+* xref:repo.RepoObjectColumn_MissingSource_TypeV.adoc[]
+* xref:repo.SysColumn_RepoObjectColumn_via_guid.adoc[]
+* xref:repo.SysColumn_RepoObjectColumn_via_name.adoc[]
+* xref:repo.SysObject_RepoObject_via_guid.adoc[]
+* xref:repo.SysObject_RepoObject_via_name.adoc[]
+* xref:repo.usp_Index_finish.adoc[]
+* xref:repo.usp_Index_virtual_set.adoc[]
+* xref:repo.usp_persistence_set.adoc[]
+* xref:repo.usp_sync_guid_RepoObject.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]
+* xref:repo.usp_update_Referencing_Count.adoc[]
+* xref:repo_sys.ForeignKey.adoc[]
+* xref:repo_sys.Index_unique.adoc[]
+* xref:repo_sys.RepoObjectReferenced.adoc[]
+* xref:repo_sys.RepoObjectReferencing.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_10_statement.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_39_object.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_71_reference_ExpliciteTableAlias.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_72_reference_NoTableAlias.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_Repo_Sys.adoc[]
+* xref:uspgenerator.GeneratorUsp_SqlUsp.adoc[]
+* xref:workflow.ProcedureDependency_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[SysObject_name]
+* [repo].[RepoObject].[SysObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_name]
+* [repo].[RepoObject].[RepoObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 

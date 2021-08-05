@@ -1,4 +1,4 @@
-
+﻿
 
 
 /*
@@ -804,4 +804,250 @@ Execute sp_addextendedproperty
 
 Go
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e848b3ff-fda5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'puml_Sequence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[ExecutionLog]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'ExecutionLog_id', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'id', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'bigint', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'e28f3062-759b-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+--get detailed PlantUML sequence diagram
+--you could add skinparam to modify it, for example
+--skinparam maxmessagesize 250
+
+Select
+    id
+  , puml_Sequence
+  , execution_instance_guid
+  , parent_execution_log_id
+  , proc_schema_name
+  , proc_name
+  , step_id
+  , step_name
+  , created_dt
+  , source_object
+  , target_object
+  , inserted
+  , updated
+  , deleted
+From
+    logs.ExecutionLog_gross
+Where
+    id
+Between 33386 And 33404
+Order By
+    id;', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:logs.ftv_ExecutionLog_puml_tree.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.ExecutionLog.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[updated]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'updated';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[target_object]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'target_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[sub_execution_id]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'sub_execution_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[step_name]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'step_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[step_id]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'step_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[ssis_execution_id]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'ssis_execution_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[source_object]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'source_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[proc_schema_name]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'proc_schema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[proc_name]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'proc_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[proc_id]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'proc_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parent_execution_log_id]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parent_execution_log_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_20]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_20';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_19]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_19';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_18]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_18';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_17]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_17';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_16]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_16';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_15]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_15';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_14]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_14';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_13]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_13';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_12]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_12';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_11]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_11';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_10]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_10';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_09]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_09';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_08]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_08';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_07]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_07';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_06]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_06';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_05]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_05';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_04]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_04';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_03]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_03';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_02]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_02';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[parameter_01]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'parameter_01';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[inserted]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'inserted';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_09]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_09';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_08]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_08';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_07]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_07';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_06]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_06';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_05]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_05';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_04]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_04';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_03]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_03';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_02]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_02';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[info_01]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'info_01';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[id]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[execution_instance_guid]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'execution_instance_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[event_info]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'event_info';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[deleted]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'deleted';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[current_execution_guid]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'current_execution_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[created_dt]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'created_dt';
 

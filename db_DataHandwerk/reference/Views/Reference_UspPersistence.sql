@@ -1,4 +1,4 @@
-﻿Create View [reference].Reference_UspPersistence
+﻿CREATE View [reference].Reference_UspPersistence
 As
 Select
     Last_usp_persistence_RepoObject_guid  As referenced_usp_RepoObject_guid
@@ -60,3 +60,23 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'VIEW'
   , @level1name = N'Reference_UspPersistence';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[Match_RepoObject_referenced_UspPersistence]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Reference_UspPersistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'referenced_usp_RepoObject_guid,referencing_usp_RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Reference_UspPersistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Reference_UspPersistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'c216469c-119e-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Reference_UspPersistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.Match_RepoObject_referenced_UspPersistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Reference_UspPersistence';
+

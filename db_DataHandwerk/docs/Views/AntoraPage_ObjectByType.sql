@@ -11,7 +11,7 @@ include::partial$navlist/navlist-type-U.adoc[]
 --
 
 */
-Create View docs.AntoraPage_ObjectByType
+CREATE View docs.AntoraPage_ObjectByType
 As
 Select
     partial_content = Concat (
@@ -65,3 +65,13 @@ Execute sp_addextendedproperty
   , @level1name = N'AntoraPage_ObjectByType'
   , @level2type = N'COLUMN'
   , @level2name = N'partial_content';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type]
+* [docs].[AntoraNavListRepoObject_by_type]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraPage_ObjectByType';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.type.adoc[]
+* xref:docs.AntoraNavListRepoObject_by_type.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraPage_ObjectByType';
+

@@ -1112,3 +1112,48 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type_level1type_level2type]
+* [graph].[RepoObject]
+* [graph].[RepoObject_S]
+* [graph].[usp_PERSIST_RepoObject]
+* [logs].[usp_ExecutionLog_insert]
+* [reference].[RepoObjectSource_virtual]
+* [repo].[RepoObject]
+* [repo].[RepoObject_persistence]
+* [repo].[RepoObject_RequiredRepoObjectMerge]
+* [repo].[SysObject_RepoObject_via_guid]
+* [repo].[SysObject_RepoObject_via_name]
+* [repo_sys].[SysObject]
+* [repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoObject_guid with dwh database extended properties "RepoObject_guid"', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_sync_guid_RepoObject]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_sync_guid.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
+* xref:configT.type_level1type_level2type.adoc[]
+* xref:graph.RepoObject.adoc[]
+* xref:graph.RepoObject_S.adoc[]
+* xref:graph.usp_PERSIST_RepoObject.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.RepoObjectSource_virtual.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObject_persistence.adoc[]
+* xref:repo.RepoObject_RequiredRepoObjectMerge.adoc[]
+* xref:repo.SysObject_RepoObject_via_guid.adoc[]
+* xref:repo.SysObject_RepoObject_via_name.adoc[]
+* xref:repo_sys.SysObject.adoc[]
+* xref:repo_sys.usp_AddOrUpdateExtendedProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+

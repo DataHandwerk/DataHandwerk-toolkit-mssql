@@ -1,4 +1,4 @@
-﻿Create View sys_self.ExtendedProperties_ParameterForAddUpdateDrop
+﻿CREATE View sys_self.ExtendedProperties_ParameterForAddUpdateDrop
 As
 --
 Select
@@ -269,3 +269,19 @@ Execute sp_addextendedproperty
   , @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop'
   , @level2type = N'COLUMN'
   , @level2name = N'class';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type_level1type_level2type]
+* [sys_self].[ExtendedProperties]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo_sys.usp_dropextendedproperty_level_2.adoc[]
+* xref:sys_self.usp_dropextendedproperty_level_1.adoc[]
+* xref:sys_self.usp_dropextendedproperty_level_2.adoc[]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.type_level1type_level2type.adoc[]
+* xref:sys_self.ExtendedProperties.adoc[]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+

@@ -540,3 +540,19 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'definition';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObjectColumn_reference_Persistence]
+* [reference].[RepoObjectColumn_reference_SqlExpressionDependencies]
+* [reference].[RepoObjectColumn_reference_SqlModules]
+* [reference].[RepoObjectColumn_reference_virtual]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_reference.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumn_reference_Persistence.adoc[]
+* xref:reference.RepoObjectColumn_reference_SqlExpressionDependencies.adoc[]
+* xref:reference.RepoObjectColumn_reference_SqlModules.adoc[]
+* xref:reference.RepoObjectColumn_reference_virtual.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union';
+

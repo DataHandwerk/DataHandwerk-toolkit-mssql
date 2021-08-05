@@ -218,7 +218,6 @@
     <Build Include="repo\Tables\IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.sql" />
     <Build Include="graph\Tables\ReferencedObjectColumn.sql" />
-    <Build Include="graph\Tables\ReferencingObjectColumn.sql" />
     <Build Include="graph\Tables\ReferencingObject.sql" />
     <Build Include="graph\Tables\ReferencedObject.sql" />
     <Build Include="graph\Tables\RepoObjectColumn.sql" />
@@ -278,9 +277,7 @@
     <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPage.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Adoc_T.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_navigation.sql" />
-    <Build Include="graph\Tables\Index.sql" />
     <Build Include="docs\Tables\RepoObject_Plantuml_Entity_T.sql" />
-    <Build Include="graph\Views\Index_S.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_Entity.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_ColRefList.sql" />
@@ -288,7 +285,6 @@
     <Build Include="docs\Views\RepoObject_OutputFilter.sql" />
     <Build Include="docs\Views\RepoObject_ColumnList.sql" />
     <Build Include="docs\Functions\ftv_RepoObject_Reference_PlantUml_EntityRefList.sql" />
-    <Build Include="graph\Stored Procedures\usp_PERSIST_Index.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPuml.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPageTemplate.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Plantuml_Entity_T.sql" />
@@ -515,6 +511,12 @@
     <Build Include="reference\Views\RepoObject_reference.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObjectColumn_reference_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_reference_T.sql" />
+    <Build Include="reference\Tables\RepoObject_ReferenceTree_referencing_0_30_T.sql" />
+    <Build Include="reference\Tables\RepoObject_ReferenceTree_referenced_30_0_T.sql" />
+    <Build Include="reference\Views\RepoObject_ReferenceTree_referencing_0_30.sql" />
+    <Build Include="reference\Views\RepoObject_ReferenceTree_referenced_30_0.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_referencing_0_30_T.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_referenced_30_0_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

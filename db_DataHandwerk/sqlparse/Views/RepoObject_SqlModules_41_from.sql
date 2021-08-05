@@ -11,7 +11,7 @@ Attention, this will not work for UNION to analyze all parts of the UNION
 - we could get the part from the first from to a first where in another part of the UNION
 */
 
-Create View [sqlparse].RepoObject_SqlModules_41_from
+CREATE View [sqlparse].RepoObject_SqlModules_41_from
 As
 --
 Select
@@ -497,3 +497,42 @@ Execute sp_addextendedproperty
   , @level1name = N'RepoObject_SqlModules_41_from'
   , @level2type = N'COLUMN'
   , @level2name = N'children';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[join_type]
+* [sqlparse].[RepoObject_SqlModules_20_statement_children]
+* [sqlparse].[RepoObject_SqlModules_22_identifier_alias_AS]
+* [sqlparse].[RepoObject_SqlModules_39_object]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid,json_key', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid,json_key', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,nvarchar(4000)', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'2F8AA10A-AB97-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_41_from_T.adoc[]
+* xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_41_from_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.join_type.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_20_statement_children.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_22_identifier_alias_AS.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_39_object.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+

@@ -335,3 +335,91 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bd24df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [property].[RepoObjectProperty]
+* [property].[RepoObjectProperty]
+* [property].[RepoObjectProperty_Collect_source_ROGross]
+* [property].[RepoObjectProperty_Collect_source_sql_modules_definition]
+* [property].[RepoObjectProperty_Collect_source_uspgenerator]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'collects the content for RepoObjectProperty from several sources:
+* [repo].[GeneratorUsp_SqlUsp]
+* [repo].[RepoObject_gross]
+** Persistence
+** some common properties
+* [repo].[RepoObjectProperty_from_sql_modules_definition] +
+this parses sql_modules_definition for tagged parts defining extended properties', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_get_referenced_issue', @value = 1, @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [property].[usp_RepoObjectProperty_collect]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:property.RepoObjectProperty.adoc[]
+* xref:property.RepoObjectProperty_Collect_source_ROGross.adoc[]
+* xref:property.RepoObjectProperty_Collect_source_sql_modules_definition.adoc[]
+* xref:property.RepoObjectProperty_Collect_source_uspgenerator.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [property].[usp_RepoObjectProperty_collect]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|210
+|
+*[property].[RepoObjectProperty_Collect_source_uspgenerator]*
+
+* u
+* [repo].[GeneratorUsp_SqlUsp]
+* [property].[RepoObjectProperty]
+
+|
+
+|310
+|
+*[property].[RepoObjectProperty_Collect_source_ROGross]*
+
+* u
+* [repo].[RepoObject_gross]
+* [property].[RepoObjectProperty]
+
+|
+
+|410
+|
+*[property].[RepoObjectProperty_Collect_source_sql_modules_definition]*
+
+* u
+* [property].[RepoObjectProperty_from_sql_modules_definition]
+* [property].[RepoObjectProperty]
+
+|
+
+|3000
+|
+*DELETE WHERE [property_value] IS NULL*
+
+* d
+* [property].[RepoObjectProperty]
+* [property].[RepoObjectProperty]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+

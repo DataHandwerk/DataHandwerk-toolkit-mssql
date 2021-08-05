@@ -29,3 +29,15 @@ Execute sp_addextendedproperty
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_get_parameter_value';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[Parameter]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'ftv_get_parameter_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml.adoc[]
+* xref:repo.RepoObject_SqlCreateTable.adoc[]
+* xref:repo.RepoObjectColumn_HistValidColums_setpoint.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'ftv_get_parameter_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'ftv_get_parameter_value';
+

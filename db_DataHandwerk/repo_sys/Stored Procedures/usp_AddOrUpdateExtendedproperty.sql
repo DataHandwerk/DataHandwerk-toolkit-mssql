@@ -122,3 +122,16 @@ Execute sp_addextendedproperty
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_AddOrUpdateExtendedProperty';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_dwh_database_name]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_AddOrUpdateExtendedProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.adoc[]
+* xref:repo.usp_sync_guid_RepoObject.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]
+* xref:repo.usp_sync_guid_RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_AddOrUpdateExtendedProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_dwh_database_name.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_AddOrUpdateExtendedProperty';
+

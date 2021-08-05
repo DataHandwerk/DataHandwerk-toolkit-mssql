@@ -16,6 +16,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2a90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_SqlModules';
 
@@ -62,4 +64,26 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(isjson([sql_modules_json]))', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules', @level2type = N'COLUMN', @level2name = N'is_json_sql_modules_json';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'2A90291C-9D61-EB11-84DC-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_10_statement.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_39_object.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_Repo_Sys.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules';
 

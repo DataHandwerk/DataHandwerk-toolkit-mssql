@@ -470,36 +470,71 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate]
-[cols="5,200,1,100,100,1"]
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [property].[usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |100
-|DECLARE
-|0
 |
+*DECLARE*
+
+
 |
+
+|300
+|
+*Level0-Properties - INSERT + UPDATE*
+
+* u
+* [property].[ExtendedProperty_Repo2Sys_level0]
+* [repo_sys].[usp_AddOrUpdateExtendedProperty]
+
 |
 
 |310
-|Level1-Properties - INSERT + UPDATE
-|0
-|[repo].[ExtendedProperty_Repo2Sys_level1]
-|[repo_sys].[usp_AddOrUpdateExtendedProperty]
-|u
+|
+*Level1-Properties - INSERT + UPDATE*
+
+* u
+* [property].[ExtendedProperty_Repo2Sys_level1]
+* [repo_sys].[usp_AddOrUpdateExtendedProperty]
+
+|
 
 |320
-|Level2-Properties - INSERT + UPDATE
-|0
-|[repo].[ExtendedProperty_Repo2Sys_level2_Union]
-|[repo_sys].[usp_AddOrUpdateExtendedProperty]
-|u
+|
+*Level2-Properties - INSERT + UPDATE*
+
+* u
+* [property].[ExtendedProperty_Repo2Sys_level2_Union]
+* [repo_sys].[usp_AddOrUpdateExtendedProperty]
+
+|
 |===
 ', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [property].[ExtendedProperty_Repo2Sys_level0]
+* [property].[ExtendedProperty_Repo2Sys_level1]
+* [property].[ExtendedProperty_Repo2Sys_level2_Union]
+* [repo_sys].[ExtendedProperties_ParameterForAddUpdateDrop]
+* [repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [property].[usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level0.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level1.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level2_Union.adoc[]
+* xref:repo_sys.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]
+* xref:repo_sys.usp_AddOrUpdateExtendedProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate';
 

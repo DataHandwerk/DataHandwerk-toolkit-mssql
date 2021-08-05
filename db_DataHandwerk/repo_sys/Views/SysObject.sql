@@ -1,4 +1,4 @@
-
+﻿
 /*
 ATTENTION:
 [SysObject_RepoObject_guid] has prefix SysObject, because it it the RepoObject_guid stored in repo_sys.extended_properties
@@ -143,4 +143,30 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '74f47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '137e7a91-ca97-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysObject', @level2type = N'COLUMN', @level2name = N'SysObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo_sys].[ExtendedProperties]
+* [sys_dwh].[objects]
+* [sys_dwh].[schemas]
+* [sys_dwh].[sql_modules]
+* [sys_dwh].[tables]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.SysObject_RepoObject_via_guid.adoc[]
+* xref:repo.SysObject_RepoObject_via_name.adoc[]
+* xref:repo.usp_sync_guid_RepoObject.adoc[]
+* xref:repo_sys.ColumnReference.adoc[]
+* xref:repo_sys.parameters.adoc[]
+* xref:repo_sys.SysColumn.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_Repo_Sys.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo_sys.ExtendedProperties.adoc[]
+* xref:sys_dwh.objects.adoc[]
+* xref:sys_dwh.schemas.adoc[]
+* xref:sys_dwh.sql_modules.adoc[]
+* xref:sys_dwh.tables.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysObject';
 

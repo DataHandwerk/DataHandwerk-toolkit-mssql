@@ -98,3 +98,9 @@ Execute sp_addextendedproperty
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_dropextendedproperty_level_1';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [sys_self].[ExtendedProperties_ParameterForAddUpdateDrop]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'PROCEDURE', @level1name = N'usp_dropextendedproperty_level_1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:sys_self.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'PROCEDURE', @level1name = N'usp_dropextendedproperty_level_1';
+

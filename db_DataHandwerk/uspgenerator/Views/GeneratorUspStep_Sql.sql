@@ -281,3 +281,41 @@ Execute sp_addextendedproperty
   , @level1name = N'GeneratorUspStep_Sql'
   , @level2type = N'COLUMN'
   , @level2name = N'AdocStep';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [uspgenerator].[ftv_GeneratorUspStep_sql]
+* [uspgenerator].[ftv_GeneratorUspStep_tree]
+* [uspgenerator].[GeneratorUsp]
+* [uspgenerator].[GeneratorUspStep]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'usp_id,Number', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'usp_id,Number', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int,int', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'053E549A-0796-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_execution_plan_issue', @value = N'1', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:uspgenerator.GeneratorUsp_StepList.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:uspgenerator.ftv_GeneratorUspStep_sql.adoc[]
+* xref:uspgenerator.ftv_GeneratorUspStep_tree.adoc[]
+* xref:uspgenerator.GeneratorUsp.adoc[]
+* xref:uspgenerator.GeneratorUspStep.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+

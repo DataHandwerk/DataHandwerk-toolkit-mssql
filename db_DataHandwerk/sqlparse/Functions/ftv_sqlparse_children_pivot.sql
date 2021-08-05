@@ -10,7 +10,7 @@ set @json_array =
 SELECT * from [repo].[ftv_sqlparse_children_pivot](@json_array)
 
 */
-Create Function [sqlparse].ftv_sqlparse_children_pivot
+CREATE Function [sqlparse].ftv_sqlparse_children_pivot
 (
     @json_array NVarchar(Max)
 )
@@ -54,3 +54,8 @@ Execute sp_addextendedproperty
   , @level0name = N'sqlparse'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_sqlparse_children_pivot';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_23_normalized_wo_nolock.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'FUNCTION', @level1name = N'ftv_sqlparse_children_pivot';
+

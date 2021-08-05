@@ -1,4 +1,4 @@
-﻿/*
+/*
 only insert, no update
 
 to get duration and grouping, use unique combinations of keys,for example
@@ -15,7 +15,7 @@ if a procedure is called several times per ssis_execution, for example the @ssis
 it is also possible to use the @execution_log_id output parameter ad to store it back as @parent_execution_log_id
 
 */
-Create Procedure logs.usp_ExecutionLog_insert
+CREATE Procedure logs.usp_ExecutionLog_insert
     @execution_instance_guid UniqueIdentifier
   , @ssis_execution_id       BigInt           = Null
   , @sub_execution_id        Int              = Null
@@ -177,5 +177,59 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[ExecutionLog]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'PROCEDURE', @level1name = N'usp_ExecutionLog_insert';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport.adoc[]
+* xref:docs.usp_AntoraExport_DocSnippet.adoc[]
+* xref:docs.usp_AntoraExport_navigation.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPage.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
+* xref:docs.usp_AntoraExport_Page_IndexSemanticGroup.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_Adoc_T.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_IndexList_T.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_Plantuml_Entity_T.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_Plantuml_T.adoc[]
+* xref:graph.usp_PERSIST_Index.adoc[]
+* xref:graph.usp_PERSIST_RepoObject.adoc[]
+* xref:graph.usp_PERSIST_RepoObjectColumn.adoc[]
+* xref:property.usp_RepoObject_Inheritance.adoc[]
+* xref:property.usp_RepoObjectColumn_Inheritance.adoc[]
+* xref:property.usp_RepoObjectProperty_collect.adoc[]
+* xref:property.usp_sync_ExtendedProperties_Repo2Sys_Delete.adoc[]
+* xref:property.usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.adoc[]
+* xref:property.usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_reference_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_referenced_level_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_referencing_level_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObjectColumn_reference_T.adoc[]
+* xref:reference.usp_RepoObject_update_SysObjectQueryPlan.adoc[]
+* xref:reference.usp_RepoObjectSource_FirstResultSet.adoc[]
+* xref:reference.usp_RepoObjectSource_QueryPlan.adoc[]
+* xref:reference.usp_update_Referencing_Count.adoc[]
+* xref:repo.usp_Index_finish.adoc[]
+* xref:repo.usp_Index_ForeignKey.adoc[]
+* xref:repo.usp_index_inheritance.adoc[]
+* xref:repo.usp_Index_Settings.adoc[]
+* xref:repo.usp_Index_virtual_set.adoc[]
+* xref:repo.usp_main.adoc[]
+* xref:repo.usp_PERSIST_ForeignKey_Indexes_union_T.adoc[]
+* xref:repo.usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.adoc[]
+* xref:repo.usp_persistence_set.adoc[]
+* xref:repo.usp_RepoObjectColumn_update_RepoObjectColumn_column_id.adoc[]
+* xref:repo.usp_sync_guid.adoc[]
+* xref:repo.usp_sync_guid_RepoObject.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]
+* xref:repo.usp_sync_guid_RepoSchema.adoc[]
+* xref:repo.usp_update_Referencing_Count.adoc[]
+* xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_41_from_T.adoc[]
+* xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]
+* xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'PROCEDURE', @level1name = N'usp_ExecutionLog_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.ExecutionLog.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'PROCEDURE', @level1name = N'usp_ExecutionLog_insert';
 

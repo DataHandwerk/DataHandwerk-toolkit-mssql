@@ -289,3 +289,20 @@ Execute sp_addextendedproperty
   , @level1name = N'RepoObject_SqlModules_Repo_Sys'
   , @level2type = N'COLUMN'
   , @level2name = N'is_json_sql_modules_json';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[RepoObject]
+* [repo_sys].[SysObject]
+* [sqlparse].[RepoObject_SqlModules]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.RepoObjectProperty_Collect_source_sql_modules_definition.adoc[]
+* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoObject.adoc[]
+* xref:repo_sys.SysObject.adoc[]
+* xref:sqlparse.RepoObject_SqlModules.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+

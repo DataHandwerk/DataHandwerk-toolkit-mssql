@@ -19,6 +19,8 @@ WITH (DATA_COMPRESSION = PAGE);
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '86efc212-b764-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
 
@@ -89,4 +91,78 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject_SqlModules_61_SelectIdentifier_Union].[alias_QuoteName]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T', @level2type = N'COLUMN', @level2name = N'alias_QuoteName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'usp_persistence_RepoObject_guid', @value = N'677581A6-3C9C-EB11-84F6-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_xref', @value = N'xref:sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_guid', @value = N'127E4BE1-8F64-EB11-84DD-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_fullname2', @value = N'sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_fullname', @value = N'[sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_update_changed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_truncate', @value = N'1', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_insert', @value = N'1', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_missing', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_changed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_check_for_empty_source', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_check_duplicate_per_pk', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence', @value = N'1', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_history_columns', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_history', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_71_reference_ExpliciteTableAlias.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_72_reference_NoTableAlias.adoc[]
+* xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
 

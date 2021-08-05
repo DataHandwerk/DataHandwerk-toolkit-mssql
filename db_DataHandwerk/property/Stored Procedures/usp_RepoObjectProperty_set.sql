@@ -111,3 +111,25 @@ Execute sp_addextendedproperty
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_RepoObjectProperty_set';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [property].[RepoObjectProperty]
+* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+EXEC [property].[usp_RepoObjectProperty_set]
+@RepoObject_fullname2 = ''SchemaName.ObjectName''
+, @property_name = ''MS_Description''
+, @property_value =
+''description for SchemaName.ObjectName
+
+see details in xref:manual:create-update-connect-repo-db.adoc[]
+''', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:property.RepoObjectProperty.adoc[]
+* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_set';
+

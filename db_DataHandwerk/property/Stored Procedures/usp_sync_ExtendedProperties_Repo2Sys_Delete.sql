@@ -482,36 +482,69 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_ExtendedProperties_Repo2Sys_Delete]
-[cols="5,200,1,100,100,1"]
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [property].[usp_sync_ExtendedProperties_Repo2Sys_Delete]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |100
-|DECLARE
-|0
 |
+*DECLARE*
+
+
 |
+
+|400
+|
+*Level0-Properties - DROP*
+
+* d
+* [property].[ExtendedProperty_Repo2Sys_level0]
+* [sys].[sp_dropextendedproperty]
+
 |
 
 |410
-|Level1-Properties - DROP
-|0
-|[repo].[ExtendedProperty_Repo2Sys_level1]
-|[sys].[sp_dropextendedproperty]
-|d
+|
+*Level1-Properties - DROP*
+
+* d
+* [property].[ExtendedProperty_Repo2Sys_level1]
+* [sys].[sp_dropextendedproperty]
+
+|
 
 |420
-|Level2-Properties - DROP
-|0
-|[repo].[ExtendedProperty_Repo2Sys_level2_Union]
-|[sys].[sp_dropextendedproperty]
-|d
+|
+*Level2-Properties - DROP*
+
+* d
+* [property].[ExtendedProperty_Repo2Sys_level2_Union]
+* [sys].[sp_dropextendedproperty]
+
+|
 |===
 ', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_Delete';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [property].[ExtendedProperty_Repo2Sys_level0]
+* [property].[ExtendedProperty_Repo2Sys_level1]
+* [property].[ExtendedProperty_Repo2Sys_level2_Union]
+* [repo_sys].[ExtendedProperties_ParameterForAddUpdateDrop]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_Delete';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [property].[usp_sync_ExtendedProperties_Repo2Sys_Delete]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_Delete';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level0.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level1.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level2_Union.adoc[]
+* xref:repo_sys.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_Delete';
 

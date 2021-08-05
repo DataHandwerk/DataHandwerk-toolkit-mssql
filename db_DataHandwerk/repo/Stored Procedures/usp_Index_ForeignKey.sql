@@ -204,28 +204,60 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_Index_ForeignKey]
-[cols="5,200,1,100,100,1"]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |310
-|create missing Index_virtual for ForeignKey
-|0
-|[repo].[ForeignKey_Index_guid]
-|[repo].[Index_virtual]
+|
+*create missing Index_virtual for ForeignKey*
+
+* [repo].[ForeignKey_Index_guid]
+* [repo].[Index_virtual]
+
 |
 
 |410
-|[repo].[usp_Index_finish]
-|0
 |
+*[repo].[usp_PERSIST_ForeignKey_Indexes_union_T]*
+
+* `EXEC [repo].[usp_PERSIST_ForeignKey_Indexes_union_T]`
+
 |
+
+|510
+|
+*[repo].[usp_Index_finish]*
+
+* `EXEC [repo].[usp_Index_finish]`
+
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_ForeignKey';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[ForeignKey_Indexes]
+* [repo].[usp_Index_finish]
+* [repo].[usp_Index_virtual_set]
+* [repo].[usp_PERSIST_ForeignKey_Indexes_union_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_ForeignKey';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_Index_ForeignKey]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_ForeignKey';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_ForeignKey';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.ForeignKey_Indexes.adoc[]
+* xref:repo.usp_Index_finish.adoc[]
+* xref:repo.usp_Index_virtual_set.adoc[]
+* xref:repo.usp_PERSIST_ForeignKey_Indexes_union_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_ForeignKey';
 

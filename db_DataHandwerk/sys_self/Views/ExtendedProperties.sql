@@ -1,4 +1,4 @@
-﻿Create View sys_self.ExtendedProperties
+﻿CREATE View sys_self.ExtendedProperties
 As
 --
 Select
@@ -306,3 +306,7 @@ Execute sp_addextendedproperty
   , @level1name = N'ExtendedProperties'
   , @level2type = N'COLUMN'
   , @level2name = N'class';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sys_self.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
+

@@ -26,6 +26,8 @@
 
 
 
+
+
 GO
 
 
@@ -175,4 +177,33 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '92d69880-28
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9cd69880-2874-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual', @level2type = N'COLUMN', @level2name = N'has_managedName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'index_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'index_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'3690291C-9D61-EB11-84DC-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.Index_union.adoc[]
+* xref:repo.Index_virtual_ForUpdate.adoc[]
+* xref:repo.Index_virtual_IndexPatternColumnGuid.adoc[]
+* xref:repo.Index_virtual_SysObject.adoc[]
+* xref:repo.IndexColumn_virtual_gross.adoc[]
+* xref:repo.IndexColumn_virtual_referenced_setpoint.adoc[]
+* xref:repo.IndexReferencedReferencing.adoc[]
+* xref:repo.usp_Index_finish.adoc[]
+* xref:repo.usp_index_inheritance.adoc[]
+* xref:repo.usp_Index_virtual_set.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual';
 

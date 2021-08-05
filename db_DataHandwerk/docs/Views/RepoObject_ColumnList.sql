@@ -15,11 +15,11 @@ Select
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                             Cast('' As NVarchar(Max))
                           , '[[column-'
-                          , docs.fs_cleanStringForAnchorId ( roc.RepoObjectColumn_name )
+                          , docs.fs_cleanStringForAnchorId ( roc.Column_name )
                           , ']]'
                           , Char ( 13 ) + Char ( 10 )
                           , '=== '
-                          , docs.fs_cleanStringForLabel ( roc.RepoObjectColumn_name )
+                          , docs.fs_cleanStringForLabel ( roc.Column_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
                           , '[cols="d,m,m,m,m,d"]'
@@ -32,7 +32,7 @@ Select
                                      , Char ( 13 ) + Char ( 10 )
                                      , '|'
                                      , Iif(roc.is_index_primary_key = 1, '*', '')
-                                     , roc.RepoObjectColumn_name
+                                     , roc.Column_name
                                      , Iif(roc.is_index_primary_key = 1, '*', '')
                                      , Char ( 13 ) + Char ( 10 )
                                      , '|'
@@ -154,7 +154,7 @@ Select
                                 roc.is_index_primary_key Desc
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.RepoObjectColumn_name)
+                              , roc.Column_name)
   , AntoraPkColumnTableRows    =
   --
   String_Agg (
@@ -171,7 +171,7 @@ Select
                                              , '|'
                                              , '*'
                                              , '<<column-'
-                                             , docs.fs_cleanStringForAnchorId ( roc.RepoObjectColumn_name )
+                                             , docs.fs_cleanStringForAnchorId ( roc.Column_name )
                                              , '>>'
                                              , '*'
                                              , Char ( 13 ) + Char ( 10 )
@@ -200,7 +200,7 @@ Select
                                 roc.is_index_primary_key Desc
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.RepoObjectColumn_name)
+                              , roc.Column_name)
   , AntoraNonPkColumnTableRows =
   --
   String_Agg (
@@ -216,7 +216,7 @@ Select
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
                                              , '<<column-'
-                                             , docs.fs_cleanStringForAnchorId ( roc.RepoObjectColumn_name )
+                                             , docs.fs_cleanStringForAnchorId ( roc.Column_name )
                                              , '>>'
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
@@ -244,7 +244,7 @@ Select
                                 roc.is_index_primary_key Desc
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.RepoObjectColumn_name)
+                              , roc.Column_name)
   , PlantumlPkEntityColumns    =
   --
   String_Agg (
@@ -265,7 +265,7 @@ Select
                                                End
                                              --PK in bold
                                              , '**'
-                                             , roc.RepoObjectColumn_name
+                                             , roc.Column_name
                                              , '**'
                                              , ' : '
                                              , roc.Repo_user_type_fullname
@@ -282,7 +282,7 @@ Select
                                 roc.is_index_primary_key Desc
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.RepoObjectColumn_name)
+                              , roc.Column_name)
   , PlantumlNonPkEntityColumns =
   --
   String_Agg (
@@ -301,7 +301,7 @@ Select
                                                        Then
                                                        Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
                                                End
-                                             , roc.RepoObjectColumn_name
+                                             , roc.Column_name
                                              , ' : '
                                              , roc.Repo_user_type_fullname
                                              --, CASE 
@@ -317,7 +317,7 @@ Select
                                 roc.is_index_primary_key Desc
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.RepoObjectColumn_name)
+                              , roc.Column_name)
 From
     repo.RepoObjectColumn_gross As roc
 Where
@@ -406,3 +406,38 @@ Execute sp_addextendedproperty
   , @level0name = N'docs'
   , @level1type = N'VIEW'
   , @level1name = N'RepoObject_ColumnList';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[RepoObjectColumn_gross]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'E88818B0-CA97-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Adoc.adoc[]
+* xref:docs.RepoObject_Plantuml_Entity.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.fs_cleanStringForAnchorId.adoc[]
+* xref:docs.fs_cleanStringForLabel.adoc[]
+* xref:repo.RepoObjectColumn_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+

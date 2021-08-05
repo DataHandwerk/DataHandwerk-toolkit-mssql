@@ -177,3 +177,189 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'c51b7592-0397-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[usp_AntoraExport_DocSnippet]
+* [docs].[usp_AntoraExport_navigation]
+* [docs].[usp_AntoraExport_ObjectPage]
+* [docs].[usp_AntoraExport_ObjectPageTemplate]
+* [docs].[usp_AntoraExport_ObjectPartialProperties]
+* [docs].[usp_AntoraExport_ObjectPuml]
+* [docs].[usp_AntoraExport_Page_IndexSemanticGroup]
+* [logs].[usp_ExecutionLog_insert]
+* [property].[usp_RepoObjectProperty_collect]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* Database documentation uses https://antora.org/[Antora] and the markup language https://docs.asciidoctor.org/asciidoc/latest/[AsciiDoc]. One of many advantages of asciidoc over Markdown is the ability to use includes. This allows the *docs-as-code* and *code-as-docs* concepts to be implemented very well.
+* The procedure xref:sqldb:docs.usp_AntoraExport.adoc[] exports required files into the filesystem.
+** check and correct xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraDocModulFolder'', ''''), a possible parameter is
++
+====
+D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb\
+====
+
+[discrete]
+=== How does it work?
+
+* Antora uses https://docs.antora.org/antora/2.3/navigation/files-and-lists/[Navigation Files and Lists]. Content for these files is exported:
+** export procedure: xref:sqldb:docs.usp_AntoraExport_navigation.adoc[]
+* exported object types are defined in the view xref:sqldb:config.type.adoc[]
++
+....
+SELECT [type]
+ , [type_desc]
+ , [is_DocsOutput]
+FROM [config].[type]
+WHERE [is_DocsOutput] = 1
+order by [type_desc] desc
+....
+* source pages per object are exported into (Adoc_AntoraDocModulFolder)``pages/schemaname.objectname.adoc``
+** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPage.adoc[]
+** the content of all page files per object is the same, it has only includes. The content is defined in xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
+ the default content is (real code without leading ''/''):
++
+====
+....
+/include::partial$template/master-page-1.adoc[]
+/include::partial$template/master-page-examples.adoc[]
+/include::partial$template/master-page-4.adoc[]
+/include::partial$template/master-page-5.adoc[]
+....
+====
+** the content of these includes is defined in xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraPageTemplate'', ''x'') (*non empty* `Sub_parameter` ''x''). Avoild blanks, because these `Sub_parameter` values become filname suffix.
+* the template content is the same for all objects. We use +{docname}+ and get the final content from individual ''partials'' per object. (real code without leading ''/'')
++
+====
+....
+= {docname}
+
+/include::partial${docname}.adoc[tag=existing_properties]
+
+type:
+/include::partial${docname}.adoc[tag=SysObject_type]
+(
+/include::partial${docname}.adoc[tag=SysObject_type_name]
+), modify_date:
+/include::partial${docname}.adoc[tag=SysObject_modify_date]
+
+/ifdef::ExistsProperty--is_repo_managed[]
+is_repo_managed:
+/include::partial${docname}.adoc[tag=is_repo_managed]
+/endif::ExistsProperty--is_repo_managed[]
+....
+====
+** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
+* the individual content per object is exported as ''partial'' into (Adoc_AntoraDocModulFolder)``partials/schemaname.objectname.adoc``
+** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
+** all properties from xref:sqldb:property.RepoObjectProperty.adoc[] are exported with a `tag` per property
+** some additional `tag` are exported
+** the exported content is defined in xref:sqldb:docs.RepoObject_Adoc.adoc[]
+* the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
+** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPuml.adoc[]
+** individual diagrams per object are exported into (Adoc_AntoraDocModulFolder)``partials/puml/``
+
+include::sqldb:partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'--ensure consistent repository before sql parsing:
+Exec repo.usp_main;
+
+--use sqlparser to get the current parsing results
+
+--persist sql parsing results:
+Exec sqlparse.usp_PERSIST_RepoObject_SqlModules_41_from_T;
+Exec sqlparse.usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T;
+
+--ensure consistent repository after sql parsing:
+Exec repo.usp_main;
+
+--export Antora documentation sources
+Exec docs.usp_AntoraExport;', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.usp_AntoraExport_DocSnippet.adoc[]
+* xref:docs.usp_AntoraExport_navigation.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPage.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
+* xref:docs.usp_AntoraExport_Page_IndexSemanticGroup.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:property.usp_RepoObjectProperty_collect.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [docs].[usp_AntoraExport]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|300
+|
+*[repo].[usp_RepoObjectProperty_collect]*
+
+* `EXEC [property].[usp_RepoObjectProperty_collect]`
+
+|
+
+|400
+|
+*[docs].[usp_AntoraExport_navigation]*
+
+* `EXEC [docs].[usp_AntoraExport_navigation]`
+
+|
+
+|410
+|
+*[docs].[usp_AntoraExport_DocSnippet]*
+
+* `EXEC [docs].[usp_AntoraExport_DocSnippet]`
+
+|
+
+|500
+|
+*[docs].[usp_AntoraExport_ObjectPage]*
+
+* `EXEC [docs].[usp_AntoraExport_ObjectPage]`
+
+|
+
+|600
+|
+*[docs].[usp_AntoraExport_ObjectPageTemplate]*
+
+* `EXEC [docs].[usp_AntoraExport_ObjectPageTemplate]`
+
+|
+
+|700
+|
+*[docs].[usp_AntoraExport_ObjectPartialProperties]*
+
+* `EXEC [docs].[usp_AntoraExport_ObjectPartialProperties]`
+
+|
+
+|800
+|
+*[docs].[usp_AntoraExport_ObjectPuml]*
+
+* `EXEC [docs].[usp_AntoraExport_ObjectPuml]`
+
+|
+
+|900
+|
+*[docs].[usp_AntoraExport_Page_IndexSemanticGroup]*
+
+* `EXEC [docs].[usp_AntoraExport_Page_IndexSemanticGroup]`
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+

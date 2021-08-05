@@ -11,6 +11,12 @@ GO
 ALTER TABLE [reference].[RepoObjectColumnSource_virtual] NOCHECK CONSTRAINT [FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source];
 
 
+
+
+GO
+ALTER TABLE [reference].[RepoObjectColumnSource_virtual] NOCHECK CONSTRAINT [FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source];
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4377342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumnSource_virtual_RepoObjectColumn_guid1';
 
@@ -41,4 +47,22 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4a773
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4077342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObjectColumn_guid,Source_RepoObjectColumn_guid', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = '4177342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_reference_virtual.adoc[]
+* xref:reference.usp_RepoObjectColumnSource_virtual_set.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual';
 

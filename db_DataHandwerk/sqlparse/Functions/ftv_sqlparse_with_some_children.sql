@@ -1,4 +1,4 @@
-﻿Create Function [sqlparse].ftv_sqlparse_with_some_children
+﻿CREATE Function [sqlparse].ftv_sqlparse_with_some_children
 (
     @json_array NVarchar(Max)
 )
@@ -64,3 +64,9 @@ Execute sp_addextendedproperty
   , @level0name = N'sqlparse'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_sqlparse_with_some_children';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.ftv_sqlparse_IdentifierList__TestOnly.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_20_statement_children.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_24_IdentifierList_children.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'FUNCTION', @level1name = N'ftv_sqlparse_with_some_children';
+

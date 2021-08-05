@@ -1,7 +1,7 @@
 ﻿
 --required colums depening on [repo].[RepoObject_persistence]
 --WHERE rop.[has_history_columns] = 1  OR rop.[has_history] = 1
-Create View repo.RepoObjectColumn_HistValidColums_setpoint
+CREATE View repo.RepoObjectColumn_HistValidColums_setpoint
 As
 Select
     rop.target_RepoObject_guid                          As RepoObject_guid
@@ -102,3 +102,31 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'Repo_generated_always_type';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_get_parameter_value]
+* [repo].[RepoObject_persistence]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid,column_name', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid,RepoObjectColumn_name', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,sysname', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = '226956d4-129e-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_get_parameter_value.adoc[]
+* xref:repo.RepoObject_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_HistValidColums_setpoint';
+

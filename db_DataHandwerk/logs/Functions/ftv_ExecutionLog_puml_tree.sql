@@ -221,3 +221,45 @@ Return
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fbafba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[ExecutionLog_gross]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+--get all puml for all executions
+
+Select
+    execution_instance_guid
+  , id
+  , parent_execution_log_id
+  , Depth
+  , proc_schema_name
+  , proc_name
+  , step_id
+  , duration__current_execution_guid
+  , PlantUmlTree
+  , PlantUmlTreeTable
+From
+    logs.ftv_ExecutionLog_puml_tree ( Default, Default )
+Order By
+    id;
+
+--get the puml for a specific execution
+
+Select
+    *
+From
+    logs.ftv_ExecutionLog_puml_tree ( ''069F29D0-829E-4D2B-BAE9-9D032DA1FF22'', Default )
+Order By
+    id;', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:logs.ftv_ExecutionLog_puml_tree_per_execution.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.ExecutionLog_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree';
+

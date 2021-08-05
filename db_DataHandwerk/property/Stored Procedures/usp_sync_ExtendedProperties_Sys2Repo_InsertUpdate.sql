@@ -330,50 +330,99 @@ EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]
-[cols="5,200,1,100,100,1"]
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [property].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |100
-|DECLARE
-|0
 |
-|
+*DECLARE*
+
+
 |
 
 |310
-|repo.RepoObjectProperty - INSERT
-|0
-|[repo].[RepoObjectProperty_sys_repo]
-|[repo].[RepoObjectProperty]
-|i
+|
+*property.RepoObjectProperty - INSERT*
+
+* i
+* [property].[RepoObjectProperty_sys_repo]
+* [property].[RepoObjectProperty]
+
+|
 
 |320
-|repo.RepoObjectProperty - UPDATE
-|0
-|[repo].[RepoObjectProperty_sys_repo]
-|[repo].[RepoObjectProperty]
-|u
+|
+*property.RepoObjectProperty - UPDATE*
+
+* u
+* [property].[RepoObjectProperty_sys_repo]
+* [property].[RepoObjectProperty]
+
+
+update table [property].[RepoObjectProperty] via view
+
+|
 
 |410
-|repo.RepoObjectColumnProperty - INSERT
-|0
-|[repo].[RepoObjectColumnProperty_sys_repo]
-|[repo].[RepoObjectColumnProperty]
-|i
+|
+*property.RepoObjectColumnProperty - INSERT*
+
+* i
+* [property].[RepoObjectColumnProperty_sys_repo]
+* [property].[RepoObjectColumnProperty]
+
+|
 
 |420
-|repo.RepoObjectColumnProperty - UPDATE
-|0
-|[repo].[RepoObjectColumnProperty_sys_repo]
-|[repo].[RepoObjectColumnProperty]
-|u
+|
+*property.RepoObjectColumnProperty - UPDATE*
+
+* u
+* [property].[RepoObjectColumnProperty_sys_repo]
+* [property].[RepoObjectColumnProperty]
+
+
+update table [property].[RepoObjectColumnProperty] via view
+
+|
+
+|520
+|
+*UPDATE [repo].[RepoSchema] - [RepoSchema_ms_description]*
+
+* u
+* [repo_sys].[ExtendedProperties]
+* [repo].[RepoSchema]
+
+|
 |===
 ', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [property].[RepoObjectColumnProperty]
+* [property].[RepoObjectColumnProperty_sys_repo]
+* [property].[RepoObjectProperty]
+* [property].[RepoObjectProperty_sys_repo]
+* [repo].[RepoSchema]
+* [repo_sys].[ExtendedProperties]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [property].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:property.RepoObjectColumnProperty.adoc[]
+* xref:property.RepoObjectColumnProperty_sys_repo.adoc[]
+* xref:property.RepoObjectProperty.adoc[]
+* xref:property.RepoObjectProperty_sys_repo.adoc[]
+* xref:repo.RepoSchema.adoc[]
+* xref:repo_sys.ExtendedProperties.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
 

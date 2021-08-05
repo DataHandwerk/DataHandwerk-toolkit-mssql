@@ -177,3 +177,51 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8b18814c-9295-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referenced_level_T';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [reference].[RepoObject_referenced_level]
+* [reference].[RepoObject_referenced_level_T]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referenced_level_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [reference].[usp_PERSIST_RepoObject_referenced_level_T]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referenced_level_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport_ObjectPuml.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referenced_level_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.RepoObject_referenced_level.adoc[]
+* xref:reference.RepoObject_referenced_level_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referenced_level_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [reference].[usp_PERSIST_RepoObject_referenced_level_T]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|400
+|
+*truncate persistence target*
+
+* D
+* [reference].[RepoObject_referenced_level_T]
+
+|
+
+|800
+|
+*insert all*
+
+* I
+* [reference].[RepoObject_referenced_level]
+* [reference].[RepoObject_referenced_level_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_referenced_level_T';
+

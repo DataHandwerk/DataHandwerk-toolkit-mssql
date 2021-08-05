@@ -1,4 +1,4 @@
-﻿Create Function [sqlparse].ftv_sqlparse
+﻿CREATE Function [sqlparse].ftv_sqlparse
 (
     @json_array NVarchar(Max)
 )
@@ -46,3 +46,7 @@ Execute sp_addextendedproperty
   , @level0name = N'sqlparse'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_sqlparse';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_22_identifier_alias_AS.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'FUNCTION', @level1name = N'ftv_sqlparse';
+

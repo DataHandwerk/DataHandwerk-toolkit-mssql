@@ -111,3 +111,21 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo_sys].[ExtendedProperties].[class]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop', @level2type = N'COLUMN', @level2name = N'class';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type_level1type_level2type]
+* [repo_sys].[ExtendedProperties]
+* [sys_dwh].[objects]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.usp_sync_ExtendedProperties_Repo2Sys_Delete.adoc[]
+* xref:property.usp_sync_ExtendedProperties_Repo2Sys_InsertUpdate.adoc[]
+* xref:repo_sys.usp_dropextendedproperty_level_1.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.type_level1type_level2type.adoc[]
+* xref:repo_sys.ExtendedProperties.adoc[]
+* xref:sys_dwh.objects.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties_ParameterForAddUpdateDrop';
+

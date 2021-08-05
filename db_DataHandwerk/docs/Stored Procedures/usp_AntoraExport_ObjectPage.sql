@@ -207,3 +207,98 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'eb5bf6c2-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDir NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\ */
+,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
+,@userName NVARCHAR(250) = ''loginName'' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
+,@password NVARCHAR(250) = ''password''', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
+* [docs].[RepoObject_OutputFilter]
+* [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* exported object types are defined in the view xref:config.type.adoc[]
++
+....
+SELECT [type]
+ , [type_desc]
+ , [is_DocsOutput]
+FROM [config].[type]
+WHERE [is_DocsOutput] = 1
+order by [type_desc] desc
+....
+* source pages per object are exported into (Adoc_AntoraDocModulFolder)``pages/schemaname.objectname.adoc``
+** export procedure: xref:docs.usp_AntoraExport_ObjectPage.adoc[]
+** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
+ the default content is (real code without leading ''/''):
++
+====
+....
+/include::partial$template/master-page-1.adoc[]
+/include::partial$template/master-page-examples.adoc[]
+/include::partial$template/master-page-4.adoc[]
+/include::partial$template/master-page-5.adoc[]
+....
+====
+
+include::partial$docsnippet/antora-export-prerequisites.adoc[]
+', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [docs].[usp_AntoraExport_ObjectPage]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
+* xref:docs.RepoObject_OutputFilter.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [docs].[usp_AntoraExport_ObjectPage]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|110
+|
+*configure database connection*
+
+
+|
+
+|120
+|
+*configure outputDir*
+
+
+|
+
+|210
+|
+*declare variables*
+
+
+|
+
+|410
+|
+*export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N'''')*
+
+* u
+* [repo].[Parameter]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+

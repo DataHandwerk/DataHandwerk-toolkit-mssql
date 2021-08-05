@@ -1,4 +1,8 @@
-/*
+﻿/*
+CURRENTLY NOT WORKING
+wrong example 
+Invalid column name 'SysObject_query_plan'.
+
 
 OPTION(MAXRECURSION 100) should be used from outer
 it is not possible to include this into the table valued function
@@ -11,7 +15,7 @@ SELECT TOP 100
 FROM
      repo.RepoObject AS ro
      CROSS APPLY
-     repo_sys.ftv_query_plan_extract_source(SysObject_query_plan) AS source_columns
+     [reference].[ftv_query_plan_extract_source](SysObject_query_plan) AS source_columns
 WHERE  NOT [ro].[SysObject_query_plan] IS NULL OPTION(
                                                       MAXRECURSION 100)
 
@@ -39,7 +43,7 @@ The expression computes from input columns and constant values.
 As mentioned above It's based only on empirical observation and needs to be tested properly.
 
 */
-Create Function [reference].ftv_query_plan_extract_source
+CREATE Function [reference].[ftv_query_plan_extract_source]
 (
     @query_plan Xml
 )
@@ -251,3 +255,7 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_query_plan_extract_source';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.usp_RepoObjectSource_QueryPlan.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_query_plan_extract_source';
+

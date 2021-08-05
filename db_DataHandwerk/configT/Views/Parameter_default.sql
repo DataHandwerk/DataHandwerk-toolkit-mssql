@@ -638,3 +638,54 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'Parameter_default_value';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'PK_Parameter', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'Parameter_name,sub_Parameter', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'varchar(52),nvarchar(27)', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'14E2E7E8-FB95-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
+* default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
+* resulting content is available in
+** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
+** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_nvarchar[+config.Parameter.Parameter_value__result_nvarchar+]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage_2', @value = N'
+--delete from [config].[Parameter], what not is defined here in this view (Dangerous: possible data loss)
+--do not delete based on [sub_Parameter]!
+--they can always be added in [config].[Parameter]!
+
+DELETE T
+FROM [config].[Parameter] T
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM [configT].[Parameter_default] S
+  WHERE S.[Parameter_name] = T.[Parameter_name]
+  )', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+--merge this view into [config].[Parameter]:
+
+EXEC [config].[usp_init_parameter]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:config.usp_init_parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+

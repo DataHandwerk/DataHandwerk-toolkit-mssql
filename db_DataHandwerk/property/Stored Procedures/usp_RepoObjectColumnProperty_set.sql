@@ -145,3 +145,24 @@ End;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2f12ce32-0e9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnProperty_set';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [property].[RepoObjectColumnProperty]
+* [repo].[RepoObject]
+* [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnProperty_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+EXEC property.usp_RepoObjectColumnProperty_set
+    @RepoObject_fullname2 = ''SchemaName.TableName''
+  , @RepoObjectColumn_name = ''ColumnName''
+  , @property_name = ''MS_Description''
+  , @property_value = ''some text, multiples lines are OK'';', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnProperty_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:property.RepoObjectColumnProperty.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumnProperty_set';
+

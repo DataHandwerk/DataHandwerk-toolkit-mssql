@@ -230,3 +230,99 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ea5bf6c2-0593-eb11-84f2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDir NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\ */
+,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
+,@userName NVARCHAR(250) = ''loginName'' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
+,@password NVARCHAR(250) = ''password''', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
+* [docs].[RepoObject_OutputFilter]
+* [docs].[usp_PERSIST_RepoObject_Adoc_T]
+* [docs].[usp_PERSIST_RepoObject_IndexList_T]
+* [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the individual content per object is exported as ''partial'' into (Adoc_AntoraDocModulFolder)``partials/schemaname.objectname.adoc``
+** export procedure: xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
+** all properties from xref:property.RepoObjectProperty.adoc[] are exported with a `tag` per property
+** some additional `tag` are exported
+** the exported content is defined in xref:docs.RepoObject_Adoc.adoc[]
+
+include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [docs].[usp_AntoraExport_ObjectPartialProperties]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
+* xref:docs.RepoObject_OutputFilter.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_Adoc_T.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_IndexList_T.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [docs].[usp_AntoraExport_ObjectPartialProperties]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|110
+|
+*configure database connection*
+
+
+|
+
+|120
+|
+*configure outputDir*
+
+
+|
+
+|210
+|
+*declare variables*
+
+
+|
+
+|310
+|
+*[docs].[usp_PERSIST_RepoObject_IndexList_T]*
+
+* `EXEC [docs].[usp_PERSIST_RepoObject_IndexList_T]`
+
+|
+
+|320
+|
+*[docs].[usp_PERSIST_RepoObject_Adoc_T]*
+
+* `EXEC [docs].[usp_PERSIST_RepoObject_Adoc_T]`
+
+|
+
+|410
+|
+*export FROM [docs].[RepoObject_Adoc_T]*
+
+* u
+* [docs].[RepoObject_Adoc_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+

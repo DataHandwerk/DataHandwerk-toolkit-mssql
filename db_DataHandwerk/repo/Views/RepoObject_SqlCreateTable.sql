@@ -406,3 +406,64 @@ Execute sp_addextendedproperty
   , @level1name = N'RepoObject_SqlCreateTable'
   , @level2type = N'COLUMN'
   , @level2name = N'persistence_source_RepoObject_fullname';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_get_parameter_value]
+* [repo].[Index_gross]
+* [repo].[Index_SqlConstraint_PkUq]
+* [repo].[RepoObject]
+* [repo].[RepoObject_ColumnList]
+* [repo].[RepoObject_gross]
+* [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'662DB2AA-0F96-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+--get sql code CREATE OR ALTER TABLE for persistence tables
+Select
+    RepoObject_guid
+  , RepoObject_fullname
+  , SqlCreateTable
+--, DbmlTable
+--, ConList
+--, persistence_source_RepoObject_fullname
+--, persistence_source_RepoObject_guid
+--, persistence_source_SysObject_fullname
+From
+    dhw_self.repo.RepoObject_SqlCreateTable
+Where
+    Not persistence_source_RepoObject_guid Is Null
+Order By
+    RepoObject_fullname;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.ftv_RepoObject_ColumReferenceRepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_dwh_database.adoc[]
+* xref:config.ftv_get_parameter_value.adoc[]
+* xref:repo.Index_gross.adoc[]
+* xref:repo.Index_SqlConstraint_PkUq.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObject_ColumnList.adoc[]
+* xref:repo.RepoObject_gross.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+

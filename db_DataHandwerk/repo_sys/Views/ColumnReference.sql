@@ -1,4 +1,4 @@
-﻿CREATE VIEW [repo_sys].[ColumnReference]
+CREATE VIEW [repo_sys].[ColumnReference]
 AS
 --
 --muss / kann noch angereichert werden
@@ -109,5 +109,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f6f47
 
 
 GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo_sys].[SysObject]
+* [sys_dwh].[dm_sql_referenced_entities]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ColumnReference';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_execution_plan_issue', @value = N'1', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ColumnReference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo_sys.SysObject.adoc[]
+* xref:sys_dwh.dm_sql_referenced_entities.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ColumnReference';
 

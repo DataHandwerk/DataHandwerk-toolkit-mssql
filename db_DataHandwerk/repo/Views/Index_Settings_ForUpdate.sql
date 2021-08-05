@@ -55,3 +55,13 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6d715
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '687159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_Settings_ForUpdate', @level2type = N'COLUMN', @level2name = N'index_guid';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.Index_Settings.adoc[]
+* xref:repo.Index_union.adoc[]
+* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_Settings_ForUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_Settings_ForUpdate', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+

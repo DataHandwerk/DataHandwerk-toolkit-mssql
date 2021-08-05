@@ -1,4 +1,4 @@
-﻿Create Function [config].ftv_dwh_database
+﻿CREATE Function [config].ftv_dwh_database
 ()
 --returns nvarchar(128)
 Returns Table
@@ -24,3 +24,20 @@ Execute sp_addextendedproperty
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_dwh_database';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[Parameter]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'ftv_dwh_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_reference_QueryPlan.adoc[]
+* xref:reference.usp_update_Referencing_Count.adoc[]
+* xref:repo.RepoObject_SqlCreateTable.adoc[]
+* xref:repo.usp_update_Referencing_Count.adoc[]
+* xref:repo_sys.ExtendedProperties.adoc[]
+* xref:repo_sys.sql_expression_dependencies.adoc[]
+* xref:repo_sys.SysColumn.adoc[]
+* xref:uspgenerator.GeneratorUsp_SqlUsp.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'ftv_dwh_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'ftv_dwh_database';
+

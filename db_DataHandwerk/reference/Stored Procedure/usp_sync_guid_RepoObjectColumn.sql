@@ -1647,3 +1647,54 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type_level1type_level2type]
+* [graph].[RepoObjectColumn]
+* [graph].[RepoObjectColumn_S]
+* [graph].[usp_PERSIST_RepoObjectColumn]
+* [logs].[usp_ExecutionLog_insert]
+* [reference].[RepoObjectColumnSource_virtual]
+* [repo].[IndexColumn_virtual]
+* [repo].[RepoObject]
+* [repo].[RepoObject_persistence]
+* [repo].[RepoObjectColumn]
+* [repo].[RepoObjectColumn_HistValidColums_setpoint]
+* [repo].[RepoObjectColumn_RequiredRepoObjectColumnMerge]
+* [repo].[SysColumn_RepoObjectColumn_via_guid]
+* [repo].[SysColumn_RepoObjectColumn_via_name]
+* [repo_sys].[SysColumn]
+* [repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoObjectColumn_guid with dwh database extended properties "RepoObjectColumn_guid"', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_sync_guid_RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_sync_guid.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
+* xref:configT.type_level1type_level2type.adoc[]
+* xref:graph.RepoObjectColumn.adoc[]
+* xref:graph.RepoObjectColumn_S.adoc[]
+* xref:graph.usp_PERSIST_RepoObjectColumn.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.RepoObjectColumnSource_virtual.adoc[]
+* xref:repo.IndexColumn_virtual.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObject_persistence.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]
+* xref:repo.RepoObjectColumn_HistValidColums_setpoint.adoc[]
+* xref:repo.RepoObjectColumn_RequiredRepoObjectColumnMerge.adoc[]
+* xref:repo.SysColumn_RepoObjectColumn_via_guid.adoc[]
+* xref:repo.SysColumn_RepoObjectColumn_via_name.adoc[]
+* xref:repo_sys.SysColumn.adoc[]
+* xref:repo_sys.usp_AddOrUpdateExtendedProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+

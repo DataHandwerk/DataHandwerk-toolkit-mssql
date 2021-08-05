@@ -553,3 +553,173 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b60747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[RepoSchema]
+* [repo].[SysSchema_RepoSchema_via_guid]
+* [repo].[SysSchema_RepoSchema_via_name]
+* [repo_sys].[SysSchema]
+* [repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoSchema_guid with dwh database extended properties "RepoSchema_guid"', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_sync_guid_RepoSchema]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_sync_guid.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.RepoSchema.adoc[]
+* xref:repo.SysSchema_RepoSchema_via_guid.adoc[]
+* xref:repo.SysSchema_RepoSchema_via_name.adoc[]
+* xref:repo_sys.SysSchema.adoc[]
+* xref:repo_sys.usp_AddOrUpdateExtendedProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_guid_RepoSchema]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|210
+|
+*SET several RepoSchema_SysSchema_...*
+
+* u
+* [repo_sys].[SysSchema]
+* [repo].[RepoSchema]
+
+
+use Schemas with [RepoSchema_guid] stored in extended properties
+	
+* SysSchema could be renamed after previous sync
+** => update SysSchema properties in RepoSchema
+** don''t change RepoSchema names
+
+|
+
+|310
+|
+*SET [SysSchema_name] = [repo].[RepoSchema].[RepoSchema_guid]*
+
+* u
+* [repo_sys].[SysSchema]
+* [repo].[RepoSchema]
+
+
+in case of possible conflict when inserting missing guid because of [UK_RepoSchema__SysNames] conflicting entries get 
+[SysSchema_name] = [repo].[RepoSchema].[RepoSchema_guid]
+
+this will allow INSERT in the next step without issues
+
+|
+
+|410
+|
+*[SysSchema_RepoSchema_guid] -> [RepoSchema_guid]; name*
+
+* i
+* [repo_sys].[SysSchema]
+* [repo].[RepoSchema]
+
+
+if a [RepoSchema_guid] is stored in extended properties but missing in RepoSchema, it should be restored
+
+use schemas with [RepoSchema_guid] stored in extended properties
+	
+* restore / insert RepoSchema_guid from [SysSchema_RepoSchema_guid]
+* SysSchema names are restored as SysSchema names
+* a conflict could happen when some RepoSchema have been renamed and when they now conflict with existing RepoSchema names +
+  [UK_RepoSchema_Names] +
+  => thats why we use [RepoSchema_guid] as [RepoSchema_name] to avoid conflicts we will later rename [RepoSchema_name] to [SysSchema_name] where this is possible
+|
+
+|510
+|
+*INSERT still missing Schema*
+
+* i
+* [repo_sys].[SysSchema]
+* [repo].[RepoSchema]
+
+
+
+ensure all schemas existing in database (as SysSchema) are also included into [repo].[RepoSchema]
+	
+* this should be SysSchema without RepoSchema_guid in extended properties
+* when inserting they get a RepoSchema_guid
+* we should use this new RepoSchema_guid as [RepoSchema_name], but we don''t know it, when we insert. That''s why we use anything else unique: NEWID()
+
+|
+
+|610
+|
+*SET [RepoSchema_name] = [SysSchema_name]*
+
+* u
+* [repo].[RepoSchema]
+* [repo].[RepoSchema]
+
+
+now we try to set [RepoSchema_name] = [SysSchema_name] where this is possible whithout conflicts
+
+remaining [RepoSchema_name] still could have some guid, and this needs to solved separately
+
+|
+
+|2000
+|
+*config.fs_get_parameter_value ( ''dwh_readonly'', '''' ) = 0*
+
+* `IF config.fs_get_parameter_value ( ''dwh_readonly'', '''' ) = 0`
+
+|
+
+|2010
+|
+*write RepoSchema_guid into extended properties of SysSchema*
+
+* [repo].[RepoSchema]
+* [repo_sys].[SysSchema]
+
+|2000
+
+|2110
+|
+*SET is_SysSchema_missing = 1*
+
+* u
+* [repo].[RepoSchema]
+* [repo].[RepoSchema]
+
+
+objects deleted or renamed in database but still referenced in [repo].[RepoSchema] will be marked in RepoSchema with is_SysSchema_missing = 1
+
+check is required by `schema_name` and `name` but not by SysSchema_ID, because SysSchema_ID can change when objects are recreated
+
+|2010
+
+|2120
+|
+*DELETE; marked missing SysSchema*
+
+* d
+* [repo].[RepoSchema]
+* [repo].[RepoSchema]
+
+
+delete objects, missing in SysSchemas
+|2110
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+

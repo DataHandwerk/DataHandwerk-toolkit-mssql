@@ -12,19 +12,18 @@ EXEC [repo].[usp_PERSIST_RepoObject_referencing_level_T]
 
 check:
 
-SELECT * from [repo].[ftv_RepoObject_ReferencedReferencing]('69CE8EB8-5F62-EB11-84DC-A81E8446D5B0', 1, 1)
+SELECT * from [reference].[ftv_RepoObject_ReferencedReferencing]('69CE8EB8-5F62-EB11-84DC-A81E8446D5B0', 1, 1)
 
 SELECT ro.RepoObject_guid
  , ro.RepoObject_fullname2
 -- , ro_p.*
 FROM repo.RepoObject as ro
-CROSS APPLY [repo].[ftv_RepoObject_ReferencedReferencing](ro.RepoObject_guid, 1, 1) as ro_p
+CROSS APPLY [reference].[ftv_RepoObject_ReferencedReferencing](ro.RepoObject_guid, 1, 1) as ro_p
 ORDER BY ro.RepoObject_fullname2
 
 
-
 */
-Create Function [reference].ftv_RepoObject_ReferencedReferencing
+CREATE Function [reference].[ftv_RepoObject_ReferencedReferencing]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -87,3 +86,22 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObject_ReferencedReferencing';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_referenced_level_T]
+* [reference].[RepoObject_referencing_level_T]
+* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_referenced_level_T.adoc[]
+* xref:reference.RepoObject_referencing_level_T.adoc[]
+* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+

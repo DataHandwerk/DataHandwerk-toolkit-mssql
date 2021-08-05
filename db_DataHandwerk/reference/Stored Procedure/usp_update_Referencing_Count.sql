@@ -240,3 +240,29 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 |===
 ', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_dwh_database]
+* [logs].[usp_ExecutionLog_insert]
+* [repo].[RepoObject]
+* [repo].[RepoObjectColumn]
+* [repo_sys].[RepoObjectReferenced]
+* [repo_sys].[RepoObjectReferencing]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_update_Referencing_Count]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_dwh_database.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]
+* xref:repo_sys.RepoObjectReferenced.adoc[]
+* xref:repo_sys.RepoObjectReferencing.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+

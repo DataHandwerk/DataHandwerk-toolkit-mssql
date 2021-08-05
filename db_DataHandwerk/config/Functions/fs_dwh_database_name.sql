@@ -1,4 +1,4 @@
-﻿Create Function [config].fs_dwh_database_name
+﻿CREATE Function [config].fs_dwh_database_name
 ()
 Returns NVarchar(128)
 As
@@ -24,3 +24,15 @@ Execute sp_addextendedproperty
   , @level1type = N'FUNCTION'
   , @level1name = N'fs_dwh_database_name';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[Parameter]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'fs_dwh_database_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo_sys.usp_AddOrUpdateExtendedProperty.adoc[]
+* xref:repo_sys.usp_dropextendedproperty_level_1.adoc[]
+* xref:repo_sys.usp_dropextendedproperty_level_2.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'fs_dwh_database_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'fs_dwh_database_name';
+

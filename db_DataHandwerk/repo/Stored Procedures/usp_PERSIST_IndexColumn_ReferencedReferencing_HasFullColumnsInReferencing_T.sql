@@ -192,35 +192,50 @@ GO
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
-[cols="5,200,1,100,100,1"]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |400
-|truncate persistence target
-|0
 |
-|[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
-|D
+*truncate persistence target*
 
-|700
-|insert missing
-|0
-|[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
-|[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
-|I
+* D
+* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+
+|
 
 |800
-|insert all
-|0
-|[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
-|[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
-|I
+|
+*insert all*
+
+* I
+* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
+* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+
+|
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
+* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_index_inheritance.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing.adoc[]
+* xref:repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
 

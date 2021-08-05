@@ -363,3 +363,13 @@ Execute sp_addextendedproperty
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_GeneratorUspStep_sql';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [uspgenerator].[GeneratorUspStep]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:uspgenerator.GeneratorUspStep_Sql.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:uspgenerator.GeneratorUspStep.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_sql';
+

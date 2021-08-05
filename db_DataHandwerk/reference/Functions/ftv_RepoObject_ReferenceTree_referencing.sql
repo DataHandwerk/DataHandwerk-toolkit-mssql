@@ -10,29 +10,29 @@ DECLARE @RepoObject_guid uniqueidentifier
 SET @RepoObject_guid = (SELECT RepoObject_guid from [repo].[RepoObject] where RepoObject_fullname = '[repo].[RepoObject_gross]')
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, DEFAULT, DEFAULT)
+FROM [reference].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, DEFAULT, DEFAULT)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 1, 1)
+FROM [reference].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 1, 1)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 0, 6)
+FROM [reference].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 0, 6)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 100, 100)
+FROM [reference].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 100, 100)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 <<property_end>>
 
 
 */
-CREATE Function [reference].ftv_RepoObject_ReferenceTree_referencing
+CREATE Function [reference].[ftv_RepoObject_ReferenceTree_referencing]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 0 --has no effect
@@ -135,4 +135,43 @@ Return
 );
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '64cda946-459d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_referencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_ReferencingReferenced]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_referencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+DECLARE @RepoObject_guid uniqueidentifier
+
+SET @RepoObject_guid = (SELECT RepoObject_guid from [repo].[RepoObject] where RepoObject_fullname = ''[repo].[RepoObject_gross]'')
+
+SELECT *
+FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, DEFAULT, DEFAULT)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+SELECT *
+FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 1, 1)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+SELECT *
+FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 0, 6)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+SELECT *
+FROM [repo].[ftv_RepoObject_ReferenceTree_referencing](@RepoObject_guid, 100, 100)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_referencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_ReferenceTree_referencing.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_referencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_ReferencingReferenced.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree_referencing';
 

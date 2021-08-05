@@ -55,3 +55,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a0be8
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '96be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_connection';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [dbeaver].[DataSources]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_connection';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:dbeaver.DataSources.adoc[]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_connection';
+

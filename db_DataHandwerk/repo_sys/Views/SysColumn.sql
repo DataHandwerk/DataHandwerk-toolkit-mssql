@@ -1,4 +1,4 @@
-
+﻿
 CREATE View repo_sys.SysColumn
 As
 --
@@ -367,4 +367,33 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ae715
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ad7159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_dwh_database]
+* [repo_sys].[ExtendedProperties]
+* [repo_sys].[SysObject]
+* [sys_dwh].[columns]
+* [sys_dwh].[computed_columns]
+* [sys_dwh].[default_constraints]
+* [sys_dwh].[identity_columns]
+* [sys_dwh].[types]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.SysColumn_RepoObjectColumn_via_guid.adoc[]
+* xref:repo.SysColumn_RepoObjectColumn_via_name.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]
+* xref:repo_sys.ForeignKeyColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_dwh_database.adoc[]
+* xref:repo_sys.ExtendedProperties.adoc[]
+* xref:repo_sys.SysObject.adoc[]
+* xref:sys_dwh.columns.adoc[]
+* xref:sys_dwh.computed_columns.adoc[]
+* xref:sys_dwh.default_constraints.adoc[]
+* xref:sys_dwh.identity_columns.adoc[]
+* xref:sys_dwh.types.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn';
 

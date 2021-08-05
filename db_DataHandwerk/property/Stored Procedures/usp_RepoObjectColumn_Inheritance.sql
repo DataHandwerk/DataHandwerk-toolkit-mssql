@@ -439,3 +439,21 @@ Execute sp_addextendedproperty
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_RepoObjectColumn_Inheritance';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [property].[RepoObjectColumn_Inheritance_temp]
+* [property].[RepoObjectColumnProperty]
+* [property].[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumn_Inheritance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumn_Inheritance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:property.RepoObjectColumn_Inheritance_temp.adoc[]
+* xref:property.RepoObjectColumnProperty.adoc[]
+* xref:property.RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumn_Inheritance';
+

@@ -1,4 +1,4 @@
-﻿
+
 /*
 <<property_start>>MS_Description
 create or update code (table and procedure) for persistence
@@ -1111,5 +1111,213 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[Parameter]
+* [logs].[usp_ExecutionLog_insert]
+* [repo].[RepoObject]
+* [repo].[RepoObject_persistence]
+* [repo].[usp_sync_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+create or update code (table and procedure) for persistence
+
+* create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target table, based on a given persistence source (view or table)
+* create or update entries in xref:sqldb:repo.RepoObject_persistence.adoc[]
+** default properties are used, defined in this table
+*** [is_persistence_truncate] = 1
+*** [is_persistence_insert] = 1
+*** all others bit values = 0
+
+TIP: see details for usage in xref:manual:persistence-generator.adoc[]
+
+[NOTE]
+.How does it work:
+--
+* insert or update xref:sqldb:repo.RepoObject_persistence.adoc[]
+** update existing RepoObject which should be a table and will be marked as persistence
+** create new RepoObject which will be a table and will be marked as persistence
+* persistence source
+** uses @source_RepoObject_guid, if not empty
+** tries to get @source_RepoObject_guid from @source_fullname
+* persistence target
+** if the persistene *target table* is not defined, defaults are used:
+*** same schema as persistence source
+*** name of persistence source + suffix (`FROM [repo].[Parameter] WHERE [Parameter_name] = ''persistence_name_suffix''`)
+** persistence target not NULL
+*** use the given persistence targe
+* persistence source NULL, persistence target NULL
+** => error
+--
+
+[NOTE]
+.pesistence procedure naming
+--
+the default name for the *persistence procedure* is
+
+* ''persistence target schema''.''usp_PERSIST_'' + ''persistence target name''
++
+[source,sql]
+------
+[SchemaName].[usp_PERSIST_SourceViewName_T]
+------
+--
+
+[NOTE]
+--
+after executing xref:sqldb:repo.usp_persistence_set.adoc[] you need
+
+* EXEC xref:sqldb:repo.usp_main.adoc[]
+* check and update attributes in xref:sqldb:repo.RepoObject_persistence.adoc[]
+* physically create the persistence table (the procedure xref:sqldb:repo.usp_persistence_set.adoc[] will only create the code)
++
+[source,sql]
+------
+SELECT
+    [RepoObject_guid]
+  , [DbmlTable]
+  , [RepoObject_fullname]
+  , [SqlCreateTable]
+  , [ConList]
+  , [persistence_source_RepoObject_fullname]
+  , [persistence_source_RepoObject_guid]
+  , [persistence_source_SysObject_fullname]
+FROM
+    [repo].[RepoObject_SqlCreateTable]
+WHERE
+    NOT [persistence_source_RepoObject_fullname] IS NULL
+ORDER BY
+    [RepoObject_fullname];
+------
+** Use the sql statement in column [SqlCreateTable] to create the table
+* get the usp code in xref:sqldb:uspgenerator.GeneratorUsp_SqlUsp.adoc[] and execute it
+--', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleWrong_Usage', @value = N'
+---this will NOT work, because there is no @persistence_schema_name
+---(it is  not implemented)
+
+EXEC repo.[usp_persistence_set]
+    --
+    @source_fullname = ''[graph].[Index_S]''
+  , @persistence_table_name = ''Index''
+  , @is_persistence_check_for_empty_source = 1
+  , @is_persistence_truncate = 1
+  , @is_persistence_insert = 1;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage_3', @value = N'
+--create new persistence [SchemaName].[SourceViewName_T], 
+--use explicite parameters
+
+EXEC repo.[usp_persistence_set] 
+    @source_fullname = ''[SchemaName].[SourceViewName]''
+  , @has_history = 0
+  , @has_history_columns = 0
+  , @is_persistence_check_for_empty_source = 0
+  , @is_persistence_truncate = 0
+  , @is_persistence_delete_missing = 1
+  , @is_persistence_delete_changed = 0
+  , @is_persistence_update_changed = 1
+  , @is_persistence_insert = 1', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage_2', @value = N'
+--mark an existing table as persistence of a source
+--or update persistence properties
+--  if the entry already exists in [repo].[RepoObject_persistence]
+--we don''t need @source_RepoObject_guid, we could use @source_fullname instead
+--we NEED to obtain @persistence_RepoObject_guid
+
+
+DECLARE
+    @source_RepoObject_guid      UNIQUEIDENTIFIER
+  , @persistence_RepoObject_guid UNIQUEIDENTIFIER;
+
+SET @source_RepoObject_guid =
+(
+    SELECT
+        [RepoObject_guid]
+    FROM
+        [repo].[RepoObject]
+    WHERE
+        [SysObject_fullname] = ''[SchemaName].[SourceViewName]''
+);
+
+PRINT @source_RepoObject_guid;
+
+SET @persistence_RepoObject_guid =
+(
+    SELECT
+        [RepoObject_guid]
+    FROM
+        [repo].[RepoObject]
+    WHERE
+        [RepoObject_fullname] = ''[SchemaName].[SourceViewName_T]''
+);
+
+PRINT @persistence_RepoObject_guid;
+
+EXEC repo.[usp_persistence_set]
+    @source_RepoObject_guid = @source_RepoObject_guid
+  , @persistence_RepoObject_guid = @persistence_RepoObject_guid
+  , @has_history = 1 --this will create a temporal table, a table with history
+  , @is_persistence_check_for_empty_source = 1
+  , @is_persistence_truncate = 0
+  , @is_persistence_delete_missing = 1
+  , @is_persistence_delete_changed = 0
+  , @is_persistence_update_changed = 1
+  , @is_persistence_insert = 1;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+--create new default persistence [SchemaName].[SourceViewName_T], 
+--using default properties, defined in [repo].[RepoObject_persistence]
+
+EXEC repo.[usp_persistence_set] @source_fullname = ''[SchemaName].[SourceViewName]'';
+
+EXEC repo.usp_main
+
+--get the code for the new table
+
+SELECT
+    [RepoObject_guid]
+  , [RepoObject_fullname]
+  , [SqlCreateTable]
+FROM
+    [repo].[RepoObject_SqlCreateTable]
+WHERE
+    [RepoObject_fullname] = ''[SchemaName].[SourceViewName_T]'';
+
+--Execute the code from column [SqlCreateTable]
+
+--get the code for the persistence procedure, you can limit using WHERE
+
+SELECT
+    [usp_id]
+  , [SqlUsp]
+  , [usp_fullname]
+  , [usp_name]
+  , [usp_schema]
+FROM
+    [uspgenerator].[GeneratorUsp_SqlUsp];
+
+-- execute the code from column [SqlUsp]
+
+--try to execute the generated procedure
+
+EXEC [SchemaName].[usp_PERSIST_SourceViewName_T];', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObject_persistence.adoc[]
+* xref:repo.usp_sync_guid.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
 

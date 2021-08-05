@@ -1,4 +1,4 @@
-﻿Create Function [property].fs_get_RepoObjectProperty_nvarchar
+﻿CREATE Function [property].fs_get_RepoObjectProperty_nvarchar
 (
     @RepoObject_guid UniqueIdentifier
   , @property_name   NVarchar(128)
@@ -26,3 +26,15 @@ Execute sp_addextendedproperty
   , @level0name = N'property'
   , @level1type = N'FUNCTION'
   , @level1name = N'fs_get_RepoObjectProperty_nvarchar';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [property].[RepoObjectProperty]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'FUNCTION', @level1name = N'fs_get_RepoObjectProperty_nvarchar';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'FUNCTION', @level1name = N'fs_get_RepoObjectProperty_nvarchar';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:property.RepoObjectProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'FUNCTION', @level1name = N'fs_get_RepoObjectProperty_nvarchar';
+

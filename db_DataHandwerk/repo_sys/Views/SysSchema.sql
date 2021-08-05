@@ -37,3 +37,19 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c0074
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'af0747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysSchema';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo_sys].[ExtendedProperties]
+* [sys_dwh].[schemas]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.SysSchema_RepoSchema_via_guid.adoc[]
+* xref:repo.SysSchema_RepoSchema_via_name.adoc[]
+* xref:repo.usp_sync_guid_RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo_sys.ExtendedProperties.adoc[]
+* xref:sys_dwh.schemas.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysSchema';
+

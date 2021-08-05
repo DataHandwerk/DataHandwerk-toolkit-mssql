@@ -400,50 +400,93 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_GeneratorUsp_insert_update_persistence]
-[cols="5,200,1,100,100,1"]
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |210
-|delete old usp, which doesn''t exist anymore
-|0
-|[repo].[RepoObject_gross]
-| [repo].[GeneratorUsp]
-|d
+|
+*delete old usp, which doesn''t exist anymore*
+
+* d
+* [repo].[RepoObject_gross]
+*  [repo].[GeneratorUsp]
+
+
+ATTENTION, destructive!
+
+we should delete only usp definitions for persistence!
+
+|
 
 |310
-|insert new usp
-|0
-|[repo].[RepoObject_gross]
-|[repo].[GeneratorUsp]
-|i
+|
+*insert new usp*
+
+* i
+* [repo].[RepoObject_gross]
+* [repo].[GeneratorUsp]
+
+|
 
 |510
-|update steps, changed
-|0
-|[repo].[GeneratorUspStep_Persistence]
-|[repo].[GeneratorUspStep]
-|u
+|
+*update steps, changed*
+
+* u
+* [repo].[GeneratorUspStep_Persistence]
+* [repo].[GeneratorUspStep]
+
+|
 
 |610
-|insert steps, not existing
-|0
-|[repo].[GeneratorUspStep_Persistence]
-|[repo].[GeneratorUspStep]
-|i
+|
+*insert steps, not existing*
+
+* i
+* [repo].[GeneratorUspStep_Persistence]
+* [repo].[GeneratorUspStep]
+
+|
 
 |710
-|update steps; SET [is_inactive] = [setpoint].[is_inactive]
-|0
-|[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]
-|[repo].[GeneratorUspStep]
-|u
+|
+*update steps; SET [is_inactive] = [setpoint].[is_inactive]*
+
+* u
+* [repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]
+* [repo].[GeneratorUspStep]
+
+|
 |===
 ', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[RepoObject_gross]
+* [uspgenerator].[GeneratorUsp]
+* [uspgenerator].[GeneratorUspStep]
+* [uspgenerator].[GeneratorUspStep_Persistence]
+* [uspgenerator].[GeneratorUspStep_Persistence_IsInactive_setpoint]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.RepoObject_gross.adoc[]
+* xref:uspgenerator.GeneratorUsp.adoc[]
+* xref:uspgenerator.GeneratorUspStep.adoc[]
+* xref:uspgenerator.GeneratorUspStep_Persistence.adoc[]
+* xref:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 

@@ -18,7 +18,7 @@
     ]);
 
 */
-Create View docs.visjs_EdgeList_object_test01
+CREATE View docs.visjs_EdgeList_object_test01
 As
 Select
     referencing_node_id
@@ -69,3 +69,21 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'EdgeListElement';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_SqlExpressionDependencies]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_execution_plan_issue', @value = N'1', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_reference_SqlExpressionDependencies.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_SqlExpressionDependencies].[referencing_node_id]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'referencing_node_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_SqlExpressionDependencies].[referenced_node_id]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'visjs_EdgeList_object_test01', @level2type = N'COLUMN', @level2name = N'referenced_node_id';
+

@@ -1,8 +1,8 @@
-﻿/*
+/*
 Mappping from repo_sys.type (used in [type] in system catalog views)
 to level1type (used in sp_addextendedproperty, sp_updateextendedproperty) 
 */
-Create View [configT].type_level1type_level2type
+CREATE View [configT].type_level1type_level2type
 --WITH SCHEMABINDING
 As
 --
@@ -125,5 +125,39 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'object_type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'nvarchar(128)', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'e6d9f960-0f9e-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.ExtendedProperty_Repo2Sys_level1.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level2_RepoObject.adoc[]
+* xref:property.ExtendedProperty_Repo2Sys_level2_RepoObjectColumn.adoc[]
+* xref:repo.usp_sync_guid_RepoObject.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]
+* xref:repo_sys.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]
+* xref:sys_self.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.type.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[type].[type_desc]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type', @level2type = N'COLUMN', @level2name = N'type_desc';
 

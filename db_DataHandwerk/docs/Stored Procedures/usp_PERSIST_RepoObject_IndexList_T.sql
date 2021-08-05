@@ -167,3 +167,51 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'efe49b2c-9498-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_IndexList_T';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[RepoObject_IndexList]
+* [docs].[RepoObject_IndexList_T]
+* [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_IndexList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [docs].[usp_PERSIST_RepoObject_IndexList_T]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_IndexList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_IndexList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.RepoObject_IndexList.adoc[]
+* xref:docs.RepoObject_IndexList_T.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_IndexList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [docs].[usp_PERSIST_RepoObject_IndexList_T]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|400
+|
+*truncate persistence target*
+
+* D
+* [docs].[RepoObject_IndexList_T]
+
+|
+
+|800
+|
+*insert all*
+
+* I
+* [docs].[RepoObject_IndexList]
+* [docs].[RepoObject_IndexList_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_IndexList_T';
+

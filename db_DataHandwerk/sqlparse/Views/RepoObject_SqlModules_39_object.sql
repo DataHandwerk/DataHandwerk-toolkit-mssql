@@ -509,3 +509,44 @@ Execute sp_addextendedproperty
   , @level1name = N'RepoObject_SqlModules_39_object'
   , @level2type = N'COLUMN'
   , @level2name = N'has_GroupBy';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[RepoObject]
+* [sqlparse].[RepoObject_SqlModules]
+* [sqlparse].[RepoObject_SqlModules_29_1_object_is_union]
+* [sqlparse].[RepoObject_SqlModules_29_2_object_is_GroupBy]
+* [sqlparse].[RepoObject_SqlModules_31_object]
+* [sqlparse].[RepoObject_SqlModules_32_ObjectClass]
+* [sqlparse].[RepoObject_SqlModules_33_ObjectNormalized]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'EC89A10A-AB97-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_41_from.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoObject.adoc[]
+* xref:sqlparse.RepoObject_SqlModules.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_29_1_object_is_union.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_29_2_object_is_GroupBy.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_31_object.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_32_ObjectClass.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_33_ObjectNormalized.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_39_object';
+

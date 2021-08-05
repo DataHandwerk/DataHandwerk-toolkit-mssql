@@ -622,16 +622,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2100,"Name":"[graph].[usp_PERSIST_Index]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [graph].[usp_PERSIST_Index]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
 --
 --finish your own code here
 --keep the code between "END" and the end of the procedure unchanged!
@@ -768,4 +758,41 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 |u
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [graph].[usp_PERSIST_Index]
+* [logs].[usp_ExecutionLog_insert]
+* [repo].[ForeignKey_Indexes_union_T]
+* [repo].[Index_gross]
+* [repo].[Index_Settings]
+* [repo].[Index_union]
+* [repo].[Index_virtual]
+* [repo].[IndexColumn_virtual]
+* [repo].[RepoObject]
+* [repo].[RepoObject_persistence]
+* [repo].[usp_Index_Settings]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_Index_finish]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_Index_ForeignKey.adoc[]
+* xref:repo.usp_index_inheritance.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.usp_PERSIST_Index.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.ForeignKey_Indexes_union_T.adoc[]
+* xref:repo.Index_gross.adoc[]
+* xref:repo.Index_Settings.adoc[]
+* xref:repo.Index_union.adoc[]
+* xref:repo.Index_virtual.adoc[]
+* xref:repo.IndexColumn_virtual.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObject_persistence.adoc[]
+* xref:repo.usp_Index_Settings.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
 

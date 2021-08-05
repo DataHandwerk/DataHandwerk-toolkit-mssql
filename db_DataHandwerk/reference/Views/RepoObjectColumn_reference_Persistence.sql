@@ -1,4 +1,4 @@
-﻿Create View [reference].RepoObjectColumn_reference_Persistence
+﻿CREATE View [reference].RepoObjectColumn_reference_Persistence
 As
 --
 Select
@@ -614,3 +614,31 @@ if it not exists in the database, the RepoObject_guid or any other guid is used,
   , @level1name = N'RepoObjectColumn_reference_Persistence'
   , @level2type = N'COLUMN'
   , @level2name = N'referenced_column_name';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[RepoObject]
+* [repo].[RepoObject_persistence]
+* [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'referencing_id,referencing_minor_id,referenced_id,referenced_minor_id', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int,int,int,int', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = '723e08b3-139e-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_reference_union.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObject_persistence.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_Persistence';
+

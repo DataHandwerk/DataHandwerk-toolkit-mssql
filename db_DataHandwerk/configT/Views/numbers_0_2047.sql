@@ -33,3 +33,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '22acb
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '23acb147-4af5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'numbers_0_2047', @level2type = N'COLUMN', @level2name = N'high';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.spt_values.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'numbers_0_2047';
+

@@ -18,6 +18,8 @@
 );
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b50747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoSchemaProperty__RepoSchema';
 
@@ -84,4 +86,80 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd8074
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b20747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoSchemaProperty_id', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'b30747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_varchar';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [varchar](8000)))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_varchar';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_real';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [real]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_real';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_nvarchar';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [nvarchar](4000)))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_nvarchar';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_money';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [money]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_money';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_int';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [int]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_int';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_float';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [float]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_float';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_bigint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [bigint]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_bigint';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(sql_variant_property([property_value],''BaseType''))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
 

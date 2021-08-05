@@ -1,4 +1,4 @@
-﻿
+
 /*
 exec repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id
 
@@ -8,7 +8,7 @@ exec repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id
 */
 --if @RepoObject_guid = NULL then all RepoObject will be updated
 --@OrderBy is defined by a parameter: 'RepoObjectColumn_column_id_OrderBy'
-Create Procedure repo.usp_RepoObjectColumn_update_RepoObjectColumn_column_id
+CREATE Procedure repo.usp_RepoObjectColumn_update_RepoObjectColumn_column_id
     --
     @RepoObject_guid         UniqueIdentifier = Null
                                                      -- some optional parameters, used for logging
@@ -230,5 +230,15 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
+* [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumn_update_RepoObjectColumn_column_id';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumn_update_RepoObjectColumn_column_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectColumn_update_RepoObjectColumn_column_id';
 

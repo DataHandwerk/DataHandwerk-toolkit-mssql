@@ -15,6 +15,8 @@
 );
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'e37c5574-89f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_reference_T';
 
@@ -69,4 +71,111 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '14481
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0d481475-58f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+CREATE NONCLUSTERED INDEX [idx_RepoObject_reference_2]
+    ON [reference].[RepoObject_reference_T]([referencing_RepoObject_guid] ASC, [referencing_type] ASC, [referenced_RepoObject_guid] ASC, [referenced_type] ASC)
+    INCLUDE([referenced_fullname], [referenced_fullname2], [referencing_fullname], [referencing_fullname2]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [idx_RepoObject_reference_1]
+    ON [reference].[RepoObject_reference_T]([referenced_RepoObject_guid] ASC, [referencing_RepoObject_guid] ASC, [referencing_type] ASC, [referenced_type] ASC)
+    INCLUDE([referenced_fullname], [referenced_fullname2], [referencing_fullname], [referencing_fullname2]);
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'usp_persistence_RepoObject_guid', @value = 'da0785a9-5df5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'referenced_RepoObject_guid,referencing_RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'e37c5574-89f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_xref', @value = N'xref:reference.RepoObject_reference.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_guid', @value = '62a279f1-54f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_fullname2', @value = N'reference.RepoObject_reference', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'persistence_source_RepoObject_fullname', @value = N'[reference].[RepoObject_reference]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_update_changed', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_truncate', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_insert', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_missing', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_changed', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_check_for_empty_source', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence_check_duplicate_per_pk', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_persistence', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_history_columns', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'has_history', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ObjectRefList.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[]
+* xref:reference.RepoObject_ReferencingReferenced.adoc[]
+* xref:reference.RepoObjectColumn_reference_BySamePredecessors.adoc[]
+* xref:reference.RepoObjectColumn_reference_FirstResultSet.adoc[]
+* xref:reference.RepoObjectColumn_reference_QueryPlan.adoc[]
+* xref:reference.RepoObjectColumn_reference_SqlExpressionDependencies.adoc[]
+* xref:reference.RepoObjectColumn_reference_virtual.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_reference_T.adoc[]
+* xref:repo.IndexReferencedReferencing.adoc[]
+* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_reference.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
 

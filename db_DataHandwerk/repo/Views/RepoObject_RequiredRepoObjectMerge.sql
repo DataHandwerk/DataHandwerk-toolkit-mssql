@@ -324,3 +324,56 @@ Execute sp_addextendedproperty
   , @level1name = N'RepoObject_RequiredRepoObjectMerge'
   , @level2type = N'COLUMN'
   , @level2name = N'RepoObject_fullname';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = '575ab48d-129e-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+list of conflicting entries which needs to be merged
+
+mismatch of RepoObject_guid can create 2 entries per one RepoObject +
+this can happen, if the guid exists in the database extended properties and a new guid will be created in the repo
+
+* roc1 has the right RepoObject_fullname, but the guid was new created
+* roc2 got the "right" guid from database, but roc2 can''t propagate the fullname into RepoObject because the RepoObject_fullname is occupied
+now we have 2 entries, but we need to merge them
+
+we should keep roc1.RepoObject_guid
+
+this was the old logic, it looks like we get issues: +
+we need to replace roc1.RepoObject_guid by roc2.RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_sync_guid_RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_RequiredRepoObjectMerge', @level2type = N'COLUMN', @level2name = N'ro2_RepoObject_fullname';
+

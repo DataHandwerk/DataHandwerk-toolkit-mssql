@@ -1,4 +1,4 @@
-﻿
+
 /*
 <<property_start>>MS_Description
 * Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual[]
@@ -432,5 +432,88 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[Index_gross]
+* [repo].[Index_virtual]
+* [repo].[IndexColumn_virtual]
+* [repo].[RepoObject]
+* [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual[]
+* but it will not be visible in xref:sqldb:repo.Index_gross[] until it was also included into xref:sqldb:repo.Index_Settings[]
+* and after inserting a new index there could be duplicates for the same columns which needs to be removed again
+
+That''s why it is required run the folowing procedure (this also happens in xref:sqldb:repo.usp_main[])
+
+[source,sql]
+------
+EXEC [repo].[usp_Index_finish]
+------
+
+index_type:
+
+......
+Type of index:
+0 = Heap
+1 = Clustered
+2 = Nonclustered
+3 = XML
+4 = Spatial
+5 = Clustered columnstore index. Applies to: SQL Server 2014 (12.x) and later.
+6 = Nonclustered columnstore index. Applies to: SQL Server 2012 (11.x) and later.
+7 = Nonclustered hash index. Applies to: SQL Server 2014 (12.x) and later.
+......
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage_2', @value = N'
+--set multiple indexes and finish them
+
+EXEC repo.usp_Index_virtual_set
+    @RepoObject_fullname = ''[SchemaName].[EntityName]''
+  , @IndexPatternColumnName = ''ccc''
+  , @is_index_primary_key = 1;
+
+EXEC repo.usp_Index_virtual_set
+    @RepoObject_fullname2 = ''SchemaName.EntityName2''
+  , @IndexPatternColumnName = ''ccc''
+  , @is_index_primary_key = 0
+  , @is_index_unique = 1
+  , @IndexSemanticGroup = ''OptionalSemanticGroup'';
+
+
+EXEC [repo].[usp_Index_finish];', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+--use @RepoObject_fullname with square brackets
+--use @RepoObject_fullname2 without square brackets
+--@IndexPatternColumnName can be used only without square brackets
+
+EXEC repo.usp_Index_virtual_set
+    @RepoObject_fullname2 = ''SchemaName.EntityName''
+  , @IndexPatternColumnName = ''aaa,bbb''
+  , @is_index_primary_key = 1
+  , @IndexSemanticGroup = ''OptionalSemanticGroup'';
+
+EXEC [repo].[usp_Index_finish];', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_Index_ForeignKey.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.Index_gross.adoc[]
+* xref:repo.Index_Settings.adoc[]
+* xref:repo.Index_virtual.adoc[]
+* xref:repo.IndexColumn_virtual.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
 

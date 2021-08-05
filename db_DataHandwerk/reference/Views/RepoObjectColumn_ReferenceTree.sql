@@ -1,9 +1,10 @@
-﻿CREATE View [reference].RepoObjectColumn_ReferenceTree
+﻿--Attention with *, if the source changes!
+CREATE View [reference].[RepoObjectColumn_ReferenceTree]
 As
 Select
     tree.*
 From
-    repo.RepoObjectColumn                                                                         As roc
+    repo.RepoObjectColumn                                                                                As roc
     Cross Apply [reference].ftv_RepoObjectColumn_ReferenceTree ( roc.RepoObjectColumn_guid, 1000, 1000 ) As tree;
 Go
 
@@ -159,26 +160,10 @@ Execute sp_addextendedproperty
   , @level2name = N'Referenced_Depth';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '674679b8-147c-eb11-84e6-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_ReferenceTree'
-  , @level2type = N'COLUMN'
-  , @level2name = N'ReferencingColumn_type';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '614679b8-147c-eb11-84e6-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_ReferenceTree'
-  , @level2type = N'COLUMN'
-  , @level2name = N'ReferencedColumn_type';
+
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '960e4ea4-c09b-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferenceTree', @level2type = N'COLUMN', @level2name = N'ReferencingColumn_name';
@@ -202,4 +187,18 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '920e4
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '910e4ea4-c09b-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferenceTree', @level2type = N'COLUMN', @level2name = N'Referenced_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[ftv_RepoObjectColumn_ReferenceTree]
+* [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.ftv_RepoObject_ColumReferenceRepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.ftv_RepoObjectColumn_ReferenceTree.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferenceTree';
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
 <<property_start>>MS_Description
 * connect repo datatabase to dwh database using synonyms executing
 * see details in xref:manual:create-update-connect-repo-db.adoc[]
@@ -106,5 +106,25 @@ Execute sp_addextendedproperty
 
 
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[usp_init_parameter]
+* [config].[usp_init_spt_values]
+* [config].[usp_parameter_set]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_connect_database';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* connect repo datatabase to dwh database using synonyms executing
+* see details in xref:manual:create-update-connect-repo-db.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_connect_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+EXEC [config].[usp_connect_database]
+@dwh_database_name = ''WideWorldImporters''', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_connect_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.usp_init_parameter.adoc[]
+* xref:config.usp_parameter_set.adoc[]
+* xref:configT.usp_init_spt_values.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_connect_database';
 

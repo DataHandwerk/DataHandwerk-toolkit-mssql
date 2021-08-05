@@ -209,3 +209,51 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '07c45691-a79a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ForeignKey_Indexes_union_T';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[ForeignKey_Indexes_union]
+* [repo].[ForeignKey_Indexes_union_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ForeignKey_Indexes_union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_PERSIST_ForeignKey_Indexes_union_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ForeignKey_Indexes_union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_Index_ForeignKey.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ForeignKey_Indexes_union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.ForeignKey_Indexes_union.adoc[]
+* xref:repo.ForeignKey_Indexes_union_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ForeignKey_Indexes_union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_PERSIST_ForeignKey_Indexes_union_T]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|400
+|
+*truncate persistence target*
+
+* D
+* [repo].[ForeignKey_Indexes_union_T]
+
+|
+
+|800
+|
+*insert all*
+
+* I
+* [repo].[ForeignKey_Indexes_union]
+* [repo].[ForeignKey_Indexes_union_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ForeignKey_Indexes_union_T';
+

@@ -559,3 +559,53 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'child0_children';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [sqlparse].[ftv_sqlparse_with_some_children]
+* [sqlparse].[RepoObject_SqlModules_10_statement]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid,json_key', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid,json_key', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,nvarchar(4000)', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'A4C41D30-1096-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_21_statement_children_helper.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_22_identifier_alias_AS.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_23_normalized_wo_nolock.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_24_IdentifierList_children.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_29_1_object_is_union.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_29_2_object_is_GroupBy.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_32_ObjectClass.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_33_ObjectNormalized.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_41_from.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_51_Identitfier.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_Identitfier.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:sqlparse.ftv_sqlparse_with_some_children.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_10_statement.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_10_statement].[SysObject_fullname]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_10_statement].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_20_statement_children', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+

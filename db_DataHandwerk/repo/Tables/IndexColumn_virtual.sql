@@ -1,4 +1,4 @@
-CREATE TABLE [repo].[IndexColumn_virtual] (
+﻿CREATE TABLE [repo].[IndexColumn_virtual] (
     [index_guid]            UNIQUEIDENTIFIER NOT NULL,
     [index_column_id]       INT              NOT NULL,
     [RepoObjectColumn_guid] UNIQUEIDENTIFIER NOT NULL,
@@ -7,6 +7,12 @@ CREATE TABLE [repo].[IndexColumn_virtual] (
     CONSTRAINT [FK_IndexColumn_virtual__Index_virtual] FOREIGN KEY ([index_guid]) REFERENCES [repo].[Index_virtual] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_IndexColumn_virtual_RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid])
 );
+
+
+GO
+ALTER TABLE [repo].[IndexColumn_virtual] NOCHECK CONSTRAINT [FK_IndexColumn_virtual_RepoObjectColumn];
+
+
 
 
 GO
@@ -85,4 +91,29 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3ef47
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '03dc7461-499d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_IndexColumn_virtual_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'index_guid,index_column_id', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'index_guid,index_column_id', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,int', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'4C90291C-9D61-EB11-84DC-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.Index_virtual_IndexPatternColumnGuid.adoc[]
+* xref:repo.IndexColumn_virtual_gross.adoc[]
+* xref:repo.usp_Index_finish.adoc[]
+* xref:repo.usp_index_inheritance.adoc[]
+* xref:repo.usp_Index_virtual_set.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual';
 

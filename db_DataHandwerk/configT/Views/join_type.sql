@@ -1,4 +1,4 @@
-﻿Create View [configT].join_type
+﻿CREATE View [configT].join_type
 As
 --
 Select
@@ -61,4 +61,24 @@ Execute sp_addextendedproperty
   , @level1name = N'join_type'
   , @level2type = N'COLUMN'
   , @level2name = N'join_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'join_type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'join_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'join_type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'join_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'varchar(16)', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'join_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'0AA50ECF-FB95-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'join_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sqlparse.RepoObject_SqlModules_41_from.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'join_type';
 

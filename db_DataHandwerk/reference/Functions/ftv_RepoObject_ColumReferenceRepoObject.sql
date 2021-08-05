@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 --hier stimmt irgendetwas nicht, es dauert sehr lange und es kommt ein Fehler mit einer Typ-Konvertierung
 
 --based on [repo].[RepoObjectColumn_ReferenceTree]
@@ -12,13 +13,13 @@ DECLARE @RepoObject_guid uniqueidentifier
 SET @RepoObject_guid = (SELECT RepoObject_guid from [repo].[RepoObject] where RepoObject_fullname = '[repo].[RepoObject_gross]')
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ColumReferenceRepoObject](@RepoObject_guid, DEFAULT, DEFAULT)
+FROM [reference].[ftv_RepoObject_ColumReferenceRepoObject](@RepoObject_guid, DEFAULT, DEFAULT)
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ColumReferenceRepoObject](@RepoObject_guid, 1, 1)
+FROM [reference].[ftv_RepoObject_ColumReferenceRepoObject](@RepoObject_guid, 1, 1)
 
 */
-Create Function [reference].ftv_RepoObject_ColumReferenceRepoObject
+CREATE Function [reference].[ftv_RepoObject_ColumReferenceRepoObject]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -134,3 +135,15 @@ Execute sp_addextendedproperty
   , @level0name = N'reference'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObject_ColumReferenceRepoObject';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObjectColumn_ReferenceTree]
+* [reference].[RepoObjectColumn_RelationScript]
+* [repo].[RepoObject_SqlCreateTable]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ColumReferenceRepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumn_ReferenceTree.adoc[]
+* xref:reference.RepoObjectColumn_RelationScript.adoc[]
+* xref:repo.RepoObject_SqlCreateTable.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ColumReferenceRepoObject';
+

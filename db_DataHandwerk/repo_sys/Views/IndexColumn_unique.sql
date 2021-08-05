@@ -159,3 +159,38 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[SysColumn_RepoObjectColumn_via_name].[SysObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'parent_schema_name';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[SysColumn_RepoObjectColumn_via_name]
+* [repo].[SysObject_RepoObject_via_name]
+* [sys_dwh].[index_columns]
+* [sys_dwh].[indexes]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.Index_unique_IndexPatternColumnGuid.adoc[]
+* xref:repo.IndexColumn_union.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.SysColumn_RepoObjectColumn_via_name.adoc[]
+* xref:repo.SysObject_RepoObject_via_name.adoc[]
+* xref:sys_dwh.index_columns.adoc[]
+* xref:sys_dwh.indexes.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[SysColumn_RepoObjectColumn_via_name].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'parent_SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[SysColumn_RepoObjectColumn_via_name].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'parent_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[SysObject_RepoObject_via_name].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique', @level2type = N'COLUMN', @level2name = N'index_guid';
+

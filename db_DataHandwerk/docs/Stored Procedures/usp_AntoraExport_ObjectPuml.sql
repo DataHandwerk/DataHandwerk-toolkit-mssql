@@ -573,3 +573,157 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'f40b29c2-e595-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDir NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\ */
+,@outputDir2 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_objectref\ */
+,@outputDir3 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_fk\ */
+,@outputDir4 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_0_30_objectref\ */
+,@outputDir5 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_30_0_objectref\ */
+,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
+,@userName NVARCHAR(250) = ''loginName'' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
+,@password NVARCHAR(250) = ''password''', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
+* [docs].[RepoObject_OutputFilter]
+* [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
+* [docs].[usp_PERSIST_RepoObject_Plantuml_T]
+* [logs].[usp_ExecutionLog_insert]
+* [reference].[usp_PERSIST_RepoObject_referenced_level_T]
+* [reference].[usp_PERSIST_RepoObject_referencing_level_T]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
+** export procedure: xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
+** individual diagrams per object are exported into (Adoc_AntoraDocModulFolder)``partials/puml/``
+
+include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [docs].[usp_AntoraExport_ObjectPuml]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
+* xref:docs.RepoObject_OutputFilter.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_Plantuml_Entity_T.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_Plantuml_T.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_referenced_level_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_referencing_level_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [docs].[usp_AntoraExport_ObjectPuml]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|110
+|
+*configure database connection*
+
+
+|
+
+|120
+|
+*configure outputDir, outputDir2, outputDir3, outputDir4, outputDir5*
+
+
+|
+
+|210
+|
+*declare variables*
+
+
+|
+
+|310
+|
+*[reference].[usp_PERSIST_RepoObject_referenced_level_T]*
+
+* `EXEC [reference].[usp_PERSIST_RepoObject_referenced_level_T]`
+
+|
+
+|320
+|
+*[reference].[usp_PERSIST_RepoObject_referencing_level_T]*
+
+* `EXEC [reference].[usp_PERSIST_RepoObject_referencing_level_T]`
+
+|
+
+|330
+|
+*[docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]*
+
+* `EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]`
+
+|
+
+|340
+|
+*[docs].[usp_PERSIST_RepoObject_Plantuml_T]*
+
+* `EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_T]`
+
+|
+
+|410
+|
+*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ColRef]*
+
+* u
+* [docs].[RepoObject_Plantuml_T]
+
+|
+
+|420
+|
+*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ObjectRef]*
+
+* u
+* [docs].[RepoObject_Plantuml_T]
+
+|
+
+|430
+|
+*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_FkRef]*
+
+* u
+* [docs].[RepoObject_Plantuml_T]
+
+|
+
+|440
+|
+*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_0_30_ObjectRef]*
+
+* u
+* [docs].[RepoObject_Plantuml_T]
+
+|
+
+|450
+|
+*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_30_0_ObjectRef]*
+
+* u
+* [docs].[RepoObject_Plantuml_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+

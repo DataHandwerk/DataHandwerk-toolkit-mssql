@@ -130,3 +130,51 @@ Execute sp_addextendedproperty
   , @level0name = N'tool'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_extract_substrings';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* extract multiple substrings between two tags from @string
+* each part between @pattern1 and @pattern2 resultes in one row
+* split the extracted substring_net into the parts for and after the first EOL (end of line)
+** substring_netPreEol
+** substring_netPostEol', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'FUNCTION', @level1name = N'ftv_extract_substrings';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage_2', @value = N'
+SELECT
+ --
+ [RepoObject_guid]
+ , [sql_modules_definition]
+ , es.*
+FROM [repo].[RepoObject_SqlModules_Repo_Sys]
+CROSS APPLY tool.[ftv_extract_substrings]([sql_modules_definition], CHAR(13) + CHAR(10) + ''<<property_start>>'', CHAR(13) + CHAR(10) + ''<<property_end>>'') es', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'FUNCTION', @level1name = N'ftv_extract_substrings';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+DECLARE 
+ @string NVARCHAR(max)
+ , @pattern1 NVARCHAR(1000)
+ , @pattern2 NVARCHAR(1000)
+
+SET @string = ''
+<<tag-marker_start>>bbb
+row 1 of bbb
+row 2 of bbb
+<<tag-marker_end>>
+<<tag-marker_start>>ccc
+row 1 of ccc
+row 2 of 222
+<<tag-marker_end>>
+''
+SET @pattern1 = CHAR(13) + CHAR(10) + ''<<tag-marker_start>>''
+SET @pattern2 = CHAR(13) + CHAR(10) + ''<<tag-marker_end>>''
+
+SELECT *
+FROM tool.[ftv_extract_substrings](@string, @pattern1, @pattern2)', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'FUNCTION', @level1name = N'ftv_extract_substrings';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.RepoObjectProperty_Collect_source_sql_modules_definition.adoc[]', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'FUNCTION', @level1name = N'ftv_extract_substrings';
+

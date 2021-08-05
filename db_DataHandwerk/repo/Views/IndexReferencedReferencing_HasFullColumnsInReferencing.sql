@@ -238,3 +238,26 @@ Execute sp_addextendedproperty
   , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'referenced_index_guid';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[Index_referencing_IndexPatternColumnGuid]
+* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+* [repo].[IndexReferencedReferencing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_index_inheritance.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.Index_referencing_IndexPatternColumnGuid.adoc[]
+* xref:repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.adoc[]
+* xref:repo.IndexReferencedReferencing.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'the same index can be inherited several times into the same referenced object, if a source is used several times
+for example
+SELECT A_A = A.A, B_A = B.A from source_1 as A LEFT JOIN source_1 as B ON ... 
+normaly these indexes should have different columns', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing_Target';
+

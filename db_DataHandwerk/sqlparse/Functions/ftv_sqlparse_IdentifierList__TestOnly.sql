@@ -142,7 +142,7 @@ and isjson(T1.children) = 1
 
 */
 --@jsonstr should be 'children' element of en entry class IdentifierList
-Create Function [sqlparse].ftv_sqlparse_IdentifierList__TestOnly
+CREATE Function [sqlparse].ftv_sqlparse_IdentifierList__TestOnly
 (
     @jsonstr NVarchar(Max)
 )
@@ -297,3 +297,9 @@ Execute sp_addextendedproperty
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_sqlparse_IdentifierList__TestOnly';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [sqlparse].[ftv_sqlparse_with_some_children]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'FUNCTION', @level1name = N'ftv_sqlparse_IdentifierList__TestOnly';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:sqlparse.ftv_sqlparse_with_some_children.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'FUNCTION', @level1name = N'ftv_sqlparse_IdentifierList__TestOnly';
+

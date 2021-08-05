@@ -8,7 +8,7 @@ to filter out different source_index referencing in same referencing column comb
 Because that would only lead to multiple indexes with the same column combination in the same RepoObject
 */
 
-Create View repo.Index_referencing_IndexPatternColumnGuid
+CREATE View repo.Index_referencing_IndexPatternColumnGuid
 As
 Select
     source_index_guid                  = ic.index_guid
@@ -63,3 +63,33 @@ Execute sp_addextendedproperty
   , @level1type = N'VIEW'
   , @level1name = N'Index_referencing_IndexPatternColumnGuid';
 Go
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'source_index_guid,referencing_RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'912BECEC-0796-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.IndexReferencedReferencing_HasFullColumnsInReferencing.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T].[index_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid', @level2type = N'COLUMN', @level2name = N'source_index_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T].[referencing_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_referencing_IndexPatternColumnGuid', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_guid';
+

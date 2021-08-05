@@ -199,3 +199,54 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a69108f2-739f-eb11-84f8-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_dwh_database]
+* [logs].[usp_ExecutionLog_insert]
+* [repo].[RepoObject]
+* [repo].[RepoObjectColumn]
+* [repo_sys].[RepoObjectReferenced]
+* [repo_sys].[RepoObjectReferencing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_update_Referencing_Count]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_dwh_database.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.RepoObject.adoc[]
+* xref:repo.RepoObjectColumn.adoc[]
+* xref:repo_sys.RepoObjectReferenced.adoc[]
+* xref:repo_sys.RepoObjectReferencing.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_update_Referencing_Count]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|210
+|
+*SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]*
+
+* u
+* [repo_sys].[RepoObjectReferencing]
+* [repo].[RepoObject]
+
+|
+
+|310
+|
+*SET [Referencing_Count] = [rorc].[Referencing_Count]*
+
+* u
+* [repo_sys].[RepoObjectReferenced]
+* [repo].[RepoObjectColumn]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+

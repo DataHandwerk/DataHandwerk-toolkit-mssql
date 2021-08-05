@@ -105,3 +105,63 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cabe8
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '99be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [dbeaver].[DataSources_DbSchemaTable]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:dbeaver.DataSources_DbSchemaTable.adoc[]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModels]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModels';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_table_json]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_table_json';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_table_FK_json]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_table_FK_json';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_table]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_table';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_schema_json]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_schema_json';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_schema]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_schema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_key]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_key';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_json]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_json';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_database_json]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_database_json';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[VirtualModel_database]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'VirtualModel_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[is_json]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'is_json';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[id]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [dbeaver].[DataSources_DbSchemaTable].[BulkColumn]', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable_FK', @level2type = N'COLUMN', @level2name = N'BulkColumn';
+

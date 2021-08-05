@@ -17,6 +17,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3c90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'UK_GeneratorUsp_Schema_Name';
 
@@ -68,4 +70,29 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''[
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '261a8d58-e08f-eb11-84f1-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'COLUMN', @level2name = N'usp_Examples';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'usp_id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'3A90291C-9D61-EB11-84DC-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:uspgenerator.GeneratorUsp_filter_persistence.adoc[]
+* xref:uspgenerator.GeneratorUsp_SqlUsp.adoc[]
+* xref:uspgenerator.GeneratorUspStep_Persistence.adoc[]
+* xref:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[]
+* xref:uspgenerator.GeneratorUspStep_Sql.adoc[]
+* xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
 

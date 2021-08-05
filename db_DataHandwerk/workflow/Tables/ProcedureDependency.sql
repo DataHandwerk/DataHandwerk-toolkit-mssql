@@ -16,6 +16,12 @@ GO
 ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
 
 
+
+
+GO
+ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'cde20e01-119d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'DF_ProcedureDependency_is_PersistenceDependency';
 
@@ -66,4 +72,21 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd0e20
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'cbe20e01-119d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'id', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'CEE20E01-119D-EB11-84F6-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]
+* xref:workflow.ProcedureDependency_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
 

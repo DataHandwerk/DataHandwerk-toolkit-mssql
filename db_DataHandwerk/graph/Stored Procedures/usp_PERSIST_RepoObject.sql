@@ -258,49 +258,77 @@ GO
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [graph].[usp_PERSIST_RepoObject]
-[cols="5,200,1,100,100,1"]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
 |100
-|check for empty source
-|1
-|[graph].[RepoObject_S]
 |
+*check for empty source*
+
+* `IF (SELECT count(*) FROM [graph].[RepoObject_S]) = 0`
+* [graph].[RepoObject_S]
+
 |
 
 |110
-|ERROR 50110: persistence source is empty
-|0
 |
-|
-|
+*ERROR 50110: persistence source is empty*
+
+
+|100
 
 |500
-|delete persistence target missing in source
-|0
-|[graph].[RepoObject_S]
-|[graph].[RepoObject]
-|D
+|
+*delete persistence target missing in source*
+
+* D
+* [graph].[RepoObject_S]
+* [graph].[RepoObject]
+
+|
 
 |600
-|update changed
-|0
-|[graph].[RepoObject_S]
-|[graph].[RepoObject]
-|U
+|
+*update changed*
+
+* U
+* [graph].[RepoObject_S]
+* [graph].[RepoObject]
+
+|
 
 |700
-|insert missing
-|0
-|[graph].[RepoObject_S]
-|[graph].[RepoObject]
-|I
+|
+*insert missing*
+
+* I
+* [graph].[RepoObject_S]
+* [graph].[RepoObject]
+
+|
 |===
 ', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [graph].[RepoObject]
+* [graph].[RepoObject_S]
+* [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [graph].[usp_PERSIST_RepoObject]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_sync_guid_RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.RepoObject.adoc[]
+* xref:graph.RepoObject_S.adoc[]
+* xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject';
 

@@ -4,7 +4,7 @@
 * master.dbo.spt_values content is available as copy in xref:sqldb:config.spt_values.adoc[]
 <<property_end>>
 */
-Create View [configT].type
+CREATE View [configT].type
 As
 --
 Select
@@ -74,4 +74,42 @@ Execute sp_addextendedproperty
   , @level1name = N'type'
   , @level2type = N'COLUMN'
   , @level2name = N'is_DocsOutput';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[spt_values]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'object_type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'nvarchar(128)', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'0E45DFF8-FB95-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* based on master.dbo.spt_values, which  is an undocumemted hidden view or table, containing useful entries 
+* master.dbo.spt_values content is available as copy in xref:sqldb:config.spt_values.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:configT.type_level1type_level2type.adoc[]
+* xref:docs.AntoraNavListPage_by_type.adoc[]
+* xref:docs.AntoraPage_ObjectByType.adoc[]
+* xref:docs.usp_AntoraExport_navigation.adoc[]
+* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:configT.spt_values.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
 

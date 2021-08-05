@@ -177,3 +177,47 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '677581a6-3c9c-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union]
+* [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [sqlparse].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union.adoc[]
+* xref:sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [sqlparse].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|400
+|
+*truncate persistence target*
+
+* D
+* [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+
+|
+
+|800
+|
+*insert all*
+
+* I
+* [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union]
+* [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+

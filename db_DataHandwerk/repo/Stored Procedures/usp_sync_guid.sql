@@ -143,28 +143,63 @@ GO
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_guid]
-[cols="5,200,1,100,100,1"]
+[cols="d,15a,d"]
 |===
-|Number
-|Name
-|Condition
-|Source
-|Target
-|Action
+|Number|Name (Action, Source, Target)|Parent
 
-|210
-|[repo].[usp_sync_guid_RepoObject]
-|0
+|200
 |
-|
+*[repo].[usp_sync_guid_RepoSchema]*
+
+* `EXEC [repo].[usp_sync_guid_RepoSchema]`
+
 |
 
-|310
-|[repo].[usp_sync_guid_RepoObjectColumn]
-|0
+|300
 |
+*[repo].[usp_sync_guid_RepoObject]*
+
+* `EXEC [repo].[usp_sync_guid_RepoObject]`
+
 |
+
+|400
+|
+*[repo].[usp_sync_guid_RepoObjectColumn]*
+
+* `EXEC [repo].[usp_sync_guid_RepoObjectColumn]`
+
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[usp_sync_guid_RepoObject]
+* [repo].[usp_sync_guid_RepoObjectColumn]
+* [repo].[usp_sync_guid_RepoSchema]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoObject_guid with dwh database extended properties "RepoObject_guid"
+* synchronizes RepoObjectColumn_guid with dwh database extended properties "RepoObjectColumn_guid"', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_sync_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]
+* xref:repo.usp_persistence_set.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.usp_sync_guid_RepoObject.adoc[]
+* xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]
+* xref:repo.usp_sync_guid_RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
 

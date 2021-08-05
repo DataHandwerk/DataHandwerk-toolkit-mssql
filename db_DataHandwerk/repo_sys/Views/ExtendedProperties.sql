@@ -1,4 +1,4 @@
-﻿
+
 /*
 database_id required in
 - OBJECT_SCHEMA_NAME
@@ -191,5 +191,31 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '41f47
 
 
 GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_dwh_database]
+* [sys_dwh].[columns]
+* [sys_dwh].[extended_properties]
+* [sys_dwh].[indexes]
+* [sys_dwh].[objects]
+* [sys_dwh].[parameters]
+* [sys_dwh].[schemas]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.RepoObjectColumnProperty_sys_repo.adoc[]
+* xref:property.RepoObjectProperty_sys_repo.adoc[]
+* xref:property.usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.adoc[]
+* xref:repo_sys.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]
+* xref:repo_sys.SysColumn.adoc[]
+* xref:repo_sys.SysObject.adoc[]
+* xref:repo_sys.SysSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_dwh_database.adoc[]
+* xref:sys_dwh.columns.adoc[]
+* xref:sys_dwh.extended_properties.adoc[]
+* xref:sys_dwh.indexes.adoc[]
+* xref:sys_dwh.objects.adoc[]
+* xref:sys_dwh.parameters.adoc[]
+* xref:sys_dwh.schemas.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
 

@@ -1,4 +1,4 @@
-﻿Create View [configT].InheritanceType
+﻿CREATE View [configT].InheritanceType
 As
 --
 Select
@@ -85,4 +85,20 @@ Execute sp_addextendedproperty
   , @level1name = N'InheritanceType'
   , @level2type = N'COLUMN'
   , @level2name = N'InheritanceType';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'InheritanceType', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'InheritanceType';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'InheritanceType', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'InheritanceType';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'InheritanceType';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'596C57BA-FB95-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'InheritanceType';
 

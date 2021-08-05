@@ -25,7 +25,7 @@ ORDER BY ro.RepoObject_fullname2
 
 
 */
-Create Function docs.ftv_RepoObject_Reference_PlantUml_EntityRefList
+CREATE Function docs.ftv_RepoObject_Reference_PlantUml_EntityRefList
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -93,4 +93,22 @@ Execute sp_addextendedproperty
   , @level0name = N'docs'
   , @level1type = N'FUNCTION'
   , @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[RepoObject_Plantuml_Entity_T]
+* [reference].[RepoObject_referenced_level_T]
+* [reference].[RepoObject_referencing_level_T]
+* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.RepoObject_Plantuml_Entity_T.adoc[]
+* xref:reference.RepoObject_referenced_level_T.adoc[]
+* xref:reference.RepoObject_referencing_level_T.adoc[]
+* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
 

@@ -6,6 +6,12 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoSchema_guid', @value = '2299d297-86a3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'A workflow executes procedures in a specific and necessary order', @level0type = N'SCHEMA', @level0name = N'workflow';
 
