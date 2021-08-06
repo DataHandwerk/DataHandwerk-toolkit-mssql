@@ -1712,3 +1712,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4bae410c-d3f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'Column_name';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when TRY_CAST([RepoObjectColumn_name] AS [uniqueidentifier]) IS NULL then [RepoObjectColumn_name] else [SysObjectColumn_name] end)', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'Column_name';
+

@@ -278,7 +278,6 @@
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Adoc_T.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_navigation.sql" />
     <Build Include="docs\Tables\RepoObject_Plantuml_Entity_T.sql" />
-    <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_Entity.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_ColRefList.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml.sql" />
@@ -511,12 +510,16 @@
     <Build Include="reference\Views\RepoObject_reference.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObjectColumn_reference_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_reference_T.sql" />
-    <Build Include="reference\Tables\RepoObject_ReferenceTree_referencing_0_30_T.sql" />
-    <Build Include="reference\Tables\RepoObject_ReferenceTree_referenced_30_0_T.sql" />
     <Build Include="reference\Views\RepoObject_ReferenceTree_referencing_0_30.sql" />
     <Build Include="reference\Views\RepoObject_ReferenceTree_referenced_30_0.sql" />
-    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_referencing_0_30_T.sql" />
-    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_referenced_30_0_T.sql" />
+    <Build Include="reference\Tables\RepoObject_ReferenceTree_30_0_T.sql" />
+    <Build Include="reference\Tables\RepoObject_ReferenceTree_0_30_T.sql" />
+    <Build Include="reference\Views\RepoObject_ReferenceTree_30_0.sql" />
+    <Build Include="reference\Views\RepoObject_ReferenceTree_0_30.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_1_1.sql" />
+    <Build Include="docs\Views\RepoObject_Plantuml_ColRefList_1_1.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_30_0_T.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_0_30_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

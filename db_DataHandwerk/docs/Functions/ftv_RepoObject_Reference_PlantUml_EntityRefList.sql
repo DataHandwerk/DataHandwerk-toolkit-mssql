@@ -1,5 +1,25 @@
 ﻿
 /*
+<<property_start>>MS_Description
+PlantUML for all entities to be included into the reference diagram, defined by  @Referenced_Depth and @Referencing_Depth +
+
+relations between these entities are generated in +
+xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_1_1.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[] 
+<<property_end>>
+
+<<property_start>>exampleUsage
+SELECT
+    ro.RepoObject_guid
+  , ro.RepoObject_fullname2
+  , ro_p.PumlEntityList
+FROM
+    repo.RepoObject                                                                                   ro
+    CROSS APPLY [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList] ( ro.RepoObject_guid, 1, 1 ) ro_p
+ORDER BY
+    ro.RepoObject_fullname2;
+<<property_end>>
+
+
 Msg 8624, Level 16, State 1, Line 19
 Internal Query Processor Error: The query processor could not produce a query plan. For more information, contact Customer Support Services.
 
@@ -15,17 +35,8 @@ check:
 
 SELECT * from [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList]('69CE8EB8-5F62-EB11-84DC-A81E8446D5B0', 1, 1)
 
-SELECT ro.RepoObject_guid
- , ro.RepoObject_fullname2
- , ro_p.PlantumlEntityList
-FROM repo.RepoObject ro
-CROSS APPLY [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList](ro.RepoObject_guid, 1, 1) ro_p
-ORDER BY ro.RepoObject_fullname2
-
-
-
 */
-CREATE Function docs.ftv_RepoObject_Reference_PlantUml_EntityRefList
+CREATE Function [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -48,34 +59,58 @@ Return
         Where
             RepoObject_guid = @RepoObject_guid
         Union
+        --referenced objects
         Select
-            StartingNode_guid
-          , LastNode_guid
-          , LastNode_fullname2
+            [RepoObject_guid]
+          , [Referenced_guid]
+          , [Referenced_fullname2]
         From
-            [reference].RepoObject_referenced_level_T
+            [reference].[RepoObject_ReferenceTree_30_0_T]
         Where
-            StartingNode_guid    = @RepoObject_guid
-            And referenced_level <= @Referenced_Depth
+            [RepoObject_guid]      = @RepoObject_guid
+            And [Referenced_Depth] <= @Referenced_Depth
         Union
+        --referencing objects
         Select
-            StartingNode_guid
-          , LastNode_guid
-          , LastNode_fullname2
+            [RepoObject_guid]
+          , [Referencing_guid]
+          , [Referencing_fullname2]
         From
-            [reference].RepoObject_referencing_level_T
+            [reference].[RepoObject_ReferenceTree_0_30_T]
         Where
-            StartingNode_guid     = @RepoObject_guid
-            And referencing_level <= @Referencing_Depth
+            [RepoObject_guid]       = @RepoObject_guid
+            And [Referencing_Depth] <= @Referencing_Depth
+        ----
+        ----old logic, based on graph tables:
+        --Union
+        --Select
+        --    StartingNode_guid
+        --  , LastNode_guid
+        --  , LastNode_fullname2
+        --From
+        --    [reference].RepoObject_referenced_level_T
+        --Where
+        --    StartingNode_guid    = @RepoObject_guid
+        --    And referenced_level <= @Referenced_Depth
+        --Union
+        --Select
+        --    StartingNode_guid
+        --  , LastNode_guid
+        --  , LastNode_fullname2
+        --From
+        --    [reference].RepoObject_referencing_level_T
+        --Where
+        --    StartingNode_guid     = @RepoObject_guid
+        --    And referencing_level <= @Referencing_Depth
         )
     Select
-        ro_guid
+        ro.ro_guid
       , Referenced_Depth     = @Referenced_Depth
       , Referencing_Depth    = @Referencing_Depth
-      , PumlEntityList       = String_Agg ( RepoObject_Puml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                         Node_fullname2)
-      , PumlEntityOnlyPkList = String_Agg ( RepoObject_PumlOnlyPK, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                               Node_fullname2)
+      , PumlEntityList       = String_Agg ( rop.RepoObject_Puml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                             ro.Node_fullname2)
+      , PumlEntityOnlyPkList = String_Agg ( rop.RepoObject_PumlOnlyPK, Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                   ro.Node_fullname2)
     From
         ro
         Inner Join
@@ -83,7 +118,7 @@ Return
                 On
                 rop.RepoObject_guid = ro.Node_guid
     Group By
-        ro_guid
+        ro.ro_guid
 );
 Go
 Execute sp_addextendedproperty

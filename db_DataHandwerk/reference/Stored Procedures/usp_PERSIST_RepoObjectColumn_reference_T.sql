@@ -66,25 +66,16 @@ PRINT '[reference].[usp_PERSIST_RepoObjectColumn_reference_T]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObjectColumn_reference]","log_target_object":"[reference].[RepoObjectColumn_reference_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',44,';',500,';',NULL);
+/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[reference].[RepoObjectColumn_reference_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',44,';',400,';',NULL);
 
-DELETE T
-FROM [reference].[RepoObjectColumn_reference_T] AS T
-WHERE
-NOT EXISTS
-(SELECT 1 FROM [reference].[RepoObjectColumn_reference] AS S
-WHERE
-T.[referenced_RepoObjectColumn_guid] = S.[referenced_RepoObjectColumn_guid]
-AND T.[referencing_RepoObjectColumn_guid] = S.[referencing_RepoObjectColumn_guid]
-)
- 
+TRUNCATE TABLE [reference].[RepoObjectColumn_reference_T]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'delete persistence target missing in source'
-SET @source_object = '[reference].[RepoObjectColumn_reference]'
+SET @step_name = 'truncate persistence target'
+SET @source_object = NULL
 SET @target_object = '[reference].[RepoObjectColumn_reference_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -104,73 +95,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObjectColumn_reference]","log_target_object":"[reference].[RepoObjectColumn_reference_T]","log_flag_InsertUpdateDelete":"U"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',44,';',600,';',NULL);
-
-UPDATE T
-SET
-  T.[referenced_RepoObjectColumn_guid] = S.[referenced_RepoObjectColumn_guid]
-, T.[referencing_RepoObjectColumn_guid] = S.[referencing_RepoObjectColumn_guid]
-, T.[is_referenced_object] = S.[is_referenced_object]
-, T.[is_referencing_object_equal_referenced_object] = S.[is_referencing_object_equal_referenced_object]
-, T.[referenced_column_name] = S.[referenced_column_name]
-, T.[referenced_entity_name] = S.[referenced_entity_name]
-, T.[referenced_RepoObject_guid] = S.[referenced_RepoObject_guid]
-, T.[referenced_schema_name] = S.[referenced_schema_name]
-, T.[referenced_type] = S.[referenced_type]
-, T.[referencing_column_name] = S.[referencing_column_name]
-, T.[referencing_entity_name] = S.[referencing_entity_name]
-, T.[referencing_RepoObject_guid] = S.[referencing_RepoObject_guid]
-, T.[referencing_schema_name] = S.[referencing_schema_name]
-, T.[referencing_type] = S.[referencing_type]
-
-FROM [reference].[RepoObjectColumn_reference_T] AS T
-INNER JOIN [reference].[RepoObjectColumn_reference] AS S
-ON
-T.[referenced_RepoObjectColumn_guid] = S.[referenced_RepoObjectColumn_guid]
-AND T.[referencing_RepoObjectColumn_guid] = S.[referencing_RepoObjectColumn_guid]
-
-WHERE
-   T.[is_referenced_object] <> S.[is_referenced_object] OR (S.[is_referenced_object] IS NULL AND NOT T.[is_referenced_object] IS NULL) OR (NOT S.[is_referenced_object] IS NULL AND T.[is_referenced_object] IS NULL)
-OR T.[is_referencing_object_equal_referenced_object] <> S.[is_referencing_object_equal_referenced_object] OR (S.[is_referencing_object_equal_referenced_object] IS NULL AND NOT T.[is_referencing_object_equal_referenced_object] IS NULL) OR (NOT S.[is_referencing_object_equal_referenced_object] IS NULL AND T.[is_referencing_object_equal_referenced_object] IS NULL)
-OR T.[referenced_column_name] <> S.[referenced_column_name] OR (S.[referenced_column_name] IS NULL AND NOT T.[referenced_column_name] IS NULL) OR (NOT S.[referenced_column_name] IS NULL AND T.[referenced_column_name] IS NULL)
-OR T.[referenced_entity_name] <> S.[referenced_entity_name] OR (S.[referenced_entity_name] IS NULL AND NOT T.[referenced_entity_name] IS NULL) OR (NOT S.[referenced_entity_name] IS NULL AND T.[referenced_entity_name] IS NULL)
-OR T.[referenced_RepoObject_guid] <> S.[referenced_RepoObject_guid] OR (S.[referenced_RepoObject_guid] IS NULL AND NOT T.[referenced_RepoObject_guid] IS NULL) OR (NOT S.[referenced_RepoObject_guid] IS NULL AND T.[referenced_RepoObject_guid] IS NULL)
-OR T.[referenced_schema_name] <> S.[referenced_schema_name] OR (S.[referenced_schema_name] IS NULL AND NOT T.[referenced_schema_name] IS NULL) OR (NOT S.[referenced_schema_name] IS NULL AND T.[referenced_schema_name] IS NULL)
-OR T.[referenced_type] <> S.[referenced_type] OR (S.[referenced_type] IS NULL AND NOT T.[referenced_type] IS NULL) OR (NOT S.[referenced_type] IS NULL AND T.[referenced_type] IS NULL)
-OR T.[referencing_column_name] <> S.[referencing_column_name] OR (S.[referencing_column_name] IS NULL AND NOT T.[referencing_column_name] IS NULL) OR (NOT S.[referencing_column_name] IS NULL AND T.[referencing_column_name] IS NULL)
-OR T.[referencing_entity_name] <> S.[referencing_entity_name] OR (S.[referencing_entity_name] IS NULL AND NOT T.[referencing_entity_name] IS NULL) OR (NOT S.[referencing_entity_name] IS NULL AND T.[referencing_entity_name] IS NULL)
-OR T.[referencing_RepoObject_guid] <> S.[referencing_RepoObject_guid] OR (S.[referencing_RepoObject_guid] IS NULL AND NOT T.[referencing_RepoObject_guid] IS NULL) OR (NOT S.[referencing_RepoObject_guid] IS NULL AND T.[referencing_RepoObject_guid] IS NULL)
-OR T.[referencing_schema_name] <> S.[referencing_schema_name] OR (S.[referencing_schema_name] IS NULL AND NOT T.[referencing_schema_name] IS NULL) OR (NOT S.[referencing_schema_name] IS NULL AND T.[referencing_schema_name] IS NULL)
-OR T.[referencing_type] <> S.[referencing_type] OR (S.[referencing_type] IS NULL AND NOT T.[referencing_type] IS NULL) OR (NOT S.[referencing_type] IS NULL AND T.[referencing_type] IS NULL)
-
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'update changed'
-SET @source_object = '[reference].[RepoObjectColumn_reference]'
-SET @target_object = '[reference].[RepoObjectColumn_reference_T]'
-
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObjectColumn_reference]","log_target_object":"[reference].[RepoObjectColumn_reference_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',44,';',700,';',NULL);
+/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObjectColumn_reference]","log_target_object":"[reference].[RepoObjectColumn_reference_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',44,';',800,';',NULL);
 
 INSERT INTO 
  [reference].[RepoObjectColumn_reference_T]
@@ -207,19 +133,11 @@ SELECT
 , [referencing_type]
 
 FROM [reference].[RepoObjectColumn_reference] AS S
-WHERE
-NOT EXISTS
-(SELECT 1
-FROM [reference].[RepoObjectColumn_reference_T] AS T
-WHERE
-T.[referenced_RepoObjectColumn_guid] = S.[referenced_RepoObjectColumn_guid]
-AND T.[referencing_RepoObjectColumn_guid] = S.[referencing_RepoObjectColumn_guid]
-)
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'insert missing'
+SET @step_name = 'insert all'
 SET @source_object = '[reference].[RepoObjectColumn_reference]'
 SET @target_object = '[reference].[RepoObjectColumn_reference_T]'
 

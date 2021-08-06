@@ -662,16 +662,6 @@ RepoObjectColumn_column_id is required and should be updated before
 
 |
 
-|2220
-|
-*MERGE [graph].[ReferencingObjectColumn]*
-
-* u
-* [reference].[RepoObjectColumn_reference_union]
-* [graph].[ReferencingObjectColumn]
-
-|
-
 |3110
 |
 *Merge Into [workflow].[ProcedureDependency] (Persistence)*
@@ -699,6 +689,8 @@ RepoObjectColumn_column_id is required and should be updated before
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
+
 
 
 
@@ -760,7 +752,6 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:graph.ReferencedObject.adoc[]
 * xref:graph.ReferencedObjectColumn.adoc[]
 * xref:graph.ReferencingObject.adoc[]
-* xref:graph.ReferencingObjectColumn.adoc[]
 * xref:graph.RepoObject.adoc[]
 * xref:graph.RepoObjectColumn.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]
@@ -781,4 +772,6 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.usp_sync_guid.adoc[]
 * xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]
 * xref:workflow.ProcedureDependency.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
+
 

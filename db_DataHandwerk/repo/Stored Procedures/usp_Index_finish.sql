@@ -784,8 +784,7 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.usp_PERSIST_Index.adoc[]
-* xref:logs.usp_ExecutionLog_insert.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
 * xref:repo.ForeignKey_Indexes_union_T.adoc[]
 * xref:repo.Index_gross.adoc[]
 * xref:repo.Index_Settings.adoc[]
@@ -795,4 +794,6 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.RepoObject.adoc[]
 * xref:repo.RepoObject_persistence.adoc[]
 * xref:repo.usp_Index_Settings.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
 

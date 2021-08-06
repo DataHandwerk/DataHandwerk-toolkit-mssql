@@ -5,6 +5,8 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [ix_fromid]
     ON [graph].[ReferencedObjectColumn]($from_id ASC, $to_id ASC);
@@ -20,7 +22,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '90efc212-b7
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]
-* xref:reference.RepoObjectColumn_ReferencingReferenced.adoc[]
-* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'TABLE', @level1name = N'ReferencedObjectColumn';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'TABLE', @level1name = N'ReferencedObjectColumn';
+
+
 

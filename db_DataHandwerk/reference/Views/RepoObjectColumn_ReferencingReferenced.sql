@@ -282,6 +282,7 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.ReferencedObjectColumn.adoc[]
-* xref:graph.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumn_reference_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_ReferencingReferenced';
+
+
 

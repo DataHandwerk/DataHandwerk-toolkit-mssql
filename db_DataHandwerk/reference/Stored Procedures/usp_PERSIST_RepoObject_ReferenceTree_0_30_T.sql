@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [reference].[usp_PERSIST_RepoObject_ReferenceTree_referenced_30_0_T]
+﻿CREATE   PROCEDURE [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -59,33 +59,24 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[reference].[usp_PERSIST_RepoObject_ReferenceTree_referenced_30_0_T]'
+PRINT '[reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_ReferenceTree_referenced_30_0]","log_target_object":"[reference].[RepoObject_ReferenceTree_referenced_30_0_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',45,';',500,';',NULL);
+/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[reference].[RepoObject_ReferenceTree_0_30_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',47,';',400,';',NULL);
 
-DELETE T
-FROM [reference].[RepoObject_ReferenceTree_referenced_30_0_T] AS T
-WHERE
-NOT EXISTS
-(SELECT 1 FROM [reference].[RepoObject_ReferenceTree_referenced_30_0] AS S
-WHERE
-T.[RepoObject_guid] = S.[RepoObject_guid]
-AND T.[Referenced_guid] = S.[Referenced_guid]
-)
- 
+TRUNCATE TABLE [reference].[RepoObject_ReferenceTree_0_30_T]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'delete persistence target missing in source'
-SET @source_object = '[reference].[RepoObject_ReferenceTree_referenced_30_0]'
-SET @target_object = '[reference].[RepoObject_ReferenceTree_referenced_30_0_T]'
+SET @step_name = 'truncate persistence target'
+SET @source_object = NULL
+SET @target_object = '[reference].[RepoObject_ReferenceTree_0_30_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -104,96 +95,45 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_ReferenceTree_referenced_30_0]","log_target_object":"[reference].[RepoObject_ReferenceTree_referenced_30_0_T]","log_flag_InsertUpdateDelete":"U"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',45,';',600,';',NULL);
-
-UPDATE T
-SET
-  T.[RepoObject_guid] = S.[RepoObject_guid]
-, T.[Referenced_guid] = S.[Referenced_guid]
-, T.[Referenced_Depth] = S.[Referenced_Depth]
-, T.[Referenced_fullname] = S.[Referenced_fullname]
-, T.[Referenced_fullname2] = S.[Referenced_fullname2]
-, T.[RepoObject_fullname] = S.[RepoObject_fullname]
-, T.[RepoObject_fullname2] = S.[RepoObject_fullname2]
-
-FROM [reference].[RepoObject_ReferenceTree_referenced_30_0_T] AS T
-INNER JOIN [reference].[RepoObject_ReferenceTree_referenced_30_0] AS S
-ON
-T.[RepoObject_guid] = S.[RepoObject_guid]
-AND T.[Referenced_guid] = S.[Referenced_guid]
-
-WHERE
-   T.[Referenced_Depth] <> S.[Referenced_Depth] OR (S.[Referenced_Depth] IS NULL AND NOT T.[Referenced_Depth] IS NULL) OR (NOT S.[Referenced_Depth] IS NULL AND T.[Referenced_Depth] IS NULL)
-OR T.[Referenced_fullname] <> S.[Referenced_fullname] OR (S.[Referenced_fullname] IS NULL AND NOT T.[Referenced_fullname] IS NULL) OR (NOT S.[Referenced_fullname] IS NULL AND T.[Referenced_fullname] IS NULL)
-OR T.[Referenced_fullname2] <> S.[Referenced_fullname2] OR (S.[Referenced_fullname2] IS NULL AND NOT T.[Referenced_fullname2] IS NULL) OR (NOT S.[Referenced_fullname2] IS NULL AND T.[Referenced_fullname2] IS NULL)
-OR T.[RepoObject_fullname] <> S.[RepoObject_fullname] OR (S.[RepoObject_fullname] IS NULL AND NOT T.[RepoObject_fullname] IS NULL) OR (NOT S.[RepoObject_fullname] IS NULL AND T.[RepoObject_fullname] IS NULL)
-OR T.[RepoObject_fullname2] <> S.[RepoObject_fullname2] OR (S.[RepoObject_fullname2] IS NULL AND NOT T.[RepoObject_fullname2] IS NULL) OR (NOT S.[RepoObject_fullname2] IS NULL AND T.[RepoObject_fullname2] IS NULL)
-
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'update changed'
-SET @source_object = '[reference].[RepoObject_ReferenceTree_referenced_30_0]'
-SET @target_object = '[reference].[RepoObject_ReferenceTree_referenced_30_0_T]'
-
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_ReferenceTree_referenced_30_0]","log_target_object":"[reference].[RepoObject_ReferenceTree_referenced_30_0_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',45,';',700,';',NULL);
+/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_ReferenceTree_0_30]","log_target_object":"[reference].[RepoObject_ReferenceTree_0_30_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',47,';',800,';',NULL);
 
 INSERT INTO 
- [reference].[RepoObject_ReferenceTree_referenced_30_0_T]
+ [reference].[RepoObject_ReferenceTree_0_30_T]
  (
   [RepoObject_guid]
+, [Referencing_guid]
 , [Referenced_guid]
 , [Referenced_Depth]
 , [Referenced_fullname]
 , [Referenced_fullname2]
-, [RepoObject_fullname]
-, [RepoObject_fullname2]
+, [Referenced_type]
+, [Referencing_Depth]
+, [Referencing_fullname]
+, [Referencing_fullname2]
+, [Referencing_type]
 )
 SELECT
   [RepoObject_guid]
+, [Referencing_guid]
 , [Referenced_guid]
 , [Referenced_Depth]
 , [Referenced_fullname]
 , [Referenced_fullname2]
-, [RepoObject_fullname]
-, [RepoObject_fullname2]
+, [Referenced_type]
+, [Referencing_Depth]
+, [Referencing_fullname]
+, [Referencing_fullname2]
+, [Referencing_type]
 
-FROM [reference].[RepoObject_ReferenceTree_referenced_30_0] AS S
-WHERE
-NOT EXISTS
-(SELECT 1
-FROM [reference].[RepoObject_ReferenceTree_referenced_30_0_T] AS T
-WHERE
-T.[RepoObject_guid] = S.[RepoObject_guid]
-AND T.[Referenced_guid] = S.[Referenced_guid]
-)
+FROM [reference].[RepoObject_ReferenceTree_0_30] AS S
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'insert missing'
-SET @source_object = '[reference].[RepoObject_ReferenceTree_referenced_30_0]'
-SET @target_object = '[reference].[RepoObject_ReferenceTree_referenced_30_0_T]'
+SET @step_name = 'insert all'
+SET @source_object = '[reference].[RepoObject_ReferenceTree_0_30]'
+SET @target_object = '[reference].[RepoObject_ReferenceTree_0_30_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -240,3 +180,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7907068d-19f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_0_30_T';
+

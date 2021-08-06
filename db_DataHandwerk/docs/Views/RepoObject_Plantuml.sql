@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE View [docs].[RepoObject_Plantuml]
 As
 Select
@@ -103,12 +101,12 @@ Select
 From
     repo.RepoObject_gross                                                                         As ro
     Left Join
-        docs.RepoObject_Plantuml_ColRefList                                                       As clist
+        docs.RepoObject_Plantuml_ColRefList_1_1                                                   As clist
             On
             clist.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_Plantuml_ObjectRefList                                                    As olist_1_1
+        docs.RepoObject_Plantuml_ObjectRefList_1_1                                                As olist_1_1
             On
             olist_1_1.RepoObject_guid = ro.RepoObject_guid
 

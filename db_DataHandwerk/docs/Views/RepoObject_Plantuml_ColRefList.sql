@@ -3,7 +3,7 @@ CREATE View [docs].[RepoObject_Plantuml_ColRefList]
 As
 Select
     ro.RepoObject_guid
-  , ro.RepoObject_fullname2
+  --, ro.RepoObject_fullname2
   , ColRefList = String_Agg (
                                 Concat (
                                            Cast(N'' As NVarchar(Max))
@@ -25,7 +25,7 @@ From
 (
     Select
         ro.RepoObject_guid
-      , ro.RepoObject_fullname2
+      --, ro.RepoObject_fullname2
       , T1.Node_guid As Node_guid_1
       , T2.Node_guid As Node_guid_2
     From
@@ -65,8 +65,7 @@ From
         And colref.Referencing_ro_guid <> colref.Referenced_ro_guid
 Group By
     ro.RepoObject_guid
-  , ro.RepoObject_fullname2;
---ORDER BY ro.RepoObject_fullname2
+--, ro.RepoObject_fullname2
 Go
 
 Execute sp_addextendedproperty
@@ -80,15 +79,7 @@ Execute sp_addextendedproperty
   , @level2name = N'ColRefList';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'a418814c-9295-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'docs'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ColRefList'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_fullname2';
+
 Go
 
 Execute sp_addextendedproperty
@@ -138,8 +129,9 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.ReferencedObjectColumn.adoc[]
-* xref:graph.RepoObjectColumn.adoc[]
-* xref:reference.ftv_RepoObject_ReferencedReferencing.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.ftv_RepoObject_ReferencedReferencing.adoc[]
+* xref:reference.RepoObjectColumn_reference_T.adoc[]
 * xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+
+
 

@@ -27,6 +27,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'e47c5574-89f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObjectColumn_reference_T';
 
@@ -168,11 +170,15 @@ EXECUTE sp_addextendedproperty @name = N'has_history', @value = 0, @level0type =
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_RelationScript.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]
+* xref:reference.RepoObjectColumn_ReferencingReferenced.adoc[]
+* xref:reference.RepoObjectColumn_RelationScript.adoc[]
 * xref:reference.usp_PERSIST_RepoObjectColumn_reference_T.adoc[]
 * xref:repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing.adoc[]
 * xref:repo.RepoObjectColumn_MissingSource_TypeV.adoc[]
 * xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T';
+
+
 
 
 GO
