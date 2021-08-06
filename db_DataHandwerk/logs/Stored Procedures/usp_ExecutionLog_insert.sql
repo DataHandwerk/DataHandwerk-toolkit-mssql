@@ -1,4 +1,4 @@
-/*
+﻿/*
 only insert, no update
 
 to get duration and grouping, use unique combinations of keys,for example
@@ -193,7 +193,6 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:docs.usp_PERSIST_RepoObject_IndexList_T.adoc[]
 * xref:docs.usp_PERSIST_RepoObject_Plantuml_Entity_T.adoc[]
 * xref:docs.usp_PERSIST_RepoObject_Plantuml_T.adoc[]
-* xref:graph.usp_PERSIST_Index.adoc[]
 * xref:graph.usp_PERSIST_RepoObject.adoc[]
 * xref:graph.usp_PERSIST_RepoObjectColumn.adoc[]
 * xref:property.usp_RepoObject_Inheritance.adoc[]
@@ -204,6 +203,10 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:property.usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_reference_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_referenced_level_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_0_30_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_30_0_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_referenced_30_0_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_referencing_0_30_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_referencing_level_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObjectColumn_reference_T.adoc[]
 * xref:reference.usp_RepoObject_update_SysObjectQueryPlan.adoc[]
@@ -228,6 +231,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_41_from_T.adoc[]
 * xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]
 * xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'PROCEDURE', @level1name = N'usp_ExecutionLog_insert';
+
+
 
 
 GO

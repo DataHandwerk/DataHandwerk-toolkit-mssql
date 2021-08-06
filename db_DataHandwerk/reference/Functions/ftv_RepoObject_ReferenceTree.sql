@@ -177,30 +177,60 @@ DECLARE @RepoObject_guid uniqueidentifier
 SET @RepoObject_guid = (SELECT RepoObject_guid from [repo].[RepoObject] where RepoObject_fullname = ''[repo].[RepoObject_gross]'')
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, DEFAULT, DEFAULT)
+FROM [reference].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, DEFAULT, DEFAULT)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 1, 1)
+FROM [reference].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 1, 1)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+-- Starting from @RepoObject_guid the result contains only referencing objects up to a depth of 6
+-- start node is @RepoObject_guid, end node is Referencing_...
+
+SELECT *
+FROM [reference].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 0, 6)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+-- Starting from @RepoObject_guid the result contains only referenced objects up to a depth of 30
+-- start node is @RepoObject_guid, end node is Referenced_...
+
+SELECT *
+FROM [reference].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 30, 0)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 0, 6)
+FROM [reference].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 0, 50)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]
 
+--The next query is very slow!
+
 SELECT *
-FROM [repo].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 100, 100)
+FROM [reference].[ftv_RepoObject_ReferenceTree](@RepoObject_guid, 100, 100)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
 
 
+
+
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_ReferenceTree.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_ReferenceTree.adoc[]
+* xref:reference.RepoObject_ReferenceTree_0_30.adoc[]
+* xref:reference.RepoObject_ReferenceTree_30_0.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+
+
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_ReferencingReferenced.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+NOTE: Duplicates are possible, if exists alternative path between objects with different depth +
+to elimenate them, exclude `Referenced_Depth` and `Referencing_Depth` and use `DISTINCT`', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
 

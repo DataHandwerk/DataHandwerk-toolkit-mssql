@@ -70,3 +70,25 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69244
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'd4e2805c-fdf5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_0_30';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid,Referencing_guid,Referenced_guid', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_0_30';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_0_30';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'c511eece-fef5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_0_30';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_ReferenceTree_0_30_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_0_30_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_0_30';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.ftv_RepoObject_ReferenceTree.adoc[]
+* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_0_30';
+

@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]
+﻿CREATE   PROCEDURE [workflow].[usp_workflow]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -59,24 +59,57 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]'
+PRINT '[workflow].[usp_workflow]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[reference].[RepoObject_ReferenceTree_0_30_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',47,';',400,';',NULL);
+/*{"ReportUspStep":[{"Number":3110,"Name":"Merge Into [workflow].[ProcedureDependency] (Persistence)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[Persistence]","log_target_object":"[workflow].[ProcedureDependency]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',51,';',3110,';',NULL);
 
-TRUNCATE TABLE [reference].[RepoObject_ReferenceTree_0_30_T]
+Merge Into workflow.ProcedureDependency T
+Using
+(
+    Select
+        [referenced_usp_persistence_RepoObject_guid]
+      , [referencing_usp_persistence_RepoObject_guid]
+      , 1 As is_PersistenceDependency
+    From
+        [reference].[Persistence] As T1
+    Where
+        ( Not ( [referenced_usp_persistence_RepoObject_guid] Is Null ))
+        And ( Not ( [referencing_usp_persistence_RepoObject_guid] Is Null ))
+) S
+On S.[referenced_usp_persistence_RepoObject_guid] = T.referenced_Procedure_RepoObject_guid
+   And S.[referencing_usp_persistence_RepoObject_guid] = T.referencing_Procedure_RepoObject_guid
+When Matched And T.is_PersistenceDependency = 0
+    Then Update Set
+             is_PersistenceDependency = 1
+When Not Matched By Target
+    Then Insert
+         (
+             referenced_Procedure_RepoObject_guid
+           , referencing_Procedure_RepoObject_guid
+           , is_PersistenceDependency
+         )
+         Values
+             (
+                 S.[referenced_usp_persistence_RepoObject_guid]
+               , S.[referencing_usp_persistence_RepoObject_guid]
+               , S.is_PersistenceDependency
+             )
+When Not Matched By Source And T.is_PersistenceDependency = 1
+    Then Delete;
+
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'truncate persistence target'
-SET @source_object = NULL
-SET @target_object = '[reference].[RepoObject_ReferenceTree_0_30_T]'
+SET @step_name = 'Merge Into [workflow].[ProcedureDependency] (Persistence)'
+SET @source_object = '[reference].[Persistence]'
+SET @target_object = '[workflow].[ProcedureDependency]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -92,64 +125,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @deleted = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_ReferenceTree_0_30]","log_target_object":"[reference].[RepoObject_ReferenceTree_0_30_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',47,';',800,';',NULL);
-
-INSERT INTO 
- [reference].[RepoObject_ReferenceTree_0_30_T]
- (
-  [RepoObject_guid]
-, [Referencing_guid]
-, [Referenced_guid]
-, [Referenced_Depth]
-, [Referenced_fullname]
-, [Referenced_fullname2]
-, [Referenced_type]
-, [Referencing_Depth]
-, [Referencing_fullname]
-, [Referencing_fullname2]
-, [Referencing_type]
-)
-SELECT
-  [RepoObject_guid]
-, [Referencing_guid]
-, [Referenced_guid]
-, [Referenced_Depth]
-, [Referenced_fullname]
-, [Referenced_fullname2]
-, [Referenced_type]
-, [Referencing_Depth]
-, [Referencing_fullname]
-, [Referencing_fullname2]
-, [Referencing_type]
-
-FROM [reference].[RepoObject_ReferenceTree_0_30] AS S
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'insert all'
-SET @source_object = '[reference].[RepoObject_ReferenceTree_0_30]'
-SET @target_object = '[reference].[RepoObject_ReferenceTree_0_30_T]'
-
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = @rows
+ , @updated = @rows
 -- Logging END --
 
 --
@@ -181,54 +157,5 @@ EXEC logs.usp_ExecutionLog_insert
 
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7907068d-19f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_0_30_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_0_30_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
-* xref:reference.RepoObject_ReferenceTree_0_30.adoc[]
-* xref:reference.RepoObject_ReferenceTree_0_30_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_0_30_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]
-[cols="d,15a,d"]
-|===
-|Number|Name (Action, Source, Target)|Parent
-
-|500
-|
-*delete persistence target missing in source*
-
-* D
-* [reference].[RepoObject_ReferenceTree_0_30]
-* [reference].[RepoObject_ReferenceTree_0_30_T]
-
-|
-
-|600
-|
-*update changed*
-
-* U
-* [reference].[RepoObject_ReferenceTree_0_30]
-* [reference].[RepoObject_ReferenceTree_0_30_T]
-
-|
-
-|700
-|
-*insert missing*
-
-* I
-* [reference].[RepoObject_ReferenceTree_0_30]
-* [reference].[RepoObject_ReferenceTree_0_30_T]
-
-|
-|===
-', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_0_30_T';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ffa5bb9c-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
 

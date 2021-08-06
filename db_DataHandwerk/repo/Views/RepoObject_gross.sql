@@ -1,4 +1,5 @@
-﻿CREATE View repo.RepoObject_gross
+﻿
+CREATE View [repo].[RepoObject_gross]
 As
 --
 Select
@@ -79,8 +80,13 @@ Select
   , ro_p.is_persistence_insert
   , ro_p.is_persistence_truncate
   , ro_p.is_persistence_update_changed
+  , ro_p.[is_persistence_merge_delete_missing]
+  , ro_p.[is_persistence_merge_insert]
+  , ro_p.[is_persistence_merge_update_changed]
   , ro_p.history_schema_name
   , ro_p.history_table_name
+  , ro_p.[source_filter]
+  , ro_p.[target_filter]
   , ro_p.temporal_type
   , ColumnList.CreateColumnList
   , ColumnList.DbmlColumnList
@@ -103,30 +109,30 @@ Select
   , ro_referenced.AntoraReferencedList
   , ro_referencing.AntoraReferencingList
 From
-    repo.RepoObject                         As ro
+    repo.RepoObject                               As ro
     Left Outer Join
-        repo.RepoObject_persistence         As ro_p
+        repo.RepoObject_persistence               As ro_p
             On
             ro_p.target_RepoObject_guid         = ro.RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                     As ro_p_s
+        repo.RepoObject                           As ro_p_s
             On
             ro_p_s.RepoObject_guid              = ro_p.source_RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                     As ro_usp_p
+        repo.RepoObject                           As ro_usp_p
             On
             ro_usp_p.RepoObject_name            = ro.usp_persistence_name
             And ro_usp_p.RepoObject_schema_name = ro.RepoObject_schema_name
 
     Left Outer Join
-        repo.RepoObject_ColumnList          As ColumnList
+        repo.RepoObject_ColumnList                As ColumnList
             On
             ColumnList.RepoObject_guid          = ro.RepoObject_guid
 
     Left Outer Join
-        [reference].RepoObject_QueryPlan           As QueryPlan
+        [reference].RepoObject_QueryPlan          As QueryPlan
             On
             QueryPlan.RepoObject_guid           = ro.RepoObject_guid
 
@@ -136,32 +142,32 @@ From
             SqlModules.RepoObject_guid          = ro.RepoObject_guid
 
     Left Join
-        repo.Index_Settings                 As ipk
+        repo.Index_Settings                       As ipk
             On
             ipk.index_guid                      = ro.pk_index_guid
 
     Left Join
-        [reference].RepoObject_ReferencedList      As ro_referenced
+        [reference].RepoObject_ReferencedList     As ro_referenced
             On
             ro_referenced.Referencing_guid      = ro.RepoObject_guid
 
     Left Join
-        [reference].RepoObject_ReferencingList     As ro_referencing
+        [reference].RepoObject_ReferencingList    As ro_referencing
             On
             ro_referencing.Referenced_guid      = ro.RepoObject_guid
 
     Left Join
-        [configT].type                         As repo_type
+        [configT].type                            As repo_type
             On
             repo_type.type                      = ro.RepoObject_type
 
     Left Join
-        [configT].type                         As sys_type
+        [configT].type                            As sys_type
             On
             sys_type.type                       = ro.SysObject_type
 
     Left Join
-        [configT].type                         ty
+        [configT].type                            ty
             On
             ty.type                             = ro.RepoObject_type;
 Go
@@ -1690,8 +1696,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:property.RepoObjectProperty_Collect_source_ROGross.adoc[]
 * xref:reference.Match_RepoObject_referenced_UspPersistence.adoc[]
 * xref:reference.RepoObject_ReferenceTree.adoc[]
+* xref:reference.RepoObject_ReferenceTree_0_30.adoc[]
+* xref:reference.RepoObject_ReferenceTree_30_0.adoc[]
 * xref:reference.RepoObject_ReferenceTree_referenced.adoc[]
+* xref:reference.RepoObject_ReferenceTree_referenced_30_0.adoc[]
 * xref:reference.RepoObject_ReferenceTree_referencing.adoc[]
+* xref:reference.RepoObject_ReferenceTree_referencing_0_30.adoc[]
 * xref:reference.usp_RepoObject_update_SysObjectQueryPlan.adoc[]
 * xref:reference.usp_RepoObjectSource_FirstResultSet.adoc[]
 * xref:reference.usp_RepoObjectSource_QueryPlan.adoc[]
@@ -1701,6 +1711,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:uspgenerator.GeneratorUspStep_Persistence.adoc[]
 * xref:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[]
 * xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
+
+
 
 
 GO
@@ -1850,4 +1862,24 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_ReferencedList].[AntoraReferencedList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencedList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '22b3a8a4-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'target_filter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '21b3a8a4-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'source_filter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '20b3a8a4-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1fb3a8a4-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1eb3a8a4-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
 

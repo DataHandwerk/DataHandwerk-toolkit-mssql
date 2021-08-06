@@ -1,8 +1,6 @@
-
+﻿
 /*
 <<property_start>>MS_Description
-create or update code (table and procedure) for persistence
-
 * create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target table, based on a given persistence source (view or table)
 * create or update entries in xref:sqldb:repo.RepoObject_persistence.adoc[]
 ** default properties are used, defined in this table
@@ -22,11 +20,11 @@ TIP: see details for usage in xref:manual:persistence-generator.adoc[]
 ** uses @source_RepoObject_guid, if not empty
 ** tries to get @source_RepoObject_guid from @source_fullname
 * persistence target
-** if the persistene *target table* is not defined, defaults are used:
+** with @persistence_RepoObject_guid an _existing_ table can be defined as target
+** otherwise defaults are used
 *** same schema as persistence source
-*** name of persistence source + suffix (`FROM [repo].[Parameter] WHERE [Parameter_name] = 'persistence_name_suffix'`)
-** persistence target not NULL
-*** use the given persistence targe
+*** if the `@persistence_table_name` is `NULL`, defaults are used:
+**** name of persistence source + suffix (`FROM [repo].[Parameter] WHERE [Parameter_name] = 'persistence_name_suffix'`)
 * persistence source NULL, persistence target NULL
 ** => error
 --
@@ -46,7 +44,7 @@ the default name for the *persistence procedure* is
 
 [NOTE]
 --
-after executing xref:sqldb:repo.usp_persistence_set.adoc[] you need
+after executing xref:sqldb:repo.usp_persistence_set.adoc[] you should
 
 * EXEC xref:sqldb:repo.usp_main.adoc[]
 * check and update attributes in xref:sqldb:repo.RepoObject_persistence.adoc[]
@@ -71,15 +69,34 @@ ORDER BY
     [RepoObject_fullname];
 ------
 ** Use the sql statement in column [SqlCreateTable] to create the table
-* get the usp code in xref:sqldb:uspgenerator.GeneratorUsp_SqlUsp.adoc[] and execute it
+* get the usp code in xref:sqldb:uspgenerator.GeneratorUsp_SqlUsp.adoc[] and execute it to create the persistence procedure
 --
 <<property_end>>
 
 <<property_start>>exampleUsage
---create new default persistence [SchemaName].[SourceViewName_T], 
---using default properties, defined in [repo].[RepoObject_persistence]
+--use explicite parameters to create a delete-update-insert persistence procedure without history
 
-EXEC repo.[usp_persistence_set] @source_fullname = '[SchemaName].[SourceViewName]';
+Exec repo.[usp_persistence_set]
+    @source_fullname = '[SchemaName].[SourceViewName]'
+    ----alternatively @source_fullname2 can be used:
+    --@source_fullname2 = 'SchemaName.SourceViewName'
+  --these will define the structure of the table:
+  , @has_history = 0
+  , @has_history_columns = 0
+  --behavior of the procedure:
+  , @is_persistence_check_for_empty_source = 0
+  , @is_persistence_truncate = 0
+  , @is_persistence_delete_missing = 1
+  , @is_persistence_delete_changed = 0
+  , @is_persistence_update_changed = 1
+  , @is_persistence_insert = 1
+  , @is_persistence_merge_delete_missing = 0
+  , @is_persistence_merge_update_changed = 0
+  , @is_persistence_merge_insert = 0
+  , @source_filter = NULL
+  , @target_filter = NULL;
+
+--prepare code for persistence table and procedure
 
 EXEC repo.usp_main
 
@@ -114,29 +131,63 @@ FROM
 EXEC [SchemaName].[usp_PERSIST_SourceViewName_T];
 <<property_end>>
 
+
 <<property_start>>exampleUsage_2
---mark an existing table as persistence of a source
---or update persistence properties
---  if the entry already exists in [repo].[RepoObject_persistence]
---we don't need @source_RepoObject_guid, we could use @source_fullname instead
+--create new default persistence [SchemaName].[SourceViewName_T], 
+--using default properties, defined in [repo].[RepoObject_persistence]:
+--@is_persistence_truncate = 1
+--@is_persistence_insert = 1
+
+EXEC repo.[usp_persistence_set]
+@source_fullname = '[SchemaName].[SourceViewName]';
+<<property_end>>
+
+
+<<property_start>>exampleUsage_3
+---define alternative persistence_table_name
+
+EXEC repo.[usp_persistence_set]
+    --
+    @source_fullname = '[dbo].[zzz]'
+  , @persistence_table_name = 'zzz_qqq'
+  , @is_persistence_check_for_empty_source = 1
+  , @is_persistence_truncate = 1
+  , @is_persistence_insert = 1;
+<<property_end>>
+
+
+<<property_start>>exampleUsage_4
+--todo: better example for source_filter and target_filter
+
+Exec repo.[usp_persistence_set]
+    @source_fullname = '[SchemaName].[SourceViewName]'
+    ----alternatively @source_fullname2 can be used:
+    --@source_fullname2 = 'SchemaName.SourceViewName'
+  --these will define the structure of the table:
+  , @has_history = 0
+  , @has_history_columns = 0
+  --behavior of the procedure:
+  , @is_persistence_check_for_empty_source = 0
+  , @is_persistence_truncate = 0
+  , @is_persistence_delete_missing = 0
+  , @is_persistence_delete_changed = 0
+  , @is_persistence_update_changed = 0
+  , @is_persistence_insert = 0
+  , @is_persistence_merge_delete_missing = 1
+  , @is_persistence_merge_update_changed = 1
+  , @is_persistence_merge_insert = 1
+  , @source_filter = NULL
+  , @target_filter = NULL;
+<<property_end>>
+
+
+<<property_start>>exampleUsage_5
+--an existing table, for example in another schema, is to be used as target
 --we NEED to obtain @persistence_RepoObject_guid
 
 
 DECLARE
-    @source_RepoObject_guid      UNIQUEIDENTIFIER
-  , @persistence_RepoObject_guid UNIQUEIDENTIFIER;
-
-SET @source_RepoObject_guid =
-(
-    SELECT
-        [RepoObject_guid]
-    FROM
-        [repo].[RepoObject]
-    WHERE
-        [SysObject_fullname] = '[SchemaName].[SourceViewName]'
-);
-
-PRINT @source_RepoObject_guid;
+  @persistence_RepoObject_guid UNIQUEIDENTIFIER;
 
 SET @persistence_RepoObject_guid =
 (
@@ -145,13 +196,16 @@ SET @persistence_RepoObject_guid =
     FROM
         [repo].[RepoObject]
     WHERE
-        [RepoObject_fullname] = '[SchemaName].[SourceViewName_T]'
+        [RepoObject_fullname] = '[TargetSchema].[TargetTable]'
 );
 
 PRINT @persistence_RepoObject_guid;
 
 EXEC repo.[usp_persistence_set]
-    @source_RepoObject_guid = @source_RepoObject_guid
+    @source_fullname = '[SchemaName].[SourceViewName]'
+    ----alternatively @source_fullname2 can be used:
+    --@source_fullname2 = 'SchemaName.SourceViewName'
+    --@source_RepoObject_guid = @source_RepoObject_guid
   , @persistence_RepoObject_guid = @persistence_RepoObject_guid
   , @has_history = 1 --this will create a temporal table, a table with history
   , @is_persistence_check_for_empty_source = 1
@@ -162,34 +216,6 @@ EXEC repo.[usp_persistence_set]
   , @is_persistence_insert = 1;
 <<property_end>>
 
-<<property_start>>exampleUsage_3
---create new persistence [SchemaName].[SourceViewName_T], 
---use explicite parameters
-
-EXEC repo.[usp_persistence_set] 
-    @source_fullname = '[SchemaName].[SourceViewName]'
-  , @has_history = 0
-  , @has_history_columns = 0
-  , @is_persistence_check_for_empty_source = 0
-  , @is_persistence_truncate = 0
-  , @is_persistence_delete_missing = 1
-  , @is_persistence_delete_changed = 0
-  , @is_persistence_update_changed = 1
-  , @is_persistence_insert = 1
-<<property_end>>
-
-<<property_start>>exampleWrong_Usage
----this will NOT work, because there is no @persistence_schema_name
----(it is  not implemented)
-
-EXEC repo.[usp_persistence_set]
-    --
-    @source_fullname = '[graph].[Index_S]'
-  , @persistence_table_name = 'Index'
-  , @is_persistence_check_for_empty_source = 1
-  , @is_persistence_truncate = 1
-  , @is_persistence_insert = 1;
-<<property_end>>
 */
 CREATE Procedure [repo].[usp_persistence_set]
     @source_RepoObject_guid                UniqueIdentifier = Null        --
@@ -202,10 +228,16 @@ CREATE Procedure [repo].[usp_persistence_set]
   , @is_persistence_delete_changed         Bit              = Null
   , @is_persistence_update_changed         Bit              = Null
   , @is_persistence_insert                 Bit              = Null
+  , @is_persistence_merge_delete_missing   Bit              = Null
+  , @is_persistence_merge_update_changed   Bit              = Null
+  , @is_persistence_merge_insert           Bit              = Null
   , @has_history_columns                   Bit              = Null
   , @has_history                           Bit              = Null
   , @history_schema_name                   NVarchar(128)    = Null
   , @history_table_name                    NVarchar(128)    = Null
+  , @source_filter                         NVarchar(4000)   = Null
+  , @target_filter                         NVarchar(4000)   = Null
+
                                                                           --todo
                                                                           --think about an additional parameter
                                                                           --@is_remove_target_column_not_in_source
@@ -289,10 +321,15 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_08 = @is_persistence_delete_changed
   , @parameter_09 = @is_persistence_update_changed
   , @parameter_10 = @is_persistence_insert
-  , @parameter_11 = @has_history_columns
-  , @parameter_12 = @has_history
-  , @parameter_13 = @history_schema_name
-  , @parameter_14 = @history_table_name;
+  , @parameter_11 = @is_persistence_merge_delete_missing
+  , @parameter_12 = @is_persistence_merge_update_changed
+  , @parameter_13 = @is_persistence_merge_insert
+  , @parameter_14 = @has_history_columns
+  , @parameter_15 = @has_history
+  , @parameter_16 = @history_schema_name
+  , @parameter_17 = @history_table_name
+  , @parameter_18 = @source_filter
+  , @parameter_19 = @target_filter;
 
 --
 ----START
@@ -713,6 +750,15 @@ Set
   , is_persistence_delete_changed = IsNull ( @is_persistence_delete_changed, is_persistence_delete_changed )
   , is_persistence_update_changed = IsNull ( @is_persistence_update_changed, is_persistence_update_changed )
   , is_persistence_insert = IsNull ( @is_persistence_insert, is_persistence_insert )
+  , is_persistence_merge_delete_missing = IsNull (
+                                                     @is_persistence_merge_delete_missing
+                                                   , is_persistence_merge_delete_missing
+                                                 )
+  , is_persistence_merge_update_changed = IsNull (
+                                                     @is_persistence_merge_update_changed
+                                                   , is_persistence_merge_update_changed
+                                                 )
+  , is_persistence_merge_insert = IsNull ( @is_persistence_merge_insert, is_persistence_merge_insert )
   , has_history_columns = IsNull ( @has_history_columns, has_history_columns )
   , has_history = IsNull ( @has_history, has_history )
   , is_persistence_check_for_empty_source = IsNull (
@@ -721,6 +767,8 @@ Set
                                                    )
   , history_schema_name = IsNull ( @history_schema_name, history_schema_name )
   , history_table_name = IsNull ( @history_table_name, history_table_name )
+  , source_filter = IsNull ( @source_filter, source_filter )
+  , target_filter = IsNull ( @target_filter, target_filter )
 Where
     target_RepoObject_guid = @persistence_RepoObject_guid;
 

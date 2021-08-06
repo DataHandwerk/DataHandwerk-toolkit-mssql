@@ -116,3 +116,20 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumn_ReferencingReferenced.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_DbmlColumnRelation';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+DECLARE @RepoObject_guid uniqueidentifier
+
+SET @RepoObject_guid = (SELECT RepoObject_guid from [repo].[RepoObject] where RepoObject_fullname = ''[repo].[RepoObject_gross]'')
+
+SELECT *
+FROM [reference].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, DEFAULT, DEFAULT)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]
+
+SELECT *
+FROM [reference].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, 1, 1)
+ORDER BY [Referenced_Depth]
+ , [Referencing_Depth]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_DbmlColumnRelation';
+

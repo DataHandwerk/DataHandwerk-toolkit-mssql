@@ -538,7 +538,6 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'928AA10A-AB9
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.AntoraIndexSemanticgroupPatterndatatype.adoc[]
 * xref:docs.RepoObject_IndexList.adoc[]
-* xref:graph.Index_S.adoc[]
 * xref:repo.ForeignKey_gross.adoc[]
 * xref:repo.ForeignKey_Indexes.adoc[]
 * xref:repo.ForeignKey_virtual_Indexes.adoc[]
@@ -546,6 +545,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:repo.usp_Index_finish.adoc[]
 * xref:repo.usp_index_inheritance.adoc[]
 * xref:repo.usp_Index_virtual_set.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross';
+
+
 
 
 GO

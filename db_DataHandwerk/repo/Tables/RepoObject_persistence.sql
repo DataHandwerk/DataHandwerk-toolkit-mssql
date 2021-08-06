@@ -11,12 +11,19 @@
     [is_persistence_insert]                 BIT              CONSTRAINT [DF__RepoObjec__is_pe__2E70E1FD] DEFAULT ((1)) NOT NULL,
     [is_persistence_truncate]               BIT              CONSTRAINT [DF__RepoObjec__is_pe__2F650636] DEFAULT ((1)) NOT NULL,
     [is_persistence_update_changed]         BIT              CONSTRAINT [DF__RepoObjec__is_pe__30592A6F] DEFAULT ((0)) NOT NULL,
+    [is_persistence_merge_delete_missing]   BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_delete_missing1] DEFAULT ((0)) NOT NULL,
+    [is_persistence_merge_insert]           BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_insert1] DEFAULT ((0)) NOT NULL,
+    [is_persistence_merge_update_changed]   BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_update_changed1] DEFAULT ((0)) NOT NULL,
     [source_RepoObject_guid]                UNIQUEIDENTIFIER NULL,
+    [source_filter]                         NVARCHAR (4000)  NULL,
+    [target_filter]                         NVARCHAR (4000)  NULL,
     [is_persistence]                        AS               (CONVERT([bit],(1))),
     [temporal_type]                         AS               (CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end)),
     CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -347,4 +354,56 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'history col
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'temporal table should be created, it will also automatically create the columns required for the history', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'has_history';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fe456058-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_update_changed1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fd456058-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_insert1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fc456058-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_delete_missing1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5ad9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'target_filter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'source_filter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'changed columns should be updated in persistence target +
+An alternative option is ''is_persistence_delete_changed'' +
+This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'missing columns or all columns should be inserted into persistence target +
+The final result depends on other settings
+
+* ''is_persistence_truncate'' = 1 and ''is_persistence_insert'' = 1 will just truncate the persistence target and insert all entries from persistence source
+* if a (real or virtual) PK is defined in the source, the insert can be combined with delete and update
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'missing columns should be deleted in persistence target +
+This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
 

@@ -15,6 +15,8 @@ WITH (DATA_COMPRESSION = PAGE);
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a218814c-9295-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_referencing_level_T', @level2type = N'COLUMN', @level2name = N'StartingNode_guid';
 
@@ -128,9 +130,10 @@ EXECUTE sp_addextendedproperty @name = N'has_history', @value = N'0', @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.ftv_RepoObject_Reference_PlantUml_EntityRefList.adoc[]
-* xref:reference.ftv_RepoObject_ReferencedReferencing.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.ftv_RepoObject_ReferencedReferencing.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_referencing_level_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_referencing_level_T';
+
+
 
 
 GO

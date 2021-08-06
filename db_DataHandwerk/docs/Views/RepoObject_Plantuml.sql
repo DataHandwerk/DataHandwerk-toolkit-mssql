@@ -294,11 +294,13 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:docs.ftv_RepoObject_Reference_PlantUml_EntityRefList.adoc[]
 * xref:docs.RepoObject_Plantuml_ColRefList.adoc[]
 * xref:docs.RepoObject_PlantUml_FkRefList.adoc[]
-* xref:docs.RepoObject_Plantuml_ObjectRefList.adoc[]
 * xref:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[]
+* xref:docs.RepoObject_Plantuml_ObjectRefList_1_1.adoc[]
 * xref:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[]
 * xref:docs.RepoObject_PlantUml_PumlEntityFkList.adoc[]
 * xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml';
+
+
 
 
 GO

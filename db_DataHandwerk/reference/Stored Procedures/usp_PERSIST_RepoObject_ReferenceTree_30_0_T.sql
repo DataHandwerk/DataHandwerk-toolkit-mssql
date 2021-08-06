@@ -183,3 +183,52 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7a07068d-19f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_30_0_T';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_30_0_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.RepoObject_ReferenceTree_30_0.adoc[]
+* xref:reference.RepoObject_ReferenceTree_30_0_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_30_0_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|500
+|
+*delete persistence target missing in source*
+
+* D
+* [reference].[RepoObject_ReferenceTree_30_0]
+* [reference].[RepoObject_ReferenceTree_30_0_T]
+
+|
+
+|600
+|
+*update changed*
+
+* U
+* [reference].[RepoObject_ReferenceTree_30_0]
+* [reference].[RepoObject_ReferenceTree_30_0_T]
+
+|
+
+|700
+|
+*insert missing*
+
+* I
+* [reference].[RepoObject_ReferenceTree_30_0]
+* [reference].[RepoObject_ReferenceTree_30_0_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_30_0_T';
+

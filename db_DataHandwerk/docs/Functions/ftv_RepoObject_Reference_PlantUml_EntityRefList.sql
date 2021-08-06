@@ -143,7 +143,30 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.RepoObject_Plantuml_Entity_T.adoc[]
-* xref:reference.RepoObject_referenced_level_T.adoc[]
-* xref:reference.RepoObject_referencing_level_T.adoc[]
+* xref:reference.RepoObject_ReferenceTree_0_30_T.adoc[]
+* xref:reference.RepoObject_ReferenceTree_30_0_T.adoc[]
 * xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+PlantUML for all entities to be included into the reference diagram, defined by  @Referenced_Depth and @Referencing_Depth +
+
+relations between these entities are generated in +
+xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_1_1.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[] ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+SELECT
+    ro.RepoObject_guid
+  , ro.RepoObject_fullname2
+  , ro_p.PumlEntityList
+FROM
+    repo.RepoObject                                                                                   ro
+    CROSS APPLY [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList] ( ro.RepoObject_guid, 1, 1 ) ro_p
+ORDER BY
+    ro.RepoObject_fullname2;', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
 

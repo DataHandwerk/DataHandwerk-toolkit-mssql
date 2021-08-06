@@ -132,6 +132,7 @@
     <Folder Include="configT\Views" />
     <Folder Include="configT\Tables" />
     <Folder Include="configT\Stored Procedures" />
+    <Folder Include="workflow\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -438,7 +439,6 @@
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_via_fullname.sql" />
     <Build Include="reference\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
     <Build Include="reference\Views\Match_RepoObject_referenced_UspPersistence.sql" />
-    <Build Include="reference\Views\Reference_UspPersistence.sql" />
     <Build Include="reference\Views\RepoObject_reference_persistence.sql" />
     <Build Include="reference\Views\RepoObject_reference_SqlExpressionDependencies.sql" />
     <Build Include="reference\Views\RepoObject_reference_union.sql" />
@@ -520,6 +520,8 @@
     <Build Include="docs\Views\RepoObject_Plantuml_ColRefList_1_1.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_30_0_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_0_30_T.sql" />
+    <Build Include="reference\Views\Persistence.sql" />
+    <Build Include="workflow\Stored Procedures\usp_workflow.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

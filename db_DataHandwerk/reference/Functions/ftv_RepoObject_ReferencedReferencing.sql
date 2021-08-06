@@ -94,10 +94,9 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]
-* xref:docs.RepoObject_Plantuml_ObjectRefList.adoc[]
-* xref:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[]
-* xref:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+
+
 
 
 GO
