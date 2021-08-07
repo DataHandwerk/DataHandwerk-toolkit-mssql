@@ -8,14 +8,14 @@
 * The correct sequence must be followed. Nested parsing is not supported.
 <<property_end>>
 */
-CREATE View property.RepoObjectProperty_Collect_source_sql_modules_definition
+CREATE View [property].[RepoObjectProperty_Collect_source_sql_modules_definition]
 As
 Select
     --
     RepoObject_guid
   , property_name  = Trim ( Cast(es.substring_netPreEol As NVarchar(128)))
   , property_value = Cast(String_Agg ( es.substring_netPostEol, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                            es.pos1) As NVarchar(4000))
+                                                                                                            es.pos1) As NVarchar(Max))
 From
     sqlparse.RepoObject_SqlModules_Repo_Sys
     Cross Apply tool.ftv_extract_substrings (

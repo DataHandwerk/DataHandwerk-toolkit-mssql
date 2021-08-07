@@ -82,7 +82,7 @@ Using
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
 When Matched And (
-                     t.property_nvarchar <> Cast(s.property_value As NVarchar(4000))
+                     t.property_value <> s.property_value
                      Or t.property_value Is Null
                         And Not s.property_value Is Null
                      Or s.property_value Is Null
@@ -151,7 +151,7 @@ Using
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
 When Matched And (
-                     t.property_nvarchar <> Cast(s.property_value As NVarchar(4000))
+                     t.property_value <> s.property_value
                      Or t.property_value Is Null
                         And Not s.property_value Is Null
                      Or s.property_value Is Null
@@ -220,7 +220,7 @@ Using
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
 When Matched And (
-                     t.property_nvarchar <> Cast(s.property_value As NVarchar(4000))
+                     t.property_value <> s.property_value
                      Or t.property_value Is Null
                         And Not s.property_value Is Null
                      Or s.property_value Is Null

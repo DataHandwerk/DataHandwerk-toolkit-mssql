@@ -17,7 +17,7 @@ CREATE Procedure [property].[usp_RepoObjectProperty_set]
   , @RepoObject_fullname  NVarchar(261)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
   , @RepoObject_fullname2 NVarchar(257)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use schema.TableOrView
   , @property_name        NVarchar(128)
-  , @property_value       Sql_Variant
+  , @property_value       NVarchar(MAX)
 As
 Begin
     Declare @step_name NVarchar(1000) = Null;

@@ -224,3 +224,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a164b404-96f7-eb11-850d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+

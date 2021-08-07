@@ -2,20 +2,19 @@
     [RepoObjectColumnProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [RepoObjectColumn_guid]       UNIQUEIDENTIFIER NOT NULL,
     [property_name]               NVARCHAR (128)   NOT NULL,
-    [property_value]              SQL_VARIANT      NOT NULL,
+    [property_value]              NVARCHAR (MAX)   NOT NULL,
     [inheritance]                 TINYINT          NULL,
-    [property_basetype]           AS               (sql_variant_property([property_value],'BaseType')),
-    [property_int]                AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [int])  end),
-    [property_bigint]             AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [bigint])  end),
-    [property_varchar]            AS               (TRY_CAST([property_value] AS [varchar](8000))),
-    [property_nvarchar]           AS               (TRY_CAST([property_value] AS [nvarchar](4000))),
-    [property_real]               AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [real])  end),
-    [property_float]              AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [float])  end),
-    [property_money]              AS               (case when NOT sql_variant_property([property_value],'BaseType')='uniqueidentifier' then TRY_CAST([property_value] AS [money])  end),
+    [property_int]                AS               (TRY_CAST([property_value] AS [int])),
+    [property_bigint]             AS               (TRY_CAST([property_value] AS [bigint])),
+    [property_real]               AS               (TRY_CAST([property_value] AS [real])),
+    [property_float]              AS               (TRY_CAST([property_value] AS [float])),
+    [property_money]              AS               (TRY_CAST([property_value] AS [money])),
     CONSTRAINT [PK_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumnProperty_id] ASC),
     CONSTRAINT [FK_RepoObjectColumnProperty__RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObjectColumnProperty] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 
@@ -125,7 +124,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd3f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd7f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_varchar';
+
 
 
 GO
@@ -133,7 +132,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd9f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd8f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_nvarchar';
+
 
 
 GO
@@ -153,15 +152,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd6f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd4f27926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumnProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_varchar';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [varchar](8000)))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_varchar';
+
+
+
+GO
+
 
 
 GO
@@ -173,11 +172,11 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumnProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_nvarchar';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [nvarchar](4000)))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_nvarchar';
+
 
 
 GO
@@ -213,11 +212,11 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectColumnProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(sql_variant_property([property_value],''BaseType''))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
+
 
 
 GO

@@ -94,7 +94,7 @@ Select
     Distinct
     RepoObject_guid
   , property_name
-  , property_value
+  , CAST(property_value as NVarchar(max))
 From
     property.RepoObjectProperty_sys_repo As T1
 Where
@@ -134,10 +134,10 @@ update table [property].[RepoObjectProperty] via view
 Update
     property.RepoObjectProperty_sys_repo
 Set
-    RepoObjectProperty_property_value = property_value
+    RepoObjectProperty_property_value = CAST(property_value as NVarchar(4000))
 Where
     Not RepoObjectProperty_id Is Null
-    And RepoObjectProperty_property_value <> property_value;
+    And RepoObjectProperty_property_value <> CAST(property_value as NVarchar(4000));
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -176,7 +176,7 @@ Select
     Distinct
     RepoObjectColumn_guid
   , property_name
-  , property_value
+  , CAST(property_value as NVarchar(max))
 From
     property.RepoObjectColumnProperty_sys_repo As T1
 Where
@@ -216,10 +216,10 @@ update table [property].[RepoObjectColumnProperty] via view
 Update
     property.RepoObjectColumnProperty_sys_repo
 Set
-    RepoObjectColumnProperty_property_value = property_value
+    RepoObjectColumnProperty_property_value = CAST(property_value as NVarchar(4000))
 Where
     Not RepoObjectColumnProperty_id Is Null
-    And RepoObjectColumnProperty_property_value <> property_value;
+    And RepoObjectColumnProperty_property_value <> CAST(property_value as NVarchar(4000));
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

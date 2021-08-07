@@ -1,4 +1,5 @@
 ﻿
+
 /*
 todo - direkt oder über extended properties
 - Index List
@@ -40,7 +41,7 @@ Select
                             Concat (
                                        Cast('' As NVarchar(Max))
                                      , Case
-                                           When Not rop.property_nvarchar Is Null
+                                           When Not rop.property_value Is Null
                                                Then
                                                ':ExistsProperty--' + Lower ( rop.property_name ) + ':' + Char ( 13 )
                                                + Char ( 10 )
@@ -267,7 +268,7 @@ Select
                                      , '[]'
                                      , Char ( 13 )
                                      , Char ( 10 )
-                                     , rop.property_nvarchar Collate Database_Default
+                                     , rop.property_value Collate Database_Default
                                      , Char ( 13 )
                                      , Char ( 10 )
                                      , '// end::'

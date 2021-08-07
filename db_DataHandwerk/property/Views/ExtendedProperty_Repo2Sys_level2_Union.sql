@@ -1,4 +1,6 @@
-﻿CREATE View [property].ExtendedProperty_Repo2Sys_level2_Union
+﻿
+
+CREATE View [property].[ExtendedProperty_Repo2Sys_level2_Union]
 As
 Select
     --

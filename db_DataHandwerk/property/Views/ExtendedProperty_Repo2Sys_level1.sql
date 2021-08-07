@@ -1,20 +1,21 @@
-﻿CREATE View [property].ExtendedProperty_Repo2Sys_level1
+﻿
+CREATE View [property].[ExtendedProperty_Repo2Sys_level1]
 As
 Select
     prop.property_name
-  , prop.property_value
-  , level0type = N'Schema'
-  , level0name = ro.RepoObject_schema_name
+  , property_value = Cast(prop.property_value As NVarchar(4000))
+  , level0type     = N'Schema'
+  , level0name     = ro.RepoObject_schema_name
   , lev.level1type
-  , level1name = ro.RepoObject_name
+  , level1name     = ro.RepoObject_name
   , lev.level2type
-  , level2name = Cast(Null As Varchar(128))
+  , level2name     = Cast(Null As Varchar(128))
   , prop.RepoObject_guid
   , ro.RepoObject_type
 From
-    [property].RepoObjectProperty               As prop
+    [property].RepoObjectProperty            As prop
     Inner Join
-        repo.RepoObject                   As ro
+        repo.RepoObject                      As ro
             On
             ro.RepoObject_guid = prop.RepoObject_guid
 

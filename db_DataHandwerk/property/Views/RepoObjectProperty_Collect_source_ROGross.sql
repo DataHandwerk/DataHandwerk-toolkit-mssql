@@ -1,5 +1,5 @@
 ﻿
-CREATE View [property].RepoObjectProperty_Collect_source_ROGross
+CREATE View [property].[RepoObjectProperty_Collect_source_ROGross]
 As
 Select
     ro.RepoObject_guid
@@ -7,82 +7,82 @@ Select
   , property_value = Case p_names.property_name
                          When 'pk_index_guid'
                              Then
-                             Cast(ro.pk_index_guid As Sql_Variant)
+                             Cast(ro.pk_index_guid As NVarchar(Max))
                          When 'pk_IndexPatternColumnDatatype'
                              Then
-                             Cast(ro.pk_IndexPatternColumnDatatype As Sql_Variant)
+                             Cast(ro.pk_IndexPatternColumnDatatype As NVarchar(Max))
                          When 'pk_IndexPatternColumnName'
                              Then
-                             Cast(ro.pk_IndexPatternColumnName As Sql_Variant)
+                             Cast(ro.pk_IndexPatternColumnName As NVarchar(Max))
                          When 'pk_IndexSemanticGroup'
                              Then
-                             Cast(ro.pk_IndexSemanticGroup As Sql_Variant)
+                             Cast(ro.pk_IndexSemanticGroup As NVarchar(Max))
                          When 'is_repo_managed'
                              Then
-                             Cast(ro.is_repo_managed As Sql_Variant)
+                             Cast(ro.is_repo_managed As NVarchar(Max))
                          When 'usp_persistence_RepoObject_guid'
                              Then
-                             Cast(ro.usp_persistence_RepoObject_guid As Sql_Variant)
+                             Cast(ro.usp_persistence_RepoObject_guid As NVarchar(Max))
                          When 'persistence_source_RepoObject_guid'
                              Then
-                             Cast(ro.persistence_source_RepoObject_guid As Sql_Variant)
+                             Cast(ro.persistence_source_RepoObject_guid As NVarchar(Max))
                          When 'persistence_source_RepoObject_fullname'
                              Then
-                             Cast(ro.persistence_source_RepoObject_fullname As Sql_Variant)
+                             Cast(ro.persistence_source_RepoObject_fullname As NVarchar(Max))
                          When 'persistence_source_RepoObject_fullname2'
                              Then
-                             Cast(ro.persistence_source_RepoObject_fullname2 As Sql_Variant)
+                             Cast(ro.persistence_source_RepoObject_fullname2 As NVarchar(Max))
                          When 'persistence_source_RepoObject_xref'
                              Then
-                             Cast(ro.persistence_source_RepoObject_xref As Sql_Variant)
+                             Cast(ro.persistence_source_RepoObject_xref As NVarchar(Max))
                          When 'has_history'
                              Then
-                             Cast(ro.has_history As Sql_Variant)
+                             Cast(ro.has_history As NVarchar(Max))
                          When 'has_history_columns'
                              Then
-                             Cast(ro.has_history_columns As Sql_Variant)
+                             Cast(ro.has_history_columns As NVarchar(Max))
                          When 'is_persistence'
                              Then
-                             Cast(ro.is_persistence As Sql_Variant)
+                             Cast(ro.is_persistence As NVarchar(Max))
                          When 'is_persistence_check_duplicate_per_pk'
                              Then
-                             Cast(ro.is_persistence_check_duplicate_per_pk As Sql_Variant)
+                             Cast(ro.is_persistence_check_duplicate_per_pk As NVarchar(Max))
                          When 'is_persistence_check_for_empty_source'
                              Then
-                             Cast(ro.is_persistence_check_for_empty_source As Sql_Variant)
+                             Cast(ro.is_persistence_check_for_empty_source As NVarchar(Max))
                          When 'is_persistence_delete_missing'
                              Then
-                             Cast(ro.is_persistence_delete_missing As Sql_Variant)
+                             Cast(ro.is_persistence_delete_missing As NVarchar(Max))
                          When 'is_persistence_delete_changed'
                              Then
-                             Cast(ro.is_persistence_delete_changed As Sql_Variant)
+                             Cast(ro.is_persistence_delete_changed As NVarchar(Max))
                          When 'is_persistence_insert'
                              Then
-                             Cast(ro.is_persistence_insert As Sql_Variant)
+                             Cast(ro.is_persistence_insert As NVarchar(Max))
                          When 'is_persistence_truncate'
                              Then
-                             Cast(ro.is_persistence_truncate As Sql_Variant)
+                             Cast(ro.is_persistence_truncate As NVarchar(Max))
                          When 'is_persistence_update_changed'
                              Then
-                             Cast(ro.is_persistence_update_changed As Sql_Variant)
+                             Cast(ro.is_persistence_update_changed As NVarchar(Max))
                          When 'history_schema_name'
                              Then
-                             Cast(ro.history_schema_name As Sql_Variant)
+                             Cast(ro.history_schema_name As NVarchar(Max))
                          When 'history_table_name'
                              Then
-                             Cast(ro.history_table_name As Sql_Variant)
+                             Cast(ro.history_table_name As NVarchar(Max))
                          When 'AntoraReferencedList'
                              Then
-                             Cast(Cast(ro.AntoraReferencedList As NVarchar(4000)) As Sql_Variant)
+                             Cast(ro.AntoraReferencedList As NVarchar(Max))
                          When 'AntoraReferencingList'
                              Then
-                             Cast(Cast(ro.AntoraReferencingList As NVarchar(4000)) As Sql_Variant)
+                             Cast(ro.AntoraReferencingList As NVarchar(Max))
                          When 'has_execution_plan_issue'
                              Then
-                             Cast(ro.has_execution_plan_issue As Sql_Variant)
+                             Cast(ro.has_execution_plan_issue As NVarchar(Max))
                          When 'has_get_referenced_issue'
                              Then
-                             Cast(ro.has_get_referenced_issue As Sql_Variant)
+                             Cast(ro.has_get_referenced_issue As NVarchar(Max))
                      End
 From
     repo.RepoObject_gross ro

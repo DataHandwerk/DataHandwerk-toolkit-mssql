@@ -1,22 +1,22 @@
-﻿CREATE View [property].RepoObjectProperty_Collect_source_uspgenerator
+﻿
+CREATE View [property].[RepoObjectProperty_Collect_source_uspgenerator]
 As
-
 Select
     ro.RepoObject_guid
   , property_name  = p_names.property_name
   , property_value = Case p_names.property_name
                          When 'AdocUspSteps'
                              Then
-                             Cast(Cast(ro.AdocUspSteps As NVarchar(4000)) As Sql_Variant)
+                             Cast(ro.AdocUspSteps As NVarchar(Max))
                          When 'UspParameters'
                              Then
-                             Cast(Cast(ro.UspParameters As NVarchar(4000)) As Sql_Variant)
+                             Cast(ro.UspParameters As NVarchar(Max))
                          When 'ExampleUsage'
                              Then
-                             Cast(ro.UspExamples As Sql_Variant)
+                             Cast(ro.UspExamples As NVarchar(Max))
                          When 'MS_Description'
                              Then
-                             Cast(ro.MS_Description As Sql_Variant)
+                             Cast(ro.MS_Description As NVarchar(Max))
                      End
 From
     uspgenerator.GeneratorUsp_SqlUsp ro

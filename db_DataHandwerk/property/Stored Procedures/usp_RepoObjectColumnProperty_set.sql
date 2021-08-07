@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 <<property_start>>exampleUsage
 EXEC property.usp_RepoObjectColumnProperty_set
     @RepoObject_fullname2 = 'SchemaName.TableName'
@@ -15,7 +16,7 @@ CREATE Procedure [property].[usp_RepoObjectColumnProperty_set]
   , @RepoObject_fullname   NVarchar(261)    = Null --can be used to define @RepoObjectColumn_guid; use '[schema].[TableOrView]'
   , @RepoObject_fullname2  NVarchar(257)    = Null --can be used to define @RepoObjectColumn_guid; use 'schema.TableOrView'
   , @property_name         NVarchar(128)
-  , @property_value        Sql_Variant
+  , @property_value        NVarchar(Max)
 As
 Begin
     Declare @step_name NVarchar(1000) = Null;

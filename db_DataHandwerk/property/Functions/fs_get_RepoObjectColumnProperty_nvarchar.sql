@@ -1,4 +1,4 @@
-﻿CREATE Function [property].fs_get_RepoObjectColumnProperty_nvarchar
+﻿CREATE Function [property].[fs_get_RepoObjectColumnProperty_nvarchar]
 (
     @RepoObjectColumn_guid UniqueIdentifier
   , @property_name         NVarchar(128)
@@ -9,7 +9,7 @@ Begin
     Return
     (
         Select
-            property_nvarchar
+            property_value
         From
             [property].RepoObjectColumnProperty
         Where

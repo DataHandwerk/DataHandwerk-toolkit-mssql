@@ -1,8 +1,9 @@
-﻿CREATE View [property].ExtendedProperty_Repo2Sys_level2_RepoObjectColumn
+﻿
+CREATE View [property].[ExtendedProperty_Repo2Sys_level2_RepoObjectColumn]
 As
 Select
     prop.property_name
-  , prop.property_value
+  , property_value         = Cast(prop.property_value As NVarchar(4000))
   , level0type             = N'Schema'
   , level0name             = ro_parent.RepoObject_schema_name
   , lev_parent.level1type
@@ -14,14 +15,14 @@ Select
   , parent_RepoObject_guid = ro_parent.RepoObject_guid
   , parent_RepoObject_type = ro_parent.RepoObject_type
 From
-    [property].RepoObjectColumnProperty         As prop
+    [property].RepoObjectColumnProperty      As prop
     Inner Join
-        repo.RepoObjectColumn             As roc
+        repo.RepoObjectColumn                As roc
             On
             roc.RepoObjectColumn_guid = prop.RepoObjectColumn_guid
 
     Inner Join
-        repo.RepoObject                   As ro_parent
+        repo.RepoObject                      As ro_parent
             On
             ro_parent.RepoObject_guid = roc.RepoObject_guid
 

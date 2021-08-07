@@ -2,9 +2,8 @@
     [RepoSchemaProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [RepoSchema_guid]       UNIQUEIDENTIFIER NOT NULL,
     [property_name]         NVARCHAR (128)   NOT NULL,
-    [property_value]        SQL_VARIANT      NULL,
+    [property_value]        NVARCHAR (MAX)   NULL,
     [inheritance]           TINYINT          NULL,
-    [property_basetype]     AS               (sql_variant_property([property_value],'BaseType')),
     [property_int]          AS               (TRY_CAST([property_value] AS [int])),
     [property_bigint]       AS               (TRY_CAST([property_value] AS [bigint])),
     [property_varchar]      AS               (TRY_CAST([property_value] AS [varchar](8000))),
@@ -16,6 +15,8 @@
     CONSTRAINT [FK_RepoSchemaProperty__RepoSchema] FOREIGN KEY ([RepoSchema_guid]) REFERENCES [repo].[RepoSchema] ([RepoSchema_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoSchemaProperty] UNIQUE NONCLUSTERED ([RepoSchema_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 
@@ -61,7 +62,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'de074
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dd0747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
+
 
 
 GO
@@ -157,9 +158,9 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoSchemaProperty].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(sql_variant_property([property_value],''BaseType''))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_basetype';
+
 
