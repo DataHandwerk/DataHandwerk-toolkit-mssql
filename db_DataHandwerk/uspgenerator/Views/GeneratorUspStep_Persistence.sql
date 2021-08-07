@@ -403,6 +403,48 @@ From
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name;
+/*
+MERGE [graph].[ReferencedObject] as T
+USING
+(
+    SELECT
+        [RepoObject_guid] AS [Procedure_RepoObject_guid]
+      , ''                AS [Instance]
+    FROM
+        [repo].[RepoObject]
+    WHERE
+        [RepoObject_type] = 'P'
+) AS S
+ON T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
+   AND T.[Instance] = S.[Instance]
+WHEN MATCHED AND (
+                     t.property_nvarchar <> Cast(s.property_value As NVarchar(4000))
+                     Or t.property_value Is Null
+                        And Not s.property_value Is Null
+                     Or s.property_value Is Null
+                        And Not t.property_value Is Null
+                 )
+    Then Update Set
+             property_value = s.property_value
+WHEN NOT MATCHED BY TARGET
+    THEN INSERT
+         (
+             $FROM_ID
+           , $TO_ID
+         )
+         VALUES
+             (
+                 referencing.$NODE_ID
+               , referenced.$NODE_ID
+             )
+WHEN NOT MATCHED BY SOURCE
+    THEN DELETE
+OUTPUT
+    deleted.*
+  , $ACTION
+  , inserted.*;
+
+*/
 Go
 
 Execute sp_addextendedproperty

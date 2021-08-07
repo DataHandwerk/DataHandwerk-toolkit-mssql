@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 only insert, no update
 
 to get duration and grouping, use unique combinations of keys,for example
@@ -15,7 +16,7 @@ if a procedure is called several times per ssis_execution, for example the @ssis
 it is also possible to use the @execution_log_id output parameter ad to store it back as @parent_execution_log_id
 
 */
-CREATE Procedure logs.usp_ExecutionLog_insert
+CREATE Procedure [logs].[usp_ExecutionLog_insert]
     @execution_instance_guid UniqueIdentifier
   , @ssis_execution_id       BigInt           = Null
   , @sub_execution_id        Int              = Null
@@ -133,35 +134,35 @@ Values
       , @inserted
       , @updated
       , @deleted
-      , @info_01
-      , @info_02
-      , @info_03
-      , @info_04
-      , @info_05
-      , @info_06
-      , @info_07
-      , @info_08
-      , @info_09
-      , @parameter_01
-      , @parameter_02
-      , @parameter_03
-      , @parameter_04
-      , @parameter_05
-      , @parameter_06
-      , @parameter_07
-      , @parameter_08
-      , @parameter_09
-      , @parameter_10
-      , @parameter_11
-      , @parameter_12
-      , @parameter_13
-      , @parameter_14
-      , @parameter_15
-      , @parameter_16
-      , @parameter_17
-      , @parameter_18
-      , @parameter_19
-      , @parameter_20
+      , Try_Cast(@info_01 As NVarchar(4000))
+      , Try_Cast(@info_02 As NVarchar(4000))
+      , Try_Cast(@info_03 As NVarchar(4000))
+      , Try_Cast(@info_04 As NVarchar(4000))
+      , Try_Cast(@info_05 As NVarchar(4000))
+      , Try_Cast(@info_06 As NVarchar(4000))
+      , Try_Cast(@info_07 As NVarchar(4000))
+      , Try_Cast(@info_08 As NVarchar(4000))
+      , Try_Cast(@info_09 As NVarchar(4000))
+      , Try_Cast(@parameter_01 As NVarchar(4000))
+      , Try_Cast(@parameter_02 As NVarchar(4000))
+      , Try_Cast(@parameter_03 As NVarchar(4000))
+      , Try_Cast(@parameter_04 As NVarchar(4000))
+      , Try_Cast(@parameter_05 As NVarchar(4000))
+      , Try_Cast(@parameter_06 As NVarchar(4000))
+      , Try_Cast(@parameter_07 As NVarchar(4000))
+      , Try_Cast(@parameter_08 As NVarchar(4000))
+      , Try_Cast(@parameter_09 As NVarchar(4000))
+      , Try_Cast(@parameter_10 As NVarchar(4000))
+      , Try_Cast(@parameter_11 As NVarchar(4000))
+      , Try_Cast(@parameter_12 As NVarchar(4000))
+      , Try_Cast(@parameter_13 As NVarchar(4000))
+      , Try_Cast(@parameter_14 As NVarchar(4000))
+      , Try_Cast(@parameter_15 As NVarchar(4000))
+      , Try_Cast(@parameter_16 As NVarchar(4000))
+      , Try_Cast(@parameter_17 As NVarchar(4000))
+      , Try_Cast(@parameter_18 As NVarchar(4000))
+      , Try_Cast(@parameter_19 As NVarchar(4000))
+      , Try_Cast(@parameter_20 As NVarchar(4000))
     );
 
 Set @execution_log_id = Scope_Identity ();
@@ -205,8 +206,6 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:reference.usp_PERSIST_RepoObject_referenced_level_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_ReferenceTree_0_30_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_ReferenceTree_30_0_T.adoc[]
-* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_referenced_30_0_T.adoc[]
-* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_referencing_0_30_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_referencing_level_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObjectColumn_reference_T.adoc[]
 * xref:reference.usp_RepoObject_update_SysObjectQueryPlan.adoc[]
@@ -230,7 +229,10 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:repo.usp_update_Referencing_Count.adoc[]
 * xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_41_from_T.adoc[]
 * xref:sqlparse.usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T.adoc[]
-* xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'PROCEDURE', @level1name = N'usp_ExecutionLog_insert';
+* xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]
+* xref:workflow.usp_workflow.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'PROCEDURE', @level1name = N'usp_ExecutionLog_insert';
+
+
 
 
 

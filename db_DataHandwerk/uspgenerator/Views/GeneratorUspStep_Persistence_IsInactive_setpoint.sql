@@ -1,4 +1,5 @@
-﻿CREATE View [uspgenerator].GeneratorUspStep_Persistence_IsInactive_setpoint
+﻿
+CREATE View [uspgenerator].[GeneratorUspStep_Persistence_IsInactive_setpoint]
 As
 With
 ro_u
@@ -17,15 +18,15 @@ As
       , ro.is_persistence_update_changed
       , ro_s.pk_index_guid As source_pk_index_guid
     From
-        repo.RepoObject_gross     As ro
+        repo.RepoObject_gross           As ro
         Inner Join
-            [uspgenerator].GeneratorUsp     As u
+            [uspgenerator].GeneratorUsp As u
                 On
                 ro.RepoObject_schema_name   = u.usp_schema
                 And ro.usp_persistence_name = u.usp_name
 
         Left Join
-            repo.RepoObject_gross As ro_s
+            repo.RepoObject_gross       As ro_s
                 On
                 ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
     )
@@ -167,6 +168,16 @@ Select
                               Else
                                   1
                           End
+  , source_pk_index_guid
+From
+    ro_u
+Union All
+Select
+    --todo:
+    --merge
+    usp_id
+  , Number              = 900
+  , is_inactive         = 1
   , source_pk_index_guid
 From
     ro_u;

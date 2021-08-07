@@ -66,67 +66,15 @@ PRINT '[workflow].[usp_workflow]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":3110,"Name":"Merge Into [workflow].[ProcedureDependency] (Persistence)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[Persistence]","log_target_object":"[workflow].[ProcedureDependency]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',51,';',3110,';',NULL);
-
-Merge Into workflow.ProcedureDependency T
-Using
-(
-    Select
-        [referenced_usp_persistence_RepoObject_guid]
-      , [referencing_usp_persistence_RepoObject_guid]
-      , 1 As is_PersistenceDependency
-    From
-        [reference].[Persistence] As T1
-    Where
-        ( Not ( [referenced_usp_persistence_RepoObject_guid] Is Null ))
-        And ( Not ( [referencing_usp_persistence_RepoObject_guid] Is Null ))
-) S
-On S.[referenced_usp_persistence_RepoObject_guid] = T.referenced_Procedure_RepoObject_guid
-   And S.[referencing_usp_persistence_RepoObject_guid] = T.referencing_Procedure_RepoObject_guid
-When Matched And T.is_PersistenceDependency = 0
-    Then Update Set
-             is_PersistenceDependency = 1
-When Not Matched By Target
-    Then Insert
-         (
-             referenced_Procedure_RepoObject_guid
-           , referencing_Procedure_RepoObject_guid
-           , is_PersistenceDependency
-         )
-         Values
-             (
-                 S.[referenced_usp_persistence_RepoObject_guid]
-               , S.[referencing_usp_persistence_RepoObject_guid]
-               , S.is_PersistenceDependency
-             )
-When Not Matched By Source And T.is_PersistenceDependency = 1
-    Then Delete;
-
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'Merge Into [workflow].[ProcedureDependency] (Persistence)'
-SET @source_object = '[reference].[Persistence]'
-SET @target_object = '[workflow].[ProcedureDependency]'
-
-EXEC logs.usp_ExecutionLog_insert 
+/*{"ReportUspStep":[{"Number":210,"Name":"[workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
+EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
+--add your own parameters
+--logging parameters
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
+ , @parent_execution_log_id = @current_execution_log_id
+
 
 --
 --finish your own code here

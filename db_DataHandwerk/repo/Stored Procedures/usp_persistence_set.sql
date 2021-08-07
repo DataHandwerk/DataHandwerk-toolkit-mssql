@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target table, based on a given persistence source (view or table)
+* create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target (table or view), based on a given persistence source (view or table)
 * create or update entries in xref:sqldb:repo.RepoObject_persistence.adoc[]
 ** default properties are used, defined in this table
 *** [is_persistence_truncate] = 1
@@ -14,7 +14,7 @@ TIP: see details for usage in xref:manual:persistence-generator.adoc[]
 .How does it work:
 --
 * insert or update xref:sqldb:repo.RepoObject_persistence.adoc[]
-** update existing RepoObject which should be a table and will be marked as persistence
+** update existing RepoObject which [.line-through]#should be a table and# will be marked as persistence
 ** create new RepoObject which will be a table and will be marked as persistence
 * persistence source
 ** uses @source_RepoObject_guid, if not empty
@@ -633,7 +633,7 @@ End;
 
 --now [repo].[RepoObject] should contain the @persistence_RepoObject_guid
 --
---check if @persistence_RepoObject_guid is a table
+--check if @persistence_RepoObject_guid is a table or view
 If Not Exists
 (
     Select
@@ -642,10 +642,10 @@ If Not Exists
         repo.RepoObject
     Where
         RepoObject_guid     = @persistence_RepoObject_guid
-        And RepoObject_type = 'U'
+        And RepoObject_type IN ('U', 'V')
 )
 Begin
-    Set @info_01_message = N'@persistence_RepoObject_guid has not [RepoObject_type] = ''U''';
+    Set @info_01_message = N'@persistence_RepoObject_guid has not [RepoObject_type] ''U'' or ''V''';
     --SET @rows = @@ROWCOUNT;
     Set @step_id = @step_id + 1;
     Set @step_name = N'error';
@@ -1244,6 +1244,8 @@ ORDER BY
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'exampleWrong_Usage', @value = N'
 ---this will NOT work, because there is no @persistence_schema_name
@@ -1349,6 +1351,8 @@ EXEC [SchemaName].[usp_PERSIST_SourceViewName_T];', @level0type = N'SCHEMA', @le
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]
@@ -1393,6 +1397,8 @@ EXEC repo.[usp_persistence_set]
   , @is_persistence_insert = 1;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'exampleUsage_4', @value = N'
 --todo: better example for source_filter and target_filter
@@ -1416,4 +1422,6 @@ Exec repo.[usp_persistence_set]
   , @is_persistence_merge_insert = 1
   , @source_filter = NULL
   , @target_filter = NULL;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
 

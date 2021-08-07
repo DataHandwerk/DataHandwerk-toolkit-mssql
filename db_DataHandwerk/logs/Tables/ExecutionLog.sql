@@ -16,38 +16,38 @@
     [ssis_execution_id]       BIGINT           NULL,
     [sub_execution_id]        INT              NULL,
     [proc_id]                 INT              NULL,
-    [info_01]                 SQL_VARIANT      NULL,
-    [info_02]                 SQL_VARIANT      NULL,
-    [info_03]                 SQL_VARIANT      NULL,
-    [info_04]                 SQL_VARIANT      NULL,
-    [info_05]                 SQL_VARIANT      NULL,
-    [info_06]                 SQL_VARIANT      NULL,
-    [info_07]                 SQL_VARIANT      NULL,
-    [info_08]                 SQL_VARIANT      NULL,
-    [info_09]                 SQL_VARIANT      NULL,
+    [info_01]                 NVARCHAR (4000)  NULL,
+    [info_02]                 NVARCHAR (4000)  NULL,
+    [info_03]                 NVARCHAR (4000)  NULL,
+    [info_04]                 NVARCHAR (4000)  NULL,
+    [info_05]                 NVARCHAR (4000)  NULL,
+    [info_06]                 NVARCHAR (4000)  NULL,
+    [info_07]                 NVARCHAR (4000)  NULL,
+    [info_08]                 NVARCHAR (4000)  NULL,
+    [info_09]                 NVARCHAR (4000)  NULL,
     [event_info]              NVARCHAR (MAX)   NULL,
-    [parameter_01]            SQL_VARIANT      NULL,
-    [parameter_02]            SQL_VARIANT      NULL,
-    [parameter_03]            SQL_VARIANT      NULL,
-    [parameter_04]            SQL_VARIANT      NULL,
-    [parameter_05]            SQL_VARIANT      NULL,
-    [parameter_06]            SQL_VARIANT      NULL,
-    [parameter_07]            SQL_VARIANT      NULL,
-    [parameter_08]            SQL_VARIANT      NULL,
-    [parameter_09]            SQL_VARIANT      NULL,
-    [parameter_10]            SQL_VARIANT      NULL,
-    [parameter_11]            SQL_VARIANT      NULL,
-    [parameter_12]            SQL_VARIANT      NULL,
-    [parameter_13]            SQL_VARIANT      NULL,
-    [parameter_14]            SQL_VARIANT      NULL,
-    [parameter_15]            SQL_VARIANT      NULL,
-    [parameter_16]            SQL_VARIANT      NULL,
-    [parameter_17]            SQL_VARIANT      NULL,
-    [parameter_18]            SQL_VARIANT      NULL,
-    [parameter_19]            SQL_VARIANT      NULL,
-    [parameter_20]            SQL_VARIANT      NULL,
+    [parameter_01]            NVARCHAR (4000)  NULL,
+    [parameter_02]            NVARCHAR (4000)  NULL,
+    [parameter_03]            NVARCHAR (4000)  NULL,
+    [parameter_04]            NVARCHAR (4000)  NULL,
+    [parameter_05]            NVARCHAR (4000)  NULL,
+    [parameter_06]            NVARCHAR (4000)  NULL,
+    [parameter_07]            NVARCHAR (4000)  NULL,
+    [parameter_08]            NVARCHAR (4000)  NULL,
+    [parameter_09]            NVARCHAR (4000)  NULL,
+    [parameter_10]            NVARCHAR (4000)  NULL,
+    [parameter_11]            NVARCHAR (4000)  NULL,
+    [parameter_12]            NVARCHAR (4000)  NULL,
+    [parameter_13]            NVARCHAR (4000)  NULL,
+    [parameter_14]            NVARCHAR (4000)  NULL,
+    [parameter_15]            NVARCHAR (4000)  NULL,
+    [parameter_16]            NVARCHAR (4000)  NULL,
+    [parameter_17]            NVARCHAR (4000)  NULL,
+    [parameter_18]            NVARCHAR (4000)  NULL,
+    [parameter_19]            NVARCHAR (4000)  NULL,
+    [parameter_20]            NVARCHAR (4000)  NULL,
     [proc_fullname]           AS               (concat(quotename([proc_schema_name]),'.',quotename([proc_name]))),
-    CONSTRAINT [PK_ExecutionLog] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [uq_ExecutionLog] UNIQUE NONCLUSTERED ([id] ASC)
 );
 
 
@@ -61,8 +61,10 @@
 
 
 
+
+
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '1e90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'PK_ExecutionLog';
+
 
 
 GO
@@ -291,4 +293,9 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:logs.ExecutionLog_parent.adoc[]
 * xref:logs.ExecutionLog_puml_Sequence_start_stop.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CSI_logs_ExecutionLog]
+    ON [logs].[ExecutionLog];
 

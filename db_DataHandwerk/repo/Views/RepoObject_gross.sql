@@ -1695,6 +1695,7 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:docs.RepoObject_Plantuml.adoc[]
 * xref:property.RepoObjectProperty_Collect_source_ROGross.adoc[]
 * xref:reference.Match_RepoObject_referenced_UspPersistence.adoc[]
+* xref:reference.Persistence.adoc[]
 * xref:reference.RepoObject_ReferenceTree.adoc[]
 * xref:reference.RepoObject_ReferenceTree_0_30.adoc[]
 * xref:reference.RepoObject_ReferenceTree_30_0.adoc[]
@@ -1711,6 +1712,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:uspgenerator.GeneratorUspStep_Persistence.adoc[]
 * xref:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[]
 * xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
+
+
 
 
 
