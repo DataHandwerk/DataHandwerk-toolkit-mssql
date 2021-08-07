@@ -1660,4 +1660,25 @@
     <Property Name="NewSchema" Value="configT" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="00a82176-739b-439b-8f59-7f673e073853" ChangeDateTime="08/06/2021 11:47:20">
+    <Property Name="ElementName" Value="[docs].[RepoObject_Plantuml_ColRefList]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[docs]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="obsolet_RepoObject_Plantuml_ColRefList" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dcb22dcf-68e0-4cbe-b172-e275d225e559" ChangeDateTime="08/06/2021 11:50:00">
+    <Property Name="ElementName" Value="[reference].[ftv_RepoObject_ReferencedReferencing]" />
+    <Property Name="ElementType" Value="SqlInlineTableValuedFunction" />
+    <Property Name="ParentElementName" Value="[reference]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[obsolet_ftv_RepoObject_ReferencedReferencing]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6dfc84fd-377e-47c4-9b9a-29b39df7b0b5" ChangeDateTime="08/06/2021 11:52:42">
+    <Property Name="ElementName" Value="[reference].[Match_RepoObject_referenced_UspPersistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[reference]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[obsolet_Match_RepoObject_referenced_UspPersistence]" />
+  </Operation>
 </Operations>

@@ -23,7 +23,7 @@ ORDER BY ro.RepoObject_fullname2
 
 
 */
-CREATE Function [reference].[ftv_RepoObject_ReferencedReferencing]
+CREATE Function [reference].[obsolet_ftv_RepoObject_ReferencedReferencing]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -85,16 +85,16 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'FUNCTION'
-  , @level1name = N'ftv_RepoObject_ReferencedReferencing';
+  , @level1name = N'obsolet_ftv_RepoObject_ReferencedReferencing';
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_referenced_level_T]
 * [reference].[RepoObject_referencing_level_T]
-* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'obsolet_ftv_RepoObject_ReferencedReferencing';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml_ColRefList.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'obsolet_ftv_RepoObject_ReferencedReferencing';
 
 
 
@@ -102,5 +102,5 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_referenced_level_T.adoc[]
 * xref:reference.RepoObject_referencing_level_T.adoc[]
-* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferencedReferencing';
+* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'obsolet_ftv_RepoObject_ReferencedReferencing';
 

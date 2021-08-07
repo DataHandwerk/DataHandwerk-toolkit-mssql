@@ -17,7 +17,7 @@ each persistence table has a related persistence procedure
 <<property_end>>
 
 */
-CREATE View [reference].[Match_RepoObject_referenced_UspPersistence]
+CREATE View [reference].[obsolet_Match_RepoObject_referenced_UspPersistence]
 As
 Select
     ro1.usp_persistence_name            As First_usp_persistence_name
@@ -71,7 +71,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'Last_usp_persistence_name';
 Go
@@ -82,7 +82,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'First_usp_persistence_name';
 Go
@@ -93,7 +93,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'Last_usp_persistence_RepoObject_guid';
 Go
@@ -104,7 +104,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'First_usp_persistence_RepoObject_guid';
 Go
@@ -118,7 +118,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'LastNodeName';
 Go
@@ -129,7 +129,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'LastNode';
 Go
@@ -140,7 +140,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'FirstNodeName';
 Go
@@ -151,7 +151,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence'
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence'
   , @level2type = N'COLUMN'
   , @level2name = N'FirstNode';
 Go
@@ -162,31 +162,31 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'Match_RepoObject_referenced_UspPersistence';
+  , @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 Go
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '54514649-189d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'LastNode_schema_name';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '54514649-189d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'LastNode_schema_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '53514649-189d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'FirstNode_schema_name';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '53514649-189d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'FirstNode_schema_name';
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [graph].[ReferencedObject]
 * [graph].[RepoObject]
-* [repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+* [repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'FirstNode,LastNode', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'FirstNode,LastNode', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'413E7A02-0A96-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'413E7A02-0A96-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 
 
 GO
@@ -203,32 +203,32 @@ Where
 ------
 * FirstNode and LastNode are the persistence tables
 * First_usp_persistence and Last_usp_persistence are the related persistence proccedures +
-each persistence table has a related persistence procedure', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+each persistence table has a related persistence procedure', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.Reference_UspPersistence.adoc[]
-* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.ReferencedObject.adoc[]
 * xref:graph.RepoObject.adoc[]
-* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence';
+* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(''usp_PERSIST_''+[RepoObject_name])', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'Last_usp_persistence_name';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(''usp_PERSIST_''+[RepoObject_name])', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'Last_usp_persistence_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(''usp_PERSIST_''+[RepoObject_name])', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'First_usp_persistence_name';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(''usp_PERSIST_''+[RepoObject_name])', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'First_usp_persistence_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'LastNodeName';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'LastNodeName';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'FirstNodeName';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'obsolet_Match_RepoObject_referenced_UspPersistence', @level2type = N'COLUMN', @level2name = N'FirstNodeName';
 

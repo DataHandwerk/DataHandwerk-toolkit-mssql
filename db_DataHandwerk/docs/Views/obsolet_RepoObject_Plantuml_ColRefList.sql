@@ -1,5 +1,5 @@
 ﻿
-CREATE View [docs].[RepoObject_Plantuml_ColRefList]
+CREATE View [docs].obsolet_RepoObject_Plantuml_ColRefList
 As
 Select
     ro.RepoObject_guid
@@ -30,8 +30,8 @@ From
       , T2.Node_guid As Node_guid_2
     From
         repo.RepoObject                                                                           As ro
-        Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T1
-        Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 1, 1 ) As T2
+        Cross Apply [reference].[obsolet_ftv_RepoObject_ReferencedReferencing] ( ro.RepoObject_guid, 1, 1 ) As T1
+        Cross Apply [reference].[obsolet_ftv_RepoObject_ReferencedReferencing] ( ro.RepoObject_guid, 1, 1 ) As T2
 )     ro
     Inner Join
     (
@@ -74,7 +74,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'docs'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ColRefList'
+  , @level1name = N'obsolet_RepoObject_Plantuml_ColRefList'
   , @level2type = N'COLUMN'
   , @level2name = N'ColRefList';
 Go
@@ -88,7 +88,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'docs'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ColRefList'
+  , @level1name = N'obsolet_RepoObject_Plantuml_ColRefList'
   , @level2type = N'COLUMN'
   , @level2name = N'RepoObject_guid';
 Go
@@ -99,39 +99,39 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'docs'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_Plantuml_ColRefList';
+  , @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [graph].[ReferencedObjectColumn]
 * [graph].[RepoObjectColumn]
 * [reference].[ftv_RepoObject_ReferencedReferencing]
-* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+* [repo].[RepoObject]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'D724023E-FE95-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'D724023E-FE95-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Plantuml.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.ftv_RepoObject_ReferencedReferencing.adoc[]
 * xref:reference.RepoObjectColumn_reference_T.adoc[]
-* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList';
+* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'obsolet_RepoObject_Plantuml_ColRefList';
 
 
 

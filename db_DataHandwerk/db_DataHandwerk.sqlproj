@@ -280,7 +280,7 @@
     <Build Include="docs\Stored Procedures\usp_AntoraExport_navigation.sql" />
     <Build Include="docs\Tables\RepoObject_Plantuml_Entity_T.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_Entity.sql" />
-    <Build Include="docs\Views\RepoObject_Plantuml_ColRefList.sql" />
+    <Build Include="docs\Views\obsolet_RepoObject_Plantuml_ColRefList.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml.sql" />
     <Build Include="docs\Views\RepoObject_OutputFilter.sql" />
     <Build Include="docs\Views\RepoObject_ColumnList.sql" />
@@ -432,13 +432,13 @@
     <Build Include="reference\Functions\ftv_query_plan_extract_source.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ColumReferenceRepoObject.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_DbmlColumnRelation.sql" />
-    <Build Include="reference\Functions\ftv_RepoObject_ReferencedReferencing.sql" />
+    <Build Include="reference\Functions\obsolet_ftv_RepoObject_ReferencedReferencing.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_referenced.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_referencing.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_via_fullname.sql" />
     <Build Include="reference\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
-    <Build Include="reference\Views\Match_RepoObject_referenced_UspPersistence.sql" />
+    <Build Include="reference\Views\obsolet_Match_RepoObject_referenced_UspPersistence.sql" />
     <Build Include="reference\Views\RepoObject_reference_persistence.sql" />
     <Build Include="reference\Views\RepoObject_reference_SqlExpressionDependencies.sql" />
     <Build Include="reference\Views\RepoObject_reference_union.sql" />
