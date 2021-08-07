@@ -200,29 +200,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 |===
 |Number|Name (Action, Source, Target)|Parent
 
-|500
+|400
 |
-*delete persistence target missing in source*
+*truncate persistence target*
 
 * D
-* [reference].[RepoObject_ReferenceTree_30_0]
 * [reference].[RepoObject_ReferenceTree_30_0_T]
 
 |
 
-|600
+|800
 |
-*update changed*
-
-* U
-* [reference].[RepoObject_ReferenceTree_30_0]
-* [reference].[RepoObject_ReferenceTree_30_0_T]
-
-|
-
-|700
-|
-*insert missing*
+*insert all*
 
 * I
 * [reference].[RepoObject_ReferenceTree_30_0]
@@ -231,4 +220,6 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_30_0_T';
+
+
 

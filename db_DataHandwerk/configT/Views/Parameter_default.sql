@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
 * default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
@@ -438,21 +439,21 @@ ifdef::ExistsProperty--antorareferencinglist[]
 include::partial${docname}.adoc[tag=antorareferencinglist]
 endif::ExistsProperty--antorareferencinglist[]
 
-=== Object Reference Diagram
+=== Object Reference Diagram - 1 1
 
 [plantuml, entity_1_1_objectref-{docname}, svg]
 ....
 include::partial$puml/entity_1_1_objectref/{docname}.puml[]
 ....
 
-=== Object Reference Diagram - Referenced
+=== Object Reference Diagram - Referenced - 30 0
 
 [plantuml, entity_30_0_objectref-{docname}, svg]
 ....
 include::partial$puml/entity_30_0_objectref/{docname}.puml[]
 ....
 
-=== Object Reference Diagram - Referencing
+=== Object Reference Diagram - Referencing - 0 30
 
 [plantuml, entity_0_30_objectref-{docname}, svg]
 ....

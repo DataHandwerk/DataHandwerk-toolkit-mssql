@@ -1,18 +1,15 @@
 ﻿
 
+
 /*
-this view creates possible steps for GeneratorUspStep
-
-[repo].[usp_GeneratorUsp_insert_update_persistence]
-
-The content of the steps and the status [is_inactive] are determined and applied separately.
-
-* first all steps are inserted or updated
-* [is_inactive] will be set for some steps, to make
-
+<<property_start>>MS_Description
+* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence.adoc[] creates all possible steps for GeneratorUspStep
+* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[] determines which steps should be activated based on settings in xref:sqldb:repo.RepoObject_persistence.adoc[]
+* xref:sqldb:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[] uses these views
+<<property_end>>
 */
 
-CREATE View [uspgenerator].GeneratorUspStep_Persistence
+CREATE View [uspgenerator].[GeneratorUspStep_Persistence]
 As
 Select
     --
@@ -352,6 +349,36 @@ Select
   , Number                      = 800
   , Parent_Number               = Null
   , Name                        = 'insert all'
+  , has_logging                 = 1
+  , is_condition                = 0
+  , is_inactive                 = 0
+  , is_SubProcedure             = 0
+  , Statement                   = 'INSERT INTO 
+ ' + ro.RepoObject_fullname + '
+ (
+' + ro.PersistenceInsertColumnList + ')
+SELECT
+' + ro.PersistenceInsertColumnList + '
+FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
+  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_target_object           = ro.RepoObject_fullname
+  , log_flag_InsertUpdateDelete = 'I'
+  --
+  , gu.usp_fullname
+  , ro.RepoObject_guid
+From
+    repo.RepoObject_gross As ro
+    Inner Join
+        [uspgenerator].GeneratorUsp As gu
+            On
+            ro.RepoObject_schema_name   = gu.usp_schema
+            And ro.usp_persistence_name = gu.usp_name
+Union All
+Select
+    usp_id                      = gu.id
+  , Number                      = 900
+  , Parent_Number               = Null
+  , Name                        = 'merge'
   , has_logging                 = 1
   , is_condition                = 0
   , is_inactive                 = 0

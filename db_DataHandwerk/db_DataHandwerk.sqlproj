@@ -218,16 +218,9 @@
     <Build Include="repo\Views\Index_unique_IndexPatternColumnGuid.sql" />
     <Build Include="repo\Tables\IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T.sql" />
-    <Build Include="graph\Tables\ReferencedObjectColumn.sql" />
-    <Build Include="graph\Tables\ReferencingObject.sql" />
-    <Build Include="graph\Tables\ReferencedObject.sql" />
-    <Build Include="graph\Tables\RepoObjectColumn.sql" />
-    <Build Include="graph\Tables\RepoObject.sql" />
     <Build Include="Security\graph.sql" />
     <Build Include="graph\Views\RepoObjectColumn_S.sql" />
     <Build Include="graph\Views\RepoObject_S.sql" />
-    <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObjectColumn.sql" />
-    <Build Include="graph\Stored Procedures\usp_PERSIST_RepoObject.sql" />
     <Build Include="repo\Views\RepoObject_RequiredRepoObjectMerge.sql" />
     <None Include="_scripts\StaticData\dhw_self\21_dhw_self_repo_GeneratorUsp.sql" />
     <None Include="_scripts\StaticData\dhw_self\_dhw_self_repo_.sql" />
@@ -280,7 +273,6 @@
     <Build Include="docs\Stored Procedures\usp_AntoraExport_navigation.sql" />
     <Build Include="docs\Tables\RepoObject_Plantuml_Entity_T.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_Entity.sql" />
-    <Build Include="docs\Views\obsolet_RepoObject_Plantuml_ColRefList.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml.sql" />
     <Build Include="docs\Views\RepoObject_OutputFilter.sql" />
     <Build Include="docs\Views\RepoObject_ColumnList.sql" />
@@ -432,13 +424,11 @@
     <Build Include="reference\Functions\ftv_query_plan_extract_source.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ColumReferenceRepoObject.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_DbmlColumnRelation.sql" />
-    <Build Include="reference\Functions\obsolet_ftv_RepoObject_ReferencedReferencing.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_referenced.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_referencing.sql" />
     <Build Include="reference\Functions\ftv_RepoObject_ReferenceTree_via_fullname.sql" />
     <Build Include="reference\Functions\ftv_RepoObjectColumn_ReferenceTree.sql" />
-    <Build Include="reference\Views\obsolet_Match_RepoObject_referenced_UspPersistence.sql" />
     <Build Include="reference\Views\RepoObject_reference_persistence.sql" />
     <Build Include="reference\Views\RepoObject_reference_SqlExpressionDependencies.sql" />
     <Build Include="reference\Views\RepoObject_reference_union.sql" />
@@ -449,10 +439,6 @@
     <Build Include="reference\Views\RepoObject_ReferencingList.sql" />
     <Build Include="reference\Views\RepoObject_referenced_level.sql" />
     <Build Include="reference\Views\RepoObject_referencing_level.sql" />
-    <Build Include="reference\Tables\RepoObject_referenced_level_T.sql" />
-    <Build Include="reference\Tables\RepoObject_referencing_level_T.sql" />
-    <Build Include="reference\Stored Procedure\usp_PERSIST_RepoObject_referenced_level_T.sql" />
-    <Build Include="reference\Stored Procedure\usp_PERSIST_RepoObject_referencing_level_T.sql" />
     <Build Include="reference\Views\RepoObjectColumn_reference_BySamePredecessors.sql" />
     <Build Include="reference\Views\RepoObjectColumn_reference_FirstResultSet.sql" />
     <Build Include="reference\Views\RepoObjectColumn_reference_Persistence.sql" />
@@ -522,6 +508,7 @@
     <Build Include="reference\Stored Procedures\usp_PERSIST_RepoObject_ReferenceTree_0_30_T.sql" />
     <Build Include="reference\Views\Persistence.sql" />
     <Build Include="workflow\Stored Procedures\usp_workflow.sql" />
+    <Build Include="workflow\Views\ProcedureDependency_input_PersistenceDependency.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -74,6 +74,8 @@
 
 
 
+
+
 GO
 CREATE TRIGGER [repo].[RepoObject__after_update] ON repo.RepoObject
 AFTER UPDATE
@@ -545,6 +547,7 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.AntoraNavListPage_by_schema.adoc[]
 * xref:docs.ftv_RepoObject_Reference_PlantUml_EntityRefList.adoc[]
 * xref:docs.RepoObject_Plantuml_ColRefList.adoc[]
+* xref:docs.RepoObject_Plantuml_ColRefList_1_1.adoc[]
 * xref:docs.RepoObject_Plantuml_ObjectRefList_1_1.adoc[]
 * xref:docs.visjs_nodelist_object_test01.adoc[]
 * xref:graph.RepoObject_S.adoc[]
@@ -608,6 +611,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:sqlparse.RepoObject_SqlModules_Repo_Sys.adoc[]
 * xref:uspgenerator.GeneratorUsp_SqlUsp.adoc[]
 * xref:workflow.ProcedureDependency_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject';
+
+
 
 
 

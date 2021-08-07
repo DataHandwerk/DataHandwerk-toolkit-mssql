@@ -102,3 +102,25 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '14b3a
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fea5bb9c-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* references between persistence tables and therefore between persistence procedures to call them in the right order
+* to get only relations between persistence tables the result set is limited:
++
+[source,sql]
+------
+Where
+    ro1.[is_persistence]     = 1
+    And ro2.[is_persistence] = 1;
+------', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:workflow.usp_workflow.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_ReferenceTree_30_0_T.adoc[]
+* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence';
+

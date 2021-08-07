@@ -16,6 +16,8 @@
 
 
 
+
+
 GO
 CREATE CLUSTERED COLUMNSTORE INDEX [CSI_reference_RepoObject_ReferenceTree_30_0_T]
     ON [reference].[RepoObject_ReferenceTree_30_0_T];
@@ -98,11 +100,15 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = 1, @level0ty
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_persistence_update_changed', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_ReferenceTree_30_0_T';
+EXECUTE sp_addextendedproperty @name = N'is_persistence_update_changed', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_ReferenceTree_30_0_T';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_persistence_truncate', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_ReferenceTree_30_0_T';
+EXECUTE sp_addextendedproperty @name = N'is_persistence_truncate', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_ReferenceTree_30_0_T';
+
+
 
 
 GO
@@ -110,7 +116,9 @@ EXECUTE sp_addextendedproperty @name = N'is_persistence_insert', @value = 1, @le
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_missing', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_ReferenceTree_30_0_T';
+EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_missing', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_ReferenceTree_30_0_T';
+
+
 
 
 GO
@@ -140,7 +148,10 @@ EXECUTE sp_addextendedproperty @name = N'has_history', @value = 0, @level0type =
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.ftv_RepoObject_Reference_PlantUml_EntityRefList.adoc[]
 * xref:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[]
+* xref:reference.Persistence.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_ReferenceTree_30_0_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_ReferenceTree_30_0_T';
+
+
 
 
 GO

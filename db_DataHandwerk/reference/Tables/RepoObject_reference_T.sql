@@ -19,6 +19,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'e37c5574-89f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_reference_T';
 
@@ -124,11 +126,15 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = 1, @level0ty
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_persistence_update_changed', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+EXECUTE sp_addextendedproperty @name = N'is_persistence_update_changed', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_persistence_truncate', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+EXECUTE sp_addextendedproperty @name = N'is_persistence_truncate', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
 
 
 GO
@@ -136,7 +142,9 @@ EXECUTE sp_addextendedproperty @name = N'is_persistence_insert', @value = 1, @le
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_missing', @value = 1, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+EXECUTE sp_addextendedproperty @name = N'is_persistence_delete_missing', @value = 0, @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObject_reference_T';
+
+
 
 
 GO

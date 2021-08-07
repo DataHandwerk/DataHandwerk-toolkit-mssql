@@ -1,5 +1,4 @@
-﻿CREATE View [reference].RepoObject_referenced_level
-As
+﻿/*
 Select
     Object1.RepoObject_guid                                                     As StartingNode_guid
   , Object1.RepoObject_fullname                                                 As StartingNode_fullname
@@ -15,94 +14,34 @@ From
   , [graph].[RepoObject] For Path As Object2
 Where Match(
     SHORTEST_PATH(Object1(-(referenced)->Object2)+));
+*/
+CREATE View [reference].[RepoObject_referenced_level]
+As
+Select 1 As a
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '32e90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'ListNode';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '31e90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'LastNode_fullname2';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '30e90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'LastNode_fullname';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '2fe90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'LastNode_guid';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '2ee90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_level';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '2de90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'StartingNode_fullname2';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '2ce90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'StartingNode_fullname';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '2be90a1e-7495-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_referenced_level'
-  , @level2type = N'COLUMN'
-  , @level2name = N'StartingNode_guid';
+
 Go
 
 Execute sp_addextendedproperty
@@ -138,4 +77,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:graph.ReferencedObject.adoc[]
 * xref:graph.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '24d989df-5af7-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_referenced_level', @level2type = N'COLUMN', @level2name = N'a';
 
