@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -78,13 +79,13 @@ Select
     Parameter_name          = 'Hist_ValidFrom_column_name'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'default column name for column - datetime2 GENERATED ALWAYS AS ROW START'
-  , Parameter_default_value = Cast(N'ValidFrom' As sysname)
+  , Parameter_default_value = Cast(N'SysStartTime' As sysname)
 Union All
 Select
     Parameter_name          = 'Hist_ValidTo_column_name'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'default column name for column - datetime2 GENERATED ALWAYS AS ROW END'
-  , Parameter_default_value = Cast(N'ValidTo' As sysname)
+  , Parameter_default_value = Cast(N'SysEndTime' As sysname)
 Union All
 Select
     Parameter_name          = 'Hist_Table_schema'

@@ -1242,6 +1242,8 @@ ORDER BY
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'exampleWrong_Usage', @value = N'
 ---this will NOT work, because there is no @persistence_schema_name
@@ -1341,6 +1343,8 @@ FROM
 --try to execute the generated procedure
 
 EXEC [SchemaName].[usp_PERSIST_SourceViewName_T];', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
 
 
 
