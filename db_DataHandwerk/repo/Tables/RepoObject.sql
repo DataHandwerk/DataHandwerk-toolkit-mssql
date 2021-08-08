@@ -76,6 +76,8 @@
 
 
 
+
+
 GO
 CREATE TRIGGER [repo].[RepoObject__after_update] ON repo.RepoObject
 AFTER UPDATE
@@ -625,4 +627,15 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_name]
 * [repo].[RepoObject].[RepoObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+CREATE NONCLUSTERED INDEX [_dta_index_RepoObject_50_1757249315__K22_K24_K1]
+    ON [repo].[RepoObject]([SysObject_name] ASC, [SysObject_schema_name] ASC, [RepoObject_guid] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [_dta_index_RepoObject_50_1757249315__K1_K24_K22_K25_19]
+    ON [repo].[RepoObject]([RepoObject_guid] ASC, [SysObject_schema_name] ASC, [SysObject_name] ASC, [SysObject_type] ASC)
+    INCLUDE([RepoObject_type]);
 

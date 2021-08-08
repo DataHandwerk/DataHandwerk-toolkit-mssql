@@ -4,15 +4,17 @@
     [property_name]               NVARCHAR (128)   NOT NULL,
     [property_value]              NVARCHAR (MAX)   NOT NULL,
     [inheritance]                 TINYINT          NULL,
-    [property_int]                AS               (TRY_CAST([property_value] AS [int])),
-    [property_bigint]             AS               (TRY_CAST([property_value] AS [bigint])),
-    [property_real]               AS               (TRY_CAST([property_value] AS [real])),
-    [property_float]              AS               (TRY_CAST([property_value] AS [float])),
-    [property_money]              AS               (TRY_CAST([property_value] AS [money])),
+    [property_int]                AS               (TRY_CAST(left([property_value],(4000)) AS [int])),
+    [property_bigint]             AS               (TRY_CAST(left([property_value],(4000)) AS [bigint])),
+    [property_real]               AS               (TRY_CAST(left([property_value],(4000)) AS [real])),
+    [property_float]              AS               (TRY_CAST(left([property_value],(4000)) AS [float])),
+    [property_money]              AS               (TRY_CAST(left([property_value],(4000)) AS [money])),
     CONSTRAINT [PK_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumnProperty_id] ASC),
     CONSTRAINT [FK_RepoObjectColumnProperty__RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObjectColumnProperty] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 

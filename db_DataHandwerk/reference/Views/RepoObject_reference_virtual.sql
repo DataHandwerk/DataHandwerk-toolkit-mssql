@@ -1,5 +1,6 @@
 ﻿
-Create View reference.RepoObject_reference_virtual
+
+CREATE View [reference].[RepoObject_reference_virtual]
 As
 --
 Select
@@ -9,13 +10,13 @@ Select
   , referenced_entity_name      = ro_s.SysObject_name
   , referenced_fullname         = ro_s.RepoObject_fullname
   , referenced_id               = ro_s.SysObject_id
-  , referenced_node_id          = ro_s.node_id
+  --, referenced_node_id          = ro_s.node_id
   , referenced_schema_name      = ro_s.SysObject_schema_name
   , referenced_type             = ro_s.SysObject_type
   , referencing_entity_name     = ro_t.SysObject_name
   , referencing_fullname        = ro_t.RepoObject_fullname
   , referencing_id              = ro_t.SysObject_id
-  , referencing_node_id         = ro_t.node_id
+  --, referencing_node_id         = ro_t.node_id
   , referencing_schema_name     = ro_t.SysObject_schema_name
   , referencing_type            = Coalesce ( ro_t.SysObject_type, ro_t.RepoObject_type, 'U' )
   , InformationSource           = 'reference.RepoObjectSource_virtual'
@@ -43,7 +44,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58773
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5777342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_virtual', @level2type = N'COLUMN', @level2name = N'referencing_node_id';
+
 
 
 GO
@@ -67,7 +68,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '52773
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5177342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_virtual', @level2type = N'COLUMN', @level2name = N'referenced_node_id';
+
 
 
 GO
@@ -117,11 +118,11 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[node_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_virtual', @level2type = N'COLUMN', @level2name = N'referencing_node_id';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bigint],[SysObject_id])*(10000))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_virtual', @level2type = N'COLUMN', @level2name = N'referencing_node_id';
+
 
 
 GO
@@ -157,11 +158,11 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[node_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_virtual', @level2type = N'COLUMN', @level2name = N'referenced_node_id';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bigint],[SysObject_id])*(10000))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_virtual', @level2type = N'COLUMN', @level2name = N'referenced_node_id';
+
 
 
 GO

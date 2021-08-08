@@ -1,5 +1,6 @@
 ﻿
-CREATE View reference.RepoObject_reference_union
+
+CREATE View [reference].[RepoObject_reference_union]
 As
 Select
     T1.referenced_RepoObject_guid
@@ -7,13 +8,13 @@ Select
   , T1.referenced_entity_name
   , T1.referenced_fullname
   , T1.referenced_id
-  , T1.referenced_node_id
+  --, T1.referenced_node_id
   , T1.referenced_schema_name
   , T1.referenced_type
   , T1.referencing_entity_name
   , T1.referencing_fullname
   , T1.referencing_id
-  , T1.referencing_node_id
+  --, T1.referencing_node_id
   , T1.referencing_schema_name
   , T1.referencing_type
   , T1.InformationSource
@@ -27,13 +28,13 @@ Select
   , T1.referenced_entity_name
   , T1.referenced_fullname
   , T1.referenced_id
-  , T1.referenced_node_id
+  --, T1.referenced_node_id
   , T1.referenced_schema_name
   , T1.referenced_type
   , T1.referencing_entity_name
   , T1.referencing_fullname
   , T1.referencing_id
-  , T1.referencing_node_id
+  --, T1.referencing_node_id
   , T1.referencing_schema_name
   , T1.referencing_type
   , T1.InformationSource
@@ -47,19 +48,39 @@ Select
   , T1.referenced_entity_name
   , T1.referenced_fullname
   , T1.referenced_id
-  , T1.referenced_node_id
+  --, T1.referenced_node_id
   , T1.referenced_schema_name
   , T1.referenced_type
   , T1.referencing_entity_name
   , T1.referencing_fullname
   , T1.referencing_id
-  , T1.referencing_node_id
+  --, T1.referencing_node_id
   , T1.referencing_schema_name
   , T1.referencing_type
   , T1.InformationSource
   , one = 1
 From
-    reference.RepoObject_reference_virtual As T1;
+    reference.RepoObject_reference_virtual As T1
+Union All
+Select
+    T1.referenced_RepoObject_guid
+  , T1.referencing_RepoObject_guid
+  , T1.referenced_entity_name
+  , T1.referenced_fullname
+  , T1.referenced_id
+  --, T1.referenced_node_id
+  , T1.referenced_schema_name
+  , T1.referenced_type
+  , T1.referencing_entity_name
+  , T1.referencing_fullname
+  , T1.referencing_id
+  --, T1.referencing_node_id
+  , T1.referencing_schema_name
+  , T1.referencing_type
+  , T1.InformationSource
+  , one = 1
+From
+    reference.[RepoObject_reference_persistence_target_as_source] As T1
 Go
 
 Execute sp_addextendedproperty
@@ -104,15 +125,7 @@ Execute sp_addextendedproperty
   , @level2name = N'referencing_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'd5f57926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_union'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_node_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -170,15 +183,7 @@ Execute sp_addextendedproperty
   , @level2name = N'referenced_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'd7f57926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_union'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_node_id';
+
 Go
 
 Execute sp_addextendedproperty

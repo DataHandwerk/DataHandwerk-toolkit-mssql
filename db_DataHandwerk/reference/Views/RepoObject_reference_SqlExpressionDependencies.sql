@@ -1,4 +1,5 @@
-﻿CREATE View [reference].RepoObject_reference_SqlExpressionDependencies
+﻿
+CREATE View [reference].[RepoObject_reference_SqlExpressionDependencies]
 As
 Select
     sed.referenced_id
@@ -11,7 +12,7 @@ Select
                                                           , QuoteName ( sed.referenced_entity_name )
                                                         )
   --, [sed].[referenced_minor_id]
-  , Cast(sed.referenced_id As BigInt) * 10000  As referenced_node_id
+  --, Cast(sed.referenced_id As BigInt) * 10000  As referenced_node_id
   , sed.referenced_RepoObject_guid
   , sed.referenced_schema_name
   , sed.referenced_type
@@ -23,7 +24,7 @@ Select
                                                           , '.'
                                                           , QuoteName ( sed.referencing_entity_name )
                                                         )
-  , Cast(sed.referencing_id As BigInt) * 10000 As referencing_node_id
+  --, Cast(sed.referencing_id As BigInt) * 10000 As referencing_node_id
   , sed.referencing_RepoObject_guid
   , sed.referencing_schema_name
   , sed.referencing_type
@@ -99,15 +100,7 @@ Execute sp_addextendedproperty
   , @level2name = N'referencing_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'c8f57926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_SqlExpressionDependencies'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_node_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -165,15 +158,7 @@ Execute sp_addextendedproperty
   , @level2name = N'referenced_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'caf57926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_SqlExpressionDependencies'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_node_id';
+
 Go
 
 Execute sp_addextendedproperty

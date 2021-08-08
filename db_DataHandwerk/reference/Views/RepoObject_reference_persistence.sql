@@ -1,4 +1,5 @@
-﻿CREATE View [reference].RepoObject_reference_persistence
+﻿
+CREATE View [reference].[RepoObject_reference_persistence]
 As
 --
 Select
@@ -8,13 +9,13 @@ Select
   , referenced_entity_name      = ro_s.SysObject_name
   , referenced_fullname         = ro_s.RepoObject_fullname
   , referenced_id               = ro_s.SysObject_id
-  , referenced_node_id          = ro_s.node_id
+  --, referenced_node_id          = ro_s.node_id
   , referenced_schema_name      = ro_s.SysObject_schema_name
   , referenced_type             = ro_s.SysObject_type
   , referencing_entity_name     = ro_t.SysObject_name
   , referencing_fullname        = ro_t.RepoObject_fullname
   , referencing_id              = ro_t.SysObject_id
-  , referencing_node_id         = ro_t.node_id
+  --, referencing_node_id         = ro_t.node_id
   , referencing_schema_name     = ro_t.SysObject_schema_name
   , referencing_type            = Coalesce ( ro_t.SysObject_type, ro_t.RepoObject_type, 'U' )
   , InformationSource           = 'repo.RepoObject_persistence'
@@ -73,15 +74,7 @@ Execute sp_addextendedproperty
   , @level2name = N'referencing_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'cdf17926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_persistence'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_node_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -139,15 +132,7 @@ Execute sp_addextendedproperty
   , @level2name = N'referenced_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'cff17926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_persistence'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_node_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -229,26 +214,10 @@ Execute sp_addextendedproperty
   , @level2name = N'referencing_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[node_id]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_persistence'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_node_id';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'(CONVERT([bigint],[SysObject_id])*(10000))'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_persistence'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_node_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -317,26 +286,10 @@ Execute sp_addextendedproperty
   , @level2name = N'referenced_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[node_id]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_persistence'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_node_id';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'(CONVERT([bigint],[SysObject_id])*(10000))'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_reference_persistence'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_node_id';
+
 Go
 
 Execute sp_addextendedproperty

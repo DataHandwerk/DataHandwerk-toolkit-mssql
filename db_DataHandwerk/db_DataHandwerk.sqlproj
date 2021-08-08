@@ -511,6 +511,7 @@
     <Build Include="workflow\Views\ProcedureDependency_input_PersistenceDependency.sql" />
     <Build Include="workflow\Views\ProcedureDependency_input_PersistenceDependency_S.sql" />
     <Build Include="workflow\Stored Procedures\usp_PERSIST_ProcedureDependency_input_PersistenceDependency.sql" />
+    <Build Include="reference\Views\RepoObject_reference_persistence_target_as_source.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
