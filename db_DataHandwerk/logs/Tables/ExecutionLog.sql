@@ -1,16 +1,15 @@
 ﻿CREATE TABLE [logs].[ExecutionLog] (
     [id]                      BIGINT           IDENTITY (1, 1) NOT NULL,
     [parent_execution_log_id] BIGINT           NULL,
+    [proc_fullname]           AS               (concat(quotename([proc_schema_name]),'.',quotename([proc_name]))),
     [created_dt]              DATETIME         NULL,
-    [proc_schema_name]        NVARCHAR (128)   NULL,
-    [proc_name]               NVARCHAR (128)   NULL,
     [step_id]                 INT              NULL,
     [step_name]               NVARCHAR (1000)  NULL,
-    [source_object]           NVARCHAR (261)   NULL,
-    [target_object]           NVARCHAR (261)   NULL,
     [inserted]                INT              NULL,
     [updated]                 INT              NULL,
     [deleted]                 INT              NULL,
+    [source_object]           NVARCHAR (261)   NULL,
+    [target_object]           NVARCHAR (261)   NULL,
     [current_execution_guid]  UNIQUEIDENTIFIER NULL,
     [execution_instance_guid] UNIQUEIDENTIFIER NOT NULL,
     [ssis_execution_id]       BIGINT           NULL,
@@ -46,7 +45,8 @@
     [parameter_18]            NVARCHAR (4000)  NULL,
     [parameter_19]            NVARCHAR (4000)  NULL,
     [parameter_20]            NVARCHAR (4000)  NULL,
-    [proc_fullname]           AS               (concat(quotename([proc_schema_name]),'.',quotename([proc_name]))),
+    [proc_schema_name]        NVARCHAR (128)   NULL,
+    [proc_name]               NVARCHAR (128)   NULL,
     CONSTRAINT [uq_ExecutionLog] UNIQUE NONCLUSTERED ([id] ASC)
 );
 

@@ -258,8 +258,6 @@
     <Build Include="dbeaver\Views\DataSources_DbSchemaTable_FK.sql" />
     <Build Include="Security\config.sql" />
     <Build Include="config\Stored Procedures\usp_init_parameter.sql" />
-    <Build Include="docs\Views\visjs_EdgeList_object_test01.sql" />
-    <Build Include="docs\Views\visjs_nodelist_object_test01.sql" />
     <Build Include="dbeaver\Tables\DataSources.sql" />
     <Build Include="Security\test.sql" />
     <Build Include="docs\Tables\RepoObject_Adoc_T.sql" />

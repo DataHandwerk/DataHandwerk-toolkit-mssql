@@ -1,4 +1,14 @@
-﻿
+﻿/*
+issue in [sys].[sql_expression_dependencies]
+After changing the case of names or schemas some content has wrong case
+this generates errors in PUML graphics
+
+referenced_schema_name
+referenced_entity_name
+referencing_schema_name
+referencing_entity_name
+
+*/
 CREATE View [reference].[RepoObject_reference_SqlExpressionDependencies]
 As
 Select
