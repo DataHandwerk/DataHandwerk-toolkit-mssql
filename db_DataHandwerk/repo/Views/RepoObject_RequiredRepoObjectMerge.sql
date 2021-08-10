@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 <<property_start>>MS_Description
 list of conflicting entries which needs to be merged
@@ -7,14 +8,14 @@ list of conflicting entries which needs to be merged
 mismatch of RepoObject_guid can create 2 entries per one RepoObject +
 this can happen, if the guid exists in the database extended properties and a new guid will be created in the repo
 
-* roc1 has the right RepoObject_fullname, but the guid was new created
-* roc2 got the "right" guid from database, but roc2 can't propagate the fullname into RepoObject because the RepoObject_fullname is occupied
+* `RepoObject_guid` roc1 has the right RepoObject_fullname
+* `ro2_RepoObject_guid` roc2 got a guid from database, but roc2 can't propagate the fullname into RepoObject because the RepoObject_fullname is occupied
+
 now we have 2 entries, but we need to merge them
 
-we should keep roc1.RepoObject_guid
+merge is done in `[repo].[usp_sync_guid_RepoObject]`
 
-this was the old logic, it looks like we get issues: +
-we need to replace roc1.RepoObject_guid by roc2.RepoObject_guid
+`'usp_id;Number;Parent_Number: ',8,';',710,';',700`
 <<property_end>>
 
 some history, how we started to investigate:
@@ -42,7 +43,7 @@ repo	RepoObjectSource_FirstResultSet	RepoObject_guid
 repo	RepoObjectSource_QueryPlan	RepoObject_guid
 
 */
-Create View repo.RepoObject_RequiredRepoObjectMerge
+CREATE View [repo].[RepoObject_RequiredRepoObjectMerge]
 As
 Select
     ro1.RepoObject_guid

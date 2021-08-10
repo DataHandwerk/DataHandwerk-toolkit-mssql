@@ -540,107 +540,131 @@ IF config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0
 BEGIN
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2010,';',2000);
 
-DECLARE property_cursor CURSOR Local Fast_Forward
-FOR
+Declare property_cursor Cursor Local Fast_Forward For
 --
 --level 1 objects which are in level1type
-SELECT [T1].[RepoObject_guid]
- , [T1].[SysObject_schema_name]
- , [T2].[level1type]
- , [level1Name] = [T1].[SysObject_name]
- , [Level2Type] = NULL
- , [level2Name] = NULL
- , [T1].[SysObject_type]
-FROM repo.SysObject_RepoObject_via_name AS T1
-INNER JOIN [configT].[type_level1type_level2type] AS T2
- ON T1.SysObject_type = T2.type
-WHERE NOT [T1].[RepoObject_guid] IS NULL
- AND [T1].[SysObject_RepoObject_guid] IS NULL
- --level1Type objects
- AND NOT [T2].[level1type] IS NULL
- --the next is redundant, these kind of Objects should not exist in the database
- AND [T1].[is_SysObject_name_uniqueidentifier] = 0
-
-UNION ALL
-
-SELECT [T1].[RepoObject_guid]
- , [T1].[SysObject_schema_name]
- , [level1type] = [T4].[level1type]
- , [level1Name] = [parent].[SysObject_name]
- , [Level2Type] = [T2].[level2type]
- , [level2Name] = [T1].[SysObject_name]
- , [T1].[SysObject_type]
+Select
+    [T1].[RepoObject_guid]
+  , [T1].[SysObject_schema_name]
+  , [T2].[level1type]
+  , [level1Name] = [T1].[SysObject_name]
+  , [Level2Type] = Null
+  , [level2Name] = Null
+  , [T1].[SysObject_type]
+From
+    repo.SysObject_RepoObject_via_name         As T1
+    Inner Join
+        [configT].[type_level1type_level2type] As T2
+            On
+            T1.SysObject_type = T2.type
+Where
+    Not [T1].[RepoObject_guid] Is Null
+    And
+    (
+        [T1].[SysObject_RepoObject_guid] Is Null
+        Or [T1].[SysObject_RepoObject_guid]       <> [T1].[RepoObject_guid]
+    )
+    --level1Type objects
+    And Not [T2].[level1type] Is Null
+    --the next is redundant, these kind of Objects should not exist in the database
+    And [T1].[is_SysObject_name_uniqueidentifier] = 0
+Union All
+Select
+    [T1].[RepoObject_guid]
+  , [T1].[SysObject_schema_name]
+  , [level1type] = [T4].[level1type]
+  , [level1Name] = [parent].[SysObject_name]
+  , [Level2Type] = [T2].[level2type]
+  , [level2Name] = [T1].[SysObject_name]
+  , [T1].[SysObject_type]
 --, [parent].[SysObject_id]
 --, [parent].[SysObject_schema_name]
 --, [parent].[SysObject_name]
 --, [parent].[SysObject_type]
-FROM repo.SysObject_RepoObject_via_name AS T1
-INNER JOIN [configT].[type_level1type_level2type] AS T2
- ON T1.SysObject_type = T2.type
-INNER JOIN repo.SysObject_RepoObject_via_name AS parent
- ON T1.parent_object_id = parent.SysObject_id
-INNER JOIN [configT].[type_level1type_level2type] AS T4
- ON parent.SysObject_type = T4.type
-WHERE NOT [T1].[RepoObject_guid] IS NULL
- AND [T1].[SysObject_RepoObject_guid] IS NULL
- --level2Type objects
- AND NOT [T2].[level2type] IS NULL
- --level1 object
- --the next is redundant, these kind of Objects should not exist in the database
- AND [T1].[is_SysObject_name_uniqueidentifier] = 0
+From
+    repo.SysObject_RepoObject_via_name         As T1
+    Inner Join
+        [configT].[type_level1type_level2type] As T2
+            On
+            T1.SysObject_type     = T2.type
 
-DECLARE @RepoObject_guid UNIQUEIDENTIFIER
- , @schema_name NVARCHAR(128)
- , @level1type VARCHAR(128)
- , @level1name NVARCHAR(128)
- , @level2type VARCHAR(128)
- , @level2name NVARCHAR(128)
- , @type CHAR(2);
+    Inner Join
+        repo.SysObject_RepoObject_via_name     As parent
+            On
+            T1.parent_object_id   = parent.SysObject_id
 
-SET @rows = 0;
+    Inner Join
+        [configT].[type_level1type_level2type] As T4
+            On
+            parent.SysObject_type = T4.type
+Where
+    Not [T1].[RepoObject_guid] Is Null
+    And
+    (
+        [T1].[SysObject_RepoObject_guid] Is Null
+        Or [T1].[SysObject_RepoObject_guid]       <> [T1].[RepoObject_guid]
+    )
+    --level2Type objects
+    And Not [T2].[level2type] Is Null
+    --level1 object
+    --the next is redundant, these kind of Objects should not exist in the database
+    And [T1].[is_SysObject_name_uniqueidentifier] = 0;
 
-OPEN property_cursor;
+Declare
+    @RepoObject_guid UniqueIdentifier
+  , @schema_name     NVarchar(128)
+  , @level1type      Varchar(128)
+  , @level1name      NVarchar(128)
+  , @level2type      Varchar(128)
+  , @level2name      NVarchar(128)
+  , @type            Char(2);
 
-FETCH NEXT
-FROM property_cursor
-INTO @RepoObject_guid
- , @schema_name
- , @level1type
- , @level1name
- , @level2type
- , @level2name
- , @type
+Set @rows = 0;
 
-WHILE @@fetch_status <> - 1
-BEGIN
- IF @@fetch_status <> - 2
- BEGIN
-  EXEC repo_sys.[usp_AddOrUpdateExtendedProperty] @name = N'RepoObject_guid'
-   , @value = @RepoObject_guid
-   , @level0type = N'Schema'
-   , @level0name = @schema_name
-   , @level1type = @level1type
-   , @level1name = @level1name
-   , @level2type = @level2type
-   , @level2name = @level2name
+Open property_cursor;
 
-  SET @rows = @rows + 1;
- END;
-
- FETCH NEXT
- FROM property_cursor
- INTO @RepoObject_guid
+Fetch Next From property_cursor
+Into
+    @RepoObject_guid
   , @schema_name
   , @level1type
   , @level1name
   , @level2type
   , @level2name
-  , @type
-END
+  , @type;
 
-CLOSE property_cursor;
+While @@Fetch_Status <> -1
+Begin
+    If @@Fetch_Status <> -2
+    Begin
+        Exec repo_sys.[usp_AddOrUpdateExtendedProperty]
+            @name = N'RepoObject_guid'
+          , @value = @RepoObject_guid
+          , @level0type = N'Schema'
+          , @level0name = @schema_name
+          , @level1type = @level1type
+          , @level1name = @level1name
+          , @level2type = @level2type
+          , @level2name = @level2name;
 
-DEALLOCATE property_cursor
+        Set @rows = @rows + 1;
+    End;
+
+    Fetch Next From property_cursor
+    Into
+        @RepoObject_guid
+      , @schema_name
+      , @level1type
+      , @level1name
+      , @level2type
+      , @level2name
+      , @type;
+End;
+
+Close property_cursor;
+
+Deallocate property_cursor;
+
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
