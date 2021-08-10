@@ -510,6 +510,17 @@
     <Build Include="workflow\Views\ProcedureDependency_input_PersistenceDependency_S.sql" />
     <Build Include="workflow\Stored Procedures\usp_PERSIST_ProcedureDependency_input_PersistenceDependency.sql" />
     <Build Include="reference\Views\RepoObject_reference_persistence_target_as_source.sql" />
+    <Build Include="workflow\Views\WorkflowStep_S.sql" />
+    <Build Include="workflow\Views\WorkflowStep_ForUpdate.sql" />
+    <Build Include="workflow\Views\WorkflowStep_active.sql" />
+    <Build Include="workflow\Views\Biml_Task.sql" />
+    <Build Include="workflow\Views\Biml_PrecedenceConstraints.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_wo_redundant.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_TaskName.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_redundant.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_all.sql" />
+    <Build Include="workflow\Views\Biml_Package.sql" />
+    <Build Include="workflow\Stored Procedures\usp_PERSIST_WorkflowStep.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -216,8 +216,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* Database 
 ** check and correct xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraDocModulFolder'', ''''), a possible parameter is
 +
 ====
-D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb\
-====
+D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb====
 
 [discrete]
 === How does it work?
@@ -280,6 +279,8 @@ is_repo_managed:
 ** individual diagrams per object are exported into (Adoc_AntoraDocModulFolder)``partials/puml/``
 
 include::sqldb:partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+
+
 
 
 GO

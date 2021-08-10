@@ -2,11 +2,14 @@
     [id]                        INT              IDENTITY (1, 1) NOT NULL,
     [Workflow_id]               INT              NOT NULL,
     [Procedure_RepoObject_guid] UNIQUEIDENTIFIER NOT NULL,
+    [is_active]                 BIT              CONSTRAINT [DF_WorkflowStep_is_active] DEFAULT ((0)) NOT NULL,
     CONSTRAINT [PK_WorkflowStep] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_WorkflowStep_RepoObject] FOREIGN KEY ([Procedure_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_WorkflowStep_Workflow] FOREIGN KEY ([Workflow_id]) REFERENCES [workflow].[Workflow] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_WorkflowStep] UNIQUE NONCLUSTERED ([Workflow_id] ASC, [Procedure_RepoObject_guid] ASC)
 );
+
+
 
 
 

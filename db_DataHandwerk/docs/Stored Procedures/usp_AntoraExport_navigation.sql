@@ -669,11 +669,12 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'https://ant
 * check and correct xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraDocModulFolder'', ''''), a possible parameter is
 +
 ====
-D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb\
-====
+D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb====
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
+
+
 
 
 GO

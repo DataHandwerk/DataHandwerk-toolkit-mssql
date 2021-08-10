@@ -1681,4 +1681,18 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[obsolet_Match_RepoObject_referenced_UspPersistence]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="102bc1fa-51f0-4601-bd64-c5c07ba65cfa" ChangeDateTime="08/10/2021 16:03:54">
+    <Property Name="ElementName" Value="[workflow].[Workflow_referencing_PrecedenceConstraints]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[workflow]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="Biml_PrecedenceConstraints" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b3e95d5e-087d-4d7a-9a20-cf6abadf6980" ChangeDateTime="08/10/2021 16:05:26">
+    <Property Name="ElementName" Value="[workflow].[Workflow_TaskBiml]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[workflow]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="Biml_Task" />
+  </Operation>
 </Operations>
