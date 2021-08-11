@@ -521,6 +521,8 @@
     <Build Include="workflow\Views\Workflow_ProcedureDependency_all.sql" />
     <Build Include="workflow\Views\Biml_Package.sql" />
     <Build Include="workflow\Stored Procedures\usp_PERSIST_WorkflowStep.sql" />
+    <Build Include="workflow\Tables\Connection.sql" />
+    <Build Include="workflow\Views\Biml_Connection.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />

@@ -78,6 +78,8 @@
 
 
 
+
+
 GO
 CREATE TRIGGER [repo].[RepoObject__after_update] ON repo.RepoObject
 AFTER UPDATE
@@ -390,11 +392,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1f17
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cbf17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'usp_persistence_name';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'caf17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_query_sql';
+
 
 
 GO
@@ -438,20 +440,19 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '68b8b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[RepoObject_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'usp_persistence_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(''usp_PERSIST_''+[RepoObject_name])', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'usp_persistence_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObject].[SysObject_name]
-[repo].[RepoObject].[SysObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_query_sql';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''SELECT * FROM ['',[repo].[fs_dwh_database_name](),''].['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_query_sql';
+
+
+
+GO
+
 
 
 GO
