@@ -3,6 +3,7 @@
     [Name]        NVARCHAR (500)  NOT NULL,
     [Description] NVARCHAR (4000) NULL,
     [is_active]   BIT             CONSTRAINT [DF_Workflow_is_active] DEFAULT ((1)) NOT NULL,
+    [Package_Biml] NVARCHAR(MAX) NULL, 
     CONSTRAINT [PK_Workflow] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 

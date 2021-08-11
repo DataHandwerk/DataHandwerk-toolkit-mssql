@@ -2,14 +2,16 @@
     [Parameter_name]                   VARCHAR (100)   NOT NULL,
     [sub_Parameter]                    NVARCHAR (128)  CONSTRAINT [DF__Parameter__sub_P__18B6AB08] DEFAULT ('') NOT NULL,
     [Parameter_desciption]             NVARCHAR (1000) NULL,
-    [Parameter_default_value]          SQL_VARIANT     NULL,
-    [Parameter_value]                  SQL_VARIANT     NULL,
-    [Parameter_value__result_nvarchar] AS              (TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [nvarchar](4000))),
-    [Parameter_value__result_int]      AS              (case when NOT sql_variant_property([Parameter_default_value],'BaseType')='uniqueidentifier' AND NOT sql_variant_property([Parameter_value],'BaseType')='uniqueidentifier' then TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [int])  end),
-    [Parameter_value__result_date]     AS              (case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],'BaseType')='uniqueidentifier' then TRY_CAST([Parameter_value] AS [date]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],'BaseType')='uniqueidentifier' then CONVERT([date],TRY_CAST([Parameter_default_value] AS [datetime]))  end),
-    [Parameter_value__result_datetime] AS              (case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],'BaseType')='uniqueidentifier' then TRY_CAST([Parameter_value] AS [datetime]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],'BaseType')='uniqueidentifier' then TRY_CAST([Parameter_default_value] AS [datetime])  end),
+    [Parameter_default_value]          NVARCHAR (MAX)  NULL,
+    [Parameter_value]                  NVARCHAR (MAX)  NULL,
+    [Parameter_value__result_nvarchar] AS              (coalesce([Parameter_value],[Parameter_default_value])),
+    [Parameter_value__result_int]      AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [int])),
+    [Parameter_value__result_date]     AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [date])),
+    [Parameter_value__result_datetime] AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [datetime])),
     CONSTRAINT [PK_Parameter] PRIMARY KEY CLUSTERED ([Parameter_name] ASC, [sub_Parameter] ASC)
 );
+
+
 
 
 

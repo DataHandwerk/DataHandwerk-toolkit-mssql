@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -37,7 +39,7 @@ Select
     Parameter_name          = 'DUMMY'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'dummy parameter, data type SQL_Variant'
-  , Parameter_default_value = Cast(N'' As Sql_Variant)
+  , Parameter_default_value = Cast(N'' As NVarchar(Max))
 Union All
 Select
     Parameter_name          = 'dwh_database_name'
@@ -49,25 +51,25 @@ Select
     Parameter_name          = 'dwh_readonly'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'when dwh_readonly is 1 then nothing should changed in the dwh database (insert, update, delete). RepoObject synchronization into dwh will not happen. References will not extracted, they use ExtendedProperties, for example in [repo_sys].[SysObject]'
-  , Parameter_default_value = Cast(0 As TinyInt)
+  , Parameter_default_value = '1'
 Union All
 Select
     Parameter_name          = 'main enable usp_RepoObjectSource_FirstResultSet'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'execute (or not) usp_RepoObjectSource_FirstResultSet'
-  , Parameter_default_value = 0
+  , Parameter_default_value = '0'
 Union All
 Select
     Parameter_name          = 'main enable usp_RepoObject_update_SysObjectQueryPlan'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'execute (or not) usp_RepoObject_update_SysObjectQueryPlan'
-  , Parameter_default_value = 0
+  , Parameter_default_value = '0'
 Union All
 Select
     Parameter_name          = 'main enable usp_RepoObjectSource_QueryPlan'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'execute (or not) usp_RepoObjectSource_QueryPlan'
-  , Parameter_default_value = 0
+  , Parameter_default_value = '0'
 Union All
 Select
     Parameter_name          = 'persistence_name_suffix'
@@ -178,37 +180,37 @@ Select
     Parameter_name          = 'InheritanceType_column'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'TINYINT; InheritanceType for column: possible values in [config].[InheritanceType]'
-  , Parameter_default_value = Cast(0 As TinyInt)
+  , Parameter_default_value = '0'
 Union All
 Select
     Parameter_name          = 'InheritanceType_column'
   , sub_Parameter           = N'MS_Description'
   , Parameter_desciption    = N'TINYINT; InheritanceType for column: possible values in [config].[InheritanceType]'
-  , Parameter_default_value = Cast(0 As TinyInt)
+  , Parameter_default_value = '0'
 Union All
 Select
     Parameter_name          = 'InheritanceType_column'
   , sub_Parameter           = N'ReferencedObjectColumnList'
   , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
-  , Parameter_default_value = Cast(14 As TinyInt)
+  , Parameter_default_value = '14'
 Union All
 Select
     Parameter_name          = 'InheritanceType_object'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
-  , Parameter_default_value = Cast(0 As TinyInt)
+  , Parameter_default_value = '0'
 Union All
 Select
     Parameter_name          = 'InheritanceType_object'
   , sub_Parameter           = N'MS_Description'
   , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
-  , Parameter_default_value = Cast(0 As TinyInt)
+  , Parameter_default_value = '0'
 Union All
 Select
     Parameter_name          = 'InheritanceType_object'
   , sub_Parameter           = N'ReferencedObjectList'
   , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
-  , Parameter_default_value = Cast(14 As TinyInt)
+  , Parameter_default_value = '14'
 
 ----todo: Warum sollte es eine Unterscheidung zwischen Sichten und Tabellen geben?
 --UNION ALL
@@ -216,14 +218,14 @@ Select
 --SELECT [Parameter_name] = 'InheritanceType_object_type_u'
 -- , [sub_Parameter] = N''
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [config].[InheritanceType]'
--- , [Parameter_default_value] = CAST(0 AS TINYINT)
+-- , [Parameter_default_value] = '0'
 
 --UNION ALL
 
 --SELECT [Parameter_name] = 'InheritanceType_object_type_u'
 -- , [sub_Parameter] = N'MS_Description'
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [config].[InheritanceType]'
--- , [Parameter_default_value] = CAST(0 AS TINYINT)
+-- , [Parameter_default_value] = '0'
 
 
 --UNION ALL
@@ -231,14 +233,14 @@ Select
 --SELECT [Parameter_name] = 'InheritanceType_object_type_v'
 -- , [sub_Parameter] = N''
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [config].[InheritanceType]'
--- , [Parameter_default_value] = CAST(0 AS TINYINT)
+-- , [Parameter_default_value] = '0'
 
 --UNION ALL
 
 --SELECT [Parameter_name] = 'InheritanceType_object_type_v'
 -- , [sub_Parameter] = N'MS_Description'
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [config].[InheritanceType]'
--- , [Parameter_default_value] = CAST(0 AS TINYINT)
+-- , [Parameter_default_value] = '0'
 
 
 Union All

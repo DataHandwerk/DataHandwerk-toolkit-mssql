@@ -1,8 +1,8 @@
-CREATE Procedure [config].usp_parameter_set
+﻿CREATE Procedure [config].[usp_parameter_set]
 (
     @Parameter_name  Varchar(100)
   , @sub_Parameter   NVarchar(128) = ''
-  , @Parameter_value Sql_Variant
+  , @Parameter_value NVarchar(Max)
 )
 As
 --

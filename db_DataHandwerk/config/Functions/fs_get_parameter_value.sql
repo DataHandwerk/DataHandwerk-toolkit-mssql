@@ -1,9 +1,9 @@
-﻿CREATE Function [config].fs_get_parameter_value
+﻿CREATE Function [config].[fs_get_parameter_value]
 (
     @Parameter_name Varchar(100)
   , @sub_Parameter  NVarchar(128) = N''
 )
-Returns NVarchar(4000)
+Returns NVarchar(max)
 As
 Begin
     Return
