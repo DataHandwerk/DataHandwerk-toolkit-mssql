@@ -21,7 +21,7 @@ Select
                                              , 'set namespaceSeparator none'
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
-                                             , skin.Parameter_value__result_nvarchar
+                                             , skin.[Parameter_value_result]
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
                                              , elist_1_1.PumlEntityList
@@ -40,7 +40,7 @@ Select
                                              , 'set namespaceSeparator none'
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
-                                             , skin.Parameter_value__result_nvarchar
+                                             , skin.[Parameter_value_result]
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
                                              , elist_1_1.PumlEntityOnlyPkList
@@ -57,7 +57,7 @@ Select
                                              , 'set namespaceSeparator none'
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
-                                             , skin.Parameter_value__result_nvarchar
+                                             , skin.[Parameter_value_result]
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
                                              , elist_0_30.PumlEntityOnlyPkList
@@ -74,7 +74,7 @@ Select
                                              , 'set namespaceSeparator none'
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
-                                             , skin.Parameter_value__result_nvarchar
+                                             , skin.[Parameter_value_result]
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
                                              , elist_30_0.PumlEntityOnlyPkList
@@ -91,7 +91,7 @@ Select
                                              , 'set namespaceSeparator none'
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
-                                             , skin.Parameter_value__result_nvarchar
+                                             , skin.[Parameter_value_result]
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
                                              , EntityFkList.PumlEntityFkList

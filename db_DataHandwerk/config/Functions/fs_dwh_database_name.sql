@@ -6,7 +6,7 @@ Begin
     Return
     (
         Select
-            Cast(Parameter_value__result_nvarchar As NVarchar(128)) As dwh_database_name
+            Cast([Parameter_value_result] As NVarchar(128)) As dwh_database_name
         From
             [config].Parameter
         Where

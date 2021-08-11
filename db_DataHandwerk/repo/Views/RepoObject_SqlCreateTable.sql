@@ -169,14 +169,14 @@ Select
                                                ro_hist.RepoObject_fullname
                                              , Concat (
                                                           QuoteName ( IsNull (
-                                                                                 Hist_Table_schema.Parameter_value__result_nvarchar
+                                                                                 Hist_Table_schema.[Parameter_value_result]
                                                                                , ro.RepoObject_schema_name
                                                                              )
                                                                     )
                                                         , '.'
                                                         , QuoteName ( Concat (
                                                                                  ro.RepoObject_name
-                                                                               , Hist_Table_name_suffix.Parameter_value__result_nvarchar
+                                                                               , Hist_Table_name_suffix.[Parameter_value_result]
                                                                              )
                                                                     )
                                                       )

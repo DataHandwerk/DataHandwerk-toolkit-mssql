@@ -6,8 +6,8 @@ As
 Return
 (
     Select
-        Cast(Parameter_value__result_nvarchar As NVarchar(128))          As dwh_database_name
-      , Db_Id ( Cast(Parameter_value__result_nvarchar As NVarchar(128))) As dwh_database_id
+        Cast([Parameter_value_result] As NVarchar(128))          As dwh_database_name
+      , Db_Id ( Cast([Parameter_value_result] As NVarchar(128))) As dwh_database_id
     From
         [config].Parameter
     Where

@@ -5,7 +5,7 @@ CREATE View repo.RepoObjectColumn_HistValidColums_setpoint
 As
 Select
     rop.target_RepoObject_guid                          As RepoObject_guid
-  , Cast(p.Parameter_value__result_nvarchar As sysname) As RepoObjectColumn_name
+  , Cast(p.[Parameter_value_result] As sysname) As RepoObjectColumn_name
   , ValidList.Repo_generated_always_type
   , 0                                                   As Repo_is_nullable
   , 'DATETIME2'                                         As Repo_user_type_name

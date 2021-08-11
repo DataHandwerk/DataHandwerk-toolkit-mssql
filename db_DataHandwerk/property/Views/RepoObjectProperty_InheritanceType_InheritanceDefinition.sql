@@ -7,30 +7,30 @@ Select
   , rop.property_value
   , Inheritance_StringAggSeparatorSql     = Coalesce (
                                                          ro.Inheritance_StringAggSeparatorSql
-                                                       , par_sub_sep.Parameter_value__result_nvarchar
-                                                       , par_sep.Parameter_value__result_nvarchar
+                                                       , par_sub_sep.[Parameter_value_result]
+                                                       , par_sep.[Parameter_value_result]
                                                      )
   , InheritanceDefinition                 = Coalesce (
                                                          ro.InheritanceDefinition
-                                                       , par_sub_def.Parameter_value__result_nvarchar
-                                                       , par_def.Parameter_value__result_nvarchar
+                                                       , par_sub_def.[Parameter_value_result]
+                                                       , par_def.[Parameter_value_result]
                                                      )
   , InheritanceType                       = Coalesce (
                                                          ro.InheritanceType
-                                                       , par_sub.Parameter_value__result_int
-                                                       , par.Parameter_value__result_int
+                                                       , par_sub.[Parameter_value_result_int]
+                                                       , par.[Parameter_value_result_int]
                                                      )
   , ro.RepoObject_fullname
   , ro.RepoObject_type
   , ro_InheritanceType                    = ro.InheritanceType
-  , sub_InheritanceType                   = par_sub.Parameter_value__result_int
-  , par_InheritanceType                   = par.Parameter_value__result_int
+  , sub_InheritanceType                   = par_sub.[Parameter_value_result_int]
+  , par_InheritanceType                   = par.[Parameter_value_result_int]
   , ro_InheritanceDefinition              = ro.InheritanceDefinition
-  , sub_InheritanceDefintion              = par_sub_def.Parameter_value__result_nvarchar
-  , par_InheritanceDefintion              = par_def.Parameter_value__result_nvarchar
+  , sub_InheritanceDefintion              = par_sub_def.[Parameter_value_result]
+  , par_InheritanceDefintion              = par_def.[Parameter_value_result]
   , ro_Inheritance_StringAggSeparatorSql  = ro.Inheritance_StringAggSeparatorSql
-  , sub_Inheritance_StringAggSeparatorSql = par_sub_sep.Parameter_value__result_nvarchar
-  , par_Inheritance_StringAggSeparatorSql = par_sep.Parameter_value__result_nvarchar
+  , sub_Inheritance_StringAggSeparatorSql = par_sub_sep.[Parameter_value_result]
+  , par_Inheritance_StringAggSeparatorSql = par_sep.[Parameter_value_result]
 From
     repo.RepoObject                         As ro
     Cross Join [property].PropertyName_RepoObject As pn

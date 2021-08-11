@@ -4,10 +4,10 @@
     [Parameter_desciption]             NVARCHAR (1000) NULL,
     [Parameter_default_value]          NVARCHAR (MAX)  NULL,
     [Parameter_value]                  NVARCHAR (MAX)  NULL,
-    [Parameter_value__result_nvarchar] AS              (coalesce([Parameter_value],[Parameter_default_value])),
-    [Parameter_value__result_int]      AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [int])),
-    [Parameter_value__result_date]     AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [date])),
-    [Parameter_value__result_datetime] AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [datetime])),
+    [Parameter_value_result] AS              (coalesce([Parameter_value],[Parameter_default_value])),
+    [Parameter_value_result_int]      AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [int])),
+    [Parameter_value_result_date]     AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [date])),
+    [Parameter_value_result_datetime] AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [datetime])),
     CONSTRAINT [PK_Parameter] PRIMARY KEY CLUSTERED ([Parameter_name] ASC, [sub_Parameter] ASC)
 );
 
@@ -89,28 +89,28 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '14f37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '16f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_nvarchar';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '16f37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_int';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75b33a4a-426d-eb11-84e2-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_int';
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[Parameter].[Parameter_default_value]
-[repo].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_nvarchar';
+[repo].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [nvarchar](4000)))', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_nvarchar';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [nvarchar](4000)))', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b27159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_datetime';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b27159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_datetime';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b17159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_date';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b17159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_date';
 
 
 GO
@@ -156,17 +156,17 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[Parameter].[Parameter_default_value]
-* [config].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_int';
+* [config].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_int';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [int]))', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_int';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [int]))', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_int';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_value] AS [datetime]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_default_value] AS [datetime])  end)', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_datetime';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_value] AS [datetime]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_default_value] AS [datetime])  end)', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_datetime';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_value] AS [date]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],''BaseType'')=''uniqueidentifier'' then CONVERT([date],TRY_CAST([Parameter_default_value] AS [datetime]))  end)', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value__result_date';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_value] AS [date]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],''BaseType'')=''uniqueidentifier'' then CONVERT([date],TRY_CAST([Parameter_default_value] AS [datetime]))  end)', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_date';
 

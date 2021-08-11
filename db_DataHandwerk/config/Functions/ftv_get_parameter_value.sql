@@ -9,10 +9,10 @@ As
 Return
 (
     Select
-        Parameter_value__result_nvarchar
-		, Parameter_value__result_int
-		, Parameter_value__result_date
-		, Parameter_value__result_datetime
+        [Parameter_value_result]
+		, [Parameter_value_result_int]
+		, [Parameter_value_result_date]
+		, [Parameter_value_result_datetime]
     From
         [config].Parameter
     Where

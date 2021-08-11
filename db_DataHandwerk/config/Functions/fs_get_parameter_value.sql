@@ -9,7 +9,7 @@ Begin
     Return
     (
         Select
-            Parameter_value__result_nvarchar
+            [Parameter_value_result]
         From
             [config].Parameter
         Where
