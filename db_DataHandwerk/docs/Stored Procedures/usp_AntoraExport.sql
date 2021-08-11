@@ -66,26 +66,6 @@ PRINT '[docs].[usp_AntoraExport]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
-/*{"ReportUspStep":[{"Number":220,"Name":"[reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
 /*{"ReportUspStep":[{"Number":300,"Name":"[repo].[usp_RepoObjectProperty_collect]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObjectProperty_collect]
 --add your own parameters

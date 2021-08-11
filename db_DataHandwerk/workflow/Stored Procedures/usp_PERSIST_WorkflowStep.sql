@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [workflow].[usp_PERSIST_WorkflowStep]
+﻿CREATE   PROCEDURE [workflow].[usp_PERSIST_WorkflowStep]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one

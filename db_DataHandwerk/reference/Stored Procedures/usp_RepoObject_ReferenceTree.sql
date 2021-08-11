@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [workflow].[usp_workflow]
+﻿CREATE   PROCEDURE [reference].[usp_RepoObject_ReferenceTree]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -59,15 +59,15 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[workflow].[usp_workflow]'
+PRINT '[reference].[usp_RepoObject_ReferenceTree]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
-EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
+/*{"ReportUspStep":[{"Number":210,"Name":"[reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -76,8 +76,8 @@ EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":220,"Name":"[workflow].[usp_PERSIST_WorkflowStep]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
-EXEC [workflow].[usp_PERSIST_WorkflowStep]
+/*{"ReportUspStep":[{"Number":220,"Name":"[reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -114,35 +114,3 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ffa5bb9c-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [workflow].[usp_workflow]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
-* xref:reference.Persistence.adoc[]
-* xref:workflow.ProcedureDependency.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [workflow].[usp_workflow]
-[cols="d,15a,d"]
-|===
-|Number|Name (Action, Source, Target)|Parent
-
-|3110
-|
-*Merge Into [workflow].[ProcedureDependency] (Persistence)*
-
-* u
-* [reference].[Persistence]
-* [workflow].[ProcedureDependency]
-
-|
-|===
-', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
-
