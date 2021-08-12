@@ -123,9 +123,9 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- --bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value__result_nvarchar From [config].[ftv_get_parameter_value] ( 'Adoc_AntoraPageTemplate', DEFAULT ) As Adoc_AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
+ --bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( 'Adoc_AntoraPageTemplate', DEFAULT ) As Adoc_AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value__result_nvarchar From [config].[ftv_get_parameter_value] ( ''Adoc_AntoraPageTemplate'', DEFAULT ) As Adoc_AntoraPageTemplate" queryout ' + @outputDir + @Object_fullname2 + '.adoc'
+ SET @command = 'bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''Adoc_AntoraPageTemplate'', DEFAULT ) As Adoc_AntoraPageTemplate" queryout ' + @outputDir + @Object_fullname2 + '.adoc'
   --
   + ' -S ' + @instanceName
   --
