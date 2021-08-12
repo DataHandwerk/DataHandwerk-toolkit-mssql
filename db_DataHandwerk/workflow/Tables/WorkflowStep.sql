@@ -16,6 +16,8 @@
 
 
 
+
+
 GO
 
 
@@ -70,4 +72,12 @@ EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'6E34CB25-1E66-EB11-84DD-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'WorkflowStep';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4bb8c8a5-cef9-eb11-850d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'WorkflowStep', @level2type = N'CONSTRAINT', @level2name = N'DF_WorkflowStep_is_active';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4eb8c8a5-cef9-eb11-850d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'WorkflowStep', @level2type = N'COLUMN', @level2name = N'is_active';
 

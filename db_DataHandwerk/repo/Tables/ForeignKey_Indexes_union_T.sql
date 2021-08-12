@@ -28,6 +28,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1dc45691-a79a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_Indexes_union_T', @level2type = N'COLUMN', @level2name = N'update_referential_action';
 
@@ -61,7 +63,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '16c45
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee2aaf64-b89a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_Indexes_union_T', @level2type = N'COLUMN', @level2name = N'referencing_index_name';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ea4a8e7f-b19a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_Indexes_union_T', @level2type = N'COLUMN', @level2name = N'referencing_index_name';
+
+
 
 
 GO
@@ -97,7 +101,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0ec45
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ed2aaf64-b89a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_Indexes_union_T', @level2type = N'COLUMN', @level2name = N'referenced_index_name';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e94a8e7f-b19a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_Indexes_union_T', @level2type = N'COLUMN', @level2name = N'referenced_index_name';
+
+
 
 
 GO

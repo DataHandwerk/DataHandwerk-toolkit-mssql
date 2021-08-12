@@ -80,6 +80,8 @@
 
 
 
+
+
 GO
 CREATE TRIGGER [repo].[RepoObject__after_update] ON repo.RepoObject
 AFTER UPDATE
@@ -639,4 +641,12 @@ GO
 CREATE NONCLUSTERED INDEX [_dta_index_RepoObject_50_1757249315__K1_K24_K22_K25_19]
     ON [repo].[RepoObject]([RepoObject_guid] ASC, [SysObject_schema_name] ASC, [SysObject_name] ASC, [SysObject_type] ASC)
     INCLUDE([RepoObject_type]);
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cbf17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'usp_persistence_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'caf17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_query_sql';
 

@@ -1,4 +1,5 @@
-﻿Create View repo.RepoObject_ColumnList
+﻿
+CREATE View [repo].[RepoObject_ColumnList]
 As
 Select
     roc.RepoObject_guid
@@ -283,6 +284,7 @@ Select
                                            , 2
                                            , '  '
                                          )
+  , [RepoObjectColumn_fullname]  = Max ( roc.[RepoObjectColumn_fullname] )
 From
     repo.RepoObjectColumn_gross As roc
 Where
@@ -402,4 +404,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '00846fa2-e7fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_fullname';
 

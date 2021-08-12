@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 per active Workflow all active ProcedureDependency, including redundant references
@@ -19,7 +20,7 @@ redundant:
 ====
 <<property_end>>
 */
-CREATE VIEW [workflow].[Workflow_ProcedureDependency_all]
+CREATE View [workflow].[Workflow_ProcedureDependency_all]
 As
 Select
     T1.id As Workflow_id
@@ -43,5 +44,21 @@ From
             T3.Procedure_RepoObject_guid     = T5.referenced_Procedure_RepoObject_guid
             And T4.Procedure_RepoObject_guid = T5.referencing_Procedure_RepoObject_guid
 Where
-    ( T1.is_active     = 1 )
-    And ( T5.is_active = 1 );
+    ( T1.is_active                              = 1 )
+    And ( T5.is_active                          = 1 )
+    And T5.referenced_Procedure_RepoObject_guid <> T5.referencing_Procedure_RepoObject_guid;
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9ebcd983-91fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Workflow_ProcedureDependency_all';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6f448fa7-00fb-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Workflow_ProcedureDependency_all', @level2type = N'COLUMN', @level2name = N'Workflow_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '71448fa7-00fb-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Workflow_ProcedureDependency_all', @level2type = N'COLUMN', @level2name = N'referencing_Procedure_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '70448fa7-00fb-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Workflow_ProcedureDependency_all', @level2type = N'COLUMN', @level2name = N'referenced_Procedure_RepoObject_guid';
+

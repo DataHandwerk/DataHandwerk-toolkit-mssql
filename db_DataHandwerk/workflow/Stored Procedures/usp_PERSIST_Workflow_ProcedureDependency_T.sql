@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [workflow].[usp_workflow]
+﻿CREATE   PROCEDURE [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -59,84 +59,23 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[workflow].[usp_workflow]'
+PRINT '[workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
-EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
+/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[workflow].[Workflow_ProcedureDependency_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',58,';',400,';',NULL);
 
-
-/*{"ReportUspStep":[{"Number":220,"Name":"[workflow].[usp_PERSIST_WorkflowStep]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
-EXEC [workflow].[usp_PERSIST_WorkflowStep]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
-/*{"ReportUspStep":[{"Number":310,"Name":"[workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
-EXEC [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
-/*{"ReportUspStep":[{"Number":320,"Name":"workflow.Workflow_ProcedureDependency_T: iterative update, set is_redundant = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[Workflow_ProcedureDependency_T]","log_target_object":"[workflow].[Workflow_ProcedureDependency_T]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',51,';',320,';',NULL);
-
---Declare @rows Int;
-
-Set @rows = 0;
-Declare @updated Int = -1;
-
-While @updated <> 0
-Begin
-
-    Update
-        T1
-    Set
-        T1.is_redundant = 1
-    From
-        workflow.Workflow_ProcedureDependency_T             As T1
-        Inner Join
-            workflow.Workflow_ProcedureDependency_redundant As T2
-                On
-                T1.Workflow_id                               = T2.Workflow_id
-                And T1.referencing_Procedure_RepoObject_guid = T2.referencing_Procedure_RepoObject_guid
-                And T1.referenced_Procedure_RepoObject_guid  = T2.referenced_Procedure_RepoObject_guid
-    Where
-        ( T1.is_redundant            = 0 )
-        And T2.[RownrPerReferencing] = 1;
-
-    Set @updated = @@RowCount;
-    Set @rows = @rows + @updated;
-
-End;
-
---Print @updated;
---Print @rows;
-
+TRUNCATE TABLE [workflow].[Workflow_ProcedureDependency_T]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'workflow.Workflow_ProcedureDependency_T: iterative update, set is_redundant = 1'
-SET @source_object = '[workflow].[Workflow_ProcedureDependency_T]'
+SET @step_name = 'truncate persistence target'
+SET @source_object = NULL
 SET @target_object = '[workflow].[Workflow_ProcedureDependency_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -153,7 +92,48 @@ EXEC logs.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
- , @updated = @rows
+ , @deleted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[Workflow_ProcedureDependency]","log_target_object":"[workflow].[Workflow_ProcedureDependency_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',58,';',800,';',NULL);
+
+INSERT INTO 
+ [workflow].[Workflow_ProcedureDependency_T]
+ (
+  [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+, [Workflow_id]
+)
+SELECT
+  [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+, [Workflow_id]
+
+FROM [workflow].[Workflow_ProcedureDependency] AS S
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'insert all'
+SET @source_object = '[workflow].[Workflow_ProcedureDependency]'
+SET @target_object = '[workflow].[Workflow_ProcedureDependency_T]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
 -- Logging END --
 
 --
@@ -185,34 +165,5 @@ EXEC logs.usp_ExecutionLog_insert
 
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ffa5bb9c-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [workflow].[usp_workflow]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
-* xref:reference.Persistence.adoc[]
-* xref:workflow.ProcedureDependency.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [workflow].[usp_workflow]
-[cols="d,15a,d"]
-|===
-|Number|Name (Action, Source, Target)|Parent
-
-|3110
-|
-*Merge Into [workflow].[ProcedureDependency] (Persistence)*
-
-* u
-* [reference].[Persistence]
-* [workflow].[ProcedureDependency]
-
-|
-|===
-', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fe228d9f-0bfb-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_Workflow_ProcedureDependency_T';
 

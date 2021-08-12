@@ -1,11 +1,13 @@
 ﻿CREATE TABLE [workflow].[Workflow] (
-    [id]          INT             IDENTITY (1, 1) NOT NULL,
-    [Name]        NVARCHAR (500)  NOT NULL,
-    [Description] NVARCHAR (4000) NULL,
-    [is_active]   BIT             CONSTRAINT [DF_Workflow_is_active] DEFAULT ((1)) NOT NULL,
-    [Package_Biml] NVARCHAR(MAX) NULL, 
+    [id]           INT             IDENTITY (1, 1) NOT NULL,
+    [Name]         NVARCHAR (500)  NOT NULL,
+    [Description]  NVARCHAR (4000) NULL,
+    [is_active]    BIT             CONSTRAINT [DF_Workflow_is_active] DEFAULT ((1)) NOT NULL,
+    [Package_Biml] NVARCHAR (MAX)  NULL,
     CONSTRAINT [PK_Workflow] PRIMARY KEY CLUSTERED ([id] ASC)
 );
+
+
 
 
 
@@ -52,4 +54,8 @@ EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'7034CB25-1E66-EB11-84DD-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e266a0a8-e3fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow', @level2type = N'COLUMN', @level2name = N'Package_Biml';
 

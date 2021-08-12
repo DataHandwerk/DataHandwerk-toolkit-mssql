@@ -81,6 +81,13 @@ because RepoObject_guid is used to join
 must be executed _before_ to ensure all RepoObject guid are synchronized
 
 */
+Declare
+    @RepoObjectColumn_guid UniqueIdentifier
+  , @column_name           NVarchar(128)
+  , @schema_name           NVarchar(128)
+  , @level1type            Varchar(128)
+  , @name                  NVarchar(128)
+  , @type                  Char(2);
 
 
 /*{"ReportUspStep":[{"Number":210,"Name":"UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColumn_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
@@ -189,6 +196,117 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @updated = @rows
 -- Logging END --
+
+/*{"ReportUspStep":[{"Number":350,"Name":"config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0
+
+/*{"ReportUspStep":[{"Number":360,"Parent_Number":350,"Name":"Where [is_repo_managed] = 1 And [RepoObjectColumn_guid] <> [SysObject_RepoObjectColumn_guid]: write RepoObjectColumn_guid into extended properties of SysObjectColumn, Level2","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo_sys].[SysColumn]"}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',360,';',350);
+
+Declare property_cursor Cursor Local Fast_Forward For
+--
+Select
+    [T1].[RepoObjectColumn_guid]
+  , [T1].[SysObject_schema_name]
+  , [T2].[level1type]
+  , [T1].[SysObject_name]
+  , [T1].[SysObject_column_name]
+  , [T1].[SysObject_type]
+From
+    repo.SysColumn_RepoObjectColumn_via_name   As T1
+    Inner Join
+        [configT].[type_level1type_level2type] As T2
+            On
+            T1.SysObject_type = T2.type
+Where
+    T1.[is_repo_managed]                                = 1
+    And T1.[RepoObjectColumn_guid]                      <> T1.[SysObject_RepoObjectColumn_guid]
+    And Not [T1].[RepoObjectColumn_guid] Is Null
+    And Not [T2].[level1type] Is Null
+    --SchemaCompare has issues comparing extended properties for graph table columns, we exclude them
+    And T1.Repo_graph_type Is Null
+    --the next is redundant, these kind of Objects should not exist in the database
+    And [T1].[is_SysObjectColumn_name_uniqueidentifier] = 0;
+
+/*
+Declare
+    @RepoObjectColumn_guid UniqueIdentifier
+  , @column_name           NVarchar(128)
+  , @schema_name           NVarchar(128)
+  , @level1type            Varchar(128)
+  , @name                  NVarchar(128)
+  , @type                  Char(2);
+*/
+
+Set @rows = 0;
+
+Open property_cursor;
+
+Fetch Next From property_cursor
+Into
+    @RepoObjectColumn_guid
+  , @schema_name
+  , @level1type
+  , @name
+  , @column_name
+  , @type;
+
+While @@Fetch_Status <> -1
+Begin
+    If @@Fetch_Status <> -2
+    Begin
+        Exec repo_sys.[usp_AddOrUpdateExtendedProperty]
+            @name = N'RepoObjectColumn_guid'
+          , @value = @RepoObjectColumn_guid
+          , @level0type = N'Schema'
+          , @level0name = @schema_name
+          , @level1type = @level1type
+          , @level1name = @name
+          , @level2type = N'COLUMN'
+          , @level2name = @column_name;
+
+        Set @rows = @rows + 1;
+    End;
+
+    Fetch Next From property_cursor
+    Into
+        @RepoObjectColumn_guid
+      , @schema_name
+      , @level1type
+      , @name
+      , @column_name
+      , @type;
+End;
+
+Close property_cursor;
+
+Deallocate property_cursor;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Where [is_repo_managed] = 1 And [RepoObjectColumn_guid] <> [SysObject_RepoObjectColumn_guid]: write RepoObjectColumn_guid into extended properties of SysObjectColumn, Level2'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo_sys].[SysColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+
+-- Logging END --
+END;
 
 /*{"ReportUspStep":[{"Number":410,"Name":"[SysObject_RepoObjectColumn_guid] -> [RepoObjectColumn_guid] ([RepoObjectColumn_guid] is stored in extended properties)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',410,';',NULL);
@@ -413,29 +531,41 @@ Violation of UNIQUE KEY constraint 'UK_RepoObjectColumn__RepoNames'. Cannot inse
 there was an issue in [repo].[SysColumn] with some column duplicating
 
 */
-UPDATE repo.RepoObjectColumn
-SET [RepoObjectColumn_name] = [repo].[RepoObjectColumn].[SysObjectColumn_name]
-FROM [repo].[RepoObjectColumn]
-INNER JOIN [repo].[RepoObject] AS [ro]
- ON [repo].[RepoObjectColumn].[RepoObject_guid] = [ro].[RepoObject_guid]
-WHERE
- --don't touch entries, which are managed by repo
- ISNULL([ro].[is_repo_managed], 0) = 0
- AND [repo].[RepoObjectColumn].[has_different_sys_names] = 1
- --exclude surrogate [SysObject_name]
- AND [is_SysObjectColumn_name_uniqueidentifier] = 0
- --exclude virtual columns, created from reference expressions
- AND ISNULL([is_query_plan_expression], 0) = 0
- --avoid not unique entries
- --do not update, if the target entry ([RepoObject_guid], [RepoObjectColumn_name]) exists
- --The UK would prevent that
- AND NOT EXISTS (
-  SELECT [RepoObject_guid]
-   , [RepoObjectColumn_name]
-  FROM [repo].[RepoObjectColumn] AS [roc2]
-  WHERE [repo].[RepoObjectColumn].[SysObjectColumn_name] = [roc2].[RepoObjectColumn_name]
-   AND [repo].[RepoObjectColumn].[RepoObject_guid] = [roc2].[RepoObject_guid]
-  )
+Update
+    repo.RepoObjectColumn
+Set
+    [RepoObjectColumn_name] = [repo].[RepoObjectColumn].[SysObjectColumn_name]
+From
+    [repo].[RepoObjectColumn]
+    Inner Join
+        [repo].[RepoObject] As [ro]
+            On
+            [repo].[RepoObjectColumn].[RepoObject_guid] = [ro].[RepoObject_guid]
+Where
+    --update [is_repo_managed] only when [is_RepoObjectColumn_name_uniqueidentifier] = 1
+    (
+        IsNull ( ro.is_repo_managed, 0 )                    = 0
+        Or [is_RepoObjectColumn_name_uniqueidentifier]      = 1
+    )
+    And [repo].[RepoObjectColumn].[has_different_sys_names] = 1
+    --exclude surrogate [SysObject_name]
+    And [is_SysObjectColumn_name_uniqueidentifier]          = 0
+    --exclude virtual columns, created from reference expressions
+    And IsNull ( [is_query_plan_expression], 0 )            = 0
+    --avoid not unique entries
+    --do not update, if the target entry ([RepoObject_guid], [RepoObjectColumn_name]) exists
+    --The UK would prevent that
+    And Not Exists
+(
+    Select
+        roc2.RepoObject_guid
+      , roc2.RepoObjectColumn_name
+    From
+        [repo].[RepoObjectColumn] As [roc2]
+    Where
+        [repo].[RepoObjectColumn].[SysObjectColumn_name] = roc2.RepoObjectColumn_name
+        And [repo].[RepoObjectColumn].[RepoObject_guid]  = roc2.RepoObject_guid
+);
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -630,6 +760,96 @@ SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0)'
 SET @source_object = '[repo_sys].[SysColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":910,"Name":"merge columns, defined in repo.RepoObjectColumn_RequiredRepoObjectColumnMerge","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"repo.RepoObjectColumn_RequiredRepoObjectColumnMerge","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',910,';',NULL);
+
+Begin Try
+/*
+based on repo.RepoObjectColumn_RequiredRepoObjectColumnMerge
+keep roc1 (which has the right RepoObjectColumn_name)
+mark them set is_required_ColumnMerge = 1
+*/
+    Update
+        roc
+    Set
+        is_required_ColumnMerge = 1
+    From
+        repo.RepoObjectColumn                                   As roc
+        Inner Join
+            repo.RepoObjectColumn_RequiredRepoObjectColumnMerge As Filter
+                On
+                Filter.RepoObjectColumn_guid = roc.RepoObjectColumn_guid;
+
+    /*
+delete columns with RepoObjectColumn_guid in roc2_RepoObjectColumn_guid
+*/
+
+    Delete
+    roc
+    From
+        repo.RepoObjectColumn                                   As roc
+        Inner Join
+            repo.RepoObjectColumn_RequiredRepoObjectColumnMerge As Filter
+                On
+                Filter.roc2_RepoObjectColumn_guid = roc.RepoObjectColumn_guid;
+
+    /*
+set SysObjectColumn_name = RepoObjectColumn_name (for roc1, for marked columns)
+*/
+
+    Update
+        roc
+    Set
+        SysObjectColumn_name = RepoObjectColumn_name
+    From
+        repo.RepoObjectColumn As roc
+    Where
+        is_required_ColumnMerge = 1;
+
+    /*
+remove marker where SysObjectColumn_name = RepoObjectColumn_name
+*/
+    Update
+        roc
+    Set
+        is_required_ColumnMerge = NULL
+    From
+        repo.RepoObjectColumn As roc
+    Where
+        is_required_ColumnMerge  = 1
+        And SysObjectColumn_name = RepoObjectColumn_name;
+
+End Try
+Begin Catch
+    Print 'issue merging RepoObjectColumn';
+
+    Throw;
+End Catch;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'merge columns, defined in repo.RepoObjectColumn_RequiredRepoObjectColumnMerge'
+SET @source_object = 'repo.RepoObjectColumn_RequiredRepoObjectColumnMerge'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -1054,96 +1274,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1610,"Name":"merge columns, defined in repo.RepoObjectColumn_RequiredRepoObjectColumnMerge","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"repo.RepoObjectColumn_RequiredRepoObjectColumnMerge","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1610,';',NULL);
-
-Begin Try
-/*
-based on repo.RepoObjectColumn_RequiredRepoObjectColumnMerge
-keep roc1 (which has the right RepoObjectColumn_name)
-mark them set is_required_ColumnMerge = 1
-*/
-    Update
-        roc
-    Set
-        is_required_ColumnMerge = 1
-    From
-        repo.RepoObjectColumn                                   As roc
-        Inner Join
-            repo.RepoObjectColumn_RequiredRepoObjectColumnMerge As Filter
-                On
-                Filter.RepoObjectColumn_guid = roc.RepoObjectColumn_guid;
-
-    /*
-delete columns with RepoObjectColumn_guid in roc2_RepoObjectColumn_guid
-*/
-
-    Delete
-    roc
-    From
-        repo.RepoObjectColumn                                   As roc
-        Inner Join
-            repo.RepoObjectColumn_RequiredRepoObjectColumnMerge As Filter
-                On
-                Filter.roc2_RepoObjectColumn_guid = roc.RepoObjectColumn_guid;
-
-    /*
-set SysObjectColumn_name = RepoObjectColumn_name (for roc1, for marked columns)
-*/
-
-    Update
-        roc
-    Set
-        SysObjectColumn_name = RepoObjectColumn_name
-    From
-        repo.RepoObjectColumn As roc
-    Where
-        is_required_ColumnMerge = 1;
-
-    /*
-remove marker where SysObjectColumn_name = RepoObjectColumn_name
-*/
-    Update
-        roc
-    Set
-        is_required_ColumnMerge = NULL
-    From
-        repo.RepoObjectColumn As roc
-    Where
-        is_required_ColumnMerge  = 1
-        And SysObjectColumn_name = RepoObjectColumn_name;
-
-End Try
-Begin Catch
-    Print 'issue merging RepoObjectColumn';
-
-    Throw;
-End Catch;
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'merge columns, defined in repo.RepoObjectColumn_RequiredRepoObjectColumnMerge'
-SET @source_object = 'repo.RepoObjectColumn_RequiredRepoObjectColumnMerge'
-SET @target_object = '[repo].[RepoObjectColumn]'
-
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
-
 /*{"ReportUspStep":[{"Number":2000,"Name":"config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0
 
@@ -1151,75 +1281,85 @@ IF config.fs_get_parameter_value ( 'dwh_readonly', '' ) = 0
 BEGIN
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2010,';',2000);
 
-DECLARE property_cursor CURSOR Local Fast_Forward
-FOR
+Declare property_cursor Cursor Local Fast_Forward For
 --
-SELECT [T1].[RepoObjectColumn_guid]
- , [T1].[SysObject_schema_name]
- , [T2].[level1type]
- , [T1].[SysObject_name]
- , [T1].[SysObject_column_name]
- , [T1].[SysObject_type]
-FROM repo.SysColumn_RepoObjectColumn_via_name AS T1
-INNER JOIN [configT].[type_level1type_level2type] AS T2
- ON T1.SysObject_type = T2.type
-WHERE NOT [T1].[RepoObjectColumn_guid] IS NULL
- AND [T1].[SysObject_RepoObjectColumn_guid] IS NULL
- AND NOT [T2].[level1type] IS NULL
- --SchemaCompare has issues comparing extended properties for graph table columns, we exclude them
- AND T1.Repo_graph_type IS NULL
- --the next is redundant, these kind of Objects should not exist in the database
- AND [T1].[is_SysObjectColumn_name_uniqueidentifier] = 0
+Select
+    [T1].[RepoObjectColumn_guid]
+  , [T1].[SysObject_schema_name]
+  , [T2].[level1type]
+  , [T1].[SysObject_name]
+  --, [T1].[SysObject_column_name]
+  , [T1].[Column_name]
+  , [T1].[SysObject_type]
+From
+    --repo.SysColumn_RepoObjectColumn_via_name   As T1
+    repo.[RepoObjectColumn_gross]              As T1
+    Inner Join
+        [configT].[type_level1type_level2type] As T2
+            On
+            T1.SysObject_type = T2.type
+Where
+    Not [T1].[RepoObjectColumn_guid] Is Null
+    --And [T1].[SysObject_RepoObjectColumn_guid] Is Null
+    And Not [T2].[level1type] Is Null
+    --SchemaCompare has issues comparing extended properties for graph table columns, we exclude them
+    And T1.Repo_graph_type Is Null;
+----the next is redundant, these kind of Objects should not exist in the database
+--And [T1].[is_SysObjectColumn_name_uniqueidentifier] = 0;
 
-DECLARE @RepoObjectColumn_guid UNIQUEIDENTIFIER
- , @column_name NVARCHAR(128)
- , @schema_name NVARCHAR(128)
- , @level1type VARCHAR(128)
- , @name NVARCHAR(128)
- , @type CHAR(2)
+/*
+Declare
+    @RepoObjectColumn_guid UniqueIdentifier
+  , @column_name           NVarchar(128)
+  , @schema_name           NVarchar(128)
+  , @level1type            Varchar(128)
+  , @name                  NVarchar(128)
+  , @type                  Char(2);
+*/
 
-SET @rows = 0;
+Set @rows = 0;
 
-OPEN property_cursor;
+Open property_cursor;
 
-FETCH NEXT
-FROM property_cursor
-INTO @RepoObjectColumn_guid
- , @schema_name
- , @level1type
- , @name
- , @column_name
- , @type;
-
-WHILE @@fetch_status <> - 1
-BEGIN
- IF @@fetch_status <> - 2
- BEGIN
-  EXEC repo_sys.[usp_AddOrUpdateExtendedProperty] @name = N'RepoObjectColumn_guid'
-   , @value = @RepoObjectColumn_guid
-   , @level0type = N'Schema'
-   , @level0name = @schema_name
-   , @level1type = @level1type
-   , @level1name = @name
-   , @level2type = N'COLUMN'
-   , @level2name = @column_name;
-
-  SET @rows = @rows + 1;
- END;
-
- FETCH NEXT
- FROM property_cursor
- INTO @RepoObjectColumn_guid
+Fetch Next From property_cursor
+Into
+    @RepoObjectColumn_guid
   , @schema_name
   , @level1type
   , @name
   , @column_name
   , @type;
-END;
 
-CLOSE property_cursor;
+While @@Fetch_Status <> -1
+Begin
+    If @@Fetch_Status <> -2
+    Begin
+        Exec repo_sys.[usp_AddOrUpdateExtendedProperty]
+            @name = N'RepoObjectColumn_guid'
+          , @value = @RepoObjectColumn_guid
+          , @level0type = N'Schema'
+          , @level0name = @schema_name
+          , @level1type = @level1type
+          , @level1name = @name
+          , @level2type = N'COLUMN'
+          , @level2name = @column_name;
 
-DEALLOCATE property_cursor;
+        Set @rows = @rows + 1;
+    End;
+
+    Fetch Next From property_cursor
+    Into
+        @RepoObjectColumn_guid
+      , @schema_name
+      , @level1type
+      , @name
+      , @column_name
+      , @type;
+End;
+
+Close property_cursor;
+
+Deallocate property_cursor;
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
