@@ -86,7 +86,49 @@ EXEC [reference].[usp_PERSIST_RepoObject_reference_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":230,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":230,"Name":"in case of bidirectional references delete the referenced object (view) which is used as source for a persistence\r\n","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_reference_T_bidirectional]","log_target_object":"[reference].[RepoObject_reference_T]"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',230,';',NULL);
+
+Delete
+T1
+From
+    reference.RepoObject_reference_T                   As T1
+    Inner Join
+        reference.RepoObject_reference_T_bidirectional As T2
+            On
+            T1.referenced_RepoObject_guid      = T2.referenced_RepoObject_guid
+            And T1.referencing_RepoObject_guid = T2.referencing_RepoObject_guid
+Where
+    ( T2.referencing_is_persistence = 1 )
+	--should be redundant, but for safety
+    And T2.[referenced_is_persistence] Is Null;
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'in case of bidirectional references delete the referenced object (view) which is used as source for a persistence
+'
+SET @source_object = '[reference].[RepoObject_reference_T_bidirectional]'
+SET @target_object = '[reference].[RepoObject_reference_T]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":250,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObjectColumn_reference_T]
 --add your own parameters
 --logging parameters

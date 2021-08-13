@@ -529,6 +529,10 @@
     <Build Include="workflow\Tables\Workflow_ProcedureDependency_T.sql" />
     <Build Include="workflow\Views\Workflow_ProcedureDependency.sql" />
     <Build Include="workflow\Stored Procedures\usp_PERSIST_Workflow_ProcedureDependency_T.sql" />
+    <Build Include="workflow\Tables\WorkflowStep_Sortorder.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_T_NotInSortorder.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_T_bidirectional.sql" />
+    <Build Include="reference\Views\RepoObject_reference_T_bidirectional.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_2_project.scmp" />
