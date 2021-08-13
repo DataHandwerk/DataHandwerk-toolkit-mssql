@@ -1695,4 +1695,18 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="Biml_Task" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a9dca507-bddf-461c-a2bf-13fe8554814d" ChangeDateTime="08/13/2021 20:49:25">
+    <Property Name="ElementName" Value="[workflow].[Workflow_ProcedureDependency_redundant]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[workflow]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Workflow_ProcedureDependency_T_redundant]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0ef40f70-1ed3-4b5a-82ef-9ce1e9c8b4b6" ChangeDateTime="08/13/2021 20:50:29">
+    <Property Name="ElementName" Value="[workflow].[Workflow_ProcedureDependency_TaskName]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[workflow]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Workflow_ProcedureDependency_T_TaskName]" />
+  </Operation>
 </Operations>

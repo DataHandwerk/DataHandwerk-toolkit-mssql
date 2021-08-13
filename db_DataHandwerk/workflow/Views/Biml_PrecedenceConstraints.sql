@@ -12,7 +12,7 @@ Select
   + Char ( 13 ) + Char ( 10 ) + '      </Inputs>' + Char ( 13 ) + Char ( 10 ) + '    </PrecedenceConstraints>'
   + Char ( 13 ) + Char ( 10 )
 From
-    workflow.Workflow_ProcedureDependency_TaskName
+    workflow.[Workflow_ProcedureDependency_T_TaskName]
 Group By
     Workflow_id
   , referencing_Procedure_RepoObject_guid;

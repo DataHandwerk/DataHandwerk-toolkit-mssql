@@ -516,8 +516,8 @@
     <Build Include="workflow\Views\Biml_Task.sql" />
     <Build Include="workflow\Views\Biml_PrecedenceConstraints.sql" />
     <Build Include="workflow\Views\Workflow_ProcedureDependency_wo_redundant.sql" />
-    <Build Include="workflow\Views\Workflow_ProcedureDependency_TaskName.sql" />
-    <Build Include="workflow\Views\Workflow_ProcedureDependency_redundant.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_T_TaskName.sql" />
+    <Build Include="workflow\Views\Workflow_ProcedureDependency_T_redundant.sql" />
     <Build Include="workflow\Views\Workflow_ProcedureDependency_all.sql" />
     <Build Include="workflow\Views\Biml_Package.sql" />
     <Build Include="workflow\Stored Procedures\usp_PERSIST_WorkflowStep.sql" />

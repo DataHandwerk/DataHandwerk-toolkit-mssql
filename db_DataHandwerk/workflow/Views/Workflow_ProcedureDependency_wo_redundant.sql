@@ -12,7 +12,7 @@ Except
    , T1.referenced_Procedure_RepoObject_guid
    , T1.referencing_Procedure_RepoObject_guid
  From
-     workflow.Workflow_ProcedureDependency_redundant T1);
+     workflow.[Workflow_ProcedureDependency_T_redundant] T1);
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a2bcd983-91fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Workflow_ProcedureDependency_wo_redundant';
 

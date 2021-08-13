@@ -114,7 +114,7 @@ Begin
     From
         workflow.Workflow_ProcedureDependency_T             As T1
         Inner Join
-            workflow.Workflow_ProcedureDependency_redundant As T2
+            workflow.[Workflow_ProcedureDependency_T_redundant] As T2
                 On
                 T1.Workflow_id                               = T2.Workflow_id
                 And T1.referencing_Procedure_RepoObject_guid = T2.referencing_Procedure_RepoObject_guid
