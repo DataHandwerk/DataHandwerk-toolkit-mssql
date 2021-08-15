@@ -1,103 +1,133 @@
 ﻿
+
 CREATE View [docs].[RepoObject_Plantuml]
 As
 Select
     ro.RepoObject_guid
   , ro.RepoObject_fullname2
   , elist_1_1.PumlEntityList
-  , elist_0_30.PumlEntityList     As PumlEntityList_0_30
-  , elist_30_0.PumlEntityList     As PumlEntityList_30_0
+  , elist_0_30.PumlEntityList As PumlEntityList_0_30
+  , elist_30_0.PumlEntityList As PumlEntityList_30_0
   , clist.ColRefList
   , olist_1_1.ObjectRefList
-  , olist_0_30.ObjectRefList      As ObjectRefList_0_30
-  , olist_30_0.ObjectRefList      As ObjectRefList_30_0
-  , PlantumlEntity_1_1_ColRef     = Concat (
-                                               'left to right direction'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'hide circle'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '''avoide "." issues:'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'set namespaceSeparator none'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , skin.[Parameter_value_result]
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , elist_1_1.PumlEntityList
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , olist_1_1.ObjectRefList
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , clist.ColRefList
-                                           )
-  , PlantumlEntity_1_1_ObjectRef  = Concat (
-                                               'left to right direction'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'hide circle'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '''avoide "." issues:'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'set namespaceSeparator none'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , skin.[Parameter_value_result]
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , elist_1_1.PumlEntityOnlyPkList
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , olist_1_1.ObjectRefList
-                                           )
-  , PlantumlEntity_0_30_ObjectRef = Concat (
-                                               '''Left to right direction'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'hide circle'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '''avoide "." issues:'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'set namespaceSeparator none'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , skin.[Parameter_value_result]
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , elist_0_30.PumlEntityOnlyPkList
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , olist_0_30.ObjectRefList
-                                           )
-  , PlantumlEntity_30_0_ObjectRef = Concat (
-                                               '''Left to right direction'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'hide circle'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '''avoide "." issues:'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'set namespaceSeparator none'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , skin.[Parameter_value_result]
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , elist_30_0.PumlEntityOnlyPkList
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , olist_30_0.ObjectRefList
-                                           )
-  , PlantumlEntity_1_1_FkRef      = Concat (
-                                               'Left to right direction'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'hide circle'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '''avoide "." issues:'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'set namespaceSeparator none'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , skin.[Parameter_value_result]
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , EntityFkList.PumlEntityFkList
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , FkRefList.FkRefList
-                                           )
+  , olist_0_30.ObjectRefList  As ObjectRefList_0_30
+  , olist_30_0.ObjectRefList  As ObjectRefList_30_0
+  , PlantumlEntity_1_1_ColRef
+  --
+                              = Concat (
+                                           'left to right direction'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'hide circle'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , '''avoide "." issues:'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'set namespaceSeparator none'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , skin.[Parameter_value_result]
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , elist_1_1.PumlEntityList
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , olist_1_1.ObjectRefList
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , clist.ColRefList
+                                       )
+  , PlantumlEntity_1_1_ObjectRef
+  --
+                              = Concat (
+                                           'left to right direction'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'hide circle'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , '''avoide "." issues:'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'set namespaceSeparator none'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , skin.[Parameter_value_result]
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , elist_1_1.PumlEntityOnlyPkList
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , olist_1_1.ObjectRefList
+                                       )
+  , PlantumlEntity_0_30_ObjectRef
+  --
+                              = Concat (
+                                           '''Left to right direction'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'hide circle'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , '''avoide "." issues:'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'set namespaceSeparator none'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , skin.[Parameter_value_result]
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , elist_0_30.PumlEntityOnlyPkList
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , olist_0_30.ObjectRefList
+                                       )
+  , PlantumlEntity_30_0_ObjectRef
+  --
+                              = Concat (
+                                           '''Left to right direction'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'hide circle'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , '''avoide "." issues:'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'set namespaceSeparator none'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , skin.[Parameter_value_result]
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , elist_30_0.PumlEntityOnlyPkList
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , olist_30_0.ObjectRefList
+                                       )
+  --, PlantumlEntity_cyclic_ObjectRef
+  ----
+  --                            = Concat (
+  --                                         'left to right direction'
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , 'hide circle'
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , '''avoide "." issues:'
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , 'set namespaceSeparator none'
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , skin.[Parameter_value_result]
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , elist_cyclic.PumlEntityOnlyPkList
+  --                                       , Char ( 13 ) + Char ( 10 )
+  --                                       , olist_cyclic.ObjectRefList
+  --                                     )
+  , PlantumlEntity_1_1_FkRef
+  --
+                              = Concat (
+                                           'Left to right direction'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'hide circle'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , '''avoide "." issues:'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , 'set namespaceSeparator none'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , skin.[Parameter_value_result]
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , EntityFkList.PumlEntityFkList
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , FkRefList.FkRefList
+                                       )
 From
     repo.RepoObject_gross                                                                         As ro
     Left Join
@@ -119,9 +149,15 @@ From
         docs.RepoObject_Plantuml_ObjectRefList_30_0                                               As olist_30_0
             On
             olist_30_0.RepoObject_guid = ro.RepoObject_guid
+
+    --Left Join
+    --    docs.RepoObject_Plantuml_ObjectRefList_cyclic                                             As olist_cyclic
+    --        On
+    --        olist_1_1.RepoObject_guid = ro.RepoObject_guid
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist_1_1
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 30, 0 ) As elist_30_0
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 0, 30 ) As elist_0_30
+    --Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist_cyclic
     Left Join
         docs.RepoObject_PlantUml_PumlEntityFkList                            As EntityFkList
             On

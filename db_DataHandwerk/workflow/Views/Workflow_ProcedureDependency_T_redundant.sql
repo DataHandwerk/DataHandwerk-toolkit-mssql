@@ -1,4 +1,5 @@
 ﻿
+
 /*
 mögliche redundante Referenzen
 
@@ -19,15 +20,15 @@ Select
                                                    T1.referenced_Procedure_RepoObject_guid
                                              )
 From
-    [workflow].[Workflow_ProcedureDependency_T]     As T1
+    [workflow].[Workflow_ProcedureDependency_T_active]     As T1
     Inner Join
-        [workflow].[Workflow_ProcedureDependency_T] As T2
+        [workflow].[Workflow_ProcedureDependency_T_active] As T2
             On
             T1.Workflow_id                               = T2.Workflow_id
             And T1.referenced_Procedure_RepoObject_guid  = T2.referenced_Procedure_RepoObject_guid
 
     Inner Join
-        [workflow].[Workflow_ProcedureDependency_T] As T3
+        [workflow].[Workflow_ProcedureDependency_T_active] As T3
             On
             T1.Workflow_id                               = T3.Workflow_id
             And T1.referencing_Procedure_RepoObject_guid = T3.referencing_Procedure_RepoObject_guid

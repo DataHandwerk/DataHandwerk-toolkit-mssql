@@ -33,11 +33,16 @@
     [SysObject_fullname2]                 AS               (concat([SysObject_schema_name],'.',[SysObject_name])) PERSISTED NOT NULL,
     [SysObject_query_sql]                 AS               (concat('SELECT * FROM [',[config].[fs_dwh_database_name](),'].[',[SysObject_schema_name],'].[',[SysObject_name],']')),
     [usp_persistence_name]                AS               ('usp_PERSIST_'+[RepoObject_name]) PERSISTED NOT NULL,
+    [usp_persistence_fullname2]           AS               (concat([RepoObject_schema_name],'.','usp_PERSIST_',[RepoObject_name])) PERSISTED NOT NULL,
     CONSTRAINT [PK_RepoObject] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_Index_IndexSemanticGroup__pk_index_guid] FOREIGN KEY ([pk_index_guid]) REFERENCES [repo].[Index_Settings] ([index_guid]) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
+
+
 
 
 
@@ -649,4 +654,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cbf17
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'caf17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'SysObject_query_sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dc6d2d0f-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject', @level2type = N'COLUMN', @level2name = N'usp_persistence_fullname2';
 

@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -12,42 +13,49 @@ CREATE View [docs].[RepoObject_Plantuml_Entity]
 As
 Select
     ro.RepoObject_guid
-  , RepoObject_Puml          = Concat (
-                                          'entity '
-                                        , ro.RepoObject_fullname2
-                                        , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
-                                        , ' {'
-                                        , Char ( 13 ) + Char ( 10 )
-                                        , collist.PlantumlPkEntityColumns
-                                        , '  --'
-                                        , Char ( 13 ) + Char ( 10 )
-                                        , collist.PlantumlNonPkEntityColumns
-                                        , '}'
-                                        , Char ( 13 ) + Char ( 10 )
-                                      )
-  , RepoObject_PumlOnlyPK    = Concat (
-                                          'entity '
-                                        , ro.RepoObject_fullname2
-                                        , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
-                                        , ' {'
-                                        , Char ( 13 ) + Char ( 10 )
-                                        , collist.PlantumlPkEntityColumns
-                                        , '  --'
-                                        , Char ( 13 ) + Char ( 10 )
-                                        , '}'
-                                        , Char ( 13 ) + Char ( 10 )
-                                      )
-  , RepoObject_PumlOnlyIndex = Concat (
-                                          'entity '
-                                        , ro.RepoObject_fullname2
-                                        , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
-                                        , ' {'
-                                        , Char ( 13 ) + Char ( 10 )
-                                        , indexlist.PumlIndexList
-                                        , Char ( 13 ) + Char ( 10 )
-                                        , '}'
-                                        , Char ( 13 ) + Char ( 10 )
-                                      )
+  , RepoObject_Puml          =
+  --
+  Concat (
+             'entity '
+           , ro.RepoObject_fullname2
+           , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
+           , ' {'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlPkEntityColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlNonPkEntityColumns
+           , '}'
+           , Char ( 13 ) + Char ( 10 )
+         )
+  , RepoObject_PumlOnlyPK    =
+  --
+  Concat (
+             'entity '
+           , ro.RepoObject_fullname2
+           , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
+           , ' {'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlPkEntityColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , '}'
+           , Char ( 13 ) + Char ( 10 )
+         )
+  , RepoObject_PumlOnlyIndex =
+  --
+  Concat (
+             'entity '
+           , ro.RepoObject_fullname2
+           , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
+           , ' {'
+           , Char ( 13 ) + Char ( 10 )
+           , indexlist.PumlIndexList
+           , Char ( 13 ) + Char ( 10 )
+           , '}'
+           , Char ( 13 ) + Char ( 10 )
+         )
+  , ro.RepoObject_fullname2
 From
     docs.RepoObject_OutputFilter    As ro
     Left Join
@@ -150,4 +158,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [docs].[RepoObject_OutputFilter].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd96d2d0f-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 

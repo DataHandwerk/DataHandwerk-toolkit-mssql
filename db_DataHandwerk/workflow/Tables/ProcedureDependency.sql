@@ -5,11 +5,25 @@
     [is_active]                             BIT              CONSTRAINT [DF_ProcedureDependency_is_active] DEFAULT ((1)) NOT NULL,
     [is_PersistenceDependency]              BIT              CONSTRAINT [DF_ProcedureDependency_is_PersistenceDependency] DEFAULT ((0)) NOT NULL,
     [Description]                           NVARCHAR (4000)  NULL,
+    [referenced_RepoObject_guid]            UNIQUEIDENTIFIER NULL,
+    [referencing_RepoObject_guid]           UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK_ProcedureDependency] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced] FOREIGN KEY ([referenced_Procedure_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]),
     CONSTRAINT [FK_ProcedureDependency_RepoObject_referencing] FOREIGN KEY ([referencing_Procedure_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_ProcedureDependency] UNIQUE NONCLUSTERED ([referenced_Procedure_RepoObject_guid] ASC, [referencing_Procedure_RepoObject_guid] ASC)
 );
+
+
+GO
+ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
+
+
+
+
+GO
+ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
+
+
 
 
 GO
@@ -97,4 +111,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:workflow.usp_workflow.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
 
 
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'de6d2d0f-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dd6d2d0f-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_guid';
 

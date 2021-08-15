@@ -2,7 +2,10 @@
     [AntoraIndexList] NVARCHAR (MAX)   NULL,
     [PumlIndexList]   NVARCHAR (MAX)   NULL,
     [RepoObject_guid] UNIQUEIDENTIFIER NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

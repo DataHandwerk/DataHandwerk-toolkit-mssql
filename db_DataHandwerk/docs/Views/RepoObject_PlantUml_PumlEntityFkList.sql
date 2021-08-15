@@ -2,7 +2,7 @@
 As
 Select
     ro.RepoObject_guid
-  , Max ( RepoObject_fullname2 ) As RepoObject_fullname2
+  , Max ( ro.RepoObject_fullname2 ) As RepoObject_fullname2
   , PumlEntityFkList             = String_Agg ( rop.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                           ro.included_RepoObject_fullname2)
 From
