@@ -3,11 +3,16 @@
     [Workflow_id]               INT              NOT NULL,
     [Procedure_RepoObject_guid] UNIQUEIDENTIFIER NOT NULL,
     [is_active]                 BIT              CONSTRAINT [DF_WorkflowStep_is_active] DEFAULT ((0)) NOT NULL,
+    [is_PossibleReferenced]     BIT              CONSTRAINT [DF_WorkflowStep_is_PossibleReferenced] DEFAULT ((1)) NOT NULL,
     CONSTRAINT [PK_WorkflowStep] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_WorkflowStep_RepoObject] FOREIGN KEY ([Procedure_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_WorkflowStep_Workflow] FOREIGN KEY ([Workflow_id]) REFERENCES [workflow].[Workflow] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_WorkflowStep] UNIQUE NONCLUSTERED ([Workflow_id] ASC, [Procedure_RepoObject_guid] ASC)
 );
+
+
+
+
 
 
 
@@ -80,4 +85,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4bb8c8a5-ce
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4eb8c8a5-cef9-eb11-850d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'WorkflowStep', @level2type = N'COLUMN', @level2name = N'is_active';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b207855a-86fe-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'WorkflowStep', @level2type = N'CONSTRAINT', @level2name = N'DF_WorkflowStep_is_PossibleReferenced';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'de1c2361-86fe-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'WorkflowStep', @level2type = N'COLUMN', @level2name = N'is_PossibleReferenced';
 

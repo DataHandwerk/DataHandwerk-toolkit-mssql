@@ -547,14 +547,16 @@
     <Build Include="workflow\Stored Procedures\usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="db_2_project.scmp" />
-    <None Include="project_2_db.scmp" />
+    <None Include="db_self_2_project.scmp" />
+    <None Include="project_2_db_self.scmp" />
     <None Include="_scripts\StaticData\dhw_self\11_dhw_self_repo_parameter.sql" />
     <None Include="Snapshots\db_DataHandwerk_20210324_12-52-35.dacpac" />
     <None Include="readme.adoc" />
     <None Include="xcopy-exclude.txt" />
     <None Include="xcopy-readme.txt" />
     <None Include="Snapshots\db_DataHandwerk_20210426_19-52-33.dacpac" />
+    <None Include="db_other_2_project.scmp" />
+    <None Include="project_2_db_other.scmp" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">

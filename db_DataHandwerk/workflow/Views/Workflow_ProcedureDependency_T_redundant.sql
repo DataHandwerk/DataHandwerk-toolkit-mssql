@@ -1,10 +1,11 @@
 ﻿
 
-/*
-mögliche redundante Referenzen
 
-wir dürfen nicht alle gleichzeitig entfernen, da sich einige gegenseitig als redundant erkennen. +
-Daher passiert die Markierung als `is_redundant` nach und nach für immer nur eine Referenz per referencing_Procedure_RepoObject_guid
+/*
+possible redundant references
+
+we must not remove all of them at the same time, because some of them recognize each other as redundant. +
+Therefore marking as `is_redundant` happens one by one for always only one reference by referencing_Procedure_RepoObject_guid
 
 */
 CREATE View [workflow].[Workflow_ProcedureDependency_T_redundant]

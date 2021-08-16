@@ -136,8 +136,18 @@ EXEC [docs].[usp_AntoraExport_ObjectPuml]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":900,"Name":"[docs].[usp_AntoraExport_Page_IndexSemanticGroup]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":910,"Name":"[docs].[usp_AntoraExport_Page_IndexSemanticGroup]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [docs].[usp_AntoraExport_Page_IndexSemanticGroup]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":920,"Name":"[docs].[usp_AntoraExport_ObjectRefCyclic]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_ObjectRefCyclic]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
