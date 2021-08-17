@@ -1,15 +1,16 @@
-﻿Create   View configT.numbers_0_2047
+﻿
+CREATE View configT.numbers_0_2047
 As
 Select
-    [number]
-  , [type]
-  , [low]
-  , [high]
-  , [status]
+    number
+  , type
+  , low
+  , high
+  , status
 From
-    [configT].[spt_values]
+    configT.spt_values
 Where
-    [type] = 'P';
+    type = 'P'
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '1dacb147-4af5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'numbers_0_2047';
 

@@ -1,21 +1,31 @@
 ﻿
-CREATE VIEW [dbeaver].[DataSources_connection]
-AS
-SELECT
- --
- j1.*
- , j2.*
- , j3.[key] AS connection_key
- , j3.value AS connection_json
- , J4.*
-FROM [dbeaver].[DataSources] j1
-CROSS APPLY OPENJSON(BulkColumn) WITH (connections NVARCHAR(MAX) N'$.connections' AS JSON) j2
-CROSS APPLY OPENJSON(j2.connections) j3
-CROSS APPLY OPENJSON(j3.value) WITH (
-  connection_provider NVARCHAR(100) N'$.provider'
-  , connection_driver NVARCHAR(100) N'$.driver'
-  , conection_name NVARCHAR(100) N'$.name'
-  ) j4
+
+CREATE View dbeaver.DataSources_connection
+As
+Select
+    --
+    j1.*
+  , j2.*
+  , connection_key  = j3.[Key]
+  , connection_json = j3.Value
+  , j4.*
+From
+    dbeaver.DataSources As j1
+    Cross Apply
+    OpenJson ( j1.BulkColumn )
+    With
+    (
+        connections NVarchar ( Max ) N'$.connections' As Json
+    )                   As j2
+    Cross Apply OpenJson ( j2.connections ) As j3
+    Cross Apply
+    OpenJson ( j3.Value )
+    With
+    (
+        connection_provider NVarchar ( 100 ) N'$.provider'
+      , connection_driver NVarchar ( 100 ) N'$.driver'
+      , conection_name NVarchar ( 100 ) N'$.name'
+    ) As j4
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a8be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_connection', @level2type = N'COLUMN', @level2name = N'conection_name';
 

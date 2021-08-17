@@ -1,4 +1,5 @@
-﻿CREATE View docs.ForeignKey_RelationScript
+﻿
+CREATE View docs.ForeignKey_RelationScript
 As
 --
 Select
@@ -71,7 +72,7 @@ From
     repo.ForeignKey_Indexes_union_T
 Where
     Not referenced_index_guid Is Null
-    And Not referencing_index_guid Is Null;
+    And Not referencing_index_guid Is Null
 Go
 
 Execute sp_addextendedproperty

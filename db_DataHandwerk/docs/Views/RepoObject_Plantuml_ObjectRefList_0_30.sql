@@ -1,5 +1,6 @@
 ﻿
-CREATE View [docs].[RepoObject_Plantuml_ObjectRefList_0_30]
+
+CREATE View docs.RepoObject_Plantuml_ObjectRefList_0_30
 As
 Select
     ro.RepoObject_guid
@@ -27,16 +28,16 @@ From
     --    Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 0, 30 ) As T1
     --    Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 0, 30 ) As T2
     Select
-        [RepoObject_guid]
+        RepoObject_guid
       --,[RepoObject_fullname2]
-      , [Referencing_guid]
-      , [Referenced_guid]
+      , Referencing_guid
+      , Referenced_guid
     From
-        [reference].[RepoObject_ReferenceTree_0_30_T]
-)     ro
+        reference.RepoObject_ReferenceTree_0_30_T
+)     As ro
     Inner Join
     --only direct relations between pre-selected objects
-	--maybe not required
+    --maybe not required
     (
         --Select
         --    Object1.RepoObject_fullname2 As Referencing_ro_fullname2
@@ -50,18 +51,18 @@ From
         --Where Match(
         --    Object1-(referenced)->Object2)
         Select
-            [referencing_fullname2]       As Referencing_ro_fullname2
-          , [referencing_RepoObject_guid] As Referencing_ro_guid
-          , [referenced_fullname2]        As Referenced_ro_fullname2
-          , [referenced_RepoObject_guid]  As Referenced_ro_guid
+            Referencing_ro_fullname2 = referencing_fullname2
+          , Referencing_ro_guid      = referencing_RepoObject_guid
+          , Referenced_ro_fullname2  = referenced_fullname2
+          , Referenced_ro_guid       = referenced_RepoObject_guid
         From
-            [reference].[RepoObject_reference_T]
-    ) objectref
+            reference.RepoObject_reference_T
+    ) As objectref
         On
-        objectref.Referencing_ro_guid    = ro.[Referencing_guid]
-        And objectref.Referenced_ro_guid = ro.[Referenced_guid]
+        objectref.Referencing_ro_guid    = ro.Referencing_guid
+        And objectref.Referenced_ro_guid = ro.Referenced_guid
 Group By
-    ro.RepoObject_guid;
+    ro.RepoObject_guid
 --, ro.RepoObject_fullname2;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e626ab1d-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_0_30', @level2type = N'COLUMN', @level2name = N'ObjectRefList';

@@ -1,36 +1,37 @@
-﻿CREATE View logs.ExecutionLog_parent
+﻿
+CREATE View logs.ExecutionLog_parent
 As
 Select
     T1.id
   , T1.parent_execution_log_id
-  , parent.current_execution_guid As parent_current_execution_guid
-  , parent.proc_id                As parent_proc_id
-  , parent.proc_schema_name       As parent_proc_schema_name
-  , parent.proc_name              As parent_proc_name
-  , parent.step_id                As parent_step_id
-  , parent.step_name              As parent_step_name
-  , parent.created_dt             As parent_created_dt
-  , parent.parameter_01           As parent_parameter_01
-  , parent.parameter_02           As parent_parameter_02
-  , parent.parameter_03           As parent_parameter_03
-  , parent.parameter_04           As parent_parameter_04
-  , parent.parameter_05           As parent_parameter_05
-  , parent.parameter_06           As parent_parameter_06
-  , parent.parameter_07           As parent_parameter_07
-  , parent.parameter_08           As parent_parameter_08
-  , parent.parameter_09           As parent_parameter_09
-  , parent.parameter_10           As parent_parameter_10
-  , parent.parameter_11           As parent_parameter_11
-  , parent.parameter_12           As parent_parameter_12
-  , parent.parameter_13           As parent_parameter_13
-  , parent.parameter_14           As parent_parameter_14
-  , parent.parameter_15           As parent_parameter_15
-  , parent.parameter_16           As parent_parameter_16
-  , parent.parameter_17           As parent_parameter_17
-  , parent.parameter_18           As parent_parameter_18
-  , parent.parameter_19           As parent_parameter_19
-  , parent.parameter_20           As parent_parameter_20
-  , parent.proc_fullname          As parent_proc_fullname
+  , parent_current_execution_guid = parent.current_execution_guid
+  , parent_proc_id                = parent.proc_id
+  , parent_proc_schema_name       = parent.proc_schema_name
+  , parent_proc_name              = parent.proc_name
+  , parent_step_id                = parent.step_id
+  , parent_step_name              = parent.step_name
+  , parent_created_dt             = parent.created_dt
+  , parent_parameter_01           = parent.parameter_01
+  , parent_parameter_02           = parent.parameter_02
+  , parent_parameter_03           = parent.parameter_03
+  , parent_parameter_04           = parent.parameter_04
+  , parent_parameter_05           = parent.parameter_05
+  , parent_parameter_06           = parent.parameter_06
+  , parent_parameter_07           = parent.parameter_07
+  , parent_parameter_08           = parent.parameter_08
+  , parent_parameter_09           = parent.parameter_09
+  , parent_parameter_10           = parent.parameter_10
+  , parent_parameter_11           = parent.parameter_11
+  , parent_parameter_12           = parent.parameter_12
+  , parent_parameter_13           = parent.parameter_13
+  , parent_parameter_14           = parent.parameter_14
+  , parent_parameter_15           = parent.parameter_15
+  , parent_parameter_16           = parent.parameter_16
+  , parent_parameter_17           = parent.parameter_17
+  , parent_parameter_18           = parent.parameter_18
+  , parent_parameter_19           = parent.parameter_19
+  , parent_parameter_20           = parent.parameter_20
+  , parent_proc_fullname          = parent.proc_fullname
 From
     logs.ExecutionLog     As T1
     Left Join
@@ -38,7 +39,7 @@ From
             On
             parent.id = T1.parent_execution_log_id
 Where
-    Not parent.id Is Null;
+    Not parent.id Is Null
 
 Go
 Execute sp_addextendedproperty

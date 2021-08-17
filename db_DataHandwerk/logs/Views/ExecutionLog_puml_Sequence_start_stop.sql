@@ -1,4 +1,5 @@
 ﻿
+
 CREATE View logs.ExecutionLog_puml_Sequence_start_stop
 As
 Select
@@ -47,7 +48,7 @@ From
             parent.id = T1.id
 Where
     T1.step_name In
-    ( 'start', 'end' );
+    ( 'start', 'end' )
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '08b0ba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'created_dt';
 

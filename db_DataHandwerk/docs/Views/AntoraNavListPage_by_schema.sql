@@ -1,33 +1,36 @@
 ﻿
+
 CREATE View docs.AntoraNavListPage_by_schema
 As
 Select
-    RepoObject_schema_name
-  , nav_list = Concat (
-                          '= '
-                        , RepoObject_schema_name
-                        , Char ( 13 ) + Char ( 10 )
-                        , Char ( 13 ) + Char ( 10 )
-                        , '== Description'
-                        , Char ( 13 ) + Char ( 10 )
-                        , Char ( 13 ) + Char ( 10 )
-                        , Max ( rs.RepoSchema_ms_description )
-                        , Char ( 13 ) + Char ( 10 )
-                        , Char ( 13 ) + Char ( 10 )
-                        , '== Objects'
-                        , Char ( 13 ) + Char ( 10 )
-                        , Char ( 13 ) + Char ( 10 )
-                        , 'include::partial$navlist/navlist-schema-' + RepoObject_schema_name + '.adoc[]'
-                        , Char ( 13 ) + Char ( 10 )
-                      )
+    ro.RepoObject_schema_name
+  , nav_list =
+  --
+  Concat (
+             '= '
+           , ro.RepoObject_schema_name
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '== Description'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , Max ( rs.RepoSchema_ms_description )
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '== Objects'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , 'include::partial$navlist/navlist-schema-' + ro.RepoObject_schema_name + '.adoc[]'
+           , Char ( 13 ) + Char ( 10 )
+         )
 From
-    repo.RepoObject     ro
+    repo.RepoObject     As ro
     Left Join
-        repo.RepoSchema rs
+        repo.RepoSchema As rs
             On
             rs.RepoSchema_name = ro.RepoObject_schema_name
 Group By
-    RepoObject_schema_name;
+    ro.RepoObject_schema_name
 Go
 
 Execute sp_addextendedproperty

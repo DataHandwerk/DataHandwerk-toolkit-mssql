@@ -1,4 +1,5 @@
-﻿CREATE View docs.RepoObject_ParameterList
+﻿
+CREATE View docs.RepoObject_ParameterList
 As
 Select
     RepoObject_guid     = SysObject_RepoObject_guid
@@ -8,7 +9,8 @@ Select
                                                   , name
                                                   , ' (' + user_type_fullname + ')'
                                                   , Iif(has_default_value = 1
-                                                        , ' = ' + Try_Cast(default_value As NVarchar(4000)) COLLATE database_default
+                                                        , ' = '
+                                                          + Try_Cast(default_value As NVarchar(4000))Collate Database_Default
                                                         , Null)
                                                 )
                                        , Char ( 13 ) + Char ( 10 )
@@ -17,7 +19,7 @@ Select
 From
     repo_sys.parameters
 Group By
-    SysObject_RepoObject_guid;
+    SysObject_RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

@@ -1,7 +1,8 @@
 ﻿
 
 
-CREATE View [docs].[ObjectRefCyclic_ObjectRefList]
+
+CREATE View docs.ObjectRefCyclic_ObjectRefList
 As
 Select
     PumlObjectRefList =
@@ -17,7 +18,7 @@ Select
                ) Within Group(Order By
                                   objectref.Referenced_fullname2)
 From
-    [reference].[ReferenceTree_cyclic_union] objectref;
+    reference.ReferenceTree_cyclic_union As objectref
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '85e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ObjectRefCyclic_ObjectRefList';
 

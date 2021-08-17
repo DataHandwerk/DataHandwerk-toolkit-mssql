@@ -1,19 +1,22 @@
-﻿Create View docs.AntoraPage_IndexSemanticGroup
+﻿
+CREATE View docs.AntoraPage_IndexSemanticGroup
 As
 Select
-    page_content = Concat (
-                              '= Index SemanticGroup'
-                            , Char ( 13 ) + Char ( 10 )
-                            , String_Agg ( AntoraIndexSemanticgroup, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                 IsNull (
-                                                                                                                            IndexSemanticGroup
-                                                                                                                          , 'zzzzzzz'
-                                                                                                                        ))
-                          )
+    page_content =
+    --
+    Concat (
+               '= Index SemanticGroup'
+             , Char ( 13 ) + Char ( 10 )
+             , String_Agg ( AntoraIndexSemanticgroup, Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                  IsNull (
+                                                                                                             IndexSemanticGroup
+                                                                                                           , 'zzzzzzz'
+                                                                                                         ))
+           )
 From
     docs.AntoraIndexSemanticgroup
 Group By
-    fixvalue;
+    fixvalue
 Go
 
 Execute sp_addextendedproperty

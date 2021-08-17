@@ -1,14 +1,15 @@
-﻿Create View graph.RepoObject_S
+﻿
+CREATE View graph.RepoObject_S
 As
 Select
     -- 
     RepoObject_guid
   , RepoObject_fullname
   --we need to mark the column as nullable, because in [repo].[usp_sync_guid_RepoObjectColumn] in step 1010 it will be inherited into target: [Repo_is_nullable] = [scroc].[is_nullable] 
-  , NullIf(RepoObject_fullname2, '') As RepoObject_fullname2
+  , RepoObject_fullname2 = NullIf(RepoObject_fullname2, '')
   , RepoObject_type
 From
-    repo.RepoObject;
+    repo.RepoObject
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'

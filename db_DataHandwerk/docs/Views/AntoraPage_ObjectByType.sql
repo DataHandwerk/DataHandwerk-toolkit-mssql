@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 output example:
 
@@ -35,16 +36,16 @@ Select
                                                                ct.type_desc Desc)
                              )
 From
-    [configT].type                              ct
+    configT.type                             As ct
     --only existing objects
     Inner Join
-        docs.AntoraNavListRepoObject_by_type existing
+        docs.AntoraNavListRepoObject_by_type As existing
             On
             existing.type = ct.type
 Group By
-    is_DocsOutput
+    ct.is_DocsOutput
 Having
-    ( is_DocsOutput = 1 );
+    ( ct.is_DocsOutput = 1 )
 Go
 
 Execute sp_addextendedproperty

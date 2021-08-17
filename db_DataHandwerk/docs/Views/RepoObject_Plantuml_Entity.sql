@@ -2,6 +2,7 @@
 
 
 
+
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -9,7 +10,7 @@ to be used in composed PlantUML diagrams
 you need to persist:
 EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
 */
-CREATE View [docs].[RepoObject_Plantuml_Entity]
+CREATE View docs.RepoObject_Plantuml_Entity
 As
 Select
     ro.RepoObject_guid
@@ -59,14 +60,14 @@ Select
 From
     docs.RepoObject_OutputFilter    As ro
     Left Join
-        docs.RepoObject_ColumnList  collist
+        docs.RepoObject_ColumnList  As collist
             On
             collist.RepoObject_guid   = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_IndexList_T indexlist
+        docs.RepoObject_IndexList_T As indexlist
             On
-            indexlist.RepoObject_guid = ro.RepoObject_guid;
+            indexlist.RepoObject_guid = ro.RepoObject_guid
 Go
 
 Go

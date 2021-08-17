@@ -1,30 +1,41 @@
-﻿CREATE VIEW [dbeaver].DataSources_DbSchemaTable
-AS
-SELECT
- --
- j1.*
- , j2.*
- , j3.[key] AS VirtualModel_key
- , j3.value AS VirtualModel_json
- , J4.[key] AS VirtualModel_database
- , j4.value AS VirtualModel_database_json
- , j5.[key] AS VirtualModel_schema
- , j5.value AS VirtualModel_schema_json
- , SUBSTRING(j6.[key], 2, 500) AS VirtualModel_table
- , j6.value AS VirtualModel_table_json
- , j7.*
-FROM [dbeaver].[DataSources] j1
-CROSS APPLY OPENJSON(BulkColumn) WITH (VirtualModels NVARCHAR(MAX) N'$."virtual-models"' AS JSON) j2
-CROSS APPLY OPENJSON(j2.VirtualModels) j3
-CROSS APPLY OPENJSON(j3.value) j4
-CROSS APPLY OPENJSON(j4.value) j5
-CROSS APPLY OPENJSON(j5.value) j6
-CROSS APPLY OPENJSON(j6.value) WITH (
-  VirtualModel_table_constraints_json NVARCHAR(max) N'$.constraints' AS JSON
-  , VirtualModel_table_FK_json NVARCHAR(max) N'$."foreign-keys"' AS JSON
-  , VirtualModel_table_properties_json NVARCHAR(max) N'$.properties' AS JSON
-  ) j7
-WHERE [is_json] = 1
+﻿
+CREATE View dbeaver.DataSources_DbSchemaTable
+As
+Select
+    --
+    j1.*
+  , j2.*
+  , VirtualModel_key           = j3.[Key]
+  , VirtualModel_json          = j3.Value
+  , VirtualModel_database      = j4.[Key]
+  , VirtualModel_database_json = j4.Value
+  , VirtualModel_schema        = j5.[Key]
+  , VirtualModel_schema_json   = j5.Value
+  , VirtualModel_table         = Substring ( j6.[Key], 2, 500 )
+  , VirtualModel_table_json    = j6.Value
+  , j7.*
+From
+    dbeaver.DataSources As j1
+    Cross Apply
+    OpenJson ( j1.BulkColumn )
+    With
+    (
+        VirtualModels NVarchar ( Max ) N'$."virtual-models"' As Json
+    )                   As j2
+    Cross Apply OpenJson ( j2.VirtualModels ) As j3
+    Cross Apply OpenJson ( j3.Value ) As j4
+    Cross Apply OpenJson ( j4.Value ) As j5
+    Cross Apply OpenJson ( j5.Value ) As j6
+    Cross Apply
+    OpenJson ( j6.Value )
+    With
+    (
+        VirtualModel_table_constraints_json NVarchar ( Max ) N'$.constraints' As Json
+      , VirtualModel_table_FK_json NVarchar ( Max ) N'$."foreign-keys"' As Json
+      , VirtualModel_table_properties_json NVarchar ( Max ) N'$.properties' As Json
+    ) As j7
+Where
+    j1.is_json = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b7be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'VIEW', @level1name = N'DataSources_DbSchemaTable', @level2type = N'COLUMN', @level2name = N'VirtualModel_table_properties_json';
 

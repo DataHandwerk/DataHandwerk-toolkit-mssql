@@ -1,4 +1,5 @@
-﻿Create View docs.AntoraIndexSemanticgroup
+﻿
+CREATE View docs.AntoraIndexSemanticgroup
 As
 Select
     IndexSemanticGroup
@@ -11,7 +12,7 @@ Select
 From
     docs.AntoraIndexSemanticgroupPatterndatatype
 Group By
-    IndexSemanticGroup;
+    IndexSemanticGroup
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'

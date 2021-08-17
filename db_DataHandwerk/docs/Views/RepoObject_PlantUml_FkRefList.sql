@@ -1,27 +1,28 @@
-﻿Create View docs.RepoObject_PlantUml_FkRefList
+﻿
+CREATE View docs.RepoObject_PlantUml_FkRefList
 As
 Select
     ro.RepoObject_guid
-  , Max ( ro.RepoObject_fullname2 ) As RepoObject_fullname2
-  , FkRefList                       = String_Agg (
-                                                     Concat (
-                                                                Cast(N'' As NVarchar(Max))
-                                                              , fk.referenced_RepoObject_fullname2
-                                                              , '::'
-                                                              , fk.referenced_index_name
-                                                              , ' <-- '
-                                                              , fk.referencing_RepoObject_fullname2
-                                                              , '::'
-                                                              , fk.referencing_index_name
-                                                            )
-                                                   , Char ( 13 ) + Char ( 10 )
-                                                 ) Within Group(Order By
-                                                                    fk.referenced_RepoObject_fullname2
-                                                                  , fk.referencing_RepoObject_fullname2)
+  , RepoObject_fullname2 = Max ( ro.RepoObject_fullname2 )
+  , FkRefList            = String_Agg (
+                                          Concat (
+                                                     Cast(N'' As NVarchar(Max))
+                                                   , fk.referenced_RepoObject_fullname2
+                                                   , '::'
+                                                   , fk.referenced_index_name
+                                                   , ' <-- '
+                                                   , fk.referencing_RepoObject_fullname2
+                                                   , '::'
+                                                   , fk.referencing_index_name
+                                                 )
+                                        , Char ( 13 ) + Char ( 10 )
+                                      ) Within Group(Order By
+                                                         fk.referenced_RepoObject_fullname2
+                                                       , fk.referencing_RepoObject_fullname2)
 From
-    repo.RepoObject_related_FK_union    ro
+    repo.RepoObject_related_FK_union    As ro
     Inner Join
-        repo.ForeignKey_Indexes_union_T fk
+        repo.ForeignKey_Indexes_union_T As fk
             On
             (
                 ro.included_RepoObject_guid = fk.referenced_RepoObject_guid
@@ -33,7 +34,7 @@ From
                 And ro.RepoObject_guid      = fk.referenced_RepoObject_guid
             )
 Group By
-    ro.RepoObject_guid;
+    ro.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

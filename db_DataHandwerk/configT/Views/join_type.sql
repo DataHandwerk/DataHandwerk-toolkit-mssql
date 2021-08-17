@@ -1,4 +1,5 @@
-﻿CREATE View [configT].join_type
+﻿
+CREATE View configT.join_type
 As
 --
 Select
@@ -27,7 +28,7 @@ Select
 Union All
 Select
     join_type_variant = 'CROSS JOIN'
-  , join_type         = 'CROSS JOIN';
+  , join_type         = 'CROSS JOIN'
 
 Go
 Execute sp_addextendedproperty

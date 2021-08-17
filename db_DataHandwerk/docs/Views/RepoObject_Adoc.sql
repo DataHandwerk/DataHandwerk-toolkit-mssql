@@ -1,22 +1,23 @@
 ﻿
 
+
 /*
 todo - direkt oder über extended properties
 - Index List
 - referencing
 - referenced
 */
-CREATE View [docs].[RepoObject_Adoc]
+CREATE View docs.RepoObject_Adoc
 As
 Select
     ro.RepoObject_guid
   , is_DocsOutput          = Max ( ro.is_DocsOutput )
   , RepoObject_fullname    = Max ( ro.RepoObject_fullname )
   , RepoObject_fullname2   = Max ( ro.RepoObject_fullname2 )
-  , RepoObject_schema_name = Max ( RepoObject_schema_name )
+  , RepoObject_schema_name = Max ( ro.RepoObject_schema_name )
   , SysObject_fullname     = Max ( ro.SysObject_fullname )
   , SysObject_fullname2    = Max ( ro.SysObject_fullname2 )
-  , SysObject_schema_name  = Max ( SysObject_schema_name )
+  , SysObject_schema_name  = Max ( ro.SysObject_schema_name )
   , SysObject_type         = Max ( ro.SysObject_type )
   , SysObject_type_name    = Max ( ro.SysObject_type_name )
   , AdocContent            =
@@ -316,35 +317,35 @@ Select
          )
   , PropertyCount          = Count ( Distinct rop.property_name )
 From
-    repo.RepoObject_gross                   ro
+    repo.RepoObject_gross                 As ro
     Left Join
-        [property].RepoObjectProperty_cross rop_cross
+        property.RepoObjectProperty_cross As rop_cross
             On
             rop_cross.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        [property].RepoObjectProperty       rop
+        property.RepoObjectProperty       As rop
             On
             rop.RepoObject_guid       = rop_cross.RepoObject_guid
             And rop.property_name     = rop_cross.property_name
     --AND NOT rop.[property_nvarchar] IS NULL
 
     Left Join
-        docs.RepoObject_ColumnList          clist
+        docs.RepoObject_ColumnList        As clist
             On
             clist.RepoObject_guid     = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_IndexList_T         ilist
+        docs.RepoObject_IndexList_T       As ilist
             On
             ilist.RepoObject_guid     = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_ParameterList       parlist
+        docs.RepoObject_ParameterList     As parlist
             On
             parlist.RepoObject_guid   = ro.RepoObject_guid
 Group By
-    ro.RepoObject_guid;
+    ro.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 <<property_start>>exampleUsage 
 --get detailed PlantUML sequence diagram
@@ -31,7 +32,7 @@ Order By
     id;
 <<property_end>> 
 */
-CREATE View [logs].[ExecutionLog_gross]
+CREATE View logs.ExecutionLog_gross
 As
 Select
     id
@@ -95,7 +96,7 @@ Select
                                                          , Max ( created_dt ) Over ( Partition By execution_instance_guid )
                                                        )
   --
-  , puml_Sequence                       = --
+  , puml_Sequence                           = --
   --combine the result with
   --skinparam maxmessagesize 250
   Case
@@ -174,7 +175,7 @@ Select
                  )
   End
 From
-    logs.ExecutionLog;
+    logs.ExecutionLog
 
 Go
 Execute sp_addextendedproperty

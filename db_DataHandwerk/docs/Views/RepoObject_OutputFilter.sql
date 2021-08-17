@@ -1,4 +1,5 @@
-﻿Create View docs.RepoObject_OutputFilter
+﻿
+CREATE View docs.RepoObject_OutputFilter
 As
 Select
     roa.RepoObject_guid
@@ -11,7 +12,7 @@ Select
 From
     repo.RepoObject_gross As roa
 Where
-    roa.is_DocsOutput = 1;
+    roa.is_DocsOutput = 1
 Go
 
 Execute sp_addextendedproperty

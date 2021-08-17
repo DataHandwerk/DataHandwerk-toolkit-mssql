@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 <<property_start>>MS_Description
 * generates the content for the 'partial$template/master-page-examples.adoc[]'
@@ -22,7 +23,7 @@
 ====
 <<property_end>>
 */
-CREATE View [docs].[AntoraTemplate_examples]
+CREATE View docs.AntoraTemplate_examples
 As
 Select
     page_content = Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + '== Examples'
@@ -56,9 +57,9 @@ Select
                                 ) Within Group(Order By
                                                    property_name)
 From
-    [property].PropertyName_RepoObject
+    property.PropertyName_RepoObject
 Where
-    property_name Like 'example%';
+    property_name Like 'example%'
 Go
 
 Execute sp_addextendedproperty

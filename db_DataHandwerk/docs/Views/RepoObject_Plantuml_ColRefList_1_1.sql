@@ -1,26 +1,28 @@
 ﻿
-Create View [docs].[RepoObject_Plantuml_ColRefList_1_1]
+
+CREATE View docs.RepoObject_Plantuml_ColRefList_1_1
 As
 Select
     ro.RepoObject_guid
   --, ro.RepoObject_fullname2
-  , ColRefList = String_Agg (
-                                Concat (
-                                           Cast(N'' As NVarchar(Max))
-                                         --, REPLACE(colref.Referenced_ro_fullname2, '.', '___')
-                                         , colref.Referenced_ro_fullname2
-                                         , '::'
-                                         , colref.Referenced_ro_ColumnName
-                                         , ' <-- '
-                                         --, REPLACE(colref.Referencing_ro_fullname2, '.', '___')
-                                         , colref.Referencing_ro_fullname2
-                                         , '::'
-                                         , colref.Referencing_ro_ColumnName
-                                       )
-                              , Char ( 13 ) + Char ( 10 )
-                            ) Within Group(Order By
-                                               colref.Referenced_ro_fullname2
-                                             , colref.Referenced_ro_ColumnName)
+  , ColRefList =
+  --
+  String_Agg (
+                 Concat (   Cast(N'' As NVarchar(Max))
+                          --, REPLACE(colref.Referenced_ro_fullname2, '.', '___')
+                          , colref.Referenced_ro_fullname2
+                          , '::'
+                          , colref.Referenced_ro_ColumnName
+                          , ' <-- '
+                          --, REPLACE(colref.Referencing_ro_fullname2, '.', '___')
+                          , colref.Referencing_ro_fullname2
+                          , '::'
+                          , colref.Referencing_ro_ColumnName
+                        )
+               , Char ( 13 ) + Char ( 10 )
+             ) Within Group(Order By
+                                colref.Referenced_ro_fullname2
+                              , colref.Referenced_ro_ColumnName)
 From
     repo.RepoObject As ro
     Inner Join
@@ -39,22 +41,22 @@ From
         --Where Match(
         --    Object1-(referenced)->Object2)
         Select
-            referencing_ro_fullname2      As Referencing_ro_fullname2
-          , [referencing_RepoObject_guid] As Referencing_ro_guid
-          , [referencing_column_name]     As Referencing_ro_ColumnName
-          , referenced_ro_fullname2       As Referenced_ro_fullname2
-          , [referenced_RepoObject_guid]  As Referenced_ro_guid
-          , [referenced_column_name]      As Referenced_ro_ColumnName
+            Referencing_ro_fullname2  = referencing_ro_fullname2
+          , Referencing_ro_guid       = referencing_RepoObject_guid
+          , Referencing_ro_ColumnName = referencing_column_name
+          , Referenced_ro_fullname2   = referenced_ro_fullname2
+          , Referenced_ro_guid        = referenced_RepoObject_guid
+          , Referenced_ro_ColumnName  = referenced_column_name
         From
-            [reference].[RepoObjectColumn_reference_T]
-    )               colref
+            reference.RepoObjectColumn_reference_T
+    )               As colref
         On
         colref.Referencing_ro_guid        = ro.RepoObject_guid
         Or colref.Referenced_ro_guid      = ro.RepoObject_guid
            --exclude column references inside object (calculated columns):
            And colref.Referencing_ro_guid <> colref.Referenced_ro_guid
 Group By
-    ro.RepoObject_guid;
+    ro.RepoObject_guid
 --, ro.RepoObject_fullname2
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5cc03c7f-23f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList_1_1', @level2type = N'COLUMN', @level2name = N'ColRefList';

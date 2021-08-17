@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 output example partial_content:
 
@@ -21,7 +22,7 @@ include::nav-schema-Config.adoc[leveloffset=+1]
 include::nav-schema-ConfigH.adoc[leveloffset=+1]
 
 */
-CREATE View [docs].[AntoraPage_ObjectBySchema]
+CREATE View docs.AntoraPage_ObjectBySchema
 As
 Select
     partial_content
@@ -31,20 +32,20 @@ Select
                , Char ( 13 ) + Char ( 10 )
                , String_Agg (
                                 Concat (
-                                           '** xref:nav/nav-schema-' + RepoObject_schema_name + '.adoc[]'
+                                           '** xref:nav/nav-schema-' + ro.RepoObject_schema_name + '.adoc[]'
                                          , Char ( 13 ) + Char ( 10 )
                                          , '+'
                                          , Char ( 13 ) + Char ( 10 )
                                          , '--'
                                          , Char ( 13 ) + Char ( 10 )
-                                         , 'include::partial$navlist/navlist-schema-' + RepoObject_schema_name
+                                         , 'include::partial$navlist/navlist-schema-' + ro.RepoObject_schema_name
                                            + '.adoc[]'
                                          , Char ( 13 ) + Char ( 10 )
                                          , '--'
                                        )
                               , Char ( 13 ) + Char ( 10 )
                             ) Within Group(Order By
-                                               RepoObject_schema_name)
+                                               ro.RepoObject_schema_name)
              )
   , page_content
   --
@@ -53,13 +54,13 @@ Select
                , Char ( 13 ) + Char ( 10 )
                , Char ( 13 ) + Char ( 10 )
                , String_Agg (
-                                'include::nav-schema-' + RepoObject_schema_name + '.adoc[leveloffset=+1]'
+                                'include::nav-schema-' + ro.RepoObject_schema_name + '.adoc[leveloffset=+1]'
                               , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                             ) Within Group(Order By
-                                               RepoObject_schema_name)
+                                               ro.RepoObject_schema_name)
              )
 From
-    docs.AntoraNavListRepoObject_by_schema ro;
+    docs.AntoraNavListRepoObject_by_schema As ro
 Go
 
 Execute sp_addextendedproperty

@@ -1,7 +1,8 @@
 ﻿
 
 
-CREATE View [docs].[ObjectRefCyclic_EntityList]
+
+CREATE View docs.ObjectRefCyclic_EntityList
 As
 Select
     PumlEntityList       =
@@ -24,23 +25,23 @@ Select
              ) Within Group(Order By
                                 ro.ro_fullname2)
 From
-    docs.RepoObject_Plantuml_Entity_T rop
+    docs.RepoObject_Plantuml_Entity_T As rop
     Inner Join
     (
         Select
-            [Referenced_guid]      As ro_guid
-          , [Referenced_fullname2] As ro_fullname2
+            ro_guid      = Referenced_guid
+          , ro_fullname2 = Referenced_fullname2
         From
-            [reference].[ReferenceTree_cyclic_union]
+            reference.ReferenceTree_cyclic_union
         Union
         Select
-            [Referencing_guid]
-          , [Referencing_fullname2]
+            Referencing_guid
+          , Referencing_fullname2
         From
-            [reference].[ReferenceTree_cyclic_union]
-    )                                 ro
+            reference.ReferenceTree_cyclic_union
+    )                                 As ro
         On
-        ro.ro_guid = rop.RepoObject_guid;
+        ro.ro_guid = rop.RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '84e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ObjectRefCyclic_EntityList';
 

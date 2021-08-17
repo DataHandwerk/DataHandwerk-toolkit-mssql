@@ -1,4 +1,5 @@
 ﻿
+
 CREATE View docs.AntoraIndexSemanticgroupPatterndatatype
 As
 Select

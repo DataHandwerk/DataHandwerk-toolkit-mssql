@@ -1,5 +1,6 @@
 ﻿
-CREATE View [docs].[RepoObject_Plantuml_ObjectRefList_1_1]
+
+CREATE View docs.RepoObject_Plantuml_ObjectRefList_1_1
 As
 Select
     ro.RepoObject_guid
@@ -30,18 +31,18 @@ From
         --Where Match(
         --    Object1-(referenced)->Object2)
         Select
-            [referencing_fullname2]       As Referencing_ro_fullname2
-          , [referencing_RepoObject_guid] As Referencing_ro_guid
-          , [referenced_fullname2]        As Referenced_ro_fullname2
-          , [referenced_RepoObject_guid]  As Referenced_ro_guid
+            Referencing_ro_fullname2 = referencing_fullname2
+          , Referencing_ro_guid      = referencing_RepoObject_guid
+          , Referenced_ro_fullname2  = referenced_fullname2
+          , Referenced_ro_guid       = referenced_RepoObject_guid
         From
-            [reference].[RepoObject_reference_T]
-    )               objectref
+            reference.RepoObject_reference_T
+    )               As objectref
         On
         objectref.Referencing_ro_guid   = ro.RepoObject_guid
         Or objectref.Referenced_ro_guid = ro.RepoObject_guid
 Group By
-    ro.RepoObject_guid;
+    ro.RepoObject_guid
 --, ro.RepoObject_fullname2;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9707068d-19f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_1_1', @level2type = N'COLUMN', @level2name = N'ObjectRefList';

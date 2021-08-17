@@ -2,6 +2,7 @@
 
 
 
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -31,7 +32,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View [configT].[Parameter_default]
+CREATE View configT.Parameter_default
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -498,7 +499,6 @@ ifdef::ExistsProperty--sql_modules_definition[]
 include::partial${docname}.adoc[tag=sql_modules_definition]
 endif::ExistsProperty--sql_modules_definition[]
 ' As NVarchar(4000))
-
 Union All
 Select
     Parameter_name          = 'Adoc_AntoraDocSnippet'
@@ -583,7 +583,6 @@ GO
 ----
 ====
 ' As NVarchar(4000))
-;
 
 Go
 Execute sp_addextendedproperty

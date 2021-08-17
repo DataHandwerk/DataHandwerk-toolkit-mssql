@@ -3,7 +3,8 @@
 
 
 
-CREATE View [docs].[ObjectRefCyclic]
+
+CREATE View docs.ObjectRefCyclic
 As
 Select
     page_content         =
@@ -40,17 +41,17 @@ include::partial$puml/ObjectRefCyclic.puml[]
            , 'set namespaceSeparator none'
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , skin.[Parameter_value_result]
+           , skin.Parameter_value_result
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
            , elist.PumlEntityOnlyPkList
            , Char ( 13 ) + Char ( 10 )
-           , olist.[PumlObjectRefList]
+           , olist.PumlObjectRefList
          )
 From
-    [docs].[ObjectRefCyclic_EntityList]               elist
-    Cross Join [docs].[ObjectRefCyclic_ObjectRefList] olist
-    Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin;
+    docs.ObjectRefCyclic_EntityList               As elist
+    Cross Join docs.ObjectRefCyclic_ObjectRefList As olist
+    Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '87e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ObjectRefCyclic';
 

@@ -1,29 +1,32 @@
-﻿CREATE View docs.AntoraNavListPage_by_type
+﻿
+CREATE View docs.AntoraNavListPage_by_type
 As
 Select
-    type
-  , type_desc
-  , nav_list = Concat (
-                          '= '
-                        , type_desc
-                        , Char ( 13 ) + Char ( 10 )
-                        , Char ( 13 ) + Char ( 10 )
-                        , 'include::partial$navlist/navlist-type-' + type + '.adoc[]'
-                        , Char ( 13 ) + Char ( 10 )
-                      )
+    t.type
+  , t.type_desc
+  , nav_list =
+  --
+  Concat (
+             '= '
+           , t.type_desc
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , 'include::partial$navlist/navlist-type-' + t.type + '.adoc[]'
+           , Char ( 13 ) + Char ( 10 )
+         )
 From
-    [configT].type t
+    configT.type As t
 Where
-    ( is_DocsOutput = 1 )
+    ( t.is_DocsOutput = 1 )
     And Exists
 (
     Select
         1
     From
-        docs.RepoObject_OutputFilter f
+        docs.RepoObject_OutputFilter As f
     Where
         f.SysObject_type = t.type
-);
+)
 Go
 
 Execute sp_addextendedproperty

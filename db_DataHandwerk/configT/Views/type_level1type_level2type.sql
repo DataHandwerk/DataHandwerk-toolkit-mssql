@@ -1,8 +1,9 @@
+﻿
 /*
 Mappping from repo_sys.type (used in [type] in system catalog views)
 to level1type (used in sp_addextendedproperty, sp_updateextendedproperty) 
 */
-CREATE View [configT].type_level1type_level2type
+CREATE View configT.type_level1type_level2type
 --WITH SCHEMABINDING
 As
 --
@@ -64,7 +65,7 @@ Select
                          'CONSTRAINT' --UNIQUE_CONSTRAINT
                  End
 From
-    [configT].type;
+    configT.type
 
 Go
 Execute sp_addextendedproperty

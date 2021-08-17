@@ -1,17 +1,18 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
 * based on master.dbo.spt_values, which  is an undocumemted hidden view or table, containing useful entries 
 * master.dbo.spt_values content is available as copy in xref:sqldb:config.spt_values.adoc[]
 <<property_end>>
 */
-CREATE View [configT].type
+CREATE View configT.type
 As
 --
 Select
-    type          = Trim ( type )
-  , type_desc     = Trim ( type_desc )
+    type          = Trim ( T1.type )
+  , type_desc     = Trim ( T1.type_desc )
   , is_DocsOutput = Case
-                        When type In
+                        When T1.type In
                         ( 'U', 'V', 'FN', 'FS', 'FT', 'IF', 'IS', 'P', 'PC', 'SN', 'SO', 'TF', 'TR', 'X' )
                             Then
                             1
@@ -21,14 +22,14 @@ Select
 From
 (
     Select
-        ParseName ( Replace ( name, ':', '.' ), 2 )         As type
-      , Trim ( ParseName ( Replace ( name, ':', '.' ), 1 )) As type_desc
+        type      = ParseName ( Replace ( name, ':', '.' ), 2 )
+      , type_desc = Trim ( ParseName ( Replace ( name, ':', '.' ), 1 ))
     From
-        [configT].spt_values
+        configT.spt_values
     Where
         type       = 'O9T'
         And number = -1
-) T1;
+) As T1
 
 Go
 Execute sp_addextendedproperty

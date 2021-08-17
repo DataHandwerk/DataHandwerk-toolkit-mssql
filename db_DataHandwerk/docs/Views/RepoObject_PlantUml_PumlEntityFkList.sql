@@ -1,18 +1,19 @@
-﻿Create View docs.RepoObject_PlantUml_PumlEntityFkList
+﻿
+CREATE View docs.RepoObject_PlantUml_PumlEntityFkList
 As
 Select
     ro.RepoObject_guid
-  , Max ( ro.RepoObject_fullname2 ) As RepoObject_fullname2
-  , PumlEntityFkList             = String_Agg ( rop.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                          ro.included_RepoObject_fullname2)
+  , RepoObject_fullname2 = Max ( ro.RepoObject_fullname2 )
+  , PumlEntityFkList     = String_Agg ( rop.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                  ro.included_RepoObject_fullname2)
 From
-    repo.RepoObject_related_FK_union      ro
+    repo.RepoObject_related_FK_union      As ro
     Inner Join
-        docs.RepoObject_Plantuml_Entity_T rop
+        docs.RepoObject_Plantuml_Entity_T As rop
             On
             rop.RepoObject_guid = ro.included_RepoObject_guid
 Group By
-    ro.RepoObject_guid;
+    ro.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

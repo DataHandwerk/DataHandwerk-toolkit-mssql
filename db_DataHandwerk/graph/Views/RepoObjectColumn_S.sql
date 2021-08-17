@@ -1,20 +1,21 @@
-﻿Create View graph.RepoObjectColumn_S
+﻿
+CREATE View graph.RepoObjectColumn_S
 As
 Select
     --
     RepoObjectColumn_guid
   , RepoObjectColumn_fullname
   --we need to mark the column as nullable, because in [repo].[usp_sync_guid_RepoObjectColumn] in step 1010 it will be inherited into target: [Repo_is_nullable] = [scroc].[is_nullable] 
-  , NullIf(RepoObjectColumn_fullname2, '') As RepoObjectColumn_fullname2
+  , RepoObjectColumn_fullname2 = NullIf(RepoObjectColumn_fullname2, '')
   , RepoObjectColumn_name
-  , Repo_user_type_fullname                As RepoObjectColumn_type
+  , RepoObjectColumn_type      = Repo_user_type_fullname
   , RepoObject_guid
   , RepoObject_fullname
   --we need to mark the column as nullable, because in [repo].[usp_sync_guid_RepoObjectColumn] in step 1010 it will be inherited into target: [Repo_is_nullable] = [scroc].[is_nullable] 
-  , NullIf(RepoObject_fullname2, '')       As RepoObject_fullname2
+  , RepoObject_fullname2       = NullIf(RepoObject_fullname2, '')
   , RepoObject_type
 From
-    repo.RepoObjectColumn_gross;
+    repo.RepoObjectColumn_gross
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'

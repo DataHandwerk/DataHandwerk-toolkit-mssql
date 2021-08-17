@@ -1,10 +1,11 @@
 ﻿
+
 /*
 alternative columns sort order for documentation:
 - PK
 - columns by name
 */
-CREATE View [docs].[RepoObject_ColumnList]
+CREATE View docs.RepoObject_ColumnList
 As
 Select
     roc.RepoObject_guid
@@ -39,7 +40,7 @@ Select
                                      , roc.Repo_user_type_fullname
                                      , Char ( 13 ) + Char ( 10 )
                                      , '|'
-                                     , Iif(Repo_is_nullable = 0, 'NOT NULL', 'NULL')
+                                     , Iif(roc.Repo_is_nullable = 0, 'NOT NULL', 'NULL')
                                      , Char ( 13 ) + Char ( 10 )
                                      , '|'
                                      , Iif(roc.Repo_is_identity = 1
@@ -179,7 +180,7 @@ Select
                                              , roc.Repo_user_type_fullname
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
-                                             , Iif(Repo_is_nullable = 0, 'NOT NULL', 'NULL')
+                                             , Iif(roc.Repo_is_nullable = 0, 'NOT NULL', 'NULL')
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
                                              , Iif(roc.Repo_is_identity = 1
@@ -223,7 +224,7 @@ Select
                                              , roc.Repo_user_type_fullname
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
-                                             , Iif(Repo_is_nullable = 0, 'NOT NULL', 'NULL')
+                                             , Iif(roc.Repo_is_nullable = 0, 'NOT NULL', 'NULL')
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
                                              , Iif(roc.Repo_is_identity = 1
@@ -256,7 +257,7 @@ Select
                                     Concat (
                                                '  '
                                              --* to identify mandatory attributes
-                                             , Iif(Repo_is_nullable = 0, '* ', Null)
+                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
                                              --{static}  => underline, {abstract} => italic
                                              , Case
                                                    When roc.Repo_is_computed = 1
@@ -294,7 +295,7 @@ Select
                                     Concat (
                                                '  '
                                              --* to identify mandatory attributes
-                                             , Iif(Repo_is_nullable = 0, '* ', Null)
+                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
                                              --{static}  => underline, {abstract} => italic
                                              , Case
                                                    When roc.Repo_is_computed = 1
@@ -330,7 +331,7 @@ Where
         Or roc.Repo_is_computed = 1
     )
 Group By
-    roc.RepoObject_guid;
+    roc.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty
