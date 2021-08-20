@@ -94,7 +94,7 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
-/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDir, outputDir2, outputDir3, outputDir4, outputDir5","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDirs","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
