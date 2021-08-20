@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_43_from_Identifier
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_43_from_Identifier
 As
 Select
     --
@@ -23,7 +24,7 @@ Select
   , T1_identifier_alias
   , lag_normalized_wo_nolock
 From
-    [sqlparse].RepoObject_SqlModules_42_from_Identifier;
+    sqlparse.RepoObject_SqlModules_42_from_Identifier
 Go
 
 Execute sp_addextendedproperty

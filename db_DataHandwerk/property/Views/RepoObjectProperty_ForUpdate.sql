@@ -1,12 +1,13 @@
 ﻿
-CREATE View [property].[RepoObjectProperty_ForUpdate]
+
+CREATE View property.RepoObjectProperty_ForUpdate
 As
 Select
-    T1.[RepoObjectProperty_id]
-  , T1.[RepoObject_guid]
-  , T1.[property_name]
-  , T1.[property_value]
-  , T1.[inheritance]
+    T1.RepoObjectProperty_id
+  , T1.RepoObject_guid
+  , T1.property_name
+  , T1.property_value
+  , T1.inheritance
   --,T1.[property_basetype]
   --,T1.[property_int]
   --,T1.[property_bigint]
@@ -20,11 +21,11 @@ Select
   , T2.RepoObject_schema_name
   , T2.RepoObject_name
 From
-    [property].[RepoObjectProperty] T1
+    property.RepoObjectProperty As T1
     Inner Join
-        repo.RepoObject             T2
+        repo.RepoObject         As T2
             On
-            T2.RepoObject_guid = T1.RepoObject_guid;
+            T2.RepoObject_guid = T1.RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '647159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_ForUpdate';
 

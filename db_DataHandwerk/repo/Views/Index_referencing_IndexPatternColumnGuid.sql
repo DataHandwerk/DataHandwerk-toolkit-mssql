@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 if a source_index "HasFullColumnsInReferencing"
 we need to know [referencing_IndexPatternColumnGuid]
@@ -13,13 +14,15 @@ As
 Select
     source_index_guid                  = ic.index_guid
   , ic.referencing_RepoObject_guid
-  , referencing_IndexPatternColumnGuid = String_Agg ( Cast(ic.referencing_RepoObjectColumn_guid As Char(36)), ',' ) Within Group(Order By
-                                                                                                                                     Cast(ic.referencing_RepoObjectColumn_guid As Char(36)))
+  , referencing_IndexPatternColumnGuid =
+  --
+  String_Agg ( Cast(ic.referencing_RepoObjectColumn_guid As Char(36)), ',' ) Within Group(Order By
+                                                                                              Cast(ic.referencing_RepoObjectColumn_guid As Char(36)))
 From
     repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T As ic
 Group By
     ic.index_guid
-  , ic.referencing_RepoObject_guid;
+  , ic.referencing_RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

@@ -1,11 +1,12 @@
 ﻿
+
 /*
 resolve Function 'T1 (NOLOCK)'
 => normalized_wo_nolock = 'T1'
 
 (NOLOCK) needs to be extracted from children
 */
-Create View [sqlparse].RepoObject_SqlModules_23_normalized_wo_nolock
+CREATE View sqlparse.RepoObject_SqlModules_23_normalized_wo_nolock
 As
 --
 Select
@@ -15,12 +16,12 @@ Select
   , T1.normalized
   , normalized_wo_nolock = T2.child0_normalized
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children             As T1
-    Cross Apply [sqlparse].ftv_sqlparse_children_pivot ( T1.children ) As T2
+    sqlparse.RepoObject_SqlModules_20_statement_children             As T1
+    Cross Apply sqlparse.ftv_sqlparse_children_pivot ( T1.children ) As T2
 Where
     T1.class                 = 'Function'
     And T1.is_group          = 1
-    And T2.child1_normalized = '(NOLOCK)';
+    And T2.child1_normalized = '(NOLOCK)'
 --
 --SELECT
 --       [RepoObject_guid]

@@ -1,36 +1,37 @@
-﻿Create View repo.ForeignKey_IndexPattern
+﻿
+CREATE View repo.ForeignKey_IndexPattern
 As
 Select
     --
-    fk.object_id                        As constraint_object_id
+    constraint_object_id               = fk.object_id
   , fk.ForeignKey_guid
-  , Max ( ForeignKey_name )             As ForeignKey_name
-  , Max ( fk.ForeignKey_fullname )      As ForeignKey_fullname
-  , Max ( referencing_RepoObject_guid ) As referencing_RepoObject_guid
-  , Max ( referenced_RepoObject_guid )  As referenced_RepoObject_guid
-  , referencing_IndexPatternColumnName  = String_Agg ( referencing_column_name, ',' ) Within Group(Order By
-                                                                                                       constraint_column_id)
+  , ForeignKey_name                    = Max ( fkc.ForeignKey_name )
+  , ForeignKey_fullname                = Max ( fk.ForeignKey_fullname )
+  , referencing_RepoObject_guid        = Max ( fkc.referencing_RepoObject_guid )
+  , referenced_RepoObject_guid         = Max ( fkc.referenced_RepoObject_guid )
+  , referencing_IndexPatternColumnName = String_Agg ( fkc.referencing_column_name, ',' ) Within Group(Order By
+                                                                                                          fkc.constraint_column_id)
   -- , referencing_IndexPatternColumnGuid = String_Agg(CAST(referencing_RepoObjectColumn_guid AS VARCHAR(36)), ',') WITHIN
   --GROUP (
   --  ORDER BY [constraint_column_id]
   --  )
-  , referenced_IndexPatternColumnName   = String_Agg ( referenced_column_name, ',' ) Within Group(Order By
-                                                                                                      constraint_column_id)
+  , referenced_IndexPatternColumnName  = String_Agg ( fkc.referenced_column_name, ',' ) Within Group(Order By
+                                                                                                         fkc.constraint_column_id)
   -- , referenced_IndexPatternColumnGuid = String_Agg(CAST(referenced_RepoObjectColumn_guid AS VARCHAR(36)), ',') WITHIN
   --GROUP (
   --  ORDER BY [constraint_column_id]
   --  )
-  , Max ( delete_referential_action )   As delete_referential_action
-  , Max ( update_referential_action )   As update_referential_action
+  , delete_referential_action          = Max ( fk.delete_referential_action )
+  , update_referential_action          = Max ( fk.update_referential_action )
 From
-    repo_sys.ForeignKey           fk
+    repo_sys.ForeignKey           As fk
     Left Join
-        repo_sys.ForeignKeyColumn fkc
+        repo_sys.ForeignKeyColumn As fkc
             On
             fkc.ForeignKey_guid = fk.ForeignKey_guid
 Group By
     fk.object_id
-  , fk.ForeignKey_guid;
+  , fk.ForeignKey_guid
 Go
 
 Execute sp_addextendedproperty

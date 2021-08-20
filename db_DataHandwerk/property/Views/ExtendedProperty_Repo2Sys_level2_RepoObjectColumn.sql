@@ -1,5 +1,6 @@
 ﻿
-CREATE View [property].[ExtendedProperty_Repo2Sys_level2_RepoObjectColumn]
+
+CREATE View property.ExtendedProperty_Repo2Sys_level2_RepoObjectColumn
 As
 Select
     prop.property_name
@@ -15,25 +16,25 @@ Select
   , parent_RepoObject_guid = ro_parent.RepoObject_guid
   , parent_RepoObject_type = ro_parent.RepoObject_type
 From
-    [property].RepoObjectColumnProperty      As prop
+    property.RepoObjectColumnProperty      As prop
     Inner Join
-        repo.RepoObjectColumn                As roc
+        repo.RepoObjectColumn              As roc
             On
             roc.RepoObjectColumn_guid = prop.RepoObjectColumn_guid
 
     Inner Join
-        repo.RepoObject                      As ro_parent
+        repo.RepoObject                    As ro_parent
             On
             ro_parent.RepoObject_guid = roc.RepoObject_guid
 
     Inner Join
-        [configT].type_level1type_level2type As lev_parent
+        configT.type_level1type_level2type As lev_parent
             On
             lev_parent.type           = ro_parent.RepoObject_type
 Where
-    is_RepoObjectColumn_name_uniqueidentifier = 0
+    roc.is_RepoObjectColumn_name_uniqueidentifier = 0
     --SchemaCompare has issues comparing extended properties for graph table columns, we need to exclude them
-    And roc.Repo_graph_type Is Null;
+    And roc.Repo_graph_type Is Null
 Go
 
 Execute sp_addextendedproperty

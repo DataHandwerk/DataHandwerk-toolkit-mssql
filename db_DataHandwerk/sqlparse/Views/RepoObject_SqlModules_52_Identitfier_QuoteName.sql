@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_52_Identitfier_QuoteName
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_52_Identitfier_QuoteName
 As
 Select
     --
@@ -32,7 +33,7 @@ Select
   , children
   , child0_class
 From
-    [sqlparse].RepoObject_SqlModules_51_Identitfier;
+    sqlparse.RepoObject_SqlModules_51_Identitfier
 Go
 
 Execute sp_addextendedproperty

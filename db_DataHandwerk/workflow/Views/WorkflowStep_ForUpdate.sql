@@ -1,5 +1,6 @@
 ﻿
-CREATE View [workflow].[WorkflowStep_ForUpdate]
+
+CREATE View workflow.WorkflowStep_ForUpdate
 As
 Select
     ws.id
@@ -7,7 +8,7 @@ Select
   , ws.Procedure_RepoObject_guid
   , ws.is_active
   , ws.is_PossibleReferenced
-  , w.Name As Workflow_Name
+  , Workflow_Name = w.Name
   , ro.RepoObject_fullname
 From
     workflow.WorkflowStep As ws
@@ -19,7 +20,7 @@ From
     Inner Join
         repo.RepoObject   As ro
             On
-            ws.Procedure_RepoObject_guid = ro.RepoObject_guid;
+            ws.Procedure_RepoObject_guid = ro.RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a0bcd983-91fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'WorkflowStep_ForUpdate';
 

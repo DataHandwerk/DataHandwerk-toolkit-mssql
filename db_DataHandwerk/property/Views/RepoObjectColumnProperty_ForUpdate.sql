@@ -1,13 +1,14 @@
 ﻿
 
-CREATE View [property].[RepoObjectColumnProperty_ForUpdate]
+
+CREATE View property.RepoObjectColumnProperty_ForUpdate
 As
 Select
-    rocp.[RepoObjectColumnProperty_id]
-  , rocp.[RepoObjectColumn_guid]
-  , rocp.[property_name]
-  , rocp.[property_value]
-  , rocp.[inheritance]
+    rocp.RepoObjectColumnProperty_id
+  , rocp.RepoObjectColumn_guid
+  , rocp.property_name
+  , rocp.property_value
+  , rocp.inheritance
   --, rocp.[property_basetype]
   , rocg.RepoObjectColumn_fullname
   , rocg.RepoObjectColumn_fullname2
@@ -18,11 +19,11 @@ Select
   , rocg.RepoObject_schema_name
   , rocg.RepoObject_name
 From
-    [property].[RepoObjectColumnProperty] rocp
+    property.RepoObjectColumnProperty As rocp
     Inner Join
-        repo.RepoObjectColumn_gross   rocg
+        repo.RepoObjectColumn_gross   As rocg
             On
-            rocg.RepoObjectColumn_guid = rocp.RepoObjectColumn_guid;
+            rocg.RepoObjectColumn_guid = rocp.RepoObjectColumn_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3c12ce32-0e9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 

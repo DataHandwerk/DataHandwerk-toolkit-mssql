@@ -1,7 +1,8 @@
 ﻿
+
 --todo IdentifierList
 --done: bad performance => Persistence of [repo].[RepoObject_SqlModules_41_from]
-Create View [sqlparse].RepoObject_SqlModules_42_from_Identifier
+CREATE View sqlparse.RepoObject_SqlModules_42_from_Identifier
 As
 --
 Select
@@ -38,13 +39,13 @@ Select
 --, [T1].[is_join]
 --, [T1].[is_from]
 From
-    [sqlparse].RepoObject_SqlModules_41_from_T     As T1
+    sqlparse.RepoObject_SqlModules_41_from_T     As T1
     --required filter
     --the predecessor (by [RowNumber_per_Object]) of T1 should be (is_from or is_join)
     --then often T1 contains an identifier
     --todo: sometimes an Identifier is a SELECT statement like '(SELECT ... FROM ...) as abc'
     Inner Join
-        [sqlparse].RepoObject_SqlModules_41_from_T As pre
+        sqlparse.RepoObject_SqlModules_41_from_T As pre
             On
             pre.RepoObject_guid              = T1.RepoObject_guid
             And pre.RowNumber_per_Object + 1 = T1.RowNumber_per_Object
@@ -79,10 +80,10 @@ From
         --, [T1].[is_from]
         --, [T1].[patindex_nolock]
         From
-            [sqlparse].RepoObject_SqlModules_41_from_T As T1
+            sqlparse.RepoObject_SqlModules_41_from_T As T1
         Where
             T1.patindex_nolock > 0
-    )                                        As lag
+    )                                            As lag
         On
         lag.RepoObject_guid                  = T1.RepoObject_guid
         And lag.RowNumber_per_Object - 1     = T1.RowNumber_per_Object
@@ -98,10 +99,10 @@ Where
     Select
         1
     From
-        [sqlparse].RepoObject_SqlModules_29_1_object_is_union As filter
+        sqlparse.RepoObject_SqlModules_29_1_object_is_union As filter
     Where
         filter.RepoObject_guid = T1.RepoObject_guid
-);
+)
 Go
 
 Execute sp_addextendedproperty

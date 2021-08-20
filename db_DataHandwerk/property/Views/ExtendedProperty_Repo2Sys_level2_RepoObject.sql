@@ -1,5 +1,6 @@
 ﻿
-CREATE View [property].[ExtendedProperty_Repo2Sys_level2_RepoObject]
+
+CREATE View property.ExtendedProperty_Repo2Sys_level2_RepoObject
 As
 Select
     prop.property_name
@@ -15,29 +16,29 @@ Select
   , parent_RepoObject_guid = ro_parent.RepoObject_guid
   , parent_RepoObject_type = ro_parent.RepoObject_type
 From
-    [property].RepoObjectProperty            As prop
+    property.RepoObjectProperty            As prop
     Inner Join
-        repo.RepoObject                      As ro
+        repo.RepoObject                    As ro
             On
             ro.RepoObject_guid     = prop.RepoObject_guid
 
     Inner Join
-        [configT].type_level1type_level2type As lev
+        configT.type_level1type_level2type As lev
             On
             lev.type               = ro.RepoObject_type
 
     Inner Join
-        repo.RepoObject                      As ro_parent
+        repo.RepoObject                    As ro_parent
             On
             ro_parent.SysObject_id = ro.SysObject_parent_object_id
 
     Inner Join
-        [configT].type_level1type_level2type As lev_parent
+        configT.type_level1type_level2type As lev_parent
             On
             lev_parent.type        = ro_parent.RepoObject_type
 Where
     Not lev.level2type Is Null
-    And ro_parent.SysObject_id > 0;
+    And ro_parent.SysObject_id > 0
 Go
 
 Execute sp_addextendedproperty

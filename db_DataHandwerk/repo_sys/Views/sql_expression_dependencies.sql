@@ -1,4 +1,5 @@
 ﻿
+
 /*
 ATTENTION:
 [SysObject_RepoObject_guid] has prefix SysObject, because it it the RepoObject_guid stored in repo_sys.extended_properties
@@ -10,67 +11,67 @@ Also if the parameter dwh_readonly = 0 is set, there is no SysObject_RepoObject_
 Therefore the join is not done with repo_sys.SysObject, but with [repo].[SysObject_RepoObject_via_name].
 
 */
-CREATE View [repo_sys].[sql_expression_dependencies]
+CREATE View repo_sys.sql_expression_dependencies
 As
 --
 Select
-    [sed].[referencing_id]
-  , [sed].[referencing_minor_id]
-  , [sed].[referenced_class]
-  , [sed].[referenced_id]
-  , [sed].[referenced_minor_id]
-  , Object_Schema_Name ( [sed].[referencing_id], [db].[dwh_database_id] ) As [referencing_schema_name]
-  , Object_Name ( [sed].[referencing_id], [db].[dwh_database_id] )        As [referencing_entity_name]
+    sed.referencing_id
+  , sed.referencing_minor_id
+  , sed.referenced_class
+  , sed.referenced_id
+  , sed.referenced_minor_id
+  , referencing_schema_name           = Object_Schema_Name ( sed.referencing_id, db.dwh_database_id )
+  , referencing_entity_name           = Object_Name ( sed.referencing_id, db.dwh_database_id )
   --, COL_NAME([sed].[referencing_id] , [sed].[referencing_minor_id]) AS [referencing_column_name]
-  , [ssc].[SysObject_column_name]                                         As [referencing_column_name]
-  , [so].SysObject_type                                                   As [referencing_type]
-  , [so].SysObject_type_desc                                              As [referencing_type_desciption]
-  , [so].[RepoObject_guid]                                                As [referencing_RepoObject_guid]
-  , [ssc].[RepoObjectColumn_guid]                                         As [referencing_RepoObjectColumn_guid]
-  , [sed].[referencing_class]
-  , [sed].[referencing_class_desc]
-  , [sed].[referenced_server_name]
-  , [sed].[referenced_database_name] Collate Database_Default             As [referenced_database_name]
-  , [sed].[referenced_schema_name] Collate Database_Default               As [referenced_schema_name]
-  , [sed].[referenced_entity_name] Collate Database_Default               As [referenced_entity_name]
+  , referencing_column_name           = ssc.SysObject_column_name
+  , referencing_type                  = so.SysObject_type
+  , referencing_type_desciption       = so.SysObject_type_desc
+  , referencing_RepoObject_guid       = so.RepoObject_guid
+  , referencing_RepoObjectColumn_guid = ssc.RepoObjectColumn_guid
+  , sed.referencing_class
+  , sed.referencing_class_desc
+  , sed.referenced_server_name
+  , referenced_database_name          = sed.referenced_database_name Collate Database_Default
+  , referenced_schema_name            = sed.referenced_schema_name Collate Database_Default
+  , referenced_entity_name            = sed.referenced_entity_name Collate Database_Default
   --, COL_NAME([sed].[referenced_id] , [sed].[referenced_minor_id]) AS   [referenced_column_name]
-  , [ssc2].[SysObject_column_name]                                        As [referenced_column_name]
-  , [sed].[referenced_class_desc]
-  , [so2].SysObject_type                                                  As [referenced_type]
-  , [so2].SysObject_type_desc                                             As [referenced_type_desciption]
-  , [so2].[RepoObject_guid]                                               As [referenced_RepoObject_guid]
-  , [ssc2].[RepoObjectColumn_guid]                                        As [referenced_RepoObjectColumn_guid]
-  , [sed].[is_schema_bound_reference]
-  , [sed].[is_caller_dependent]
-  , [sed].[is_ambiguous]
+  , referenced_column_name            = ssc2.SysObject_column_name
+  , sed.referenced_class_desc
+  , referenced_type                   = so2.SysObject_type
+  , referenced_type_desciption        = so2.SysObject_type_desc
+  , referenced_RepoObject_guid        = so2.RepoObject_guid
+  , referenced_RepoObjectColumn_guid  = ssc2.RepoObjectColumn_guid
+  , sed.is_schema_bound_reference
+  , sed.is_caller_dependent
+  , sed.is_ambiguous
   --table columns can be is_computed = 1, these columns should also have a defintion
-  , [ssc].[is_computed]
-  , [ssc].[definition]
+  , ssc.is_computed
+  , ssc.definition
 From
-    sys_dwh.sql_expression_dependencies              As sed
+    sys_dwh.sql_expression_dependencies          As sed
     Inner Join
-        [repo].[SysObject_RepoObject_via_name]       As so
+        repo.SysObject_RepoObject_via_name       As so
             On
             sed.referencing_id = so.SysObject_id
 
     Left Join
-        [repo].[SysObject_RepoObject_via_name]       As so2
+        repo.SysObject_RepoObject_via_name       As so2
             On
             sed.referenced_id = so2.SysObject_id
 
     Left Join
-        [repo].[SysColumn_RepoObjectColumn_via_name] As ssc
+        repo.SysColumn_RepoObjectColumn_via_name As ssc
             On
             sed.referencing_id = ssc.SysObject_id
             And sed.referencing_minor_id = ssc.SysObject_column_id
 
     Left Join
-        [repo].[SysColumn_RepoObjectColumn_via_name] As ssc2
+        repo.SysColumn_RepoObjectColumn_via_name As ssc2
             On
             sed.referenced_id = ssc2.SysObject_id
             And sed.referenced_minor_id = ssc2.SysObject_column_id
     --
-    Cross Apply [config].ftv_dwh_database ()         As db;
+    Cross Apply config.ftv_dwh_database ()       As db
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6190291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'sql_expression_dependencies';
 

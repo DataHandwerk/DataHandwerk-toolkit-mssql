@@ -1,29 +1,30 @@
 ﻿
+
 CREATE View repo_sys.SysColumn
 As
 --
 Select
-    sc.object_id                                            As SysObject_id
-  , Object_Schema_Name ( sc.object_id, db.dwh_database_id ) As SysObject_schema_name
-  , Object_Name ( sc.object_id, db.dwh_database_id )        As SysObject_name
-  , SysObject_fullname                                      =
+    SysObject_id                    = sc.object_id
+  , SysObject_schema_name           = Object_Schema_Name ( sc.object_id, db.dwh_database_id )
+  , SysObject_name                  = Object_Name ( sc.object_id, db.dwh_database_id )
+  , SysObject_fullname              =
   --
   QuoteName ( Object_Schema_Name ( sc.object_id, db.dwh_database_id )) + '.'
   + QuoteName ( Object_Name ( sc.object_id, db.dwh_database_id ))
-  , SysObject_fullname2                                     =
+  , SysObject_fullname2             =
   --
   Object_Schema_Name ( sc.object_id, db.dwh_database_id ) + '.' + Object_Name ( sc.object_id, db.dwh_database_id )
-  , sc.column_id                                            As SysObject_column_id
-  , sc.name Collate Database_Default                        As SysObject_column_name
-  , so.type                                                 As SysObject_type
-  , so.type_desc                                            As SysObject_type_desc
-  , Try_Cast(ep.property_value As UniqueIdentifier)         As SysObject_RepoObject_guid
-  , Try_Cast(ep2.property_value As UniqueIdentifier)        As SysObject_RepoObjectColumn_guid
+  , SysObject_column_id             = sc.column_id
+  , SysObject_column_name           = sc.name Collate Database_Default
+  , SysObject_type                  = so.type
+  , SysObject_type_desc             = so.type_desc
+  , SysObject_RepoObject_guid       = Try_Cast(ep.property_value As UniqueIdentifier)
+  , SysObject_RepoObjectColumn_guid = Try_Cast(ep2.property_value As UniqueIdentifier)
   , sc.system_type_id
   , sc.user_type_id
   -- code for [user_type_name]: https://stackoverflow.com/questions/9179990/where-do-i-find-sql-server-metadata-for-column-datatypes
-  , user_type_name                                          = tp.name Collate Database_Default
-  , user_type_fullname                                      =
+  , user_type_name                  = tp.name Collate Database_Default
+  , user_type_fullname              =
   --
   Case
       When tp.name In
@@ -76,13 +77,13 @@ Select
   , sc.is_masked
   , sc.graph_type
   , sc.graph_type_desc
-  , scc.definition Collate Database_Default                 As definition
+  , definition                      = scc.definition Collate Database_Default
   , scc.is_persisted
   , scc.uses_database_collation
-  , sdc.definition Collate Database_Default                 As default_definition
-  , sdc.is_system_named                                     As default_is_system_named
-  , sdc.name Collate Database_Default                       As default_name
-  , sdc.parent_column_id                                    As default_parent_column_id
+  , default_definition              = sdc.definition Collate Database_Default
+  , default_is_system_named         = sdc.is_system_named
+  , default_name                    = sdc.name Collate Database_Default
+  , default_parent_column_id        = sdc.parent_column_id
   , sic.seed_value
   , sic.increment_value
   , sic.last_value
@@ -140,7 +141,7 @@ From
     --
     Cross Apply config.ftv_dwh_database () As db
 Where
-    Object_Schema_Name ( sc.object_id, db.dwh_database_id ) <> 'sys';
+    Object_Schema_Name ( sc.object_id, db.dwh_database_id ) <> 'sys'
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5d90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'SysColumn';
 

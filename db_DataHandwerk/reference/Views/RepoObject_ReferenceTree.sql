@@ -1,13 +1,14 @@
-﻿--bad performance
-CREATE View [reference].[RepoObject_ReferenceTree]
+﻿
+--bad performance
+CREATE View reference.RepoObject_ReferenceTree
 As
 Select
     tree.*
 From
-    repo.RepoObject_gross                                                          As ro
-    Cross Apply [reference].ftv_RepoObject_ReferenceTree ( ro.RepoObject_guid, 100, 100 ) As tree
+    repo.RepoObject_gross                                                               As ro
+    Cross Apply reference.ftv_RepoObject_ReferenceTree ( ro.RepoObject_guid, 100, 100 ) As tree
 Where
-    ro.is_in_reference = 1;
+    ro.is_in_reference = 1
 Go
 
 Execute sp_addextendedproperty

@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 issue in [sys].[sql_expression_dependencies]
 After changing the case of names or schemas some content has wrong case
 this generates errors in PUML graphics
@@ -9,18 +10,18 @@ referencing_schema_name
 referencing_entity_name
 
 */
-CREATE View [reference].[RepoObject_reference_SqlExpressionDependencies]
+CREATE View reference.RepoObject_reference_SqlExpressionDependencies
 As
 Select
     sed.referenced_id
   , sed.referencing_id
   --, [sed].[referencing_minor_id]
   , sed.referenced_entity_name
-  , referenced_fullname                        = Concat (
-                                                            QuoteName ( sed.referenced_schema_name )
-                                                          , '.'
-                                                          , QuoteName ( sed.referenced_entity_name )
-                                                        )
+  , referenced_fullname  = Concat (
+                                      QuoteName ( sed.referenced_schema_name )
+                                    , '.'
+                                    , QuoteName ( sed.referenced_entity_name )
+                                  )
   --, [sed].[referenced_minor_id]
   --, Cast(sed.referenced_id As BigInt) * 10000  As referenced_node_id
   , sed.referenced_RepoObject_guid
@@ -29,18 +30,18 @@ Select
   --, [sed].[referenced_column_name]
   --, [sed].[referenced_RepoObjectColumn_guid]
   , sed.referencing_entity_name
-  , referencing_fullname                       = Concat (
-                                                            QuoteName ( sed.referencing_schema_name )
-                                                          , '.'
-                                                          , QuoteName ( sed.referencing_entity_name )
-                                                        )
+  , referencing_fullname = Concat (
+                                      QuoteName ( sed.referencing_schema_name )
+                                    , '.'
+                                    , QuoteName ( sed.referencing_entity_name )
+                                  )
   --, Cast(sed.referencing_id As BigInt) * 10000 As referencing_node_id
   , sed.referencing_RepoObject_guid
   , sed.referencing_schema_name
   , sed.referencing_type
   --, [sed].[referencing_RepoObjectColumn_guid]
   --, [sed].[referencing_column_name]
-  , InformationSource                          = 'sys.sql_expression_dependencies'
+  , InformationSource    = 'sys.sql_expression_dependencies'
 --, [sed].[referenced_server_name]
 --, [sed].[referenced_database_name]
 --, [sed].[referenced_class]
@@ -65,7 +66,7 @@ Where
     --and [sed].[referencing_RepoObject_guid] = SysObject_RepoObject_guid
     --these are RepoObject_guid storred in extended properties
     And Not sed.referencing_RepoObject_guid Is Null
-    And Not sed.referenced_RepoObject_guid Is Null;
+    And Not sed.referenced_RepoObject_guid Is Null
 Go
 
 Execute sp_addextendedproperty

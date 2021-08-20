@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 This view must be empty after calling [workflow].[usp_workflow], +
 because all entries from workflow.Workflow_ProcedureDependency_T_NotInSortorder must be transferred to workflow.WorkflowStep_Sortorder.
 
@@ -8,14 +9,14 @@ If there are still entries here, then
 * Entries in [workflow].[WorkflowStep] should then be marked with [is_PossibleReferenced] = 1.
 
 */
-Create View workflow.Workflow_ProcedureDependency_T_NotInSortorder_check
+CREATE View workflow.Workflow_ProcedureDependency_T_NotInSortorder_check
 As
 Select
     T1.Workflow_id
   , T1.referenced_Procedure_RepoObject_guid
   , T1.referencing_Procedure_RepoObject_guid
-  , ro1.RepoObject_fullname As RepoObject_fullname_1
-  , ro2.RepoObject_fullname As RepoObject_fullname_2
+  , RepoObject_fullname_1 = ro1.RepoObject_fullname
+  , RepoObject_fullname_2 = ro2.RepoObject_fullname
 From
     workflow.Workflow_ProcedureDependency_T_NotInSortorder As T1
     Inner Join

@@ -1,6 +1,7 @@
 ﻿
 
-CREATE View [reference].[RepoObject_reference_union]
+
+CREATE View reference.RepoObject_reference_union
 As
 Select
     T1.referenced_RepoObject_guid
@@ -80,7 +81,7 @@ Select
   , T1.InformationSource
   , one = 1
 From
-    reference.[RepoObject_reference_persistence_target_as_source] As T1
+    reference.RepoObject_reference_persistence_target_as_source As T1
 Go
 
 Execute sp_addextendedproperty

@@ -1,13 +1,16 @@
-﻿Create View repo.Index_unique_IndexPatternColumnGuid
+﻿
+CREATE View repo.Index_unique_IndexPatternColumnGuid
 As
 Select
-    index_guid
-  , IndexPatternColumnGuid = String_Agg ( Cast(ic.RepoObjectColumn_guid As Char(36)), ',' ) Within Group(Order By
-                                                                                                             Cast(ic.RepoObjectColumn_guid As Char(36)))
+    ic.index_guid
+  , IndexPatternColumnGuid =
+  --
+  String_Agg ( Cast(ic.RepoObjectColumn_guid As Char(36)), ',' ) Within Group(Order By
+                                                                                  Cast(ic.RepoObjectColumn_guid As Char(36)))
 From
-    repo_sys.IndexColumn_unique ic
+    repo_sys.IndexColumn_unique As ic
 Group By
-    ic.index_guid;
+    ic.index_guid
 Go
 
 Execute sp_addextendedproperty

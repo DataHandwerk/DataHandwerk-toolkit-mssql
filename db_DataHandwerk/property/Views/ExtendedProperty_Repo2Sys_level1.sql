@@ -1,5 +1,6 @@
 ﻿
-CREATE View [property].[ExtendedProperty_Repo2Sys_level1]
+
+CREATE View property.ExtendedProperty_Repo2Sys_level1
 As
 Select
     prop.property_name
@@ -13,19 +14,19 @@ Select
   , prop.RepoObject_guid
   , ro.RepoObject_type
 From
-    [property].RepoObjectProperty            As prop
+    property.RepoObjectProperty            As prop
     Inner Join
-        repo.RepoObject                      As ro
+        repo.RepoObject                    As ro
             On
             ro.RepoObject_guid = prop.RepoObject_guid
 
     Inner Join
-        [configT].type_level1type_level2type As lev
+        configT.type_level1type_level2type As lev
             On
             lev.type           = ro.RepoObject_type
 Where
     Not lev.level1type Is Null
-    And lev.level2type Is Null;
+    And lev.level2type Is Null
 Go
 
 Execute sp_addextendedproperty

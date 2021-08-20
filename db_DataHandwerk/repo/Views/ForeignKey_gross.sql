@@ -1,5 +1,6 @@
 ﻿
-CREATE View [repo].[ForeignKey_gross]
+
+CREATE View repo.ForeignKey_gross
 As
 Select
     fk.ForeignKey_guid
@@ -37,16 +38,16 @@ Select
              + docs.fs_cleanStringForAnchorId ( refed.index_name ) + '[+' + refed.index_name + '+]'
          )
 From
-    repo.ForeignKey_Indexes_union_T fk
+    repo.ForeignKey_Indexes_union_T As fk
     Left Join
-        repo.Index_gross            refed
+        repo.Index_gross            As refed
             On
             refed.index_guid  = fk.referenced_index_guid
 
     Left Join
-        repo.Index_gross            refing
+        repo.Index_gross            As refing
             On
-            refing.index_guid = fk.referencing_index_guid;
+            refing.index_guid = fk.referencing_index_guid
 Go
 
 Execute sp_addextendedproperty

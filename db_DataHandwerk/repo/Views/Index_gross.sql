@@ -1,4 +1,5 @@
-﻿Create View repo.Index_gross
+﻿
+CREATE View repo.Index_gross
 As
 --
 Select
@@ -19,30 +20,34 @@ Select
   , T3.RepoObject_fullname
   , T3.RepoObject_fullname2
   --if [RowNumber_PatternPerParentObject] > 1 then these are duplicates by same ColumnPattern and normally should be deleted, at least in [repo].[Index_virtual] 
-  , RowNumber_PatternPerParentObject = Row_Number () Over ( Partition By
-                                                                T2.parent_RepoObject_guid
-                                                              , T1.IndexPatternColumnName
-                                                            Order By
-                                                                --priority has real index
-                                                                T2.is_index_real Desc
-                                                              --priority PK
-                                                              , T2.is_index_primary_key Desc
-                                                              --priority not disabled
-                                                              , T2.is_index_disabled
-                                                              --priority first added index
-                                                              , T2.index_guid
-                                                          )
-  , RowNumber_PkPerParentObject      = Row_Number () Over ( Partition By
-                                                                T2.parent_RepoObject_guid
-                                                              , T2.is_index_primary_key
-                                                            Order By
-                                                                --priority has real index
-                                                                T2.is_index_real Desc
-                                                              --priority not disabled
-                                                              , T2.is_index_disabled
-                                                              --priority first added index
-                                                              , T2.index_guid
-                                                          )
+  , RowNumber_PatternPerParentObject =
+  --
+  Row_Number () Over ( Partition By
+                           T2.parent_RepoObject_guid
+                         , T1.IndexPatternColumnName
+                       Order By
+                           --priority has real index
+                           T2.is_index_real Desc
+                         --priority PK
+                         , T2.is_index_primary_key Desc
+                         --priority not disabled
+                         , T2.is_index_disabled
+                         --priority first added index
+                         , T2.index_guid
+                     )
+  , RowNumber_PkPerParentObject      =
+  --
+  Row_Number () Over ( Partition By
+                           T2.parent_RepoObject_guid
+                         , T2.is_index_primary_key
+                       Order By
+                           --priority has real index
+                           T2.is_index_real Desc
+                         --priority not disabled
+                         , T2.is_index_disabled
+                         --priority first added index
+                         , T2.index_guid
+                     )
   , T3.SysObject_fullname
   , T3.SysObject_fullname2
   , T3.SysObject_schema_name
@@ -70,7 +75,7 @@ From
     Left Join
         repo.Index_ColumList  As ColumList
             On
-            ColumList.index_guid = T1.index_guid;
+            ColumList.index_guid = T1.index_guid
 Go
 
 Execute sp_addextendedproperty

@@ -1,9 +1,10 @@
 ﻿
-CREATE View [reference].[RepoObjectColumn_ReferencedList]
+
+CREATE View reference.RepoObjectColumn_ReferencedList
 As
 Select
     ror.Referencing_guid
-  , AntoraReferencedColumnList              =
+  , AntoraReferencedColumnList  =
   --
   String_Agg (
                  Concat (
@@ -17,15 +18,15 @@ Select
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
                                 ror.Referenced_fullname)
-  , Max ( ror.Referencing_fullname )        As Referencing_fullname
-  , Max ( ror.Referencing_fullname2 )       As Referencing_fullname2
-  , Max ( ror.ReferencingColumn_fullname )  As ReferencingColumn_fullname
-  , Max ( ror.ReferencingColumn_fullname2 ) As ReferencingColumn_fullname2
-  , Max ( ror.Referencing_type )            As Referencing_type
+  , Referencing_fullname        = Max ( ror.Referencing_fullname )
+  , Referencing_fullname2       = Max ( ror.Referencing_fullname2 )
+  , ReferencingColumn_fullname  = Max ( ror.ReferencingColumn_fullname )
+  , ReferencingColumn_fullname2 = Max ( ror.ReferencingColumn_fullname2 )
+  , Referencing_type            = Max ( ror.Referencing_type )
 From
-    [reference].RepoObjectColumn_ReferencingReferenced As ror
+    reference.RepoObjectColumn_ReferencingReferenced As ror
 Group By
-    ror.Referencing_guid;
+    ror.Referencing_guid
 Go
 
 Execute sp_addextendedproperty

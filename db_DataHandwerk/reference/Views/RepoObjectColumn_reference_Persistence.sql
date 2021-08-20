@@ -1,4 +1,5 @@
-﻿CREATE View [reference].RepoObjectColumn_reference_Persistence
+﻿
+CREATE View reference.RepoObjectColumn_reference_Persistence
 As
 --
 Select
@@ -59,7 +60,7 @@ From
         repo.RepoObjectColumn   As roc_t
             On
             roc_t.RepoObject_guid                              = rop.target_RepoObject_guid
-            And roc_t.persistence_source_RepoObjectColumn_guid = roc_s.RepoObjectColumn_guid;
+            And roc_t.persistence_source_RepoObjectColumn_guid = roc_s.RepoObjectColumn_guid
 Go
 
 Execute sp_addextendedproperty

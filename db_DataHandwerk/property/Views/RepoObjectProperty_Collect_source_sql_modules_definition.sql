@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 * extracts properties from sql_modules_definition
@@ -8,7 +9,7 @@
 * The correct sequence must be followed. Nested parsing is not supported.
 <<property_end>>
 */
-CREATE View [property].[RepoObjectProperty_Collect_source_sql_modules_definition]
+CREATE View property.RepoObjectProperty_Collect_source_sql_modules_definition
 As
 Select
     --
@@ -27,7 +28,7 @@ Where
     es.substring_netPreEol <> ''
 Group By
     RepoObject_guid
-  , es.substring_netPreEol;
+  , es.substring_netPreEol
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c324df58-0b9a-eb11-84f5-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'property_value';
 

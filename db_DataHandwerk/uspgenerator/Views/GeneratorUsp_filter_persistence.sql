@@ -1,16 +1,17 @@
-﻿CREATE
- 
-
- VIEW [uspgenerator].[GeneratorUsp_filter_persistence]
-AS
-SELECT [u].[id]
- , [u].[usp_schema]
- , [u].[usp_name]
- , [u].[has_logging]
- , [u].[usp_Description]
- , [u].[usp_fullname]
-FROM [uspgenerator].[GeneratorUsp] AS [u]
-WHERE LEFT([u].[usp_name], 12) = 'usp_PERSIST_'
+﻿
+CREATE View uspgenerator.GeneratorUsp_filter_persistence
+As
+Select
+    u.id
+  , u.usp_schema
+  , u.usp_name
+  , u.has_logging
+  , u.usp_Description
+  , u.usp_fullname
+From
+    uspgenerator.GeneratorUsp As u
+Where
+    Left(u.usp_name, 12) = 'usp_PERSIST_'
 Go
 
 Execute sp_addextendedproperty

@@ -90,7 +90,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',31,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\')
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
@@ -247,7 +247,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the individual content per object is exported as ''partial'' into (Adoc_AntoraDocModulFolder)``partials/schemaname.objectname.adoc``
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the individual content per object is exported as ''partial'' into (AntoraDocModulFolder)``partials/schemaname.objectname.adoc``
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
 ** all properties from xref:property.RepoObjectProperty.adoc[] are exported with a `tag` per property
 ** some additional `tag` are exported

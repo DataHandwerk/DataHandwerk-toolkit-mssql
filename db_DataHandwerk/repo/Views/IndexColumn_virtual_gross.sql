@@ -1,8 +1,9 @@
-﻿Create View repo.IndexColumn_virtual_gross
+﻿
+CREATE View repo.IndexColumn_virtual_gross
 As
 --
 Select
-    icv.Index_guid
+    icv.index_guid
   , icv.index_column_id
   , icv.is_descending_key
   , icv.RepoObjectColumn_guid
@@ -33,17 +34,17 @@ From
     Inner Join
         repo.Index_virtual    As iv
             On
-            icv.Index_guid            = iv.index_guid
+            icv.index_guid            = iv.index_guid
 
     Inner Join
-        repo.RepoObjectColumn roc
+        repo.RepoObjectColumn As roc
             On
             roc.RepoObjectColumn_guid = icv.RepoObjectColumn_guid
 
     Left Join
         repo.RepoObject       As ro
             On
-            ro.RepoObject_guid        = iv.parent_RepoObject_guid;
+            ro.RepoObject_guid        = iv.parent_RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

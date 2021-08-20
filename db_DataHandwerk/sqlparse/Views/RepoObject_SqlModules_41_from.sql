@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 rows in [repo].[RepoObject__sql_modules_20_statement_children]
 which define the first Block 
@@ -11,7 +12,7 @@ Attention, this will not work for UNION to analyze all parts of the UNION
 - we could get the part from the first from to a first where in another part of the UNION
 */
 
-CREATE View [sqlparse].RepoObject_SqlModules_41_from
+CREATE View sqlparse.RepoObject_SqlModules_41_from
 As
 --
 Select
@@ -38,14 +39,14 @@ Select
   , is_from                    = Iif(T1.normalized = 'FROM' And T1.is_keyword = 1, 1, 0)
   , patindex_nolock            = PatIndex ( '%(NOLOCK)%', T1.normalized )
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children      As T1
+    sqlparse.RepoObject_SqlModules_20_statement_children      As T1
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_39_object              As T2
+        sqlparse.RepoObject_SqlModules_39_object              As T2
             On
             T2.RepoObject_guid   = T1.RepoObject_guid
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_22_identifier_alias_AS As T22
+        sqlparse.RepoObject_SqlModules_22_identifier_alias_AS As T22
             On
             T22.RepoObject_guid  = T1.RepoObject_guid
             And T22.json_key     = T1.json_key
@@ -55,7 +56,7 @@ From
     --   AND T23.[key] = T1.[key]
 
     Left Outer Join
-        [configT].join_type                                  As T4
+        configT.join_type                                     As T4
             On
             T4.join_type_variant = T1.normalized
             And T1.is_keyword    = 1
@@ -73,7 +74,7 @@ Where
     (
         T2.Min_RowNumber_GroupBy Is Null
         Or T2.Min_RowNumber_GroupBy > T1.RowNumber_per_Object
-    );
+    )
 --ORDER BY
 --         [T1].[RepoObject_guid]
 --       , [T1].[RowNumber_per_Object]

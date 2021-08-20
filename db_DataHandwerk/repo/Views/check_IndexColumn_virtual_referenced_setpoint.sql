@@ -1,4 +1,5 @@
-﻿Create View repo.check_IndexColumn_virtual_referenced_setpoint
+﻿
+CREATE View repo.check_IndexColumn_virtual_referenced_setpoint
 As
 Select
     T1.index_guid
@@ -6,15 +7,15 @@ Select
   , T1.referencing_RepoObjectColumn_guid
   , T1.referenced_index_guid
   , T1.referenced_RepoObjectColumn_guid
-  , ro_s.SysObject_fullname     As SysObject_fullname_s
-  , ro_t.SysObject_fullname     As SysObject_fullname_t
-  , roc_s.SysObjectColumn_name  As SysObjectColumn_name_s
-  , roc_t.SysObjectColumn_name  As SysObjectColumn_name_t
+  , SysObject_fullname_s    = ro_s.SysObject_fullname
+  , SysObject_fullname_t    = ro_t.SysObject_fullname
+  , SysObjectColumn_name_s  = roc_s.SysObjectColumn_name
+  , SysObjectColumn_name_t  = roc_t.SysObjectColumn_name
   , T1.referenced_RepoObject_guid
-  , roc_s.RepoObject_guid       As RepoObject_guid_s
+  , RepoObject_guid_s       = roc_s.RepoObject_guid
   , T1.referencing_RepoObject_guid
-  , roc_t.RepoObject_guid       As RepoObject_guid_t
-  , roc_t.RepoObjectColumn_guid As RepoObjectColumn_guid_t
+  , RepoObject_guid_t       = roc_t.RepoObject_guid
+  , RepoObjectColumn_guid_t = roc_t.RepoObjectColumn_guid
 --    , [roc_s].[RepoObjectColumn_guid] AS [RepoObjectColumn_guid_s]
 --, [roc_s].[RepoObjectColumn_name] AS [RepoObjectColumn_name_s]
 --, [roc_t].[RepoObjectColumn_name] AS [RepoObjectColumn_name_t]
@@ -38,7 +39,7 @@ From
     Left Outer Join
         repo.RepoObject                          As ro_s
             On
-            T1.referenced_RepoObject_guid        = ro_s.RepoObject_guid;
+            T1.referenced_RepoObject_guid        = ro_s.RepoObject_guid
 --WHERE  [T1].[index_guid] = '9731BB8B-CB50-EB11-84D5-A81E8446D5B0'
 Go
 

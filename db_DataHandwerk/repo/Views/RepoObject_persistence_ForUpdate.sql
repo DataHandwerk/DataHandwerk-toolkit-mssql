@@ -1,12 +1,13 @@
-﻿/*
+﻿
+/*
 Added some lookup columns [repo].[RepoObject_persistence]
 to simplify data entry in the frontend
 */
-Create View repo.[RepoObject_persistence_ForUpdate]
+CREATE View repo.RepoObject_persistence_ForUpdate
 As
 Select
     ro_p.target_RepoObject_guid
-  , ro.RepoObject_fullname As target_RepoObject_fullname
+  , target_RepoObject_fullname = ro.RepoObject_fullname
   , ro_p.has_history
   , ro_p.has_history_columns
   , ro_p.history_schema_name
@@ -26,7 +27,7 @@ From
     Inner Join
         repo.RepoObject         As ro
             On
-            ro.RepoObject_guid = ro_p.target_RepoObject_guid;
+            ro.RepoObject_guid = ro_p.target_RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '98813d1c-6662-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'temporal_type';
 

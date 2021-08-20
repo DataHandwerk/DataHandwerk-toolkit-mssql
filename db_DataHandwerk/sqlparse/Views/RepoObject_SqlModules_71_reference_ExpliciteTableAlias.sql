@@ -1,4 +1,5 @@
 ﻿
+
 /*
 explicit table alias:
 
@@ -11,7 +12,7 @@ table as T1
 
 
 */
-Create View [sqlparse].RepoObject_SqlModules_71_reference_ExpliciteTableAlias
+CREATE View sqlparse.RepoObject_SqlModules_71_reference_ExpliciteTableAlias
 As
 Select
     --
@@ -28,30 +29,30 @@ Select
   , T1.source_column_QuoteName
   , T1.normalized
 From
-    [sqlparse].RepoObject_SqlModules_61_SelectIdentifier_Union_T      As T1
+    sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union_T      As T1
     Inner Join
-        [sqlparse].RepoObject_SqlModules_44_from_Identifier_QuoteName As T44
+        sqlparse.RepoObject_SqlModules_44_from_Identifier_QuoteName As T44
             On
             T44.RepoObject_guid                           = T1.RepoObject_guid
             And T44.alias_QuoteName                       = T1.source_table_QuoteName
 
     Inner Join
-        repo.RepoObjectColumn                                   roc
+        repo.RepoObjectColumn                                       As roc
             On
             QuoteName ( roc.SysObjectColumn_name )        = T1.alias_QuoteName
             And roc.RepoObject_guid                       = T1.RepoObject_guid
 
     Inner Join
-        repo.RepoObject                                         ro_source
+        repo.RepoObject                                             As ro_source
             On
             QuoteName ( ro_source.SysObject_schema_name ) = T44.name_PreDot_QuoteName
             And QuoteName ( ro_source.SysObject_name )    = T44.name_PostDot_QuoteName
 
     Inner Join
-        repo.RepoObjectColumn                                   roc_source
+        repo.RepoObjectColumn                                       As roc_source
             On
             QuoteName ( roc_source.SysObjectColumn_name ) = T1.source_column_QuoteName
-            And roc_source.RepoObject_guid                = ro_source.RepoObject_guid;
+            And roc_source.RepoObject_guid                = ro_source.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

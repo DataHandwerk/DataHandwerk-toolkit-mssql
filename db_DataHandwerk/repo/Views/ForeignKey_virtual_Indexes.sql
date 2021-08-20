@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 <<property_start>>MS_Description
 * mapping from xref:sqldb:repo.ForeignKey_virtual.adoc[] to referenced_index and referencing_indx
@@ -8,7 +9,7 @@
 <<property_end>>
 */
 
-CREATE View [repo].[ForeignKey_virtual_Indexes]
+CREATE View repo.ForeignKey_virtual_Indexes
 As
 Select
     --
@@ -40,8 +41,8 @@ Select
   , referencing_RepoObject_guid            = i_1.parent_RepoObject_guid
   , referencing_SysObject_name             = i_1.SysObject_name
   , referencing_SysObject_schema_name      = i_1.SysObject_schema_name
-  , delete_referential_action
-  , update_referential_action
+  , fk.delete_referential_action
+  , fk.update_referential_action
 From
     repo.ForeignKey_virtual As fk
     Left Join
@@ -52,7 +53,7 @@ From
     Left Join
         repo.Index_gross    As i_2
             On
-            i_2.index_guid = fk.referenced_index_guid;
+            i_2.index_guid = fk.referenced_index_guid
 Go
 
 Execute sp_addextendedproperty

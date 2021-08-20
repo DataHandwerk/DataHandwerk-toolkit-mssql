@@ -1,16 +1,17 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_33_ObjectNormalized
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_33_ObjectNormalized
 As
 --
 Select
-    RepoObject_guid
-  , normalized
-  , Max ( T1.SysObject_fullname ) As SysObject_fullname
-  , Min_RowNumber_per_normalized  = Min ( RowNumber_per_Object )
+    T1.RepoObject_guid
+  , T1.normalized
+  , SysObject_fullname           = Max ( T1.SysObject_fullname )
+  , Min_RowNumber_per_normalized = Min ( T1.RowNumber_per_Object )
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children As T1
+    sqlparse.RepoObject_SqlModules_20_statement_children As T1
 Group By
-    RepoObject_guid
-  , normalized;
+    T1.RepoObject_guid
+  , T1.normalized
 Go
 
 Execute sp_addextendedproperty

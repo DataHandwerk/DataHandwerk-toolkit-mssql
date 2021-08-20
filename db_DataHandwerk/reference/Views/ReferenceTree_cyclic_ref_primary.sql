@@ -1,17 +1,18 @@
-﻿Create View [reference].[ReferenceTree_cyclic_ref_primary]
+﻿
+CREATE View reference.ReferenceTree_cyclic_ref_primary
 As
 Select
     Distinct
-    [Referencing_guid]
-  , [Referenced_guid]
-  , [Referenced_fullname]
-  , [Referenced_fullname2]
-  , [Referenced_type]
-  , [Referencing_fullname]
-  , [Referencing_fullname2]
-  , [Referencing_type]
+    Referencing_guid
+  , Referenced_guid
+  , Referenced_fullname
+  , Referenced_fullname2
+  , Referenced_type
+  , Referencing_fullname
+  , Referencing_fullname2
+  , Referencing_type
 From
-    [reference].[RepoObject_ReferenceTree_cyclic];
+    reference.RepoObject_ReferenceTree_cyclic
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '81e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'ReferenceTree_cyclic_ref_primary';
 

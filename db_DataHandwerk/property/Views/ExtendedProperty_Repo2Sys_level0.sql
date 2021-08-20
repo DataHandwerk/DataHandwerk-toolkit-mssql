@@ -1,11 +1,12 @@
 ﻿
-Create View property.ExtendedProperty_Repo2Sys_level0
+
+CREATE View property.ExtendedProperty_Repo2Sys_level0
 As
 Select
     property_name  = 'MS_Description'
   , property_value = rs.RepoSchema_ms_description
   , level0type     = N'Schema'
-  , level0name     = RepoSchema_name
+  , level0name     = rs.RepoSchema_name
   , level1type     = Cast(Null As NVarchar(128))
   , level1name     = Cast(Null As NVarchar(128))
   , level2type     = Cast(Null As NVarchar(128))
@@ -13,7 +14,7 @@ Select
 From
     repo.RepoSchema As rs
 Where
-    Not rs.RepoSchema_ms_description Is Null;
+    Not rs.RepoSchema_ms_description Is Null
 
 --Select
 --    prop.property_name

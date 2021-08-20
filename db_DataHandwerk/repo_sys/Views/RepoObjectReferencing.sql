@@ -1,33 +1,36 @@
 ﻿
+
 /*
 this view can be used to check if SysObject renaming is safe or if exists referencing objects and refactoring is required
 */
-CREATE VIEW [repo_sys].[RepoObjectReferencing]
-AS
+CREATE View repo_sys.RepoObjectReferencing
+As
 --
-SELECT [ro].[RepoObject_guid]
- --, [ro].[RepoObject_schema_name]
- --, [ro].[RepoObject_name]
- --, [ro].[RepoObject_type]
- , [ro].[SysObject_id]
- --, [ro].[SysObject_schema_name]
- --, [ro].[SysObject_name]
- , [ro].[SysObject_type]
- , [ro].[SysObject_modify_date]
- --, [ro].[has_execution_plan_issue]
- , [ro].[is_repo_managed]
- --, [ro].[modify_dt]
- , [ro].[has_different_sys_names]
- , [ro].[RepoObject_fullname]
- , [ro].[SysObject_fullname]
- , [referencing].[referencing_schema_name]
- , [referencing].[referencing_entity_name]
- , [referencing].[referencing_id]
- , [referencing].[referencing_class]
- , [referencing].[referencing_class_desc]
- , [referencing].[is_caller_dependent]
-FROM repo.RepoObject AS ro
-CROSS APPLY sys.dm_sql_referencing_entities(SysObject_fullname, 'OBJECT') AS referencing
+Select
+    ro.RepoObject_guid
+  --, [ro].[RepoObject_schema_name]
+  --, [ro].[RepoObject_name]
+  --, [ro].[RepoObject_type]
+  , ro.SysObject_id
+  --, [ro].[SysObject_schema_name]
+  --, [ro].[SysObject_name]
+  , ro.SysObject_type
+  , ro.SysObject_modify_date
+  --, [ro].[has_execution_plan_issue]
+  , ro.is_repo_managed
+  --, [ro].[modify_dt]
+  , ro.has_different_sys_names
+  , ro.RepoObject_fullname
+  , ro.SysObject_fullname
+  , referencing.referencing_schema_name
+  , referencing.referencing_entity_name
+  , referencing.referencing_id
+  , referencing.referencing_class
+  , referencing.referencing_class_desc
+  , referencing.is_caller_dependent
+From
+    repo.RepoObject                                                                 As ro
+    Cross Apply sys.dm_sql_referencing_entities ( ro.SysObject_fullname, 'OBJECT' ) As referencing
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0a90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferencing';
 

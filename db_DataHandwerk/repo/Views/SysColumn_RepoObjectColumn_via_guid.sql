@@ -1,5 +1,6 @@
 ﻿
-CREATE View [repo].[SysColumn_RepoObjectColumn_via_guid]
+
+CREATE View repo.SysColumn_RepoObjectColumn_via_guid
 As
 --
 Select
@@ -76,7 +77,7 @@ From
     Left Outer Join
         repo.RepoObject       As ro
             On
-            roc.RepoObject_guid                = ro.RepoObject_guid;
+            roc.RepoObject_guid                = ro.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

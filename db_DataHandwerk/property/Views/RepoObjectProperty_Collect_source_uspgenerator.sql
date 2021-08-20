@@ -1,5 +1,7 @@
 ﻿
-CREATE View [property].[RepoObjectProperty_Collect_source_uspgenerator]
+
+
+CREATE View property.RepoObjectProperty_Collect_source_uspgenerator
 As
 Select
     ro.RepoObject_guid
@@ -19,7 +21,7 @@ Select
                              Cast(ro.MS_Description As NVarchar(Max))
                      End
 From
-    uspgenerator.GeneratorUsp_SqlUsp ro
+    uspgenerator.GeneratorUsp_SqlUsp As ro
     Cross Join
     (
         Values
@@ -27,9 +29,9 @@ From
           , ( 'UspParameters' )
           , ( 'ExampleUsage' )
           , ( 'MS_Description' )
-    )                                p_names ( property_name )
+    )                                As p_names ( property_name )
 Where
-    Not RepoObject_guid Is Null;
+    Not ro.RepoObject_guid Is Null
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b9fe9885-ea9d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_uspgenerator', @level2type = N'COLUMN', @level2name = N'property_value';
 

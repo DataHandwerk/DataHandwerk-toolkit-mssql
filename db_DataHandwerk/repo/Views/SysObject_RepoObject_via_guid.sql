@@ -1,5 +1,6 @@
 ﻿
-CREATE View [repo].[SysObject_RepoObject_via_guid]
+
+CREATE View repo.SysObject_RepoObject_via_guid
 As
 --
 Select
@@ -7,28 +8,28 @@ Select
   , ro.is_repo_managed
   , so.SysObject_schema_name
   , so.SysObject_name
-  , so.type                       As SysObject_type
-  , so.type_desc                  As SysObject_type_desc
-  , so.modify_date                As modify_date
-  , so.parent_object_id           As parent_object_id
-  , so.SysObject_RepoObject_guid  As SysObject_RepoObject_guid
-  , ro_hist.RepoObject_guid       As history_table_guid
+  , SysObject_type                        = so.type
+  , SysObject_type_desc                   = so.type_desc
+  , modify_date                           = so.modify_date
+  , parent_object_id                      = so.parent_object_id
+  , SysObject_RepoObject_guid             = so.SysObject_RepoObject_guid
+  , history_table_guid                    = ro_hist.RepoObject_guid
   , so.history_table_id
   , so.temporal_type
   --, [so].[max_column_id_used] AS         [SysObject_max_column_id_used]
   , ro.Repo_history_table_guid
   , ro.Repo_temporal_type
-  , ro.RepoObject_guid            As RepoObject_guid
+  , RepoObject_guid                       = ro.RepoObject_guid
   , ro.RepoObject_schema_name
   , ro.RepoObject_name
   , ro.RepoObject_type
-  , ro.SysObject_id               As RepoObject_SysObject_id
-  , ro.SysObject_schema_name      As RepoObject_SysObject_schema_name
-  , ro.SysObject_name             As RepoObject_SysObject_name
-  , ro.SysObject_type             As RepoObject_SysObject_type
-  , ro.SysObject_modify_date      As RepoObject_SysObject_modify_date
-  , ro.SysObject_parent_object_id As RepoObject_SysObject_parent_object_id
-  , ro.is_SysObject_missing       As RepoObject_is_SysObject_missing
+  , RepoObject_SysObject_id               = ro.SysObject_id
+  , RepoObject_SysObject_schema_name      = ro.SysObject_schema_name
+  , RepoObject_SysObject_name             = ro.SysObject_name
+  , RepoObject_SysObject_type             = ro.SysObject_type
+  , RepoObject_SysObject_modify_date      = ro.SysObject_modify_date
+  , RepoObject_SysObject_parent_object_id = ro.SysObject_parent_object_id
+  , RepoObject_is_SysObject_missing       = ro.is_SysObject_missing
   , ro.is_RepoObject_name_uniqueidentifier
   , ro.is_SysObject_name_uniqueidentifier
 --, [ro].SysObject_parent_object_id AS          [RepoObject_parent_SysObject_id]
@@ -45,7 +46,7 @@ From
     Left Outer Join
         repo.RepoObject As ro_hist
             On
-            so.history_table_id          = ro_hist.SysObject_id;
+            so.history_table_id          = ro_hist.SysObject_id
 Go
 
 Execute sp_addextendedproperty

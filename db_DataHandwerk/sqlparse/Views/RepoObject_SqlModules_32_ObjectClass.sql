@@ -1,16 +1,17 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_32_ObjectClass
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_32_ObjectClass
 As
 --
 Select
-    RepoObject_guid
-  , class
-  , Max ( T1.SysObject_fullname ) As SysObject_fullname
-  , Min_RowNumber_per_class       = Min ( RowNumber_per_Object )
+    T1.RepoObject_guid
+  , T1.class
+  , SysObject_fullname      = Max ( T1.SysObject_fullname )
+  , Min_RowNumber_per_class = Min ( T1.RowNumber_per_Object )
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children As T1
+    sqlparse.RepoObject_SqlModules_20_statement_children As T1
 Group By
-    RepoObject_guid
-  , class;
+    T1.RepoObject_guid
+  , T1.class
 Go
 
 Execute sp_addextendedproperty

@@ -1,31 +1,32 @@
 ﻿
+
 --required colums depening on [repo].[RepoObject_persistence]
 --WHERE rop.[has_history_columns] = 1  OR rop.[has_history] = 1
 CREATE View repo.RepoObjectColumn_HistValidColums_setpoint
 As
 Select
-    rop.target_RepoObject_guid                          As RepoObject_guid
-  , Cast(p.[Parameter_value_result] As sysname) As RepoObjectColumn_name
+    RepoObject_guid         = rop.target_RepoObject_guid
+  , RepoObjectColumn_name   = Cast(p.Parameter_value_result As sysname)
   , ValidList.Repo_generated_always_type
-  , 0                                                   As Repo_is_nullable
-  , 'DATETIME2'                                         As Repo_user_type_name
-  , 'datetime2(7)'                                      As Repo_user_type_fullname
+  , Repo_is_nullable        = 0
+  , Repo_user_type_name     = 'DATETIME2'
+  , Repo_user_type_fullname = 'datetime2(7)'
 From
-    repo.RepoObject_persistence rop
+    repo.RepoObject_persistence As rop
     Cross Join
     (
         Select
-            'Hist_ValidFrom_column_name' As Parameter_name
-          , 1                            As Repo_generated_always_type
+            Parameter_name             = 'Hist_ValidFrom_column_name'
+          , Repo_generated_always_type = 1
         Union All
         Select
-            'Hist_ValidTo_column_name' As Parameter_name
-          , 2                          As Repo_generated_always_type
-    )                           ValidList
-    Cross Apply [config].ftv_get_parameter_value ( ValidList.Parameter_name, Default ) p
+            Parameter_name             = 'Hist_ValidTo_column_name'
+          , Repo_generated_always_type = 2
+    )                           As ValidList
+    Cross Apply config.ftv_get_parameter_value ( ValidList.Parameter_name, Default ) As p
 Where
     rop.has_history_columns = 1
-    Or rop.has_history      = 1;
+    Or rop.has_history      = 1
 Go
 
 Execute sp_addextendedproperty

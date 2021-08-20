@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_79_reference_union
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_79_reference_union
 As
 Select
     RepoObject_guid
@@ -14,7 +15,7 @@ Select
   , source_column_QuoteName
   , normalized
 From
-    [sqlparse].RepoObject_SqlModules_71_reference_ExpliciteTableAlias
+    sqlparse.RepoObject_SqlModules_71_reference_ExpliciteTableAlias
 Union All
 Select
     RepoObject_guid
@@ -30,7 +31,7 @@ Select
   , source_column_QuoteName
   , normalized
 From
-    [sqlparse].RepoObject_SqlModules_72_reference_NoTableAlias;
+    sqlparse.RepoObject_SqlModules_72_reference_NoTableAlias
 Go
 
 Execute sp_addextendedproperty

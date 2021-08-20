@@ -1,11 +1,12 @@
 ﻿
-CREATE View [sqlparse].[RepoObject_SqlModules_24_IdentifierList_children]
+
+CREATE View sqlparse.RepoObject_SqlModules_24_IdentifierList_children
 As
 --
 Select
     T1.RepoObject_guid
   , T1.json_key
-  , T2.json_key                As T2_json_key
+  , T2_json_key                = T2.json_key
   , T1.SysObject_fullname
   , T1.RowNumber_per_Object
   , T1.class
@@ -97,48 +98,48 @@ Select
                                                  T2.child2_children
                                          End
                                  End
-, [T2].[is_group]
-, [T2].[is_keyword]
-, [T2].[is_whitespace]
---, [T2].[normalized]
-, [T2].[children]
-, [T2].[child0_class]
-, [T2].[child0_is_group]
-, [T2].[child0_is_keyword]
-, [T2].[child0_is_whitespace]
-, [T2].[child0_normalized]
-, [T2].[child0_children]
-, [T2].[child1_class]
-, [T2].[child1_is_group]
-, [T2].[child1_is_keyword]
-, [T2].[child1_is_whitespace]
-, [T2].[child1_normalized]
-, [T2].[child1_children]
-, [T2].[child2_class]
-, [T2].[child2_is_group]
-, [T2].[child2_is_keyword]
-, [T2].[child2_is_whitespace]
-, [T2].[child2_normalized]
-, [T2].[child2_children]
-, [T2].[child3_class]
-, [T2].[child3_is_group]
-, [T2].[child3_is_keyword]
-, [T2].[child3_is_whitespace]
-, [T2].[child3_normalized]
-, [T2].[child3_children]
-, [T2].[child4_class]
-, [T2].[child4_is_group]
-, [T2].[child4_is_keyword]
-, [T2].[child4_is_whitespace]
-, [T2].[child4_normalized]
-, [T2].[child4_children]
+  , T2.is_group
+  , T2.is_keyword
+  , T2.is_whitespace
+  --, [T2].[normalized]
+  , T2.children
+  , T2.child0_class
+  , T2.child0_is_group
+  , T2.child0_is_keyword
+  , T2.child0_is_whitespace
+  , T2.child0_normalized
+  , T2.child0_children
+  , T2.child1_class
+  , T2.child1_is_group
+  , T2.child1_is_keyword
+  , T2.child1_is_whitespace
+  , T2.child1_normalized
+  , T2.child1_children
+  , T2.child2_class
+  , T2.child2_is_group
+  , T2.child2_is_keyword
+  , T2.child2_is_whitespace
+  , T2.child2_normalized
+  , T2.child2_children
+  , T2.child3_class
+  , T2.child3_is_group
+  , T2.child3_is_keyword
+  , T2.child3_is_whitespace
+  , T2.child3_normalized
+  , T2.child3_children
+  , T2.child4_class
+  , T2.child4_is_group
+  , T2.child4_is_keyword
+  , T2.child4_is_whitespace
+  , T2.child4_normalized
+  , T2.child4_children
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children                 As T1
-    Cross Apply [sqlparse].ftv_sqlparse_with_some_children ( T1.children ) As T2
+    sqlparse.RepoObject_SqlModules_20_statement_children                 As T1
+    Cross Apply sqlparse.ftv_sqlparse_with_some_children ( T1.children ) As T2
 Where
     T1.class = 'IdentifierList'
     And T2.class In
-        ( 'Identifier', 'Comparison' );
+        ( 'Identifier', 'Comparison' )
 ----there was any reason for this filter
 ----now we remove it, but we need to check the case of 'Identifier'
 -- AND [T2].[class] = 'Comparison'

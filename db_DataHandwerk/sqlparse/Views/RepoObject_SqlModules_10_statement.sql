@@ -1,5 +1,6 @@
-﻿/*extract class Statement, it should be the one and only node on first level*/
-Create View [sqlparse].RepoObject_SqlModules_10_statement
+﻿
+/*extract class Statement, it should be the one and only node on first level*/
+CREATE View sqlparse.RepoObject_SqlModules_10_statement
 As
 --
 Select
@@ -8,7 +9,7 @@ Select
   , T1.sql_modules_json
   , j2.*
 From
-    [sqlparse].RepoObject_SqlModules As T1
+    sqlparse.RepoObject_SqlModules As T1
     Cross Apply
     OpenJson ( T1.sql_modules_json )
     With
@@ -19,14 +20,14 @@ From
       , is_whitespace Bit N'$.is_whitespace'
       , normalized NVarchar ( Max ) N'$.normalized'
       , children NVarchar ( Max ) N'$.children' As Json
-    )                          As j2
+    )                              As j2
     Left Join
         repo.RepoObject As ro
             On
             ro.RepoObject_guid = T1.RepoObject_guid
 Where
     T1.is_json_sql_modules_json = 1
-    And j2.class                = 'Statement';
+    And j2.class                = 'Statement'
 Go
 
 Execute sp_addextendedproperty

@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName
 As
 Select
     RepoObject_guid
@@ -40,7 +41,7 @@ Select
                                                  QuoteName ( Identifier_source_column )
                                          End
 From
-    [sqlparse].RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit;
+    sqlparse.RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit
 Go
 
 Execute sp_addextendedproperty

@@ -1,29 +1,29 @@
-﻿CREATE View [reference].RepoObject_ReferencingList
+﻿
+CREATE View reference.RepoObject_ReferencingList
 As
 Select
     ror.Referenced_guid
-  , AntoraReferencingList            = String_Agg (
-                                                      Concat (
-                                                                 --* xref:target-page-filename.adoc[link text]
-                                                                 --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                                                                 Cast('* xref:' As NVarchar(Max))
-                                                               , ror.Referencing_fullname2
-                                                               , '.adoc[]'
-                                                             --, QuoteName(ror.[Referencing_fullname])
-                                                             --, ' '
-                                                             --, CHAR(13)
-                                                             --, CHAR(10)
-                                                             )
-                                                    , Char ( 13 ) + Char ( 10 )
-                                                  ) Within Group(Order By
-                                                                     ror.Referencing_fullname)
-  , Max ( ror.Referenced_fullname )  As Referenced_fullname
-  , Max ( ror.Referenced_fullname2 ) As Referenced_fullname2
-  , Max ( ror.Referenced_type )      As Referenced_type
+  , AntoraReferencingList =
+  --
+  String_Agg ( Concat (
+                          --* xref:target-page-filename.adoc[link text]
+                          --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                          Cast('* xref:' As NVarchar(Max)), ror.Referencing_fullname2, '.adoc[]'
+                      --, QuoteName(ror.[Referencing_fullname])
+                      --, ' '
+                      --, CHAR(13)
+                      --, CHAR(10)
+                      )
+             , Char ( 13 ) + Char ( 10 )
+             ) Within Group(Order By
+                                ror.Referencing_fullname)
+  , Referenced_fullname   = Max ( ror.Referenced_fullname )
+  , Referenced_fullname2  = Max ( ror.Referenced_fullname2 )
+  , Referenced_type       = Max ( ror.Referenced_type )
 From
-    [reference].RepoObject_ReferencingReferenced As ror
+    reference.RepoObject_ReferencingReferenced As ror
 Group By
-    ror.Referenced_guid;
+    ror.Referenced_guid
 Go
 
 Execute sp_addextendedproperty

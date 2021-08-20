@@ -1,10 +1,11 @@
 ﻿
 
+
 /*helpers are required in next steps to check several conditions
 here we prepare the check if the parsed statement will follow some required logic, for example
 CREATE;VIEW;Identifier;AS;SELECT;IdentifierList;FROM
 */
-Create View [sqlparse].RepoObject_SqlModules_21_statement_children_helper
+CREATE View sqlparse.RepoObject_SqlModules_21_statement_children_helper
 As
 --
 Select
@@ -19,19 +20,19 @@ Select
   , T1.normalized
   , T1.children
   --the entry 1 in the parsed sql is 'CREATE'
-  , is_1_create         = Iif(RowNumber_per_Object = 1 And normalized = 'CREATE', 1, 0)
+  , is_1_create         = Iif(T1.RowNumber_per_Object = 1 And T1.normalized = 'CREATE', 1, 0)
   --the entry 2 in the parsed sql is 'VIEW'
-  , is_2_view           = Iif(RowNumber_per_Object = 2 And normalized = 'VIEW', 1, 0)
-  , is_3_Identifier     = Iif(RowNumber_per_Object = 3 And class = 'Identifier', 1, 0)
-  , is_4_as             = Iif(RowNumber_per_Object = 4 And normalized = 'AS', 1, 0)
-  , is_5_select         = Iif(RowNumber_per_Object = 5 And normalized = 'SELECT', 1, 0)
-  , is_6_Identifier     = Iif(RowNumber_per_Object = 6 And class = 'Identifier', 1, 0)
-  , is_6_IdentifierList = Iif(RowNumber_per_Object = 6 And class = 'IdentifierList', 1, 0)
-  , is_7_from           = Iif(RowNumber_per_Object = 7 And normalized = 'FROM', 1, 0)
-  , is_7_IdentifierList = Iif(RowNumber_per_Object = 7 And class = 'IdentifierList', 1, 0)
-  , is_8_IdentifierList = Iif(RowNumber_per_Object = 8 And class = 'IdentifierList', 1, 0)
+  , is_2_view           = Iif(T1.RowNumber_per_Object = 2 And T1.normalized = 'VIEW', 1, 0)
+  , is_3_Identifier     = Iif(T1.RowNumber_per_Object = 3 And T1.class = 'Identifier', 1, 0)
+  , is_4_as             = Iif(T1.RowNumber_per_Object = 4 And T1.normalized = 'AS', 1, 0)
+  , is_5_select         = Iif(T1.RowNumber_per_Object = 5 And T1.normalized = 'SELECT', 1, 0)
+  , is_6_Identifier     = Iif(T1.RowNumber_per_Object = 6 And T1.class = 'Identifier', 1, 0)
+  , is_6_IdentifierList = Iif(T1.RowNumber_per_Object = 6 And T1.class = 'IdentifierList', 1, 0)
+  , is_7_from           = Iif(T1.RowNumber_per_Object = 7 And T1.normalized = 'FROM', 1, 0)
+  , is_7_IdentifierList = Iif(T1.RowNumber_per_Object = 7 And T1.class = 'IdentifierList', 1, 0)
+  , is_8_IdentifierList = Iif(T1.RowNumber_per_Object = 8 And T1.class = 'IdentifierList', 1, 0)
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children T1;
+    sqlparse.RepoObject_SqlModules_20_statement_children As T1
 Go
 
 Execute sp_addextendedproperty

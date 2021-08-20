@@ -1,23 +1,24 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_31_object
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_31_object
 As
 --
 Select
     RepoObject_guid
-  , Max ( SysObject_fullname )  As SysObject_fullname
-  , Max ( is_1_create )         As is_1_create
-  , Max ( is_2_view )           As is_2_view
-  , Max ( is_3_Identifier )     As is_3_Identifier
-  , Max ( is_4_as )             As is_4_as
-  , Max ( is_5_select )         As is_5_select
-  , Max ( is_6_Identifier )     As is_6_Identifier
-  , Max ( is_6_IdentifierList ) As is_6_IdentifierList
-  , Max ( is_7_from )           As is_7_from
-  , Max ( is_7_IdentifierList ) As is_7_IdentifierList
-  , Max ( is_8_IdentifierList ) As is_8_IdentifierList
+  , SysObject_fullname  = Max ( SysObject_fullname )
+  , is_1_create         = Max ( is_1_create )
+  , is_2_view           = Max ( is_2_view )
+  , is_3_Identifier     = Max ( is_3_Identifier )
+  , is_4_as             = Max ( is_4_as )
+  , is_5_select         = Max ( is_5_select )
+  , is_6_Identifier     = Max ( is_6_Identifier )
+  , is_6_IdentifierList = Max ( is_6_IdentifierList )
+  , is_7_from           = Max ( is_7_from )
+  , is_7_IdentifierList = Max ( is_7_IdentifierList )
+  , is_8_IdentifierList = Max ( is_8_IdentifierList )
 From
-    [sqlparse].RepoObject_SqlModules_21_statement_children_helper
+    sqlparse.RepoObject_SqlModules_21_statement_children_helper
 Group By
-    RepoObject_guid;
+    RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

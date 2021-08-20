@@ -1,45 +1,46 @@
 ﻿
-CREATE View [reference].[RepoObjectColumn_RelationScript]
+
+CREATE View reference.RepoObjectColumn_RelationScript
 As
 --
 Select
     Distinct
     --
-    referenced_RepoObject_guid
-  , referencing_RepoObject_guid
+    rocu.referenced_RepoObject_guid
+  , rocu.referencing_RepoObject_guid
   , DbmlRelation = Concat (
                               'Ref'
                             , ': '
                             , QuoteName (
-                                            QuoteName ( referencing_schema_name ) + '.'
-                                            + QuoteName ( referencing_entity_name )
+                                            QuoteName ( rocu.referencing_schema_name ) + '.'
+                                            + QuoteName ( rocu.referencing_entity_name )
                                           , '"'
                                         )
                             , '."'
-                            , referencing_column_name
+                            , rocu.referencing_column_name
                             , '"'
                             --<: one-to-many. E.g: users.id < posts.user_id
                             -->: many-to-one. E.g: posts.user_id > users.id
                             ---: one-to-one. E.g: users.id - user_infos.user_id
                             , ' > '
                             , QuoteName (
-                                            QuoteName ( referenced_schema_name ) + '.'
-                                            + QuoteName ( referenced_entity_name )
+                                            QuoteName ( rocu.referenced_schema_name ) + '.'
+                                            + QuoteName ( rocu.referenced_entity_name )
                                           , '"'
                                         )
                             , '."'
-                            , referenced_column_name
+                            , rocu.referenced_column_name
                             , '"'
                           )
 From
-    [reference].RepoObjectColumn_reference_T As rocu
+    reference.RepoObjectColumn_reference_T As rocu
     Inner Join
-        repo.RepoObjectColumn             As roc1
+        repo.RepoObjectColumn              As roc1
             On
             roc1.RepoObjectColumn_guid = rocu.referencing_RepoObjectColumn_guid
 
     Inner Join
-        repo.RepoObjectColumn             As roc2
+        repo.RepoObjectColumn              As roc2
             On
             roc2.RepoObjectColumn_guid = rocu.referenced_RepoObjectColumn_guid
 Where
@@ -47,7 +48,7 @@ Where
     roc1.is_RepoObjectColumn_name_uniqueidentifier     = 0
     And roc2.is_RepoObjectColumn_name_uniqueidentifier = 0
     And roc1.is_SysObjectColumn_name_uniqueidentifier  = 0
-    And roc2.is_SysObjectColumn_name_uniqueidentifier  = 0;
+    And roc2.is_SysObjectColumn_name_uniqueidentifier  = 0
 --AND NOT [referenced_RepoObjectColumn_guid] IS NULL
 --AND NOT [referencing_RepoObjectColumn_guid] IS NULL
 Go

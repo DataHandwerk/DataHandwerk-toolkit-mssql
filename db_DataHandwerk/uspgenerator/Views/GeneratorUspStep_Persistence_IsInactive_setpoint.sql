@@ -1,12 +1,13 @@
 ﻿
-CREATE View [uspgenerator].[GeneratorUspStep_Persistence_IsInactive_setpoint]
+
+CREATE View uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint
 As
 With
 ro_u
 As
     (
     Select
-        u.id               As usp_id
+        usp_id               = u.id
       , u.usp_schema
       , u.usp_name
       , ro.is_persistence_check_duplicate_per_pk
@@ -16,64 +17,64 @@ As
       , ro.is_persistence_insert
       , ro.is_persistence_truncate
       , ro.is_persistence_update_changed
-      , ro_s.pk_index_guid As source_pk_index_guid
+      , source_pk_index_guid = ro_s.pk_index_guid
     From
-        repo.RepoObject_gross           As ro
+        repo.RepoObject_gross         As ro
         Inner Join
-            [uspgenerator].GeneratorUsp As u
+            uspgenerator.GeneratorUsp As u
                 On
                 ro.RepoObject_schema_name   = u.usp_schema
                 And ro.usp_persistence_name = u.usp_name
 
         Left Join
-            repo.RepoObject_gross       As ro_s
+            repo.RepoObject_gross     As ro_s
                 On
                 ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
     )
 Select
     --check for empty source
-    usp_id
-  , Number              = 100
-  , is_inactive         = Case is_persistence_check_for_empty_source
-                              When 1
-                                  Then
-                                  0
-                              Else
-                                  1
-                          End
-  , source_pk_index_guid -- required only for debugging
+    ro_u.usp_id
+  , Number      = 100
+  , is_inactive = Case ro_u.is_persistence_check_for_empty_source
+                      When 1
+                          Then
+                          0
+                      Else
+                          1
+                  End
+  , ro_u.source_pk_index_guid -- required only for debugging
 From
     ro_u
 Union All
 Select
     --check duplicate per PK
     --also check existing PK
-    usp_id
-  , Number              = 300
-  , is_inactive         = Case
-                              When is_persistence_check_duplicate_per_pk = 1
-                                   And Not ( source_pk_index_guid Is Null )
-                                  Then
-                                  0
-                              Else
-                                  1
-                          End
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 300
+  , is_inactive = Case
+                      When ro_u.is_persistence_check_duplicate_per_pk = 1
+                           And Not ( ro_u.source_pk_index_guid Is Null )
+                          Then
+                          0
+                      Else
+                          1
+                  End
+  , ro_u.source_pk_index_guid
 From
     ro_u
 Union All
 Select
     --truncate persistence target
-    usp_id
-  , Number              = 400
-  , is_inactive         = Case is_persistence_truncate
-                              When 1
-                                  Then
-                                  0
-                              Else
-                                  1
-                          End
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 400
+  , is_inactive = Case ro_u.is_persistence_truncate
+                      When 1
+                          Then
+                          0
+                      Else
+                          1
+                  End
+  , ro_u.source_pk_index_guid
 From
     ro_u
 Union All
@@ -81,18 +82,18 @@ Select
     --delete persistence target missing in source
     --also do not delete if truncate, because there is nothing to delete after truncate
     --also check existing PK
-    usp_id
-  , Number              = 500
-  , is_inactive         = Case
-                              When is_persistence_truncate = 1
-                                   Or is_persistence_delete_missing = 0
-                                   Or source_pk_index_guid Is Null
-                                  Then
-                                  1
-                              Else
-                                  0
-                          End
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 500
+  , is_inactive = Case
+                      When ro_u.is_persistence_truncate = 1
+                           Or ro_u.is_persistence_delete_missing = 0
+                           Or ro_u.source_pk_index_guid Is Null
+                          Then
+                          1
+                      Else
+                          0
+                  End
+  , ro_u.source_pk_index_guid
 From
     ro_u
 Union All
@@ -100,18 +101,18 @@ Select
     --delete persistence target changed
     --also do not delete if truncate, because there is nothing to delete after truncate
     --also check existing PK
-    usp_id
-  , Number              = 550
-  , is_inactive         = Case
-                              When is_persistence_truncate = 1
-                                   Or is_persistence_delete_changed = 0
-                                   Or source_pk_index_guid Is Null
-                                  Then
-                                  1
-                              Else
-                                  0
-                          End
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 550
+  , is_inactive = Case
+                      When ro_u.is_persistence_truncate = 1
+                           Or ro_u.is_persistence_delete_changed = 0
+                           Or ro_u.source_pk_index_guid Is Null
+                          Then
+                          1
+                      Else
+                          0
+                  End
+  , ro_u.source_pk_index_guid
 From
     ro_u
 Union All
@@ -119,19 +120,19 @@ Select
     --update changed
     --also du not update after deleting changed or after truncate, because there is nothing to update
     --also check existing PK
-    usp_id
-  , Number              = 600
-  , is_inactive         = Case
-                              When is_persistence_truncate = 1
-                                   Or is_persistence_delete_changed = 1
-                                   Or is_persistence_update_changed = 0
-                                   Or source_pk_index_guid Is Null
-                                  Then
-                                  1
-                              Else
-                                  0
-                          End
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 600
+  , is_inactive = Case
+                      When ro_u.is_persistence_truncate = 1
+                           Or ro_u.is_persistence_delete_changed = 1
+                           Or ro_u.is_persistence_update_changed = 0
+                           Or ro_u.source_pk_index_guid Is Null
+                          Then
+                          1
+                      Else
+                          0
+                  End
+  , ro_u.source_pk_index_guid
 From
     ro_u
 Union All
@@ -139,18 +140,18 @@ Select
     --insert missing
     --don't do this, if 'insert all' (in case of truncate)
     --also check existing PK
-    usp_id
-  , Number              = 700
-  , is_inactive         = Case
-                              When is_persistence_insert = 1
-                                   And Not is_persistence_truncate = 1
-                                   And Not ( source_pk_index_guid Is Null )
-                                  Then
-                                  0
-                              Else
-                                  1
-                          End
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 700
+  , is_inactive = Case
+                      When ro_u.is_persistence_insert = 1
+                           And Not ro_u.is_persistence_truncate = 1
+                           And Not ( ro_u.source_pk_index_guid Is Null )
+                          Then
+                          0
+                      Else
+                          1
+                  End
+  , ro_u.source_pk_index_guid
 From
     ro_u
 Union All
@@ -158,29 +159,29 @@ Select
     --insert all
     --only in combination with truncate
     --possible enhancement: maybe some delete all is required, if truncate is not possible?
-    usp_id
-  , Number              = 800
-  , is_inactive         = Case
-                              When is_persistence_truncate = 1
-                                   And is_persistence_insert = 1
-                                  Then
-                                  0
-                              Else
-                                  1
-                          End
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 800
+  , is_inactive = Case
+                      When ro_u.is_persistence_truncate = 1
+                           And ro_u.is_persistence_insert = 1
+                          Then
+                          0
+                      Else
+                          1
+                  End
+  , ro_u.source_pk_index_guid
 From
     ro_u
 Union All
 Select
     --todo:
     --merge
-    usp_id
-  , Number              = 900
-  , is_inactive         = 1
-  , source_pk_index_guid
+    ro_u.usp_id
+  , Number      = 900
+  , is_inactive = 1
+  , ro_u.source_pk_index_guid
 From
-    ro_u;
+    ro_u
 Go
 
 Execute sp_addextendedproperty

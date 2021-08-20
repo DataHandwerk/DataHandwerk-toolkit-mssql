@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 Was ist der Sinn dieser Sicht?
 
@@ -32,28 +33,28 @@ ORDER BY
          [Anz] DESC
 
 */
-CREATE View [repo].[IndexReferencedReferencing]
+CREATE View repo.IndexReferencedReferencing
 As
 --
 Select
-    i_s.index_guid             As source_index_guid
+    source_index_guid             = i_s.index_guid
   , ror.referencing_RepoObject_guid
-  , i_v.RowNumberInReferencing As RowNumberInReferencing_Target
-  , i_s.index_type             As source_index_type
+  , RowNumberInReferencing_Target = i_v.RowNumberInReferencing
+  , source_index_type             = i_s.index_type
   , ror.referenced_RepoObject_guid
-  , i_v.referenced_index_guid  As referenced_index_guid
+  , referenced_index_guid         = i_v.referenced_index_guid
 From
-    repo.Index_union                    As i_s --index source: index in referenced source object(s)
+    repo.Index_union                     As i_s --index source: index in referenced source object(s)
     Inner Join
-        [reference].RepoObject_reference_T As ror
+        reference.RepoObject_reference_T As ror
             On
             ror.referenced_RepoObject_guid = i_s.parent_RepoObject_guid
 
     Left Join
-        repo.Index_virtual              As i_v
+        repo.Index_virtual               As i_v
             On
             i_v.referenced_index_guid      = i_s.index_guid
-            And i_v.parent_RepoObject_guid = ror.referencing_RepoObject_guid;
+            And i_v.parent_RepoObject_guid = ror.referencing_RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

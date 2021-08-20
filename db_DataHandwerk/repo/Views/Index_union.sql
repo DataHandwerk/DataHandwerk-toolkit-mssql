@@ -1,4 +1,5 @@
-﻿Create View repo.Index_union
+﻿
+CREATE View repo.Index_union
 As
 --
 Select
@@ -13,9 +14,9 @@ Select
   , referenced_index_guid = Null
   , is_index_real         = Cast(1 As Bit)
 From
-    repo_sys.Index_unique                        T1
+    repo_sys.Index_unique                        As T1
     Left Join
-        repo.Index_unique_IndexPatternColumnGuid T2
+        repo.Index_unique_IndexPatternColumnGuid As T2
             On
             T2.index_guid = T1.index_guid
 Union All
@@ -31,11 +32,11 @@ Select
   , T1.referenced_index_guid
   , is_index_real = Cast(0 As Bit)
 From
-    repo.Index_virtual                            T1
+    repo.Index_virtual                            As T1
     Left Join
-        repo.Index_virtual_IndexPatternColumnGuid T2
+        repo.Index_virtual_IndexPatternColumnGuid As T2
             On
-            T2.index_guid = T1.index_guid;
+            T2.index_guid = T1.index_guid
 Go
 
 Execute sp_addextendedproperty

@@ -1,9 +1,10 @@
 ﻿
+
 /*
 can be used to update data in repo.Index_virtual
 the RepoObject names are shown, can be used for sorting
 */
-Create View repo.Index_virtual_ForUpdate
+CREATE View repo.Index_virtual_ForUpdate
 As
 Select
     iv.index_guid
@@ -33,14 +34,14 @@ From
             ro.RepoObject_guid     = iv.parent_RepoObject_guid
 
     Left Join
-        repo.Index_Settings   iset
+        repo.Index_Settings   As iset
             On
             iset.index_guid        = iv.index_guid
 
     Left Join
         repo.RepoObject_gross As parent
             On
-            parent.RepoObject_guid = iv.parent_RepoObject_guid;
+            parent.RepoObject_guid = iv.parent_RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

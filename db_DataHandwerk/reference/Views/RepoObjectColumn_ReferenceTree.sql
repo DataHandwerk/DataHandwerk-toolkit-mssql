@@ -1,11 +1,12 @@
-﻿--Attention with *, if the source changes!
-CREATE View [reference].[RepoObjectColumn_ReferenceTree]
+﻿
+--Attention with *, if the source changes!
+CREATE View reference.RepoObjectColumn_ReferenceTree
 As
 Select
     tree.*
 From
-    repo.RepoObjectColumn                                                                                As roc
-    Cross Apply [reference].ftv_RepoObjectColumn_ReferenceTree ( roc.RepoObjectColumn_guid, 1000, 1000 ) As tree;
+    repo.RepoObjectColumn                                                                              As roc
+    Cross Apply reference.ftv_RepoObjectColumn_ReferenceTree ( roc.RepoObjectColumn_guid, 1000, 1000 ) As tree
 Go
 
 Execute sp_addextendedproperty

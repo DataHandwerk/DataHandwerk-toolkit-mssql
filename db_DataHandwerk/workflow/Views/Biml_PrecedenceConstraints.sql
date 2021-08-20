@@ -1,4 +1,5 @@
-﻿Create   View workflow.Biml_PrecedenceConstraints
+﻿
+CREATE View workflow.Biml_PrecedenceConstraints
 As
 Select
     Workflow_id
@@ -12,10 +13,10 @@ Select
   + Char ( 13 ) + Char ( 10 ) + '      </Inputs>' + Char ( 13 ) + Char ( 10 ) + '    </PrecedenceConstraints>'
   + Char ( 13 ) + Char ( 10 )
 From
-    workflow.[Workflow_ProcedureDependency_T_TaskName]
+    workflow.Workflow_ProcedureDependency_T_TaskName
 Group By
     Workflow_id
-  , referencing_Procedure_RepoObject_guid;
+  , referencing_Procedure_RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a4bcd983-91fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Biml_PrecedenceConstraints';
 

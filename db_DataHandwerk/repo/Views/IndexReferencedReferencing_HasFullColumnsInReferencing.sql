@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 HasFullColumnsInReferencing:
 Filter repo.IndexReferencedReferencing
@@ -25,7 +26,7 @@ How we could / should create a missing but possible [repo].[Index_virtual].[refe
 => in usp_index_inheritance
 not only insert, but also update of [repo].[Index_virtual].[referenced_index_guid] if it is NULL but it has a source_index here in this view
 */
-Create View repo.IndexReferencedReferencing_HasFullColumnsInReferencing
+CREATE View repo.IndexReferencedReferencing_HasFullColumnsInReferencing
 As
 --
 Select
@@ -50,7 +51,7 @@ From
         repo.Index_referencing_IndexPatternColumnGuid                        As T3
             On
             T3.source_index_guid               = T1.source_index_guid
-            And T3.referencing_RepoObject_guid = T1.referencing_RepoObject_guid;
+            And T3.referencing_RepoObject_guid = T1.referencing_RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

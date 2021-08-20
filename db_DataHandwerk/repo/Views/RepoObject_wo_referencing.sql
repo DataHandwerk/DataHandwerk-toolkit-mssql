@@ -1,4 +1,5 @@
-﻿Create View repo.RepoObject_wo_referencing
+﻿
+CREATE View repo.RepoObject_wo_referencing
 As
 Select
     T1.RepoObject_guid

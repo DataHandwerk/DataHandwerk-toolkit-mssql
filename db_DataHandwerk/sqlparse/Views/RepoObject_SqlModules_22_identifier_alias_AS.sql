@@ -1,4 +1,5 @@
 ﻿
+
 /*
 this works good for identifier, used in the FROM block of a statement:
 it looks like these identifiers have only one child and inside this one child only one child identifier which is the alias
@@ -8,7 +9,7 @@ by filtering ([RowNumber] = 1) in some next steps we ensure one entry per ([Repo
 But we have also a lot of other representations of tables, especially because of the (NOLOCK)
 and we need some extra handling to extract them
 */
-Create View [sqlparse].RepoObject_SqlModules_22_identifier_alias_AS
+CREATE View sqlparse.RepoObject_SqlModules_22_identifier_alias_AS
 As
 --
 Select
@@ -19,11 +20,11 @@ Select
   , identifier_alias = T2.normalized
   , RowNumber        = Row_Number () Over ( Partition By T1.RepoObject_guid, T1.json_key Order By T2.json_key )
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children As T1
-    Cross Apply [sqlparse].ftv_sqlparse ( T1.children )    As T2
+    sqlparse.RepoObject_SqlModules_20_statement_children As T1
+    Cross Apply sqlparse.ftv_sqlparse ( T1.children )    As T2
 Where
     T1.class     = 'Identifier'
-    And T2.class = 'Identifier';
+    And T2.class = 'Identifier'
 Go
 
 Execute sp_addextendedproperty

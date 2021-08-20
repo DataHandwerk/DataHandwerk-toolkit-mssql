@@ -1,4 +1,5 @@
 ﻿
+
 /*
 check
 
@@ -152,7 +153,7 @@ Select
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
 From
-    reference.RepoObjectColumn_reference_virtual;
+    reference.RepoObjectColumn_reference_virtual
 
 --UNION ALL
 ----repo.RepoObjectColumn_reference__first_result_set

@@ -1,5 +1,6 @@
 ﻿
-CREATE View [reference].[RepoObject_reference_T_bidirectional]
+
+CREATE View reference.RepoObject_reference_T_bidirectional
 As
 Select
     T1.referenced_RepoObject_guid
@@ -14,10 +15,10 @@ Select
   , T1.referenced_fullname2
   , T1.referencing_fullname
   , T1.referencing_fullname2
-  , rop1.is_persistence         As referenced_is_persistence
-  , rop1.source_RepoObject_guid As referenced_source_RepoObject_guid
-  , rop2.is_persistence         As referencing_is_persistence
-  , rop2.source_RepoObject_guid As referencing_source_RepoObject_guid
+  , referenced_is_persistence          = rop1.is_persistence
+  , referenced_source_RepoObject_guid  = rop1.source_RepoObject_guid
+  , referencing_is_persistence         = rop2.is_persistence
+  , referencing_source_RepoObject_guid = rop2.source_RepoObject_guid
 From
     reference.RepoObject_reference_T     As T1
     Inner Join
@@ -27,14 +28,14 @@ From
             And T1.referencing_RepoObject_guid = T2.referenced_RepoObject_guid
 
     Left Join
-        [repo].[RepoObject_persistence]  rop1
+        repo.RepoObject_persistence      As rop1
             On
             rop1.target_RepoObject_guid        = T1.referenced_RepoObject_guid
 
     Left Join
-        [repo].[RepoObject_persistence]  rop2
+        repo.RepoObject_persistence      As rop2
             On
-            rop2.target_RepoObject_guid        = T1.referencing_RepoObject_guid;
+            rop2.target_RepoObject_guid        = T1.referencing_RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7ce72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_T_bidirectional';
 

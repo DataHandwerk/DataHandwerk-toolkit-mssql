@@ -1,11 +1,12 @@
 ﻿
 
-CREATE View [reference].[RepoObject_reference_virtual]
+
+CREATE View reference.RepoObject_reference_virtual
 As
 --
 Select
     --
-    referenced_RepoObject_guid  = rov.source_RepoObject_guid
+    referenced_RepoObject_guid  = rov.Source_RepoObject_guid
   , referencing_RepoObject_guid = rov.RepoObject_guid
   , referenced_entity_name      = ro_s.SysObject_name
   , referenced_fullname         = ro_s.RepoObject_fullname
@@ -30,7 +31,7 @@ From
     Inner Join
         repo.RepoObject                As ro_s
             On
-            ro_s.RepoObject_guid = rov.source_RepoObject_guid;
+            ro_s.RepoObject_guid = rov.Source_RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5a77342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_virtual', @level2type = N'COLUMN', @level2name = N'InformationSource';
 

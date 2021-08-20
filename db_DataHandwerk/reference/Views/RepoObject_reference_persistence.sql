@@ -1,5 +1,6 @@
 ﻿
-CREATE View [reference].[RepoObject_reference_persistence]
+
+CREATE View reference.RepoObject_reference_persistence
 As
 --
 Select
@@ -29,7 +30,7 @@ From
     Inner Join
         repo.RepoObject         As ro_s
             On
-            ro_s.RepoObject_guid = rop.source_RepoObject_guid;
+            ro_s.RepoObject_guid = rop.source_RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

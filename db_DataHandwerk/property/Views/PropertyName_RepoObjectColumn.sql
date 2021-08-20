@@ -1,22 +1,23 @@
-﻿CREATE View [property].PropertyName_RepoObjectColumn
+﻿
+CREATE View property.PropertyName_RepoObjectColumn
 As
 Select
     Distinct
     --
     property_name
 From
-    [property].RepoObjectColumnProperty
+    property.RepoObjectColumnProperty
 Union
 Select
     Distinct
     --
     sub_Parameter
 From
-    [config].Parameter
+    config.Parameter
 Where
     Parameter_name In
     ( 'Inheritance_StringAggSeparatorSql_column', 'InheritanceDefinition_column', 'InheritanceType_column' )
-    And sub_Parameter <> '';
+    And sub_Parameter <> ''
 Go
 
 Execute sp_addextendedproperty

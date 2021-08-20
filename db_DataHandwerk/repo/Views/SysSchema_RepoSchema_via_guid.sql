@@ -1,16 +1,17 @@
 ﻿
-create View repo.SysSchema_RepoSchema_via_guid
+
+CREATE View repo.SysSchema_RepoSchema_via_guid
 As
 --
 Select
     ss.SysSchema_id
   , ss.SysSchema_name
-  , ss.SysSchema_RepoSchema_guid As SysSchema_RepoSchema_guid
-  , rs.RepoSchema_guid           As RepoSchema_guid
+  , SysSchema_RepoSchema_guid       = ss.SysSchema_RepoSchema_guid
+  , RepoSchema_guid                 = rs.RepoSchema_guid
   , rs.RepoSchema_name
-  , rs.SysSchema_id              As RepoSchema_SysSchema_id
-  , rs.SysSchema_name            As RepoSchema_SysSchema_name
-  , rs.is_SysSchema_missing      As RepoSchema_is_SysSchema_missing
+  , RepoSchema_SysSchema_id         = rs.SysSchema_id
+  , RepoSchema_SysSchema_name       = rs.SysSchema_name
+  , RepoSchema_is_SysSchema_missing = rs.is_SysSchema_missing
   , rs.is_RepoSchema_name_uniqueidentifier
   , rs.is_SysSchema_name_uniqueidentifier
 From
@@ -18,7 +19,7 @@ From
     Left Outer Join
         repo.RepoSchema As rs
             On
-            ss.SysSchema_RepoSchema_guid = rs.RepoSchema_guid;
+            ss.SysSchema_RepoSchema_guid = rs.RepoSchema_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cd0747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysSchema_RepoSchema_via_guid', @level2type = N'COLUMN', @level2name = N'is_SysSchema_name_uniqueidentifier';
 

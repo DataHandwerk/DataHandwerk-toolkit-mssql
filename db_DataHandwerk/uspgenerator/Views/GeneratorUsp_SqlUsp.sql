@@ -1,14 +1,15 @@
 ﻿
+
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
 - [repo].[GeneratorUspParameter]
 - [repo].[GeneratorUspStep]
 */
-CREATE View [uspgenerator].[GeneratorUsp_SqlUsp]
+CREATE View uspgenerator.GeneratorUsp_SqlUsp
 As
 Select
-    u.id           As usp_id
+    usp_id         = u.id
   , SqlUsp         = Concat (
                                 'USE  ['
                               , dwhdb.dwh_database_name
@@ -170,22 +171,22 @@ GO
   , SqlStepList    = StepList.StepList
   , ro.RepoObject_guid
 From
-    [uspgenerator].GeneratorUsp                   As u
+    uspgenerator.GeneratorUsp                   As u
     Left Join
-        [uspgenerator].GeneratorUsp_ParameterList As ParameterList
+        uspgenerator.GeneratorUsp_ParameterList As ParameterList
             On
             ParameterList.usp_id = u.id
 
     Left Join
-        [uspgenerator].GeneratorUsp_StepList      As StepList
+        uspgenerator.GeneratorUsp_StepList      As StepList
             On
             StepList.usp_id = u.id
 
     Left Join
-        repo.RepoObject                 ro
+        repo.RepoObject                         As ro
             On
             ro.RepoObject_fullname = u.usp_fullname
-    Cross Join [config].ftv_dwh_database () As dwhdb;
+    Cross Join config.ftv_dwh_database ()       As dwhdb
 Go
 
 Execute sp_addextendedproperty

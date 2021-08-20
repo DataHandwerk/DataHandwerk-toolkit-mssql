@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 cyclic references:
 
 the same RepoObject_guid has the same references backward and forward: in _30_0 and in _0_30 +
@@ -10,22 +11,22 @@ goals of this view:
 * solving the issues in PUML reference diagrams and workflow generator
 */
 
-Create View reference.RepoObject_ReferenceTree_cyclic
+CREATE View reference.RepoObject_ReferenceTree_cyclic
 As
 Select
     T1.RepoObject_guid
   , T1.Referencing_guid
   , T1.Referenced_guid
-  , T1.Referenced_Depth  As Referenced_Depth_30_0
+  , Referenced_Depth_30_0  = T1.Referenced_Depth
   , T1.Referenced_fullname
   , T1.Referenced_fullname2
   , T1.Referenced_type
-  , T1.Referencing_Depth As Referencing_Depth_30_0
+  , Referencing_Depth_30_0 = T1.Referencing_Depth
   , T1.Referencing_fullname
   , T1.Referencing_fullname2
   , T1.Referencing_type
-  , T2.Referenced_Depth  As Referenced_Depth_0_30
-  , T2.Referencing_Depth As Referencing_Depth_0_30
+  , Referenced_Depth_0_30  = T2.Referenced_Depth
+  , Referencing_Depth_0_30 = T2.Referencing_Depth
 From
     reference.RepoObject_ReferenceTree_30_0_T     As T1
     Inner Join
@@ -33,7 +34,7 @@ From
             On
             T1.RepoObject_guid      = T2.RepoObject_guid
             And T1.Referencing_guid = T2.Referencing_guid
-            And T1.Referenced_guid  = T2.Referenced_guid;
+            And T1.Referenced_guid  = T2.Referenced_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7de72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_cyclic';
 

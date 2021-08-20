@@ -1,12 +1,13 @@
 ﻿
-Create View repo_sys.SysSchema
+
+CREATE View repo_sys.SysSchema
 As
 --
 Select
-    sch.schema_id                                   As SysSchema_id
-  , sch.name Collate Database_Default               As SysSchema_name
-  , sch.principal_id                                As SysSchema_principal_id
-  , Try_Cast(ep.property_value As UniqueIdentifier) As SysSchema_RepoSchema_guid
+    SysSchema_id              = sch.schema_id
+  , SysSchema_name            = sch.name Collate Database_Default
+  , SysSchema_principal_id    = sch.principal_id
+  , SysSchema_RepoSchema_guid = Try_Cast(ep.property_value As UniqueIdentifier)
 From
     sys_dwh.schemas                 As sch
     Left Outer Join

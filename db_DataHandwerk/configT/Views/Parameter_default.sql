@@ -268,15 +268,27 @@ skinparam class {
   BackgroundColor<<X>> Aqua
 }
 ' As NVarchar(4000))
+--Union All
+--Select
+--    Parameter_name          = 'AntoraDocModulFolder'
+--  , sub_Parameter           = N''
+--  , Parameter_desciption    = N'Antora export folder, will be extended by ''partials\'', ''pages\'', ''examples\'', ''images\'' and so on'
+--  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb\' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'Adoc_AntoraDocModulFolder'
+    Parameter_name          = 'AntoraModulName'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'Antora export folder, will be extended by ''partials\'', ''pages\'', ''examples\'', ''images\'' and so on'
-  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb\' As NVarchar(4000))
+  , Parameter_desciption    = N'Antora: named modul to contain the exported documentation.'
+  , Parameter_default_value = Cast(N'sqldb' As NVarchar(200))
 Union All
 Select
-    Parameter_name          = 'Adoc_AntoraPageTemplate'
+    Parameter_name          = 'AntoraModulFolder'
+  , sub_Parameter           = N''
+  , Parameter_desciption    = N'Antora modul export folder, will be extended by AntoraModulName and on next level by ''partials\'', ''pages\'', ''examples\'', ''images\'''
+  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\' As NVarchar(4000))
+Union All
+Select
+    Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'content of an final Antora Page'
   , Parameter_default_value = Cast(N'
@@ -287,7 +299,7 @@ include::partial$template/master-page-5.adoc[]
 ' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'Adoc_AntoraPageTemplate'
+    Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'1'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
   , Parameter_default_value = Cast(N'= {docname}
@@ -319,7 +331,7 @@ endif::ExistsProperty--ms_description[]
 ' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'Adoc_AntoraPageTemplate'
+    Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'4'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
   , Parameter_default_value = Cast(N'
@@ -422,7 +434,7 @@ endif::ExistsProperty--FK[]
 ' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'Adoc_AntoraPageTemplate'
+    Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'5'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
   , Parameter_default_value = Cast(N'
@@ -501,51 +513,27 @@ endif::ExistsProperty--sql_modules_definition[]
 ' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'Adoc_AntoraDocSnippet'
+    Parameter_name          = 'AntoraDocSnippet'
   , sub_Parameter           = N'antora-export-prerequisites'
   , Parameter_desciption    = N'Documentation snippet for Antora export documentation.'
   , Parameter_default_value = Cast(N'
 [discrete]
 === Prerequisites
 
-* export folders should exist, no error message is generated, if they are missing
-+
-[source,sql]
-----
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''pages\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''pages\index\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''pages\nav\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\docsnippet\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\navlist\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\puml\entity_0_30_objectref\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\puml\entity_1_1_colref\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\puml\entity_1_1_fk\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\puml\entity_1_1_objectref\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\puml\entity_30_0_objectref\''
-UNION ALL
-SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocModulFolder'', '''')
-+ ''partials\template\''
-----
-+
+* export folders should exist in the Antora modul folder, no error message is generated, if they are missing
+** pages
+*** index
+*** nav
+** partials
+*** docsnippet
+*** navlist
+*** puml
+**** entity_0_30_objectref
+**** entity_1_1_colref
+**** entity_1_1_fk
+**** entity_1_1_objectref
+**** entity_30_0_objectref
+*** template
 * uses `xp_cmdshell`, to call `bcp`, you need to enable:
 +
 ====

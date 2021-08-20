@@ -1,31 +1,32 @@
 ﻿
+
 /*
 wofür soll diese Sicht verwendet werden?
 noch nicht fertig
 */
-Create View repo.RepoObject_persistence_column
+CREATE View repo.RepoObject_persistence_column
 As
 --
 Select
     rop.target_RepoObject_guid
   , rop.source_RepoObject_guid
-  , roc_s.RepoObjectColumn_guid As RepoObjectColumn_guid_s
-  , ro_s.SysObject_schema_name  As SysObject_schema_name_s
-  , ro_s.SysObject_name         As SysObject_name_s
-  , roc_s.SysObjectColumn_name  As SysObjectColumn_name_s
-  , ro_s.SysObject_type         As SysObject_type_s
-  , ro_t.RepoObject_schema_name As RepoObject_schema_name_t
-  , ro_t.RepoObject_name        As RepoObject_name_t
-  , roc_t.RepoObjectColumn_name As RepoObjectColumn_name_t
-  , ro_t.RepoObject_type        As RepoObject_type_t
-  , ro_t.is_repo_managed        As is_repo_managed_t
+  , RepoObjectColumn_guid_s  = roc_s.RepoObjectColumn_guid
+  , SysObject_schema_name_s  = ro_s.SysObject_schema_name
+  , SysObject_name_s         = ro_s.SysObject_name
+  , SysObjectColumn_name_s   = roc_s.SysObjectColumn_name
+  , SysObject_type_s         = ro_s.SysObject_type
+  , RepoObject_schema_name_t = ro_t.RepoObject_schema_name
+  , RepoObject_name_t        = ro_t.RepoObject_name
+  , RepoObjectColumn_name_t  = roc_t.RepoObjectColumn_name
+  , RepoObject_type_t        = ro_t.RepoObject_type
+  , is_repo_managed_t        = ro_t.is_repo_managed
   , rop.is_persistence_truncate
   , rop.is_persistence_delete_missing
   , rop.is_persistence_delete_changed
   , rop.is_persistence_update_changed
   , rop.is_persistence_insert
-  , rop.has_history             As has_history
-  , rop.has_history_columns     As has_history_columns
+  , has_history              = rop.has_history
+  , has_history_columns      = rop.has_history_columns
   , rop.is_persistence_check_for_empty_source
   , rop.history_schema_name
   , rop.history_table_name
@@ -77,7 +78,7 @@ From
         repo.RepoObjectColumn   As roc_t
             On
             roc_t.RepoObject_guid                              = rop.target_RepoObject_guid
-            And roc_t.persistence_source_RepoObjectColumn_guid = roc_s.RepoObjectColumn_guid;
+            And roc_t.persistence_source_RepoObjectColumn_guid = roc_s.RepoObjectColumn_guid
 Go
 
 Execute sp_addextendedproperty

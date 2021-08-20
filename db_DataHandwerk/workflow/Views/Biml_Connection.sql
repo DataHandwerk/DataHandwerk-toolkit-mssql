@@ -1,23 +1,24 @@
 ﻿
 
-Create View [workflow].[Biml_Connection]
+
+CREATE View workflow.Biml_Connection
 As
 Select
     ConnectionName_Biml   = String_Agg (
-                                           '<Connection ConnectionName="' + T1.[ConnectionName] + '" />'
+                                           '<Connection ConnectionName="' + T1.ConnectionName + '" />'
                                          , Char ( 13 ) + Char ( 10 )
                                        ) Within Group(Order By
-                                                          T1.[ConnectionName])
+                                                          T1.ConnectionName)
   , ConnectionString_Biml = String_Agg (
-                                           Cast('<Connection Name="' As NVarchar(Max)) + T1.[ConnectionName]
+                                           Cast('<Connection Name="' As NVarchar(Max)) + T1.ConnectionName
                                            + '" ConnectionString="' + T1.ConnectionString + '" />'
                                          , Char ( 13 ) + Char ( 10 )
                                        ) Within Group(Order By
-                                                          T1.[ConnectionName])
+                                                          T1.ConnectionName)
 From
-    [workflow].[Connection] T1
+    workflow.Connection As T1
 Where
-    T1.[is_active] = 1;
+    T1.is_active = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b066a0a8-e3fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Biml_Connection';
 

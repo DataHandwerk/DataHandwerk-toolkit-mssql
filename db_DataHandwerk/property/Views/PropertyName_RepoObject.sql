@@ -1,4 +1,5 @@
 ﻿
+
 /*
 all used [property_name] in any RepoObject, and additinally some [config].[Parameter].[sub_Parameter]
 */
@@ -8,7 +9,7 @@ As
 Select
     Distinct
     --
-    Trim ( property_name ) As property_name
+    property_name = Trim ( property_name )
 From
     property.RepoObjectProperty
 Union
@@ -21,7 +22,7 @@ From
 Where
     Parameter_name In
     ( 'Inheritance_StringAggSeparatorSql_object', 'InheritanceDefinition_object', 'InheritanceType_object' )
-    And sub_Parameter <> '';
+    And sub_Parameter <> ''
 Go
 
 Execute sp_addextendedproperty

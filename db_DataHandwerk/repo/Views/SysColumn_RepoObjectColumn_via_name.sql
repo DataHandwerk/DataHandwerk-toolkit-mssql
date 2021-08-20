@@ -1,4 +1,5 @@
 ﻿
+
 CREATE View repo.SysColumn_RepoObjectColumn_via_name
 As
 --
@@ -78,7 +79,7 @@ From
         repo.RepoObject       As ro
             On
             --roc.RepoObject_guid          = ro.RepoObject_guid;
-            ro.SysObject_fullname2       = sc.SysObject_fullname2;
+            ro.SysObject_fullname2       = sc.SysObject_fullname2
 Go
 
 Execute sp_addextendedproperty

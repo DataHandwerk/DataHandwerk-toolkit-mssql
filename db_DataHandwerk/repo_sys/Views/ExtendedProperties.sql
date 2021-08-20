@@ -1,3 +1,4 @@
+﻿
 
 /*
 database_id required in
@@ -11,69 +12,69 @@ Select
     sep.class
   , sep.major_id
   , sep.minor_id
-  , sep.name Collate Database_Default As property_name
+  , property_name         = sep.name Collate Database_Default
   , sep.class_desc
-  , sep.value                         As property_value
-  , Case
-        When sep.class In
-        ( 1, 2, 7 )
-            Then
-            Object_Schema_Name ( sep.major_id, db.dwh_database_id )
-        When sep.class = 3
-            Then
-            sch.name
-    End Collate Database_Default      As SysObject_schema_name
-  , Case
-        When sep.class In
-        ( 1, 2, 7 )
-            Then
-            Object_Name ( sep.major_id, db.dwh_database_id )
-    End                               As SysObject_name
-  , Case sep.class
-        When 1
-            Then
-            sc.name
-        When 2
-            Then
-            sp.name
-        When 3
-            Then
-            si.name
-    End Collate Database_Default      As minor_name
-  , Case
-        When sep.class = 1
-            Then
-            sc.name
-    End Collate Database_Default      As entity_column_name
-  , Case
-        When sep.class = 2
-            Then
-            sp.name
-    End Collate Database_Default      As entity_parameter_name
-  , Case
-        When sep.class = 7
-            Then
-            si.name
-    End Collate Database_Default      As entity_index_name
-  , level2type                        = Case
-                                            When sep.class = 1
-                                                 And sep.minor_id > 0
-                                                Then
-                                                'COLUMN'
-                                            When sep.class = 2
-                                                 And sep.minor_id > 0
-                                                Then
-                                                'PARAMETER'
-                                            When sep.class = 7
-                                                 And sep.minor_id > 0
-                                                Then
-                                                'INDEX'
-                                        End
-  , property_basetype                 = Sql_Variant_Property ( sep.value, 'BaseType' )
-  , property_nvarchar                 = Try_Cast(sep.value As NVarchar(4000))
+  , property_value        = sep.value
+  , SysObject_schema_name = Case
+                                When sep.class In
+                                ( 1, 2, 7 )
+                                    Then
+                                    Object_Schema_Name ( sep.major_id, db.dwh_database_id )
+                                When sep.class = 3
+                                    Then
+                                    sch.name
+                            End Collate Database_Default
+  , SysObject_name        = Case
+                                When sep.class In
+                                ( 1, 2, 7 )
+                                    Then
+                                    Object_Name ( sep.major_id, db.dwh_database_id )
+                            End
+  , minor_name            = Case sep.class
+                                When 1
+                                    Then
+                                    sc.name
+                                When 2
+                                    Then
+                                    sp.name
+                                When 3
+                                    Then
+                                    si.name
+                            End Collate Database_Default
+  , entity_column_name    = Case
+                                When sep.class = 1
+                                    Then
+                                    sc.name
+                            End Collate Database_Default
+  , entity_parameter_name = Case
+                                When sep.class = 2
+                                    Then
+                                    sp.name
+                            End Collate Database_Default
+  , entity_index_name     = Case
+                                When sep.class = 7
+                                    Then
+                                    si.name
+                            End Collate Database_Default
+  , level2type            = Case
+                                When sep.class = 1
+                                     And sep.minor_id > 0
+                                    Then
+                                    'COLUMN'
+                                When sep.class = 2
+                                     And sep.minor_id > 0
+                                    Then
+                                    'PARAMETER'
+                                When sep.class = 7
+                                     And sep.minor_id > 0
+                                    Then
+                                    'INDEX'
+                            End
+  , property_basetype     = Sql_Variant_Property ( sep.value, 'BaseType' )
+  , property_nvarchar     = Try_Cast(sep.value As NVarchar(4000))
   , so.parent_object_id
-  , parent_name                       = parent.name
-  , parent_type                       = parent.type
+  , parent_name           = parent.name
+  , parent_type           = parent.type
 -- Explicit conversion from data type int to uniqueidentifier is not allowed.
 --, [property_value_uniqueidentifier] = TRY_CAST([sep].value As UniqueIdentifier)
 From
@@ -113,7 +114,7 @@ From
             And sep.minor_id = 0
             And sep.class = 3
     --
-    Cross Apply config.ftv_dwh_database () As db;
+    Cross Apply config.ftv_dwh_database () As db
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4b90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
 

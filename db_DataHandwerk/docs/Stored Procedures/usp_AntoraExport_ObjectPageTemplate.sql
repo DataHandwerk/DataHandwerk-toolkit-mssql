@@ -90,7 +90,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\template\')
 
 
@@ -104,7 +104,7 @@ DECLARE @Object_fullname NVARCHAR(261);
 DECLARE @Object_fullname2 NVARCHAR(257);
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'1') and other sub_Parameters","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', N'1') and other sub_Parameters","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',410,';',NULL);
 
 DECLARE template_cursor CURSOR Local Fast_Forward
@@ -112,7 +112,7 @@ FOR
 SELECT [sub_Parameter]
 --,[Parameter_value__result_nvarchar]
 FROM [config].[Parameter]
-WHERE [Parameter_name] = 'Adoc_AntoraPageTemplate'
+WHERE [Parameter_name] = 'AntoraPageTemplate'
  AND [sub_Parameter] <> ''
 ORDER BY [sub_Parameter]
 
@@ -126,9 +126,9 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- --bcp "SELECT [config].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\master-page-1.adoc -S localhost\sql2019 -d dhw_self -c -T
+ --bcp "SELECT [config].[fs_get_parameter_value]('AntoraPageTemplate', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\master-page-1.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @BaseFileName + @sub_parameter + '.adoc'
+ SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraPageTemplate'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @BaseFileName + @sub_parameter + '.adoc'
   --
   + ' -S ' + @instanceName
   --
@@ -157,7 +157,7 @@ DEALLOCATE template_cursor
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N''1'') and other sub_Parameters'
+SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', N''1'') and other sub_Parameters'
 SET @source_object = '[repo].[Parameter]'
 SET @target_object = NULL
 
@@ -271,9 +271,9 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* source pages per object are exported into (Adoc_AntoraDocModulFolder)``pages/schemaname.objectname.adoc``
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* source pages per object are exported into (AntoraDocModulFolder)``pages/schemaname.objectname.adoc``
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPage.adoc[]
-** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
+** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
  the default content is (real code without leading ''/''):
 +
 ====
@@ -284,7 +284,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* source pa
 /include::partial$template/master-page-5.adoc[]
 ....
 ====
-** the content of these includes is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraPageTemplate'', ''x'') (*non empty* `Sub_parameter` ''x''). The default for ''x'' are `1` and `2`, these are nvarchar values. You can also use strings like ''part_a'', ''part_b'', but avoild blanks, because these `Sub_parameter` values become filname suffix.
+** the content of these includes is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', ''x'') (*non empty* `Sub_parameter` ''x''). The default for ''x'' are `1` and `2`, these are nvarchar values. You can also use strings like ''part_a'', ''part_b'', but avoild blanks, because these `Sub_parameter` values become filname suffix.
 * the template content is the same for all objects. We use +{docname}+ and get the final content from individual ''partials'' per object. (real code without leading ''/'')
 +
 ====
@@ -357,7 +357,7 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 |410
 |
-*export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N''1'') and other sub_Parameters*
+*export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', N''1'') and other sub_Parameters*
 
 * u
 * [repo].[Parameter]

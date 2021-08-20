@@ -1,4 +1,5 @@
-﻿Create View repo.Index_IndexPattern
+﻿
+CREATE View repo.Index_IndexPattern
 As
 --
 Select
@@ -12,7 +13,7 @@ From
 Where
     Not index_guid Is Null
 Group By
-    index_guid;
+    index_guid
 Go
 
 Execute sp_addextendedproperty

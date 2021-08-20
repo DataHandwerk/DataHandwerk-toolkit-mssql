@@ -1,4 +1,5 @@
-﻿Create View repo.RepoObject_fullname_u_v
+﻿
+CREATE View repo.RepoObject_fullname_u_v
 As
 Select
     RepoObject_fullname
@@ -6,7 +7,7 @@ From
     repo.RepoObject
 Where
     RepoObject_type In
-    ( 'u', 'v' );
+    ( 'u', 'v' )
 Go
 
 Execute sp_addextendedproperty

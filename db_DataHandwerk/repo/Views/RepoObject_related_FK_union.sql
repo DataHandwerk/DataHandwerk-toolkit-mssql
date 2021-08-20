@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 included_RepoObject:
@@ -7,15 +8,15 @@ Relation to themself to ensure, all RO are included into docs
 * relation PK <- FK
 * relation FK -> PK
 */
-Create View repo.RepoObject_related_FK_union
+CREATE View repo.RepoObject_related_FK_union
 As
 Select
-    RepoObject_guid
-  , RepoObject_fullname2
-  , included_RepoObject_guid      = RepoObject_guid
-  , included_RepoObject_fullname2 = RepoObject_fullname2
+    ro.RepoObject_guid
+  , ro.RepoObject_fullname2
+  , included_RepoObject_guid      = ro.RepoObject_guid
+  , included_RepoObject_fullname2 = ro.RepoObject_fullname2
 From
-    repo.RepoObject ro
+    repo.RepoObject As ro
 Where
     ro.RepoObject_type In
     ( 'u', 'v' )
@@ -34,7 +35,7 @@ Select
   , referenced_RepoObject_guid
   , referenced_RepoObject_fullname2
 From
-    repo.ForeignKey_Indexes_union_T;
+    repo.ForeignKey_Indexes_union_T
 Go
 
 Execute sp_addextendedproperty

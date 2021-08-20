@@ -98,19 +98,19 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\puml\entity_1_1_colref\')
 SET @outputDir2 = ISNULL(@outputDir2, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\puml\entity_1_1_objectref\')
 SET @outputDir3 = ISNULL(@outputDir3, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\puml\entity_1_1_fk\')
 SET @outputDir4 = ISNULL(@outputDir4, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\puml\entity_0_30_objectref\')
 SET @outputDir5 = ISNULL(@outputDir5, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\puml\entity_30_0_objectref\')
    
 
@@ -578,7 +578,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
-** individual diagrams per object are exported into (Adoc_AntoraDocModulFolder)``partials/puml/``
+** individual diagrams per object are exported into (AntoraDocModulFolder)``partials/puml/``
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 

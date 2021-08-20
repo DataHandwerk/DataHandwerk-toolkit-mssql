@@ -1,16 +1,17 @@
-﻿CREATE View [workflow].[ProcedureDependency_input_PersistenceDependency]
+﻿
+CREATE View workflow.ProcedureDependency_input_PersistenceDependency
 As
 Select
-    [referenced_Procedure_RepoObject_guid]
-  , [referencing_Procedure_RepoObject_guid]
-  , [is_PersistenceDependency]
+    referenced_Procedure_RepoObject_guid
+  , referencing_Procedure_RepoObject_guid
+  , is_PersistenceDependency
 --, [is_active]
 --, [Description]
 --, [id]
 From
-    [workflow].[ProcedureDependency]
+    workflow.ProcedureDependency
 Where
-    [is_PersistenceDependency] = 1;
+    is_PersistenceDependency = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '99b707fe-71f7-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'ProcedureDependency_input_PersistenceDependency';
 

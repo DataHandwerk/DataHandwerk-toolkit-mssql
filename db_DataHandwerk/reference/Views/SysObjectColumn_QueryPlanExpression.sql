@@ -1,24 +1,25 @@
-﻿CREATE View [reference].SysObjectColumn_QueryPlanExpression
+﻿
+CREATE View reference.SysObjectColumn_QueryPlanExpression
 As
 --
 Select
-    referencing_RepoObject_guid                        As RepoObject_guid
-  , Try_Cast(Right(referencing_column_name, 4) As Int) As SysObjectColumn_column_id
-  , referencing_column_name                            As SysObjectColumn_name
+    RepoObject_guid           = referencing_RepoObject_guid
+  , SysObjectColumn_column_id = Try_Cast(Right(referencing_column_name, 4) As Int)
+  , SysObjectColumn_name      = referencing_column_name
 From
-    [reference].RepoObjectColumn_reference_QueryPlan
+    reference.RepoObjectColumn_reference_QueryPlan
 Where
     is_target_column_name_expression = 1
 Union
 Select
     referenced_RepoObject_guid
-  , Try_Cast(Right(referenced_column_name, 4) As Int) As SysObjectColumn_column_id
+  , SysObjectColumn_column_id = Try_Cast(Right(referenced_column_name, 4) As Int)
   , referenced_column_name
 From
-    [reference].RepoObjectColumn_reference_QueryPlan
+    reference.RepoObjectColumn_reference_QueryPlan
 Where
     is_source_column_name_expression = 1
-    And Not referenced_RepoObject_guid Is Null;
+    And Not referenced_RepoObject_guid Is Null
 Go
 
 Execute sp_addextendedproperty

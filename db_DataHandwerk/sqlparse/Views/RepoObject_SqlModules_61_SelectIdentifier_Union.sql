@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_61_SelectIdentifier_Union
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_61_SelectIdentifier_Union
 As
 Select
     T1.RepoObject_guid
@@ -11,10 +12,10 @@ Select
   , T1.class
   , T1.normalized
 From
-    [sqlparse].RepoObject_SqlModules_52_Identitfier_QuoteName As T1
+    sqlparse.RepoObject_SqlModules_52_Identitfier_QuoteName As T1
     --only SELECT Identifier before FROM
     Inner Join
-        [sqlparse].RepoObject_SqlModules_39_object            As T39
+        sqlparse.RepoObject_SqlModules_39_object            As T39
             On
             T39.RepoObject_guid        = T1.RepoObject_guid
             And T39.Min_RowNumber_From = T1.RowNumber_per_Object + 1
@@ -32,9 +33,9 @@ Select
   , T26.class
   , T26.normalized
 From
-    [sqlparse].RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName As T26
+    sqlparse.RepoObject_SqlModules_26_IdentifierList_children_IdentifierSplit_QuoteName As T26
     Inner Join
-        [sqlparse].RepoObject_SqlModules_39_object                                        As T39
+        sqlparse.RepoObject_SqlModules_39_object                                        As T39
             On
             T26.RepoObject_guid          = T39.RepoObject_guid
             --only default views where SELECT is the 5th element in view definition
@@ -45,7 +46,7 @@ From
             And T39.Min_RowNumber_From   > T26.RowNumber_per_Object
 --source column should exist (it will not exist in case of calculations, functions, ...)
 Where
-    Not T26.Identifier_source_column_QuoteName Is Null;
+    Not T26.Identifier_source_column_QuoteName Is Null
 Go
 
 Execute sp_addextendedproperty

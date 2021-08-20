@@ -1,16 +1,17 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_29_2_object_is_GroupBy
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_29_2_object_is_GroupBy
 As
 --
 Select
     RepoObject_guid
   , has_GroupBy = 1
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children
+    sqlparse.RepoObject_SqlModules_20_statement_children
 Where
     is_keyword     = 1
     And normalized = 'GROUP BY'
 Group By
-    RepoObject_guid;
+    RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

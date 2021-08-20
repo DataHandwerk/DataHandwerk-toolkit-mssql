@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 Sollwert
 jeder Index in [repo].[Index__virtual], der einen [referenced_index_guid] hat, der also geerbt wird
@@ -48,7 +49,7 @@ From
             ic.referencing_RepoObject_guid = i.parent_RepoObject_guid
             --ic.index_guid is the referenced index (source index)
             And ic.index_guid              = i.referenced_index_guid
-            And ic.RowNumberInReferencing  = i.RowNumberInReferencing;
+            And ic.RowNumberInReferencing  = i.RowNumberInReferencing
 Go
 
 Execute sp_addextendedproperty

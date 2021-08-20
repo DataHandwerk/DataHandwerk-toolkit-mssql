@@ -1,21 +1,22 @@
 ﻿
-CREATE View [reference].[RepoObjectColumn_reference]
+
+CREATE View reference.RepoObjectColumn_reference
 As
 Select
     referenced_RepoObjectColumn_guid
   , referencing_RepoObjectColumn_guid
-  , Max ( referenced_RepoObject_guid )                                    As referenced_RepoObject_guid
-  , Max ( referenced_schema_name )                                        As referenced_schema_name
-  , Max ( referenced_entity_name )                                        As referenced_entity_name
-  , Max ( referenced_column_name )                                        As referenced_column_name
-  , Max ( referenced_type )                                               As referenced_type
-  , Max ( referencing_RepoObject_guid )                                   As referencing_RepoObject_guid
-  , Max ( referencing_schema_name )                                       As referencing_schema_name
-  , Max ( referencing_entity_name )                                       As referencing_entity_name
-  , Max ( referencing_column_name )                                       As referencing_column_name
-  , Max ( referencing_type )                                              As referencing_type
-  , Max ( Cast(is_referencing_object_equal_referenced_object As TinyInt)) As is_referencing_object_equal_referenced_object
-  , Max ( Cast(is_referenced_object As TinyInt))                          As is_referenced_object
+  , referenced_RepoObject_guid                    = Max ( referenced_RepoObject_guid )
+  , referenced_schema_name                        = Max ( referenced_schema_name )
+  , referenced_entity_name                        = Max ( referenced_entity_name )
+  , referenced_column_name                        = Max ( referenced_column_name )
+  , referenced_type                               = Max ( referenced_type )
+  , referencing_RepoObject_guid                   = Max ( referencing_RepoObject_guid )
+  , referencing_schema_name                       = Max ( referencing_schema_name )
+  , referencing_entity_name                       = Max ( referencing_entity_name )
+  , referencing_column_name                       = Max ( referencing_column_name )
+  , referencing_type                              = Max ( referencing_type )
+  , is_referencing_object_equal_referenced_object = Max ( Cast(is_referencing_object_equal_referenced_object As TinyInt))
+  , is_referenced_object                          = Max ( Cast(is_referenced_object As TinyInt))
 From
     reference.RepoObjectColumn_reference_union
 Group By
@@ -23,7 +24,7 @@ Group By
   , referencing_RepoObjectColumn_guid
 Having
     ( Not ( referenced_RepoObjectColumn_guid Is Null ))
-    And ( Not ( referencing_RepoObjectColumn_guid Is Null ));
+    And ( Not ( referencing_RepoObjectColumn_guid Is Null ))
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e67c5574-89f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference', @level2type = N'COLUMN', @level2name = N'is_referenced_object';
 

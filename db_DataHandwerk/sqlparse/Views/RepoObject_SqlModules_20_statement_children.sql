@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 Assuming that a statement has only one child, this one child is decomposed into its components here.
 
@@ -51,23 +52,23 @@ and so on
 
 
 */
-Create View [sqlparse].RepoObject_SqlModules_20_statement_children
+CREATE View sqlparse.RepoObject_SqlModules_20_statement_children
 As
 --
 Select
     T1.RepoObject_guid
   --we need the key for ROW_NUMBER
   --key is an int in this case, maybe because the json is an array
-  , T2.json_key Collate Database_Default As json_key
+  , json_key             = T2.json_key Collate Database_Default
   , T1.SysObject_fullname
   --a statement should have only one child
   --if this is not the case we need to include into ROW_NUMBER()
   --, T1.[children]
-  , RowNumber_per_Object                 = Row_Number () Over ( Partition By
-                                                                    T1.RepoObject_guid
-                                                                Order By
-                                                                    Try_Cast(T2.json_key As Int)
-                                                              )
+  , RowNumber_per_Object = Row_Number () Over ( Partition By
+                                                    T1.RepoObject_guid
+                                                Order By
+                                                    Try_Cast(T2.json_key As Int)
+                                              )
   , T2.class
   , T2.is_group
   , T2.is_keyword
@@ -105,8 +106,8 @@ Select
   , T2.child4_normalized
   , T2.child4_children
 From
-    [sqlparse].RepoObject_SqlModules_10_statement                          As T1
-    Cross Apply [sqlparse].ftv_sqlparse_with_some_children ( T1.children ) As T2;
+    sqlparse.RepoObject_SqlModules_10_statement                          As T1
+    Cross Apply sqlparse.ftv_sqlparse_with_some_children ( T1.children ) As T2
 Go
 
 Execute sp_addextendedproperty

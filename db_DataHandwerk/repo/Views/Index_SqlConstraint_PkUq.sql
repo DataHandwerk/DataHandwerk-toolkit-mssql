@@ -1,9 +1,10 @@
 ﻿
+
 --contains only PK or UNIQUE
 --requirement:
 -- - repo.Index_Settings.is_create_constraint = 1
 -- - repo.Index_union.is_index_unique = 1
-Create View repo.Index_SqlConstraint_PkUq
+CREATE View repo.Index_SqlConstraint_PkUq
 As
 Select
     i.index_guid
@@ -53,7 +54,7 @@ From
             ColumnList.index_guid = i.index_guid
 Where
     i_s.is_create_constraint = 1
-    And i.is_index_unique    = 1;
+    And i.is_index_unique    = 1
 Go
 
 Execute sp_addextendedproperty

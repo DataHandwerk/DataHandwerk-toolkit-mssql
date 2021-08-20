@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 Source - Sys names will be used
 to create
 Target - Repo names (because a persistence is per definition defined as 
@@ -12,19 +13,19 @@ FROM
 WHERE  [T1].[SysObject_name_s] IS NULL
 
 */
-Create View repo.RepoObject_persistence_ObjectNames
+CREATE View repo.RepoObject_persistence_ObjectNames
 As
 --
 Select
     rop.target_RepoObject_guid
   , rop.source_RepoObject_guid
-  , ro_s.SysObject_schema_name  As SysObject_schema_name_s
-  , ro_s.SysObject_name         As SysObject_name_s
-  , ro_s.SysObject_type         As SysObject_type_s
-  , ro_t.RepoObject_schema_name As RepoObject_schema_name_t
-  , ro_t.RepoObject_name        As RepoObject_name_t
-  , ro_t.RepoObject_type        As RepoObject_type_t
-  , ro_t.is_repo_managed        As is_repo_managed_t
+  , SysObject_schema_name_s  = ro_s.SysObject_schema_name
+  , SysObject_name_s         = ro_s.SysObject_name
+  , SysObject_type_s         = ro_s.SysObject_type
+  , RepoObject_schema_name_t = ro_t.RepoObject_schema_name
+  , RepoObject_name_t        = ro_t.RepoObject_name
+  , RepoObject_type_t        = ro_t.RepoObject_type
+  , is_repo_managed_t        = ro_t.is_repo_managed
   , rop.is_persistence_truncate
   , rop.is_persistence_delete_missing
   , rop.is_persistence_delete_changed
@@ -46,7 +47,7 @@ From
     Left Outer Join
         repo.RepoObject         As ro_s
             On
-            rop.source_RepoObject_guid = ro_s.RepoObject_guid;
+            rop.source_RepoObject_guid = ro_s.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

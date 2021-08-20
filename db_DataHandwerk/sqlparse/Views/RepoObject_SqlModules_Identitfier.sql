@@ -1,4 +1,5 @@
 ﻿
+
 /*
 obsolet?
 
@@ -14,7 +15,7 @@ FROM repo.RepoObject_SqlModules_Identitfier T1
 
 */
 
-Create View [sqlparse].RepoObject_SqlModules_Identitfier
+CREATE View sqlparse.RepoObject_SqlModules_Identitfier
 As
 Select
     --
@@ -90,9 +91,9 @@ Select
 --, [T1].[child4_normalized]
 --, [T1].[child4_children]
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children As T1
+    sqlparse.RepoObject_SqlModules_20_statement_children As T1
 Where
-    T1.class = 'Identifier';
+    T1.class = 'Identifier'
 Go
 
 Execute sp_addextendedproperty

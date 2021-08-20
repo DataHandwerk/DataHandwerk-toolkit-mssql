@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 we use all Index from repo.IndexColumn__union (real and virtual)
 and we use Object references
@@ -42,7 +43,7 @@ ORDER BY
 
 
 */
-CREATE View [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
+CREATE View repo.IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing
 As
 --
 --referencing columns, that inherit an index
@@ -74,10 +75,10 @@ Select
                                                 )
 --, roc.[RepoObjectColumn_guid]
 From
-    repo.IndexColumn_union                    As ic
+    repo.IndexColumn_union                     As ic
     Inner Join --todo: maybe use another source for RepoObject references 
         --repo.[RepoObjectColumn_reference_FirstResultSet] AS ref
-        [reference].RepoObjectColumn_reference_T ref
+        reference.RepoObjectColumn_reference_T As ref
             On
             ref.referenced_RepoObjectColumn_guid = ic.RepoObjectColumn_guid
 Where
@@ -109,7 +110,7 @@ Where
         --but some referencing columns are missing in referencing object
         --this is possible in case of a composed key where not all columns of the source are referenced in the target
         And ref.referencing_RepoObjectColumn_guid Is Null
-);
+)
 Go
 
 Execute sp_addextendedproperty

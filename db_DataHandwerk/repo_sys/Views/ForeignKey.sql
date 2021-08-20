@@ -1,40 +1,47 @@
 ﻿
 
-CREATE View [repo_sys].[ForeignKey]
+
+CREATE View repo_sys.ForeignKey
 As
 Select
-    name
-  , object_id
-  , principal_id
-  , schema_id
-  , parent_object_id
-  , type
-  , type_desc
-  , create_date
-  , modify_date
-  , is_ms_shipped
-  , is_published
-  , is_schema_published
-  , referenced_object_id
-  , key_index_id
-  , is_disabled
-  , is_not_for_replication
-  , is_not_trusted
-  , delete_referential_action
-  , delete_referential_action_desc
-  , update_referential_action
-  , update_referential_action_desc
-  , is_system_named
-  , ForeignKey_guid = ro.RepoObject_guid
-  , ForeignKey_fullname = ro.RepoObject_fullname
+    fk.name
+  , fk.object_id
+  , fk.principal_id
+  , fk.schema_id
+  , fk.parent_object_id
+  , fk.type
+  , fk.type_desc
+  , fk.create_date
+  , fk.modify_date
+  , fk.is_ms_shipped
+  , fk.is_published
+  , fk.is_schema_published
+  , fk.referenced_object_id
+  , fk.key_index_id
+  , fk.is_disabled
+  , fk.is_not_for_replication
+  , fk.is_not_trusted
+  , fk.delete_referential_action
+  , fk.delete_referential_action_desc
+  , fk.update_referential_action
+  , fk.update_referential_action_desc
+  , fk.is_system_named
+  , ForeignKey_guid            = ro.RepoObject_guid
+  , ForeignKey_fullname        = ro.RepoObject_fullname
   , parent_RepoObject_guid     = parent_ro.RepoObject_guid
   , parent_RepoObject_fullname = parent_ro.RepoObject_fullname
   , parent_SysObject_fullname  = parent_ro.SysObject_fullname
-From sys_dwh.foreign_keys     As fk
-    Left Join repo.RepoObject As ro
-        On ro.SysObject_id = fk.object_id
-    Left Join repo.RepoObject As parent_ro
-        On parent_ro.SysObject_id = fk.parent_object_id
+From
+    sys_dwh.foreign_keys As fk
+    Left Join
+        repo.RepoObject  As ro
+            On
+            ro.SysObject_id        = fk.object_id
+
+    Left Join
+        repo.RepoObject  As parent_ro
+            On
+            parent_ro.SysObject_id = fk.parent_object_id
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c556741b-6373-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'ForeignKey', @level2type = N'COLUMN', @level2name = N'parent_SysObject_fullname';
 

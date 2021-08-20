@@ -1,9 +1,10 @@
-﻿CREATE View repo.ForeignKey_Indexes_union
+﻿
+CREATE View repo.ForeignKey_Indexes_union
 As
 Select
     ForeignKey_guid
   , is_MatchingDatatypePattern
-  , ForeignKey_name = ForeignKey_name COLLATE database_default
+  , ForeignKey_name                       = ForeignKey_name Collate Database_Default
   , ForeignKey_fullname
   , referenced_index_guid
   , referenced_index_name
@@ -31,7 +32,7 @@ Union All
 Select
     ForeignKey_guid
   , is_MatchingDatatypePattern
-  , ForeignKey_name COLLATE database_default
+  , ForeignKey_name Collate Database_Default
   , ForeignKey_fullname
   , referenced_index_guid
   , referenced_index_name
@@ -54,7 +55,7 @@ Select
   , delete_referential_action
   , update_referential_action
 From
-    repo.ForeignKey_virtual_Indexes;
+    repo.ForeignKey_virtual_Indexes
 Go
 
 Execute sp_addextendedproperty

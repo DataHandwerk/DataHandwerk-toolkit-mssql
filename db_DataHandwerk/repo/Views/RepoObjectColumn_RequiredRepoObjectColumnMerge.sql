@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 list of conflicting entries which needs to be merged
@@ -31,10 +32,10 @@ Select
   , roc1.persistence_source_RepoObjectColumn_guid
   , roc1.RepoObjectColumn_name
   , roc1.SysObjectColumn_name
-  , roc2.persistence_source_RepoObjectColumn_guid As roc2_persistence_source_RepoObjectColumn_guid
-  , roc2.RepoObjectColumn_guid                    As roc2_RepoObjectColumn_guid
-  , roc2.RepoObjectColumn_name                    As roc2_RepoObjectColumn_name
-  , roc2.SysObjectColumn_name                     As roc2_SysObjectColumn_name
+  , roc2_persistence_source_RepoObjectColumn_guid = roc2.persistence_source_RepoObjectColumn_guid
+  , roc2_RepoObjectColumn_guid                    = roc2.RepoObjectColumn_guid
+  , roc2_RepoObjectColumn_name                    = roc2.RepoObjectColumn_name
+  , roc2_SysObjectColumn_name                     = roc2.SysObjectColumn_name
 From
     repo.RepoObjectColumn     As roc1
     Inner Join
@@ -42,7 +43,7 @@ From
             On
             roc2.RepoObject_guid           = roc1.RepoObject_guid
             And roc2.SysObjectColumn_name  = roc1.RepoObjectColumn_name
-            And roc2.RepoObjectColumn_guid <> roc1.RepoObjectColumn_guid;
+            And roc2.RepoObjectColumn_guid <> roc1.RepoObjectColumn_guid
 Go
 
 Execute sp_addextendedproperty

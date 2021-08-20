@@ -1,8 +1,9 @@
-﻿/*
+﻿
+/*
 check for bidirectional references +
 They case errors in SSIS or defining the order for linear procedure call and needs to be eleminated
 */
-CREATE View [reference].[Persistence_bidirectional]
+CREATE View reference.Persistence_bidirectional
 As
 Select
     T1.referenced_RepoObject_guid
@@ -21,7 +22,7 @@ From
         reference.Persistence As T2
             On
             T1.referenced_RepoObject_guid      = T2.referencing_RepoObject_guid
-            And T1.referencing_RepoObject_guid = T2.referenced_RepoObject_guid;
+            And T1.referencing_RepoObject_guid = T2.referenced_RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '86e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence_bidirectional';
 

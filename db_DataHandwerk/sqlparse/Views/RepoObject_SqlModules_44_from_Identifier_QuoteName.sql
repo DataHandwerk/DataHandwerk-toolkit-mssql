@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_44_from_Identifier_QuoteName
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_44_from_Identifier_QuoteName
 As
 Select
     --
@@ -15,31 +16,31 @@ Select
   , T1.T1_identifier_alias
   , T1.lag_normalized_wo_nolock
   , alias_QuoteName        = Case
-                                 When Left(alias, 1) = '['
-                                      And Right(alias, 1) = ']'
+                                 When Left(T1.alias, 1) = '['
+                                      And Right(T1.alias, 1) = ']'
                                      Then
-                                     alias
+                                     T1.alias
                                  Else
-                                     QuoteName ( alias )
+                                     QuoteName ( T1.alias )
                              End
   , name_PreDot_QuoteName  = Case
-                                 When Left(name_PreDot, 1) = '['
-                                      And Right(name_PreDot, 1) = ']'
+                                 When Left(T1.name_PreDot, 1) = '['
+                                      And Right(T1.name_PreDot, 1) = ']'
                                      Then
-                                     name_PreDot
+                                     T1.name_PreDot
                                  Else
-                                     QuoteName ( name_PreDot )
+                                     QuoteName ( T1.name_PreDot )
                              End
   , name_PostDot_QuoteName = Case
-                                 When Left(name_PostDot, 1) = '['
-                                      And Right(name_PostDot, 1) = ']'
+                                 When Left(T1.name_PostDot, 1) = '['
+                                      And Right(T1.name_PostDot, 1) = ']'
                                      Then
-                                     name_PostDot
+                                     T1.name_PostDot
                                  Else
-                                     QuoteName ( name_PostDot )
+                                     QuoteName ( T1.name_PostDot )
                              End
 From
-    [sqlparse].RepoObject_SqlModules_43_from_Identifier As T1;
+    sqlparse.RepoObject_SqlModules_43_from_Identifier As T1
 Go
 
 Execute sp_addextendedproperty

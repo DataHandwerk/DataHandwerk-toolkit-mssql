@@ -1,32 +1,33 @@
-﻿CREATE View sys_self.ExtendedProperties_ParameterForAddUpdateDrop
+﻿
+CREATE View sys_self.ExtendedProperties_ParameterForAddUpdateDrop
 As
 --
 Select
     sep.property_name
   , sep.property_value
-  , 'SCHEMA'                  As level0type
-  , sep.SysObject_schema_name As level0name
-  , level1type                = Iif(stl.level2type = 'CONSTRAINT', 'TABLE', stl.level1type)
-  , level1name                = Iif(stl.level2type = 'CONSTRAINT', sep.parent_name, sep.SysObject_name)
-  , level2type                = Iif(stl.level2type = 'CONSTRAINT', stl.level2type, sep.level2type)
-  , level2name                = Iif(stl.level2type = 'CONSTRAINT', sep.SysObject_name, sep.minor_name)
+  , level0type      = 'SCHEMA'
+  , level0name      = sep.SysObject_schema_name
+  , level1type      = Iif(stl.level2type = 'CONSTRAINT', 'TABLE', stl.level1type)
+  , level1name      = Iif(stl.level2type = 'CONSTRAINT', sep.parent_name, sep.SysObject_name)
+  , level2type      = Iif(stl.level2type = 'CONSTRAINT', stl.level2type, sep.level2type)
+  , level2name      = Iif(stl.level2type = 'CONSTRAINT', sep.SysObject_name, sep.minor_name)
   , sep.minor_id
   , sep.class
   , sep.class_desc
   , so.type
-  , type_level1type           = stl.level1type
-  , type_level2type           = stl.level2type
+  , type_level1type = stl.level1type
+  , type_level2type = stl.level2type
 From
-    sys_self.ExtendedProperties           As sep
+    sys_self.ExtendedProperties            As sep
     Inner Join
-        sys.objects                       As so
+        sys.objects                        As so
             On
             sep.major_id                     = so.object_id
 
     Inner Join
-        [configT].type_level1type_level2type As stl
+        configT.type_level1type_level2type As stl
             On
-            so.type Collate Database_Default = stl.type;
+            so.type Collate Database_Default = stl.type
 Go
 
 Execute sp_addextendedproperty

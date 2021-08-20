@@ -1,4 +1,5 @@
 ﻿
+
 CREATE View sqlparse.RepoObject_SqlModules_Repo_Sys
 As
 --
@@ -46,7 +47,7 @@ From
             On
             ros.RepoObject_guid    = ro.RepoObject_guid
 Where
-    Not so.sql_modules_definition Is Null;
+    Not so.sql_modules_definition Is Null
 Go
 
 Execute sp_addextendedproperty

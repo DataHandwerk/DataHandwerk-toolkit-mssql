@@ -1,4 +1,5 @@
 ﻿
+
 /*
 --usage:
 
@@ -9,10 +10,10 @@ ORDER BY [id]
 
 
 */
-CREATE View [uspgenerator].[GeneratorUspStep_Sql]
+CREATE View uspgenerator.GeneratorUspStep_Sql
 As
 Select
-    u.id     As usp_id
+    usp_id   = u.id
   , t.Number
   , u.has_logging
   , BeginEnd.required_Begin_count
@@ -91,8 +92,8 @@ Select
                         , Char ( 13 ) + Char ( 10 )
                       )
 From
-    [uspgenerator].GeneratorUsp                                       As u
-    Cross Apply [uspgenerator].ftv_GeneratorUspStep_tree ( id, Null ) As t
+    uspgenerator.GeneratorUsp                                       As u
+    Cross Apply uspgenerator.ftv_GeneratorUspStep_tree ( id, Null ) As t
     Left Join
     (
         Select
@@ -102,31 +103,31 @@ From
           , required_End_count   = Sum ( Iif(t.Desc_PerParentChild = 1, 1, 0))
           , is_required_ELSE     = Max ( t.is_required_ELSE )
         From
-            [uspgenerator].GeneratorUspStep                                         As s
-            Cross Apply [uspgenerator].ftv_GeneratorUspStep_tree ( usp_id, Number ) As t
+            uspgenerator.GeneratorUspStep                                         As s
+            Cross Apply uspgenerator.ftv_GeneratorUspStep_tree ( usp_id, Number ) As t
         Where
             s.is_condition = 1
         Group By
             s.usp_id
           , t.Number
-    )                                                     As BeginEnd
+    )                                                   As BeginEnd
         On
         BeginEnd.usp_id = u.id
         And BeginEnd.Number = t.Number
 
     Left Join
-        [uspgenerator].GeneratorUspStep                   step
+        uspgenerator.GeneratorUspStep                   As step
             On
             step.usp_id = u.id
             And step.Number = t.Number
-    Cross Apply [uspgenerator].ftv_GeneratorUspStep_sql (
-                                                            u.id
-                                                          , t.Number
-                                                          , u.has_logging
-                                                          , BeginEnd.required_Begin_count
-                                                          , BeginEnd.required_End_count
-                                                          , BeginEnd.is_required_ELSE
-                                                        ) sql;
+    Cross Apply uspgenerator.ftv_GeneratorUspStep_sql (
+                                                          u.id
+                                                        , t.Number
+                                                        , u.has_logging
+                                                        , BeginEnd.required_Begin_count
+                                                        , BeginEnd.required_End_count
+                                                        , BeginEnd.is_required_ELSE
+                                                      ) As sql
 Go
 
 Execute sp_addextendedproperty

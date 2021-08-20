@@ -1,4 +1,5 @@
-﻿CREATE View [property].RepoObjectColumnProperty_sys_repo
+﻿
+CREATE View property.RepoObjectColumnProperty_sys_repo
 As
 --
 Select
@@ -7,29 +8,29 @@ Select
   , ses.property_value
   , ses.SysObject_schema_name
   , ses.SysObject_name
-  , ses.entity_column_name As SysObjectColumn_name
+  , SysObjectColumn_name                    = ses.entity_column_name
   , link.RepoObjectColumnProperty_id
-  , link.property_value    As RepoObjectColumnProperty_property_value
+  , RepoObjectColumnProperty_property_value = link.property_value
 From
-    repo_sys.ExtendedProperties       As ses
+    repo_sys.ExtendedProperties           As ses
     Inner Join
-        repo.RepoObject               As ro
+        repo.RepoObject                   As ro
             On
             ses.SysObject_schema_name  = ro.SysObject_schema_name
             And ses.SysObject_name     = ro.SysObject_name
 
     Inner Join
-        repo.RepoObjectColumn         As roc
+        repo.RepoObjectColumn             As roc
             On
             ro.RepoObject_guid         = roc.RepoObject_guid
             And ses.entity_column_name = roc.SysObjectColumn_name
             And ses.property_name      <> 'RepoObjectColumn_guid'
 
     Left Join
-        [property].RepoObjectColumnProperty As link
+        property.RepoObjectColumnProperty As link
             On
             roc.RepoObjectColumn_guid  = link.RepoObjectColumn_guid
-            And ses.property_name      = link.property_name;
+            And ses.property_name      = link.property_name
 Go
 
 Execute sp_addextendedproperty

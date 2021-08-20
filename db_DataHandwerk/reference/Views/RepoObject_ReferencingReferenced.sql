@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 per referencing RepoObject all directly referenced RepoOobject are listed
 
@@ -36,19 +37,19 @@ Where Match(
 ////
 
 */
-CREATE View [reference].[RepoObject_ReferencingReferenced]
+CREATE View reference.RepoObject_ReferencingReferenced
 As
 Select
-    Referencing_fullname
-  , Referencing_fullname2
+    referencing_fullname
+  , referencing_fullname2
   , Referencing_guid     = referencing_RepoObject_guid
-  , Referencing_type
-  , Referenced_fullname
-  , Referenced_fullname2
+  , referencing_type
+  , referenced_fullname
+  , referenced_fullname2
   , Referenced_guid      = referenced_RepoObject_guid
-  , Referenced_type
+  , referenced_type
 From
-    [reference].[RepoObject_reference_T]
+    reference.RepoObject_reference_T
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'

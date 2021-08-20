@@ -1,14 +1,15 @@
 ﻿
-CREATE View [reference].[RepoObjectColumn_reference_SqlExpressionDependencies]
+
+CREATE View reference.RepoObjectColumn_reference_SqlExpressionDependencies
 As
 --
 Select
     sed.referencing_id
   , sed.referencing_minor_id
-  , Cast(sed.referencing_id As BigInt) * 10000 + sed.referencing_minor_id As referencing_node_id
+  , referencing_node_id                           = Cast(sed.referencing_id As BigInt) * 10000 + sed.referencing_minor_id
   , sed.referenced_id
   , sed.referenced_minor_id
-  , Cast(sed.referenced_id As BigInt) * 10000 + sed.referenced_minor_id   As referenced_node_id
+  , referenced_node_id                            = Cast(sed.referenced_id As BigInt) * 10000 + sed.referenced_minor_id
   , sed.referencing_RepoObject_guid
   , sed.referencing_RepoObjectColumn_guid
   , sed.referenced_RepoObject_guid
@@ -21,24 +22,26 @@ Select
   , sed.referenced_entity_name
   , sed.referenced_column_name
   , sed.referenced_type
-  , InformationSource                                                     = 'sys.sql_expression_dependencies'
+  , InformationSource                             = 'sys.sql_expression_dependencies'
   , sed.is_computed
   , sed.definition
-  , is_referencing_object_equal_referenced_object                         = Cast(Case
-                                                                                     When sed.referencing_RepoObject_guid = sed.referenced_RepoObject_guid
-                                                                                         Then
-                                                                                         1
-                                                                                     Else
-                                                                                         0
-                                                                                 End As Bit)
+  , is_referencing_object_equal_referenced_object =
+  --
+  Cast(Case
+           When sed.referencing_RepoObject_guid = sed.referenced_RepoObject_guid
+               Then
+               1
+           Else
+               0
+       End As Bit)
   --Flag, if the [referenced_RepoObject_guid] is a referenced object in [repo].[RepoObject_reference__union]
-  , is_referenced_object                                                  =
+  , is_referenced_object                          =
     (
         Select
             Top 1
             Cast(1 As Bit)
         From
-            [reference].RepoObject_reference_T As ro_r
+            reference.RepoObject_reference_T As ro_r
         Where
             ro_r.referencing_RepoObject_guid    = sed.referencing_RepoObject_guid
             And ro_r.referenced_RepoObject_guid = sed.referenced_RepoObject_guid
@@ -67,7 +70,7 @@ Where
     --and [sed].[referencing_RepoObject_guid] = SysObject_RepoObject_guid
     --these are RepoObject_guid storred in extended properties
     And Not sed.referencing_RepoObject_guid Is Null
-    And Not sed.referenced_RepoObject_guid Is Null;
+    And Not sed.referenced_RepoObject_guid Is Null
 Go
 
 Execute sp_addextendedproperty

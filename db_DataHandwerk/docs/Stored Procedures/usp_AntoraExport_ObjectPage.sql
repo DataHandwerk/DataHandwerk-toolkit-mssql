@@ -90,7 +90,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'pages\')
 
 
@@ -102,7 +102,7 @@ DECLARE @Object_fullname NVARCHAR(261);
 DECLARE @Object_fullname2 NVARCHAR(257);
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('Adoc_AntoraPageTemplate', N'')","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', N'')","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',410,';',NULL);
 
 DECLARE db_cursor CURSOR Local Fast_Forward
@@ -123,9 +123,9 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- --bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( 'Adoc_AntoraPageTemplate', DEFAULT ) As Adoc_AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
+ --bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( 'AntoraPageTemplate', DEFAULT ) As AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT Adoc_AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''Adoc_AntoraPageTemplate'', DEFAULT ) As Adoc_AntoraPageTemplate" queryout ' + @outputDir + @Object_fullname2 + '.adoc'
+ SET @command = 'bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', DEFAULT ) As AntoraPageTemplate" queryout ' + @outputDir + @Object_fullname2 + '.adoc'
   --
   + ' -S ' + @instanceName
   --
@@ -155,7 +155,7 @@ DEALLOCATE db_cursor
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N'''')'
+SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', N'''')'
 SET @source_object = '[repo].[Parameter]'
 SET @target_object = NULL
 
@@ -232,9 +232,9 @@ FROM [config].[type]
 WHERE [is_DocsOutput] = 1
 order by [type_desc] desc
 ....
-* source pages per object are exported into (Adoc_AntoraDocModulFolder)``pages/schemaname.objectname.adoc``
+* source pages per object are exported into (AntoraDocModulFolder)``pages/schemaname.objectname.adoc``
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPage.adoc[]
-** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
+** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
  the default content is (real code without leading ''/''):
 +
 ====
@@ -293,7 +293,7 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 |410
 |
-*export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraPageTemplate'', N'''')*
+*export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', N'''')*
 
 * u
 * [repo].[Parameter]

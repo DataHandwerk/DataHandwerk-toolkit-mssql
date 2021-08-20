@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 --The result must be grouped to determine all required calculation variants of an inheritance
 
@@ -13,7 +14,7 @@ HAVING (NOT (resulting_InheritanceDefinition IS NULL))
 
 */
 
-CREATE View [property].[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition]
+CREATE View property.RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition
 As
 Select
     --
@@ -21,42 +22,42 @@ Select
   , inh.property_name
   , inh.property_value
   , inh.InheritanceType
-  , is_force_inherit_empty_source    =
+  , is_force_inherit_empty_source   =
   --
   Case
-      When InheritanceType = 14
+      When inh.InheritanceType = 14
           Then
           1
       Else
           0
   End
-  , is_StringAggAllSources           =
+  , is_StringAggAllSources          =
   --
   Case
-      When Not Inheritance_StringAggSeparatorSql Is Null
+      When Not inh.Inheritance_StringAggSeparatorSql Is Null
           Then
           1
       Else
           0
   End
-  , Inheritance_StringAggSeparatorSql
-  , resulting_InheritanceDefinition  =
+  , inh.Inheritance_StringAggSeparatorSql
+  , resulting_InheritanceDefinition =
   --
   Case
       When (
-               InheritanceType = 11
+               inh.InheritanceType = 11
                And inh.property_value Is Null
            )
            Or
            (
-               InheritanceType = 12
+               inh.InheritanceType = 12
                And NullIf(inh.property_value, '') Is Null
            )
-           Or InheritanceType = 13
-           Or InheritanceType = 14
+           Or inh.InheritanceType = 13
+           Or inh.InheritanceType = 14
           Then
           IsNull (
-                     InheritanceDefinition
+                     inh.InheritanceDefinition
                    , '[property].[fs_get_RepoObjectColumnProperty_nvarchar]([referenced].[RepoObjectColumn_guid], [referencing].[property_name])'
                  )
   End
@@ -66,7 +67,7 @@ Select
   , inh.InheritanceDefinition
   , inh.RepoObjectColumn_name
 From
-    [property].RepoObjectColumnProperty_InheritanceType_InheritanceDefinition As inh;
+    property.RepoObjectColumnProperty_InheritanceType_InheritanceDefinition As inh
 Go
 
 Execute sp_addextendedproperty

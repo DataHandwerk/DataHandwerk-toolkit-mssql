@@ -1,5 +1,6 @@
 ﻿
-CREATE View [repo].[RepoObjectColumn_gross]
+
+CREATE View repo.RepoObjectColumn_gross
 As
 --
 Select
@@ -67,34 +68,34 @@ Select
   , ic.index_column_id
   , ic.index_name
   , ic.is_index_primary_key
-  , Property_ms_description    = [property].fs_get_RepoObjectColumnProperty_nvarchar (
-                                                                                   roc.RepoObjectColumn_guid
-                                                                                 , 'ms_description'
-                                                                               )
+  , Property_ms_description    = property.fs_get_RepoObjectColumnProperty_nvarchar (
+                                                                                       roc.RepoObjectColumn_guid
+                                                                                     , 'ms_description'
+                                                                                   )
   , roc_referenced.AntoraReferencedColumnList
   , roc_referencing.AntoraReferencingColumnList
 From
-    repo.RepoObjectColumn                     As roc
+    repo.RepoObjectColumn                          As roc
     Inner Join
-        repo.RepoObject                       As ro
+        repo.RepoObject                            As ro
             On
             roc.RepoObject_guid             = ro.RepoObject_guid
 
     Left Outer Join
-        repo.IndexColumn_union                As ic
+        repo.IndexColumn_union                     As ic
             On
             ic.index_guid                   = ro.pk_index_guid
             And ic.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid
 
     Left Join
-        [reference].RepoObjectColumn_ReferencedList  As roc_referenced
+        reference.RepoObjectColumn_ReferencedList  As roc_referenced
             On
             roc_referenced.Referencing_guid = roc.RepoObjectColumn_guid
 
     Left Join
-        [reference].RepoObjectColumn_ReferencingList As roc_referencing
+        reference.RepoObjectColumn_ReferencingList As roc_referencing
             On
-            roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid;
+            roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid
 Go
 
 Execute sp_addextendedproperty

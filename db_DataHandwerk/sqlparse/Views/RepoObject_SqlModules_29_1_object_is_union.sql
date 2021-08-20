@@ -1,20 +1,21 @@
-﻿--Objects, containing the keywords ('UNION', 'UNION ALL')
+﻿
+--Objects, containing the keywords ('UNION', 'UNION ALL')
 --We assume that it is UNION.
-Create View [sqlparse].RepoObject_SqlModules_29_1_object_is_union
+CREATE View sqlparse.RepoObject_SqlModules_29_1_object_is_union
 As
 --
 Select
     RepoObject_guid
   , is_union = 1
 From
-    [sqlparse].RepoObject_SqlModules_20_statement_children
+    sqlparse.RepoObject_SqlModules_20_statement_children
 Where
     ( is_keyword = 1 )
     And ( normalized In
           ( 'UNION', 'UNION ALL' )
         )
 Group By
-    RepoObject_guid;
+    RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

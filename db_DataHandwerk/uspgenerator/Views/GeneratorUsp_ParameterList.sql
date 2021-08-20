@@ -1,9 +1,10 @@
 ﻿
 
+
 /*
 List of parameters without trailing comma
 */
-CREATE View [uspgenerator].GeneratorUsp_ParameterList
+CREATE View uspgenerator.GeneratorUsp_ParameterList
 As
 Select
     up.usp_id
@@ -25,7 +26,7 @@ Select
   , ParameterListLogging = String_Agg (
                                           Concat (
                                                      Cast(' , @parameter_' As NVarchar(Max))
-                                                   , Right(Concat ( '0', RowNumber_PerUsp ), 2)
+                                                   , Right(Concat ( '0', up.RowNumber_PerUsp ), 2)
                                                    , Cast(' = @' As NVarchar(Max))
                                                    , up.Name
                                                  )
@@ -44,14 +45,14 @@ From
       , par.has_DefaultValue
       , par.DefaultValue
       , par.Description
-      , RowNumber_PerUsp = Row_Number () Over ( Partition By usp_id Order By Number )
+      , RowNumber_PerUsp = Row_Number () Over ( Partition By par.usp_id Order By par.Number )
     From
-        [uspgenerator].GeneratorUspParameter As par
+        uspgenerator.GeneratorUspParameter As par
 ) As up
 Where
     up.is_inactive = 0
 Group By
-    up.usp_id;
+    up.usp_id
 Go
 
 Execute sp_addextendedproperty

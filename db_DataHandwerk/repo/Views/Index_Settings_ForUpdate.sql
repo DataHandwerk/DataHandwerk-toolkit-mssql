@@ -1,4 +1,5 @@
-﻿Create View repo.[Index_Settings_ForUpdate]
+﻿
+CREATE View repo.Index_Settings_ForUpdate
 As
 Select
     T1.index_guid
@@ -19,7 +20,7 @@ From
     Left Outer Join
         repo.RepoObject  As T3
             On
-            T3.RepoObject_guid = T2.parent_RepoObject_guid;
+            T3.RepoObject_guid = T2.parent_RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '637159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_Settings_ForUpdate';
 

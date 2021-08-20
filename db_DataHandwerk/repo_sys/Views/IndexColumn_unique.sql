@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 Index hat folgende Eindeutigkeiten
 
 - RepoObject_guid
@@ -22,24 +23,25 @@ Kombination mit virtuellen Index
 semantische Gruppen müssen aber ebenfalls (und vor allem) den echten Index zugeordnet werden, dafür wird also eh eine Tabelle benötigt
 
 */
-CREATE VIEW [repo_sys].[IndexColumn_unique]
-AS
+CREATE View repo_sys.IndexColumn_unique
+As
 --
-SELECT [index_guid] = [sc_ro].[RepoObject_guid]
- , [sic].[index_column_id]
- , [sic].[is_descending_key]
- , [sc_roc].[RepoObjectColumn_guid] --could by empty for new Objects, execute [repo].[usp_sync_guid]
- , [parent_RepoObject_guid] = [sc_roc].[RepoObject_guid] --could by empty for new Objects, execute [repo].[usp_sync_guid]
- , [index_name] = [si].[name] COLLATE database_default
- , [parent_schema_name] = [sc_roc].[SysObject_schema_name]
- , [parent_SysObject_name] = [sc_roc].[SysObject_name]
- , [sc_roc].[SysObject_column_name]
- , [sc_roc].[user_type_fullname] AS [SysObject_column_user_type_fullname]
- , [si].[is_unique] AS [is_index_unique]
- , [si].[is_primary_key] AS [is_index_primary_key]
- , [parent_SysObject_fullname] = [sc_roc].[SysObject_fullname]
- , [is_index_real] = CAST(1 AS BIT)
- , [sic].[index_id]
+Select
+    index_guid                          = sc_ro.RepoObject_guid
+  , sic.index_column_id
+  , sic.is_descending_key
+  , sc_roc.RepoObjectColumn_guid                                 --could by empty for new Objects, execute [repo].[usp_sync_guid]
+  , parent_RepoObject_guid              = sc_roc.RepoObject_guid --could by empty for new Objects, execute [repo].[usp_sync_guid]
+  , index_name                          = si.name Collate Database_Default
+  , parent_schema_name                  = sc_roc.SysObject_schema_name
+  , parent_SysObject_name               = sc_roc.SysObject_name
+  , sc_roc.SysObject_column_name
+  , SysObject_column_user_type_fullname = sc_roc.user_type_fullname
+  , is_index_unique                     = si.is_unique
+  , is_index_primary_key                = si.is_primary_key
+  , parent_SysObject_fullname           = sc_roc.SysObject_fullname
+  , is_index_real                       = Cast(1 As Bit)
+  , sic.index_id
 --, [sic].[key_ordinal]
 --, [si].[type] AS                   [index_type]
 --, [si].[type_desc] AS              [index_type_desc]
@@ -65,17 +67,27 @@ SELECT [index_guid] = [sc_ro].[RepoObject_guid]
 --, [si].[suppress_dup_key_messages]
 --, [si].[auto_created]
 --, [si].[optimize_for_sequential_key]
-FROM sys_dwh.index_columns AS sic
-INNER JOIN sys_dwh.indexes AS si
- ON sic.object_id = si.object_id
-  AND sic.index_id = si.index_id
-INNER JOIN repo.SysColumn_RepoObjectColumn_via_name AS sc_roc
- ON sic.object_id = sc_roc.SysObject_id
-  AND sic.column_id = sc_roc.SysObject_column_id
-LEFT JOIN repo.SysObject_RepoObject_via_name AS sc_ro
- ON sc_ro.SysObject_name = si.name COLLATE database_default
-  AND sc_ro.SysObject_schema_name = sc_roc.SysObject_schema_name
-WHERE [si].[is_unique] = 1
+From
+    sys_dwh.index_columns                        As sic
+    Inner Join
+        sys_dwh.indexes                          As si
+            On
+            sic.object_id                   = si.object_id
+            And sic.index_id                = si.index_id
+
+    Inner Join
+        repo.SysColumn_RepoObjectColumn_via_name As sc_roc
+            On
+            sic.object_id                   = sc_roc.SysObject_id
+            And sic.column_id               = sc_roc.SysObject_column_id
+
+    Left Join
+        repo.SysObject_RepoObject_via_name       As sc_ro
+            On
+            sc_ro.SysObject_name            = si.name Collate Database_Default
+            And sc_ro.SysObject_schema_name = sc_roc.SysObject_schema_name
+Where
+    si.is_unique = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6090291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'IndexColumn_unique';
 

@@ -1,5 +1,6 @@
 ﻿
-CREATE View [reference].[RepoObjectColumn_ReferencingReferenced]
+
+CREATE View reference.RepoObjectColumn_ReferencingReferenced
 As
 --Select
 --    Object2.RepoObject_fullname        As Referenced_fullname
@@ -27,26 +28,26 @@ As
 --Where Match(
 --    Object1-(referenced)->Object2);
 Select
-    [referenced_ro_fullname]            As Referenced_fullname
-  , [referenced_ro_fullname2]           As Referenced_fullname2
-  , [Referenced_RepoObject_guid]        As Referenced_RepoObject_guid
-  , [Referenced_type]                   As Referenced_type
-  , [referenced_roc_fullname]           As ReferencedColumn_fullname
-  , [referenced_roc_fullname2]          As ReferencedColumn_fullname2
-  , [referenced_column_name]            As ReferencedColumn_name
+    Referenced_fullname         = referenced_ro_fullname
+  , Referenced_fullname2        = referenced_ro_fullname2
+  , Referenced_RepoObject_guid  = referenced_RepoObject_guid
+  , Referenced_type             = referenced_type
+  , ReferencedColumn_fullname   = referenced_roc_fullname
+  , ReferencedColumn_fullname2  = referenced_roc_fullname2
+  , ReferencedColumn_name       = referenced_column_name
   --, Object2.RepoObjectColumn_type      As ReferencedColumn_type
-  , [referenced_RepoObjectColumn_guid]  As Referenced_guid
-  , [referencing_ro_fullname]           As Referencing_fullname
-  , [referencing_ro_fullname2]          As Referencing_fullname2
-  , [Referencing_RepoObject_guid]       As Referencing_RepoObject_guid
-  , [Referencing_type]                  As Referencing_type
-  , [referencing_roc_fullname]          As ReferencingColumn_fullname
-  , [referencing_roc_fullname2]         As ReferencingColumn_fullname2
-  , [referencing_column_name]           As ReferencingColumn_name
+  , Referenced_guid             = referenced_RepoObjectColumn_guid
+  , Referencing_fullname        = referencing_ro_fullname
+  , Referencing_fullname2       = referencing_ro_fullname2
+  , Referencing_RepoObject_guid = referencing_RepoObject_guid
+  , Referencing_type            = referencing_type
+  , ReferencingColumn_fullname  = referencing_roc_fullname
+  , ReferencingColumn_fullname2 = referencing_roc_fullname2
+  , ReferencingColumn_name      = referencing_column_name
   --, Object1.RepoObjectColumn_type      As ReferencingColumn_type
-  , [referencing_RepoObjectColumn_guid] As Referencing_guid
+  , Referencing_guid            = referencing_RepoObjectColumn_guid
 From
-    [reference].[RepoObjectColumn_reference_T];
+    reference.RepoObjectColumn_reference_T
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'

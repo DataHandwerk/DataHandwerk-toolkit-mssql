@@ -1,4 +1,5 @@
-﻿CREATE View [reference].RepoObjectColumn_reference_SqlModules
+﻿
+CREATE View reference.RepoObjectColumn_reference_SqlModules
 As
 --
 Select
@@ -41,26 +42,26 @@ Select
   --for easy error check
   , T1.SysObject_fullname
 From
-    [sqlparse].RepoObject_SqlModules_79_reference_union As T1
+    sqlparse.RepoObject_SqlModules_79_reference_union As T1
     Inner Join
-        repo.RepoObject                           As ro_s
+        repo.RepoObject                               As ro_s
             On
             ro_s.RepoObject_guid        = T1.source_RepoObject_guid
 
     Inner Join
-        repo.RepoObject                           As ro_t
+        repo.RepoObject                               As ro_t
             On
             ro_t.RepoObject_guid        = T1.RepoObject_guid
 
     Inner Join
-        repo.RepoObjectColumn                     As roc_s
+        repo.RepoObjectColumn                         As roc_s
             On
             roc_s.RepoObjectColumn_guid = T1.source_RepoObjectColumn_guid
 
     Inner Join
-        repo.RepoObjectColumn                     As roc_t
+        repo.RepoObjectColumn                         As roc_t
             On
-            roc_t.RepoObjectColumn_guid = T1.RepoObjectColumn_guid;
+            roc_t.RepoObjectColumn_guid = T1.RepoObjectColumn_guid
 Go
 
 Execute sp_addextendedproperty

@@ -1,4 +1,5 @@
-﻿CREATE View [property].RepoObjectProperty_InheritanceType_InheritanceDefinition
+﻿
+CREATE View property.RepoObjectProperty_InheritanceType_InheritanceDefinition
 As
 Select
     --
@@ -7,74 +8,70 @@ Select
   , rop.property_value
   , Inheritance_StringAggSeparatorSql     = Coalesce (
                                                          ro.Inheritance_StringAggSeparatorSql
-                                                       , par_sub_sep.[Parameter_value_result]
-                                                       , par_sep.[Parameter_value_result]
+                                                       , par_sub_sep.Parameter_value_result
+                                                       , par_sep.Parameter_value_result
                                                      )
   , InheritanceDefinition                 = Coalesce (
                                                          ro.InheritanceDefinition
-                                                       , par_sub_def.[Parameter_value_result]
-                                                       , par_def.[Parameter_value_result]
+                                                       , par_sub_def.Parameter_value_result
+                                                       , par_def.Parameter_value_result
                                                      )
-  , InheritanceType                       = Coalesce (
-                                                         ro.InheritanceType
-                                                       , par_sub.[Parameter_value_result_int]
-                                                       , par.[Parameter_value_result_int]
-                                                     )
+  , InheritanceType                       = Coalesce ( ro.InheritanceType, par_sub.Parameter_value_result_int, par.Parameter_value_result_int )
   , ro.RepoObject_fullname
   , ro.RepoObject_type
   , ro_InheritanceType                    = ro.InheritanceType
-  , sub_InheritanceType                   = par_sub.[Parameter_value_result_int]
-  , par_InheritanceType                   = par.[Parameter_value_result_int]
+  , sub_InheritanceType                   = par_sub.Parameter_value_result_int
+  , par_InheritanceType                   = par.Parameter_value_result_int
   , ro_InheritanceDefinition              = ro.InheritanceDefinition
-  , sub_InheritanceDefintion              = par_sub_def.[Parameter_value_result]
-  , par_InheritanceDefintion              = par_def.[Parameter_value_result]
+  , sub_InheritanceDefintion              = par_sub_def.Parameter_value_result
+  , par_InheritanceDefintion              = par_def.Parameter_value_result
   , ro_Inheritance_StringAggSeparatorSql  = ro.Inheritance_StringAggSeparatorSql
-  , sub_Inheritance_StringAggSeparatorSql = par_sub_sep.[Parameter_value_result]
-  , par_Inheritance_StringAggSeparatorSql = par_sep.[Parameter_value_result]
+  , sub_Inheritance_StringAggSeparatorSql = par_sub_sep.Parameter_value_result
+  , par_Inheritance_StringAggSeparatorSql = par_sep.Parameter_value_result
 From
-    repo.RepoObject                         As ro
-    Cross Join [property].PropertyName_RepoObject As pn
+    repo.RepoObject                             As ro
+    Cross Join property.PropertyName_RepoObject As pn
     Left Join
-        [property].RepoObjectProperty As rop
+        property.RepoObjectProperty As rop
             On
             rop.RepoObject_guid           = ro.RepoObject_guid
             And rop.property_name         = pn.property_name
 
     Left Join
-        [config].Parameter          As par_sub
+        config.Parameter            As par_sub
             On
             par_sub.Parameter_name        = 'InheritanceType_object'
             And par_sub.sub_Parameter     = pn.property_name
 
     Left Join
-        [config].Parameter          As par
+        config.Parameter            As par
             On
             par.Parameter_name            = 'InheritanceType_object'
             And par.sub_Parameter         = ''
 
     Left Join
-        [config].Parameter          As par_sub_def
+        config.Parameter            As par_sub_def
             On
             par_sub_def.Parameter_name    = 'InheritanceDefinition_object'
             And par_sub_def.sub_Parameter = pn.property_name
 
     Left Join
-        [config].Parameter          As par_def
+        config.Parameter            As par_def
             On
             par_def.Parameter_name        = 'InheritanceDefinition_object'
             And par_def.sub_Parameter     = ''
 
     Left Join
-        [config].Parameter          As par_sub_sep
+        config.Parameter            As par_sub_sep
             On
             par_sub_sep.Parameter_name    = 'Inheritance_StringAggSeparatorSql_object'
             And par_sub_sep.sub_Parameter = pn.property_name
 
     Left Join
-        [config].Parameter          As par_sep
+        config.Parameter            As par_sep
             On
             par_sep.Parameter_name        = 'Inheritance_StringAggSeparatorSql_object'
-            And par_sep.sub_Parameter     = '';
+            And par_sep.sub_Parameter     = ''
 Go
 
 Execute sp_addextendedproperty

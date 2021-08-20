@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 <<property_start>>MS_Description
 list of conflicting entries which needs to be merged
@@ -43,29 +44,29 @@ repo	RepoObjectSource_FirstResultSet	RepoObject_guid
 repo	RepoObjectSource_QueryPlan	RepoObject_guid
 
 */
-CREATE View [repo].[RepoObject_RequiredRepoObjectMerge]
+CREATE View repo.RepoObject_RequiredRepoObjectMerge
 As
 Select
     ro1.RepoObject_guid
-  , ro2.RepoObject_guid        As ro2_RepoObject_guid
+  , ro2_RepoObject_guid        = ro2.RepoObject_guid
   , ro1.RepoObject_fullname
-  , ro2.RepoObject_fullname    As ro2_RepoObject_fullname
+  , ro2_RepoObject_fullname    = ro2.RepoObject_fullname
   , ro1.SysObject_fullname
-  , ro2.SysObject_fullname     As ro2_SysObject_fullname
+  , ro2_SysObject_fullname     = ro2.SysObject_fullname
   , ro1.RepoObject_name
   , ro1.RepoObject_schema_name
   , ro1.SysObject_name
   , ro1.SysObject_schema_name
-  , ro2.RepoObject_name        As ro2_RepoObject_name
-  , ro2.RepoObject_schema_name As ro2_RepoObject_schema_name
-  , ro2.SysObject_name         As ro2_SysObject_name
+  , ro2_RepoObject_name        = ro2.RepoObject_name
+  , ro2_RepoObject_schema_name = ro2.RepoObject_schema_name
+  , ro2_SysObject_name         = ro2.SysObject_name
 From
     repo.RepoObject     As ro1
     Inner Join
         repo.RepoObject As ro2
             On
             ro2.SysObject_fullname  = ro1.RepoObject_fullname
-            And ro2.RepoObject_guid <> ro1.RepoObject_guid;
+            And ro2.RepoObject_guid <> ro1.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

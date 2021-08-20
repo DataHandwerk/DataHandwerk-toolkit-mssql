@@ -1,16 +1,22 @@
-CREATE VIEW repo.Index_virtual_IndexPatternColumnGuid
-AS
-SELECT i.index_guid
- --only one [parent_RepoObject_guid] per index_guid is possible
- , parent_RepoObject_guid = MAX(i.parent_RepoObject_guid)
- , IndexPatternColumnGuid = STRING_AGG(CAST(ic.RepoObjectColumn_guid AS CHAR(36)), ',') WITHIN
-GROUP (
-  ORDER BY CAST(ic.RepoObjectColumn_guid AS CHAR(36))
-  )
-FROM repo.Index_virtual i
-INNER JOIN repo.IndexColumn_virtual ic
- ON i.index_guid = ic.index_guid
-GROUP BY i.index_guid
+﻿
+CREATE View repo.Index_virtual_IndexPatternColumnGuid
+As
+Select
+    i.index_guid
+  --only one [parent_RepoObject_guid] per index_guid is possible
+  , parent_RepoObject_guid = Max ( i.parent_RepoObject_guid )
+  , IndexPatternColumnGuid =
+  --
+  String_Agg ( Cast(ic.RepoObjectColumn_guid As Char(36)), ',' ) Within Group(Order By
+                                                                                  Cast(ic.RepoObjectColumn_guid As Char(36)))
+From
+    repo.Index_virtual           As i
+    Inner Join
+        repo.IndexColumn_virtual As ic
+            On
+            i.index_guid = ic.index_guid
+Group By
+    i.index_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75ce8eb8-5f62-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_virtual_IndexPatternColumnGuid', @level2type = N'COLUMN', @level2name = N'IndexPatternColumnGuid';
 

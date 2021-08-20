@@ -1,46 +1,50 @@
+﻿
 
 /*
 this view can be used to check if SysObject renaming is safe or if exists referenced objects and refactoring is required
 */
-CREATE VIEW [repo_sys].[RepoObjectReferenced]
-AS
+CREATE View repo_sys.RepoObjectReferenced
+As
 --
-SELECT [ro].[RepoObject_guid]
- --, [ro].[RepoObject_schema_name]
- --, [ro].[RepoObject_name]
- --, [ro].[RepoObject_type]
- , [ro].[SysObject_id]
- --, [ro].[SysObject_schema_name]
- --, [ro].[SysObject_name]
- , [ro].[SysObject_type]
- , [ro].[SysObject_modify_date]
- --, [ro].[has_execution_plan_issue]
- , [ro].[is_repo_managed]
- --, [ro].[modify_dt]
- , [ro].[has_different_sys_names]
- , [ro].[RepoObject_fullname]
- , [ro].[SysObject_fullname]
- , [referenced].[referencing_minor_id] AS [referencing_minor_id]
- , [referenced].[referenced_server_name] COLLATE database_default AS [referenced_server_name]
- , [referenced].[referenced_database_name] COLLATE database_default AS [referenced_database_name]
- , [referenced].[referenced_schema_name] COLLATE database_default AS [referenced_schema_name]
- , [referenced].[referenced_entity_name] COLLATE database_default AS [referenced_entity_name]
- , [referenced].[referenced_minor_name] COLLATE database_default AS [referenced_minor_name]
- , [referenced].[referenced_id] AS [referenced_id]
- , [referenced].[referenced_minor_id] AS [referenced_minor_id]
- , [referenced].[referenced_class] AS [referenced_class]
- , [referenced].[referenced_class_desc] COLLATE database_default AS [referenced_class_desc]
- , [referenced].[is_caller_dependent] AS [is_caller_dependent]
- , [referenced].[is_ambiguous] AS [is_ambiguous]
- , [referenced].[is_selected] AS [is_selected]
- , [referenced].[is_updated] AS [is_updated]
- , [referenced].[is_select_all] AS [is_select_all]
- , [referenced].[is_all_columns_found] AS [is_all_columns_found]
- , [referenced].[is_insert_all] AS [is_insert_all]
- , [referenced].[is_incomplete] AS [is_incomplete]
-FROM repo.RepoObject AS ro
-CROSS APPLY sys_dwh.dm_sql_referenced_entities(SysObject_fullname, 'OBJECT') AS referenced
-WHERE ISNULL([ro].[has_get_referenced_issue], 0) = 0
+Select
+    ro.RepoObject_guid
+  --, [ro].[RepoObject_schema_name]
+  --, [ro].[RepoObject_name]
+  --, [ro].[RepoObject_type]
+  , ro.SysObject_id
+  --, [ro].[SysObject_schema_name]
+  --, [ro].[SysObject_name]
+  , ro.SysObject_type
+  , ro.SysObject_modify_date
+  --, [ro].[has_execution_plan_issue]
+  , ro.is_repo_managed
+  --, [ro].[modify_dt]
+  , ro.has_different_sys_names
+  , ro.RepoObject_fullname
+  , ro.SysObject_fullname
+  , referencing_minor_id     = referenced.referencing_minor_id
+  , referenced_server_name   = referenced.referenced_server_name Collate Database_Default
+  , referenced_database_name = referenced.referenced_database_name Collate Database_Default
+  , referenced_schema_name   = referenced.referenced_schema_name Collate Database_Default
+  , referenced_entity_name   = referenced.referenced_entity_name Collate Database_Default
+  , referenced_minor_name    = referenced.referenced_minor_name Collate Database_Default
+  , referenced_id            = referenced.referenced_id
+  , referenced_minor_id      = referenced.referenced_minor_id
+  , referenced_class         = referenced.referenced_class
+  , referenced_class_desc    = referenced.referenced_class_desc Collate Database_Default
+  , is_caller_dependent      = referenced.is_caller_dependent
+  , is_ambiguous             = referenced.is_ambiguous
+  , is_selected              = referenced.is_selected
+  , is_updated               = referenced.is_updated
+  , is_select_all            = referenced.is_select_all
+  , is_all_columns_found     = referenced.is_all_columns_found
+  , is_insert_all            = referenced.is_insert_all
+  , is_incomplete            = referenced.is_incomplete
+From
+    repo.RepoObject                                                                    As ro
+    Cross Apply sys_dwh.dm_sql_referenced_entities ( ro.SysObject_fullname, 'OBJECT' ) As referenced
+Where
+    IsNull ( ro.has_get_referenced_issue, 0 ) = 0
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0990291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'RepoObjectReferenced';
 

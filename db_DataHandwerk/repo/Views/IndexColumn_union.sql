@@ -1,41 +1,42 @@
-﻿Create View repo.IndexColumn_union
+﻿
+CREATE View repo.IndexColumn_union
 As
 --
 Select
-    index_guid
-  , index_column_id
-  , is_descending_key
-  , RepoObjectColumn_guid
-  , parent_RepoObject_guid
-  , index_name
-  , parent_schema_name
-  , parent_SysObject_name
-  , SysObject_column_name
-  , SysObject_column_user_type_fullname
-  , is_index_unique
-  , is_index_primary_key
-  , is_index_real
-  , parent_SysObject_fullname
+    T1.index_guid
+  , T1.index_column_id
+  , T1.is_descending_key
+  , T1.RepoObjectColumn_guid
+  , T1.parent_RepoObject_guid
+  , T1.index_name
+  , T1.parent_schema_name
+  , T1.parent_SysObject_name
+  , T1.SysObject_column_name
+  , T1.SysObject_column_user_type_fullname
+  , T1.is_index_unique
+  , T1.is_index_primary_key
+  , T1.is_index_real
+  , T1.parent_SysObject_fullname
 From
     repo_sys.IndexColumn_unique As T1
 Union All
 Select
-    index_guid
-  , index_column_id
-  , is_descending_key
-  , RepoObjectColumn_guid
-  , parent_RepoObject_guid
-  , index_name
-  , parent_schema_name
-  , parent_Object_name
-  , Object_column_name
-  , column_user_type_fullname
-  , is_index_unique
-  , is_index_primary_key
-  , is_index_real
-  , parent_Object_fullname
+    T2.Index_guid
+  , T2.index_column_id
+  , T2.is_descending_key
+  , T2.RepoObjectColumn_guid
+  , T2.parent_RepoObject_guid
+  , T2.index_name
+  , T2.parent_schema_name
+  , T2.parent_Object_name
+  , T2.Object_column_name
+  , T2.column_user_type_fullname
+  , T2.is_index_unique
+  , T2.is_index_primary_key
+  , T2.is_index_real
+  , T2.parent_Object_fullname
 From
-    repo.IndexColumn_virtual_gross As T2;
+    repo.IndexColumn_virtual_gross As T2
 Go
 
 Execute sp_addextendedproperty

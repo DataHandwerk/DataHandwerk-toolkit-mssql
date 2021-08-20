@@ -1,7 +1,8 @@
 ﻿
+
 --in case of an simple identifier like [T1].[aaa]
 --get the table part [Identifier_source_table] (before dot) and the column part [Identifier_source_column] (after dot)
-Create View [sqlparse].RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit
+CREATE View sqlparse.RepoObject_SqlModules_25_IdentifierList_children_IdentifierSplit
 As
 --
 Select
@@ -18,7 +19,7 @@ Select
   , T1.Identifier_source_class
   , T1.Identifier_source_children
   --in case of an simple identifier like [T1].[aaa] get the table part (before dot) and the column part (after dot)
-  , Identifier_source_table  = Case Identifier_source_class
+  , Identifier_source_table  = Case T1.Identifier_source_class
                                    When 'Identifier'
                                        Then
                                        Case
@@ -31,7 +32,7 @@ Select
                                                Null
                                        End
                                End
-  , Identifier_source_column = Case Identifier_source_class
+  , Identifier_source_column = Case T1.Identifier_source_class
                                    When 'Identifier'
                                        Then
                                        Case
@@ -70,8 +71,8 @@ Select
 --, [T3].[child4_normalized]
 --, [T3].[child4_children]
 From
-    [sqlparse].RepoObject_SqlModules_24_IdentifierList_children                          As T1
-    Cross Apply [sqlparse].ftv_sqlparse_children_pivot ( T1.Identifier_source_children ) As T3;
+    sqlparse.RepoObject_SqlModules_24_IdentifierList_children                          As T1
+    Cross Apply sqlparse.ftv_sqlparse_children_pivot ( T1.Identifier_source_children ) As T3
 Go
 
 Execute sp_addextendedproperty

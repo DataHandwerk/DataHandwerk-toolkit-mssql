@@ -1,6 +1,7 @@
 ﻿
 
-CREATE View [property].[ExtendedProperty_Repo2Sys_level2_Union]
+
+CREATE View property.ExtendedProperty_Repo2Sys_level2_Union
 As
 Select
     --
@@ -13,7 +14,7 @@ Select
   , level2type
   , level2name
 From
-    [property].ExtendedProperty_Repo2Sys_level2_RepoObject
+    property.ExtendedProperty_Repo2Sys_level2_RepoObject
 Union All
 Select
     --
@@ -26,7 +27,7 @@ Select
   , level2type
   , level2name
 From
-    [property].ExtendedProperty_Repo2Sys_level2_RepoObjectColumn;
+    property.ExtendedProperty_Repo2Sys_level2_RepoObjectColumn
 Go
 
 Execute sp_addextendedproperty

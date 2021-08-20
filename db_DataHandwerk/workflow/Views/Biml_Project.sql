@@ -1,5 +1,6 @@
 ﻿
-create View [workflow].[Biml_Project]
+
+CREATE View workflow.Biml_Project
 As
 Select
     Project_Biml = Concat (
@@ -9,28 +10,28 @@ Select
             <Packages>
 '
                             , String_Agg (
-                                             '<Package PackageName="' + T2.[Package_Name] + '" />'
+                                             '<Package PackageName="' + T2.Package_Name + '" />'
                                            , Char ( 13 ) + Char ( 10 )
                                          ) Within Group(Order By
-                                                            T2.[Package_Name])
+                                                            T2.Package_Name)
                             , '
             </Packages>
             <Connections>
 '
-                            , Max ( T1.[ConnectionName_Biml] )
+                            , Max ( T1.ConnectionName_Biml )
                             , '
             </Connections>
         </PackageProject>
     </Projects>
     <Connections>
 '
-                            , Max ( T1.[ConnectionString_Biml] )
+                            , Max ( T1.ConnectionString_Biml )
                             , '
     </Connections>
     <Packages>
 '
-                            , String_Agg ( T2.[Package_Biml], Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                          T2.[Package_Name])
+                            , String_Agg ( T2.Package_Biml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                        T2.Package_Name)
                             , '    
 
     </Packages>
@@ -38,8 +39,8 @@ Select
 '
                           )
 From
-    [workflow].[Biml_Connection] T1
-  , [workflow].[Biml_Package] T2;
+    workflow.Biml_Connection As T1
+  , workflow.Biml_Package As T2
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b166a0a8-e3fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Biml_Project';
 

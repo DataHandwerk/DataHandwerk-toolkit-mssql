@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 <<property_start>>MS_Description
 * xref:sqldb:uspgenerator.GeneratorUspStep_Persistence.adoc[] creates all possible steps for GeneratorUspStep
@@ -9,7 +10,7 @@
 <<property_end>>
 */
 
-CREATE View [uspgenerator].[GeneratorUspStep_Persistence]
+CREATE View uspgenerator.GeneratorUspStep_Persistence
 As
 Select
     --
@@ -29,9 +30,9 @@ Select
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
@@ -57,9 +58,9 @@ Select
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
@@ -83,21 +84,21 @@ Select
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross     As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp     As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
     --INNER JOIN because step 300 should be created only when PK exists in persistence_source
 
     Inner Join
-        repo.RepoObject_gross As ro_s
+        repo.RepoObject_gross     As ro_s
             On
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList  As i
+        repo.Index_ColumList      As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
@@ -123,21 +124,21 @@ Select
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross     As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp     As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
     --INNER JOIN because step 300 should be created only when PK exists in persistence_source
 
     Inner Join
-        repo.RepoObject_gross As ro_s
+        repo.RepoObject_gross     As ro_s
             On
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList  As i
+        repo.Index_ColumList      As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
@@ -159,9 +160,9 @@ Select
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
@@ -191,21 +192,21 @@ WHERE
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross     As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp     As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
     --INNER JOIN because step 500 should be created only when PK exists in persistence_source
 
     Inner Join
-        repo.RepoObject_gross As ro_s
+        repo.RepoObject_gross     As ro_s
             On
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList  As i
+        repo.Index_ColumList      As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
@@ -233,21 +234,21 @@ WHERE
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross     As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp     As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
     --INNER JOIN because step 500 should be created only when PK exists in persistence_source
 
     Inner Join
-        repo.RepoObject_gross As ro_s
+        repo.RepoObject_gross     As ro_s
             On
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList  As i
+        repo.Index_ColumList      As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
@@ -277,21 +278,21 @@ WHERE
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross     As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp     As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
     --INNER JOIN because step 500 should be created only when PK exists in persistence_source
 
     Inner Join
-        repo.RepoObject_gross As ro_s
+        repo.RepoObject_gross     As ro_s
             On
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList  As i
+        repo.Index_ColumList      As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
@@ -325,21 +326,21 @@ WHERE
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross     As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp     As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
     --INNER JOIN because step 500 should be created only when PK exists in persistence_source
 
     Inner Join
-        repo.RepoObject_gross As ro_s
+        repo.RepoObject_gross     As ro_s
             On
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList  As i
+        repo.Index_ColumList      As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
@@ -367,9 +368,9 @@ FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
@@ -397,12 +398,12 @@ FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross As ro
+    repo.RepoObject_gross         As ro
     Inner Join
-        [uspgenerator].GeneratorUsp As gu
+        uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
-            And ro.usp_persistence_name = gu.usp_name;
+            And ro.usp_persistence_name = gu.usp_name
 /*
 MERGE [graph].[ReferencedObject] as T
 USING

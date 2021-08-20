@@ -1,4 +1,5 @@
 ﻿
+
 /*
 repo.RepoObjectColumn_reference__first_result_set
 for view columns the referenced columns in a predecessor table is shown, not the referenced colum in a predecessor view
@@ -36,7 +37,7 @@ and we get what we need:
 dbo.view_2.aaa -> dbo.view_1.aaa
 
 */
-CREATE View [reference].[RepoObjectColumn_reference_BySamePredecessors]
+CREATE View reference.RepoObjectColumn_reference_BySamePredecessors
 As
 --
 Select
@@ -49,14 +50,14 @@ Select
   , roc_r_t2.referencing_schema_name
   , roc_r_t2.referencing_entity_name
   , roc_r_t2.referencing_column_name
-  , roc_r_t1.referencing_id                       As referenced_id
-  , roc_r_t1.referencing_minor_id                 As referenced_minor_id
-  , roc_r_t1.referencing_node_id                  As referenced_node_id
+  , referenced_id                                 = roc_r_t1.referencing_id
+  , referenced_minor_id                           = roc_r_t1.referencing_minor_id
+  , referenced_node_id                            = roc_r_t1.referencing_node_id
   , ro_r.referenced_RepoObject_guid
-  , roc_r_t1.referencing_RepoObjectColumn_guid    As referenced_RepoObjectColumn_guid
+  , referenced_RepoObjectColumn_guid              = roc_r_t1.referencing_RepoObjectColumn_guid
   , ro_r.referenced_schema_name
   , ro_r.referenced_entity_name
-  , roc_r_t1.referencing_column_name              As referenced_column_name
+  , referenced_column_name                        = roc_r_t1.referencing_column_name
   , ro_r.referenced_type
   , roc_r_t2.InformationSource
   , roc_r_t2.is_hidden
@@ -71,14 +72,14 @@ Select
                                                          End As Bit)
   , is_referenced_object                          = Cast(1 As Bit)
 From
-    [reference].RepoObject_reference_T                        As ro_r
+    reference.RepoObject_reference_T                        As ro_r
     Inner Join
-        [reference].RepoObjectColumn_reference_FirstResultSet As roc_r_t2
+        reference.RepoObjectColumn_reference_FirstResultSet As roc_r_t2
             On
             ro_r.referencing_RepoObject_guid              = roc_r_t2.referencing_RepoObject_guid
 
     Inner Join
-        [reference].RepoObjectColumn_reference_FirstResultSet As roc_r_t1
+        reference.RepoObjectColumn_reference_FirstResultSet As roc_r_t1
             On
             ro_r.referenced_RepoObject_guid               = roc_r_t1.referencing_RepoObject_guid
             And roc_r_t2.referenced_RepoObject_guid       = roc_r_t1.referenced_RepoObject_guid
@@ -87,7 +88,7 @@ From
 --and to ensure all results can be used we ensure RepoObjectColum exists
 Where
     Not roc_r_t2.referencing_RepoObjectColumn_guid Is Null
-    And Not roc_r_t1.referencing_RepoObjectColumn_guid Is Null;
+    And Not roc_r_t1.referencing_RepoObjectColumn_guid Is Null
 Go
 
 Execute sp_addextendedproperty

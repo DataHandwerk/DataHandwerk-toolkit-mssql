@@ -1,61 +1,70 @@
-﻿CREATE VIEW repo_sys.[parameters]
-AS
-SELECT [par].object_id
- , [par].[name]
- , [par].[parameter_id]
- , [par].[system_type_id]
- , [par].[user_type_id]
- , [par].[max_length]
- , [par].[precision]
- , [par].[scale]
- , [par].[is_output]
- , [par].[is_cursor_ref]
- , [par].[has_default_value]
- , [par].[is_xml_document]
- , [par].[default_value]
- , [par].[xml_collection_id]
- , [par].[is_readonly]
- , [par].[is_nullable]
- , [par].[encryption_type]
- , [par].[encryption_type_desc]
- , [par].[encryption_algorithm_name]
- , [par].[column_encryption_key_id]
- , [par].[column_encryption_key_database_name]
- -- code for [user_type_name]: https://stackoverflow.com/questions/9179990/where-do-i-find-sql-server-metadata-for-column-datatypes
- , [user_type_name] = [tp].[name] COLLATE database_default
- , [user_type_fullname] = CASE 
-  WHEN [tp].[name] IN (
-    'varchar'
-    , 'char'
-    , 'varbinary'
-    , 'binary'
-    )
-   THEN [tp].[name] + '(' + IIF([par].[max_length] = - 1, 'max', CAST([par].[max_length] AS VARCHAR(25))) + ')'
-  WHEN [tp].[name] IN (
-    'nvarchar'
-    , 'nchar'
-    )
-   THEN [tp].[name] + '(' + IIF([par].[max_length] = - 1, 'max', CAST([par].[max_length] / 2 AS VARCHAR(25))) + ')'
-  WHEN [tp].[name] IN (
-    'decimal'
-    , 'numeric'
-    )
-   THEN [tp].[name] + '(' + CAST([par].[precision] AS VARCHAR(25)) + ', ' + CAST([par].[scale] AS VARCHAR(25)) + ')'
-  WHEN [tp].[name] IN ('datetime2')
-   THEN [tp].[name] + '(' + CAST([par].[scale] AS VARCHAR(25)) + ')'
-  ELSE [tp].[name]
-  END COLLATE database_default
- , so.SysObject_fullname
- , so.SysObject_fullname2
- , so.SysObject_name
- , so.SysObject_RepoObject_guid
- , so.SysObject_schema_name
- , SysObject_type = so.type
-FROM [sys_dwh].[parameters] AS par
-LEFT OUTER JOIN sys_dwh.types AS tp
- ON tp.user_type_id = par.user_type_id
-LEFT OUTER JOIN [repo_sys].[SysObject] so
- ON so.SysObject_id = par.object_id
+﻿
+CREATE View repo_sys.parameters
+As
+Select
+    par.object_id
+  , par.name
+  , par.parameter_id
+  , par.system_type_id
+  , par.user_type_id
+  , par.max_length
+  , par.precision
+  , par.scale
+  , par.is_output
+  , par.is_cursor_ref
+  , par.has_default_value
+  , par.is_xml_document
+  , par.default_value
+  , par.xml_collection_id
+  , par.is_readonly
+  , par.is_nullable
+  , par.encryption_type
+  , par.encryption_type_desc
+  , par.encryption_algorithm_name
+  , par.column_encryption_key_id
+  , par.column_encryption_key_database_name
+  -- code for [user_type_name]: https://stackoverflow.com/questions/9179990/where-do-i-find-sql-server-metadata-for-column-datatypes
+  , user_type_name     = tp.name Collate Database_Default
+  , user_type_fullname = Case
+                             When tp.name In
+                             ( 'varchar', 'char', 'varbinary', 'binary' )
+                                 Then
+                                 tp.name + '(' + Iif(par.max_length = -1, 'max', Cast(par.max_length As Varchar(25)))
+                                 + ')'
+                             When tp.name In
+                             ( 'nvarchar', 'nchar' )
+                                 Then
+                                 tp.name + '('
+                                 + Iif(par.max_length = -1, 'max', Cast(par.max_length / 2 As Varchar(25))) + ')'
+                             When tp.name In
+                             ( 'decimal', 'numeric' )
+                                 Then
+                                 tp.name + '(' + Cast(par.precision As Varchar(25)) + ', '
+                                 + Cast(par.scale As Varchar(25)) + ')'
+                             When tp.name In
+                             ( 'datetime2' )
+                                 Then
+                                 tp.name + '(' + Cast(par.scale As Varchar(25)) + ')'
+                             Else
+                                 tp.name
+                         End Collate Database_Default
+  , so.SysObject_fullname
+  , so.SysObject_fullname2
+  , so.SysObject_name
+  , so.SysObject_RepoObject_guid
+  , so.SysObject_schema_name
+  , SysObject_type     = so.type
+From
+    sys_dwh.parameters     As par
+    Left Outer Join
+        sys_dwh.types      As tp
+            On
+            tp.user_type_id = par.user_type_id
+
+    Left Outer Join
+        repo_sys.SysObject As so
+            On
+            so.SysObject_id = par.object_id
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0f7e7a91-ca97-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'parameters', @level2type = N'COLUMN', @level2name = N'SysObject_type';
 

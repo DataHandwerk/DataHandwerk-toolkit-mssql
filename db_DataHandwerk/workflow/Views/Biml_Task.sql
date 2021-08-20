@@ -1,9 +1,10 @@
-﻿Create   View workflow.Biml_Task
+﻿
+CREATE View workflow.Biml_Task
 As
 Select
-    T1.[Workflow_id]
-  , T1.[Workflow_Name]
-  , T1.[Procedure_RepoObject_guid]
+    T1.Workflow_id
+  , T1.Workflow_Name
+  , T1.Procedure_RepoObject_guid
   , ro1.RepoObject_fullname2
   , TaskName = Replace ( ro1.RepoObject_fullname2, '.', '_' )
   , TaskBiml =
@@ -32,17 +33,17 @@ Select
            , '  </ExecuteSQL>'
          )
 From
-    [workflow].[WorkflowStep_active]                        T1
+    workflow.WorkflowStep_active            As T1
     Inner Join
-        repo.RepoObject                                     As ro1
+        repo.RepoObject                     As ro1
             On
-            T1.[Procedure_RepoObject_guid]               = ro1.RepoObject_guid
+            T1.Procedure_RepoObject_guid                 = ro1.RepoObject_guid
 
     Left Join
-        workflow.Biml_PrecedenceConstraints pc
+        workflow.Biml_PrecedenceConstraints As pc
             On
-            pc.Workflow_id                               = T1.[Workflow_id]
-            And pc.referencing_Procedure_RepoObject_guid = T1.[Procedure_RepoObject_guid];
+            pc.Workflow_id                               = T1.Workflow_id
+            And pc.referencing_Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a5bcd983-91fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Biml_Task';
 

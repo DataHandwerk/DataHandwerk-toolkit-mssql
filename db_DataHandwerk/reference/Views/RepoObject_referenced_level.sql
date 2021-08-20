@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 Select
     Object1.RepoObject_guid                                                     As StartingNode_guid
   , Object1.RepoObject_fullname                                                 As StartingNode_fullname
@@ -15,9 +16,10 @@ From
 Where Match(
     SHORTEST_PATH(Object1(-(referenced)->Object2)+));
 */
-CREATE View [reference].[RepoObject_referenced_level]
+CREATE View reference.RepoObject_referenced_level
 As
-Select 1 As a
+Select
+    a = 1
 Go
 
 

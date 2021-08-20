@@ -1,14 +1,15 @@
-﻿CREATE View reference.RepoObject_reference
+﻿
+CREATE View reference.RepoObject_reference
 As
 Select
     referenced_RepoObject_guid
   , referencing_RepoObject_guid
-  , Max ( referenced_entity_name )  As referenced_entity_name
-  , Max ( referenced_schema_name )  As referenced_schema_name
-  , Max ( referenced_type )         As referenced_type
-  , Max ( referencing_entity_name ) As referencing_entity_name
-  , Max ( referencing_schema_name ) As referencing_schema_name
-  , Max ( referencing_type )        As referencing_type
+  , referenced_entity_name  = Max ( referenced_entity_name )
+  , referenced_schema_name  = Max ( referenced_schema_name )
+  , referenced_type         = Max ( referenced_type )
+  , referencing_entity_name = Max ( referencing_entity_name )
+  , referencing_schema_name = Max ( referencing_schema_name )
+  , referencing_type        = Max ( referencing_type )
 From
     reference.RepoObject_reference_union
 Group By
@@ -16,7 +17,7 @@ Group By
   , referencing_RepoObject_guid
 Having
     ( Not ( referenced_RepoObject_guid Is Null ))
-    And ( Not ( referencing_RepoObject_guid Is Null ));
+    And ( Not ( referencing_RepoObject_guid Is Null ))
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6ba279f1-54f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referencing_type';
 

@@ -92,10 +92,10 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',120,';',NULL);
 
 SET @outputDirPartNav = ISNULL(@outputDirPartNav, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\navlist\')
 SET @outputDirPageNav = ISNULL(@outputDirPageNav, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'pages\nav\')
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
@@ -666,7 +666,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'https://antora.org/[Antora] uses https://docs.antora.org/antora/2.3/navigation/files-and-lists/[Navigation Files and Lists]. Content for these files is exported
 
-* check and correct xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''Adoc_AntoraDocModulFolder'', ''''), a possible parameter is
+* check and correct xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraDocModulFolder'', ''''), a possible parameter is
 +
 ====
 D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb====

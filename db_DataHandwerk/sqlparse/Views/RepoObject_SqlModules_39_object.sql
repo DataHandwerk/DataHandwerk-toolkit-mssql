@@ -1,4 +1,5 @@
-﻿Create View [sqlparse].RepoObject_SqlModules_39_object
+﻿
+CREATE View sqlparse.RepoObject_SqlModules_39_object
 As
 --
 Select
@@ -25,50 +26,50 @@ Select
   , T26.is_union
   , T27.has_GroupBy
 From
-    [sqlparse].RepoObject_SqlModules                            As T1
+    sqlparse.RepoObject_SqlModules                            As T1
     Left Outer Join
-        repo.RepoObject                                   As ro
+        repo.RepoObject                                       As ro
             On
             ro.RepoObject_guid    = T1.RepoObject_guid
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_31_object              As T31
+        sqlparse.RepoObject_SqlModules_31_object              As T31
             On
             T31.RepoObject_guid   = T1.RepoObject_guid
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_32_ObjectClass         As T32_1
+        sqlparse.RepoObject_SqlModules_32_ObjectClass         As T32_1
             On
             T32_1.RepoObject_guid = T1.RepoObject_guid
             And T32_1.class       = 'IdentifierList'
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_32_ObjectClass         As T32_2
+        sqlparse.RepoObject_SqlModules_32_ObjectClass         As T32_2
             On
             T32_2.RepoObject_guid = T1.RepoObject_guid
             And T32_2.class       = 'WHERE'
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_33_ObjectNormalized    As T33_1
+        sqlparse.RepoObject_SqlModules_33_ObjectNormalized    As T33_1
             On
             T33_1.RepoObject_guid = T1.RepoObject_guid
             And T33_1.normalized  = 'FROM'
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_33_ObjectNormalized    As T33_2
+        sqlparse.RepoObject_SqlModules_33_ObjectNormalized    As T33_2
             On
             T33_2.RepoObject_guid = T1.RepoObject_guid
             And T33_2.normalized  = 'GROUP BY'
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_29_1_object_is_union   As T26
+        sqlparse.RepoObject_SqlModules_29_1_object_is_union   As T26
             On
             T26.RepoObject_guid   = T1.RepoObject_guid
 
     Left Outer Join
-        [sqlparse].RepoObject_SqlModules_29_2_object_is_GroupBy As T27
+        sqlparse.RepoObject_SqlModules_29_2_object_is_GroupBy As T27
             On
-            T27.RepoObject_guid   = T1.RepoObject_guid;
+            T27.RepoObject_guid   = T1.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

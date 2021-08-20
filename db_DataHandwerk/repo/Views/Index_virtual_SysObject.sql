@@ -1,4 +1,5 @@
-﻿Create View repo.Index_virtual_SysObject
+﻿
+CREATE View repo.Index_virtual_SysObject
 As
 --
 Select
@@ -27,7 +28,7 @@ From
     Inner Join
         repo.Index_Settings As isg
             On
-            isg.index_guid            = iv.index_guid;
+            isg.index_guid            = iv.index_guid
 Go
 
 Execute sp_addextendedproperty

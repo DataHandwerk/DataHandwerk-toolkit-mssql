@@ -1,27 +1,36 @@
-﻿CREATE VIEW [repo_sys].[Index_unique]
-AS
+﻿
+CREATE View repo_sys.Index_unique
+As
 --
-SELECT [index_guid] = [ro_index].[RepoObject_guid]
- , [index_name] = [si].[name] COLLATE database_default
- , [si].[index_id]
- , [si].[is_unique] AS [is_index_unique]
- , [si].[is_primary_key] AS [is_index_primary_key]
- , [si].[is_unique_constraint] AS [is_index_unique_constraint]
- , [si].[is_disabled] AS [is_index_disabled]
- , [si].[type] AS [index_type]
- , [si].[type_desc] AS [index_type_desc]
- , [parent_RepoObject_guid] = [ro_parent].[RepoObject_guid]
- , [parent_schema_name] = [ro_parent].[SysObject_schema_name]
- , [parent_SysObject_name] = [ro_parent].[SysObject_name]
- , [parent_SysObject_fullname] = [ro_parent].[SysObject_fullname]
-FROM sys_dwh.indexes AS si
-LEFT JOIN repo.RepoObject AS ro_index
- ON ro_index.SysObject_name = si.name COLLATE database_default
-  AND ro_index.SysObject_parent_object_id = si.object_id
-LEFT JOIN repo.RepoObject AS ro_parent
- ON ro_parent.SysObject_id = si.object_id
-WHERE [si].[is_unique] = 1
- AND NOT [ro_index].[RepoObject_guid] IS NULL
+Select
+    index_guid                 = ro_index.RepoObject_guid
+  , index_name                 = si.name Collate Database_Default
+  , si.index_id
+  , is_index_unique            = si.is_unique
+  , is_index_primary_key       = si.is_primary_key
+  , is_index_unique_constraint = si.is_unique_constraint
+  , is_index_disabled          = si.is_disabled
+  , index_type                 = si.type
+  , index_type_desc            = si.type_desc
+  , parent_RepoObject_guid     = ro_parent.RepoObject_guid
+  , parent_schema_name         = ro_parent.SysObject_schema_name
+  , parent_SysObject_name      = ro_parent.SysObject_name
+  , parent_SysObject_fullname  = ro_parent.SysObject_fullname
+From
+    sys_dwh.indexes     As si
+    Left Join
+        repo.RepoObject As ro_index
+            On
+            ro_index.SysObject_name                 = si.name Collate Database_Default
+            And ro_index.SysObject_parent_object_id = si.object_id
+
+    Left Join
+        repo.RepoObject As ro_parent
+            On
+            ro_parent.SysObject_id                  = si.object_id
+Where
+    si.is_unique = 1
+    And Not ro_index.RepoObject_guid Is Null
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0890291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'Index_unique';

@@ -90,7 +90,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',39,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocModulFolder', '')
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\docsnippet\')
 
 
@@ -103,7 +103,7 @@ DECLARE @Object_fullname NVARCHAR(261);
 DECLARE @Object_fullname2 NVARCHAR(257);
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('Adoc_AntoraDocSnippet', N'xxx') and other sub_Parameters","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraDocSnippet', N'xxx') and other sub_Parameters","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',39,';',410,';',NULL);
 
 DECLARE template_cursor CURSOR Local Fast_Forward
@@ -111,7 +111,7 @@ FOR
 SELECT [sub_Parameter]
 --,[Parameter_value__result_nvarchar]
 FROM [config].[Parameter]
-WHERE [Parameter_name] = 'Adoc_AntoraDocSnippet'
+WHERE [Parameter_name] = 'AntoraDocSnippet'
  AND [sub_Parameter] <> ''
 ORDER BY [sub_Parameter]
 
@@ -125,9 +125,9 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- --bcp "SELECT [config].[fs_get_parameter_value]('Adoc_AntoraDocSnippet', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\docsnippet\xxx.adoc -S localhost\sql2019 -d dhw_self -c -T
+ --bcp "SELECT [config].[fs_get_parameter_value]('AntoraDocSnippet', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\docsnippet\xxx.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''Adoc_AntoraDocSnippet'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @sub_parameter + '.adoc'
+ SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraDocSnippet'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @sub_parameter + '.adoc'
   --
   + ' -S ' + @instanceName
   --
@@ -156,7 +156,7 @@ DEALLOCATE template_cursor
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraDocSnippet'', N''xxx'') and other sub_Parameters'
+SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''AntoraDocSnippet'', N''xxx'') and other sub_Parameters'
 SET @source_object = '[repo].[Parameter]'
 SET @target_object = NULL
 
@@ -269,7 +269,7 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 |410
 |
-*export FROM [repo].[fs_get_parameter_value](''Adoc_AntoraDocSnippet'', N''xxx'') and other sub_Parameters*
+*export FROM [repo].[fs_get_parameter_value](''AntoraDocSnippet'', N''xxx'') and other sub_Parameters*
 
 * u
 * [repo].[Parameter]
