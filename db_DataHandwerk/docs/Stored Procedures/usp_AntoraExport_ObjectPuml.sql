@@ -112,7 +112,6 @@ SET @outputDir4 = ISNULL(@outputDir4, (
 SET @outputDir5 = ISNULL(@outputDir5, (
    SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\puml\entity_30_0_objectref\')
-   
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',210,';',NULL);
@@ -167,7 +166,7 @@ BEGIN
   --
   + @Object_fullname2
   --
-  + '''" queryout ' + @outputDir + @Object_fullname2 + '.puml'
+  + '''" queryout "' + @outputDir + @Object_fullname2 + '.puml"'
   --
   + ' -S ' + @instanceName
   --
@@ -243,7 +242,7 @@ BEGIN
   --
   + @Object_fullname2
   --
-  + '''" queryout ' + @outputDir2 + @Object_fullname2 + '.puml'
+  + '''" queryout "' + @outputDir2 + @Object_fullname2 + '.puml"'
   --
   + ' -S ' + @instanceName
   --
@@ -319,7 +318,7 @@ BEGIN
   --
   + @Object_fullname2
   --
-  + '''" queryout ' + @outputDir3 + @Object_fullname2 + '.puml'
+  + '''" queryout "' + @outputDir3 + @Object_fullname2 + '.puml"'
   --
   + ' -S ' + @instanceName
   --
@@ -395,7 +394,7 @@ BEGIN
   --
   + @Object_fullname2
   --
-  + '''" queryout ' + @outputDir4 + @Object_fullname2 + '.puml'
+  + '''" queryout "' + @outputDir4 + @Object_fullname2 + '.puml"'
   --
   + ' -S ' + @instanceName
   --
@@ -471,7 +470,7 @@ BEGIN
   --
   + @Object_fullname2
   --
-  + '''" queryout ' + @outputDir5 + @Object_fullname2 + '.puml'
+  + '''" queryout "' + @outputDir5 + @Object_fullname2 + '.puml"'
   --
   + ' -S ' + @instanceName
   --

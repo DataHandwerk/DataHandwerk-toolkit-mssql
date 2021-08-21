@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View repo.SysColumn_RepoObjectColumn_via_name
+CREATE VIEW [repo].[SysColumn_RepoObjectColumn_via_name]
 As
 --
 Select
@@ -70,16 +69,16 @@ Select
 From
     repo_sys.SysColumn        As sc
     Left Join
-        repo.RepoObjectColumn As roc
-            On
-            sc.SysObject_RepoObject_guid = roc.RepoObject_guid
-            And sc.SysObject_column_name = roc.SysObjectColumn_name
-
-    Left Join
         repo.RepoObject       As ro
             On
             --roc.RepoObject_guid          = ro.RepoObject_guid;
-            ro.SysObject_fullname2       = sc.SysObject_fullname2
+            ro.SysObject_fullname2   = sc.SysObject_fullname2
+
+    Left Join
+        repo.RepoObjectColumn As roc
+            On
+            roc.SysObjectColumn_name = sc.SysObject_column_name
+            And roc.RepoObject_guid  = ro.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

@@ -93,7 +93,6 @@ SET @outputDir = ISNULL(@outputDir, (
    SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
    ) + 'partials\docsnippet\')
 
-
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',39,';',210,';',NULL);
 
@@ -127,7 +126,7 @@ BEGIN
  --
  --bcp "SELECT [config].[fs_get_parameter_value]('AntoraDocSnippet', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\docsnippet\xxx.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraDocSnippet'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @sub_parameter + '.adoc'
+ SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraDocSnippet'', N''' + @sub_parameter + ''')" queryout "' + @outputDir + @sub_parameter + '.adoc"'
   --
   + ' -S ' + @instanceName
   --

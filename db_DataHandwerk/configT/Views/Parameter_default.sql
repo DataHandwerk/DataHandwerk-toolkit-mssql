@@ -3,6 +3,7 @@
 
 
 
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -32,7 +33,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View configT.Parameter_default
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -285,7 +286,7 @@ Select
     Parameter_name          = 'AntoraModulFolder'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'Antora modul export folder, will be extended by AntoraModulName and on next level by ''partials\'', ''pages\'', ''examples\'', ''images\'''
-  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\' As NVarchar(4000))
+  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules' As NVarchar(4000))
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'

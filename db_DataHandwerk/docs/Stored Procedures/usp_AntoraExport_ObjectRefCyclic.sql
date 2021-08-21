@@ -112,7 +112,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',69,';',410,';',NULL);
 IndexSemanticGroup.adoc
 
 */
-SET @command = 'bcp "SELECT [page_content] FROM [docs].[ObjectRefCyclic]"  queryout ' + @outputDir + 'ObjectRefCyclic.adoc'
+SET @command = 'bcp "SELECT [page_content] FROM [docs].[ObjectRefCyclic]"  queryout "' + @outputDir + 'ObjectRefCyclic.adoc"'
  --
  + ' -S ' + @instanceName
  --
@@ -160,7 +160,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',69,';',420,';',NULL);
 IndexSemanticGroup.adoc
 
 */
-SET @command = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic]"  queryout ' + @outputDir2 + 'ObjectRefCyclic.puml'
+SET @command = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic]"  queryout "' + @outputDir2 + 'ObjectRefCyclic.puml"'
  --
  + ' -S ' + @instanceName
  --

@@ -148,7 +148,7 @@ BEGIN
   --
   + @Object_fullname
   --
-  + '''" queryout ' + @outputDir + @Object_fullname2 + '.adoc'
+  + '''" queryout "' + @outputDir + @Object_fullname2 + '.adoc"'
   --
   + ' -S ' + @instanceName
   --

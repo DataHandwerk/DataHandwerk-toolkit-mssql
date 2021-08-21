@@ -128,7 +128,7 @@ BEGIN
  --
  --bcp "SELECT [config].[fs_get_parameter_value]('AntoraPageTemplate', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\master-page-1.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraPageTemplate'', N''' + @sub_parameter + ''')" queryout ' + @outputDir + @BaseFileName + @sub_parameter + '.adoc'
+ SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraPageTemplate'', N''' + @sub_parameter + ''')" queryout "' + @outputDir + @BaseFileName + @sub_parameter + '.adoc"'
   --
   + ' -S ' + @instanceName
   --
@@ -184,7 +184,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',510,';',NULL);
 /*
 master-page-examples.adoc
 */
-SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraTemplate_examples]"  queryout ' + @outputDir + 'master-page-examples.adoc'
+SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraTemplate_examples]"  queryout "' + @outputDir + 'master-page-examples.adoc"'
  --
  + ' -S ' + @instanceName
  --

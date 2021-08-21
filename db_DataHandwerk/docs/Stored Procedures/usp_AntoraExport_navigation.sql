@@ -126,7 +126,7 @@ BEGIN
  --
  --bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = 'dbo'" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\navlist-schema-dbo.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = ''' + @schema_name + '''"  queryout ' + @outputDirPartNav + 'navlist-schema-' + @schema_name + '.adoc'
+ SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = ''' + @schema_name + '''"  queryout "' + @outputDirPartNav + 'navlist-schema-' + @schema_name + '.adoc"'
   --
   + ' -S ' + @instanceName
   --
@@ -198,7 +198,7 @@ BEGIN
  --
  --bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_type] WHERE [type] = 'u'" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\navlist-type-u.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_type] WHERE [type] = ''' + @type + '''"  queryout ' + @outputDirPartNav + 'navlist-type-' + @type + '.adoc'
+ SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_type] WHERE [type] = ''' + @type + '''"  queryout "' + @outputDirPartNav + 'navlist-type-' + @type + '.adoc"'
   --
   + ' -S ' + @instanceName
   --
@@ -272,7 +272,7 @@ BEGIN
  --
  --bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema_type] WHERE [RepoObject_schema_name] = 'dbo' and [type] = 'u'" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\navlist-type-u.adoc -S localhost\sql2019 -d dhw_self -c -T
  --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema_type] WHERE [RepoObject_schema_name] = ''' + @schema_name + ''' AND [type] = ''' + @type + '''"  queryout ' + @outputDirPartNav + 'navlist-schema-type-' + @type + '.adoc'
+ SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema_type] WHERE [RepoObject_schema_name] = ''' + @schema_name + ''' AND [type] = ''' + @type + '''"  queryout "' + @outputDirPartNav + 'navlist-schema-type-' + @type + '.adoc"'
   --
   + ' -S ' + @instanceName
   --
@@ -343,7 +343,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_schema] WHERE [RepoObject_schema_name] = ''' + @schema_name + '''"  queryout ' + @outputDirPageNav + 'nav-schema-' + @schema_name + '.adoc'
+ SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_schema] WHERE [RepoObject_schema_name] = ''' + @schema_name + '''"  queryout "' + @outputDirPageNav + 'nav-schema-' + @schema_name + '.adoc"'
   --
   + ' -S ' + @instanceName
   --
@@ -420,7 +420,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
  --Dynamically construct the BCP command
  --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_type] WHERE [type] = ''' + @type + '''"  queryout ' + @outputDirPageNav + 'nav-type-' + @type + '.adoc'
+ SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_type] WHERE [type] = ''' + @type + '''"  queryout "' + @outputDirPageNav + 'nav-type-' + @type + '.adoc"'
   --
   + ' -S ' + @instanceName
   --
@@ -477,7 +477,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',610,';',NULL);
 --nav-by-schema.adoc
 
 */
-SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout ' + @outputDirPartNav + 'nav-by-schema.adoc'
+SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout "' + @outputDirPartNav + 'nav-by-schema.adoc"'
  --
  + ' -S ' + @instanceName
  --
@@ -525,7 +525,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',620,';',NULL);
 nav-by-type.adoc
 
 */
-SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]"  queryout ' + @outputDirPartNav + 'nav-by-type.adoc'
+SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]"  queryout "' + @outputDirPartNav + 'nav-by-type.adoc"'
  --
  + ' -S ' + @instanceName
  --
@@ -573,7 +573,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',710,';',NULL);
 --objects-by-schema.adoc
 
 */
-SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout ' + @outputDirPageNav + 'objects-by-schema.adoc'
+SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout "' + @outputDirPageNav + 'objects-by-schema.adoc"'
  --
  + ' -S ' + @instanceName
  --
