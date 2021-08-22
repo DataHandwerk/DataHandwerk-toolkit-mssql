@@ -1,4 +1,8 @@
 ﻿
+/*
+<<property_start>>MS_Description
+<<property_end>>
+*/
 CREATE View docs.AntoraIndexSemanticgroup
 As
 Select

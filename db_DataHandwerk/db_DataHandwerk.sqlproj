@@ -549,6 +549,10 @@
     <Build Include="workflow\Views\Workflow_SqlUsp.sql" />
     <Build Include="workflow\Views\Workflow_ProcedureDependency_T_NotInSortorder_check.sql" />
     <Build Include="repo\Views\RepoObject_wo_referencing.sql" />
+    <Build Include="reference\Tables\external_object.sql" />
+    <Build Include="reference\Views\RepoObject_ExternalReferencingList.sql" />
+    <Build Include="reference\Views\RepoObject_ExternalReferencedList.sql" />
+    <Build Include="reference\Stored Procedures\usp_external_object_set.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

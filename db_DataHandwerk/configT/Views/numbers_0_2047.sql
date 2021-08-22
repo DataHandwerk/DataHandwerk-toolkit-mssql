@@ -1,5 +1,10 @@
 ﻿
-CREATE View configT.numbers_0_2047
+
+/*
+<<property_start>>MS_Description
+<<property_end>>
+*/
+CREATE View [configT].[numbers_0_2047]
 As
 Select
     number

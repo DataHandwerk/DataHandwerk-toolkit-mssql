@@ -1,11 +1,21 @@
 ﻿
-
-
 /*
-todo - direkt oder über extended properties
-- Index List
-- referencing
-- referenced
+<<property_start>>MS_Description
+`AdocContent` is the content of a page to be used by Antora as partial.
+
+The view xref:docs.RepoObject_Adoc.adoc[] will persisted into xref:docs.RepoObject_Adoc_T.adoc[] +
+and later exported for Antora by xref:docs.usp_PERSIST_RepoObject_Adoc_T.adoc[]
+
+One document per RepoObject is generated, it contains all information (but not diagrams) which is used by Antora. 
+
+All Parts of the documentations are tagged, Antora can reference the content using this tags.
+
+* any per RepoObject existing properties in xref:property.RepoObjectProperty.adoc[] are extracted as separate tags
+* some specific additional tags are extracted from other sources (some lists, some content from xref:repo.RepoObject_gross.adoc[])
+* a special entry per exported tag is created: `':ExistsProperty--' + Lower ( rop.property_name ) + ':'` which can be used to check the existence of a tag entry
+
+To use additional content in Antora documentation first try to include new properties into xref:property.RepoObjectProperty.adoc[]
+<<property_end>>
 */
 CREATE View docs.RepoObject_Adoc
 As

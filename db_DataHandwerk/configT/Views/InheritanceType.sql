@@ -1,4 +1,8 @@
-﻿CREATE View [configT].InheritanceType
+﻿/*
+<<property_start>>MS_Description
+<<property_end>>
+*/
+CREATE View [configT].[InheritanceType]
 As
 --
 Select

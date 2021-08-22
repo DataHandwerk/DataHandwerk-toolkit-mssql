@@ -1,5 +1,9 @@
 ﻿
-CREATE View configT.join_type
+/*
+<<property_start>>MS_Description
+<<property_end>>
+*/
+CREATE View [configT].[join_type]
 As
 --
 Select

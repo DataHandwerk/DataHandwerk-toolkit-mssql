@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View repo.RepoObject_gross
 As
 --
@@ -109,68 +108,80 @@ Select
   , SqlModules.sql_modules_formatted2
   , ro_referenced.AntoraReferencedList
   , ro_referencing.AntoraReferencingList
+  , ext_referenced.AntoraExternalReferencedList
+  , ext_referencing.AntoraExternalReferencingList
 From
-    repo.RepoObject                             As ro
+    repo.RepoObject                                  As ro
     Left Outer Join
-        repo.RepoObject_persistence             As ro_p
+        repo.RepoObject_persistence                  As ro_p
             On
             ro_p.target_RepoObject_guid         = ro.RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                         As ro_p_s
+        repo.RepoObject                              As ro_p_s
             On
             ro_p_s.RepoObject_guid              = ro_p.source_RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                         As ro_usp_p
+        repo.RepoObject                              As ro_usp_p
             On
             ro_usp_p.RepoObject_name            = ro.usp_persistence_name
             And ro_usp_p.RepoObject_schema_name = ro.RepoObject_schema_name
 
     Left Outer Join
-        repo.RepoObject_ColumnList              As ColumnList
+        repo.RepoObject_ColumnList                   As ColumnList
             On
             ColumnList.RepoObject_guid          = ro.RepoObject_guid
 
     Left Outer Join
-        reference.RepoObject_QueryPlan          As QueryPlan
+        reference.RepoObject_QueryPlan               As QueryPlan
             On
             QueryPlan.RepoObject_guid           = ro.RepoObject_guid
 
     Left Outer Join
-        sqlparse.RepoObject_SqlModules_Repo_Sys As SqlModules
+        sqlparse.RepoObject_SqlModules_Repo_Sys      As SqlModules
             On
             SqlModules.RepoObject_guid          = ro.RepoObject_guid
 
     Left Join
-        repo.Index_Settings                     As ipk
+        repo.Index_Settings                          As ipk
             On
             ipk.index_guid                      = ro.pk_index_guid
 
     Left Join
-        reference.RepoObject_ReferencedList     As ro_referenced
+        reference.RepoObject_ReferencedList          As ro_referenced
             On
             ro_referenced.Referencing_guid      = ro.RepoObject_guid
 
     Left Join
-        reference.RepoObject_ReferencingList    As ro_referencing
+        reference.RepoObject_ReferencingList         As ro_referencing
             On
             ro_referencing.Referenced_guid      = ro.RepoObject_guid
 
     Left Join
-        configT.type                            As repo_type
+        configT.type                                 As repo_type
             On
             repo_type.type                      = ro.RepoObject_type
 
     Left Join
-        configT.type                            As sys_type
+        configT.type                                 As sys_type
             On
             sys_type.type                       = ro.SysObject_type
 
     Left Join
-        configT.type                            As ty
+        configT.type                                 As ty
             On
             ty.type                             = ro.RepoObject_type
+
+    Left Join
+        reference.RepoObject_ExternalReferencedList  As ext_referenced
+            On
+            ext_referenced.RepoObject_guid      = ro.RepoObject_guid
+
+    Left Join
+        reference.RepoObject_ExternalReferencingList As ext_referencing
+            On
+            ext_referencing.RepoObject_guid     = ro.RepoObject_guid
 Go
 
 Execute sp_addextendedproperty

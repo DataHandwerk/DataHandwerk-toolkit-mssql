@@ -1,9 +1,4 @@
 ﻿
-
-
-
-
-
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -33,7 +28,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View [configT].[Parameter_default]
+CREATE View configT.Parameter_default
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -116,7 +111,6 @@ ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other 
 ' As NVarchar(4000))
 --
 --the following parameters can have [sub_Parameter]
-
 Union All
 Select
     Parameter_name          = 'Inheritance_StringAggSeparatorSql_column'
@@ -229,7 +223,6 @@ Select
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type U (user table): possible values in [config].[InheritanceType]'
 -- , [Parameter_default_value] = '0'
 
-
 --UNION ALL
 
 --SELECT [Parameter_name] = 'InheritanceType_object_type_v'
@@ -243,8 +236,6 @@ Select
 -- , [sub_Parameter] = N'MS_Description'
 -- , [Parameter_desciption] = N'TINYINT; InheritanceType for object type V (view): possible values in [config].[InheritanceType]'
 -- , [Parameter_default_value] = '0'
-
-
 Union All
 Select
     Parameter_name          = 'puml_skinparam_class'
@@ -297,12 +288,12 @@ include::partial$template/master-page-1.adoc[]
 include::partial$template/master-page-examples.adoc[]
 include::partial$template/master-page-4.adoc[]
 include::partial$template/master-page-5.adoc[]
-' As NVarchar(4000))
+' As NVarchar(Max))
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'1'
-  , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
+  , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
   , Parameter_default_value = Cast(N'= {docname}
 
 include::partial${docname}.adoc[tag=existing_properties]
@@ -329,12 +320,12 @@ ifdef::ExistsProperty--MS_Description[]
 include::partial${docname}.adoc[tag=ms_description]
 
 endif::ExistsProperty--ms_description[]
-' As NVarchar(4000))
+' As NVarchar(Max))
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'4'
-  , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
+  , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
   , Parameter_default_value = Cast(N'
 ifdef::ExistsProperty--AntoraParameterList[]
 
@@ -432,12 +423,12 @@ include::partial$puml/entity_1_1_fk/{docname}.puml[]
 ....
 
 endif::ExistsProperty--FK[]
-' As NVarchar(4000))
+' As NVarchar(Max))
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'5'
-  , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags. Attention! NVARCHAR(4000), use sub_Parameter for biger content - nvarchar(max) is incompatible with sql_variant'
+  , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
   , Parameter_default_value = Cast(N'
 
 == References
@@ -449,12 +440,26 @@ ifdef::ExistsProperty--antorareferencedlist[]
 include::partial${docname}.adoc[tag=antorareferencedlist]
 endif::ExistsProperty--antorareferencedlist[]
 
+ifdef::ExistsProperty--antorarexternaleferencedlist[]
+
+=== External Referenced Objects
+
+include::partial${docname}.adoc[tag=antorarexternaleferencedlist]
+endif::ExistsProperty--antorarexternaleferencedlist[]
+
 ifdef::ExistsProperty--antorareferencinglist[]
 
 === Referencing Objects
 
 include::partial${docname}.adoc[tag=antorareferencinglist]
 endif::ExistsProperty--antorareferencinglist[]
+
+ifdef::ExistsProperty--antorarexternaleferencinglist[]
+
+=== External Referenced Objects
+
+include::partial${docname}.adoc[tag=antorarexternaleferencinglist]
+endif::ExistsProperty--antorarexternaleferencinglist[]
 
 === Object Reference Diagram - 1 1
 
@@ -511,7 +516,7 @@ ifdef::ExistsProperty--sql_modules_definition[]
 .{docname} script
 include::partial${docname}.adoc[tag=sql_modules_definition]
 endif::ExistsProperty--sql_modules_definition[]
-' As NVarchar(4000))
+' As NVarchar(Max))
 Union All
 Select
     Parameter_name          = 'AntoraDocSnippet'
@@ -571,7 +576,7 @@ RECONFIGURE
 GO
 ----
 ====
-' As NVarchar(4000))
+' As NVarchar(Max))
 
 Go
 Execute sp_addextendedproperty
