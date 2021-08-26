@@ -90,7 +90,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
    ) + 'partials\template\')
 
 
