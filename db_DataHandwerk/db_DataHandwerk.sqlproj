@@ -133,6 +133,8 @@
     <Folder Include="configT\Tables" />
     <Folder Include="configT\Stored Procedures" />
     <Folder Include="workflow\Stored Procedures\" />
+    <Folder Include="ssas\" />
+    <Folder Include="ssas\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -555,6 +557,39 @@
     <Build Include="reference\Views\RepoObjectColumn_reference_additional_internal.sql" />
     <Build Include="reference\Views\RepoObject_reference_additional_internal.sql" />
     <Build Include="reference\Views\additional_Reference_guid.sql" />
+    <Build Include="config\Tables\SsasDmvTableImport.sql" />
+    <Build Include="config\Tables\SsasDatabasename.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_KPIS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_EXTENDED_PROPERTIES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_EXPRESSIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_DETAIL_ROWS_DEFINITIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_CULTURES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_COLUMN_PERMISSIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_ATTRIBUTE_HIERARCHIES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_ANNOTATIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_RELATIONSHIPS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_PARTITIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_HIERARCHIES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_DATA_SOURCES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_COLUMNS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_VARIATIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_TABLES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_TABLE_PERMISSIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_ROLES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_ROLE_MEMBERSHIPS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_PERSPECTIVES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_PERSPECTIVE_TABLES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_PERSPECTIVE_MEASURES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_PERSPECTIVE_HIERARCHIES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_PERSPECTIVE_COLUMNS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_OBJECT_TRANSLATIONS.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_MODEL.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_MEASURES.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_LEVELS.sql" />
+    <Build Include="configT\Views\SsasDmvTableImport_ImportSql.sql" />
+    <Build Include="configT\Views\SsasDmvTableImport_DmvColumnList.sql" />
+    <Build Include="configT\Views\SsasDmvTableImport.sql" />
+    <Build Include="Security\ssas.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

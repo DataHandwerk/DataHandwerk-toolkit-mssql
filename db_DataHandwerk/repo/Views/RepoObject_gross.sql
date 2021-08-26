@@ -1,4 +1,4 @@
-﻿
+
 CREATE View repo.RepoObject_gross
 As
 Select
@@ -1909,5 +1909,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f435c
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '40c70313-8a06-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraModul';
 
