@@ -90,7 +90,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',31,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
    ) + 'partials\')
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/

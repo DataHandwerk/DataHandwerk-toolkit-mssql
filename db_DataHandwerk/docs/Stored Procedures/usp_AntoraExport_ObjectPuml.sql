@@ -98,19 +98,19 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
    ) + 'partials\puml\entity_1_1_colref\')
 SET @outputDir2 = ISNULL(@outputDir2, (
-   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
    ) + 'partials\puml\entity_1_1_objectref\')
 SET @outputDir3 = ISNULL(@outputDir3, (
-   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
    ) + 'partials\puml\entity_1_1_fk\')
 SET @outputDir4 = ISNULL(@outputDir4, (
-   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
    ) + 'partials\puml\entity_0_30_objectref\')
 SET @outputDir5 = ISNULL(@outputDir5, (
-   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModulName', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraModulFolder', '') + '\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
    ) + 'partials\puml\entity_30_0_objectref\')
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/

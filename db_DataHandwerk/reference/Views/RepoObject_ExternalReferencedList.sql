@@ -1,5 +1,6 @@
 ﻿
-CREATE View reference.RepoObject_ExternalReferencedList
+
+CREATE View [reference].[RepoObject_ExternalReferencedList]
 As
 Select
     T1.RepoObject_guid
@@ -7,7 +8,7 @@ Select
   --
   String_Agg (
                  Concat (
-                            --* xref:AntoraModulName:target-page-filename.adoc[link text]
+                            --* xref:AntoraModul:target-page-filename.adoc[link text]
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                             Cast('* xref:' As NVarchar(Max))
                           , T1.referenced_AntoraModul

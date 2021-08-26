@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -270,7 +271,7 @@ skinparam class {
 --  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb\' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'AntoraModulName'
+    Parameter_name          = 'AntoraModul'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'Antora: named modul to contain the exported documentation.'
   , Parameter_default_value = Cast(N'sqldb' As NVarchar(200))
@@ -278,7 +279,7 @@ Union All
 Select
     Parameter_name          = 'AntoraModulFolder'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'Antora modul export folder, will be extended by AntoraModulName and on next level by ''partials\'', ''pages\'', ''examples\'', ''images\'''
+  , Parameter_desciption    = N'Antora modul export folder, will be extended by AntoraModul and on next level by ''partials\'', ''pages\'', ''examples\'', ''images\'''
   , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules' As NVarchar(4000))
 Union All
 Select

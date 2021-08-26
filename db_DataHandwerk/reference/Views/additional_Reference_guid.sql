@@ -1,5 +1,6 @@
 ﻿
-CREATE View reference.additional_Reference_guid
+
+CREATE View [reference].[additional_Reference_guid]
 As
 Select
     T1.referenced_AntoraModul
@@ -37,14 +38,14 @@ From
             On
             T1.referenced_Schema           = ro1.RepoObject_schema_name
             And T1.referenced_Object       = ro1.RepoObject_name
-            And T1.referenced_AntoraModul  = config.fs_get_parameter_value ( 'AntoraModulName', '' )
+            And T1.referenced_AntoraModul  = config.fs_get_parameter_value ( 'AntoraModul', '' )
 
     Left Outer Join
         repo.RepoObject            As ro2
             On
             T1.referencing_Schema          = ro2.RepoObject_schema_name
             And T1.referencing_Object      = ro2.RepoObject_name
-            And T1.referencing_AntoraModul = config.fs_get_parameter_value ( 'AntoraModulName', '' )
+            And T1.referencing_AntoraModul = config.fs_get_parameter_value ( 'AntoraModul', '' )
 
     Left Outer Join
         repo.RepoObjectColumn      As rol1
