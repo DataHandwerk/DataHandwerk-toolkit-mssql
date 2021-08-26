@@ -1,4 +1,6 @@
 ﻿
+
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -28,7 +30,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View configT.Parameter_default
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -440,12 +442,12 @@ ifdef::ExistsProperty--antorareferencedlist[]
 include::partial${docname}.adoc[tag=antorareferencedlist]
 endif::ExistsProperty--antorareferencedlist[]
 
-ifdef::ExistsProperty--antorarexternaleferencedlist[]
+ifdef::ExistsProperty--antoraexternalreferencedlist[]
 
 === External Referenced Objects
 
-include::partial${docname}.adoc[tag=antorarexternaleferencedlist]
-endif::ExistsProperty--antorarexternaleferencedlist[]
+include::partial${docname}.adoc[tag=antoraexternalreferencedlist]
+endif::ExistsProperty--antoraexternalreferencedlist[]
 
 ifdef::ExistsProperty--antorareferencinglist[]
 
@@ -454,12 +456,12 @@ ifdef::ExistsProperty--antorareferencinglist[]
 include::partial${docname}.adoc[tag=antorareferencinglist]
 endif::ExistsProperty--antorareferencinglist[]
 
-ifdef::ExistsProperty--antorarexternaleferencinglist[]
+ifdef::ExistsProperty--antoraexternalreferencinglist[]
 
-=== External Referenced Objects
+=== External Referencing Objects
 
-include::partial${docname}.adoc[tag=antorarexternaleferencinglist]
-endif::ExistsProperty--antorarexternaleferencinglist[]
+include::partial${docname}.adoc[tag=antoraexternalreferencinglist]
+endif::ExistsProperty--antoraexternalreferencinglist[]
 
 === Object Reference Diagram - 1 1
 

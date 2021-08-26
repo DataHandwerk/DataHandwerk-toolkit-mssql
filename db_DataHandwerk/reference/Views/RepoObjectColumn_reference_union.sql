@@ -1,5 +1,4 @@
 ﻿
-
 /*
 check
 
@@ -49,11 +48,11 @@ Select
   , referencing_entity_name
   , referencing_column_name
   , referencing_id
-  , referencing_minor_id
-  , referencing_node_id
+  --, referencing_minor_id
+  --, referencing_node_id
   , referenced_id
-  , referenced_minor_id
-  , referenced_node_id
+  --, referenced_minor_id
+  --, referenced_node_id
   , referencing_RepoObject_guid
   , referencing_RepoObjectColumn_guid
   , referenced_RepoObject_guid
@@ -80,11 +79,11 @@ Select
   , referencing_entity_name
   , referencing_column_name
   , referencing_id
-  , referencing_minor_id
-  , referencing_node_id
+  --, referencing_minor_id
+  --, referencing_node_id
   , referenced_id
-  , referenced_minor_id
-  , referenced_node_id
+  --, referenced_minor_id
+  --, referenced_node_id
   , referencing_RepoObject_guid
   , referencing_RepoObjectColumn_guid
   , referenced_RepoObject_guid
@@ -108,11 +107,11 @@ Select
   , referencing_entity_name
   , referencing_column_name
   , referencing_id
-  , referencing_minor_id
-  , referencing_node_id
+  --, referencing_minor_id
+  --, referencing_node_id
   , referenced_id
-  , referenced_minor_id
-  , referenced_node_id
+  --, referenced_minor_id
+  --, referenced_node_id
   , referencing_RepoObject_guid
   , referencing_RepoObjectColumn_guid
   , referenced_RepoObject_guid
@@ -136,11 +135,11 @@ Select
   , referencing_entity_name
   , referencing_column_name
   , referencing_id
-  , referencing_minor_id
-  , referencing_node_id
+  --, referencing_minor_id
+  --, referencing_node_id
   , referenced_id
-  , referenced_minor_id
-  , referenced_node_id
+  --, referenced_minor_id
+  --, referenced_node_id
   , referencing_RepoObject_guid
   , referencing_RepoObjectColumn_guid
   , referenced_RepoObject_guid
@@ -154,6 +153,34 @@ Select
   , is_referenced_object
 From
     reference.RepoObjectColumn_reference_virtual
+Union All
+Select
+    --
+    referenced_schema_name
+  , referenced_entity_name
+  , referenced_column_name
+  , referencing_schema_name
+  , referencing_entity_name
+  , referencing_column_name
+  , referencing_id
+  --, referencing_minor_id
+  --, referencing_node_id
+  , referenced_id
+  --, referenced_minor_id
+  --, referenced_node_id
+  , referencing_RepoObject_guid
+  , referencing_RepoObjectColumn_guid
+  , referenced_RepoObject_guid
+  , referenced_RepoObjectColumn_guid
+  , referencing_type
+  , referenced_type
+  , InformationSource
+  , is_computed
+  , definition
+  , is_referencing_object_equal_referenced_object
+  , is_referenced_object
+From
+    reference.RepoObjectColumn_reference_additional_internal
 
 --UNION ALL
 ----repo.RepoObjectColumn_reference__first_result_set
@@ -333,26 +360,10 @@ Execute sp_addextendedproperty
   , @level2name = N'referencing_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'a2f67926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_union'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_node_id';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'a1f67926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_union'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_minor_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -432,26 +443,10 @@ Execute sp_addextendedproperty
   , @level2name = N'referenced_RepoObject_guid';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'a5f67926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_union'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_node_id';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'a4f67926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_union'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_minor_id';
+
 Go
 
 Execute sp_addextendedproperty

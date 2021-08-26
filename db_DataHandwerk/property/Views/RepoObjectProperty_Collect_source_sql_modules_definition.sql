@@ -1,15 +1,16 @@
 ﻿
 
+
 /*
 <<property_start>>MS_Description
 * extracts properties from sql_modules_definition
 * properties can be added (normally in comments) following this syntax
-** use one line to mark the starting point for parsing: `<<property_start>>abcde` markes the property_name `abcde`
-** use one line to mark the end point: `<<property_end>>`
+** use one line to mark the starting point for parsing: `\<<property_start>>abcde` markes the property_name `abcde`
+** use one line to mark the end point: `\<<property_end>>`
 * The correct sequence must be followed. Nested parsing is not supported.
 <<property_end>>
 */
-CREATE View property.RepoObjectProperty_Collect_source_sql_modules_definition
+CREATE View [property].[RepoObjectProperty_Collect_source_sql_modules_definition]
 As
 Select
     --

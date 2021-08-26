@@ -1,6 +1,4 @@
 ﻿
-
-
 CREATE View reference.RepoObject_reference_union
 As
 Select
@@ -82,6 +80,26 @@ Select
   , one = 1
 From
     reference.RepoObject_reference_persistence_target_as_source As T1
+Union All
+Select
+    T1.referenced_RepoObject_guid
+  , T1.referencing_RepoObject_guid
+  , T1.referenced_entity_name
+  , T1.referenced_fullname
+  , T1.referenced_id
+  --, T1.referenced_node_id
+  , T1.referenced_schema_name
+  , T1.referenced_type
+  , T1.referencing_entity_name
+  , T1.referencing_fullname
+  , T1.referencing_id
+  --, T1.referencing_node_id
+  , T1.referencing_schema_name
+  , T1.referencing_type
+  , T1.InformationSource
+  , one = 1
+From
+    reference.RepoObject_reference_additional_internal As T1
 Go
 
 Execute sp_addextendedproperty
