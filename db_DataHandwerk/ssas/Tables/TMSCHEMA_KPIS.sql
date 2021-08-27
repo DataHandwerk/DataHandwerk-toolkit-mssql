@@ -2,19 +2,21 @@
     [databasename]       NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_KPIS_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                 NUMERIC (20)   NOT NULL,
     [MeasureID]          NUMERIC (20)   NOT NULL,
-    [Description]        NTEXT          NULL,
-    [TargetDescription]  NTEXT          NULL,
-    [TargetExpression]   NTEXT          NULL,
-    [TargetFormatString] NTEXT          NULL,
-    [StatusGraphic]      NTEXT          NULL,
-    [StatusDescription]  NTEXT          NULL,
-    [StatusExpression]   NTEXT          NULL,
-    [TrendGraphic]       NTEXT          NULL,
-    [TrendDescription]   NTEXT          NULL,
-    [TrendExpression]    NTEXT          NULL,
+    [Description]        NVARCHAR (MAX) NULL,
+    [TargetDescription]  NVARCHAR (MAX) NULL,
+    [TargetExpression]   NVARCHAR (MAX) NULL,
+    [TargetFormatString] NVARCHAR (MAX) NULL,
+    [StatusGraphic]      NVARCHAR (MAX) NULL,
+    [StatusDescription]  NVARCHAR (MAX) NULL,
+    [StatusExpression]   NVARCHAR (MAX) NULL,
+    [TrendGraphic]       NVARCHAR (MAX) NULL,
+    [TrendDescription]   NVARCHAR (MAX) NULL,
+    [TrendExpression]    NVARCHAR (MAX) NULL,
     [ModifiedTime]       DATETIME       NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_KPIS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

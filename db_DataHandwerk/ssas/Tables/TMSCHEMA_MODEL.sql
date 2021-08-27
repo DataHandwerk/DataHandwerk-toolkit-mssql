@@ -1,20 +1,22 @@
 ﻿CREATE TABLE [ssas].[TMSCHEMA_MODEL] (
     [databasename]          NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_MODEL_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                    NUMERIC (20)   NOT NULL,
-    [Name]                  NTEXT          NOT NULL,
-    [Description]           NTEXT          NULL,
-    [StorageLocation]       NTEXT          NULL,
+    [Name]                  NVARCHAR (MAX) NOT NULL,
+    [Description]           NVARCHAR (MAX) NULL,
+    [StorageLocation]       NVARCHAR (MAX) NULL,
     [DefaultMode]           BIGINT         NOT NULL,
     [DefaultDataView]       BIGINT         NOT NULL,
-    [Culture]               NTEXT          NOT NULL,
-    [Collation]             NTEXT          NULL,
+    [Culture]               NVARCHAR (MAX) NOT NULL,
+    [Collation]             NVARCHAR (MAX) NULL,
     [ModifiedTime]          DATETIME       NOT NULL,
     [StructureModifiedTime] DATETIME       NOT NULL,
     [Version]               BIGINT         NOT NULL,
-    [DataAccessOptions]     NTEXT          NULL,
+    [DataAccessOptions]     NVARCHAR (MAX) NULL,
     [DefaultMeasureID]      NUMERIC (20)   NULL,
     CONSTRAINT [PK_TMSCHEMA_MODEL] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [reference].[RepoObject_ExternalReferencingList]
+CREATE View reference.RepoObject_ExternalReferencingList
 As
 Select
     T1.RepoObject_guid
@@ -8,9 +7,11 @@ Select
   --
   String_Agg (
                  Concat (
-                            --* xref:AntoraModul:target-page-filename.adoc[link text]
+                            --* xref:AntoraComponent:AntoraModul:target-page-filename.adoc[link text]
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                             Cast('* xref:' As NVarchar(Max))
+                          , T1.referencing_AntoraComponent
+                          , ':'
                           , T1.referencing_AntoraModul
                           , ':'
                           , T1.referencing_Schema
@@ -23,14 +24,16 @@ Select
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
-                                T1.referencing_AntoraModul
+                                T1.referencing_AntoraComponent
+                              , T1.referencing_AntoraModul
                               , T1.referencing_Schema
                               , T1.referencing_Object)
 From
 (
     Select
         Distinct
-        referencing_AntoraModul
+        referencing_AntoraComponent
+      , referencing_AntoraModul
       , referencing_Schema
       , referencing_Object
       , RepoObject_guid = referenced_RepoObject_guid

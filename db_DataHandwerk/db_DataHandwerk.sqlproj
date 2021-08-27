@@ -135,6 +135,7 @@
     <Folder Include="workflow\Stored Procedures\" />
     <Folder Include="ssas\" />
     <Folder Include="ssas\Tables\" />
+    <Folder Include="ssas\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -590,6 +591,14 @@
     <Build Include="configT\Views\SsasDmvTableImport_DmvColumnList.sql" />
     <Build Include="configT\Views\SsasDmvTableImport.sql" />
     <Build Include="Security\ssas.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_TABLES_T.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_COLUMNS_T.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_SSAS_tgt.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_SSAS_src.sql" />
+    <Build Include="repo\Views\RepoObject_SSAS_tgt.sql" />
+    <Build Include="repo\Views\RepoObject_SSAS_src.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_TMSCHEMA_TABLES_T.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_TMSCHEMA_COLUMNS_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

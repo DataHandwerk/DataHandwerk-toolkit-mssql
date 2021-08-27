@@ -2,24 +2,26 @@
     [databasename]      NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_DATA_SOURCES_database] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                NUMERIC (20)   NOT NULL,
     [ModelID]           NUMERIC (20)   NOT NULL,
-    [Name]              NTEXT          NOT NULL,
-    [Description]       NTEXT          NULL,
+    [Name]              NVARCHAR (MAX) NOT NULL,
+    [Description]       NVARCHAR (MAX) NULL,
     [Type]              BIGINT         NOT NULL,
-    [ConnectionString]  NTEXT          NOT NULL,
+    [ConnectionString]  NVARCHAR (MAX) NOT NULL,
     [ImpersonationMode] BIGINT         NOT NULL,
-    [Account]           NTEXT          NULL,
-    [Password]          NTEXT          NULL,
+    [Account]           NVARCHAR (MAX) NULL,
+    [Password]          NVARCHAR (MAX) NULL,
     [MaxConnections]    INT            NOT NULL,
     [Isolation]         BIGINT         NOT NULL,
     [Timeout]           INT            NOT NULL,
-    [Provider]          NTEXT          NULL,
+    [Provider]          NVARCHAR (MAX) NULL,
     [ModifiedTime]      DATETIME       NOT NULL,
-    [ConnectionDetails] NTEXT          NULL,
-    [Options]           NTEXT          NULL,
-    [Credential]        NTEXT          NULL,
-    [ContextExpression] NTEXT          NULL,
+    [ConnectionDetails] NVARCHAR (MAX) NULL,
+    [Options]           NVARCHAR (MAX) NULL,
+    [Credential]        NVARCHAR (MAX) NULL,
+    [ContextExpression] NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_TMSCHEMA_DATA_SOURCES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

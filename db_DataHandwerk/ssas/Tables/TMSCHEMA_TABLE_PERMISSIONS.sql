@@ -3,13 +3,15 @@
     [ID]                 NUMERIC (20)   NOT NULL,
     [RoleID]             NUMERIC (20)   NOT NULL,
     [TableID]            NUMERIC (20)   NOT NULL,
-    [FilterExpression]   NTEXT          NULL,
+    [FilterExpression]   NVARCHAR (MAX) NULL,
     [ModifiedTime]       DATETIME       NOT NULL,
     [State]              BIGINT         NOT NULL,
-    [ErrorMessage]       NTEXT          NULL,
+    [ErrorMessage]       NVARCHAR (MAX) NULL,
     [MetadataPermission] BIGINT         NULL,
     CONSTRAINT [PK_TMSCHEMA_TABLE_PERMISSIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

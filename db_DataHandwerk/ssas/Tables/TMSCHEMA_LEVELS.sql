@@ -3,12 +3,14 @@
     [ID]           NUMERIC (20)   NOT NULL,
     [HierarchyID]  NUMERIC (20)   NOT NULL,
     [Ordinal]      INT            NOT NULL,
-    [Name]         NTEXT          NOT NULL,
-    [Description]  NTEXT          NULL,
+    [Name]         NVARCHAR (MAX) NOT NULL,
+    [Description]  NVARCHAR (MAX) NULL,
     [ColumnID]     NUMERIC (20)   NOT NULL,
     [ModifiedTime] DATETIME       NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_LEVELS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

@@ -2,12 +2,14 @@
     [databasename]          NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_CULTURES_database] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                    NUMERIC (20)   NOT NULL,
     [ModelID]               NUMERIC (20)   NOT NULL,
-    [Name]                  NTEXT          NOT NULL,
+    [Name]                  NVARCHAR (MAX) NOT NULL,
     [LinguisticMetadataID]  NUMERIC (20)   NULL,
     [ModifiedTime]          DATETIME       NOT NULL,
     [StructureModifiedTime] DATETIME       NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_CULTURES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

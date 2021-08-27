@@ -2,18 +2,20 @@
     [databasename]          NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_HIERARCHIES_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                    NUMERIC (20)   NOT NULL,
     [TableID]               NUMERIC (20)   NOT NULL,
-    [Name]                  NTEXT          NOT NULL,
-    [Description]           NTEXT          NULL,
+    [Name]                  NVARCHAR (MAX) NOT NULL,
+    [Description]           NVARCHAR (MAX) NULL,
     [IsHidden]              BIT            NOT NULL,
     [State]                 BIGINT         NOT NULL,
     [HierarchyStorageID]    NUMERIC (20)   NOT NULL,
     [ModifiedTime]          DATETIME       NOT NULL,
     [StructureModifiedTime] DATETIME       NOT NULL,
     [RefreshedTime]         DATETIME       NULL,
-    [DisplayFolder]         NTEXT          NULL,
+    [DisplayFolder]         NVARCHAR (MAX) NULL,
     [HideMembers]           BIGINT         NULL,
     CONSTRAINT [PK_TMSCHEMA_HIERARCHIES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

@@ -2,9 +2,9 @@
     [databasename]                  NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_TABLES_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                            NUMERIC (20)   NOT NULL,
     [ModelID]                       NUMERIC (20)   NOT NULL,
-    [Name]                          NTEXT          NOT NULL,
-    [DataCategory]                  NTEXT          NULL,
-    [Description]                   NTEXT          NULL,
+    [Name]                          NVARCHAR (MAX) NOT NULL,
+    [DataCategory]                  NVARCHAR (MAX) NULL,
+    [Description]                   NVARCHAR (MAX) NULL,
     [IsHidden]                      BIT            NOT NULL,
     [TableStorageID]                NUMERIC (20)   NOT NULL,
     [ModifiedTime]                  DATETIME       NOT NULL,
@@ -15,6 +15,8 @@
     [DefaultDetailRowsDefinitionID] NUMERIC (20)   NULL,
     CONSTRAINT [PK_TMSCHEMA_TABLES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

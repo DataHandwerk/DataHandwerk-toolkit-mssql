@@ -3,11 +3,13 @@
     [ID]           NUMERIC (20)   NOT NULL,
     [ObjectID]     NUMERIC (20)   NULL,
     [ObjectType]   INT            NULL,
-    [Name]         NTEXT          NULL,
-    [Value]        NTEXT          NULL,
+    [Name]         NVARCHAR (MAX) NULL,
+    [Value]        NVARCHAR (MAX) NULL,
     [ModifiedTime] DATETIME       NULL,
     CONSTRAINT [PK_TMSCHEMA_ANNOTATIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

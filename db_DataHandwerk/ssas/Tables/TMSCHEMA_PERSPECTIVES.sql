@@ -2,11 +2,13 @@
     [databasename] NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_PERSPECTIVES_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]           NUMERIC (20)   NOT NULL,
     [ModelID]      NUMERIC (20)   NOT NULL,
-    [Name]         NTEXT          NOT NULL,
-    [Description]  NTEXT          NULL,
+    [Name]         NVARCHAR (MAX) NOT NULL,
+    [Description]  NVARCHAR (MAX) NULL,
     [ModifiedTime] DATETIME       NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_PERSPECTIVES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

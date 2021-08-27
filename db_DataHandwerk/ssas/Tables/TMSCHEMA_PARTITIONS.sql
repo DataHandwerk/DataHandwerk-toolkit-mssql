@@ -2,10 +2,10 @@
     [databasename]                 NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_PARTITIONS_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                           NUMERIC (20)   NOT NULL,
     [TableID]                      NUMERIC (20)   NOT NULL,
-    [Name]                         NTEXT          NOT NULL,
-    [Description]                  NTEXT          NULL,
+    [Name]                         NVARCHAR (MAX) NOT NULL,
+    [Description]                  NVARCHAR (MAX) NULL,
     [DataSourceID]                 NUMERIC (20)   NOT NULL,
-    [QueryDefinition]              NTEXT          NOT NULL,
+    [QueryDefinition]              NVARCHAR (MAX) NOT NULL,
     [State]                        BIGINT         NOT NULL,
     [Type]                         BIGINT         NOT NULL,
     [PartitionStorageID]           NUMERIC (20)   NOT NULL,
@@ -14,10 +14,12 @@
     [ModifiedTime]                 DATETIME       NOT NULL,
     [RefreshedTime]                DATETIME       NULL,
     [SystemFlags]                  BIGINT         NOT NULL,
-    [ErrorMessage]                 NTEXT          NULL,
+    [ErrorMessage]                 NVARCHAR (MAX) NULL,
     [RetainDataTillForceCalculate] BIT            NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_PARTITIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

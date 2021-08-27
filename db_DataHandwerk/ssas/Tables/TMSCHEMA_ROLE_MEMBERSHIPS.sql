@@ -2,13 +2,15 @@
     [databasename]     NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_ROLE_MEMBERSHIPS_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]               NUMERIC (20)   NOT NULL,
     [RoleID]           NUMERIC (20)   NOT NULL,
-    [MemberName]       NTEXT          NOT NULL,
-    [MemberID]         NTEXT          NOT NULL,
-    [IdentityProvider] NTEXT          NULL,
+    [MemberName]       NVARCHAR (MAX) NOT NULL,
+    [MemberID]         NVARCHAR (MAX) NOT NULL,
+    [IdentityProvider] NVARCHAR (MAX) NULL,
     [MemberType]       BIGINT         NOT NULL,
     [ModifiedTime]     DATETIME       NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_ROLE_MEMBERSHIPS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

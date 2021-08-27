@@ -2,7 +2,7 @@
     [databasename]               NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_RELATIONSHIPS_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                         NUMERIC (20)   NOT NULL,
     [ModelID]                    NUMERIC (20)   NOT NULL,
-    [Name]                       NTEXT          NOT NULL,
+    [Name]                       NVARCHAR (MAX) NOT NULL,
     [IsActive]                   BIT            NOT NULL,
     [Type]                       BIGINT         NOT NULL,
     [CrossFilteringBehavior]     BIGINT         NOT NULL,
@@ -22,6 +22,8 @@
     [SecurityFilteringBehavior]  BIGINT         NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_RELATIONSHIPS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

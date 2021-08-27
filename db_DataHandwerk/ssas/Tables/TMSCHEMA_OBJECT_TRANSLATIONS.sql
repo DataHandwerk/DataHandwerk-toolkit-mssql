@@ -5,10 +5,12 @@
     [ObjectID]     NUMERIC (20)   NOT NULL,
     [ObjectType]   INT            NOT NULL,
     [Property]     BIGINT         NOT NULL,
-    [Value]        NTEXT          NOT NULL,
+    [Value]        NVARCHAR (MAX) NOT NULL,
     [ModifiedTime] DATETIME       NOT NULL,
     CONSTRAINT [PK_TMSCHEMA_OBJECT_TRANSLATIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO

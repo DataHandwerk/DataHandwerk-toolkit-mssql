@@ -1,9 +1,9 @@
 ﻿
-
-CREATE View [reference].[additional_Reference_guid]
+CREATE View reference.additional_Reference_guid
 As
 Select
-    T1.referenced_AntoraModul
+    T1.referenced_AntoraComponent
+  , T1.referenced_AntoraModul
   , T1.referenced_Schema
   , T1.referenced_Object
   , T1.referenced_Column
@@ -12,6 +12,7 @@ Select
   , referenced_RepoObject_guid        = ro1.RepoObject_guid
   , referenced_RepoObjectColumn_guid  = rol1.RepoObjectColumn_guid
   , referenced_type                   = ro1.RepoObject_type
+  , T1.referencing_AntoraComponent
   , T1.referencing_AntoraModul
   , T1.referencing_Schema
   , T1.referencing_Object
@@ -22,7 +23,8 @@ Select
   , referencing_RepoObjectColumn_guid = rol2.RepoObjectColumn_guid
   , referencing_type                  = ro2.RepoObject_type
   , is_internal                       = Case
-                                            When T1.referenced_AntoraModul = T1.referencing_AntoraModul
+                                            When T1.referenced_AntoraComponent = T1.referencing_AntoraComponent
+                                                 And T1.referenced_AntoraModul = T1.referencing_AntoraModul
                                                 Then
                                                 1
                                             Else
@@ -36,28 +38,30 @@ From
     Left Outer Join
         repo.RepoObject            As ro1
             On
-            T1.referenced_Schema           = ro1.RepoObject_schema_name
-            And T1.referenced_Object       = ro1.RepoObject_name
-            And T1.referenced_AntoraModul  = config.fs_get_parameter_value ( 'AntoraModul', '' )
+            T1.referenced_Schema               = ro1.RepoObject_schema_name
+            And T1.referenced_Object           = ro1.RepoObject_name
+            And T1.referenced_AntoraComponent  = config.fs_get_parameter_value ( 'AntoraComponent', '' )
+            And T1.referenced_AntoraModul      = config.fs_get_parameter_value ( 'AntoraModul', '' )
 
     Left Outer Join
         repo.RepoObject            As ro2
             On
-            T1.referencing_Schema          = ro2.RepoObject_schema_name
-            And T1.referencing_Object      = ro2.RepoObject_name
-            And T1.referencing_AntoraModul = config.fs_get_parameter_value ( 'AntoraModul', '' )
+            T1.referencing_Schema              = ro2.RepoObject_schema_name
+            And T1.referencing_Object          = ro2.RepoObject_name
+            And T1.referencing_AntoraComponent = config.fs_get_parameter_value ( 'AntoraComponent', '' )
+            And T1.referencing_AntoraModul     = config.fs_get_parameter_value ( 'AntoraModul', '' )
 
     Left Outer Join
         repo.RepoObjectColumn      As rol1
             On
-            rol1.RepoObject_guid           = ro1.RepoObject_guid
-            And rol1.Column_name           = T1.referenced_Column
+            rol1.RepoObject_guid               = ro1.RepoObject_guid
+            And rol1.Column_name               = T1.referenced_Column
 
     Left Outer Join
         repo.RepoObjectColumn      As rol2
             On
-            rol1.RepoObject_guid           = ro2.RepoObject_guid
-            And rol1.Column_name           = T1.referencing_Column
+            rol1.RepoObject_guid               = ro2.RepoObject_guid
+            And rol1.Column_name               = T1.referencing_Column
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5508fcfd-b004-ec11-8514-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'additional_Reference_guid', @level2type = N'COLUMN', @level2name = N'is_internal';
 
@@ -136,4 +140,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4308f
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9db0b5f7-b004-ec11-8514-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'additional_Reference_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f6f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'additional_Reference_guid', @level2type = N'COLUMN', @level2name = N'referencing_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f5f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'additional_Reference_guid', @level2type = N'COLUMN', @level2name = N'referenced_AntoraComponent';
 

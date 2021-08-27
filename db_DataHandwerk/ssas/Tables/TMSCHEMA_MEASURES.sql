@@ -2,22 +2,24 @@
     [databasename]           NVARCHAR (128) CONSTRAINT [DF_TMSCHEMA_MEASURES_databasename] DEFAULT (N'mydatabase') NOT NULL,
     [ID]                     NUMERIC (20)   NOT NULL,
     [TableID]                NUMERIC (20)   NOT NULL,
-    [Name]                   NTEXT          NOT NULL,
-    [Description]            NTEXT          NULL,
+    [Name]                   NVARCHAR (MAX) NOT NULL,
+    [Description]            NVARCHAR (MAX) NULL,
     [DataType]               BIGINT         NOT NULL,
-    [Expression]             NTEXT          NOT NULL,
-    [FormatString]           NTEXT          NULL,
+    [Expression]             NVARCHAR (MAX) NOT NULL,
+    [FormatString]           NVARCHAR (MAX) NULL,
     [IsHidden]               BIT            NOT NULL,
     [State]                  BIGINT         NOT NULL,
     [ModifiedTime]           DATETIME       NOT NULL,
     [StructureModifiedTime]  DATETIME       NOT NULL,
     [KPIID]                  NUMERIC (20)   NULL,
     [IsSimpleMeasure]        BIT            NOT NULL,
-    [ErrorMessage]           NTEXT          NULL,
-    [DisplayFolder]          NTEXT          NULL,
+    [ErrorMessage]           NVARCHAR (MAX) NULL,
+    [DisplayFolder]          NVARCHAR (MAX) NULL,
     [DetailRowsDefinitionID] NUMERIC (20)   NULL,
     CONSTRAINT [PK_TMSCHEMA_MEASURES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
 );
+
+
 
 
 GO
