@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>exampleUsage
 --get sql code CREATE OR ALTER TABLE for persistence tables
@@ -34,10 +33,10 @@ Select
                               , ColList.DbmlColumnList
                               --note: 'string to add notes'
                               , Case
-                                    When Not ro.Property_ms_description Is Null
+                                    When Not ro.Description Is Null
                                         Then
                                         Char ( 13 ) + Char ( 10 ) + 'Note: ''''''' + Char ( 13 ) + Char ( 10 )
-                                        + Replace ( Replace ( ro.Property_ms_description, '\', '\\' ), '''''''', '\''''''' )
+                                        + Replace ( Replace ( ro.Description, '\', '\\' ), '''''''', '\''''''' )
                                         + Char ( 13 ) + Char ( 10 ) + ''''''''
                                     Else
                                         Null

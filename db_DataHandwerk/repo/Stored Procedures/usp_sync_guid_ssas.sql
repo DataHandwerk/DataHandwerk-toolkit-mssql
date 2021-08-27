@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]
+﻿CREATE   PROCEDURE [repo].[usp_sync_guid_ssas]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -59,82 +59,62 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]'
+PRINT '[repo].[usp_sync_guid_ssas]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[workflow].[Workflow_ProcedureDependency_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',58,';',400,';',NULL);
-
-TRUNCATE TABLE [workflow].[Workflow_ProcedureDependency_T]
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'truncate persistence target'
-SET @source_object = NULL
-SET @target_object = '[workflow].[Workflow_ProcedureDependency_T]'
-
-EXEC logs.usp_ExecutionLog_insert 
+/*{"ReportUspStep":[{"Number":210,"Name":"[ssas].[usp_PERSIST_TMSCHEMA_TABLES_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_TMSCHEMA_TABLES_T]
+--add your own parameters
+--logging parameters
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @deleted = @rows
--- Logging END --
+ , @parent_execution_log_id = @current_execution_log_id
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[Workflow_ProcedureDependency]","log_target_object":"[workflow].[Workflow_ProcedureDependency_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',58,';',800,';',NULL);
 
-INSERT INTO 
- [workflow].[Workflow_ProcedureDependency_T]
- (
-  [Workflow_id]
-, [referenced_Procedure_RepoObject_guid]
-, [referencing_Procedure_RepoObject_guid]
-)
-SELECT
-  [Workflow_id]
-, [referenced_Procedure_RepoObject_guid]
-, [referencing_Procedure_RepoObject_guid]
-
-FROM [workflow].[Workflow_ProcedureDependency] AS S
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'insert all'
-SET @source_object = '[workflow].[Workflow_ProcedureDependency]'
-SET @target_object = '[workflow].[Workflow_ProcedureDependency_T]'
-
-EXEC logs.usp_ExecutionLog_insert 
+/*{"ReportUspStep":[{"Number":220,"Name":"[ssas].[usp_PERSIST_TMSCHEMA_COLUMNS_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_TMSCHEMA_COLUMNS_T]
+--add your own parameters
+--logging parameters
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @inserted = @rows
--- Logging END --
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":1000,"Name":"[repo].[usp_PERSIST_RepoSchema_ssas_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_PERSIST_RepoSchema_ssas_tgt]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":2000,"Name":"[repo].[usp_PERSIST_RepoObject_SSAS_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_PERSIST_RepoObject_SSAS_tgt]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":3000,"Name":"[repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
 
 --
 --finish your own code here
@@ -165,5 +145,5 @@ EXEC logs.usp_ExecutionLog_insert
 
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fe228d9f-0bfb-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_Workflow_ProcedureDependency_T';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9350ddf7-2b07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
 

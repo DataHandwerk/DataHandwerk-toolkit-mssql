@@ -263,12 +263,24 @@ Select
            , '// end::AntoraParameterList[]'
            , Char ( 13 )
            , Char ( 10 )
+           , Char ( 13 )
+           , Char ( 10 )
+           , '== Other tags'
+           , Char ( 13 )
+           , Char ( 10 )
+           , Char ( 13 )
+           , Char ( 10 )
+           , 'source: property.RepoObjectProperty_cross As rop_cross'
+           , Char ( 13 )
+           , Char ( 10 )
+           , Char ( 13 )
+           , Char ( 10 )
            , String_Agg (
                             Concat (
                                        Cast('' As NVarchar(Max))
                                      , Char ( 13 )
                                      , Char ( 10 )
-                                     , '== '
+                                     , '=== '
                                      , rop_cross.property_name Collate Database_Default
                                      , Char ( 13 )
                                      , Char ( 10 )
@@ -291,8 +303,38 @@ Select
                           , Char ( 13 ) + Char ( 10 )
                         ) Within Group(Order By
                                            rop_cross.property_name)
-           --END
-           --
+           , Char ( 13 )
+           , Char ( 10 )
+           , '== Boolean Attributes'
+           , Char ( 13 )
+           , Char ( 10 )
+           , Char ( 13 )
+           , Char ( 10 )
+           , 'source: property.RepoObjectProperty WHERE property_int = 1'
+           , Char ( 13 )
+           , Char ( 10 )
+           , Char ( 13 )
+           , Char ( 10 )
+           , '// tag::boolean_attributes[]'
+           , Char ( 13 )
+           , Char ( 10 )
+           , String_Agg (
+                            Concat (
+                                       Cast('' As NVarchar(Max))
+                                     , Case
+                                           When rop.property_int = 1
+                                               Then
+                                               ':' + Lower ( rop.property_name ) + ':' + Char ( 13 ) + Char ( 10 )
+                                           Else
+                                               ''
+                                       End
+                                   )
+                          , ''
+                        ) Within Group(Order By
+                                           rop_cross.property_name)
+           , Char ( 13 )
+           , Char ( 10 )
+           , '// end::boolean_attributes[]'
            , Char ( 13 )
            , Char ( 10 )
            --

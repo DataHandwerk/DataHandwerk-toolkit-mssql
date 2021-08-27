@@ -21,7 +21,10 @@ Select
           Cast(ro.pk_IndexSemanticGroup As NVarchar(Max))
       When 'is_repo_managed'
           Then
-          Cast(ro.is_repo_managed As NVarchar(Max))
+          Cast(IsNull ( ro.is_repo_managed, 0 ) As NVarchar(Max))
+      When 'is_ssas'
+          Then
+          Cast(IsNull ( ro.is_ssas, 0 ) As NVarchar(Max))
       When 'usp_persistence_RepoObject_guid'
           Then
           Cast(ro.usp_persistence_RepoObject_guid As NVarchar(Max))
@@ -103,6 +106,7 @@ From
           , ( 'pk_IndexPatternColumnName' )
           , ( 'pk_IndexSemanticGroup' )
           , ( 'is_repo_managed' )
+          , ( 'is_ssas' )
           , ( 'usp_persistence_RepoObject_guid' )
           , ( 'persistence_source_RepoObject_guid' )
           , ( 'persistence_source_RepoObject_fullname' )

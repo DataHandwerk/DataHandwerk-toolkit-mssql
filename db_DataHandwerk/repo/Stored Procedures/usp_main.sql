@@ -66,7 +66,11 @@ PRINT '[repo].[usp_main]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[repo].[usp_sync_guid]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":210,"Name":"(select config.fs_get_parameter_value ( 'sync enable', 'dwh' )) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF (select config.fs_get_parameter_value ( 'sync enable', 'dwh' )) = 1
+
+/*{"ReportUspStep":[{"Number":211,"Parent_Number":210,"Name":"[repo].[usp_sync_guid]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+BEGIN
 EXEC [repo].[usp_sync_guid]
 --add your own parameters
 --logging parameters
@@ -75,8 +79,24 @@ EXEC [repo].[usp_sync_guid]
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id
 
+END;
 
-/*{"ReportUspStep":[{"Number":220,"Name":"[reference].[usp_PERSIST_RepoObject_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":220,"Name":"(select config.fs_get_parameter_value ( 'sync enable', 'ssas' )) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF (select config.fs_get_parameter_value ( 'sync enable', 'ssas' )) = 1
+
+/*{"ReportUspStep":[{"Number":221,"Parent_Number":220,"Name":"[repo].[usp_sync_guid_ssas]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+BEGIN
+EXEC [repo].[usp_sync_guid_ssas]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+END;
+
+/*{"ReportUspStep":[{"Number":250,"Name":"[reference].[usp_PERSIST_RepoObject_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObject_reference_T]
 --add your own parameters
 --logging parameters
@@ -86,8 +106,8 @@ EXEC [reference].[usp_PERSIST_RepoObject_reference_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":231,"Name":"[reference].[RepoObject_reference_T] set referenced_is_PersistenceSource, referencing_is_PersistenceTarget from [reference].[RepoObject_reference_persistence] ","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_reference_persistence]","log_target_object":"[reference].[RepoObject_reference_T]"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',231,';',NULL);
+/*{"ReportUspStep":[{"Number":261,"Name":"[reference].[RepoObject_reference_T] set referenced_is_PersistenceSource, referencing_is_PersistenceTarget from [reference].[RepoObject_reference_persistence] ","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_reference_persistence]","log_target_object":"[reference].[RepoObject_reference_T]"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',261,';',NULL);
 
 Update
     T1
@@ -126,8 +146,8 @@ EXEC logs.usp_ExecutionLog_insert
 
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":232,"Name":"[reference].[RepoObject_reference_T] set referenced_is_PersistenceSource, referencing_is_PersistenceTarget, is_ReversePersistenceViaView from [reference].[RepoObject_reference_persistence_target_as_source]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_reference_persistence_target_as_source]","log_target_object":"[reference].[RepoObject_reference_T]"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',232,';',NULL);
+/*{"ReportUspStep":[{"Number":262,"Name":"[reference].[RepoObject_reference_T] set referenced_is_PersistenceSource, referencing_is_PersistenceTarget, is_ReversePersistenceViaView from [reference].[RepoObject_reference_persistence_target_as_source]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[reference].[RepoObject_reference_persistence_target_as_source]","log_target_object":"[reference].[RepoObject_reference_T]"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',262,';',NULL);
 
 Update
     T1
@@ -167,8 +187,8 @@ EXEC logs.usp_ExecutionLog_insert
 
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":233,"Name":"[reference].[RepoObject_reference_T] set referenced_is_PersistenceTarget, referencing_is_PersistenceUspTargetRef","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[reference].[RepoObject_reference_T]"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',233,';',NULL);
+/*{"ReportUspStep":[{"Number":263,"Name":"[reference].[RepoObject_reference_T] set referenced_is_PersistenceTarget, referencing_is_PersistenceUspTargetRef","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[reference].[RepoObject_reference_T]"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',263,';',NULL);
 
 Update
     T1
@@ -207,7 +227,7 @@ EXEC logs.usp_ExecutionLog_insert
 
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":250,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":280,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObjectColumn_reference_T]
 --add your own parameters
 --logging parameters

@@ -1,8 +1,4 @@
 ﻿
-
-
-
-
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -32,14 +28,14 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View [configT].[Parameter_default]
+CREATE View configT.Parameter_default
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
 Select
     Parameter_name          = 'DUMMY'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'dummy parameter, data type SQL_Variant'
+  , Parameter_desciption    = N'dummy parameter'
   , Parameter_default_value = Cast(N'' As NVarchar(Max))
 Union All
 Select
@@ -70,6 +66,18 @@ Select
     Parameter_name          = 'main enable usp_RepoObjectSource_QueryPlan'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'execute (or not) usp_RepoObjectSource_QueryPlan'
+  , Parameter_default_value = '0'
+Union All
+Select
+    Parameter_name          = 'sync enable'
+  , sub_Parameter           = N'dwh'
+  , Parameter_desciption    = N'enable sync with dwh_database_name'
+  , Parameter_default_value = '1'
+Union All
+Select
+    Parameter_name          = 'sync enable'
+  , sub_Parameter           = N'ssas'
+  , Parameter_desciption    = N'enable sync with ssas (read only, just for documentation). Best is to use a separate repository for ssas'
   , Parameter_default_value = '0'
 Union All
 Select
@@ -303,7 +311,8 @@ Select
 include::partial$template/master-page-1.adoc[]
 include::partial$template/master-page-examples.adoc[]
 include::partial$template/master-page-4.adoc[]
-include::partial$template/master-page-5.adoc[]
+include::partial$template/master-page-5_references.adoc[]
+include::partial$template/master-page-6.adoc[]
 ' As NVarchar(Max))
 Union All
 Select
@@ -313,6 +322,7 @@ Select
   , Parameter_default_value = Cast(N'= {docname}
 
 include::partial${docname}.adoc[tag=existing_properties]
+include::partial${docname}.adoc[tag=boolean_attributes]
 
 type:
 include::partial${docname}.adoc[tag=SysObject_type]
@@ -324,10 +334,13 @@ include::partial${docname}.adoc[tag=SysObject_modify_date]
 RepoObject_guid:
 include::partial${docname}.adoc[tag=RepoObject_guid]
 
-ifdef::ExistsProperty--is_repo_managed[]
-is_repo_managed:
-include::partial${docname}.adoc[tag=is_repo_managed]
-endif::ExistsProperty--is_repo_managed[]
+ifdef::is_repo_managed[]
+is_repo_managed: 1
+endif::is_repo_managed[]
+
+ifdef::is_ssas[]
+is_ssas: 1
+endif::is_ssas[]
 
 ifdef::ExistsProperty--MS_Description[]
 
@@ -443,9 +456,11 @@ endif::ExistsProperty--FK[]
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
-  , sub_Parameter           = N'5'
+  , sub_Parameter           = N'5_references'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
   , Parameter_default_value = Cast(N'
+
+ifndef::is_ssas[]
 
 == References
 
@@ -508,6 +523,17 @@ include::partial$puml/entity_1_1_colref/{docname}.puml[]
 ....
 
 endif::ExistsProperty--Columns[]
+
+endif::is_ssas[]
+
+' As NVarchar(Max))
+Union All
+Select
+    Parameter_name          = 'AntoraPageTemplate'
+  , sub_Parameter           = N'6'
+  , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
+  , Parameter_default_value = Cast(N'
+
 
 ifdef::ExistsProperty--AntoraIndexList[]
 

@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View repo.RepoObjectColumn_gross
 As
 --
@@ -45,6 +44,7 @@ Select
   , roc.SysObjectColumn_name
   , ro.has_get_referenced_issue
   , ro.is_repo_managed
+  , ro.is_ssas
   , ro.is_RepoObject_name_uniqueidentifier
   , ro.is_SysObject_missing
   , ro.is_SysObject_name_uniqueidentifier
@@ -72,8 +72,24 @@ Select
                                                                                        roc.RepoObjectColumn_guid
                                                                                      , 'ms_description'
                                                                                    )
+  , Description                = Coalesce (
+                                              ssascol.Description
+                                            , property.fs_get_RepoObjectColumnProperty_nvarchar (
+                                                                                                    roc.RepoObjectColumn_guid
+                                                                                                  , 'ms_description'
+                                                                                                )
+                                          )
   , roc_referenced.AntoraReferencedColumnList
   , roc_referencing.AntoraReferencingColumnList
+  , ssas_Description           = ssascol.Description
+  , ssas_DisplayFolder         = ssascol.DisplayFolder
+  , ssas_Expression            = ssascol.Expression
+  , ssas_FormatString          = ssascol.FormatString
+  --required in String_Agg in next steps
+  , ssas_IsHidden              = IsNull ( ssascol.IsHidden, 0 )
+  , ssas_IsKey                 = ssascol.IsKey
+  , ssas_IsUnique              = ssascol.IsUnique
+  , ssas_SummarizeBy           = ssascol.SummarizeBy
 From
     repo.RepoObjectColumn                          As roc
     Inner Join
@@ -96,6 +112,11 @@ From
         reference.RepoObjectColumn_ReferencingList As roc_referencing
             On
             roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid
+
+    Left Join
+        ssas.TMSCHEMA_COLUMNS_T                    As ssascol
+            On
+            ssascol.RepoObjectColumn_guid   = roc.RepoObjectColumn_guid
 Go
 
 Execute sp_addextendedproperty

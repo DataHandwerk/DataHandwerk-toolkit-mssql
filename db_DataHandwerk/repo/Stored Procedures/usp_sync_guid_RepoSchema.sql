@@ -495,7 +495,8 @@ delete objects, missing in SysSchemas
 Delete
 repo.RepoSchema
 Where
-    is_SysSchema_missing = 1;
+    is_SysSchema_missing = 1
+    And Not is_ssas = 1
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

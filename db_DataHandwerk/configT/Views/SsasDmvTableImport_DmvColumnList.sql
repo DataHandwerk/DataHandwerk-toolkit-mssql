@@ -11,15 +11,15 @@ Select
   , DmvColumnList = String_Agg ( QuoteName ( sc.name ), Char ( 13 ) + Char ( 10 ) + ', ' ) Within Group(Order By
                                                                                                             sc.column_id)
 From
-    config.SsasDmvTableImport As T1
+    configT.SsasDmvTableImport As T1
     Inner Join
-        sys.objects           As so
+        sys.objects            As so
             On
             so.name                          = T1.DmvTableName
             And Schema_Name ( so.schema_id ) = 'ssas'
 
     Inner Join
-        sys.columns           As sc
+        sys.columns            As sc
             On
             sc.object_id                     = so.object_id
 Where

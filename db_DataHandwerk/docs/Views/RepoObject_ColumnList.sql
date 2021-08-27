@@ -1,5 +1,4 @@
 ﻿
-
 /*
 alternative columns sort order for documentation:
 - PK
@@ -9,7 +8,7 @@ CREATE View docs.RepoObject_ColumnList
 As
 Select
     roc.RepoObject_guid
-  , AntoraColumnDetails        =
+  , AntoraColumnDetails              =
   --
   String_Agg (
                  Concat (
@@ -58,14 +57,14 @@ Select
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
                           , Case
-                                When roc.Property_ms_description <> ''
+                                When roc.Description <> ''
                                     Then
                                     Concat (
                                                '.Description'
                                              , Char ( 13 ) + Char ( 10 )
                                              , '--'
                                              , Char ( 13 ) + Char ( 10 )
-                                             , roc.Property_ms_description
+                                             , roc.Description
                                              , Char ( 13 ) + Char ( 10 )
                                              , '--'
                                              , Char ( 13 ) + Char ( 10 )
@@ -153,10 +152,11 @@ Select
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
-  , AntoraPkColumnTableRows    =
+  , AntoraPkColumnTableRows          =
   --
   String_Agg (
                  Concat (
@@ -199,10 +199,11 @@ Select
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
-  , AntoraNonPkColumnTableRows =
+  , AntoraNonPkColumnTableRows       =
   --
   String_Agg (
                  Concat (
@@ -243,10 +244,11 @@ Select
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
-  , PlantumlPkEntityColumns    =
+  , PlantumlPkEntityColumns          =
   --
   String_Agg (
                  Concat (
@@ -281,16 +283,18 @@ Select
                , ''
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
-  , PlantumlNonPkEntityColumns =
+  , PlantumlNonPkEntityColumns       =
   --
   String_Agg (
                  Concat (
                             Cast('' As NVarchar(Max))
                           , Case
                                 When IsNull ( roc.is_index_primary_key, 0 ) = 0
+                                     And roc.ssas_IsHidden = 0
                                     Then
                                     Concat (
                                                '  '
@@ -316,6 +320,44 @@ Select
                , ''
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
+                              , roc.index_column_id
+                              , roc.Repo_is_computed
+                              , roc.Column_name)
+  , PlantumlNonPkHiddenEntityColumns =
+  --
+  String_Agg (
+                 Concat (
+                            Cast('' As NVarchar(Max))
+                          , Case
+                                When IsNull ( roc.is_index_primary_key, 0 ) = 0
+                                     And roc.ssas_IsHidden = 1
+                                    Then
+                                    Concat (
+                                               '  '
+                                             --* to identify mandatory attributes
+                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             --{static}  => underline, {abstract} => italic
+                                             , Case
+                                                   When roc.Repo_is_computed = 1
+                                                       Then
+                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                               End
+                                             , roc.Column_name
+                                             , ' : '
+                                             , roc.Repo_user_type_fullname
+                                             --, CASE 
+                                             -- WHEN roc.[Repo_is_computed] = 1
+                                             --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
+                                             -- END
+                                             , Char ( 13 ) + Char ( 10 )
+                                           )
+                            End
+                        )
+               , ''
+             ) Within Group(Order By
+                                roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)

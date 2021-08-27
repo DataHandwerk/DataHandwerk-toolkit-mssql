@@ -599,6 +599,16 @@
     <Build Include="repo\Views\RepoObject_SSAS_src.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_TMSCHEMA_TABLES_T.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_TMSCHEMA_COLUMNS_T.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObjectColumn_SSAS_tgt.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_SSAS_tgt.sql" />
+    <Build Include="repo\Views\RepoSchema_ssas_tgt.sql" />
+    <Build Include="repo\Views\RepoSchema_ssas_src.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid_ssas.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoSchema_ssas_tgt.sql" />
+    <Build Include="configT\Views\SsasDmv_ExplicitDataType.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid_RepoSchema_ssas.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObjectColumn_ssas.sql" />
+    <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObject_ssas.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

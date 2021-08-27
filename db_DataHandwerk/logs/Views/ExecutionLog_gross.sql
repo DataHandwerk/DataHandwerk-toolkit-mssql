@@ -1,7 +1,4 @@
 ﻿
-
-
-
 /*
 <<property_start>>exampleUsage 
 --get detailed PlantUML sequence diagram
@@ -37,21 +34,31 @@ As
 Select
     id
   , parent_execution_log_id
+  , duration__current_execution_guid        = DateDiff (
+                                                           ss
+                                                         , Min ( created_dt ) Over ( Partition By current_execution_guid )
+                                                         , Max ( created_dt ) Over ( Partition By current_execution_guid )
+                                                       )
+  , duration__execution_instance_guid       = DateDiff (
+                                                           ss
+                                                         , Min ( created_dt ) Over ( Partition By execution_instance_guid )
+                                                         , Max ( created_dt ) Over ( Partition By execution_instance_guid )
+                                                       )
+  , created_dt
+  , proc_schema_name
+  , proc_name
+  , step_id
+  , step_name
+  , inserted
+  , updated
+  , deleted
+  , source_object
+  , target_object
   , execution_instance_guid
   , ssis_execution_id
   , sub_execution_id
   , current_execution_guid
   , proc_id
-  , proc_schema_name
-  , proc_name
-  , step_id
-  , step_name
-  , created_dt
-  , source_object
-  , target_object
-  , inserted
-  , updated
-  , deleted
   , info_01
   , info_02
   , info_03
@@ -85,16 +92,6 @@ Select
   --
   , created_dt_min__execution_instance_guid = Min ( created_dt ) Over ( Partition By execution_instance_guid )
   , created_dt_max__execution_instance_guid = Max ( created_dt ) Over ( Partition By execution_instance_guid )
-  , duration__current_execution_guid        = DateDiff (
-                                                           ss
-                                                         , Min ( created_dt ) Over ( Partition By current_execution_guid )
-                                                         , Max ( created_dt ) Over ( Partition By current_execution_guid )
-                                                       )
-  , duration__execution_instance_guid       = DateDiff (
-                                                           ss
-                                                         , Min ( created_dt ) Over ( Partition By execution_instance_guid )
-                                                         , Max ( created_dt ) Over ( Partition By execution_instance_guid )
-                                                       )
   --
   , puml_Sequence                           = --
   --combine the result with

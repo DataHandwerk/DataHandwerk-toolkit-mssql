@@ -32,6 +32,7 @@ Select
                                                       0
                                               End
   , ro.is_repo_managed
+  , ro.is_ssas
   , ro.is_required_ObjectMerge
   , ro.is_RepoObject_name_uniqueidentifier
   , ro.is_SysObject_missing
@@ -92,6 +93,10 @@ Select
   , ColumnList.PersistenceCompareColumnList
   , ColumnList.PersistenceInsertColumnList
   , ColumnList.PersistenceUpdateColumnList
+  , Description                             = Coalesce (
+                                                           ssastab.Description
+                                                         , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
+                                                       )
   , Property_ms_description                 = property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
   , SqlModules.sql_modules_definition
   , sql_modules_antora                      = Replace (
@@ -111,6 +116,10 @@ Select
   , ext_referencing.AntoraExternalReferencingList
   , AntoraModul                             = AntoraModul.Parameter_value_result
   , AntoraComponent                         = AntoraComponent.Parameter_value_result
+  , ssas_Description                        = ssastab.Description
+  , ssas_IsHidden                           = ssastab.IsHidden
+  , ssas_IsPrivate                          = ssastab.IsPrivate
+  , ssas_ShowAsVariationsOnly               = ssastab.ShowAsVariationsOnly
 From
     repo.RepoObject                                                     As ro
     Left Outer Join
@@ -183,6 +192,11 @@ From
         reference.RepoObject_ExternalReferencingList                    As ext_referencing
             On
             ext_referencing.RepoObject_guid = ro.RepoObject_guid
+
+    Left Outer Join
+        ssas.TMSCHEMA_TABLES_T                                          As ssastab
+            On
+            ssastab.RepoObject_guid = ro.RepoObject_guid
     Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
     Cross Join config.ftv_get_parameter_value ( 'AntoraModul', '' ) As AntoraModul
 Go

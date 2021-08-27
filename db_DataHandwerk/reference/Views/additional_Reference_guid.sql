@@ -1,5 +1,6 @@
 ﻿
-CREATE View reference.additional_Reference_guid
+
+CREATE View [reference].[additional_Reference_guid]
 As
 Select
     T1.referenced_AntoraComponent
@@ -60,8 +61,8 @@ From
     Left Outer Join
         repo.RepoObjectColumn      As rol2
             On
-            rol1.RepoObject_guid               = ro2.RepoObject_guid
-            And rol1.Column_name               = T1.referencing_Column
+            rol2.RepoObject_guid               = ro2.RepoObject_guid
+            And rol2.Column_name               = T1.referencing_Column
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5508fcfd-b004-ec11-8514-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'additional_Reference_guid', @level2type = N'COLUMN', @level2name = N'is_internal';
 

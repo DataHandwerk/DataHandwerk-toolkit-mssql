@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View repo.RepoObject_ColumnList
 As
 Select
@@ -142,10 +141,10 @@ Select
                             End
                           --note: 'string to add notes'
                           , Case
-                                When Not roc.Property_ms_description Is Null
+                                When Not roc.Description Is Null
                                     Then
                                     ', Note: ''''''' + Char ( 13 ) + Char ( 10 )
-                                    + Replace ( Replace ( roc.Property_ms_description, '\', '\\' ), '''''''', '\''''''' )
+                                    + Replace ( Replace ( roc.Description, '\', '\\' ), '''''''', '\''''''' )
                                     + Char ( 13 ) + Char ( 10 ) + ''''''''
                             End
                           , ']'

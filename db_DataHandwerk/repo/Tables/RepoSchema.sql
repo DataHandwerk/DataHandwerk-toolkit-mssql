@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [repo].[RepoSchema] (
     [RepoSchema_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoSchema_RepoSchema_guid] DEFAULT (newsequentialid()) NOT NULL,
     [has_different_sys_names]             AS               (CONVERT([bit],case when [RepoSchema_name]<>[SysSchema_name] then (1) else (0) end)),
+    [is_ssas]                             BIT              CONSTRAINT [DF_RepoSchema_is_ssas] DEFAULT ((0)) NOT NULL,
     [is_SysSchema_missing]                BIT              NULL,
     [RepoSchema_ms_description]           NVARCHAR (4000)  NULL,
     [RepoSchema_name]                     NVARCHAR (128)   CONSTRAINT [DF_RepoSchema_RepoSchema_name] DEFAULT (newid()) NOT NULL,
@@ -11,6 +12,8 @@
     CONSTRAINT [PK_RepoSchema] PRIMARY KEY CLUSTERED ([RepoSchema_guid] ASC),
     CONSTRAINT [UK_RepoSchema] UNIQUE NONCLUSTERED ([RepoSchema_name] ASC)
 );
+
+
 
 
 
@@ -123,4 +126,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([bit],case when [RepoSchema_name]<>[SysSchema_name] then (1) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'COLUMN', @level2name = N'has_different_sys_names';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '50ca43f5-1f07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_is_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4c4419fd-1f07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'COLUMN', @level2name = N'is_ssas';
 

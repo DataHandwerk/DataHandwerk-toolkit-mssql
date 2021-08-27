@@ -1,8 +1,4 @@
 ﻿
-
-
-
-
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -14,7 +10,7 @@ CREATE View docs.RepoObject_Plantuml_Entity
 As
 Select
     ro.RepoObject_guid
-  , RepoObject_Puml          =
+  , RepoObject_Puml                  =
   --
   Concat (
              'entity '
@@ -26,10 +22,13 @@ Select
            , '  --'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlNonPkEntityColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlNonPkHiddenEntityColumns
            , '}'
            , Char ( 13 ) + Char ( 10 )
          )
-  , RepoObject_PumlOnlyPK    =
+  , RepoObject_PumlOnlyPK            =
   --
   Concat (
              'entity '
@@ -43,7 +42,24 @@ Select
            , '}'
            , Char ( 13 ) + Char ( 10 )
          )
-  , RepoObject_PumlOnlyIndex =
+  , RepoObject_PumlOnlyPkOrNotHidden =
+  --
+  Concat (
+             'entity '
+           , ro.RepoObject_fullname2
+           , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
+           , ' {'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlPkEntityColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlNonPkEntityColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , '}'
+           , Char ( 13 ) + Char ( 10 )
+         )
+  , RepoObject_PumlOnlyIndex         =
   --
   Concat (
              'entity '
