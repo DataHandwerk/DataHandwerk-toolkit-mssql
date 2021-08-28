@@ -1,4 +1,5 @@
-﻿Create View repo.IndexColumn_ssas
+﻿
+CREATE View repo.IndexColumn_ssas
 As
 Select
     i.index_guid
@@ -7,7 +8,7 @@ Select
   , i.databasename
   , i.TableID
   , i.TableName
-  , ColumnName = col.ExplicitName
+  , ColumnName = col.ColumnName
   , ColumnType = col.type
 From
     ssas.IndexColumn_union As col

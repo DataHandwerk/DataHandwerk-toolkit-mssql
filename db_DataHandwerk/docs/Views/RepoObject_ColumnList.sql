@@ -272,6 +272,7 @@ Select
                                              , '**'
                                              , ' : '
                                              , roc.Repo_user_type_fullname
+                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -309,6 +310,45 @@ Select
                                              , roc.Column_name
                                              , ' : '
                                              , roc.Repo_user_type_fullname
+                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
+                                             --, CASE 
+                                             -- WHEN roc.[Repo_is_computed] = 1
+                                             --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
+                                             -- END
+                                             , Char ( 13 ) + Char ( 10 )
+                                           )
+                            End
+                        )
+               , ''
+             ) Within Group(Order By
+                                roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
+                              , roc.index_column_id
+                              , roc.Repo_is_computed
+                              , roc.Column_name)
+  , PlantumlNonPkIndexColumns        =
+  --
+  String_Agg (
+                 Concat (
+                            Cast('' As NVarchar(Max))
+                          , Case
+                                When IsNull ( roc.is_index_primary_key, 0 ) = 0
+                                     And roc.isAnyIndexColumn = 1
+                                    Then
+                                    Concat (
+                                               '  '
+                                             --* to identify mandatory attributes
+                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             --{static}  => underline, {abstract} => italic
+                                             , Case
+                                                   When roc.Repo_is_computed = 1
+                                                       Then
+                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                               End
+                                             , roc.Column_name
+                                             , ' : '
+                                             , roc.Repo_user_type_fullname
+                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -346,6 +386,44 @@ Select
                                              , roc.Column_name
                                              , ' : '
                                              , roc.Repo_user_type_fullname
+                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
+                                             --, CASE 
+                                             -- WHEN roc.[Repo_is_computed] = 1
+                                             --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
+                                             -- END
+                                             , Char ( 13 ) + Char ( 10 )
+                                           )
+                            End
+                        )
+               , ''
+             ) Within Group(Order By
+                                roc.is_index_primary_key Desc
+                              , roc.ssas_IsHidden
+                              , roc.index_column_id
+                              , roc.Repo_is_computed
+                              , roc.Column_name)
+  , PlantumlIndexColumns             =
+  --
+  String_Agg (
+                 Concat (
+                            Cast('' As NVarchar(Max))
+                          , Case
+                                When roc.isAnyIndexColumn = 1
+                                    Then
+                                    Concat (
+                                               '  '
+                                             --* to identify mandatory attributes
+                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             --{static}  => underline, {abstract} => italic
+                                             , Case
+                                                   When roc.Repo_is_computed = 1
+                                                       Then
+                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                               End
+                                             , roc.Column_name
+                                             , ' : '
+                                             , roc.Repo_user_type_fullname
+                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -487,4 +565,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '556d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkHiddenEntityColumns';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkIndexColumns';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ef4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'PlantumlIndexColumns';
 

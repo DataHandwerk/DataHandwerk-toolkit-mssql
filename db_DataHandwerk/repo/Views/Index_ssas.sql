@@ -1,4 +1,6 @@
 ﻿
+/*Index can contain only one colum, so we can just include it
+formally the right way would be to group by*/
 CREATE View repo.Index_ssas
 As
 Select
@@ -10,6 +12,8 @@ Select
   , databasename
   , TableID
   , TableName
+  --is unique per Index, because one index connects one pair of columns
+  , ColumnName
 From
     ssas.IndexColumn_union
 Where
@@ -44,4 +48,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '446d0
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '909cf1c3-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '844578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas', @level2type = N'COLUMN', @level2name = N'ColumnName';
 

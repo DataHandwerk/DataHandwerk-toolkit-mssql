@@ -106,6 +106,7 @@ INSERT INTO
 , [RepoObject_Puml]
 , [RepoObject_PumlOnlyIndex]
 , [RepoObject_PumlOnlyPK]
+, [RepoObject_PumlOnlyPkOrIndex]
 , [RepoObject_PumlOnlyPkOrNotHidden]
 )
 SELECT
@@ -114,6 +115,7 @@ SELECT
 , [RepoObject_Puml]
 , [RepoObject_PumlOnlyIndex]
 , [RepoObject_PumlOnlyPK]
+, [RepoObject_PumlOnlyPkOrIndex]
 , [RepoObject_PumlOnlyPkOrNotHidden]
 
 FROM [docs].[RepoObject_Plantuml_Entity] AS S

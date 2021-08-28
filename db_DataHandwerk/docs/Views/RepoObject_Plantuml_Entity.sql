@@ -59,6 +59,23 @@ Select
            , '}'
            , Char ( 13 ) + Char ( 10 )
          )
+  , RepoObject_PumlOnlyPkOrIndex     =
+  --
+  Concat (
+             'entity '
+           , ro.RepoObject_fullname2
+           , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
+           , ' {'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlPkEntityColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , collist.PlantumlNonPkIndexColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , '}'
+           , Char ( 13 ) + Char ( 10 )
+         )
   , RepoObject_PumlOnlyIndex         =
   --
   Concat (
@@ -183,4 +200,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd96d2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5c6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_PumlOnlyPkOrNotHidden';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f04578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_PumlOnlyPkOrIndex';
 

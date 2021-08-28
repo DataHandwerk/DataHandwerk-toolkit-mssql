@@ -1,9 +1,7 @@
 ﻿
 CREATE View repo.RepoObjectColumn_gross
 As
---
 Select
-    --
     roc.RepoObjectColumn_guid
   , roc.Column_name
   , roc.has_different_sys_names
@@ -51,6 +49,19 @@ Select
   , ro.modify_dt
   , ro.node_id
   , ro.pk_index_guid
+  , ic.index_column_id
+  , ic.index_name
+  , ic.is_index_primary_key
+  , isAnyIndexColumn           =
+    (
+        Select
+            Top 1
+            1
+        From
+            repo.IndexColumn_union As icu
+        Where
+            icu.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+    )
   , ro.RepoObject_fullname
   , ro.RepoObject_fullname2
   , ro.RepoObject_name
@@ -65,9 +76,8 @@ Select
   , ro.SysObject_schema_name
   , ro.SysObject_type
   , ro.SysObject_parent_object_id
-  , ic.index_column_id
-  , ic.index_name
-  , ic.is_index_primary_key
+  --based on ro.pk_index_guid
+  --in other words: only, if the columns are part of the PK
   , Property_ms_description    = property.fs_get_RepoObjectColumnProperty_nvarchar (
                                                                                        roc.RepoObjectColumn_guid
                                                                                      , 'ms_description'
@@ -1777,4 +1787,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4b6d0
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4c6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'Description';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ed4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'isAnyIndexColumn';
 

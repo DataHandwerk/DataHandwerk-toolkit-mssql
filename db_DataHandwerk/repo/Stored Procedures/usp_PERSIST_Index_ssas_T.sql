@@ -109,6 +109,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',81,';',600,';',NULL);
 UPDATE T
 SET
   T.[index_name] = S.[index_name]
+, T.[ColumnName] = S.[ColumnName]
 , T.[databasename] = S.[databasename]
 , T.[is_index_primary_key] = S.[is_index_primary_key]
 , T.[is_index_unique] = S.[is_index_unique]
@@ -122,7 +123,8 @@ ON
 T.[index_name] = S.[index_name]
 
 WHERE
-   T.[databasename] <> S.[databasename]
+   T.[ColumnName] <> S.[ColumnName]
+OR T.[databasename] <> S.[databasename]
 OR T.[is_index_primary_key] <> S.[is_index_primary_key]
 OR T.[is_index_unique] <> S.[is_index_unique]
 OR T.[RepoObject_guid] <> S.[RepoObject_guid]
@@ -161,6 +163,7 @@ INSERT INTO
  [repo].[Index_ssas_T]
  (
   [index_name]
+, [ColumnName]
 , [databasename]
 , [is_index_primary_key]
 , [is_index_unique]
@@ -170,6 +173,7 @@ INSERT INTO
 )
 SELECT
   [index_name]
+, [ColumnName]
 , [databasename]
 , [is_index_primary_key]
 , [is_index_unique]
