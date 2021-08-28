@@ -1,7 +1,6 @@
 ﻿
 CREATE View repo.IndexColumn_union
 As
---
 Select
     T1.index_guid
   , T1.index_column_id
@@ -21,7 +20,7 @@ From
     repo_sys.IndexColumn_unique As T1
 Union All
 Select
-    T2.Index_guid
+    T2.index_guid
   , T2.index_column_id
   , T2.is_descending_key
   , T2.RepoObjectColumn_guid
@@ -37,6 +36,24 @@ Select
   , T2.parent_Object_fullname
 From
     repo.IndexColumn_virtual_gross As T2
+Union All
+Select
+    T2.Index_guid
+  , T2.index_column_id
+  , T2.is_descending_key
+  , T2.RepoObjectColumn_guid
+  , T2.parent_RepoObject_guid
+  , T2.index_name
+  , T2.parent_schema_name
+  , T2.parent_Object_name
+  , T2.Object_column_name
+  , T2.column_user_type_fullname
+  , T2.is_index_unique
+  , T2.is_index_primary_key
+  , T2.is_index_real
+  , T2.parent_Object_fullname
+From
+    repo.IndexColumn_ssas_gross As T2
 Go
 
 Execute sp_addextendedproperty

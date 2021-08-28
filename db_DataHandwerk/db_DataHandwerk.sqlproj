@@ -621,6 +621,11 @@
     <Build Include="repo\Views\Index_ssas.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_IndexColumn_ssas_T.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_Index_ssas_T.sql" />
+    <Build Include="ssas\Tables\TMSCHEMA_RELATIONSHIPS_T.sql" />
+    <Build Include="repo\Views\IndexColumn_ssas_gross.sql" />
+    <Build Include="repo\Views\ForeignKey_ssas_IndexPattern.sql" />
+    <Build Include="repo\Views\ForeignKey_ssas_Indexes.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_TMSCHEMA_RELATIONSHIPS_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

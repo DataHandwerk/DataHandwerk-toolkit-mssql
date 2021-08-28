@@ -7,9 +7,12 @@
     [TableName]             NVARCHAR (MAX)   NOT NULL,
     [ColumnName]            NVARCHAR (MAX)   NOT NULL,
     [ColumnType]            BIGINT           NOT NULL,
+    [is_descending_key]     AS               (CONVERT([bit],(0))),
     CONSTRAINT [PK_IndexColumn_ssas_T] PRIMARY KEY CLUSTERED ([index_guid] ASC, [index_column_id] ASC),
     CONSTRAINT [FK_IndexColumn_ssas_T_Index_ssas_T] FOREIGN KEY ([index_guid]) REFERENCES [repo].[Index_ssas_T] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 GO

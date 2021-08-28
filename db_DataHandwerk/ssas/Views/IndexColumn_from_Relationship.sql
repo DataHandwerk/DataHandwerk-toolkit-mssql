@@ -1,10 +1,11 @@
 ﻿
+
 /*
 create index from each ssas column, which is used in any relationship
 
 one index per column
 */
-CREATE View ssas.IndexColumn_from_Relationship
+CREATE View [ssas].[IndexColumn_from_Relationship]
 As
 Select
     index_name           = Concat (   'ix_'
@@ -38,7 +39,7 @@ Where
     Select
         1
     From
-        ssas.TMSCHEMA_RELATIONSHIPS As T3
+        ssas.TMSCHEMA_RELATIONSHIPS_T As T3
     Where
         T3.databasename     = T2.databasename
         And T3.FromTableID  = T2.TableID
@@ -49,7 +50,7 @@ Where
     Select
         1
     From
-        ssas.TMSCHEMA_RELATIONSHIPS As T3
+        ssas.TMSCHEMA_RELATIONSHIPS_T As T3
     Where
         T3.databasename   = T2.databasename
         And T3.ToTableID  = T2.TableID

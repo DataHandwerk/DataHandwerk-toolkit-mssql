@@ -86,6 +86,16 @@ EXEC [ssas].[usp_PERSIST_TMSCHEMA_COLUMNS_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
+/*{"ReportUspStep":[{"Number":230,"Name":"[ssas].[usp_PERSIST_TMSCHEMA_RELATIONSHIPS_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_TMSCHEMA_RELATIONSHIPS_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 /*{"ReportUspStep":[{"Number":1000,"Name":"[repo].[usp_PERSIST_RepoSchema_ssas_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_RepoSchema_ssas_tgt]
 --add your own parameters

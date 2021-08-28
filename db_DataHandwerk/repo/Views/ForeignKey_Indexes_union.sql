@@ -56,6 +56,34 @@ Select
   , update_referential_action
 From
     repo.ForeignKey_virtual_Indexes
+Union All
+Select
+    ForeignKey_guid
+  , is_MatchingDatatypePattern
+  , ForeignKey_name Collate Database_Default
+  , ForeignKey_fullname
+  , referenced_index_guid
+  , referenced_index_name
+  , referenced_IndexPatternColumnDatatype
+  , referenced_IndexPatternColumnName
+  , referenced_RepoObject_fullname
+  , referenced_RepoObject_fullname2
+  , referenced_RepoObject_guid
+  , referenced_SysObject_name
+  , referenced_SysObject_schema_name
+  , referencing_index_guid
+  , referencing_index_name
+  , referencing_IndexPatternColumnDatatype
+  , referencing_IndexPatternColumnName
+  , referencing_RepoObject_fullname
+  , referencing_RepoObject_fullname2
+  , referencing_RepoObject_guid
+  , referencing_SysObject_name
+  , referencing_SysObject_schema_name
+  , delete_referential_action
+  , update_referential_action
+From
+    repo.ForeignKey_ssas_Indexes
 Go
 
 Execute sp_addextendedproperty
