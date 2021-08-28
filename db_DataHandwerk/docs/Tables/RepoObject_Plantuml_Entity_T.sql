@@ -1,11 +1,13 @@
 ﻿CREATE TABLE [docs].[RepoObject_Plantuml_Entity_T] (
-    [RepoObject_guid]          UNIQUEIDENTIFIER NOT NULL,
-    [RepoObject_Puml]          NVARCHAR (MAX)   NOT NULL,
-    [RepoObject_PumlOnlyIndex] NVARCHAR (MAX)   NOT NULL,
-    [RepoObject_PumlOnlyPK]    NVARCHAR (MAX)   NOT NULL,
-    [RepoObject_fullname2]     NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL
-)
-WITH (DATA_COMPRESSION = PAGE);
+    [RepoObject_guid]                  UNIQUEIDENTIFIER NOT NULL,
+    [RepoObject_Puml]                  NVARCHAR (MAX)   NOT NULL,
+    [RepoObject_PumlOnlyIndex]         NVARCHAR (MAX)   NOT NULL,
+    [RepoObject_PumlOnlyPK]            NVARCHAR (MAX)   NOT NULL,
+    [RepoObject_PumlOnlyPkOrNotHidden] NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden] DEFAULT ('') NOT NULL,
+    [RepoObject_fullname2]             NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL
+);
+
+
 
 
 

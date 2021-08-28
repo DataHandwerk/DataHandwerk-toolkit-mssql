@@ -37,6 +37,24 @@ From
         repo.Index_virtual_IndexPatternColumnGuid As T2
             On
             T2.index_guid = T1.index_guid
+Union All
+Select
+    T1.index_guid
+  , T1.RepoObject_guid
+  , T1.index_name
+  , index_type            = Null
+  , T1.is_index_unique
+  , T1.is_index_primary_key
+  , is_index_disabled     = Cast(0 As Bit)
+  , T2.IndexPatternColumnGuid
+  , referenced_index_guid = Null --maybe we need this later?
+  , is_index_real         = Cast(1 As Bit)
+From
+    repo.Index_ssas_T                          As T1
+    Left Join
+        repo.Index_ssas_IndexPatternColumnGuid As T2
+            On
+            T2.index_guid = T1.index_guid
 Go
 
 Execute sp_addextendedproperty

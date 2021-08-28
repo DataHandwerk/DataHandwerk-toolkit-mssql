@@ -136,6 +136,7 @@
     <Folder Include="ssas\" />
     <Folder Include="ssas\Tables\" />
     <Folder Include="ssas\Stored Procedures\" />
+    <Folder Include="ssas\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -609,6 +610,17 @@
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoSchema_ssas.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObjectColumn_ssas.sql" />
     <Build Include="repo\Stored Procedures\usp_sync_guid_RepoObject_ssas.sql" />
+    <Build Include="repo\Tables\IndexColumn_ssas_T.sql" />
+    <Build Include="repo\Tables\Index_ssas_T.sql" />
+    <Build Include="ssas\Views\IndexColumn_union.sql" />
+    <Build Include="ssas\Views\IndexColumn_from_Relationship.sql" />
+    <Build Include="ssas\Views\IndexColumn_from_IsUnique.sql" />
+    <Build Include="ssas\Views\IndexColumn_from_IsKey.sql" />
+    <Build Include="repo\Views\IndexColumn_ssas.sql" />
+    <Build Include="repo\Views\Index_ssas_IndexPatternColumnGuid.sql" />
+    <Build Include="repo\Views\Index_ssas.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_IndexColumn_ssas_T.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_Index_ssas_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />
