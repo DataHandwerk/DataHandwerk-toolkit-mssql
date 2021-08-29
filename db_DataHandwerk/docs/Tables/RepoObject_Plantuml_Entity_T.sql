@@ -5,8 +5,11 @@
     [RepoObject_PumlOnlyPK]            NVARCHAR (MAX)   NOT NULL,
     [RepoObject_PumlOnlyPkOrNotHidden] NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden] DEFAULT ('') NOT NULL,
     [RepoObject_PumlOnlyPkOrIndex]     NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden1] DEFAULT ('') NOT NULL,
-    [RepoObject_fullname2]             NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL
+    [RepoObject_fullname2]             NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL,
+    [RepoObject_schema_name]           NVARCHAR (128)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname21] DEFAULT ('') NOT NULL
 );
+
+
 
 
 

@@ -630,6 +630,10 @@
     <Build Include="docs\Functions\fs_cleanStringForPuml.sql" />
     <Build Include="repo\Views\RepoObject_gross2.sql" />
     <Build Include="repo\Views\RepoObjectColumn_gross2.sql" />
+    <Build Include="docs\Views\Schema_SsasRelationList.sql" />
+    <Build Include="docs\Views\Schema_puml.sql" />
+    <Build Include="docs\Views\Schema_EntityList.sql" />
+    <Build Include="docs\Views\Schema_PlantUml_FkRefList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

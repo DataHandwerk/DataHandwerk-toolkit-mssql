@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View docs.AntoraNavListPage_by_schema
 As
 Select
@@ -22,6 +21,22 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , 'include::partial$navlist/navlist-schema-' + ro.RepoObject_schema_name + '.adoc[]'
            , Char ( 13 ) + Char ( 10 )
+           , Iif(Max ( Cast(rs.is_ssas As Int)) = 1
+               , Concat (
+                            Char ( 13 ) + Char ( 10 )
+                          , '== SSAS Relations Diagram'
+                          , Char ( 13 ) + Char ( 10 )
+                          , Char ( 13 ) + Char ( 10 )
+                          , '[plantuml, schema_ssas_er-' + ro.RepoObject_schema_name + ', svg]'
+                          , Char ( 13 ) + Char ( 10 )
+                          , '....'
+                          , Char ( 13 ) + Char ( 10 )
+                          , 'include::partial$puml/schema_ssas_er/' + ro.RepoObject_schema_name + '.puml[]'
+                          , Char ( 13 ) + Char ( 10 )
+                          , '....'
+                          , Char ( 13 ) + Char ( 10 )
+                        )
+               , Null)
          )
 From
     repo.RepoObject     As ro

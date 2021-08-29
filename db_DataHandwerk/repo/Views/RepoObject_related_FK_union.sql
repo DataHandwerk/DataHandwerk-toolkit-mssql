@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>MS_Description
 included_RepoObject:
@@ -13,8 +12,10 @@ As
 Select
     ro.RepoObject_guid
   , ro.RepoObject_fullname2
+  , SchemaName                    = ro.RepoObject_schema_name
   , included_RepoObject_guid      = ro.RepoObject_guid
   , included_RepoObject_fullname2 = ro.RepoObject_fullname2
+  , included_SchemaName           = ro.RepoObject_schema_name
 From
     repo.RepoObject As ro
 Where
@@ -24,16 +25,20 @@ Union
 Select
     referenced_RepoObject_guid
   , referenced_RepoObject_fullname2
+  , referenced_SysObject_schema_name
   , referencing_RepoObject_guid
   , referencing_RepoObject_fullname2
+  , referencing_SysObject_schema_name
 From
     repo.ForeignKey_Indexes_union_T
 Union
 Select
     referencing_RepoObject_guid
   , referencing_RepoObject_fullname2
+  , referencing_SysObject_schema_name
   , referenced_RepoObject_guid
   , referenced_RepoObject_fullname2
+  , referenced_SysObject_schema_name
 From
     repo.ForeignKey_Indexes_union_T
 Go
