@@ -1,5 +1,6 @@
 ﻿
-CREATE View graph.RepoObjectColumn_S
+
+CREATE View [graph].[RepoObjectColumn_S]
 As
 Select
     --

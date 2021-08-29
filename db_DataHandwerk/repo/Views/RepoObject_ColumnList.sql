@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.RepoObject_ColumnList
+
+CREATE View [repo].[RepoObject_ColumnList]
 As
 Select
     roc.RepoObject_guid
@@ -280,7 +281,7 @@ Select
         )
   , RepoObjectColumn_fullname    = Max ( roc.RepoObjectColumn_fullname )
 From
-    repo.RepoObjectColumn_gross As roc
+    repo.RepoObjectColumn_gross2 As roc
 Where
     --not [is_query_plan_expression], these are not real columms
     roc.is_query_plan_expression Is Null

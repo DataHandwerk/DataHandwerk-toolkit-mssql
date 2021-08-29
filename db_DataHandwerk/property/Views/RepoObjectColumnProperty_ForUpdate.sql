@@ -1,7 +1,8 @@
 ﻿
 
 
-CREATE View property.RepoObjectColumnProperty_ForUpdate
+
+CREATE View [property].[RepoObjectColumnProperty_ForUpdate]
 As
 Select
     rocp.RepoObjectColumnProperty_id

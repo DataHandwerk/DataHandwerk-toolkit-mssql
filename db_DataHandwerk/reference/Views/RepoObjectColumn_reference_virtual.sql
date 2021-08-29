@@ -1,7 +1,8 @@
 ﻿
 
 
-CREATE View reference.RepoObjectColumn_reference_virtual
+
+CREATE View [reference].[RepoObjectColumn_reference_virtual]
 As
 --
 Select

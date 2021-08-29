@@ -49,19 +49,6 @@ Select
   , ro.modify_dt
   , ro.node_id
   , ro.pk_index_guid
-  , ic.index_column_id
-  , ic.index_name
-  , ic.is_index_primary_key
-  , isAnyIndexColumn           =
-    (
-        Select
-            Top 1
-            1
-        From
-            repo.IndexColumn_union As icu
-        Where
-            icu.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
-    )
   , ro.RepoObject_fullname
   , ro.RepoObject_fullname2
   , ro.RepoObject_name
@@ -89,8 +76,6 @@ Select
                                                                                                   , 'ms_description'
                                                                                                 )
                                           )
-  , roc_referenced.AntoraReferencedColumnList
-  , roc_referencing.AntoraReferencingColumnList
   , ssas_Description           = ssascol.Description
   , ssas_DisplayFolder         = ssascol.DisplayFolder
   , ssas_Expression            = ssascol.Expression
@@ -100,33 +85,47 @@ Select
   , ssas_IsKey                 = ssascol.IsKey
   , ssas_IsUnique              = ssascol.IsUnique
   , ssas_SummarizeBy           = ssascol.SummarizeBy
+--, ic.index_column_id
+--, ic.index_name
+--, ic.is_index_primary_key
+--, isAnyIndexColumn           =
+--  (
+--      Select
+--          Top 1
+--          1
+--      From
+--          repo.IndexColumn_union As icu
+--      Where
+--          icu.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+--  )
+--, roc_referenced.AntoraReferencedColumnList
+--, roc_referencing.AntoraReferencingColumnList
 From
-    repo.RepoObjectColumn                          As roc
+    repo.RepoObjectColumn       As roc
     Inner Join
-        repo.RepoObject                            As ro
+        repo.RepoObject         As ro
             On
-            roc.RepoObject_guid             = ro.RepoObject_guid
-
-    Left Outer Join
-        repo.IndexColumn_union                     As ic
-            On
-            ic.index_guid                   = ro.pk_index_guid
-            And ic.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid
+            roc.RepoObject_guid           = ro.RepoObject_guid
 
     Left Join
-        reference.RepoObjectColumn_ReferencedList  As roc_referenced
+        ssas.TMSCHEMA_COLUMNS_T As ssascol
             On
-            roc_referenced.Referencing_guid = roc.RepoObjectColumn_guid
+            ssascol.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+--Left Outer Join
+--    repo.IndexColumn_union                     As ic
+--        On
+--        ic.index_guid                   = ro.pk_index_guid
+--        And ic.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid
 
-    Left Join
-        reference.RepoObjectColumn_ReferencingList As roc_referencing
-            On
-            roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid
+--Left Join
+--    reference.RepoObjectColumn_ReferencedList  As roc_referenced
+--        On
+--        roc_referenced.Referencing_guid = roc.RepoObjectColumn_guid
 
-    Left Join
-        ssas.TMSCHEMA_COLUMNS_T                    As ssascol
-            On
-            ssascol.RepoObjectColumn_guid   = roc.RepoObjectColumn_guid
+--Left Join
+--    reference.RepoObjectColumn_ReferencingList As roc_referencing
+--        On
+--        roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid
 Go
 
 Execute sp_addextendedproperty
@@ -677,37 +676,13 @@ Execute sp_addextendedproperty
   , @level2name = N'is_persistence_no_check';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '48f67926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_index_primary_key';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '47f67926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'index_name';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '46f67926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'index_column_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -1521,37 +1496,13 @@ Execute sp_addextendedproperty
   , @level2name = N'is_persistence_no_check';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexColumn_union].[is_index_primary_key]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_index_primary_key';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexColumn_union].[index_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'index_name';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexColumn_union].[index_column_id]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'index_column_id';
+
 Go
 
 Execute sp_addextendedproperty
@@ -1620,26 +1571,10 @@ Execute sp_addextendedproperty
   , @level2name = N'RepoObject_fullname2';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'bb35b4cd-e093-eb11-84f2-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'AntoraReferencingColumnList';
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = 'ba35b4cd-e093-eb11-84f2-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'AntoraReferencedColumnList';
+
 Go
 
 Execute sp_addextendedproperty
@@ -1734,11 +1669,11 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_ReferencingList].[AntoraReferencingColumnList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencingColumnList';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_ReferencedList].[AntoraReferencedColumnList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'AntoraReferencedColumnList';
+
 
 
 GO
@@ -1790,5 +1725,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4c6d0
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ed4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'isAnyIndexColumn';
+
 

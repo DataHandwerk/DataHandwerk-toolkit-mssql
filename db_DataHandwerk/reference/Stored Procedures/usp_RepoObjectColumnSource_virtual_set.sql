@@ -14,7 +14,7 @@ EXEC reference.usp_RepoObjectColumnSource_virtual_set
   , @Source_RepoObjectColumn_fullname = '[SourceSchemaName].[SourceObjectName].[SourceColumnName]';
 <<property_end>>
 */
-create Procedure reference.usp_RepoObjectColumnSource_virtual_set
+CREATE Procedure reference.usp_RepoObjectColumnSource_virtual_set
     --
     @RepoObjectColumn_guid             UniqueIdentifier = Null --if @RepoObjectColumn_guid is NULL, then @RepoObjectColumn_fullname or @RepoObjectColumn_fullname2 are used
   , @RepoObjectColumn_fullname         NVarchar(520)    = Null --can be used to define @RepoObjectColumn_guid; use '[SchemaName].[ObjectName].[ColumnName]'
@@ -30,9 +30,9 @@ Begin
         Set @RepoObjectColumn_guid =
     (
         Select
-            RepoObjectColumn_guid
+            roc.RepoObjectColumn_guid
         From
-            repo.RepoObjectColumn_gross roc
+            repo.RepoObjectColumn_gross As roc
         Where
             roc.RepoObjectColumn_fullname = @RepoObjectColumn_fullname
     )   ;
@@ -41,9 +41,9 @@ Begin
         Set @RepoObjectColumn_guid =
     (
         Select
-            RepoObjectColumn_guid
+            roc.RepoObjectColumn_guid
         From
-            repo.RepoObjectColumn_gross roc
+            repo.RepoObjectColumn_gross As roc
         Where
             roc.RepoObjectColumn_fullname2 = @RepoObjectColumn_fullname2
     )   ;
@@ -76,9 +76,9 @@ Begin
         Set @Source_RepoObjectColumn_guid =
     (
         Select
-            RepoObjectColumn_guid
+            roc.RepoObjectColumn_guid
         From
-            repo.RepoObjectColumn_gross roc
+            repo.RepoObjectColumn_gross As roc
         Where
             roc.RepoObjectColumn_fullname = @Source_RepoObjectColumn_fullname
     )   ;
@@ -87,9 +87,9 @@ Begin
         Set @Source_RepoObjectColumn_guid =
     (
         Select
-            RepoObjectColumn_guid
+            roc.RepoObjectColumn_guid
         From
-            repo.RepoObjectColumn_gross roc
+            repo.RepoObjectColumn_gross As roc
         Where
             roc.RepoObjectColumn_fullname2 = @Source_RepoObjectColumn_fullname2
     )   ;

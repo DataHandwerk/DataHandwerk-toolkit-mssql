@@ -1,5 +1,4 @@
 ﻿
-
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
@@ -16,6 +15,14 @@ Select
                               , ']'
                               , Char ( 13 ) + Char ( 10 )
                               , 'GO'
+                              , Char ( 13 ) + Char ( 10 )
+                              , '/*'
+                              , Char ( 13 ) + Char ( 10 )
+                              , 'code of this procedure is managed in the dhw repository. Do not modify manually.'
+                              , Char ( 13 ) + Char ( 10 )
+                              , 'Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]'
+                              , Char ( 13 ) + Char ( 10 )
+                              , '*/'
                               , Char ( 13 ) + Char ( 10 )
                               , 'CREATE OR ALTER PROCEDURE '
                               , u.usp_fullname

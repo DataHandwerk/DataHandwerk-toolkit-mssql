@@ -1,7 +1,8 @@
 ﻿
 
 
-CREATE View reference.RepoObjectColumn_reference_QueryPlan
+
+CREATE View [reference].[RepoObjectColumn_reference_QueryPlan]
 As
 --
 Select

@@ -1,10 +1,11 @@
 ﻿
 
+
 --"common" references
 --these should be "common" columns in views, not containing expressions
 --Attention: views on views are "resolved" like views on the underlaying tables!
 --it looks like we don't get references between views here!
-CREATE View reference.RepoObjectColumn_reference_FirstResultSet
+CREATE View [reference].[RepoObjectColumn_reference_FirstResultSet]
 As
 --
 Select
