@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View docs.RepoObject_Plantuml_ObjectRefList_30_0
 As
 Select
@@ -8,9 +7,9 @@ Select
   , ObjectRefList = String_Agg (
                                    Concat (
                                               Cast(N'' As NVarchar(Max))
-                                            , objectref.Referenced_ro_fullname2
+                                            , docs.fs_cleanStringForPuml ( objectref.Referenced_ro_fullname2 )
                                             , ' <.. '
-                                            , objectref.Referencing_ro_fullname2
+                                            , docs.fs_cleanStringForPuml ( objectref.Referencing_ro_fullname2 )
                                           )
                                  , Char ( 13 ) + Char ( 10 )
                                ) Within Group(Order By

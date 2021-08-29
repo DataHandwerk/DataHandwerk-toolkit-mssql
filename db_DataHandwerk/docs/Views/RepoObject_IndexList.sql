@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View docs.RepoObject_IndexList
 As
 Select
@@ -61,7 +60,7 @@ Select
                             Cast('' As NVarchar(Max))
                           , Iif(ix.is_index_real = 0, '- ', Null)
                           , Iif(ix.is_index_primary_key = 1, '**', Null)
-                          , ix.index_name
+                          , docs.fs_cleanStringForPuml ( ix.index_name )
                           , Iif(ix.is_index_primary_key = 1, '**', Null)
                           , Char ( 13 ) + Char ( 10 )
                           , '{' + ix.IndexSemanticGroup + '}'

@@ -1,7 +1,4 @@
 ﻿
-
-
-
 CREATE View docs.ObjectRefCyclic_ObjectRefList
 As
 Select
@@ -10,9 +7,9 @@ Select
     String_Agg (
                    Concat (
                               Cast(N'' As NVarchar(Max))
-                            , objectref.Referenced_fullname2
+                            , docs.fs_cleanStringForPuml ( objectref.Referenced_fullname2 )
                             , ' <.. '
-                            , objectref.Referencing_fullname2
+                            , docs.fs_cleanStringForPuml ( objectref.Referencing_fullname2 )
                           )
                  , Char ( 13 ) + Char ( 10 )
                ) Within Group(Order By

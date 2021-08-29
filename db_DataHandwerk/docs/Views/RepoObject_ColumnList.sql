@@ -268,7 +268,7 @@ Select
                                                End
                                              --PK in bold
                                              , '**'
-                                             , roc.Column_name
+                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , '**'
                                              , ' : '
                                              , roc.Repo_user_type_fullname
@@ -307,7 +307,7 @@ Select
                                                        Then
                                                        Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
                                                End
-                                             , roc.Column_name
+                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
                                              , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
@@ -345,7 +345,7 @@ Select
                                                        Then
                                                        Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
                                                End
-                                             , roc.Column_name
+                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
                                              , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
@@ -383,7 +383,7 @@ Select
                                                        Then
                                                        Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
                                                End
-                                             , roc.Column_name
+                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
                                              , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
@@ -420,7 +420,7 @@ Select
                                                        Then
                                                        Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
                                                End
-                                             , roc.Column_name
+                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
                                              , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)

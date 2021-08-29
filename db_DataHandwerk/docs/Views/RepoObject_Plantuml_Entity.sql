@@ -14,7 +14,7 @@ Select
   --
   Concat (
              'entity '
-           , ro.RepoObject_fullname2
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
            , Char ( 13 ) + Char ( 10 )
@@ -32,7 +32,7 @@ Select
   --
   Concat (
              'entity '
-           , ro.RepoObject_fullname2
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
            , Char ( 13 ) + Char ( 10 )
@@ -46,7 +46,7 @@ Select
   --
   Concat (
              'entity '
-           , ro.RepoObject_fullname2
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
            , Char ( 13 ) + Char ( 10 )
@@ -63,7 +63,7 @@ Select
   --
   Concat (
              'entity '
-           , ro.RepoObject_fullname2
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
            , Char ( 13 ) + Char ( 10 )
@@ -80,7 +80,7 @@ Select
   --
   Concat (
              'entity '
-           , ro.RepoObject_fullname2
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
            , Char ( 13 ) + Char ( 10 )

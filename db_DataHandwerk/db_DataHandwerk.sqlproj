@@ -627,6 +627,7 @@
     <Build Include="repo\Views\ForeignKey_ssas_Indexes.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_TMSCHEMA_RELATIONSHIPS_T.sql" />
     <Build Include="docs\Views\ssas_PumlRelation.sql" />
+    <Build Include="docs\Functions\fs_cleanStringForPuml.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

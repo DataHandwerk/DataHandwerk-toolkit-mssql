@@ -1,5 +1,6 @@
-﻿/*to: noch nicht fertig, unnötige entfernen*/
-CREATE View docs.ssas_PumlRelation
+﻿
+/*to: noch nicht fertig, unnötige entfernen*/
+CREATE View [docs].[ssas_PumlRelation]
 As
 Select
     ForeignKey_guid
@@ -8,9 +9,9 @@ Select
   , PumlRelation                          = Concat (
                                                        Cast(N'' As NVarchar(Max))
                                                      --ssas names can contain space and other
-                                                     , docs.fs_cleanStringForLabel ( referenced_RepoObject_fullname2 )
+                                                     , docs.fs_cleanStringForPuml ( referenced_RepoObject_fullname2 )
                                                      , '::'
-                                                     , docs.fs_cleanStringForLabel ( referenced_ColumnName )
+                                                     , docs.fs_cleanStringForPuml ( referenced_ColumnName )
                                                      , ' '
                                                      --todo: check with test data, containing 1:1 relations
                                                      , Iif(ToCardinality = 1, '||', '}|')
@@ -23,9 +24,9 @@ Select
                                                        End
                                                      , Iif(FromCardinality = 1, '||', '|{')
                                                      , ' '
-                                                     , docs.fs_cleanStringForLabel ( referencing_RepoObject_fullname2 )
+                                                     , docs.fs_cleanStringForPuml ( referencing_RepoObject_fullname2 )
                                                      , '::'
-                                                     , docs.fs_cleanStringForLabel ( referencing_ColumnName )
+                                                     , docs.fs_cleanStringForPuml ( referencing_ColumnName )
                                                    )
   , ForeignKey_fullname
   , referenced_IndexPatternColumnName

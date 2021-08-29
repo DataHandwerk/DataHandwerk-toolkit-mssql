@@ -1,6 +1,7 @@
 ﻿
 
-CREATE View docs.RepoObject_Plantuml_ColRefList_1_1
+
+CREATE View [docs].[RepoObject_Plantuml_ColRefList_1_1]
 As
 Select
     ro.RepoObject_guid
@@ -10,14 +11,14 @@ Select
   String_Agg (
                  Concat (   Cast(N'' As NVarchar(Max))
                           --, REPLACE(colref.Referenced_ro_fullname2, '.', '___')
-                          , colref.Referenced_ro_fullname2
+                          , docs.fs_cleanStringForPuml(colref.Referenced_ro_fullname2)
                           , '::'
-                          , colref.Referenced_ro_ColumnName
+                          , docs.fs_cleanStringForPuml(colref.Referenced_ro_ColumnName)
                           , ' <-- '
                           --, REPLACE(colref.Referencing_ro_fullname2, '.', '___')
-                          , colref.Referencing_ro_fullname2
+                          , docs.fs_cleanStringForPuml(colref.Referencing_ro_fullname2)
                           , '::'
-                          , colref.Referencing_ro_ColumnName
+                          , docs.fs_cleanStringForPuml(colref.Referencing_ro_ColumnName)
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
