@@ -90,6 +90,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
          )
   , ro.RepoObject_fullname2
+  , ro.RepoObject_schema_name
 From
     docs.RepoObject_OutputFilter    As ro
     Left Join

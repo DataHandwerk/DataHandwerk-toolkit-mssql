@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 Probably unnecessary, since all data is also contained in [reference].[RepoObjectColumn_ReferenceTree].
 
 
@@ -22,7 +23,7 @@ ORDER BY [Referenced_Depth]
 <<property_end>>
 
 */
-CREATE Function [reference].[ftv_RepoObject_DbmlColumnRelation]
+CREATE Function reference.ftv_RepoObject_DbmlColumnRelation
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -39,22 +40,22 @@ Return
         (
         Select
             FirstNode.*
-          , 1 As Referenced_Depth
-          , 0 As Referencing_Depth
+          , Referenced_Depth  = 1
+          , Referencing_Depth = 0
         From
-            [reference].RepoObjectColumn_ReferencingReferenced As FirstNode
+            reference.RepoObjectColumn_ReferencingReferenced As FirstNode
         Where
-            Referencing_RepoObject_guid = @RepoObject_guid
-            And 1                       <= @Referenced_Depth
+            FirstNode.Referencing_RepoObject_guid = @RepoObject_guid
+            And 1                                 <= @Referenced_Depth
         Union All
         Select
             child.*
           , Referenced_Depth = parent.Referenced_Depth + 1
           , 0
         From
-            [reference].RepoObjectColumn_ReferencingReferenced As child
+            reference.RepoObjectColumn_ReferencingReferenced As child
             Inner Join
-                tree_referenced                          As parent
+                tree_referenced                              As parent
                     On
                     child.Referencing_guid = parent.Referenced_guid
         Where
@@ -66,22 +67,22 @@ Return
         (
         Select
             FirstNode.*
-          , 0 As Referenced_Depth
-          , 1 As Referencing_Depth
+          , Referenced_Depth  = 0
+          , Referencing_Depth = 1
         From
-            [reference].RepoObjectColumn_ReferencingReferenced As FirstNode
+            reference.RepoObjectColumn_ReferencingReferenced As FirstNode
         Where
-            Referenced_guid = @RepoObject_guid
-            And 1           <= @Referencing_Depth
+            FirstNode.Referenced_guid = @RepoObject_guid
+            And 1                     <= @Referencing_Depth
         Union All
         Select
             child.*
           , 0
           , Referencing_Depth = parent.Referencing_Depth + 1
         From
-            [reference].RepoObjectColumn_ReferencingReferenced As child
+            reference.RepoObjectColumn_ReferencingReferenced As child
             Inner Join
-                tree_referencing                         As parent
+                tree_referencing                             As parent
                     On
                     child.Referenced_guid = parent.Referencing_guid
         Where
@@ -89,13 +90,13 @@ Return
         )
     Select
         *
-      , @RepoObject_guid As RepoObject_guid
+      , RepoObject_guid = @RepoObject_guid
     From
         tree_referenced
     Union
     Select
         *
-      , @RepoObject_guid As RepoObject_guid
+      , RepoObject_guid = @RepoObject_guid
     From
         tree_referencing
 );

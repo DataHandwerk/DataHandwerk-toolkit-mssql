@@ -1,6 +1,6 @@
 ﻿
 /*to: noch nicht fertig, unnötige entfernen*/
-CREATE View [docs].[ssas_PumlRelation]
+CREATE View docs.ssas_PumlRelation
 As
 Select
     ForeignKey_guid
@@ -13,8 +13,9 @@ Select
                                                      , '::'
                                                      , docs.fs_cleanStringForPuml ( referenced_ColumnName )
                                                      , ' '
-                                                     --todo: check with test data, containing 1:1 relations
-                                                     , Iif(ToCardinality = 1, '||', '}|')
+                                                     --todo: check with test data, containing 1:1 and 1:n relations
+                                                     , Iif(ToCardinality = 1, '|', '}')
+                                                     , Iif(referenced_IsNullable = 1, 'o', '|')
                                                      , Case
                                                            When IsActive = 1
                                                                Then
@@ -22,7 +23,8 @@ Select
                                                            Else
                                                                Iif(CrossFilteringBehavior = 1, '-[dotted]-', '-[dashed]-')
                                                        End
-                                                     , Iif(FromCardinality = 1, '||', '|{')
+                                                     , Iif(referencing_IsNullable = 1, 'o', '|')
+                                                     , Iif(FromCardinality = 1, '|', '{')
                                                      , ' '
                                                      , docs.fs_cleanStringForPuml ( referencing_RepoObject_fullname2 )
                                                      , '::'

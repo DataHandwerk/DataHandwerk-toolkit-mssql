@@ -1,6 +1,7 @@
 ﻿
+
 --bad performance
-CREATE View reference.RepoObject_ReferenceTree
+CREATE View [reference].[RepoObject_ReferenceTree]
 As
 Select
     tree.*

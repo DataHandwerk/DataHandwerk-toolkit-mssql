@@ -29,11 +29,15 @@ Select
   , referenced_IndexPatternColumnDatatype  = dtTo.ExplicitDataTypeName
   , referenced_RepoObject_fullname         = QuoteName ( fk.databasename ) + '.' + QuoteName ( tTo.name )
   , referenced_RepoObject_fullname2        = fk.databasename + '.' + tTo.name
+  , referenced_IsKey                       = colTo.IsKey
+  , referenced_IsNullable                  = colTo.IsNullable
   , referencing_ObjectName                 = tFrom.name
   , referencing_ColumnName                 = colFrom.ExplicitName
   , referencing_IndexPatternColumnDatatype = dtFrom.ExplicitDataTypeName
   , referencing_RepoObject_fullname        = QuoteName ( fk.databasename ) + '.' + QuoteName ( tFrom.name )
   , referencing_RepoObject_fullname2       = fk.databasename + '.' + tFrom.name
+  , referencing_IsKey                      = colFrom.IsKey
+  , referencing_IsNullable                 = colFrom.IsNullable
 From
     ssas.TMSCHEMA_RELATIONSHIPS_T        As fk
     Left Join

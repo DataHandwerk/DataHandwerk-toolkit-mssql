@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.Index_gross
+
+CREATE View [repo].[Index_gross]
 As
 --
 Select

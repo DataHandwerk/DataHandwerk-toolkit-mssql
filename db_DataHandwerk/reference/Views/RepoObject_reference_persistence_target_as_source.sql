@@ -1,8 +1,9 @@
 ﻿
+
 /*
 If a view is the target of a persistence to write to the data source of the view via this view, then this reverse reference is also to be displayed and used
 */
-CREATE View reference.RepoObject_reference_persistence_target_as_source
+CREATE View [reference].[RepoObject_reference_persistence_target_as_source]
 As
 Select
     referenced_id               = ref.referencing_id

@@ -1,12 +1,13 @@
-﻿CREATE   PROCEDURE [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
+﻿
+CREATE   Procedure [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
-  @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
-, @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
-, @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
-, @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
-AS
-BEGIN
+  @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
+, @ssis_execution_id BigInt = Null --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
+, @sub_execution_id Int = Null --in case you log some sub_executions, for example in SSIS loops or sub packages
+, @parent_execution_log_id BigInt = Null --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
+As
+Begin
 DECLARE
  --
    @current_execution_log_id BIGINT --this variable should be filled only once per procedure call, it contains the first logging call for the step 'start'.
@@ -336,9 +337,9 @@ SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'update steps; SET [is_inactive] = [setpoint].[is_inactive]'
 SET @source_object = '[repo].[GeneratorUspStep_Persistence_IsInactive_setpoint]'
-SET @target_object = '[repo].[GeneratorUspStep]'
+Set @target_object = '[repo].[GeneratorUspStep]'
 
-EXEC logs.usp_ExecutionLog_insert 
+Exec logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -362,12 +363,12 @@ EXEC logs.usp_ExecutionLog_insert
 --END
 --
 --SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'end'
-SET @source_object = NULL
-SET @target_object = NULL
+Set @step_id = @step_id + 1
+Set @step_name = 'end'
+Set @source_object = Null
+Set @target_object = Null
 
-EXEC logs.usp_ExecutionLog_insert
+Exec logs.usp_ExecutionLog_insert
    @execution_instance_guid = @execution_instance_guid
  , @ssis_execution_id = @ssis_execution_id
  , @sub_execution_id = @sub_execution_id
@@ -382,7 +383,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @source_object = @source_object
  , @target_object = @target_object
 
-END
+End
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a390291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'PROCEDURE', @level1name = N'usp_GeneratorUsp_insert_update_persistence';
 

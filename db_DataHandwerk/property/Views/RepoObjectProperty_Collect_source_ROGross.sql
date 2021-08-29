@@ -1,5 +1,6 @@
 ﻿
-CREATE View property.RepoObjectProperty_Collect_source_ROGross
+
+CREATE View [property].[RepoObjectProperty_Collect_source_ROGross]
 As
 Select
     ro.RepoObject_guid
@@ -96,7 +97,7 @@ Select
           Cast(ro.has_get_referenced_issue As NVarchar(Max))
   End
 From
-    repo.RepoObject_gross As ro
+    repo.RepoObject_gross2 As ro
     --ensure all these property_name are included in the resulting view per RepoObject
     Cross Join
     (

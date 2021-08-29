@@ -1,10 +1,11 @@
 ﻿
 
+
 /*
 can be used to update data in repo.Index_virtual
 the RepoObject names are shown, can be used for sorting
 */
-CREATE View repo.Index_virtual_ForUpdate
+CREATE View [repo].[Index_virtual_ForUpdate]
 As
 Select
     iv.index_guid

@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint
 As
 With

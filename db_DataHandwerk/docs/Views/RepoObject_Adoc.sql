@@ -369,7 +369,7 @@ Select
          )
   , PropertyCount          = Count ( Distinct rop.property_name )
 From
-    repo.RepoObject_gross                 As ro
+    repo.RepoObject_gross2                As ro
     Left Join
         property.RepoObjectProperty_cross As rop_cross
             On

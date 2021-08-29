@@ -1,7 +1,8 @@
 ﻿
 
 
-CREATE View docs.RepoObject_Plantuml
+
+CREATE View [docs].[RepoObject_Plantuml]
 As
 Select
     ro.RepoObject_guid

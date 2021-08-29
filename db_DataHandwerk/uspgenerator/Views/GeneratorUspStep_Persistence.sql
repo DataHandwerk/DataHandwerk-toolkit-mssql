@@ -1,7 +1,4 @@
 ﻿
-
-
-
 /*
 <<property_start>>MS_Description
 * xref:sqldb:uspgenerator.GeneratorUspStep_Persistence.adoc[] creates all possible steps for GeneratorUspStep
@@ -234,7 +231,7 @@ WHERE
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross         As ro
+    repo.RepoObject_gross2        As ro
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On
@@ -278,7 +275,7 @@ WHERE
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross         As ro
+    repo.RepoObject_gross2        As ro
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On
@@ -326,7 +323,7 @@ WHERE
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross         As ro
+    repo.RepoObject_gross2        As ro
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On
@@ -368,7 +365,7 @@ FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross         As ro
+    repo.RepoObject_gross2        As ro
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On
@@ -398,7 +395,7 @@ FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross         As ro
+    repo.RepoObject_gross2        As ro
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On

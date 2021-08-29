@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>exampleUsage
 --get sql code CREATE OR ALTER TABLE for persistence tables
@@ -20,7 +21,7 @@ Order By
 <<property_end>>
 
 */
-CREATE View repo.RepoObject_SqlCreateTable
+CREATE View [repo].[RepoObject_SqlCreateTable]
 As
 Select
     ro.RepoObject_guid

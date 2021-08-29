@@ -1,7 +1,8 @@
 ﻿
 
 
-CREATE View reference.RepoObject_ReferenceTree_0_30
+
+CREATE View [reference].[RepoObject_ReferenceTree_0_30]
 As
 Select
     tree.RepoObject_guid

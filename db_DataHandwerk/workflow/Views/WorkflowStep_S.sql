@@ -1,6 +1,7 @@
 ﻿
+
 /*potential workflow steps, based on all usp_persistence_RepoObject_guid*/
-CREATE View workflow.WorkflowStep_S
+CREATE View [workflow].[WorkflowStep_S]
 As
 Select
     Distinct

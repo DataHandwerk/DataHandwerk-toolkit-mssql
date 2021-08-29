@@ -19,7 +19,7 @@ SELECT *
 FROM [reference].[ftv_RepoObject_ColumReferenceRepoObject](@RepoObject_guid, 1, 1)
 
 */
-CREATE Function [reference].[ftv_RepoObject_ColumReferenceRepoObject]
+CREATE Function reference.ftv_RepoObject_ColumReferenceRepoObject
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -36,13 +36,13 @@ Return
         --all RepoObject which are [Referenced_RepoObject_guid] or [Referencing_RepoObject_guid]
         Select
             Distinct
-            Referenced_fullname        As RepoObject_fullname
-          , Referenced_RepoObject_guid As RepoObject_guid
-          , Referenced_type            As RepoObject_type
-          , Null                       As DbmlRelation
-          , @RepoObject_guid           As Parameter_RepoObject_guid
+            RepoObject_fullname       = Referenced_fullname
+          , RepoObject_guid           = Referenced_RepoObject_guid
+          , RepoObject_type           = Referenced_type
+          , DbmlRelation              = Null
+          , Parameter_RepoObject_guid = @RepoObject_guid
         From
-            [reference].RepoObjectColumn_ReferenceTree
+            reference.RepoObjectColumn_ReferenceTree
         Where
             Referenced_RepoObject_guid = @RepoObject_guid
         Union
@@ -51,10 +51,10 @@ Return
             Referencing_fullname
           , Referencing_RepoObject_guid
           , Referencing_type
-          , Null                       As DbmlRelation
+          , DbmlRelation               = Null
           , @RepoObject_guid
         From
-            [reference].RepoObjectColumn_ReferenceTree
+            reference.RepoObjectColumn_ReferenceTree
         Where
             Referencing_RepoObject_guid = @RepoObject_guid
         Union
@@ -68,16 +68,16 @@ Return
           , rs.DbmlRelation
           , @RepoObject_guid
         From
-            [reference].RepoObjectColumn_ReferenceTree      As rt
+            reference.RepoObjectColumn_ReferenceTree      As rt
             Left Join
-                [reference].RepoObjectColumn_RelationScript As rs
+                reference.RepoObjectColumn_RelationScript As rs
                     On
                     rs.referenced_RepoObject_guid      = rt.Referenced_RepoObject_guid
                     And rs.referencing_RepoObject_guid = @RepoObject_guid
         Where
             rt.Referencing_RepoObject_guid = @RepoObject_guid
-            And Referenced_Depth           <= @Referenced_Depth
-            And Referencing_Depth          = 0
+            And rt.Referenced_Depth        <= @Referenced_Depth
+            And rt.Referencing_Depth       = 0
         Union
 
         --add all referenced
@@ -89,23 +89,23 @@ Return
           , rs.DbmlRelation
           , @RepoObject_guid
         From
-            [reference].RepoObjectColumn_ReferenceTree      As rt
+            reference.RepoObjectColumn_ReferenceTree      As rt
             Left Join
-                [reference].RepoObjectColumn_RelationScript As rs
+                reference.RepoObjectColumn_RelationScript As rs
                     On
                     rs.referenced_RepoObject_guid      = @RepoObject_guid
                     And rs.referencing_RepoObject_guid = rt.Referencing_RepoObject_guid
         Where
             rt.Referenced_RepoObject_guid = @RepoObject_guid
-            And Referenced_Depth          = 0
-            And Referencing_Depth         <= @Referencing_Depth
+            And rt.Referenced_Depth       = 0
+            And rt.Referencing_Depth      <= @Referencing_Depth
         )
     --
     Select
         ro.RepoObject_fullname
       , ro.RepoObject_guid
       , ro.RepoObject_type
-      , dbml.DbmlTable As Dbml
+      , Dbml = dbml.DbmlTable
       , ro.Parameter_RepoObject_guid
     From
         ro

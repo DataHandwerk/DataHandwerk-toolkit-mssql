@@ -32,7 +32,7 @@ ORDER BY [Referenced_Depth]
 
 
 */
-CREATE Function [reference].[ftv_RepoObject_ReferenceTree_referencing]
+CREATE Function reference.ftv_RepoObject_ReferenceTree_referencing
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 0 --has no effect
@@ -88,17 +88,17 @@ Return
         (
         Select
             FirstNode.*
-          , 0 As Referenced_Depth
-          , 1 As Referencing_Depth
+          , Referenced_Depth  = 0
+          , Referencing_Depth = 1
         From
-            [reference].RepoObject_ReferencingReferenced As FirstNode
+            reference.RepoObject_ReferencingReferenced As FirstNode
         --INNER JOIN [config].[type] t1
         -- ON t1.[type] = FirstNode.Referenced_type
         --INNER JOIN [config].[type] t2
         -- ON t2.[type] = FirstNode.Referencing_type
         Where
-            Referenced_guid = @RepoObject_guid
-            And 1           <= @Referencing_Depth
+            FirstNode.Referenced_guid = @RepoObject_guid
+            And 1                     <= @Referencing_Depth
         --AND t1.[is_DocsOutput] = 1
         --AND t2.[is_DocsOutput] = 1
         Union All
@@ -107,9 +107,9 @@ Return
           , 0
           , Referencing_Depth = parent.Referencing_Depth + 1
         From
-            [reference].RepoObject_ReferencingReferenced As child
+            reference.RepoObject_ReferencingReferenced As child
             Inner Join
-                tree_referencing                   As parent
+                tree_referencing                       As parent
                     On
                     child.Referenced_guid = parent.Referencing_guid
         ----INNER JOIN [config].[type] t1
@@ -129,7 +129,7 @@ Return
     --Union
     Select
         *
-      , @RepoObject_guid As RepoObject_guid
+      , RepoObject_guid = @RepoObject_guid
     From
         tree_referencing
 );

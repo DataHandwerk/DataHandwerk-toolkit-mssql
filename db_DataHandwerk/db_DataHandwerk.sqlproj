@@ -628,6 +628,7 @@
     <Build Include="ssas\Stored Procedures\usp_PERSIST_TMSCHEMA_RELATIONSHIPS_T.sql" />
     <Build Include="docs\Views\ssas_PumlRelation.sql" />
     <Build Include="docs\Functions\fs_cleanStringForPuml.sql" />
+    <Build Include="repo\Views\RepoObject_gross2.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

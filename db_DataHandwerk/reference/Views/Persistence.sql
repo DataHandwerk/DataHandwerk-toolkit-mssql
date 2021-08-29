@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 <<property_start>>MS_Description
 * references between persistence tables and therefore between persistence procedures to call them in the right order
@@ -15,7 +16,7 @@ Where
 <<property_end>>
 
 */
-CREATE View reference.Persistence
+CREATE View [reference].[Persistence]
 As
 Select
     Distinct
