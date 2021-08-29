@@ -1,4 +1,8 @@
-﻿CREATE   PROCEDURE [docs].[usp_AntoraExport_navigation]
+﻿/*
+code of this procedure is managed in the dhw repository. Do not modify manually.
+Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
+*/
+CREATE   PROCEDURE [docs].[usp_AntoraExport_navigation]
 @outputDirPartNav NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\navlist\' */
 ,@outputDirPageNav NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\nav\' */
 ,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */

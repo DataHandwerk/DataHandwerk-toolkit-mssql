@@ -1,4 +1,8 @@
-﻿CREATE   PROCEDURE [docs].[usp_AntoraExport_ObjectRefCyclic]
+﻿/*
+code of this procedure is managed in the dhw repository. Do not modify manually.
+Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
+*/
+CREATE   PROCEDURE [docs].[usp_AntoraExport_ObjectRefCyclic]
 @outputDir NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\ */
 ,@outputDir2 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_objectref\ */
 ,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */

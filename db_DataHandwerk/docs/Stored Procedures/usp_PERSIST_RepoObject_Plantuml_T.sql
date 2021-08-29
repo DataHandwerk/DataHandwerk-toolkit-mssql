@@ -1,4 +1,8 @@
-﻿CREATE   PROCEDURE [docs].[usp_PERSIST_RepoObject_Plantuml_T]
+﻿/*
+code of this procedure is managed in the dhw repository. Do not modify manually.
+Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
+*/
+CREATE   PROCEDURE [docs].[usp_PERSIST_RepoObject_Plantuml_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one

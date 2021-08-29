@@ -1,4 +1,8 @@
-﻿CREATE   PROCEDURE [docs].[usp_AntoraExport_ObjectPuml]
+﻿/*
+code of this procedure is managed in the dhw repository. Do not modify manually.
+Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
+*/
+CREATE   PROCEDURE [docs].[usp_AntoraExport_ObjectPuml]
 @outputDir NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\ */
 ,@outputDir2 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_objectref\ */
 ,@outputDir3 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_fk\ */
