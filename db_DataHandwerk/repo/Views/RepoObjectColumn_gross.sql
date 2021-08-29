@@ -85,6 +85,7 @@ Select
   , ssas_IsKey                 = ssascol.IsKey
   , ssas_IsUnique              = ssascol.IsUnique
   , ssas_SummarizeBy           = ssascol.SummarizeBy
+  , ssas_Type                  = ssascol.Type
 --, ic.index_column_id
 --, ic.index_name
 --, ic.is_index_primary_key

@@ -1,11 +1,10 @@
 ﻿
-
 /*
 alternative columns sort order for documentation:
 - PK
 - columns by name
 */
-CREATE View [docs].[RepoObject_ColumnList]
+CREATE View docs.RepoObject_ColumnList
 As
 Select
     roc.RepoObject_guid
@@ -451,6 +450,9 @@ Where
         Not roc.Repo_user_type_fullname Is Null
         Or roc.Repo_is_computed = 1
     )
+    --exclude system columns like 'RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61'
+    --all they have ssas_Type = 3
+    And Not roc.ssas_Type = 3
 Group By
     roc.RepoObject_guid
 Go

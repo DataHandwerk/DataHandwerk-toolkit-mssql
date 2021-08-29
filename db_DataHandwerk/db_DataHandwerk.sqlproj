@@ -634,6 +634,8 @@
     <Build Include="docs\Views\Schema_puml.sql" />
     <Build Include="docs\Views\Schema_EntityList.sql" />
     <Build Include="docs\Views\Schema_PlantUml_FkRefList.sql" />
+    <Build Include="docs\Functions\fs_PumlHeaderTopToBottom.sql" />
+    <Build Include="docs\Functions\fs_PumlHeaderLeftToRight.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

@@ -14,20 +14,7 @@ Select
   , PumlSchemaEr      =
   --
   Concat (
-             'left to right direction'
-           , Char ( 13 ) + Char ( 10 )
-           , '''top to bottom direction'
-           , Char ( 13 ) + Char ( 10 )
-           , 'hide circle'
-           , Char ( 13 ) + Char ( 10 )
-           , '''avoide "." issues:'
-           , Char ( 13 ) + Char ( 10 )
-           , 'set namespaceSeparator none'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , skin.Parameter_value_result
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+             docs.fs_PumlHeaderLeftToRight ()
            , sel.EntityList_PumlOnlyPkOrIndex
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
@@ -40,20 +27,7 @@ Select
   , PumlSchemaIndexEr =
   --
   Concat (
-             'left to right direction'
-           , Char ( 13 ) + Char ( 10 )
-           , '''top to bottom direction'
-           , Char ( 13 ) + Char ( 10 )
-           , 'hide circle'
-           , Char ( 13 ) + Char ( 10 )
-           , '''avoide "." issues:'
-           , Char ( 13 ) + Char ( 10 )
-           , 'set namespaceSeparator none'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , skin.Parameter_value_result
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+             docs.fs_PumlHeaderLeftToRight ()
            , sel.EntityList_PumlOnlyIndex
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
@@ -67,20 +41,7 @@ Select
       When rs.is_ssas = 1
           Then
           Concat (
-                     'left to right direction'
-                   , Char ( 13 ) + Char ( 10 )
-                   , '''top to bottom direction'
-                   , Char ( 13 ) + Char ( 10 )
-                   , 'hide circle'
-                   , Char ( 13 ) + Char ( 10 )
-                   , '''avoide "." issues:'
-                   , Char ( 13 ) + Char ( 10 )
-                   , 'set namespaceSeparator none'
-                   , Char ( 13 ) + Char ( 10 )
-                   , Char ( 13 ) + Char ( 10 )
-                   , skin.Parameter_value_result
-                   , Char ( 13 ) + Char ( 10 )
-                   , Char ( 13 ) + Char ( 10 )
+                     docs.fs_PumlHeaderLeftToRight ()
                    , sel.EntityList_PumlOnlyPkOrIndex
                    , Char ( 13 ) + Char ( 10 )
                    , Char ( 13 ) + Char ( 10 )

@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -28,7 +29,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View configT.Parameter_default
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -442,6 +443,27 @@ include::partial${docname}.adoc[tag=has_history_columns]
 
 endif::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]
 
+== Entity Diagram
+
+[plantuml, entity-{docname}, svg]
+....
+include::partial$puml/entity/{docname}.puml[]
+....
+
+ifndef::is_ssas[]
+
+== todo SSAS Relation Diagram
+
+todo: use other diagram containing relations an related objects
+
+[plantuml, entity_pk_or_index-{docname}, svg]
+....
+include::partial$puml/entity_pk_or_index/{docname}.puml[]
+....
+
+endif::is_ssas[]
+
+ifndef::is_ssas[]
 ifdef::ExistsProperty--FK[]
 
 == Foreign Key Diagram
@@ -452,6 +474,7 @@ include::partial$puml/entity_1_1_fk/{docname}.puml[]
 ....
 
 endif::ExistsProperty--FK[]
+endif::is_ssas[]
 ' As NVarchar(Max))
 Union All
 Select

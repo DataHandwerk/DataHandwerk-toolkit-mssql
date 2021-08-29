@@ -1,4 +1,5 @@
-﻿Create   View repo.RepoObjectColumn_gross2
+﻿
+CREATE View repo.RepoObjectColumn_gross2
 As
 Select
     roc.RepoObjectColumn_guid
@@ -74,6 +75,7 @@ Select
   , roc.ssas_IsKey
   , roc.ssas_IsUnique
   , roc.ssas_SummarizeBy
+  , roc.ssas_Type
   , ic.index_column_id
   , ic.index_name
   , ic.is_index_primary_key
