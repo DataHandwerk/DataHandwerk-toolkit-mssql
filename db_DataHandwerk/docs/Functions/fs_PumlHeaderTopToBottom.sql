@@ -27,3 +27,6 @@ Begin
             config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin
     )
 End
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ed5fd8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'fs_PumlHeaderTopToBottom';
+

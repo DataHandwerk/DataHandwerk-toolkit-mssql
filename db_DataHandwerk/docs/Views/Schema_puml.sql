@@ -67,3 +67,26 @@ From
             On
             ssas_rl.SchemaName = rs.RepoSchema_name
     Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0b60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1860d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml', @level2type = N'COLUMN', @level2name = N'RepoSchema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1760d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml', @level2type = N'COLUMN', @level2name = N'RepoSchema_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1b60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml', @level2type = N'COLUMN', @level2name = N'PumlSchemaSsasEr';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1a60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml', @level2type = N'COLUMN', @level2name = N'PumlSchemaIndexEr';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1960d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml', @level2type = N'COLUMN', @level2name = N'PumlSchemaEr';
+

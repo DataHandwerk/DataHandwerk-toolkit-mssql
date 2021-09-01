@@ -3,14 +3,14 @@
     [index_column_id]       INT              NOT NULL,
     [RepoObjectColumn_guid] UNIQUEIDENTIFIER NOT NULL,
     [databasename]          NVARCHAR (128)   NOT NULL,
-    [TableID]               NUMERIC (20)     NOT NULL,
     [TableName]             NVARCHAR (MAX)   NOT NULL,
     [ColumnName]            NVARCHAR (MAX)   NOT NULL,
-    [ColumnType]            BIGINT           NOT NULL,
     [is_descending_key]     AS               (CONVERT([bit],(0))),
     CONSTRAINT [PK_IndexColumn_ssas_T] PRIMARY KEY CLUSTERED ([index_guid] ASC, [index_column_id] ASC),
     CONSTRAINT [FK_IndexColumn_ssas_T_Index_ssas_T] FOREIGN KEY ([index_guid]) REFERENCES [repo].[Index_ssas_T] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -26,7 +26,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'f641f8c3-0f
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '14a7e6d1-0f08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_ssas_T', @level2type = N'COLUMN', @level2name = N'ColumnType';
+
 
 
 GO
@@ -38,7 +38,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '12a7e
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '11a7e6d1-0f08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_ssas_T', @level2type = N'COLUMN', @level2name = N'TableID';
+
 
 
 GO

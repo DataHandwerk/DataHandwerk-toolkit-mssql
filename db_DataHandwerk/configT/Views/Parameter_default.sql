@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -397,6 +399,17 @@ endif::ExistsProperty--adocuspsteps[]
 //
 //endif::ExistsProperty--pk_index_guid[]
 
+== Entity Diagram
+
+[plantuml, entity-{docname}, svg]
+....
+include::partial$puml/entity/{docname}.puml[]
+....
+
+Dot prefix:: `NOT NULL`
+
+todo: several entities (left to right), containing SSAS translations
+
 ifdef::ExistsProperty--Columns[]
 
 == Columns
@@ -443,14 +456,7 @@ include::partial${docname}.adoc[tag=has_history_columns]
 
 endif::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]
 
-== Entity Diagram
-
-[plantuml, entity-{docname}, svg]
-....
-include::partial$puml/entity/{docname}.puml[]
-....
-
-ifndef::is_ssas[]
+ifdef::is_ssas[]
 
 == todo SSAS Relation Diagram
 

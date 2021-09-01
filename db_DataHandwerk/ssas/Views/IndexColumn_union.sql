@@ -1,5 +1,5 @@
 ﻿
-CREATE View ssas.IndexColumn_union
+CREATE View [ssas].[IndexColumn_union]
 As
 Select
     index_name           = Cast(index_name As NVarchar(450))
@@ -9,25 +9,25 @@ Select
   , is_index_primary_key
   , is_index_unique
   , databasename
-  , TableID
-  , ColumnName           = ExplicitName
-  , type
+  --, TableID
+  , ColumnName           = tables_columns_name
+  , tables_columns_type
   , RepoObject_guid
   , TableName
 From
     ssas.IndexColumn_from_IsKey
 Union All
 Select
-    index_name = Cast(index_name As NVarchar(450))
+    index_name           = Cast(index_name As NVarchar(450))
   , index_column_id
   , RepoObjectColumn_guid
   , is_descending_key
   , is_index_primary_key
   , is_index_unique
   , databasename
-  , TableID
-  , ExplicitName
-  , type
+  --, TableID
+  , ColumnName           = tables_columns_name
+  , tables_columns_type
   , RepoObject_guid
   , TableName
 From
@@ -35,21 +35,21 @@ From
 --exlcude columns, already provided in [ssas].[IndexColumn_from_IsKey]
 Where
     is_index_primary_key = 0
-    --it looks like these are artificial columns
-    --we don't want them in puml
-    And type             <> 3
+----it looks like these are artificial columns
+----we don't want them in puml
+--And type             <> 3
 Union All
 Select
-    index_name = Cast(index_name As NVarchar(450))
+    index_name           = Cast(index_name As NVarchar(450))
   , index_column_id
   , RepoObjectColumn_guid
   , is_descending_key
   , is_index_primary_key
   , is_index_unique
   , databasename
-  , TableID
-  , ExplicitName
-  , type
+  --, TableID
+  , ColumnName           = tables_columns_name
+  , tables_columns_type
   , RepoObject_guid
   , TableName
 From
@@ -67,15 +67,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '926d0
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '916d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'IndexColumn_union', @level2type = N'COLUMN', @level2name = N'type';
-
-
-GO
 
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8f6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'IndexColumn_union', @level2type = N'COLUMN', @level2name = N'TableID';
+
+
+
+GO
+
 
 
 GO
@@ -112,4 +112,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '989cf1c3-0b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f14578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'IndexColumn_union', @level2type = N'COLUMN', @level2name = N'ColumnName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4075e016-1c0b-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'IndexColumn_union', @level2type = N'COLUMN', @level2name = N'tables_columns_type';
 

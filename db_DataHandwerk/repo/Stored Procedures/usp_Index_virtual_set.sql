@@ -1,4 +1,4 @@
-
+﻿
 /*
 <<property_start>>MS_Description
 * Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual[]
@@ -29,6 +29,10 @@ Type of index:
 <<property_end>>
 
 <<property_start>>exampleUsage
+--ensure existing guid
+
+Exec repo.usp_sync_guid
+
 --use @RepoObject_fullname with square brackets
 --use @RepoObject_fullname2 without square brackets
 --@IndexPatternColumnName can be used only without square brackets
@@ -43,6 +47,10 @@ EXEC [repo].[usp_Index_finish];
 <<property_end>>
 
 <<property_start>>exampleUsage_2
+--ensure existing guid
+
+Exec repo.usp_sync_guid
+
 --set multiple indexes and finish them
 
 EXEC repo.usp_Index_virtual_set

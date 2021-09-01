@@ -70,8 +70,8 @@ PRINT '[repo].[usp_sync_guid_ssas]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[ssas].[usp_PERSIST_TMSCHEMA_TABLES_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [ssas].[usp_PERSIST_TMSCHEMA_TABLES_T]
+/*{"ReportUspStep":[{"Number":310,"Name":"[ssas].[usp_PERSIST_model_json_31_tables_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_model_json_31_tables_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -80,8 +80,8 @@ EXEC [ssas].[usp_PERSIST_TMSCHEMA_TABLES_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":220,"Name":"[ssas].[usp_PERSIST_TMSCHEMA_COLUMNS_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [ssas].[usp_PERSIST_TMSCHEMA_COLUMNS_T]
+/*{"ReportUspStep":[{"Number":320,"Name":"[ssas].[usp_PERSIST_model_json_311_tables_columns_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_model_json_311_tables_columns_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -90,8 +90,8 @@ EXEC [ssas].[usp_PERSIST_TMSCHEMA_COLUMNS_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":230,"Name":"[ssas].[usp_PERSIST_TMSCHEMA_RELATIONSHIPS_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [ssas].[usp_PERSIST_TMSCHEMA_RELATIONSHIPS_T]
+/*{"ReportUspStep":[{"Number":330,"Name":"[ssas].[usp_PERSIST_model_json_32_relationships_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_model_json_32_relationships_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

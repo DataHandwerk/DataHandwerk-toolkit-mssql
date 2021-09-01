@@ -419,3 +419,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '726ce
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '716ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'AntoraReferencedColumnList';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0e60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_Type';
+

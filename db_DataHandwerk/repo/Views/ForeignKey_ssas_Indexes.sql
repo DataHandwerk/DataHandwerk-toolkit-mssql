@@ -9,29 +9,30 @@ CREATE View repo.ForeignKey_ssas_Indexes
 As
 Select
     fk.ForeignKey_guid
-  , is_MatchingDatatypePattern            = Iif(referencing_IndexPatternColumnDatatype = referenced_IndexPatternColumnDatatype
+  , is_MatchingDatatypePattern        = Iif(
+                                 fk.referencing_IndexPatternColumnDatatype = fk.referenced_IndexPatternColumnDatatype
                                      , 1
                                      , 0)
   , fk.ForeignKey_name
   , fk.ForeignKey_fullname
-  , referenced_index_guid                 = i_2.index_guid
-  , referenced_index_name                 = i_2.index_name
-  , referenced_IndexPatternColumnDatatype
+  , referenced_index_guid             = i_2.index_guid
+  , referenced_index_name             = i_2.index_name
+  , fk.referenced_IndexPatternColumnDatatype
   , fk.referenced_IndexPatternColumnName
-  , referenced_RepoObject_fullname
-  , referenced_RepoObject_fullname2
+  , fk.referenced_RepoObject_fullname
+  , fk.referenced_RepoObject_fullname2
   , fk.referenced_RepoObject_guid
-  , referenced_SysObject_name             = referenced_ObjectName
-  , referenced_SysObject_schema_name      = fk.databasename
-  , referencing_index_guid                = i_1.index_guid
-  , referencing_index_name                = i_1.index_name
-  , referencing_IndexPatternColumnDatatype
+  , referenced_SysObject_name         = fk.referenced_ObjectName
+  , referenced_SysObject_schema_name  = fk.databasename
+  , referencing_index_guid            = i_1.index_guid
+  , referencing_index_name            = i_1.index_name
+  , fk.referencing_IndexPatternColumnDatatype
   , fk.referencing_IndexPatternColumnName
-  , referencing_RepoObject_fullname
-  , referencing_RepoObject_fullname2
+  , fk.referencing_RepoObject_fullname
+  , fk.referencing_RepoObject_fullname2
   , fk.referencing_RepoObject_guid
-  , referencing_SysObject_name            = referencing_ObjectName
-  , referencing_SysObject_schema_name     = fk.databasename
+  , referencing_SysObject_name        = fk.referencing_ObjectName
+  , referencing_SysObject_schema_name = fk.databasename
   , fk.delete_referential_action
   , fk.update_referential_action
 From

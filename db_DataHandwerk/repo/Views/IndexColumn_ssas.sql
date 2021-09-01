@@ -6,10 +6,10 @@ Select
   , col.index_column_id
   , col.RepoObjectColumn_guid
   , i.databasename
-  , i.TableID
+  --, i.TableID
   , i.TableName
   , ColumnName = col.ColumnName
-  , ColumnType = col.type
+--, ColumnType = col.type
 From
     ssas.IndexColumn_union As col
     Inner Join
@@ -17,7 +17,7 @@ From
             On
             col.index_name = i.index_name
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '907029e9-0d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ssas', @level2type = N'COLUMN', @level2name = N'ColumnType';
+
 
 
 GO
@@ -29,7 +29,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8e702
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8d7029e9-0d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ssas', @level2type = N'COLUMN', @level2name = N'TableID';
+
 
 
 GO

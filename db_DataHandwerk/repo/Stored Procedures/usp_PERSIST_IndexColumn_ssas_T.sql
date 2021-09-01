@@ -116,10 +116,8 @@ SET
   T.[index_guid] = S.[index_guid]
 , T.[index_column_id] = S.[index_column_id]
 , T.[ColumnName] = S.[ColumnName]
-, T.[ColumnType] = S.[ColumnType]
 , T.[databasename] = S.[databasename]
 , T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
-, T.[TableID] = S.[TableID]
 , T.[TableName] = S.[TableName]
 
 FROM [repo].[IndexColumn_ssas_T] AS T
@@ -130,10 +128,8 @@ AND T.[index_column_id] = S.[index_column_id]
 
 WHERE
    T.[ColumnName] <> S.[ColumnName]
-OR T.[ColumnType] <> S.[ColumnType]
 OR T.[databasename] <> S.[databasename]
 OR T.[RepoObjectColumn_guid] <> S.[RepoObjectColumn_guid]
-OR T.[TableID] <> S.[TableID]
 OR T.[TableName] <> S.[TableName]
 
 
@@ -170,20 +166,16 @@ INSERT INTO
   [index_guid]
 , [index_column_id]
 , [ColumnName]
-, [ColumnType]
 , [databasename]
 , [RepoObjectColumn_guid]
-, [TableID]
 , [TableName]
 )
 SELECT
   [index_guid]
 , [index_column_id]
 , [ColumnName]
-, [ColumnType]
 , [databasename]
 , [RepoObjectColumn_guid]
-, [TableID]
 , [TableName]
 
 FROM [repo].[IndexColumn_ssas] AS S

@@ -10,7 +10,7 @@ Select
   , is_index_unique
   , RepoObject_guid
   , databasename
-  , TableID
+  --, TableID
   , TableName
   --is unique per Index, because one index connects one pair of columns
   , ColumnName
@@ -23,7 +23,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4a6d0
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '496d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas', @level2type = N'COLUMN', @level2name = N'TableID';
+
 
 
 GO

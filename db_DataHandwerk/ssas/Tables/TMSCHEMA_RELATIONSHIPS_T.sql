@@ -25,6 +25,8 @@
 );
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '853adabd-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'CONSTRAINT', @level2name = N'DF_TMSCHEMA_RELATIONSHIPS_T_RepoObject_guid';
 
@@ -38,89 +40,133 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8d096
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8c0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'SecurityFilteringBehavior';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2240bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'SecurityFilteringBehavior';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8b0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RefreshedTime';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1240bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RefreshedTime';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8a0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ModifiedTime';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1840bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ModifiedTime';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '890962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RelationshipStorage2ID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1e40bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RelationshipStorage2ID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '880962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RelationshipStorageID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1140bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RelationshipStorageID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '870962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'State';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1940bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'State';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '860962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ToCardinality';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1c40bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ToCardinality';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '850962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ToColumnID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1640bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ToColumnID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '840962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ToTableID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1740bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ToTableID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '830962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'FromCardinality';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1440bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'FromCardinality';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '820962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'FromColumnID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1540bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'FromColumnID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '810962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'FromTableID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1b40bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'FromTableID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '800962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RelyOnReferentialIntegrity';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1340bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'RelyOnReferentialIntegrity';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7f0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'JoinOnDateBehavior';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1a40bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'JoinOnDateBehavior';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7e0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'CrossFilteringBehavior';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1d40bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'CrossFilteringBehavior';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7d0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'Type';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2040bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'Type';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7c0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'IsActive';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2140bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'IsActive';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7b0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'Name';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2540bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'Name';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7a0962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ModelID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1f40bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ModelID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '790962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ID';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2340bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'ID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '780962c8-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'databasename';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2440bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T', @level2type = N'COLUMN', @level2name = N'databasename';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '843adabd-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '40ecd625-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_RELATIONSHIPS_T';
+
+
 

@@ -1,28 +1,29 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
 converts xref:sqldb:ssas.TMSCHEMA_TABLES_T.adoc[] into xref:sqldb:repo.RepoObject.adoc[]
 <<property_end>>
 */
-Create View repo.[RepoObject_SSAS_src]
+CREATE View [repo].[RepoObject_SSAS_src]
 As
 Select
     RepoObject_guid
   , is_repo_managed        = 1
   , is_ssas                = 1
-  , modify_dt              = ModifiedTime
-  , RepoObject_name        = Name
+  --, modify_dt              = ModifiedTime
+  , RepoObject_name        = tables_name
   , RepoObject_schema_name = databasename
   , RepoObject_type        = 'U'
   ----ID could interfer with relational database id
   ----we could use only, if we have only ssas objects in the repo
   ----that's why it is better, not to use it
   --, SysObject_id           = ID
-  , SysObject_modify_date  = ModifiedTime
-  , SysObject_name         = Name
+  --, SysObject_modify_date  = ModifiedTime
+  , SysObject_name         = tables_name
   , SysObject_schema_name  = databasename
   , SysObject_type         = 'U'
 From
-    ssas.TMSCHEMA_TABLES_T
+    ssas.model_json_31_tables_T As T1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b3f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_src', @level2type = N'COLUMN', @level2name = N'SysObject_type';
 
@@ -36,7 +37,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1f5b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_src', @level2type = N'COLUMN', @level2name = N'SysObject_modify_date';
+
 
 
 GO
@@ -52,7 +53,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'adf5b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'acf5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_src', @level2type = N'COLUMN', @level2name = N'modify_dt';
+
 
 
 GO

@@ -118,7 +118,6 @@ SET
 , T.[is_index_primary_key] = S.[is_index_primary_key]
 , T.[is_index_unique] = S.[is_index_unique]
 , T.[RepoObject_guid] = S.[RepoObject_guid]
-, T.[TableID] = S.[TableID]
 , T.[TableName] = S.[TableName]
 
 FROM [repo].[Index_ssas_T] AS T
@@ -132,7 +131,6 @@ OR T.[databasename] <> S.[databasename]
 OR T.[is_index_primary_key] <> S.[is_index_primary_key]
 OR T.[is_index_unique] <> S.[is_index_unique]
 OR T.[RepoObject_guid] <> S.[RepoObject_guid]
-OR T.[TableID] <> S.[TableID]
 OR T.[TableName] <> S.[TableName]
 
 
@@ -172,7 +170,6 @@ INSERT INTO
 , [is_index_primary_key]
 , [is_index_unique]
 , [RepoObject_guid]
-, [TableID]
 , [TableName]
 )
 SELECT
@@ -182,7 +179,6 @@ SELECT
 , [is_index_primary_key]
 , [is_index_unique]
 , [RepoObject_guid]
-, [TableID]
 , [TableName]
 
 FROM [repo].[Index_ssas] AS S

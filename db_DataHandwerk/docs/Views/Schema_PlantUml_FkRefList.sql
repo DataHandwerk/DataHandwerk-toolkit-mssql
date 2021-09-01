@@ -24,3 +24,14 @@ Where
     fk.referenced_SysObject_schema_name = fk.referencing_SysObject_schema_name
 Group By
     fk.referencing_SysObject_schema_name
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0a60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_PlantUml_FkRefList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1c60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_PlantUml_FkRefList', @level2type = N'COLUMN', @level2name = N'SchemaName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1d60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_PlantUml_FkRefList', @level2type = N'COLUMN', @level2name = N'FkRefList';
+

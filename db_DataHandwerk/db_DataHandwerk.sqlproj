@@ -559,7 +559,6 @@
     <Build Include="reference\Views\RepoObjectColumn_reference_additional_internal.sql" />
     <Build Include="reference\Views\RepoObject_reference_additional_internal.sql" />
     <Build Include="reference\Views\additional_Reference_guid.sql" />
-    <Build Include="config\Tables\SsasDmvTableImport.sql" />
     <Build Include="config\Tables\SsasDatabasename.sql" />
     <Build Include="ssas\Tables\TMSCHEMA_KPIS.sql" />
     <Build Include="ssas\Tables\TMSCHEMA_EXTENDED_PROPERTIES.sql" />
@@ -636,6 +635,39 @@
     <Build Include="docs\Views\Schema_PlantUml_FkRefList.sql" />
     <Build Include="docs\Functions\fs_PumlHeaderTopToBottom.sql" />
     <Build Include="docs\Functions\fs_PumlHeaderLeftToRight.sql" />
+    <Build Include="ssas\Tables\model_json_32_relationships_T.sql" />
+    <Build Include="ssas\Tables\model_json_311_tables_columns_T.sql" />
+    <Build Include="ssas\Tables\model_json_31_tables_T.sql" />
+    <Build Include="ssas\Tables\model_json.sql" />
+    <Build Include="ssas\Views\model_json_ImportModelSql.sql" />
+    <Build Include="ssas\Views\model_json_3613_perspectives_tables_measures.sql" />
+    <Build Include="ssas\Views\model_json_3612_perspectives_tables_hierarchies.sql" />
+    <Build Include="ssas\Views\model_json_3611_perspectives_tables_columns.sql" />
+    <Build Include="ssas\Views\model_json_361_perspectives_tables.sql" />
+    <Build Include="ssas\Views\model_json_36_perspectives.sql" />
+    <Build Include="ssas\Views\model_json_352_roles_tablePermissions.sql" />
+    <Build Include="ssas\Views\model_json_351_roles_members.sql" />
+    <Build Include="ssas\Views\model_json_35_roles.sql" />
+    <Build Include="ssas\Views\model_json_3411_cultures_translations_model.sql" />
+    <Build Include="ssas\Views\model_json_341_cultures_translations.sql" />
+    <Build Include="ssas\Views\model_json_34_cultures.sql" />
+    <Build Include="ssas\Views\model_json_331_dataSources_annotations.sql" />
+    <Build Include="ssas\Views\model_json_33_dataSources.sql" />
+    <Build Include="ssas\Views\model_json_32_relationships.sql" />
+    <Build Include="ssas\Views\model_json_315_tables_annotations.sql" />
+    <Build Include="ssas\Views\model_json_3141_tables_hierarchies_levels.sql" />
+    <Build Include="ssas\Views\model_json_314_tables_hierarchies.sql" />
+    <Build Include="ssas\Views\model_json_3131_tables_partitions_source.sql" />
+    <Build Include="ssas\Views\model_json_313_tables_partitions.sql" />
+    <Build Include="ssas\Views\model_json_312_tables_measures.sql" />
+    <Build Include="ssas\Views\model_json_311_tables_columns.sql" />
+    <Build Include="ssas\Views\model_json_31_tables.sql" />
+    <Build Include="ssas\Views\model_json_201_descriptions.sql" />
+    <Build Include="ssas\Views\model_json_20.sql" />
+    <Build Include="ssas\Views\model_json_10.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_32_relationships_T.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_311_tables_columns_T.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_31_tables_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

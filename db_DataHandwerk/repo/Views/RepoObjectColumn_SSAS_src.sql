@@ -9,28 +9,18 @@ As
 Select
     T2.RepoObjectColumn_guid
   , is_SysObjectColumn_missing = 0
-  , Repo_is_nullable           = T2.IsNullable
-  , Repo_user_type_name        = T3.ExplicitDataTypeName
-  , Repo_user_type_fullname    = T3.ExplicitDataTypeName
-  , RepoObjectColumn_name      = T2.ExplicitName
-  , T1.RepoObject_guid
-  , SysObjectColumn_name       = T2.ExplicitName
+  , Repo_is_nullable           = IsNull ( T2.tables_columns_isNullable, 1 )
+  , Repo_user_type_name        = T2.tables_columns_dataType
+  , Repo_user_type_fullname    = T2.tables_columns_dataType
+  , RepoObjectColumn_name      = T2.tables_columns_name
+  , T2.RepoObject_guid
+  , SysObjectColumn_name       = T2.tables_columns_name
 ----could be required:
 --, is_repo_managed            = 1
 ----could be required, but is missing in target
 --, is_ssas                    = 1
 From
-    ssas.TMSCHEMA_TABLES_T               As T1
-    Inner Join
-        ssas.TMSCHEMA_COLUMNS_T          As T2
-            On
-            T1.databasename     = T2.databasename
-            And T1.ID           = T2.TableID
-
-    Left Join
-        configT.SsasDmv_ExplicitDataType As T3
-            On
-            T3.ExplicitDataType = T2.ExplicitDataType
+    ssas.model_json_311_tables_columns_T As T2
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b9f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_SSAS_src', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_name';
 
