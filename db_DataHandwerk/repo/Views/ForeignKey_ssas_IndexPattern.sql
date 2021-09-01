@@ -3,78 +3,79 @@ CREATE View repo.ForeignKey_ssas_IndexPattern
 As
 Select
     fk.ForeignKey_guid
-  , ForeignKey_name                        = 'FK_' + tFrom.Name + '_TO_' + tTo.name
-  , ForeignKey_fullname                    = QuoteName ( fk.databasename ) + '.' + QuoteName ( 'FK_' + tFrom.Name + '_TO_' + tTo.name )
-  , referenced_IndexPatternColumnName      = colTo.ExplicitName
+  , ForeignKey_name                        = 'FK_' + tFrom.tables_name + '_TO_' + tTo.tables_name
+  , ForeignKey_fullname                    = QuoteName ( fk.databasename ) + '.'
+                                             + QuoteName ( 'FK_' + tFrom.tables_name + '_TO_' + tTo.tables_name )
+  , referenced_IndexPatternColumnName      = colTo.tables_columns_name
   , referenced_IndexPatternColumnGuid      = Cast(colTo.RepoObjectColumn_guid As Varchar(36))
   , referenced_RepoObject_guid             = tTo.RepoObject_guid
-  , referencing_IndexPatternColumnName     = colFrom.ExplicitName
+  , referencing_IndexPatternColumnName     = colFrom.tables_columns_name
   , referencing_IndexPatternColumnGuid     = Cast(colFrom.RepoObjectColumn_guid As Varchar(36))
   , referencing_RepoObject_guid            = tFrom.RepoObject_guid
   , delete_referential_action              = Cast(Null As TinyInt)
   , update_referential_action              = Cast(Null As TinyInt)
   --extra columns only in ssas
   , fk.databasename
-  , ForeignKey_orignalName                 = fk.Name
-  , fk.IsActive
-  , fk.Type
-  , fk.CrossFilteringBehavior
-  , fk.JoinOnDateBehavior
-  , fk.RelyOnReferentialIntegrity
-  , fk.FromCardinality
-  , fk.ToCardinality
-  , fk.SecurityFilteringBehavior
-  , referenced_ObjectName                  = tTo.name
-  , referenced_ColumnName                  = colTo.ExplicitName
-  , referenced_IndexPatternColumnDatatype  = dtTo.ExplicitDataTypeName
-  , referenced_RepoObject_fullname         = QuoteName ( fk.databasename ) + '.' + QuoteName ( tTo.name )
-  , referenced_RepoObject_fullname2        = fk.databasename + '.' + tTo.name
-  , referenced_IsKey                       = colTo.IsKey
-  , referenced_IsNullable                  = colTo.IsNullable
-  , referencing_ObjectName                 = tFrom.name
-  , referencing_ColumnName                 = colFrom.ExplicitName
-  , referencing_IndexPatternColumnDatatype = dtFrom.ExplicitDataTypeName
-  , referencing_RepoObject_fullname        = QuoteName ( fk.databasename ) + '.' + QuoteName ( tFrom.name )
-  , referencing_RepoObject_fullname2       = fk.databasename + '.' + tFrom.name
-  , referencing_IsKey                      = colFrom.IsKey
-  , referencing_IsNullable                 = colFrom.IsNullable
+  , fk.relationships_name
+  , relationships_isActive                 = IsNull ( fk.relationships_isActive, 1 )
+  --, fk.Type
+  , fk.relationships_crossFilteringBehavior
+  --, fk.JoinOnDateBehavior
+  --, fk.RelyOnReferentialIntegrity
+  , fk.relationships_fromCardinality
+  , fk.relationships_toCardinality
+  --, fk.SecurityFilteringBehavior
+  , referenced_ObjectName                  = tTo.tables_name
+  , referenced_ColumnName                  = colTo.tables_columns_name
+  , referenced_IndexPatternColumnDatatype  = colTo.tables_columns_dataType
+  , referenced_RepoObject_fullname         = QuoteName ( fk.databasename ) + '.' + QuoteName ( tTo.tables_name )
+  , referenced_RepoObject_fullname2        = fk.databasename + '.' + tTo.tables_name
+  , referenced_IsKey                       = IsNull ( colTo.tables_columns_isKey, 0 )
+  , referenced_IsNullable                  = IsNull ( colTo.tables_columns_isNullable, 1 )
+  , referencing_ObjectName                 = tFrom.tables_name
+  , referencing_ColumnName                 = colFrom.tables_columns_name
+  , referencing_IndexPatternColumnDatatype = colFrom.tables_columns_dataType
+  , referencing_RepoObject_fullname        = QuoteName ( fk.databasename ) + '.' + QuoteName ( tFrom.tables_name )
+  , referencing_RepoObject_fullname2       = fk.databasename + '.' + tFrom.tables_name
+  , referencing_IsKey                      = IsNull ( colFrom.tables_columns_isKey, 0 )
+  , referencing_IsNullable                 = IsNull ( colFrom.tables_columns_isNullable, 1 )
 From
-    ssas.TMSCHEMA_RELATIONSHIPS_T        As fk
+    ssas.model_json_32_relationships_T       As fk
     Left Join
-        ssas.TMSCHEMA_COLUMNS_T          As colFrom
+        ssas.model_json_311_tables_columns_T As colFrom
             On
-            colFrom.databasename    = fk.databasename
-            And colFrom.TableID     = fk.FromTableID
-            And colFrom.ID          = fk.FromColumnID
+            colFrom.databasename            = fk.databasename
+            And colFrom.tables_name         = fk.relationships_fromTable
+            And colFrom.tables_columns_name = fk.relationships_fromColumn
 
     Left Join
-        ssas.TMSCHEMA_TABLES_T           As tFrom
+        ssas.model_json_31_tables_T          As tFrom
             On
-            tFrom.databasename      = colFrom.databasename
-            And tFrom.ID            = colFrom.TableId
+            tFrom.databasename              = colFrom.databasename
+            And tFrom.tables_name           = colFrom.tables_name
+
+    --Left Join
+    --    configT.SsasDmv_ExplicitDataType As dtFrom
+    --        On
+    --        dtFrom.ExplicitDataType = colFrom.ExplicitDataType
 
     Left Join
-        configT.SsasDmv_ExplicitDataType As dtFrom
+        ssas.model_json_311_tables_columns_T As colTo
             On
-            dtFrom.ExplicitDataType = colFrom.ExplicitDataType
+            colTo.databasename              = fk.databasename
+            And colTo.tables_name           = fk.relationships_toTable
+            And colTo.tables_columns_name   = fk.relationships_toColumn
 
     Left Join
-        ssas.TMSCHEMA_COLUMNS_T          As colTo
+        ssas.model_json_31_tables_T          As tTo
             On
-            colTo.databasename      = fk.databasename
-            And colTo.TableID       = fk.ToTableID
-            And colTo.ID            = fk.ToColumnID
+            tTo.databasename                = colTo.databasename
+            And tTo.tables_name             = colTo.tables_name
 
-    Left Join
-        ssas.TMSCHEMA_TABLES_T           As tTo
-            On
-            tTo.databasename        = colTo.databasename
-            And tTo.ID              = colTo.TableId
-
-    Left Join
-        configT.SsasDmv_ExplicitDataType As dtTo
-            On
-            dtTo.ExplicitDataType   = colTo.ExplicitDataType
+--Left Join
+--    configT.SsasDmv_ExplicitDataType As dtTo
+--        On
+--        dtTo.ExplicitDataType   = colTo.ExplicitDataType
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '676e8dee-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern';
 
@@ -124,19 +125,19 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8f457
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '944578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'Type';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '994578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'ToCardinality';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9a4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'SecurityFilteringBehavior';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '974578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'RelyOnReferentialIntegrity';
+
+
+
+GO
+
 
 
 GO
@@ -180,19 +181,19 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9c457
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '964578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'JoinOnDateBehavior';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '934578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'IsActive';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '984578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'FromCardinality';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '924578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'ForeignKey_orignalName';
+
+
+
+GO
+
 
 
 GO
@@ -200,7 +201,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '91457
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '954578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'ForeignKey_ssas_IndexPattern', @level2type = N'COLUMN', @level2name = N'CrossFilteringBehavior';
+
 
 
 GO

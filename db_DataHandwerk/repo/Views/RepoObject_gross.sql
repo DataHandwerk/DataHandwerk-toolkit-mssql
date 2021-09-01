@@ -89,14 +89,19 @@ Select
   , ro_p.target_filter
   , ro_p.temporal_type
   , Description                             = Coalesce (
-                                                           ssastab.Description
+                                                           modeltab.tables_description
+                                                         , modeltab2.descriptions_StrAgg
                                                          , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
                                                        )
   , Property_ms_description                 = property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
-  , ssas_Description                        = ssastab.Description
-  , ssas_IsHidden                           = ssastab.IsHidden
-  , ssas_IsPrivate                          = ssastab.IsPrivate
-  , ssas_ShowAsVariationsOnly               = ssastab.ShowAsVariationsOnly
+  , modeltab.tables_dataCategory
+  , modeltab.tables_isHidden
+  , tables_description                      = Coalesce ( modeltab.tables_description, modeltab2.descriptions_StrAgg )
+
+--, ssas_Description                        = ssastab.Description
+--, ssas_IsHidden                           = ssastab.IsHidden
+--, ssas_IsPrivate                          = ssastab.IsPrivate
+--, ssas_ShowAsVariationsOnly               = ssastab.ShowAsVariationsOnly
 --, ColumnList.CreateColumnList
 --, ColumnList.DbmlColumnList
 --, ColumnList.PersistenceCompareColumnList
@@ -121,52 +126,63 @@ Select
 --, AntoraModul                             = AntoraModul.Parameter_value_result
 --, AntoraComponent                         = AntoraComponent.Parameter_value_result
 From
-    repo.RepoObject                    As ro
+    repo.RepoObject                                     As ro
     Left Outer Join
-        repo.RepoObject_persistence    As ro_p
+        repo.RepoObject_persistence                     As ro_p
             On
             ro_p.target_RepoObject_guid         = ro.RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                As ro_p_s
+        repo.RepoObject                                 As ro_p_s
             On
             ro_p_s.RepoObject_guid              = ro_p.source_RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                As ro_usp_p
+        repo.RepoObject                                 As ro_usp_p
             On
             ro_usp_p.RepoObject_name            = ro.usp_persistence_name
             And ro_usp_p.RepoObject_schema_name = ro.RepoObject_schema_name
 
     Left Outer Join
-        reference.RepoObject_QueryPlan As QueryPlan
+        reference.RepoObject_QueryPlan                  As QueryPlan
             On
             QueryPlan.RepoObject_guid           = ro.RepoObject_guid
 
     Left Join
-        repo.Index_Settings            As ipk
+        repo.Index_Settings                             As ipk
             On
             ipk.index_guid                      = ro.pk_index_guid
 
     Left Join
-        configT.type                   As repo_type
+        configT.type                                    As repo_type
             On
             repo_type.type                      = ro.RepoObject_type
 
     Left Join
-        configT.type                   As sys_type
+        configT.type                                    As sys_type
             On
             sys_type.type                       = ro.SysObject_type
 
     Left Join
-        configT.type                   As ty
+        configT.type                                    As ty
             On
             ty.type                             = ro.RepoObject_type
 
     Left Outer Join
-        ssas.TMSCHEMA_TABLES_T         As ssastab
+        ssas.model_json_31_tables_T                     As modeltab
             On
-            ssastab.RepoObject_guid             = ro.RepoObject_guid
+            modeltab.RepoObject_guid            = ro.RepoObject_guid
+
+    Left Outer Join
+        ssas.model_json_3161_tables_descriptions_StrAgg As modeltab2
+            On
+            modeltab2.RepoObject_guid           = ro.RepoObject_guid
+
+--Left Outer Join
+--    ssas.TMSCHEMA_TABLES_T                          As ssastab
+--        On
+--        ssastab.RepoObject_guid             = ro.RepoObject_guid
+
 --Left Outer Join
 --    repo.RepoObject_ColumnList                                      As ColumnList
 --        On
@@ -1813,19 +1829,19 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5b6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'ssas_ShowAsVariationsOnly';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5a6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'ssas_IsPrivate';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '596d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'ssas_IsHidden';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '586d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'ssas_Description';
+
+
+
+GO
+
 
 
 GO

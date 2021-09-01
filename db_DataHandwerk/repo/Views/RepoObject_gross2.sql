@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.RepoObject_gross2
+
+CREATE View [repo].[RepoObject_gross2]
 As
 Select
     ro.RepoObject_guid
@@ -74,10 +75,9 @@ Select
   , ro.temporal_type
   , ro.Description
   , ro.Property_ms_description
-  , ro.ssas_Description
-  , ro.ssas_IsHidden
-  , ro.ssas_IsPrivate
-  , ro.ssas_ShowAsVariationsOnly
+  , ro.tables_dataCategory
+  , ro.tables_isHidden
+  , ro.tables_description
   , ColumnList.CreateColumnList
   , ColumnList.DbmlColumnList
   , ColumnList.PersistenceCompareColumnList
@@ -203,19 +203,19 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ea6be
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '166ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'ssas_ShowAsVariationsOnly';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '156ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'ssas_IsPrivate';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '146ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'ssas_IsHidden';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '136ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'ssas_Description';
+
+
+
+GO
+
 
 
 GO

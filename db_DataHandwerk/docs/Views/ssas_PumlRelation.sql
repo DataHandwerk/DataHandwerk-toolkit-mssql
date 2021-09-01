@@ -14,17 +14,23 @@ Select
                                                      , docs.fs_cleanStringForPuml ( referenced_ColumnName )
                                                      , ' '
                                                      --todo: check with test data, containing 1:1 and 1:n relations
-                                                     , Iif(ToCardinality = 1, '|', '}')
+                                                     --, Iif(relationships_toCardinality = 'one', '|', '}')
+                                                     , Iif(IsNull ( relationships_toCardinality, 'one' ) = 'one', '|', '}')
                                                      , Iif(referenced_IsNullable = 1, 'o', '|')
                                                      , Case
-                                                           When IsActive = 1
+                                                           When relationships_isActive = 1
                                                                Then
-                                                               Iif(CrossFilteringBehavior = 1, '-[plain]-', '-[bold]-')
+                                                               Iif(relationships_crossFilteringBehavior = 'bothDirections'
+                                          , '-[bold]-'
+                                          , '-[plain]-')
                                                            Else
-                                                               Iif(CrossFilteringBehavior = 1, '-[dotted]-', '-[dashed]-')
+                                                               Iif(relationships_crossFilteringBehavior = 'bothDirections'
+                                          , '-[dashed]-'
+                                          , '-[dotted]-')
                                                        End
                                                      , Iif(referencing_IsNullable = 1, 'o', '|')
-                                                     , Iif(FromCardinality = 1, '|', '{')
+                                                     --'one' is the exception
+                                                     , Iif(relationships_fromCardinality = 'one', '|', '{')
                                                      , ' '
                                                      , docs.fs_cleanStringForPuml ( referencing_RepoObject_fullname2 )
                                                      , '::'
@@ -39,15 +45,14 @@ Select
   , referencing_RepoObject_guid
   , delete_referential_action
   , update_referential_action
-  , ForeignKey_orignalName
-  , IsActive
-  , Type
-  , CrossFilteringBehavior
-  , JoinOnDateBehavior
-  , RelyOnReferentialIntegrity
-  , FromCardinality
-  , ToCardinality
-  , SecurityFilteringBehavior
+  , relationships_name
+  , relationships_isActive
+  , relationships_crossFilteringBehavior
+  --, JoinOnDateBehavior
+  --, RelyOnReferentialIntegrity
+  , relationships_fromCardinality
+  , relationships_toCardinality
+  --, SecurityFilteringBehavior
   , referenced_ObjectName
   , referenced_ColumnName
   , referenced_IndexPatternColumnDatatype
@@ -101,39 +106,39 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e3457
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e24578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'SecurityFilteringBehavior';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e14578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'ToCardinality';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e04578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'FromCardinality';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'df4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'RelyOnReferentialIntegrity';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'de4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'JoinOnDateBehavior';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dd4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'CrossFilteringBehavior';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dc4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'Type';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'db4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'IsActive';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'da4578f6-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'ForeignKey_orignalName';
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO

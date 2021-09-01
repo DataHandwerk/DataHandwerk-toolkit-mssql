@@ -662,12 +662,17 @@
     <Build Include="ssas\Views\model_json_312_tables_measures.sql" />
     <Build Include="ssas\Views\model_json_311_tables_columns.sql" />
     <Build Include="ssas\Views\model_json_31_tables.sql" />
-    <Build Include="ssas\Views\model_json_201_descriptions.sql" />
     <Build Include="ssas\Views\model_json_20.sql" />
     <Build Include="ssas\Views\model_json_10.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_32_relationships_T.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_311_tables_columns_T.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_31_tables_T.sql" />
+    <Build Include="ssas\Views\model_json_3161_tables_descriptions_StrAgg.sql" />
+    <Build Include="ssas\Views\model_json_316_tables_descriptions_multiline.sql" />
+    <Build Include="ssas\Views\model_json_2011_descriptions_StrAgg.sql" />
+    <Build Include="ssas\Views\model_json_201_descriptions_multiline.sql" />
+    <Build Include="repo\Views\ForeignKey_ssas_IndexPattern_old.sql" />
+    <Build Include="repo\Views\ForeignKey_ssas_Indexes_old.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />
