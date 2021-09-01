@@ -673,6 +673,10 @@
     <Build Include="ssas\Views\model_json_201_descriptions_multiline.sql" />
     <Build Include="repo\Views\ForeignKey_ssas_IndexPattern_old.sql" />
     <Build Include="repo\Views\ForeignKey_ssas_Indexes_old.sql" />
+    <Build Include="ssas\Views\model_json_31121_tables_columns_expressions_StrAgg.sql" />
+    <Build Include="ssas\Views\model_json_3112_tables_columns_expressions_multiline.sql" />
+    <Build Include="ssas\Views\model_json_31111_tables_columns_descriptions_StrAgg.sql" />
+    <Build Include="ssas\Views\model_json_3111_tables_columns_descriptions_multiline.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

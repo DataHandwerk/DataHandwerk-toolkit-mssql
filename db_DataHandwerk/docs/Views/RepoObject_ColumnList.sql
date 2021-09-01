@@ -152,7 +152,7 @@ Select
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -199,7 +199,7 @@ Select
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -244,7 +244,7 @@ Select
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -272,7 +272,7 @@ Select
                                              , '**'
                                              , ' : '
                                              , roc.Repo_user_type_fullname
-                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
+                                             , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -284,7 +284,7 @@ Select
                , ''
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -295,7 +295,7 @@ Select
                             Cast('' As NVarchar(Max))
                           , Case
                                 When IsNull ( roc.is_index_primary_key, 0 ) = 0
-                                     And roc.ssas_IsHidden = 0
+                                     And roc.tabcol_IsHidden = 0
                                     Then
                                     Concat (
                                                '  '
@@ -310,7 +310,7 @@ Select
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
-                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
+                                             , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -322,7 +322,7 @@ Select
                , ''
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -348,7 +348,7 @@ Select
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
-                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
+                                             , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -360,7 +360,7 @@ Select
                , ''
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -371,7 +371,7 @@ Select
                             Cast('' As NVarchar(Max))
                           , Case
                                 When IsNull ( roc.is_index_primary_key, 0 ) = 0
-                                     And roc.ssas_IsHidden = 1
+                                     And roc.tabcol_IsHidden = 1
                                     Then
                                     Concat (
                                                '  '
@@ -386,7 +386,7 @@ Select
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
-                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
+                                             , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -398,7 +398,7 @@ Select
                , ''
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -423,7 +423,7 @@ Select
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
                                              , roc.Repo_user_type_fullname
-                                             , Iif(roc.ssas_IsHidden = 1, ' (hidden)', Null)
+                                             , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
                                              --, CASE 
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
@@ -435,7 +435,7 @@ Select
                , ''
              ) Within Group(Order By
                                 roc.is_index_primary_key Desc
-                              , roc.ssas_IsHidden
+                              , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
                               , roc.Column_name)
@@ -450,9 +450,9 @@ Where
         Not roc.Repo_user_type_fullname Is Null
         Or roc.Repo_is_computed = 1
     )
-    --exclude system columns like 'RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61'
-    --all they have ssas_Type = 3
-    And Not roc.ssas_Type = 3
+----exclude system columns like 'RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61'
+----all they have ssas_Type = 3
+--And Not roc.ssas_Type = 3
 Group By
     roc.RepoObject_guid
 Go

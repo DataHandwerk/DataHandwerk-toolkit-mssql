@@ -1,4 +1,5 @@
 ﻿
+
 /*
 Select
     Distinct
@@ -6,7 +7,7 @@ Select
   , j2.[value]
   , j2.Type
 From
-    ssas.[model_json_31_tables] As T1
+    ssas.[model_json_31_tables_T] As T1
     Cross Apply OpenJson ( T1.[tables_description_ja] )
                 --As j1
                 --Cross Apply OpenJson ( j1.Value )
@@ -16,7 +17,7 @@ order by
 Go
 */
 
-CREATE View ssas.model_json_316_tables_descriptions_multiline
+CREATE View [ssas].[model_json_316_tables_descriptions_multiline]
 As
 Select
     T1.databasename

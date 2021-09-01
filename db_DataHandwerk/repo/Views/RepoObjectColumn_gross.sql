@@ -1,4 +1,4 @@
-
+﻿
 CREATE View repo.RepoObjectColumn_gross
 As
 Select
@@ -70,22 +70,24 @@ Select
                                                                                      , 'ms_description'
                                                                                    )
   , Description                = Coalesce (
-                                              ssascol.Description
+                                              tabcol.tables_columns_description
+                                            , tabcol2.descriptions_StrAgg
                                             , property.fs_get_RepoObjectColumnProperty_nvarchar (
                                                                                                     roc.RepoObjectColumn_guid
                                                                                                   , 'ms_description'
                                                                                                 )
                                           )
-  , ssas_Description           = ssascol.Description
-  , ssas_DisplayFolder         = ssascol.DisplayFolder
-  , ssas_Expression            = ssascol.Expression
-  , ssas_FormatString          = ssascol.FormatString
+  , tabcol_Description         = Coalesce ( tabcol.tables_columns_description, tabcol2.descriptions_StrAgg )
+  , tabcol_DisplayFolder       = tabcol.tables_columns_displayFolder
+  , tabcol_Expression            = Coalesce ( tabcol.tables_columns_expression, tabcol3.expressions_StrAgg )
+  , tabcol_FormatString        = tabcol.tables_columns_formatString
   --required in String_Agg in next steps
-  , ssas_IsHidden              = IsNull ( ssascol.IsHidden, 0 )
-  , ssas_IsKey                 = ssascol.IsKey
-  , ssas_IsUnique              = ssascol.IsUnique
-  , ssas_SummarizeBy           = ssascol.SummarizeBy
-  , ssas_Type                  = ssascol.Type
+  , tabcol_IsHidden            = IsNull ( tabcol.tables_columns_isHidden, 0 )
+  , tabcol_IsKey               = IsNull ( tabcol.tables_columns_isKey, 0 )
+  , tabcol_IsUnique            = IsNull ( tabcol.tables_columns_isUnique, 0 )
+  , tabcol_SummarizeBy         = tabcol.tables_columns_summarizeBy
+  , tabcol_Type                = tabcol.tables_columns_type
+
 --, ic.index_column_id
 --, ic.index_name
 --, ic.is_index_primary_key
@@ -102,16 +104,32 @@ Select
 --, roc_referenced.AntoraReferencedColumnList
 --, roc_referencing.AntoraReferencingColumnList
 From
-    repo.RepoObjectColumn       As roc
+    repo.RepoObjectColumn                                        As roc
     Inner Join
-        repo.RepoObject         As ro
+        repo.RepoObject                                          As ro
             On
             roc.RepoObject_guid           = ro.RepoObject_guid
 
     Left Join
-        ssas.TMSCHEMA_COLUMNS_T As ssascol
+        ssas.model_json_311_tables_columns_T                     As tabcol
             On
-            ssascol.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+            tabcol.RepoObjectColumn_guid  = roc.RepoObjectColumn_guid
+
+    Left Join
+        ssas.model_json_31111_tables_columns_descriptions_StrAgg As tabcol2
+            On
+            tabcol2.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+
+    Left Join
+        ssas.model_json_31121_tables_columns_expressions_StrAgg  As tabcol3
+            On
+            tabcol3.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+
+--Left Join
+--    ssas.TMSCHEMA_COLUMNS_T As ssascol
+--        On
+--        ssascol.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+
 --Left Outer Join
 --    repo.IndexColumn_union                     As ic
 --        On
@@ -1686,35 +1704,35 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when 
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '546d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_SummarizeBy';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '536d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_IsUnique';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '526d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_IsKey';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '516d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_IsHidden';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '506d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_FormatString';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4f6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_Expression';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4e6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_DisplayFolder';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4d6d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_Description';
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO
@@ -1726,5 +1744,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4c6d0
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5d60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'ssas_Type';
+
 

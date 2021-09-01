@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 `AdocContent` is the content of a page to be used by Antora as partial.
@@ -17,7 +18,7 @@ All Parts of the documentations are tagged, Antora can reference the content usi
 To use additional content in Antora documentation first try to include new properties into xref:property.RepoObjectProperty.adoc[]
 <<property_end>>
 */
-CREATE View docs.RepoObject_Adoc
+CREATE View [docs].[RepoObject_Adoc]
 As
 Select
     ro.RepoObject_guid

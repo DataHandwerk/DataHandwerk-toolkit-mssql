@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.RepoObjectColumn_gross2
+
+CREATE View [repo].[RepoObjectColumn_gross2]
 As
 Select
     roc.RepoObjectColumn_guid
@@ -67,15 +68,15 @@ Select
   --in other words: only, if the columns are part of the PK
   , roc.Property_ms_description
   , roc.Description
-  , roc.ssas_Description
-  , roc.ssas_DisplayFolder
-  , roc.ssas_Expression
-  , roc.ssas_FormatString
-  , roc.ssas_IsHidden
-  , roc.ssas_IsKey
-  , roc.ssas_IsUnique
-  , roc.ssas_SummarizeBy
-  , roc.ssas_Type
+  , roc.tabcol_Description
+  , roc.tabcol_DisplayFolder
+  , roc.tabcol_Expression
+  , roc.tabcol_FormatString
+  , roc.tabcol_IsHidden
+  , roc.tabcol_IsKey
+  , roc.tabcol_IsUnique
+  , roc.tabcol_SummarizeBy
+  , roc.tabcol_Type
   , ic.index_column_id
   , ic.index_name
   , ic.is_index_primary_key
@@ -153,35 +154,35 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5b6ce
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6c6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_SummarizeBy';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6b6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_IsUnique';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6a6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_IsKey';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '696ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_IsHidden';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '686ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_FormatString';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '676ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_Expression';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '666ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_DisplayFolder';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '656ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_Description';
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO
@@ -421,5 +422,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '716ce
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0e60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'ssas_Type';
+
 
