@@ -10,11 +10,15 @@ Select
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                             Cast('' As NVarchar(Max))
                           , Char ( 13 ) + Char ( 10 )
-                          , '[[index-'
+                          , '[#index-'
+                          --, '[id=index-'
+                          --, '[[index-' --deprecated
                           , docs.fs_cleanStringForAnchorId ( ix.index_name )
-                          , ']]'
+                          --, ']]'
+                          , ']'
                           , Char ( 13 ) + Char ( 10 )
                           , '=== '
+                          --, ix.index_name
                           , docs.fs_cleanStringForLabel ( ix.index_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )

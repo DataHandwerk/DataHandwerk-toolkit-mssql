@@ -1,4 +1,5 @@
-﻿CREATE Function [property].[fs_get_RepoObjectColumnProperty_nvarchar]
+﻿
+CREATE Function property.fs_get_RepoObjectColumnProperty_nvarchar
 (
     @RepoObjectColumn_guid UniqueIdentifier
   , @property_name         NVarchar(128)
@@ -11,7 +12,7 @@ Begin
         Select
             property_value
         From
-            [property].RepoObjectColumnProperty
+            property.RepoObjectColumnProperty
         Where
             RepoObjectColumn_guid = @RepoObjectColumn_guid
             And property_name     = @property_name

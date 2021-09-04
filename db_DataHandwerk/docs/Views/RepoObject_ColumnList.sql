@@ -14,11 +14,15 @@ Select
                  Concat (
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                             Cast('' As NVarchar(Max))
-                          , '[[column-'
+                          , '[#column-'
+                          --, '[id=column-'
+                          --, '[[column-' --deprecated
                           , docs.fs_cleanStringForAnchorId ( roc.Column_name )
-                          , ']]'
+                          --, ']]'
+                          , ']'
                           , Char ( 13 ) + Char ( 10 )
                           , '=== '
+                          --, roc.Column_name
                           , docs.fs_cleanStringForLabel ( roc.Column_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )

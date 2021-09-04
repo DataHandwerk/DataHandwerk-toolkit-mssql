@@ -79,7 +79,8 @@ WHERE
 NOT EXISTS
 (SELECT 1 FROM [repo].[Index_ssas] AS S
 WHERE
-T.[index_name] = S.[index_name]
+T.[databasename] = S.[databasename]
+AND T.[index_name] = S.[index_name]
 )
  
 
@@ -112,9 +113,9 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',81,';',600,';',NULL);
 
 UPDATE T
 SET
-  T.[index_name] = S.[index_name]
+  T.[databasename] = S.[databasename]
+, T.[index_name] = S.[index_name]
 , T.[ColumnName] = S.[ColumnName]
-, T.[databasename] = S.[databasename]
 , T.[is_index_primary_key] = S.[is_index_primary_key]
 , T.[is_index_unique] = S.[is_index_unique]
 , T.[RepoObject_guid] = S.[RepoObject_guid]
@@ -123,11 +124,11 @@ SET
 FROM [repo].[Index_ssas_T] AS T
 INNER JOIN [repo].[Index_ssas] AS S
 ON
-T.[index_name] = S.[index_name]
+T.[databasename] = S.[databasename]
+AND T.[index_name] = S.[index_name]
 
 WHERE
    T.[ColumnName] <> S.[ColumnName]
-OR T.[databasename] <> S.[databasename]
 OR T.[is_index_primary_key] <> S.[is_index_primary_key]
 OR T.[is_index_unique] <> S.[is_index_unique]
 OR T.[RepoObject_guid] <> S.[RepoObject_guid]
@@ -164,18 +165,18 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',81,';',700,';',NULL);
 INSERT INTO 
  [repo].[Index_ssas_T]
  (
-  [index_name]
+  [databasename]
+, [index_name]
 , [ColumnName]
-, [databasename]
 , [is_index_primary_key]
 , [is_index_unique]
 , [RepoObject_guid]
 , [TableName]
 )
 SELECT
-  [index_name]
+  [databasename]
+, [index_name]
 , [ColumnName]
-, [databasename]
 , [is_index_primary_key]
 , [is_index_unique]
 , [RepoObject_guid]
@@ -187,7 +188,8 @@ NOT EXISTS
 (SELECT 1
 FROM [repo].[Index_ssas_T] AS T
 WHERE
-T.[index_name] = S.[index_name]
+T.[databasename] = S.[databasename]
+AND T.[index_name] = S.[index_name]
 )
 
 -- Logging START --

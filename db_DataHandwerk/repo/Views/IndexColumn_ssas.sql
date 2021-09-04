@@ -15,7 +15,8 @@ From
     Inner Join
         repo.Index_ssas_T  As i
             On
-            col.index_name = i.index_name
+            col.databasename   = i.databasename
+            And col.index_name = i.index_name
 GO
 
 

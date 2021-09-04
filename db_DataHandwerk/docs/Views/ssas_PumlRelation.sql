@@ -196,3 +196,23 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'cd457
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6c6e8dee-3d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '83dfd191-480b-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'relationships_toCardinality';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7fdfd191-480b-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'relationships_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '80dfd191-480b-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'relationships_isActive';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '82dfd191-480b-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'relationships_fromCardinality';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '81dfd191-480b-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssas_PumlRelation', @level2type = N'COLUMN', @level2name = N'relationships_crossFilteringBehavior';
+

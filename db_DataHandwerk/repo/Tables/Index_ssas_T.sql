@@ -1,15 +1,16 @@
 ﻿CREATE TABLE [repo].[Index_ssas_T] (
+    [databasename]         NVARCHAR (128)   NOT NULL,
     [index_name]           NVARCHAR (450)   NOT NULL,
     [is_index_primary_key] BIT              NOT NULL,
     [is_index_unique]      BIT              NOT NULL,
     [RepoObject_guid]      UNIQUEIDENTIFIER NOT NULL,
-    [databasename]         NVARCHAR (128)   NOT NULL,
     [TableName]            NVARCHAR (MAX)   NOT NULL,
     [ColumnName]           NVARCHAR (MAX)   CONSTRAINT [DF_Index_ssas_T_ColumnName] DEFAULT ('') NOT NULL,
     [index_guid]           UNIQUEIDENTIFIER CONSTRAINT [DF_Index_ssas_T_index_guid] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_Index_ssas_T] PRIMARY KEY CLUSTERED ([index_name] ASC),
     CONSTRAINT [uq_Index_ssas_T] UNIQUE NONCLUSTERED ([index_guid] ASC)
 );
+
+
 
 
 
@@ -25,7 +26,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'f741f8c3-0f
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'cbb100de-0d08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_ssas_T', @level2type = N'CONSTRAINT', @level2name = N'PK_Index_ssas_T';
+
 
 
 GO
