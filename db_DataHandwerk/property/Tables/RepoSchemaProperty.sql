@@ -1,4 +1,4 @@
-﻿CREATE TABLE [property].[RepoSchemaProperty] (
+CREATE TABLE [property].[RepoSchemaProperty] (
     [RepoSchemaProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [RepoSchema_guid]       UNIQUEIDENTIFIER NOT NULL,
     [property_name]         NVARCHAR (128)   NOT NULL,
@@ -13,6 +13,8 @@
     CONSTRAINT [FK_RepoSchemaProperty__RepoSchema] FOREIGN KEY ([RepoSchema_guid]) REFERENCES [repo].[RepoSchema] ([RepoSchema_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoSchemaProperty] UNIQUE NONCLUSTERED ([RepoSchema_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 
@@ -162,5 +164,33 @@ GO
 
 
 GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'CONSTRAINT', @level2name = N'UK_RepoSchemaProperty';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'CONSTRAINT', @level2name = N'UK_RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoSchemaProperty__RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoSchemaProperty__RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty';
 

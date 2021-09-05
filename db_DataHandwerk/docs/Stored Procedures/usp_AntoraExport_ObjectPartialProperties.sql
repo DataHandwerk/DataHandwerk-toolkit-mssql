@@ -115,7 +115,17 @@ EXEC [docs].[usp_PERSIST_RepoObject_IndexList_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":320,"Name":"[docs].[usp_PERSIST_RepoObject_Adoc_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":320,"Name":"[docs].[usp_PERSIST_RepoObject_ColumnList_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_PERSIST_RepoObject_ColumnList_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":330,"Name":"[docs].[usp_PERSIST_RepoObject_Adoc_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [docs].[usp_PERSIST_RepoObject_Adoc_T]
 --add your own parameters
 --logging parameters
@@ -246,18 +256,23 @@ GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
 * [docs].[RepoObject_OutputFilter]
 * [docs].[usp_PERSIST_RepoObject_Adoc_T]
+* [docs].[usp_PERSIST_RepoObject_ColumnList_T]
 * [docs].[usp_PERSIST_RepoObject_IndexList_T]
 * [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
 
 
+
+
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the individual content per object is exported as ''partial'' into (AntoraDocModulFolder)``partials/schemaname.objectname.adoc``
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the individual content per object is exported as ''partial'' into (AntoraModulFolder)``/``(AntoraModulName)``/partials/schemaname.objectname.adoc``
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
 ** all properties from xref:property.RepoObjectProperty.adoc[] are exported with a `tag` per property
 ** some additional `tag` are exported
 ** the exported content is defined in xref:docs.RepoObject_Adoc.adoc[]
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
 
 
 GO
@@ -272,8 +287,11 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
 * xref:docs.RepoObject_OutputFilter.adoc[]
 * xref:docs.usp_PERSIST_RepoObject_Adoc_T.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_ColumnList_T.adoc[]
 * xref:docs.usp_PERSIST_RepoObject_IndexList_T.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
 
 
 GO
@@ -313,6 +331,14 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 |320
 |
+*[docs].[usp_PERSIST_RepoObject_ColumnList_T]*
+
+* `EXEC [docs].[usp_PERSIST_RepoObject_ColumnList_T]`
+
+|
+
+|330
+|
 *[docs].[usp_PERSIST_RepoObject_Adoc_T]*
 
 * `EXEC [docs].[usp_PERSIST_RepoObject_Adoc_T]`
@@ -329,4 +355,14 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
 

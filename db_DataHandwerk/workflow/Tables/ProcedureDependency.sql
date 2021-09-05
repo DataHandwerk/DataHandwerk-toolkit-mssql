@@ -21,25 +21,31 @@ ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDep
 
 
 GO
-ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
 
-
-
-
-GO
-ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
 
 
 
 
 GO
-ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
+
 
 
 
 
 GO
-ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
+
+
+
+
+
+GO
+
+
+
+
+
+GO
+
 
 
 GO
@@ -108,7 +114,11 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'CEE20E01-119
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:workflow.ProcedureDependency_gross.adoc[]
-* xref:workflow.usp_workflow.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+* xref:workflow.ProcedureDependency_input_PersistenceDependency.adoc[]
+* xref:workflow.Workflow_ProcedureDependency.adoc[]
+* xref:workflow.Workflow_ProcedureDependency_all.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
 
 
 
@@ -119,4 +129,68 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'de6d2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dd6d2d0f-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'UK_ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'UK_ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'PK_ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'PK_ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'FK_ProcedureDependency_RepoObject_referencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'FK_ProcedureDependency_RepoObject_referencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'FK_ProcedureDependency_RepoObject_referenced';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'FK_ProcedureDependency_RepoObject_referenced';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'DF_ProcedureDependency_is_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'DF_ProcedureDependency_is_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'DF_ProcedureDependency_is_active';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency', @level2type = N'CONSTRAINT', @level2name = N'DF_ProcedureDependency_is_active';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [workflow].[ProcedureDependency_input_PersistenceDependency]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:workflow.ProcedureDependency_input_PersistenceDependency.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'ProcedureDependency';
 

@@ -32,3 +32,29 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0f40b
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0d40bc32-1608-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas_IndexPatternColumnGuid', @level2type = N'COLUMN', @level2name = N'index_guid';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[Index_ssas_T]
+* [repo].[IndexColumn_ssas_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.Index_union.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.Index_ssas_T.adoc[]
+* xref:repo.IndexColumn_ssas_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas_IndexPatternColumnGuid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[Index_ssas_T].[index_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_ssas_IndexPatternColumnGuid', @level2type = N'COLUMN', @level2name = N'index_guid';
+

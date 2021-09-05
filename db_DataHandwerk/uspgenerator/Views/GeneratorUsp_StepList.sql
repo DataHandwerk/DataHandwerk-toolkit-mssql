@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 SQL for the list of all steps
 */
@@ -10,7 +8,6 @@ Select
     us.usp_id
   , StepList     = String_Agg ( Concat ( Cast('' As NVarchar(Max)), us.SqlStep ), Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                               us.RowNumber_PerUsp)
-  ----Attention! issue, if the resulting string > 4000, because it is saved in Properties, which have a limit of sql_variant (nvarchar(4000))
   , AdocStepList = String_Agg ( Concat ( Cast('' As NVarchar(Max)), us.AdocStep ), Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                                us.RowNumber_PerUsp)
 From
@@ -80,4 +77,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [uspgenerator].[GeneratorUspStep_Sql].[usp_id]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_StepList', @level2type = N'COLUMN', @level2name = N'usp_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_StepList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_StepList';
 

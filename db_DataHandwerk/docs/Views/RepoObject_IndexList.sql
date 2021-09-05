@@ -22,7 +22,7 @@ Select
                           , docs.fs_cleanStringForLabel ( ix.index_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
-                          , '* IndexSemanticGroup: ' + 'xref:index/IndexSemanticGroup.adoc#_'
+                          , '* IndexSemanticGroup: ' + 'xref:other/IndexSemanticGroup.adoc#_'
                             + Replace (
                                           Replace (
                                                       Replace (
@@ -130,8 +130,13 @@ Execute sp_addextendedproperty
   , @level2name = N'PumlIndexList';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[ForeignKey_gross]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[fs_cleanStringForAnchorId]
+* [docs].[fs_cleanStringForLabel]
+* [docs].[fs_cleanStringForPuml]
+* [repo].[ForeignKey_gross]
 * [repo].[Index_gross]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList';
+
+
 
 
 GO
@@ -158,6 +163,21 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.fs_cleanStringForAnchorId.adoc[]
 * xref:docs.fs_cleanStringForLabel.adoc[]
+* xref:docs.fs_cleanStringForPuml.adoc[]
 * xref:repo.ForeignKey_gross.adoc[]
 * xref:repo.Index_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[Index_gross].[parent_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_IndexList', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 

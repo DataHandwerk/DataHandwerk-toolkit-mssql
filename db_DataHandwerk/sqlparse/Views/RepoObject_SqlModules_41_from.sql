@@ -324,186 +324,92 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[SysObject_fullname]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObject_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[SysObject_fullname]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[RowNumber_per_Object]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RowNumber_per_Object';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[RowNumber_per_Object]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'RowNumber_per_Object';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[normalized]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'normalized';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[normalized]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'normalized';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_39_object].[Min_RowNumber_Where]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Min_RowNumber_Where';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_39_object].[Min_RowNumber_Where]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'Min_RowNumber_Where';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_39_object].[Min_RowNumber_GroupBy]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Min_RowNumber_GroupBy';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_39_object].[Min_RowNumber_GroupBy]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'Min_RowNumber_GroupBy';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_39_object].[Min_RowNumber_From]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Min_RowNumber_From';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_39_object].[Min_RowNumber_From]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'Min_RowNumber_From';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[json_key]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'json_key';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[json_key]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'json_key';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[join_type].[join_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'join_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [configT].[join_type].[join_type]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'join_type';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[is_whitespace]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_whitespace';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[is_whitespace]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'is_whitespace';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[is_keyword]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_keyword';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[is_keyword]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'is_keyword';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[is_group]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_group';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[is_group]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'is_group';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_22_identifier_alias_AS].[identifier_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'identifier_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_22_identifier_alias_AS].[identifier_name]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'identifier_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_22_identifier_alias_AS].[identifier_alias]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'identifier_alias';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_22_identifier_alias_AS].[identifier_alias]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'identifier_alias';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[class]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'class';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[class]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'class';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules_20_statement_children].[children]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_41_from'
-  , @level2type = N'COLUMN'
-  , @level2name = N'children';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_20_statement_children].[children]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'children';
+
+
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[join_type]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [configT].[join_type]
 * [sqlparse].[RepoObject_SqlModules_20_statement_children]
 * [sqlparse].[RepoObject_SqlModules_22_identifier_alias_AS]
 * [sqlparse].[RepoObject_SqlModules_39_object]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
 
 
 GO
@@ -536,4 +442,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_41_from';
 

@@ -134,42 +134,26 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_reference_union].[referencing_RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_reference_union].[referenced_RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[Index_virtual].[referenced_index_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_index_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[Index_virtual].[referenced_index_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_index_guid';
+
+
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_union]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_T]
 * [repo].[Index_union]
 * [repo].[Index_virtual]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing';
+
+
 
 
 GO
@@ -191,4 +175,24 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'the same in
 for example
 SELECT A_A = A.A, B_A = B.A from source_1 as A LEFT JOIN source_1 as B ON ... 
 normaly these indexes should have different columns', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing_Target';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[Index_union].[index_type]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'source_index_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[Index_union].[index_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'source_index_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[Index_virtual].[RowNumberInReferencing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing_Target';
 

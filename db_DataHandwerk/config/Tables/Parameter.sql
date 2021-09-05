@@ -1,58 +1,16 @@
 ﻿CREATE TABLE [config].[Parameter] (
-    [Parameter_name]                   VARCHAR (100)   NOT NULL,
-    [sub_Parameter]                    NVARCHAR (128)  CONSTRAINT [DF__Parameter__sub_P__18B6AB08] DEFAULT ('') NOT NULL,
-    [Parameter_desciption]             NVARCHAR (1000) NULL,
-    [Parameter_default_value]          NVARCHAR (MAX)  NULL,
-    [Parameter_value]                  NVARCHAR (MAX)  NULL,
-    [Parameter_value_result] AS              (coalesce([Parameter_value],[Parameter_default_value])),
+    [Parameter_name]                  VARCHAR (100)   NOT NULL,
+    [sub_Parameter]                   NVARCHAR (128)  CONSTRAINT [DF__Parameter__sub_P__18B6AB08] DEFAULT ('') NOT NULL,
+    [Parameter_desciption]            NVARCHAR (1000) NULL,
+    [Parameter_default_value]         NVARCHAR (MAX)  NULL,
+    [Parameter_value]                 NVARCHAR (MAX)  NULL,
+    [Parameter_value_result]          AS              (coalesce([Parameter_value],[Parameter_default_value])),
     [Parameter_value_result_int]      AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [int])),
     [Parameter_value_result_date]     AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [date])),
     [Parameter_value_result_datetime] AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [datetime])),
     CONSTRAINT [PK_Parameter] PRIMARY KEY CLUSTERED ([Parameter_name] ASC, [sub_Parameter] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
-
-
-
-GO
 
 
 
@@ -97,8 +55,10 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75b33
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[Parameter].[Parameter_default_value]
-[repo].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[Parameter].[Parameter_default_value]
+* [config].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result';
+
+
 
 
 GO
@@ -130,12 +90,14 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'2690291C-9D6
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = '* default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
 * default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
 * resulting content is available in
 ** xref:sqldb:config.Parameter.adoc#column-Parameter_value__result_int[config.Parameter.Parameter_value__result_int]
 ** xref:sqldb:config.Parameter.adoc#column-Parameter_value__result_nvarchar[config.Parameter.Parameter_value__result_nvarchar]
 ', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter';
+
+
 
 
 GO
@@ -169,4 +131,38 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_value] AS [date]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],''BaseType'')=''uniqueidentifier'' then CONVERT([date],TRY_CAST([Parameter_default_value] AS [datetime]))  end)', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_date';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'CONSTRAINT', @level2name = N'PK_Parameter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'CONSTRAINT', @level2name = N'PK_Parameter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'CONSTRAINT', @level2name = N'DF__Parameter__sub_P__18B6AB08';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'CONSTRAINT', @level2name = N'DF__Parameter__sub_P__18B6AB08';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[Parameter].[Parameter_default_value]
+* [config].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_datetime';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[Parameter].[Parameter_default_value]
+* [config].[Parameter].[Parameter_value]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_date';
 

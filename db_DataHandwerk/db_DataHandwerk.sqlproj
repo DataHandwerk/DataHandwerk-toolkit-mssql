@@ -678,6 +678,8 @@
     <Build Include="ssas\Views\model_json_3111_tables_columns_descriptions_multiline.sql" />
     <Build Include="reference\Tables\RepoObject_ReferenceTree.sql" />
     <Build Include="reference\Stored Procedures\usp_RepoObject_ReferenceTree_insert.sql" />
+    <Build Include="docs\Tables\RepoObject_ColumnList_T.sql" />
+    <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_ColumnList_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

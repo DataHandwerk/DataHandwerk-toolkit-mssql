@@ -23,6 +23,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3c90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'UK_GeneratorUsp_Schema_Name';
 
@@ -64,8 +66,10 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bcf37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[GeneratorUsp].[usp_name]
-[repo].[GeneratorUsp].[usp_schema]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'COLUMN', @level2name = N'usp_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [uspgenerator].[GeneratorUsp].[usp_name]
+* [uspgenerator].[GeneratorUsp].[usp_schema]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'COLUMN', @level2name = N'usp_fullname';
+
+
 
 
 GO
@@ -99,4 +103,36 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[]
 * xref:uspgenerator.GeneratorUspStep_Sql.adoc[]
 * xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'UK_GeneratorUsp_Schema_Name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'UK_GeneratorUsp_Schema_Name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'PK_GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'PK_GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'DF_GeneratorUsp_has_logging';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp', @level2type = N'CONSTRAINT', @level2name = N'DF_GeneratorUsp_has_logging';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUsp';
 

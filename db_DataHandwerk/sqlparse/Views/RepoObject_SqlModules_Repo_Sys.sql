@@ -171,15 +171,9 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[SysObject_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObject_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[SysObject_type]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'SysObject_type';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -193,92 +187,44 @@ Execute sp_addextendedproperty
   , @level2name = N'SysObject_type';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules].[sql_modules_json]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'sql_modules_json';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules].[sql_modules_json]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'sql_modules_json';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules].[sql_modules_formatted2]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'sql_modules_formatted2';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules].[sql_modules_formatted2]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'sql_modules_formatted2';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules].[sql_modules_formatted]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'sql_modules_formatted';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules].[sql_modules_formatted]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'sql_modules_formatted';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules].[sql_modules_dt]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'sql_modules_dt';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules].[sql_modules_dt]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'sql_modules_dt';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo_sys].[SysObject].[sql_modules_definition]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'sql_modules_definition';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo_sys].[SysObject].[sql_modules_definition]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'sql_modules_definition';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo_sys].[SysObject].[modify_date]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'modify_date';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo_sys].[SysObject].[modify_date]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'modify_date';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_SqlModules].[is_json_sql_modules_json]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_Repo_Sys'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_json_sql_modules_json';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules].[is_json_sql_modules_json]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys', @level2type = N'COLUMN', @level2name = N'is_json_sql_modules_json';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -299,11 +245,21 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:property.RepoObjectProperty_Collect_source_sql_modules_definition.adoc[]
-* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+* xref:repo.RepoObject_gross2.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+
+
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoObject.adoc[]
 * xref:repo_sys.SysObject.adoc[]
 * xref:sqlparse.RepoObject_SqlModules.adoc[]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_Repo_Sys';
 

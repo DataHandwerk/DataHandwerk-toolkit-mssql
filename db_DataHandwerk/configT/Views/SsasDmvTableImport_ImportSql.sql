@@ -125,3 +125,37 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'dae6a70a-8a
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f3f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql', @level2type = N'COLUMN', @level2name = N'ExecPersistSql';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[SsasDatabasename]
+* [configT].[SsasDmvTableImport_DmvColumnList]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.SsasDatabasename.adoc[]
+* xref:configT.SsasDmvTableImport_DmvColumnList.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[SsasDatabasename].[LinkedServer]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql', @level2type = N'COLUMN', @level2name = N'LinkedServer';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[SsasDatabasename].[isCurrentImport]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql', @level2type = N'COLUMN', @level2name = N'isCurrentImport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[SsasDatabasename].[isActive]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql', @level2type = N'COLUMN', @level2name = N'isActive';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[SsasDatabasename].[databasename]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport_ImportSql', @level2type = N'COLUMN', @level2name = N'databasename';
+

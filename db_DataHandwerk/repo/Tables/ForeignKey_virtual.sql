@@ -20,6 +20,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a756741b-6373-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'PK_ForeignKey_virtual';
 
@@ -110,4 +112,68 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'A756741B-637
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.ForeignKey_virtual_Indexes.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'PK_ForeignKey_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'PK_ForeignKey_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_ForeignKey_virtual__Index_Settings__referenced_index';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_ForeignKey_virtual__Index_Settings__referenced_index';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_ForeignKey_virtual__Index_Settings__ForeignKey_index';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_ForeignKey_virtual__Index_Settings__ForeignKey_index';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_ForeignKey_virtual_update_referential_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_ForeignKey_virtual_update_referential_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_ForeignKey_virtual_delete_referential_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_ForeignKey_virtual_delete_referential_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF__ForeignKe__is_Fo__63A3C44B';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF__ForeignKe__is_Fo__63A3C44B';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF__ForeignKe__Forei__62AFA012';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF__ForeignKe__Forei__62AFA012';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual';
 

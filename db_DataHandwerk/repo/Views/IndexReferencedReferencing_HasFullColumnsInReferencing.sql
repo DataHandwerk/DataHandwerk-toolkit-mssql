@@ -153,92 +153,44 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexReferencedReferencing].[source_index_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'source_index_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexReferencedReferencing].[source_index_type]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'source_index_type';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexReferencedReferencing].[source_index_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'source_index_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexReferencedReferencing].[source_index_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'source_index_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexReferencedReferencing].[RowNumberInReferencing_Target]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RowNumberInReferencing_Target';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexReferencedReferencing].[RowNumberInReferencing_Target]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing_Target';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T].[RowNumberInReferencing]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RowNumberInReferencing';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T].[RowNumberInReferencing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexReferencedReferencing].[referencing_RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexReferencedReferencing].[referencing_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[Index_referencing_IndexPatternColumnGuid].[referencing_IndexPatternColumnGuid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_IndexPatternColumnGuid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[Index_referencing_IndexPatternColumnGuid].[referencing_IndexPatternColumnGuid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referencing_IndexPatternColumnGuid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexReferencedReferencing].[referenced_RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexReferencedReferencing].[referenced_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[IndexReferencedReferencing].[referenced_index_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_index_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[IndexReferencedReferencing].[referenced_index_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'referenced_index_guid';
+
+
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[Index_referencing_IndexPatternColumnGuid]
@@ -261,4 +213,12 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'the same in
 for example
 SELECT A_A = A.A, B_A = B.A from source_1 as A LEFT JOIN source_1 as B ON ... 
 normaly these indexes should have different columns', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'RowNumberInReferencing_Target';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing';
 

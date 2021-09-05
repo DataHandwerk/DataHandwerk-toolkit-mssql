@@ -61,15 +61,9 @@ Go
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[RepoObject_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_type]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S', @level2type = N'COLUMN', @level2name = N'RepoObject_type';
+
+
 
 
 Go
@@ -85,27 +79,15 @@ Execute sp_addextendedproperty
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[RepoObject_fullname]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_fullname]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
+
 
 
 Go
@@ -160,4 +142,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
 

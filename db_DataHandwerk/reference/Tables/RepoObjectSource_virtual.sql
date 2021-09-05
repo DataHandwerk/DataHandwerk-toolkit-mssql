@@ -14,7 +14,13 @@ ALTER TABLE [reference].[RepoObjectSource_virtual] NOCHECK CONSTRAINT [FK_RepoOb
 
 
 GO
-ALTER TABLE [reference].[RepoObjectSource_virtual] NOCHECK CONSTRAINT [FK_RepoObjectSource_virtual_RepoObject_source];
+
+
+
+
+
+GO
+
 
 
 GO
@@ -65,4 +71,52 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_reference_virtual.adoc[]
 * xref:reference.usp_RepoObjectSource_virtual_set.adoc[]
 * xref:repo.usp_sync_guid_RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObjectSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObjectSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_virtual_RepoObject_source';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_virtual_RepoObject_source';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_virtual_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_virtual_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectSource_virtual_RepoObject_guid1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectSource_virtual_RepoObject_guid1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectSource_virtual_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectSource_virtual_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_virtual';
 

@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 <<property_start>>MS_Description
 list of conflicting entries which needs to be merged
@@ -11,7 +13,7 @@ this can happen, if the guid exists in the database extended properties and a ne
 * roc2 got the "right" guid from database, but roc2 can't propagate the fullname into RepoObjectColumn because the RepoObjectColumn_fullname is occupied
 now we have 2 entries, but we need to merge them
 
-what we need to do in xref:sqldb.repo.usp_sync_guid_RepoObjectColumn[]
+what we need to do in xref:sqldb:repo.usp_sync_guid_RepoObjectColumn.adoc[]
 
 * keep roc1 (which has the right RepoObjectColumn_name)
 ** mark them set is_required_ColumnMerge = 1
@@ -21,7 +23,7 @@ what we need to do in xref:sqldb.repo.usp_sync_guid_RepoObjectColumn[]
 
 <<property_end>>
 */
-CREATE View repo.RepoObjectColumn_RequiredRepoObjectColumnMerge
+CREATE View [repo].[RepoObjectColumn_RequiredRepoObjectColumnMerge]
 As
 Select
     --
@@ -190,7 +192,7 @@ this can happen, if the guid exists in the database extended properties and a ne
 * roc2 got the "right" guid from database, but roc2 can''t propagate the fullname into RepoObjectColumn because the RepoObjectColumn_fullname is occupied
 now we have 2 entries, but we need to merge them
 
-what we need to do in xref:sqldb.repo.usp_sync_guid_RepoObjectColumn[]
+what we need to do in xref:sqldb:repo.usp_sync_guid_RepoObjectColumn.adoc[]
 
 * keep roc1 (which has the right RepoObjectColumn_name)
 ** mark them set is_required_ColumnMerge = 1
@@ -198,6 +200,8 @@ what we need to do in xref:sqldb.repo.usp_sync_guid_RepoObjectColumn[]
 * set SysObjectColumn_name = RepoObjectColumn_name (for roc1, for marked columns)
 * remove marker where SysObjectColumn_name = RepoObjectColumn_name
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge';
+
+
 
 
 GO
@@ -209,8 +213,9 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[SysObjectColumn_name]
-* [repo].[RepoObjectColumn].[SysObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[SysObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_name';
+
+
 
 
 GO
@@ -228,8 +233,9 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Name of the
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_name]
-* [repo].[RepoObjectColumn].[RepoObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name';
+
+
 
 
 GO
@@ -237,8 +243,9 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Name of the
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_guid]
-* [repo].[RepoObjectColumn].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
+
 
 
 GO
@@ -246,8 +253,9 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[persistence_source_RepoObjectColumn_guid]
-* [repo].[RepoObjectColumn].[persistence_source_RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObjectColumn_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[persistence_source_RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObjectColumn_guid';
+
+
 
 
 GO
@@ -264,4 +272,28 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when TRY_CAST([RepoObjectColumn_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end)', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'is_RepoObjectColumn_name_uniqueidentifier';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[SysObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'roc2_SysObjectColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'roc2_RepoObjectColumn_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'roc2_RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[persistence_source_RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'roc2_persistence_source_RepoObjectColumn_guid';
 

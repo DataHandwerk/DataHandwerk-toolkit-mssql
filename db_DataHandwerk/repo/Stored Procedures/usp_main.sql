@@ -600,28 +600,28 @@ RepoObjectColumn_column_id is required and should be updated before
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
-* [graph].[ReferencedObject]
-* [graph].[ReferencedObjectColumn]
-* [graph].[ReferencingObject]
-* [graph].[ReferencingObjectColumn]
-* [graph].[RepoObject]
-* [graph].[RepoObjectColumn]
 * [logs].[usp_ExecutionLog_insert]
 * [property].[usp_RepoObject_Inheritance]
 * [property].[usp_RepoObjectColumn_Inheritance]
-* [reference].[Match_RepoObject_referenced_UspPersistence]
-* [reference].[RepoObject_reference_union]
-* [reference].[RepoObjectColumn_reference_union]
+* [reference].[RepoObject_reference_persistence]
+* [reference].[RepoObject_reference_persistence_target_as_source]
+* [reference].[RepoObject_reference_T]
+* [reference].[usp_PERSIST_RepoObject_reference_T]
+* [reference].[usp_PERSIST_RepoObjectColumn_reference_T]
+* [reference].[usp_RepoObject_ReferenceTree_insert]
 * [reference].[usp_RepoObject_update_SysObjectQueryPlan]
 * [reference].[usp_RepoObjectSource_FirstResultSet]
 * [reference].[usp_RepoObjectSource_QueryPlan]
 * [reference].[usp_update_Referencing_Count]
+* [repo].[RepoObject]
 * [repo].[usp_Index_ForeignKey]
 * [repo].[usp_index_inheritance]
 * [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
 * [repo].[usp_sync_guid]
-* [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
-* [workflow].[ProcedureDependency]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+* [repo].[usp_sync_guid_ssas]
+* [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
+
 
 
 GO
@@ -652,29 +652,38 @@ EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
-* xref:graph.ReferencedObject.adoc[]
-* xref:graph.ReferencedObjectColumn.adoc[]
-* xref:graph.ReferencingObject.adoc[]
-* xref:graph.RepoObject.adoc[]
-* xref:graph.RepoObjectColumn.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]
 * xref:property.usp_RepoObject_Inheritance.adoc[]
 * xref:property.usp_RepoObjectColumn_Inheritance.adoc[]
+* xref:reference.RepoObject_reference_persistence.adoc[]
+* xref:reference.RepoObject_reference_persistence_target_as_source.adoc[]
 * xref:reference.RepoObject_reference_T.adoc[]
-* xref:reference.RepoObjectColumn_reference_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObject_reference_T.adoc[]
 * xref:reference.usp_PERSIST_RepoObjectColumn_reference_T.adoc[]
+* xref:reference.usp_RepoObject_ReferenceTree_insert.adoc[]
 * xref:reference.usp_RepoObject_update_SysObjectQueryPlan.adoc[]
 * xref:reference.usp_RepoObjectSource_FirstResultSet.adoc[]
 * xref:reference.usp_RepoObjectSource_QueryPlan.adoc[]
 * xref:reference.usp_update_Referencing_Count.adoc[]
+* xref:repo.RepoObject.adoc[]
 * xref:repo.usp_Index_ForeignKey.adoc[]
 * xref:repo.usp_index_inheritance.adoc[]
 * xref:repo.usp_RepoObjectColumn_update_RepoObjectColumn_column_id.adoc[]
 * xref:repo.usp_sync_guid.adoc[]
+* xref:repo.usp_sync_guid_ssas.adoc[]
 * xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
 
 
 
 
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
 

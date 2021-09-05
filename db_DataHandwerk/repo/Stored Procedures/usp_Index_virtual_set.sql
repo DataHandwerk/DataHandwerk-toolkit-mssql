@@ -1,11 +1,11 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual[]
-* but it will not be visible in xref:sqldb:repo.Index_gross[] until it was also included into xref:sqldb:repo.Index_Settings[]
+* Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual.adoc[]
+* but it will not be visible in xref:sqldb:repo.Index_gross.adoc[] until it was also included into xref:sqldb:repo.Index_Settings.adoc[]
 * and after inserting a new index there could be duplicates for the same columns which needs to be removed again
 
-That's why it is required run the folowing procedure (this also happens in xref:sqldb:repo.usp_main[])
+That's why it is required run the folowing procedure (this also happens in xref:sqldb:repo.usp_main.adoc[])
 
 [source,sql]
 ------
@@ -442,19 +442,22 @@ Execute sp_addextendedproperty
 Go
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
 * [repo].[Index_gross]
+* [repo].[Index_Settings]
 * [repo].[Index_virtual]
 * [repo].[IndexColumn_virtual]
 * [repo].[RepoObject]
 * [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual[]
-* but it will not be visible in xref:sqldb:repo.Index_gross[] until it was also included into xref:sqldb:repo.Index_Settings[]
+* Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual.adoc[]
+* but it will not be visible in xref:sqldb:repo.Index_gross.adoc[] until it was also included into xref:sqldb:repo.Index_Settings.adoc[]
 * and after inserting a new index there could be duplicates for the same columns which needs to be removed again
 
-That''s why it is required run the folowing procedure (this also happens in xref:sqldb:repo.usp_main[])
+That''s why it is required run the folowing procedure (this also happens in xref:sqldb:repo.usp_main.adoc[])
 
 [source,sql]
 ------
@@ -477,8 +480,14 @@ Type of index:
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'exampleUsage_2', @value = N'
+--ensure existing guid
+
+Exec repo.usp_sync_guid
+
 --set multiple indexes and finish them
 
 EXEC repo.usp_Index_virtual_set
@@ -497,8 +506,14 @@ EXEC repo.usp_Index_virtual_set
 EXEC [repo].[usp_Index_finish];', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+--ensure existing guid
+
+Exec repo.usp_sync_guid
+
 --use @RepoObject_fullname with square brackets
 --use @RepoObject_fullname2 without square brackets
 --@IndexPatternColumnName can be used only without square brackets
@@ -510,6 +525,8 @@ EXEC repo.usp_Index_virtual_set
   , @IndexSemanticGroup = ''OptionalSemanticGroup'';
 
 EXEC [repo].[usp_Index_finish];', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
+
+
 
 
 GO
@@ -524,4 +541,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.IndexColumn_virtual.adoc[]
 * xref:repo.RepoObject.adoc[]
 * xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
 

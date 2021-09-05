@@ -18,6 +18,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ae0747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_SysSchema_name';
 
@@ -96,11 +98,16 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'aa0747ec-8ca3
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.AntoraNavListPage_by_schema.adoc[]
+* xref:docs.Schema_puml.adoc[]
+* xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
 * xref:property.ExtendedProperty_Repo2Sys_level0.adoc[]
 * xref:property.usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.adoc[]
+* xref:repo.RepoSchema_ssas_tgt.adoc[]
 * xref:repo.SysSchema_RepoSchema_via_guid.adoc[]
 * xref:repo.SysSchema_RepoSchema_via_name.adoc[]
 * xref:repo.usp_sync_guid_RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema';
+
+
 
 
 GO
@@ -134,4 +141,68 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '50ca43f5-1f
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4c4419fd-1f07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'COLUMN', @level2name = N'is_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'UK_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'UK_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_SysSchema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_SysSchema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_RepoSchema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_RepoSchema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_RepoSchema_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_RepoSchema_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_is_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_is_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[RepoSchema_ssas_tgt]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoSchema_ssas_tgt.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema';
 

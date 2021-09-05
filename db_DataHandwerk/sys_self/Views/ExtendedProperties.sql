@@ -1,7 +1,6 @@
 ﻿
 CREATE View sys_self.ExtendedProperties
 As
---
 Select
     sep.class
   , sep.major_id
@@ -97,7 +96,6 @@ From
         sys.objects         As parent
             On
             parent.object_id = so.parent_object_id
-----
 --CROSS APPLY
 --repo.ftv_dwh_database() AS db
 Go
@@ -310,4 +308,12 @@ Execute sp_addextendedproperty
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:sys_self.ExtendedProperties_ParameterForAddUpdateDrop.adoc[]', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sys_self', @level1type = N'VIEW', @level1name = N'ExtendedProperties';
 

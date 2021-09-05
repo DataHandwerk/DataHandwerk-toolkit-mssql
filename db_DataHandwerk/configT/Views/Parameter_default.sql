@@ -1,10 +1,7 @@
 ﻿
-
-
-
 /*
 <<property_start>>MS_Description
-* default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
+* default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
 * default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
 * resulting content is available in
 ** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
@@ -31,7 +28,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View [configT].[Parameter_default]
+CREATE View configT.Parameter_default
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -593,7 +590,9 @@ Select
     Parameter_name          = 'AntoraDocSnippet'
   , sub_Parameter           = N'antora-export-prerequisites'
   , Parameter_desciption    = N'Documentation snippet for Antora export documentation.'
-  , Parameter_default_value = Cast(N'
+  , Parameter_default_value = Concat (
+                                         Cast(N'' As NVarchar(Max))
+                                       , N'
 [discrete]
 === Prerequisites
 
@@ -613,9 +612,11 @@ Select
 *** template
 * uses `xp_cmdshell`, to call `bcp`, you need to enable:
 +
-====
+'
+                                       , '====
 [source,sql]
-----
+'
+                                       , '----
 --before executing the procedure:
 --Temporarily or permanently enable xp_cmdshell
 sp_configure ''show advanced options''
@@ -645,9 +646,12 @@ sp_configure ''show advanced options''
 
 RECONFIGURE
 GO
-----
-====
-' As NVarchar(Max))
+'
+                                       , '----
+'
+                                       , '====
+'
+                                     )
 
 Go
 Execute sp_addextendedproperty
@@ -725,7 +729,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'14E2E7E8-FB9
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* default parameter values are defined (hard coded) in xref:sqldb:config.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
+* default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
 * default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
 * resulting content is available in
 ** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
@@ -756,4 +760,12 @@ EXEC [config].[usp_init_parameter]', @level0type = N'SCHEMA', @level0name = N'co
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:config.usp_init_parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
 

@@ -765,8 +765,7 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [graph].[usp_PERSIST_Index]
-* [logs].[usp_ExecutionLog_insert]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
 * [repo].[ForeignKey_Indexes_union_T]
 * [repo].[Index_gross]
 * [repo].[Index_Settings]
@@ -776,6 +775,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [gr
 * [repo].[RepoObject]
 * [repo].[RepoObject_persistence]
 * [repo].[usp_Index_Settings]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
 
 
 GO
@@ -800,4 +801,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.usp_Index_Settings.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
 
 
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_finish';
 

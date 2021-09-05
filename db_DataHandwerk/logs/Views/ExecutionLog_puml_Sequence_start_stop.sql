@@ -58,7 +58,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b3f77
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[ExecutionLog_parent].[parent_proc_fullname]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'parent_proc_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog_parent].[parent_proc_fullname]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'parent_proc_fullname';
+
+
 
 
 GO
@@ -66,7 +68,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b2f77
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[ExecutionLog].[proc_fullname]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[proc_fullname]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+
+
 
 
 GO
@@ -133,4 +137,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[created_dt]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop', @level2type = N'COLUMN', @level2name = N'created_dt';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_puml_Sequence_start_stop';
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
 create the procedure sp_generate_merge in master database
 details: https://github.com/readyroll/generate-sql-merge
 
@@ -17,7 +17,7 @@ for sql_variant type the procedure generates wrong code:
 
 */
 
-Create Procedure [tool].usp_generate_merge
+CREATE Procedure [tool].usp_generate_merge
 As
 
 --issues with sql_variant
@@ -130,4 +130,12 @@ Execute sp_addextendedproperty
   , @level0name = N'tool'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_generate_merge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
 

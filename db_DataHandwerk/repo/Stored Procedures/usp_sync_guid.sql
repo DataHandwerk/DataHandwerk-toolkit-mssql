@@ -188,8 +188,11 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [lo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoObject_guid with dwh database extended properties "RepoObject_guid"
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoSchema_guid with dwh database extended properties "RepoObjectSchema_guid"
+* synchronizes RepoObject_guid with dwh database extended properties "RepoObject_guid"
 * synchronizes RepoObjectColumn_guid with dwh database extended properties "RepoObjectColumn_guid"', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
 
 
 GO
@@ -206,4 +209,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.usp_sync_guid_RepoObject.adoc[]
 * xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]
 * xref:repo.usp_sync_guid_RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
 

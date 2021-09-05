@@ -1,4 +1,4 @@
-
+﻿
 /*
 references on column level
 target: repo.RepoObjectSource_from_query_plan
@@ -339,4 +339,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:reference.RepoObject_QueryPlan.adoc[]
 * xref:repo.RepoObject.adoc[]
 * xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_update_SysObjectQueryPlan';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_update_SysObjectQueryPlan';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_update_SysObjectQueryPlan';
 

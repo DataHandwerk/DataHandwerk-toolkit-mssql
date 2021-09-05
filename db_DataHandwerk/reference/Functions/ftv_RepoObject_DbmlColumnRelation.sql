@@ -134,3 +134,11 @@ FROM [reference].[ftv_RepoObject_DbmlColumnRelation](@RepoObject_guid, 1, 1)
 ORDER BY [Referenced_Depth]
  , [Referencing_Depth]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_DbmlColumnRelation';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_DbmlColumnRelation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_DbmlColumnRelation';
+

@@ -560,12 +560,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b60747ec-8c
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
+* [logs].[usp_ExecutionLog_insert]
 * [repo].[RepoSchema]
 * [repo].[SysSchema_RepoSchema_via_guid]
 * [repo].[SysSchema_RepoSchema_via_name]
 * [repo_sys].[SysSchema]
 * [repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
 
 
 GO
@@ -727,4 +730,12 @@ delete objects, missing in SysSchemas
 |2110
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoSchema';
 

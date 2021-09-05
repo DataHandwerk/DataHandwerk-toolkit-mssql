@@ -19,6 +19,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9cb0b5f7-b004-ec11-8514-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'uq_additional_Reference';
 
@@ -97,4 +99,110 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a7f5b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a6f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'COLUMN', @level2name = N'referenced_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'uq_additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'uq_additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'PK_additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'PK_additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referencing_AntoraModul';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referencing_AntoraModul';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referencing_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referencing_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referenced_AntoraModul';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referenced_AntoraModul';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referenced_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'CONSTRAINT', @level2name = N'DF_additional_Reference_referenced_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'Id', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'9BB0B5F7-B004-EC11-8514-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.additional_Reference_guid.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[additional_Reference].[referenced_AntoraComponent]
+* [reference].[additional_Reference].[referenced_AntoraModul]
+* [reference].[additional_Reference].[referenced_Column]
+* [reference].[additional_Reference].[referenced_Object]
+* [reference].[additional_Reference].[referenced_Schema]
+* [reference].[additional_Reference].[referencing_AntoraComponent]
+* [reference].[additional_Reference].[referencing_AntoraModul]
+* [reference].[additional_Reference].[referencing_Column]
+* [reference].[additional_Reference].[referencing_Object]
+* [reference].[additional_Reference].[referencing_Schema]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'COLUMN', @level2name = N'tik_hash';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([binary](16),hashbytes(''MD5'',lower(concat(N'''',[referenced_AntoraModul],''|~|'',[referenced_Schema],''|~|'',[referenced_Object],''|~|'',[referenced_Column],''|~|'',[referencing_AntoraModul],''|~|'',[referencing_Schema],''|~|'',[referencing_Object],''|~|'',[referencing_Column],''|~|'')))))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'COLUMN', @level2name = N'tik_hash';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[additional_Reference].[referenced_AntoraComponent]
+* [reference].[additional_Reference].[referenced_AntoraModul]
+* [reference].[additional_Reference].[referenced_Column]
+* [reference].[additional_Reference].[referenced_Object]
+* [reference].[additional_Reference].[referenced_Schema]
+* [reference].[additional_Reference].[referencing_AntoraComponent]
+* [reference].[additional_Reference].[referencing_AntoraModul]
+* [reference].[additional_Reference].[referencing_Column]
+* [reference].[additional_Reference].[referencing_Object]
+* [reference].[additional_Reference].[referencing_Schema]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'COLUMN', @level2name = N'tik';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(N'''',[referenced_AntoraModul],''|~|'',[referenced_Schema],''|~|'',[referenced_Object],''|~|'',[referenced_Column],''|~|'',[referencing_AntoraModul],''|~|'',[referencing_Schema],''|~|'',[referencing_Object],''|~|'',[referencing_Column],''|~|''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'COLUMN', @level2name = N'tik';
 

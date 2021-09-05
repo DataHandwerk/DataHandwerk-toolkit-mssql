@@ -1,7 +1,10 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
-default content for table xref:sqldb:config.SsasDmvTableImport.adoc[] is defined in view xref:sqldb:configT.SsasDmvTableImport.adoc[] 
+obsolet
+
+defines, which SSAS DMV tables should be imported
 <<property_end>>
 
 <<property_start>>exampleUsage
@@ -24,7 +27,7 @@ When Not Matched By Target
              );
 <<property_end>>
 */
-Create   View configT.SsasDmvTableImport
+CREATE   View [configT].[SsasDmvTableImport]
 As
 --
 Select
@@ -166,4 +169,44 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'edc60
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'cfe6a70a-8a06-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+obsolet
+
+defines, which SSAS DMV tables should be imported', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+Merge config.SsasDmvTableImport As tgt
+Using configT.SsasDmvTableImport As src
+On tgt.DmvTableName = src.DmvTableName
+When Matched And tgt.isActive <> src.isActive
+    Then Update Set
+             isActive = src.isActive
+When Not Matched By Target
+    Then Insert
+         (
+             DmvTableName
+           , isActive
+         )
+         Values
+             (
+                 src.DmvTableName
+               , src.isActive
+             );', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:configT.SsasDmvTableImport_DmvColumnList.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport';
 

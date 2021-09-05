@@ -26,6 +26,8 @@ WITH (DATA_COMPRESSION = PAGE);
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'references on column level
 target: repo.RepoObjectSource_from_query_plan
@@ -108,7 +110,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '97f37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectSource_QueryPlan].[target_column_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_target_column_name_expression';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectSource_QueryPlan].[target_column_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_target_column_name_expression';
+
+
 
 
 GO
@@ -116,7 +120,9 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[RepoObjectSource_QueryPlan].[source_column_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectSource_QueryPlan].[source_column_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'COLUMN', @level2name = N'is_source_column_name_expression';
+
+
 
 
 GO
@@ -126,4 +132,20 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([b
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_reference_QueryPlan.adoc[]
 * xref:reference.usp_RepoObjectSource_QueryPlan.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_QueryPlan__RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_QueryPlan__RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_QueryPlan';
 

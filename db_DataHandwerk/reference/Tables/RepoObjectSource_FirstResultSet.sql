@@ -22,6 +22,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'references on column level
 target: repo.RepoObjectSource
@@ -107,4 +109,28 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'2E90291C-9D6
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObjectColumn_reference_FirstResultSet.adoc[]
 * xref:reference.usp_RepoObjectSource_FirstResultSet.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObjectSource_FirstResultSet';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObjectSource_FirstResultSet';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_FirstResultSet__RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectSource_FirstResultSet__RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet';
 

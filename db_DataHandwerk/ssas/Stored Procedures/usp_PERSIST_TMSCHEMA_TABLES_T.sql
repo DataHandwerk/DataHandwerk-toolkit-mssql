@@ -275,3 +275,66 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0c4559f6-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [ssas].[TMSCHEMA_TABLES]
+* [ssas].[TMSCHEMA_TABLES_T]', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [ssas].[usp_PERSIST_TMSCHEMA_TABLES_T]', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:ssas.TMSCHEMA_TABLES.adoc[]
+* xref:ssas.TMSCHEMA_TABLES_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [ssas].[usp_PERSIST_TMSCHEMA_TABLES_T]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|500
+|
+*delete persistence target missing in source*
+
+* D
+* [ssas].[TMSCHEMA_TABLES]
+* [ssas].[TMSCHEMA_TABLES_T]
+
+|
+
+|600
+|
+*update changed*
+
+* U
+* [ssas].[TMSCHEMA_TABLES]
+* [ssas].[TMSCHEMA_TABLES_T]
+
+|
+
+|700
+|
+*insert missing*
+
+* I
+* [ssas].[TMSCHEMA_TABLES]
+* [ssas].[TMSCHEMA_TABLES_T]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
+

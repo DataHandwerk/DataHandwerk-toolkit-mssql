@@ -413,3 +413,91 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'f1460ef5-1a0e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@Referenced_Depth int = 30
+,@Referencing_Depth int = 30', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [reference].[RepoObject_ReferenceTree]
+* [reference].[RepoObject_ReferencingReferenced]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [reference].[usp_RepoObject_ReferenceTree_insert]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.RepoObject_ReferenceTree.adoc[]
+* xref:reference.RepoObject_ReferencingReferenced.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [reference].[usp_RepoObject_ReferenceTree_insert]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|100
+|
+*declare variables*
+
+
+|
+
+|400
+|
+*Truncate Table reference.RepoObject_ReferenceTree*
+
+* D
+* [reference].[RepoObject_ReferenceTree]
+
+|
+
+|410
+|
+*initial data*
+
+* I
+* [reference].[RepoObject_ReferencingReferenced]
+* [reference].[RepoObject_ReferenceTree]
+
+|
+
+|510
+|
+*insert referenced*
+
+* I
+* [reference].[RepoObject_ReferencingReferenced]
+* [reference].[RepoObject_ReferenceTree]
+
+|
+
+|520
+|
+*insert referencing*
+
+* I
+* [reference].[RepoObject_ReferencingReferenced]
+* [reference].[RepoObject_ReferenceTree]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree_insert';
+

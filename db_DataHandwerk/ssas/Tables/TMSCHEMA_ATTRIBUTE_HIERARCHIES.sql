@@ -10,6 +10,8 @@
 );
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ebe6a70a-8a06-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES', @level2type = N'CONSTRAINT', @level2name = N'DF_TMSCHEMA_ATTRIBUTE_HIERARCHIES_database';
 
@@ -48,4 +50,40 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6ec70
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'eae6a70a-8a06-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES', @level2type = N'CONSTRAINT', @level2name = N'PK_TMSCHEMA_ATTRIBUTE_HIERARCHIES';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES', @level2type = N'CONSTRAINT', @level2name = N'PK_TMSCHEMA_ATTRIBUTE_HIERARCHIES';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES', @level2type = N'CONSTRAINT', @level2name = N'DF_TMSCHEMA_ATTRIBUTE_HIERARCHIES_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES', @level2type = N'CONSTRAINT', @level2name = N'DF_TMSCHEMA_ATTRIBUTE_HIERARCHIES_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'databasename,ID', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'nvarchar(128),numeric(20, 0)', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'ECE6A70A-8A06-EC11-8515-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'TMSCHEMA_ATTRIBUTE_HIERARCHIES';
 

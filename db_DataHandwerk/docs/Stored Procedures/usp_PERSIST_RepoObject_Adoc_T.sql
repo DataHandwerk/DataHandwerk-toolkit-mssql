@@ -105,12 +105,12 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',21,';',800,';',NULL);
 INSERT INTO 
  [docs].[RepoObject_Adoc_T]
  (
-  [RepoObject_guid]
-, [AdocContent]
+  [AdocContent]
 , [is_DocsOutput]
 , [PropertyCount]
 , [RepoObject_fullname]
 , [RepoObject_fullname2]
+, [RepoObject_guid]
 , [RepoObject_schema_name]
 , [SysObject_fullname]
 , [SysObject_fullname2]
@@ -119,12 +119,12 @@ INSERT INTO
 , [SysObject_type_name]
 )
 SELECT
-  [RepoObject_guid]
-, [AdocContent]
+  [AdocContent]
 , [is_DocsOutput]
 , [PropertyCount]
 , [RepoObject_fullname]
 , [RepoObject_fullname2]
+, [RepoObject_guid]
 , [RepoObject_schema_name]
 , [SysObject_fullname]
 , [SysObject_fullname2]
@@ -236,4 +236,12 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_Adoc_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_Adoc_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_Adoc_T';
 

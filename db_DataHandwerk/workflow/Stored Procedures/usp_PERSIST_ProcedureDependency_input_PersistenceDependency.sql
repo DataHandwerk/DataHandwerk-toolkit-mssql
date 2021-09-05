@@ -231,3 +231,70 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a164b404-96f7-eb11-850d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [workflow].[ProcedureDependency_input_PersistenceDependency]
+* [workflow].[ProcedureDependency_input_PersistenceDependency_S]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:workflow.usp_workflow.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:workflow.ProcedureDependency_input_PersistenceDependency.adoc[]
+* xref:workflow.ProcedureDependency_input_PersistenceDependency_S.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|500
+|
+*delete persistence target missing in source*
+
+* D
+* [workflow].[ProcedureDependency_input_PersistenceDependency_S]
+* [workflow].[ProcedureDependency_input_PersistenceDependency]
+
+|
+
+|600
+|
+*update changed*
+
+* U
+* [workflow].[ProcedureDependency_input_PersistenceDependency_S]
+* [workflow].[ProcedureDependency_input_PersistenceDependency]
+
+|
+
+|700
+|
+*insert missing*
+
+* I
+* [workflow].[ProcedureDependency_input_PersistenceDependency_S]
+* [workflow].[ProcedureDependency_input_PersistenceDependency]
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+

@@ -1168,7 +1168,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target table, based on a given persistence source (view or table)
+* create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target (table or view), based on a given persistence source (view or table)
 * create or update entries in xref:sqldb:repo.RepoObject_persistence.adoc[]
 ** default properties are used, defined in this table
 *** [is_persistence_truncate] = 1
@@ -1181,7 +1181,7 @@ TIP: see details for usage in xref:user-guide:persistence-generator.adoc[]
 .How does it work:
 --
 * insert or update xref:sqldb:repo.RepoObject_persistence.adoc[]
-** update existing RepoObject which should be a table and will be marked as persistence
+** update existing RepoObject which [.line-through]#should be a table and# will be marked as persistence
 ** create new RepoObject which will be a table and will be marked as persistence
 * persistence source
 ** uses @source_RepoObject_guid, if not empty
@@ -1238,6 +1238,8 @@ ORDER BY
 ** Use the sql statement in column [SqlCreateTable] to create the table
 * get the usp code in xref:sqldb:uspgenerator.GeneratorUsp_SqlUsp.adoc[] and execute it to create the persistence procedure
 --', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
 
 
 
@@ -1456,4 +1458,12 @@ Exec repo.[usp_persistence_set]
 
 
 
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
 

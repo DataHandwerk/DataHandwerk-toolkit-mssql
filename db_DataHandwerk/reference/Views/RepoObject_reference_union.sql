@@ -270,9 +270,13 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'one';
 Go
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_persistence]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_additional_internal]
+* [reference].[RepoObject_reference_persistence]
+* [reference].[RepoObject_reference_persistence_target_as_source]
 * [reference].[RepoObject_reference_SqlExpressionDependencies]
 * [reference].[RepoObject_reference_virtual]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union';
+
+
 
 
 GO
@@ -296,7 +300,19 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_reference_persistence.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_reference_additional_internal.adoc[]
+* xref:reference.RepoObject_reference_persistence.adoc[]
+* xref:reference.RepoObject_reference_persistence_target_as_source.adoc[]
 * xref:reference.RepoObject_reference_SqlExpressionDependencies.adoc[]
 * xref:reference.RepoObject_reference_virtual.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_union';
 

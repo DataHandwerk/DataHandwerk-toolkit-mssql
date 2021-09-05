@@ -175,10 +175,14 @@ Execute sp_addextendedproperty
   , @level2type = N'COLUMN'
   , @level2name = N'IndexPatternColumnGuid';
 Go
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[Index_unique_IndexPatternColumnGuid]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[Index_ssas_IndexPatternColumnGuid]
+* [repo].[Index_ssas_T]
+* [repo].[Index_unique_IndexPatternColumnGuid]
 * [repo].[Index_virtual]
 * [repo].[Index_virtual_IndexPatternColumnGuid]
 * [repo_sys].[Index_unique]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_union';
+
+
 
 
 GO
@@ -210,8 +214,20 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.Index_unique_IndexPatternColumnGuid.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.Index_ssas_IndexPatternColumnGuid.adoc[]
+* xref:repo.Index_ssas_T.adoc[]
+* xref:repo.Index_unique_IndexPatternColumnGuid.adoc[]
 * xref:repo.Index_virtual.adoc[]
 * xref:repo.Index_virtual_IndexPatternColumnGuid.adoc[]
 * xref:repo_sys.Index_unique.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_union';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_union';
 

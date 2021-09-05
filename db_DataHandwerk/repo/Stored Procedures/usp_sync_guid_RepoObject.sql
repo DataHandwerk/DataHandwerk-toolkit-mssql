@@ -356,7 +356,7 @@ EXEC logs.usp_ExecutionLog_insert
 -- Logging END --
 
 /*{"ReportUspStep":[{"Number":700,"Name":"[repo].[RepoObject_RequiredRepoObjectMerge]","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]"}]}*/
-IF (SELECT COUNT(*) FROM [repo].[RepoObject_RequiredRepoObjectMerge]) > 1
+IF (SELECT COUNT(*) FROM [repo].[RepoObject_RequiredRepoObjectMerge]) >= 1
 
 /*{"ReportUspStep":[{"Number":710,"Parent_Number":700,"Name":"merge RepoObject","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]"}]}*/
 BEGIN
@@ -1095,10 +1095,8 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type_level1type_level2type]
-* [graph].[RepoObject]
-* [graph].[RepoObject_S]
-* [graph].[usp_PERSIST_RepoObject]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
+* [configT].[type_level1type_level2type]
 * [logs].[usp_ExecutionLog_insert]
 * [reference].[RepoObjectSource_virtual]
 * [repo].[RepoObject]
@@ -1108,6 +1106,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 * [repo].[SysObject_RepoObject_via_name]
 * [repo_sys].[SysObject]
 * [repo_sys].[usp_AddOrUpdateExtendedProperty]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
 
 
 GO
@@ -1125,9 +1125,6 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.fs_get_parameter_value.adoc[]
 * xref:configT.type_level1type_level2type.adoc[]
-* xref:graph.RepoObject.adoc[]
-* xref:graph.RepoObject_S.adoc[]
-* xref:graph.usp_PERSIST_RepoObject.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]
 * xref:reference.RepoObjectSource_virtual.adoc[]
 * xref:repo.RepoObject.adoc[]
@@ -1137,4 +1134,14 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.SysObject_RepoObject_via_name.adoc[]
 * xref:repo_sys.SysObject.adoc[]
 * xref:repo_sys.usp_AddOrUpdateExtendedProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObject';
 

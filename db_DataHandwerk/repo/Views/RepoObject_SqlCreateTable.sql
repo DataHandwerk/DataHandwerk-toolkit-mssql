@@ -410,13 +410,16 @@ Execute sp_addextendedproperty
   , @level2name = N'persistence_source_RepoObject_fullname';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_get_parameter_value]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_dwh_database]
+* [config].[ftv_get_parameter_value]
 * [repo].[Index_gross]
 * [repo].[Index_SqlConstraint_PkUq]
 * [repo].[RepoObject]
 * [repo].[RepoObject_ColumnList]
 * [repo].[RepoObject_gross]
 * [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
 
 
 GO
@@ -468,4 +471,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.RepoObject_ColumnList.adoc[]
 * xref:repo.RepoObject_gross.adoc[]
 * xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SqlCreateTable';
 

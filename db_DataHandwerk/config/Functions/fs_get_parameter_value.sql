@@ -38,7 +38,9 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
 * xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
 * xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
+* xref:docs.usp_AntoraExport_ObjectRefCyclic.adoc[]
 * xref:docs.usp_AntoraExport_Page_IndexSemanticGroup.adoc[]
+* xref:reference.additional_Reference_guid.adoc[]
 * xref:repo.usp_main.adoc[]
 * xref:repo.usp_RepoObjectColumn_update_RepoObjectColumn_column_id.adoc[]
 * xref:repo.usp_sync_guid_RepoObject.adoc[]
@@ -46,6 +48,16 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:repo.usp_sync_guid_RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'fs_get_parameter_value';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'fs_get_parameter_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'fs_get_parameter_value';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'FUNCTION', @level1name = N'fs_get_parameter_value';
 

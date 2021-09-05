@@ -343,24 +343,33 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bd24df58-0b
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
 * [property].[RepoObjectProperty]
-* [property].[RepoObjectProperty]
 * [property].[RepoObjectProperty_Collect_source_ROGross]
 * [property].[RepoObjectProperty_Collect_source_sql_modules_definition]
 * [property].[RepoObjectProperty_Collect_source_uspgenerator]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'collects the content for RepoObjectProperty from several sources:
-* [repo].[GeneratorUsp_SqlUsp]
-* [repo].[RepoObject_gross]
-** Persistence
+
+* xref:uspgenerator.GeneratorUsp.adoc[] +
+via xref:property.RepoObjectProperty_Collect_source_uspgenerator.adoc[]
+* xref:repo.RepoObject_gross.adoc[] +
+via xref:property.RepoObjectProperty_Collect_source_ROGross.adoc[]
+** Persistence attributes
+** AntoraReferenceLists
 ** some common properties
-* [repo].[RepoObjectProperty_from_sql_modules_definition] +
+* xref:property.RepoObjectProperty_Collect_source_sql_modules_definition.adoc[] +
 this parses sql_modules_definition for tagged parts defining extended properties', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
 
 
+
+
 GO
-EXECUTE sp_addextendedproperty @name = N'has_get_referenced_issue', @value = 1, @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+EXECUTE sp_addextendedproperty @name = N'has_get_referenced_issue', @value = N'1', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
 
 
 GO
@@ -426,4 +435,12 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [pr
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
 

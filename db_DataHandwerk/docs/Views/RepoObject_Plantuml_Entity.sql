@@ -1,5 +1,4 @@
 ﻿
-
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -7,7 +6,7 @@ to be used in composed PlantUML diagrams
 you need to persist:
 EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
 */
-CREATE View [docs].[RepoObject_Plantuml_Entity]
+CREATE View docs.RepoObject_Plantuml_Entity
 As
 Select
     ro.RepoObject_guid
@@ -93,14 +92,14 @@ Select
   , ro.RepoObject_fullname2
   , ro.RepoObject_schema_name
 From
-    docs.RepoObject_OutputFilter    As ro
+    docs.RepoObject_OutputFilter     As ro
     Left Join
-        docs.RepoObject_ColumnList  As collist
+        docs.RepoObject_ColumnList_T As collist
             On
             collist.RepoObject_guid   = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_IndexList_T As indexlist
+        docs.RepoObject_IndexList_T  As indexlist
             On
             indexlist.RepoObject_guid = ro.RepoObject_guid
 Go
@@ -160,9 +159,12 @@ Execute sp_addextendedproperty
   , @level2name = N'RepoObject_Puml';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[RepoObject_ColumnList]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[B8E5CA9C-A1BC-41C6-BFFB-02F3F3D964B6]
+* [docs].[fs_cleanStringForPuml]
 * [docs].[RepoObject_IndexList_T]
 * [docs].[RepoObject_OutputFilter]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity';
+
+
 
 
 GO
@@ -187,9 +189,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.RepoObject_ColumnList.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.fs_cleanStringForPuml.adoc[]
+* xref:docs.RepoObject_ColumnList_T.adoc[]
 * xref:docs.RepoObject_IndexList_T.adoc[]
 * xref:docs.RepoObject_OutputFilter.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity';
+
+
 
 
 GO
@@ -210,4 +215,24 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f0457
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '736ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_schema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [docs].[RepoObject_OutputFilter].[RepoObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_schema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [docs].[RepoObject_OutputFilter].[RepoObject_fullname2]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat([RepoObject_schema_name],''.'',[RepoObject_name]))', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 

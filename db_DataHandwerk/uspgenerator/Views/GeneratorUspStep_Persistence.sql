@@ -609,7 +609,10 @@ Execute sp_addextendedproperty
 Go
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[Index_ColumList]
 * [repo].[RepoObject_gross]
+* [repo].[RepoObject_gross2]
 * [uspgenerator].[GeneratorUsp]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+
+
 
 
 GO
@@ -635,5 +638,23 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.Index_ColumList.adoc[]
 * xref:repo.RepoObject_gross.adoc[]
+* xref:repo.RepoObject_gross2.adoc[]
 * xref:uspgenerator.GeneratorUsp.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence.adoc[] creates all possible steps for GeneratorUspStep
+* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[] determines which steps should be activated based on settings in xref:sqldb:repo.RepoObject_persistence.adoc[]
+* xref:sqldb:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[] uses these views', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
 

@@ -65,6 +65,8 @@
 
 
 
+
+
 GO
 
 
@@ -266,8 +268,10 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0bf37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'[repo].[ExecutionLog].[proc_name]
-[repo].[ExecutionLog].[proc_schema_name]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[proc_name]
+* [logs].[ExecutionLog].[proc_schema_name]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+
+
 
 
 GO
@@ -304,4 +308,20 @@ CREATE CLUSTERED COLUMNSTORE INDEX [CSI_logs_ExecutionLog]
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a064b404-96f7-eb11-850d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'uq_ExecutionLog';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'uq_ExecutionLog';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'uq_ExecutionLog';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog';
 

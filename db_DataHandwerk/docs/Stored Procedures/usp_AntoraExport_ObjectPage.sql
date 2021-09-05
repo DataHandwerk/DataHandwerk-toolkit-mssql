@@ -225,7 +225,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* exported object types are defined in the view xref:config.type.adoc[]
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* exported object types are defined in the view xref:configT.type.adoc[]
 +
 ....
 SELECT [type]
@@ -235,7 +235,7 @@ FROM [config].[type]
 WHERE [is_DocsOutput] = 1
 order by [type_desc] desc
 ....
-* source pages per object are exported into (AntoraDocModulFolder)``pages/schemaname.objectname.adoc``
+* source pages per object are exported into (AntoraModulFolder)``/``(AntoraModulName)``/pages/schemaname.objectname.adoc``
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPage.adoc[]
 ** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
  the default content is (real code without leading ''/''):
@@ -251,6 +251,8 @@ order by [type_desc] desc
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
 
 
 GO
@@ -304,4 +306,12 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
 

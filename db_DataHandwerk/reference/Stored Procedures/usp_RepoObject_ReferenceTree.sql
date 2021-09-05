@@ -121,3 +121,52 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ab66a0a8-e3fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]
+* [reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [reference].[usp_RepoObject_ReferenceTree]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_0_30_T.adoc[]
+* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_30_0_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [reference].[usp_RepoObject_ReferenceTree]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|210
+|
+*[reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]*
+
+* `EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]`
+
+|
+
+|220
+|
+*[reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]*
+
+* `EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]`
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
+

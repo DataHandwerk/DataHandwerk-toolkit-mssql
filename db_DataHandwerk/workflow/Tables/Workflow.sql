@@ -12,6 +12,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7434cb25-1e66-eb11-84dd-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow', @level2type = N'CONSTRAINT', @level2name = N'DF_Workflow_is_active';
 
@@ -58,4 +60,38 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'7034CB25-1E6
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e266a0a8-e3fa-eb11-850e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow', @level2type = N'COLUMN', @level2name = N'Package_Biml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow', @level2type = N'CONSTRAINT', @level2name = N'PK_Workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow', @level2type = N'CONSTRAINT', @level2name = N'PK_Workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow', @level2type = N'CONSTRAINT', @level2name = N'DF_Workflow_is_active';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow', @level2type = N'CONSTRAINT', @level2name = N'DF_Workflow_is_active';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:workflow.Biml_Package.adoc[]
+* xref:workflow.Workflow_ProcedureDependency.adoc[]
+* xref:workflow.Workflow_ProcedureDependency_all.adoc[]
+* xref:workflow.Workflow_UspList.adoc[]
+* xref:workflow.WorkflowStep_active.adoc[]
+* xref:workflow.WorkflowStep_ForUpdate.adoc[]
+* xref:workflow.WorkflowStep_S.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow';
 

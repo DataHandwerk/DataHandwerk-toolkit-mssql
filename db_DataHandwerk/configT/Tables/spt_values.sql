@@ -7,6 +7,8 @@
     [status] INT           NULL
 );
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3090291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values';
 
@@ -51,4 +53,12 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:configT.numbers_0_2047.adoc[]
 * xref:configT.type.adoc[]
 * xref:configT.usp_init_spt_values.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values';
 

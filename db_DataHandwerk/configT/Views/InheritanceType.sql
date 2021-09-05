@@ -106,3 +106,11 @@ EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value 
 GO
 EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'596C57BA-FB95-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'InheritanceType';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'InheritanceType';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'InheritanceType';
+

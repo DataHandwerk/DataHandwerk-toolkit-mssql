@@ -71,9 +71,11 @@ GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
 * extracts properties from sql_modules_definition
 * properties can be added (normally in comments) following this syntax
-** use one line to mark the starting point for parsing: `<<property_start>>abcde` markes the property_name `abcde`
-** use one line to mark the end point: `<<property_end>>`
+** use one line to mark the starting point for parsing: `\<<property_start>>abcde` markes the property_name `abcde`
+** use one line to mark the end point: `\<<property_end>>`
 * The correct sequence must be followed. Nested parsing is not supported.', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition';
+
+
 
 
 GO
@@ -87,4 +89,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules_Repo_Sys].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition';
 

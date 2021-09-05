@@ -660,23 +660,28 @@ EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDirPa
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[fs_get_parameter_value]
-* [config].[type]
+* [configT].[type]
 * [docs].[AntoraNavListRepoObject_by_schema]
 * [docs].[AntoraNavListRepoObject_by_schema_type]
 * [docs].[AntoraNavListRepoObject_by_type]
 * [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'https://antora.org/[Antora] uses https://docs.antora.org/antora/2.3/navigation/files-and-lists/[Navigation Files and Lists]. Content for these files is exported
 
-* check and correct xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraDocModulFolder'', ''''), a possible parameter is
+* check and correct xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraModulFolder'', ''''), a possible parameter is
 +
 ====
-D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules\sqldb====
+D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules
+====
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
+
+
 
 
 
@@ -807,4 +812,12 @@ nav-by-type.adoc
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
 

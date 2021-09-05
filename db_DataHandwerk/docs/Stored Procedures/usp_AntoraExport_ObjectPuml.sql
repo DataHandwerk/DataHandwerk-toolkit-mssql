@@ -962,9 +962,16 @@ EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDir N
 ,@outputDir3 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_fk\ */
 ,@outputDir4 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_0_30_objectref\ */
 ,@outputDir5 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_30_0_objectref\ */
+,@outputDir6 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+,@outputDir7 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+,@outputDir8 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+,@outputDir9 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+,@outputDir10 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
 ,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
 ,@userName NVARCHAR(250) = ''loginName'' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
 ,@password NVARCHAR(250) = ''password''', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
 
 
 GO
@@ -973,16 +980,19 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 * [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
 * [docs].[usp_PERSIST_RepoObject_Plantuml_T]
 * [logs].[usp_ExecutionLog_insert]
-* [reference].[usp_PERSIST_RepoObject_referenced_level_T]
-* [reference].[usp_PERSIST_RepoObject_referencing_level_T]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+* [repo].[RepoSchema]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
-** individual diagrams per object are exported into (AntoraDocModulFolder)``partials/puml/``
+** individual diagrams per object are exported into (AntoraModulFolder)``/``(AntoraModulName)``/partials/puml/``
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
 
 
 GO
@@ -999,8 +1009,9 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:docs.usp_PERSIST_RepoObject_Plantuml_Entity_T.adoc[]
 * xref:docs.usp_PERSIST_RepoObject_Plantuml_T.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]
-* xref:reference.usp_PERSIST_RepoObject_referenced_level_T.adoc[]
-* xref:reference.usp_PERSIST_RepoObject_referencing_level_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+* xref:repo.RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
 
 
 GO
@@ -1018,7 +1029,7 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 |120
 |
-*configure outputDir, outputDir2, outputDir3, outputDir4, outputDir5*
+*configure outputDirs*
 
 
 |
@@ -1027,22 +1038,6 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 |
 *declare variables*
 
-
-|
-
-|310
-|
-*[reference].[usp_PERSIST_RepoObject_referenced_level_T]*
-
-* `EXEC [reference].[usp_PERSIST_RepoObject_referenced_level_T]`
-
-|
-
-|320
-|
-*[reference].[usp_PERSIST_RepoObject_referencing_level_T]*
-
-* `EXEC [reference].[usp_PERSIST_RepoObject_referencing_level_T]`
 
 |
 
@@ -1062,24 +1057,6 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 |
 
-|410
-|
-*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ColRef]*
-
-* u
-* [docs].[RepoObject_Plantuml_T]
-
-|
-
-|420
-|
-*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ObjectRef]*
-
-* u
-* [docs].[RepoObject_Plantuml_T]
-
-|
-
 |430
 |
 *export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_FkRef]*
@@ -1089,23 +1066,104 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 |
 
-|440
+|500
+|
+*(select config.fs_get_parameter_value ( ''sync enable'', ''dwh'' )) = 1*
+
+* `IF (select config.fs_get_parameter_value ( ''sync enable'', ''dwh'' )) = 1`
+
+|
+
+|510
 |
 *export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_0_30_ObjectRef]*
 
 * u
 * [docs].[RepoObject_Plantuml_T]
 
-|
+|500
 
-|450
+|520
 |
 *export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_30_0_ObjectRef]*
 
 * u
 * [docs].[RepoObject_Plantuml_T]
 
+|510
+
+|530
+|
+*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ObjectRef]*
+
+* u
+* [docs].[RepoObject_Plantuml_T]
+
+|520
+
+|540
+|
+*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ColRef]*
+
+* u
+* [docs].[RepoObject_Plantuml_T]
+
+|530
+
+|610
+|
+*export FROM [docs].[Schema_puml] [PumlSchemaSsasEr]*
+
+* u
+* [docs].[Schema_puml]
+
+|
+
+|710
+|
+*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_Puml]*
+
+* u
+* [docs].[RepoObject_Plantuml_Entity_T]
+
+|
+
+|720
+|
+*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_PumlOnlyPK]*
+
+* u
+* [docs].[RepoObject_Plantuml_Entity_T]
+
+|
+
+|730
+|
+*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_PumlOnlyPkOrIndex]*
+
+* u
+* [docs].[RepoObject_Plantuml_Entity_T]
+
+|
+
+|740
+|
+*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_PumlOnlyPkOrNotHidden]*
+
+* u
+* [docs].[RepoObject_Plantuml_Entity_T]
+
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 

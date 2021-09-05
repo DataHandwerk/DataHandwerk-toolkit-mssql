@@ -118,59 +118,29 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo_sys].[ExtendedProperties].[SysObject_schema_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'property'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_sys_repo'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObject_schema_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo_sys].[ExtendedProperties].[SysObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo', @level2type = N'COLUMN', @level2name = N'SysObject_schema_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo_sys].[ExtendedProperties].[SysObject_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'property'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_sys_repo'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObject_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo_sys].[ExtendedProperties].[SysObject_name]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo', @level2type = N'COLUMN', @level2name = N'SysObject_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'property'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_sys_repo'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo_sys].[ExtendedProperties].[property_value]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'property'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_sys_repo'
-  , @level2type = N'COLUMN'
-  , @level2name = N'property_value';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo_sys].[ExtendedProperties].[property_value]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo', @level2type = N'COLUMN', @level2name = N'property_value';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo_sys].[ExtendedProperties].[property_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'property'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectProperty_sys_repo'
-  , @level2type = N'COLUMN'
-  , @level2name = N'property_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo_sys].[ExtendedProperties].[property_name]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo', @level2type = N'COLUMN', @level2name = N'property_name';
+
+
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [property].[RepoObjectProperty]
@@ -202,4 +172,12 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:property.RepoObjectProperty.adoc[]
 * xref:repo.RepoObject.adoc[]
 * xref:repo_sys.ExtendedProperties.adoc[]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo';
 

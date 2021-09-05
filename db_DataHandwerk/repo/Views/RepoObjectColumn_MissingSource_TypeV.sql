@@ -389,15 +389,9 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[SysObjectColumn_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObjectColumn_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[SysObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_name';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -412,15 +406,9 @@ if it not exists in the database, the RepoObject_guid or any other guid is used,
   , @level2name = N'SysObjectColumn_name';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[SysObjectColumn_column_id]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObjectColumn_column_id';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[SysObjectColumn_column_id]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_column_id';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -435,15 +423,9 @@ Column IDs might not be sequential.'
   , @level2name = N'SysObjectColumn_column_id';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[SysObject_fullname]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObject_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[SysObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'SysObject_fullname';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -457,15 +439,9 @@ Execute sp_addextendedproperty
   , @level2name = N'SysObject_fullname';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[RepoObjectColumn_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObjectColumn_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -479,37 +455,19 @@ Execute sp_addextendedproperty
   , @level2name = N'RepoObjectColumn_name';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[RepoObjectColumn_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObjectColumn_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject].[RepoObject_fullname]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -523,114 +481,54 @@ Execute sp_addextendedproperty
   , @level2name = N'RepoObject_fullname';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_uses_database_collation]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_uses_database_collation';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_uses_database_collation]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_uses_database_collation';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_user_type_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_user_type_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_user_type_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_user_type_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_user_type_fullname]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_user_type_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_user_type_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_user_type_fullname';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_seed_value]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_seed_value';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_seed_value]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_seed_value';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_is_persisted]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_is_persisted';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_is_persisted]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_is_persisted';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_is_nullable]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_is_nullable';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_is_nullable]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_is_nullable';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_is_identity]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_is_identity';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_is_identity]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_is_identity';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_is_computed]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_is_computed';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_is_computed]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_is_computed';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_increment_value]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_increment_value';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_increment_value]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_increment_value';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_graph_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_graph_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_graph_type]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_graph_type';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -664,15 +562,9 @@ Column Value	Description
   , @level2name = N'Repo_graph_type';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_generated_always_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_generated_always_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_generated_always_type]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_generated_always_type';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -691,81 +583,39 @@ For more information, see Temporal Tables (Relational databases).'
   , @level2name = N'Repo_generated_always_type';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_definition]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_definition';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_definition]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_definition';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_default_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_default_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_default_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_default_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_default_is_system_named]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_default_is_system_named';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_default_is_system_named]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_default_is_system_named';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Repo_default_definition]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Repo_default_definition';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_default_definition]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Repo_default_definition';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[Referencing_Count]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Referencing_Count';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Referencing_Count]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'Referencing_Count';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[persistence_source_RepoObjectColumn_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'persistence_source_RepoObjectColumn_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[persistence_source_RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObjectColumn_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[is_SysObjectColumn_name_uniqueidentifier]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_SysObjectColumn_name_uniqueidentifier';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[is_SysObjectColumn_name_uniqueidentifier]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'is_SysObjectColumn_name_uniqueidentifier';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -779,26 +629,14 @@ Execute sp_addextendedproperty
   , @level2name = N'is_SysObjectColumn_name_uniqueidentifier';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[is_SysObjectColumn_missing]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_SysObjectColumn_missing';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[is_SysObjectColumn_missing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'is_SysObjectColumn_missing';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[is_RepoObjectColumn_name_uniqueidentifier]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_RepoObjectColumn_name_uniqueidentifier';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[is_RepoObjectColumn_name_uniqueidentifier]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'is_RepoObjectColumn_name_uniqueidentifier';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -812,26 +650,14 @@ Execute sp_addextendedproperty
   , @level2name = N'is_RepoObjectColumn_name_uniqueidentifier';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[is_query_plan_expression]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_query_plan_expression';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[is_query_plan_expression]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'is_query_plan_expression';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn].[has_different_sys_names]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_MissingSource_TypeV'
-  , @level2type = N'COLUMN'
-  , @level2name = N'has_different_sys_names';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[has_different_sys_names]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV', @level2type = N'COLUMN', @level2name = N'has_different_sys_names';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -845,9 +671,11 @@ Execute sp_addextendedproperty
   , @level2name = N'has_different_sys_names';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObjectColumn_reference_union]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObjectColumn_reference_T]
 * [repo].[RepoObject]
 * [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV';
+
+
 
 
 GO
@@ -870,4 +698,12 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObjectColumn_reference_T.adoc[]
 * xref:repo.RepoObject.adoc[]
 * xref:repo.RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_MissingSource_TypeV';
 

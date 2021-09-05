@@ -181,3 +181,121 @@ END
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '9350ddf7-2b07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [repo].[usp_PERSIST_Index_ssas_T]
+* [repo].[usp_PERSIST_IndexColumn_ssas_T]
+* [repo].[usp_PERSIST_RepoObject_SSAS_tgt]
+* [repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]
+* [repo].[usp_PERSIST_RepoSchema_ssas_tgt]
+* [ssas].[usp_PERSIST_model_json_31_tables_T]
+* [ssas].[usp_PERSIST_model_json_311_tables_columns_T]
+* [ssas].[usp_PERSIST_model_json_32_relationships_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes [repo].[RepoSchema], [repo].[RepoObject], [repo].[RepoObjectColumn] with ssas-tabular metadata in schem ssas
+* ssas databasename is used as RepoSchema_name', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [repo].[usp_sync_guid_ssas]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:repo.usp_main.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
+* xref:repo.usp_PERSIST_Index_ssas_T.adoc[]
+* xref:repo.usp_PERSIST_IndexColumn_ssas_T.adoc[]
+* xref:repo.usp_PERSIST_RepoObject_SSAS_tgt.adoc[]
+* xref:repo.usp_PERSIST_RepoObjectColumn_SSAS_tgt.adoc[]
+* xref:repo.usp_PERSIST_RepoSchema_ssas_tgt.adoc[]
+* xref:ssas.usp_PERSIST_model_json_31_tables_T.adoc[]
+* xref:ssas.usp_PERSIST_model_json_311_tables_columns_T.adoc[]
+* xref:ssas.usp_PERSIST_model_json_32_relationships_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [repo].[usp_sync_guid_ssas]
+[cols="d,15a,d"]
+|===
+|Number|Name (Action, Source, Target)|Parent
+
+|310
+|
+*[ssas].[usp_PERSIST_model_json_31_tables_T]*
+
+* `EXEC [ssas].[usp_PERSIST_model_json_31_tables_T]`
+
+|
+
+|320
+|
+*[ssas].[usp_PERSIST_model_json_311_tables_columns_T]*
+
+* `EXEC [ssas].[usp_PERSIST_model_json_311_tables_columns_T]`
+
+|
+
+|330
+|
+*[ssas].[usp_PERSIST_model_json_32_relationships_T]*
+
+* `EXEC [ssas].[usp_PERSIST_model_json_32_relationships_T]`
+
+|
+
+|1000
+|
+*[repo].[usp_PERSIST_RepoSchema_ssas_tgt]*
+
+* `EXEC [repo].[usp_PERSIST_RepoSchema_ssas_tgt]`
+
+|
+
+|2000
+|
+*[repo].[usp_PERSIST_RepoObject_SSAS_tgt]*
+
+* `EXEC [repo].[usp_PERSIST_RepoObject_SSAS_tgt]`
+
+|
+
+|3000
+|
+*[repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]*
+
+* `EXEC [repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]`
+
+|
+
+|4010
+|
+*[repo].[usp_PERSIST_Index_ssas_T]*
+
+* `EXEC [repo].[usp_PERSIST_Index_ssas_T]`
+
+|
+
+|4020
+|
+*[repo].[usp_PERSIST_IndexColumn_ssas_T]*
+
+* `EXEC [repo].[usp_PERSIST_IndexColumn_ssas_T]`
+
+|
+|===
+', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+

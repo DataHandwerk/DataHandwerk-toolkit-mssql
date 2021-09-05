@@ -285,3 +285,11 @@ from
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.ftv_ExecutionLog_puml_tree.adoc[]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree_per_execution';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree_per_execution';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree_per_execution';
+

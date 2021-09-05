@@ -1,11 +1,12 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
-Mappping from xref:repo_sys.type.adoc[] (used in [type] in system catalog views)
+Mappping from xref:configT.type.adoc[] (used in [type] in system catalog views)
 to `level1type` (used in sp_addextendedproperty, sp_updateextendedproperty) 
 <<property_end>>
 */
-CREATE View configT.type_level1type_level2type
+CREATE View [configT].[type_level1type_level2type]
 --WITH SCHEMABINDING
 As
 --
@@ -128,7 +129,9 @@ Execute sp_addextendedproperty
 
 
 Go
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [configT].[type]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
 
 
 GO
@@ -162,5 +165,21 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[type].[type_desc]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type', @level2type = N'COLUMN', @level2name = N'type_desc';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [configT].[type].[type_desc]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type', @level2type = N'COLUMN', @level2name = N'type_desc';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+Mappping from xref:configT.type.adoc[] (used in [type] in system catalog views)
+to `level1type` (used in sp_addextendedproperty, sp_updateextendedproperty) ', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
 

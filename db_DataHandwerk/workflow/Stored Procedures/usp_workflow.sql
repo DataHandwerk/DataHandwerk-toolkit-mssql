@@ -275,8 +275,17 @@ EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [workflo
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:logs.usp_ExecutionLog_insert.adoc[]
-* xref:reference.Persistence.adoc[]
-* xref:workflow.ProcedureDependency.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
+* xref:workflow.usp_PERSIST_ProcedureDependency_input_PersistenceDependency.adoc[]
+* xref:workflow.usp_PERSIST_Workflow_ProcedureDependency_T.adoc[]
+* xref:workflow.usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T.adoc[]
+* xref:workflow.usp_PERSIST_WorkflowStep.adoc[]
+* xref:workflow.Workflow_ProcedureDependency_T.adoc[]
+* xref:workflow.Workflow_ProcedureDependency_T_NotInSortorder.adoc[]
+* xref:workflow.Workflow_ProcedureDependency_T_redundant.adoc[]
+* xref:workflow.WorkflowStep_active.adoc[]
+* xref:workflow.WorkflowStep_Sortorder.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
+
+
 
 
 GO
@@ -285,15 +294,84 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 |===
 |Number|Name (Action, Source, Target)|Parent
 
-|3110
+|210
 |
-*Merge Into [workflow].[ProcedureDependency] (Persistence)*
+*[workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]*
+
+* `EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]`
+* u
+
+|
+
+|220
+|
+*[workflow].[usp_PERSIST_WorkflowStep]*
+
+* `EXEC [workflow].[usp_PERSIST_WorkflowStep]`
+* u
+
+|
+
+|310
+|
+*[workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]*
+
+* `EXEC [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]`
+* u
+
+|
+
+|330
+|
+*[workflow].[usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T]*
+
+* `EXEC [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T]`
+* u
+
+|
+
+|410
+|
+*workflow.Workflow_ProcedureDependency_T: iterative update, set is_redundant = 1*
 
 * u
-* [reference].[Persistence]
-* [workflow].[ProcedureDependency]
+* [workflow].[Workflow_ProcedureDependency_T]
+* [workflow].[Workflow_ProcedureDependency_T]
+
+|
+
+|510
+|
+*fill [workflow].[WorkflowStep_Sortorder]*
+
+* u
+* [workflow].[WorkflowStep_active]
+* [workflow].[WorkflowStep_Sortorder]
 
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [logs].[usp_ExecutionLog_insert]
+* [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
+* [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]
+* [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T]
+* [workflow].[usp_PERSIST_WorkflowStep]
+* [workflow].[Workflow_ProcedureDependency_T]
+* [workflow].[Workflow_ProcedureDependency_T_NotInSortorder]
+* [workflow].[Workflow_ProcedureDependency_T_redundant]
+* [workflow].[WorkflowStep_active]
+* [workflow].[WorkflowStep_Sortorder]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
 

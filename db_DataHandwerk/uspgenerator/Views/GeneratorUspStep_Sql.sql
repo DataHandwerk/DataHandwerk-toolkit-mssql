@@ -1,5 +1,4 @@
 ﻿
-
 /*
 --usage:
 
@@ -87,8 +86,19 @@ Select
                               , Null)
                         , Char ( 13 ) + Char ( 10 )
                         , Char ( 13 ) + Char ( 10 ) + step.Description + Char ( 13 ) + Char ( 10 )
+                        , Char ( 13 ) + Char ( 10 )
+                        , '.Statement' + Char ( 13 ) + Char ( 10 )
+                        , '[%collapsible]' + Char ( 13 ) + Char ( 10 )
+                        , '=====' + Char ( 13 ) + Char ( 10 )
+                        , '[source,sql]' + Char ( 13 ) + Char ( 10 )
+                        , '----' + Char ( 13 ) + Char ( 10 )
+                        , step.Statement + Char ( 13 ) + Char ( 10 )
+                        , '----' + Char ( 13 ) + Char ( 10 )
+                        , '=====' + Char ( 13 ) + Char ( 10 )
+                        , Char ( 13 ) + Char ( 10 )
                         , '|'
                         , step.Parent_Number
+                        , Char ( 13 ) + Char ( 10 )
                         , Char ( 13 ) + Char ( 10 )
                       )
 From
@@ -240,15 +250,9 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[GeneratorUsp].[usp_fullname]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'uspgenerator'
-  , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Sql'
-  , @level2type = N'COLUMN'
-  , @level2name = N'usp_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [uspgenerator].[GeneratorUsp].[usp_fullname]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'usp_fullname';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -262,15 +266,9 @@ Execute sp_addextendedproperty
   , @level2name = N'usp_fullname';
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[GeneratorUsp].[has_logging]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'uspgenerator'
-  , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Sql'
-  , @level2type = N'COLUMN'
-  , @level2name = N'has_logging';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [uspgenerator].[GeneratorUsp].[has_logging]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'has_logging';
+
+
 Go
 
 Execute sp_addextendedproperty
@@ -319,4 +317,16 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:uspgenerator.ftv_GeneratorUspStep_tree.adoc[]
 * xref:uspgenerator.GeneratorUsp.adoc[]
 * xref:uspgenerator.GeneratorUspStep.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [uspgenerator].[GeneratorUsp].[id]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'usp_id';
 

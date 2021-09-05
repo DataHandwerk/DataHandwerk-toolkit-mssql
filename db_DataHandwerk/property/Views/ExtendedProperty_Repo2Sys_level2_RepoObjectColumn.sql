@@ -178,10 +178,12 @@ Execute sp_addextendedproperty
   , @level2name = N'level0name';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[type_level1type_level2type]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [configT].[type_level1type_level2type]
 * [property].[RepoObjectColumnProperty]
 * [repo].[RepoObject]
 * [repo].[RepoObjectColumn]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn';
+
+
 
 
 GO
@@ -249,7 +251,9 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Name of the
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [config].[type_level1type_level2type].[level1type]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level1type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [configT].[type_level1type_level2type].[level1type]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level1type';
+
+
 
 
 GO
@@ -258,4 +262,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'level0name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'ExtendedProperty_Repo2Sys_level2_RepoObjectColumn';
 

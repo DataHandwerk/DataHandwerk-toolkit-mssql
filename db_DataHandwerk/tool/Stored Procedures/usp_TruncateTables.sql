@@ -73,3 +73,11 @@ EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
 EXEC [tool].[usp_TruncateTables]
 @Schema = ''MySchema''', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_TruncateTables';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_TruncateTables';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_TruncateTables';
+

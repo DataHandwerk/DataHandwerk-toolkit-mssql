@@ -349,6 +349,12 @@ Select
            , '// tag::sql_modules_definition[]'
            , Char ( 13 )
            , Char ( 10 )
+           , '[%collapsible]'
+           , Char ( 13 )
+           , Char ( 10 )
+           , '======='
+           , Char ( 13 )
+           , Char ( 10 )
            , '[source,sql]'
            , Char ( 13 )
            , Char ( 10 )
@@ -359,6 +365,9 @@ Select
            , Char ( 13 )
            , Char ( 10 )
            , '----'
+           , Char ( 13 )
+           , Char ( 10 )
+           , '======='
            , Char ( 13 )
            , Char ( 10 )
            , '// end::sql_modules_definition[]'
@@ -384,7 +393,7 @@ From
     --AND NOT rop.[property_nvarchar] IS NULL
 
     Left Join
-        docs.RepoObject_ColumnList        As clist
+        docs.RepoObject_ColumnList_T      As clist
             On
             clist.RepoObject_guid     = ro.RepoObject_guid
 
@@ -542,12 +551,14 @@ Execute sp_addextendedproperty
   , @level2name = N'is_DocsOutput';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[RepoObject_ColumnList]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[B8E5CA9C-A1BC-41C6-BFFB-02F3F3D964B6]
 * [docs].[RepoObject_IndexList_T]
 * [docs].[RepoObject_ParameterList]
 * [property].[RepoObjectProperty]
 * [property].[RepoObjectProperty_cross]
-* [repo].[RepoObject_gross]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+* [repo].[RepoObject_gross2]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+
+
 
 
 GO
@@ -572,18 +583,50 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.RepoObject_ColumnList.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.RepoObject_ColumnList_T.adoc[]
 * xref:docs.RepoObject_IndexList_T.adoc[]
 * xref:docs.RepoObject_ParameterList.adoc[]
 * xref:property.RepoObjectProperty.adoc[]
 * xref:property.RepoObjectProperty_cross.adoc[]
-* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+* xref:repo.RepoObject_gross2.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross2].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[is_DocsOutput]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'is_DocsOutput';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross2].[is_DocsOutput]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'is_DocsOutput';
+
+
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
+`AdocContent` is the content of a page to be used by Antora as partial.
+
+The view xref:docs.RepoObject_Adoc.adoc[] will persisted into xref:docs.RepoObject_Adoc_T.adoc[] +
+and later exported for Antora by xref:docs.usp_PERSIST_RepoObject_Adoc_T.adoc[]
+
+One document per RepoObject is generated, it contains all information (but not diagrams) which is used by Antora. 
+
+All Parts of the documentations are tagged, Antora can reference the content using this tags.
+
+* any per RepoObject existing properties in xref:property.RepoObjectProperty.adoc[] are extracted as separate tags
+* some specific additional tags are extracted from other sources (some lists, some content from xref:repo.RepoObject_gross.adoc[])
+* a special entry per exported tag is created: `'':ExistsProperty--'' + Lower ( rop.property_name ) + '':''` which can be used to check the existence of a tag entry
+
+To use additional content in Antora documentation first try to include new properties into xref:property.RepoObjectProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
 

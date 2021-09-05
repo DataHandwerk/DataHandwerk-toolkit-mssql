@@ -232,9 +232,10 @@ ORDER BY [Referenced_Depth]
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_ReferenceTree.adoc[]
-* xref:reference.RepoObject_ReferenceTree_0_30.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_ReferenceTree_0_30.adoc[]
 * xref:reference.RepoObject_ReferenceTree_30_0.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+
+
 
 
 
@@ -247,4 +248,12 @@ GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
 NOTE: Duplicates are possible, if exists alternative path between objects with different depth +
 to elimenate them, exclude `Referenced_Depth` and `Referencing_Depth` and use `DISTINCT`', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
 

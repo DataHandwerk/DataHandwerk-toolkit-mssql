@@ -116,15 +116,9 @@ Go
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_gross].[RepoObjectColumn_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObjectColumn_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name';
+
+
 
 
 Go
@@ -140,27 +134,15 @@ Execute sp_addextendedproperty
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_gross].[RepoObjectColumn_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObjectColumn_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';
+
+
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_gross].[RepoObject_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObject_type]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObject_type';
+
+
 
 
 Go
@@ -176,27 +158,15 @@ Execute sp_addextendedproperty
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_gross].[RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_gross].[RepoObject_fullname]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObject_fullname]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
+
 
 
 Go
@@ -267,4 +237,16 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObjectColumn_fullname]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[Repo_user_type_fullname]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_S', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_type';
 

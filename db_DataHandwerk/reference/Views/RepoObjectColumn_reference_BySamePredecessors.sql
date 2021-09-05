@@ -366,178 +366,85 @@ Go
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_type]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_type';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_schema_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_schema_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_schema_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_schema_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_RepoObjectColumn_guid]
-[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_RepoObjectColumn_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_RepoObjectColumn_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_RepoObjectColumn_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_node_id]
-[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_node_id]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_node_id';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_node_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_node_id';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_minor_id]
-[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_minor_id]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_minor_id';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_minor_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_minor_id';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_id]
-[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_id]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_id';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_id';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_entity_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_entity_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_entity_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_entity_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_column_name]
-[repo].[RepoObjectColumn_reference_FirstResultSet].[referencing_column_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referencing_column_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_column_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_column_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_reference_union].[referenced_type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_type]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_type';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_reference_union].[referenced_schema_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_schema_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_schema_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_schema_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_reference_union].[referenced_RepoObject_guid]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_guid';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObject_reference_union].[referenced_entity_name]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'referenced_entity_name';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_entity_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_entity_name';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[is_hidden]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'is_hidden';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[is_hidden]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'is_hidden';
+
+
 Go
 
-Execute sp_addextendedproperty
-    @name = N'ReferencedObjectColumnList'
-  , @value = N'[repo].[RepoObjectColumn_reference_FirstResultSet].[InformationSource]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'reference'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObjectColumn_reference_BySamePredecessors'
-  , @level2type = N'COLUMN'
-  , @level2name = N'InformationSource';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[InformationSource]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'InformationSource';
+
+
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_union]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_T]
 * [reference].[RepoObjectColumn_reference_FirstResultSet]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors';
+
+
 
 
 GO
@@ -557,4 +464,32 @@ Column IDs might not be sequential.', @level0type = N'SCHEMA', @level0name = N'r
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'ID of the column. Is unique within the object.
 Column IDs might not be sequential.', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_minor_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_RepoObjectColumn_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_node_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_node_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_minor_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_minor_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_id]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_reference_FirstResultSet].[referencing_column_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_column_name';
 
