@@ -1,7 +1,7 @@
 /*
 <<property_start>>MS_Description
 * connect repo datatabase to dwh database using synonyms executing
-* see details in xref:manual:create-update-connect-repo-db.adoc[]
+* see details in xref:user-guide:create-update-connect-repo-db.adoc[]
 <<property_end>>
 
 <<property_start>>exampleUsage
@@ -114,7 +114,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
 * connect repo datatabase to dwh database using synonyms executing
-* see details in xref:manual:create-update-connect-repo-db.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_connect_database';
+* see details in xref:user-guide:create-update-connect-repo-db.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_connect_database';
 
 
 GO

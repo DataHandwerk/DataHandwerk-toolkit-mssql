@@ -36,7 +36,7 @@ check:
 SELECT * from [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList]('69CE8EB8-5F62-EB11-84DC-A81E8446D5B0', 1, 1)
 
 */
-CREATE Function [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList]
+CREATE Function docs.ftv_RepoObject_Reference_PlantUml_EntityRefList
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1
@@ -61,25 +61,50 @@ Return
         Union
         --referenced objects
         Select
-            [RepoObject_guid]
-          , [Referenced_guid]
-          , [Referenced_fullname2]
+            RepoObject_guid
+          , Referenced_guid
+          , referenced_fullname2
         From
-            [reference].[RepoObject_ReferenceTree_30_0_T]
+            reference.RepoObject_ReferenceTree
         Where
-            [RepoObject_guid]      = @RepoObject_guid
-            And [Referenced_Depth] <= @Referenced_Depth
+            RepoObject_guid       = @RepoObject_guid
+            And Referenced_Depth  <= @Referenced_Depth
+            And Referencing_Depth <= @Referencing_Depth
+            And Referencing_Depth = 0
         Union
         --referencing objects
         Select
-            [RepoObject_guid]
-          , [Referencing_guid]
-          , [Referencing_fullname2]
+            RepoObject_guid
+          , Referencing_guid
+          , referencing_fullname2
         From
-            [reference].[RepoObject_ReferenceTree_0_30_T]
+            reference.RepoObject_ReferenceTree
         Where
-            [RepoObject_guid]       = @RepoObject_guid
-            And [Referencing_Depth] <= @Referencing_Depth
+            RepoObject_guid       = @RepoObject_guid
+            And Referencing_Depth <= @Referencing_Depth
+            And Referenced_Depth  = 0
+
+        ----referenced objects
+        --Select
+        --    [RepoObject_guid]
+        --  , [Referenced_guid]
+        --  , [Referenced_fullname2]
+        --From
+        --    [reference].[RepoObject_ReferenceTree_30_0_T]
+        --Where
+        --    [RepoObject_guid]      = @RepoObject_guid
+        --    And [Referenced_Depth] <= @Referenced_Depth
+        --Union
+        ----referencing objects
+        --Select
+        --    [RepoObject_guid]
+        --  , [Referencing_guid]
+        --  , [Referencing_fullname2]
+        --From
+        --    [reference].[RepoObject_ReferenceTree_0_30_T]
+        --Where
+        --    [RepoObject_guid]       = @RepoObject_guid
+        --    And [Referencing_Depth] <= @Referencing_Depth
         ----
         ----old logic, based on graph tables:
         --Union
@@ -114,7 +139,7 @@ Return
     From
         ro
         Inner Join
-            docs.RepoObject_Plantuml_Entity_T rop
+            docs.RepoObject_Plantuml_Entity_T As rop
                 On
                 rop.RepoObject_guid = ro.Node_guid
     Group By

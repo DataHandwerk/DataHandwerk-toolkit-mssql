@@ -8,7 +8,7 @@
 *** [is_persistence_insert] = 1
 *** all others bit values = 0
 
-TIP: see details for usage in xref:manual:persistence-generator.adoc[]
+TIP: see details for usage in xref:user-guide:persistence-generator.adoc[]
 
 [NOTE]
 .How does it work:
@@ -1175,7 +1175,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
 *** [is_persistence_insert] = 1
 *** all others bit values = 0
 
-TIP: see details for usage in xref:manual:persistence-generator.adoc[]
+TIP: see details for usage in xref:user-guide:persistence-generator.adoc[]
 
 [NOTE]
 .How does it work:

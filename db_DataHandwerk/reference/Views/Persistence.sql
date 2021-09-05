@@ -1,7 +1,4 @@
 ﻿
-
-
-
 /*
 <<property_start>>MS_Description
 * references between persistence tables and therefore between persistence procedures to call them in the right order
@@ -16,7 +13,7 @@ Where
 <<property_end>>
 
 */
-CREATE View [reference].[Persistence]
+CREATE View reference.Persistence
 As
 Select
     Distinct
@@ -31,20 +28,21 @@ Select
   , referencing_usp_persistence_name            = ro2.usp_persistence_name
   , referencing_usp_persistence_RepoObject_guid = ro2.usp_persistence_RepoObject_guid
 From
-    reference.RepoObject_ReferenceTree_30_0_T As Q
+    reference.RepoObject_ReferenceTree As Q
     Left Join
-        repo.RepoObject_gross                 As ro1
+        repo.RepoObject_gross          As ro1
             On
             ro1.RepoObject_guid = Q.Referenced_guid
 
     Left Join
-        repo.RepoObject_gross                 As ro2
+        repo.RepoObject_gross          As ro2
             On
             ro2.RepoObject_guid = Q.RepoObject_guid
 Where
     --Q.[Referenced_type] = 'U'
     --and
-    ro1.is_persistence     = 1
+    Q.Referencing_Depth    = 0
+    And ro1.is_persistence = 1
     And ro2.is_persistence = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1db3a8a4-a0f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence', @level2type = N'COLUMN', @level2name = N'referencing_usp_persistence_RepoObject_guid';

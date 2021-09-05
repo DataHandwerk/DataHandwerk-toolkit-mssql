@@ -15,26 +15,28 @@ CREATE View reference.RepoObject_ReferenceTree_cyclic
 As
 Select
     T1.RepoObject_guid
-  , T1.Referencing_guid
   , T1.Referenced_guid
-  , Referenced_Depth_30_0  = T1.Referenced_Depth
-  , T1.Referenced_fullname
-  , T1.Referenced_fullname2
-  , T1.Referenced_type
-  , Referencing_Depth_30_0 = T1.Referencing_Depth
-  , T1.Referencing_fullname
-  , T1.Referencing_fullname2
-  , T1.Referencing_type
   , Referenced_Depth_0_30  = T2.Referenced_Depth
+  , Referenced_Depth_30_0  = T1.Referenced_Depth
+  , T1.referenced_fullname
+  , T1.referenced_fullname2
+  , T1.referenced_type
+  , T1.Referencing_guid
   , Referencing_Depth_0_30 = T2.Referencing_Depth
+  , Referencing_Depth_30_0 = T1.Referencing_Depth
+  , T1.referencing_fullname
+  , T1.referencing_fullname2
+  , T1.referencing_type
 From
-    reference.RepoObject_ReferenceTree_30_0_T     As T1
+    reference.RepoObject_ReferenceTree     As T1
     Inner Join
-        reference.RepoObject_ReferenceTree_0_30_T As T2
+        reference.RepoObject_ReferenceTree As T2
             On
-            T1.RepoObject_guid      = T2.RepoObject_guid
-            And T1.Referencing_guid = T2.Referencing_guid
-            And T1.Referenced_guid  = T2.Referenced_guid
+            T1.RepoObject_guid       = T2.RepoObject_guid
+            And T1.Referencing_guid  = T2.Referencing_guid
+            And T1.Referenced_guid   = T2.Referenced_guid
+            And T1.Referencing_Depth = 0
+            And T2.Referenced_Depth  = 0
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7de72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_cyclic';
 

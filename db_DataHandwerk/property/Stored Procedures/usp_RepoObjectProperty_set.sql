@@ -7,7 +7,7 @@ EXEC [property].[usp_RepoObjectProperty_set]
 , @property_value =
 'description for SchemaName.ObjectName
 
-see details in xref:manual:create-update-connect-repo-db.adoc[]
+see details in xref:user-guide:create-update-connect-repo-db.adoc[]
 '
 <<property_end>>
 */
@@ -125,7 +125,7 @@ EXEC [property].[usp_RepoObjectProperty_set]
 , @property_value =
 ''description for SchemaName.ObjectName
 
-see details in xref:manual:create-update-connect-repo-db.adoc[]
+see details in xref:user-guide:create-update-connect-repo-db.adoc[]
 ''', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_set';
 
 

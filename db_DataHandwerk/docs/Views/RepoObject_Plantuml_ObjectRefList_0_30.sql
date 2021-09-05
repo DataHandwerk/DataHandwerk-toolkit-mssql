@@ -32,7 +32,10 @@ From
       , Referencing_guid
       , Referenced_guid
     From
-        reference.RepoObject_ReferenceTree_0_30_T
+        reference.RepoObject_ReferenceTree
+    Where
+        Referenced_Depth      = 0
+        And Referencing_Depth <= 30
 )     As ro
     Inner Join
     --only direct relations between pre-selected objects
