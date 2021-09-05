@@ -551,12 +551,14 @@ Execute sp_addextendedproperty
   , @level2name = N'is_DocsOutput';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[B8E5CA9C-A1BC-41C6-BFFB-02F3F3D964B6]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[RepoObject_ColumnList_T]
 * [docs].[RepoObject_IndexList_T]
 * [docs].[RepoObject_ParameterList]
 * [property].[RepoObjectProperty]
 * [property].[RepoObjectProperty_cross]
 * [repo].[RepoObject_gross2]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+
+
 
 
 

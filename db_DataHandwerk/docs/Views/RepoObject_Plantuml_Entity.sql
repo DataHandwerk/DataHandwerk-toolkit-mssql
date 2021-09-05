@@ -159,10 +159,12 @@ Execute sp_addextendedproperty
   , @level2name = N'RepoObject_Puml';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[B8E5CA9C-A1BC-41C6-BFFB-02F3F3D964B6]
-* [docs].[fs_cleanStringForPuml]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[fs_cleanStringForPuml]
+* [docs].[RepoObject_ColumnList_T]
 * [docs].[RepoObject_IndexList_T]
 * [docs].[RepoObject_OutputFilter]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity';
+
+
 
 
 

@@ -159,7 +159,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [sq
 * `EXEC [sqlparse].[usp_PERSIST_RepoObject_SqlModules_41_from_T]`
 * u
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[sqlparse].[usp_PERSIST_RepoObject_SqlModules_41_from_T]
+----
+=====
+
 |
+
 
 |220
 |
@@ -168,7 +179,20 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [sq
 * `EXEC [sqlparse].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]`
 * u
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[sqlparse].[usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_sqlparse';
+
+
 

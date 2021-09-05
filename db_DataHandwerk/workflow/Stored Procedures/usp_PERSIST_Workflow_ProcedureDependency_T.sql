@@ -213,7 +213,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * D
 * [workflow].[Workflow_ProcedureDependency_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [workflow].[Workflow_ProcedureDependency_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -223,7 +234,32 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[Workflow_ProcedureDependency]
 * [workflow].[Workflow_ProcedureDependency_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [workflow].[Workflow_ProcedureDependency_T]
+ (
+  [Workflow_id]
+, [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+)
+SELECT
+  [Workflow_id]
+, [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+
+FROM [workflow].[Workflow_ProcedureDependency] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_Workflow_ProcedureDependency_T';
+
+
 

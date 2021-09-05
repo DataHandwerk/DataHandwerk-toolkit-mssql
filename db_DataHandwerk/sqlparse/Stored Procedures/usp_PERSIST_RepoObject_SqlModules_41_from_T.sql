@@ -237,7 +237,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [sq
 * D
 * [sqlparse].[RepoObject_SqlModules_41_from_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [sqlparse].[RepoObject_SqlModules_41_from_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -247,9 +258,70 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [sq
 * [sqlparse].[RepoObject_SqlModules_41_from]
 * [sqlparse].[RepoObject_SqlModules_41_from_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [sqlparse].[RepoObject_SqlModules_41_from_T]
+ (
+  [RepoObject_guid]
+, [json_key]
+, [children]
+, [class]
+, [identifier_alias]
+, [identifier_name]
+, [is_from]
+, [is_group]
+, [is_join]
+, [is_keyword]
+, [is_whitespace]
+, [join_type]
+, [Min_RowNumber_From]
+, [Min_RowNumber_GroupBy]
+, [Min_RowNumber_Where]
+, [normalized]
+, [normalized_PatIndex_Select]
+, [normalized_wo_nolock]
+, [patindex_nolock]
+, [RowNumber_per_Object]
+, [SysObject_fullname]
+)
+SELECT
+  [RepoObject_guid]
+, [json_key]
+, [children]
+, [class]
+, [identifier_alias]
+, [identifier_name]
+, [is_from]
+, [is_group]
+, [is_join]
+, [is_keyword]
+, [is_whitespace]
+, [join_type]
+, [Min_RowNumber_From]
+, [Min_RowNumber_GroupBy]
+, [Min_RowNumber_Where]
+, [normalized]
+, [normalized_PatIndex_Select]
+, [normalized_wo_nolock]
+, [patindex_nolock]
+, [RowNumber_per_Object]
+, [SysObject_fullname]
+
+FROM [sqlparse].[RepoObject_SqlModules_41_from] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_41_from_T';
+
+
 
 
 GO

@@ -331,7 +331,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [property].[usp_RepoObjectProperty_collect]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[property].[usp_RepoObjectProperty_collect]
+----
+=====
+
 |
+
 
 |400
 |
@@ -339,7 +350,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_navigation]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_navigation]
+----
+=====
+
 |
+
 
 |410
 |
@@ -347,7 +369,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_DocSnippet]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_DocSnippet]
+----
+=====
+
 |
+
 
 |500
 |
@@ -355,7 +388,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_ObjectPage]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_ObjectPage]
+----
+=====
+
 |
+
 
 |600
 |
@@ -363,7 +407,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_ObjectPageTemplate]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_ObjectPageTemplate]
+----
+=====
+
 |
+
 
 |750
 |
@@ -371,7 +426,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_ObjectPartialProperties]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_ObjectPartialProperties]
+----
+=====
+
 |
+
 
 |800
 |
@@ -379,7 +445,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_ObjectPuml]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_ObjectPuml]
+----
+=====
+
 |
+
 
 |910
 |
@@ -387,7 +464,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_Page_IndexSemanticGroup]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_Page_IndexSemanticGroup]
+----
+=====
+
 |
+
 
 |920
 |
@@ -395,9 +483,22 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 * `EXEC [docs].[usp_AntoraExport_ObjectRefCyclic]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[docs].[usp_AntoraExport_ObjectRefCyclic]
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+
+
 
 
 

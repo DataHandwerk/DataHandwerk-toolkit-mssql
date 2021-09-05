@@ -219,7 +219,65 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[ForeignKey_Index_guid]
 * [repo].[Index_virtual]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE fk_cursor CURSOR Local Fast_Forward
+FOR
+SELECT [referencing_RepoObject_guid]
+ , [referencing_IndexPatternColumnName]
+FROM repo.[ForeignKey_Indexes] AS fk
+WHERE (NOT ([referencing_RepoObject_guid] IS NULL))
+ AND ([referencing_index_guid] IS NULL)
+
+UNION
+
+SELECT [referenced_RepoObject_guid]
+ , [referenced_IndexPatternColumnName]
+FROM repo.[ForeignKey_Indexes] AS fk
+WHERE (NOT ([referenced_RepoObject_guid] IS NULL))
+ AND ([referenced_index_guid] IS NULL)
+
+DECLARE @RepoObject_guid UNIQUEIDENTIFIER
+DECLARE @IndexPatternColumnName NVARCHAR(4000)
+
+OPEN fk_cursor
+
+FETCH NEXT
+FROM fk_cursor
+INTO @RepoObject_guid
+ , @IndexPatternColumnName
+
+WHILE (@@fetch_status <> - 1)
+BEGIN
+ IF (@@fetch_status <> - 2)
+ BEGIN
+  PRINT @RepoObject_guid
+  PRINT @IndexPatternColumnName
+
+  EXEC [repo].usp_Index_virtual_set @RepoObject_guid = @RepoObject_guid
+   , @IndexPatternColumnName = @IndexPatternColumnName
+   , @is_index_disabled = 1
+ END
+
+ FETCH NEXT
+ FROM fk_cursor
+ INTO @RepoObject_guid
+  , @IndexPatternColumnName
+END
+
+CLOSE fk_cursor
+
+DEALLOCATE fk_cursor
+
+----
+=====
+
 |
+
 
 |410
 |
@@ -227,7 +285,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_PERSIST_ForeignKey_Indexes_union_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_PERSIST_ForeignKey_Indexes_union_T]
+----
+=====
+
 |
+
 
 |510
 |
@@ -235,9 +304,22 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_Index_finish]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_Index_finish]
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_ForeignKey';
+
+
 
 
 

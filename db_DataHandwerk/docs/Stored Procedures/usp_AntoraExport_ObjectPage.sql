@@ -280,21 +280,66 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 *configure database connection*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE @instanceName NVARCHAR(500) = @@servername --example: ''ACER-F17\SQL2019'', ''.\SQL2019'', localhost\SQL2019
+DECLARE @databaseName NVARCHAR(128) = DB_NAME()
+DECLARE @TrustedUserPassword NVARCHAR(1000)
+
+IF @isTrustedConnection = 1
+ SET @TrustedUserPassword = '' -T''
+ELSE
+ SET @TrustedUserPassword = '' -U '' + @userName + '' -P '' + @password
+----
+=====
+
 |
+
 
 |120
 |
 *configure outputDir*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+SET @outputDir = ISNULL(@outputDir, (
+   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModul'', '''') + ''\''
+   ) + ''pages\'')
+----
+=====
+
 |
+
 
 |210
 |
 *declare variables*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE @command NVARCHAR(4000);
+DECLARE @Object_fullname NVARCHAR(261);
+DECLARE @Object_fullname2 NVARCHAR(257);
+
+----
+=====
+
 |
+
 
 |410
 |
@@ -303,9 +348,67 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * u
 * [repo].[Parameter]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE db_cursor CURSOR Local Fast_Forward
+FOR
+SELECT RepoObject_fullname
+ , RepoObject_fullname2
+FROM docs.[RepoObject_OutputFilter]
+ORDER BY RepoObject_fullname
+
+OPEN db_cursor
+
+FETCH NEXT
+FROM db_cursor
+INTO @Object_fullname
+ , @Object_fullname2
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+ --Dynamically construct the BCP command
+ --
+ --bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', DEFAULT ) As AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
+ --
+ SET @command = ''bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''''AntoraPageTemplate'''', DEFAULT ) As AntoraPageTemplate" queryout "'' + @outputDir + @Object_fullname2 + ''.adoc"''
+  --
+  + '' -S '' + @instanceName
+  --
+  + '' -d '' + @databaseName
+  --
+  + '' -c -C 65001''
+  --
+  + @TrustedUserPassword
+
+ PRINT @command
+
+ --Execute the BCP command
+ EXEC xp_cmdshell @command
+  , no_output
+
+ FETCH NEXT
+ FROM db_cursor
+ INTO @Object_fullname
+  , @Object_fullname2
+END
+
+CLOSE db_cursor
+
+DEALLOCATE db_cursor
+
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
+
+
 
 
 GO

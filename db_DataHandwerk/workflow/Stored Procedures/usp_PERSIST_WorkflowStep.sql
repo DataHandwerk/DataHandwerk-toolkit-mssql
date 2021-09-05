@@ -191,7 +191,38 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[WorkflowStep_S]
 * [workflow].[WorkflowStep]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [workflow].[WorkflowStep]
+ (
+  [Procedure_RepoObject_guid]
+, [Workflow_id]
+)
+SELECT
+  [Procedure_RepoObject_guid]
+, [Workflow_id]
+
+FROM [workflow].[WorkflowStep_S] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [workflow].[WorkflowStep] AS T
+WHERE
+T.[Workflow_id] = S.[Workflow_id]
+AND T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_WorkflowStep';
+
+
 

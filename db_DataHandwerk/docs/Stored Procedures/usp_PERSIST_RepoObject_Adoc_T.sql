@@ -223,7 +223,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * D
 * [docs].[REpoObject_Adoc_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [docs].[REpoObject_Adoc_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -233,9 +244,52 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * [docs].[RepoObject_Adoc]
 * [docs].[RepoObject_Adoc_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [docs].[RepoObject_Adoc_T]
+ (
+  [AdocContent]
+, [is_DocsOutput]
+, [PropertyCount]
+, [RepoObject_fullname]
+, [RepoObject_fullname2]
+, [RepoObject_guid]
+, [RepoObject_schema_name]
+, [SysObject_fullname]
+, [SysObject_fullname2]
+, [SysObject_schema_name]
+, [SysObject_type]
+, [SysObject_type_name]
+)
+SELECT
+  [AdocContent]
+, [is_DocsOutput]
+, [PropertyCount]
+, [RepoObject_fullname]
+, [RepoObject_fullname2]
+, [RepoObject_guid]
+, [RepoObject_schema_name]
+, [SysObject_fullname]
+, [SysObject_fullname2]
+, [SysObject_schema_name]
+, [SysObject_type]
+, [SysObject_type_name]
+
+FROM [docs].[RepoObject_Adoc] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_Adoc_T';
+
+
 
 
 GO

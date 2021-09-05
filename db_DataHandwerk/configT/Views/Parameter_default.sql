@@ -307,292 +307,322 @@ Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'content of an final Antora Page'
-  , Parameter_default_value = Cast(N'
-include::partial$template/master-page-1.adoc[]
-include::partial$template/master-page-examples.adoc[]
-include::partial$template/master-page-4.adoc[]
-include::partial$template/master-page-5_references.adoc[]
-include::partial$template/master-page-6.adoc[]
-' As NVarchar(Max))
+  , Parameter_default_value =
+  --
+  Concat (
+             Cast(N'' As NVarchar(Max))
+           , 'include::partial$template/master-page-1.adoc[]' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$template/master-page-examples.adoc[]' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$template/master-page-4.adoc[]' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$template/master-page-5_references.adoc[]' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$template/master-page-6.adoc[]' + Char ( 13 ) + Char ( 10 )
+         )
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'1'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
-  , Parameter_default_value = Cast(N'= {docname}
-
-include::partial${docname}.adoc[tag=existing_properties]
-include::partial${docname}.adoc[tag=boolean_attributes]
-
-type:
-include::partial${docname}.adoc[tag=SysObject_type]
-(
-include::partial${docname}.adoc[tag=SysObject_type_name]
-), modify_date:
-include::partial${docname}.adoc[tag=SysObject_modify_date]
-
-RepoObject_guid:
-include::partial${docname}.adoc[tag=RepoObject_guid]
-
-ifdef::is_repo_managed[]
-is_repo_managed: 1
-endif::is_repo_managed[]
-
-ifdef::is_ssas[]
-is_ssas: 1
-endif::is_ssas[]
-
-ifdef::ExistsProperty--MS_Description[]
-
-== Description
-
-include::partial${docname}.adoc[tag=ms_description]
-
-endif::ExistsProperty--ms_description[]
-' As NVarchar(Max))
+  , Parameter_default_value =
+  --
+  Concat (
+             Cast(N'' As NVarchar(Max))
+           , '= {docname}' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=existing_properties]' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=boolean_attributes]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'type:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=SysObject_type]' + Char ( 13 ) + Char ( 10 )
+           , '(' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=SysObject_type_name]' + Char ( 13 ) + Char ( 10 )
+           , '), modify_date:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=SysObject_modify_date]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'RepoObject_guid:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=RepoObject_guid]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::is_repo_managed[]' + Char ( 13 ) + Char ( 10 )
+           , 'is_repo_managed: 1' + Char ( 13 ) + Char ( 10 )
+           , 'endif::is_repo_managed[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           , 'is_ssas: 1' + Char ( 13 ) + Char ( 10 )
+           , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--MS_Description[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Description' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=ms_description]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--ms_description[]' + Char ( 13 ) + Char ( 10 )
+         )
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'4'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
-  , Parameter_default_value = Cast(N'
-ifdef::ExistsProperty--AntoraParameterList[]
-
-== Parameters
-
-include::partial${docname}.adoc[tag=AntoraParameterList]
-
-endif::ExistsProperty--AntoraParameterList[]
-
-ifdef::ExistsProperty--adocuspsteps[]
-
-== Procedure steps
-
-include::partial${docname}.adoc[tag=adocuspsteps]
-
-endif::ExistsProperty--adocuspsteps[]
-
-//ifdef::ExistsProperty--pk_index_guid[]
-//
-//== PK
-//
-//PK SemanticGroup:
-//include::partial${docname}.adoc[tag=pk_indexsemanticgroup]
-//
-//PK Column Name(s):
-//include::partial${docname}.adoc[tag=pk_indexpatterncolumnname]
-//
-//PK Column Datatype(s):
-//include::partial${docname}.adoc[tag=pk_indexpatterncolumndatatype]
-//
-//.PK columns of {docname}
-//[cols="d,m,m,m,m,d"]
-//|===
-//|PK|Column Name|Data Type|NULL?|ID|Calc
-//
-//include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]
-//
-//|===
-//
-//endif::ExistsProperty--pk_index_guid[]
-
-== Entity Diagram
-
-[plantuml, entity-{docname}, svg]
-....
-include::partial$puml/entity/{docname}.puml[]
-....
-
-Dot prefix:: `NOT NULL`
-
-todo: several entities (left to right), containing SSAS translations
-
-ifdef::ExistsProperty--Columns[]
-
-== Columns
-
-.Columns of {docname}
-[cols="d,m,m,m,m,d"]
-|===
-|PK|Column Name|Data Type|NULL?|ID|Calc
-
-include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]
-
-include::partial${docname}.adoc[tag=AntoraNonPkColumnTableRows]
-
-|===
-
-endif::ExistsProperty--Columns[]
-
-ifdef::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]
-
-== Persistence, History Table
-
-* persistence source:
-include::partial${docname}.adoc[tag=persistence_source_repoobject_xref]
-* is_persistence:
-include::partial${docname}.adoc[tag=is_persistence]
-* is_persistence_check_duplicate_per_pk:
-include::partial${docname}.adoc[tag=is_persistence_check_duplicate_per_pk]
-* is_persistence_check_for_empty_source:
-include::partial${docname}.adoc[tag=is_persistence_check_for_empty_source]
-* is_persistence_delete_changed:
-include::partial${docname}.adoc[tag=is_persistence_delete_changed]
-* is_persistence_delete_missing:
-include::partial${docname}.adoc[tag=is_persistence_delete_missing]
-* is_persistence_insert:
-include::partial${docname}.adoc[tag=is_persistence_insert]
-* is_persistence_truncate:
-include::partial${docname}.adoc[tag=is_persistence_truncate]
-* is_persistence_update_changed:
-include::partial${docname}.adoc[tag=is_persistence_update_changed]
-* has_history:
-include::partial${docname}.adoc[tag=has_history]
-* has_history_columns:
-include::partial${docname}.adoc[tag=has_history_columns]
-
-endif::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]
-
-ifdef::is_ssas[]
-
-== todo SSAS Relation Diagram
-
-todo: use other diagram containing relations an related objects
-
-[plantuml, entity_pk_or_index-{docname}, svg]
-....
-include::partial$puml/entity_pk_or_index/{docname}.puml[]
-....
-
-endif::is_ssas[]
-
-ifndef::is_ssas[]
-ifdef::ExistsProperty--FK[]
-
-== Foreign Key Diagram
-
-[plantuml, entity_1_1_fk-{docname}, svg]
-....
-include::partial$puml/entity_1_1_fk/{docname}.puml[]
-....
-
-endif::ExistsProperty--FK[]
-endif::is_ssas[]
-' As NVarchar(Max))
+  , Parameter_default_value =
+  --
+  Concat (
+             Cast(N'' As NVarchar(Max))
+           , 'ifdef::ExistsProperty--AntoraParameterList[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Parameters' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=AntoraParameterList]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--AntoraParameterList[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--adocuspsteps[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Procedure steps' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=adocuspsteps]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--adocuspsteps[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '//ifdef::ExistsProperty--pk_index_guid[]' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//== PK' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//PK SemanticGroup:' + Char ( 13 ) + Char ( 10 )
+           , '//include::partial${docname}.adoc[tag=pk_indexsemanticgroup]' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//PK Column Name(s):' + Char ( 13 ) + Char ( 10 )
+           , '//include::partial${docname}.adoc[tag=pk_indexpatterncolumnname]' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//PK Column Datatype(s):' + Char ( 13 ) + Char ( 10 )
+           , '//include::partial${docname}.adoc[tag=pk_indexpatterncolumndatatype]' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//.PK columns of {docname}' + Char ( 13 ) + Char ( 10 )
+           , '//[cols="d,m,m,m,m,d"]' + Char ( 13 ) + Char ( 10 )
+           , '//|===' + Char ( 13 ) + Char ( 10 )
+           , '//|PK|Column Name|Data Type|NULL?|ID|Calc' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//|===' + Char ( 13 ) + Char ( 10 )
+           , '//' + Char ( 13 ) + Char ( 10 )
+           , '//endif::ExistsProperty--pk_index_guid[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Entity Diagram' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$puml/entity/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'Dot prefix:: `NOT NULL`' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'todo: several entities (left to right), containing SSAS translations' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Columns' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '.Columns of {docname}' + Char ( 13 ) + Char ( 10 )
+           , '[cols="d,m,m,m,m,d"]' + Char ( 13 ) + Char ( 10 )
+           , '|===' + Char ( 13 ) + Char ( 10 )
+           , '|PK|Column Name|Data Type|NULL?|ID|Calc' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=AntoraPkColumnTableRows]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=AntoraNonPkColumnTableRows]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '|===' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]'
+             + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Persistence, History Table' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '* persistence source:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=persistence_source_repoobject_xref]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence_check_duplicate_per_pk:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence_check_duplicate_per_pk]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence_check_for_empty_source:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence_check_for_empty_source]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence_delete_changed:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence_delete_changed]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence_delete_missing:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence_delete_missing]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence_insert:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence_insert]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence_truncate:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence_truncate]' + Char ( 13 ) + Char ( 10 )
+           , '* is_persistence_update_changed:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=is_persistence_update_changed]' + Char ( 13 ) + Char ( 10 )
+           , '* has_history:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=has_history]' + Char ( 13 ) + Char ( 10 )
+           , '* has_history_columns:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=has_history_columns]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]'
+             + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== todo SSAS Relation Diagram' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'todo: use other diagram containing relations an related objects' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_pk_or_index-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$puml/entity_pk_or_index/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifndef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--FK[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Foreign Key Diagram' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_fk-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$puml/entity_1_1_fk/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--FK[]' + Char ( 13 ) + Char ( 10 )
+           , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+         )
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'5_references'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
-  , Parameter_default_value = Cast(N'
-
-ifndef::is_ssas[]
-
-== References
-
-ifdef::ExistsProperty--antorareferencedlist[]
-
-=== Referenced Objects
-
-include::partial${docname}.adoc[tag=antorareferencedlist]
-endif::ExistsProperty--antorareferencedlist[]
-
-ifdef::ExistsProperty--antoraexternalreferencedlist[]
-
-=== External Referenced Objects
-
-include::partial${docname}.adoc[tag=antoraexternalreferencedlist]
-endif::ExistsProperty--antoraexternalreferencedlist[]
-
-ifdef::ExistsProperty--antorareferencinglist[]
-
-=== Referencing Objects
-
-include::partial${docname}.adoc[tag=antorareferencinglist]
-endif::ExistsProperty--antorareferencinglist[]
-
-ifdef::ExistsProperty--antoraexternalreferencinglist[]
-
-=== External Referencing Objects
-
-include::partial${docname}.adoc[tag=antoraexternalreferencinglist]
-endif::ExistsProperty--antoraexternalreferencinglist[]
-
-=== Object Reference Diagram - 1 1
-
-[plantuml, entity_1_1_objectref-{docname}, svg]
-....
-include::partial$puml/entity_1_1_objectref/{docname}.puml[]
-....
-
-=== Object Reference Diagram - Referenced - 30 0
-
-[plantuml, entity_30_0_objectref-{docname}, svg]
-....
-include::partial$puml/entity_30_0_objectref/{docname}.puml[]
-....
-
-=== Object Reference Diagram - Referencing - 0 30
-
-[plantuml, entity_0_30_objectref-{docname}, svg]
-....
-include::partial$puml/entity_0_30_objectref/{docname}.puml[]
-....
-
-ifdef::ExistsProperty--Columns[]
-
-=== Column Reference Diagram
-
-[plantuml, entity_1_1_colref-{docname}, svg]
-....
-include::partial$puml/entity_1_1_colref/{docname}.puml[]
-....
-
-endif::ExistsProperty--Columns[]
-
-endif::is_ssas[]
-
-' As NVarchar(Max))
+  , Parameter_default_value = Concat (
+                                         Cast(N'' As NVarchar(Max))
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'ifndef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '== References' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'ifdef::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== Referenced Objects' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial${docname}.adoc[tag=antorareferencedlist]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , 'endif::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'ifdef::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== External Referenced Objects' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial${docname}.adoc[tag=antoraexternalreferencedlist]'
+                                         + Char ( 13 ) + Char ( 10 )
+                                       , 'endif::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'ifdef::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== Referencing Objects' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial${docname}.adoc[tag=antorareferencinglist]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , 'endif::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'ifdef::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== External Referencing Objects' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial${docname}.adoc[tag=antoraexternalreferencinglist]'
+                                         + Char ( 13 ) + Char ( 10 )
+                                       , 'endif::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== Object Reference Diagram - 1 1' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '[plantuml, entity_1_1_objectref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial$puml/entity_1_1_objectref/{docname}.puml[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== Object Reference Diagram - Referenced - 30 0' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '[plantuml, entity_30_0_objectref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial$puml/entity_30_0_objectref/{docname}.puml[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== Object Reference Diagram - Referencing - 0 30' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '[plantuml, entity_0_30_objectref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial$puml/entity_0_30_objectref/{docname}.puml[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'ifdef::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '=== Column Reference Diagram' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , '[plantuml, entity_1_1_colref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial$puml/entity_1_1_colref/{docname}.puml[]' + Char ( 13 )
+                                         + Char ( 10 )
+                                       , '....' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'endif::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+                                       , '' + Char ( 13 ) + Char ( 10 )
+                                       , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+                                     )
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'6'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
-  , Parameter_default_value = Cast(N'
-
-
-ifdef::ExistsProperty--AntoraIndexList[]
-
-== Indexes
-
-include::partial${docname}.adoc[tag=AntoraIndexList]
-
-endif::ExistsProperty--AntoraIndexList[]
-
-ifdef::ExistsProperty--Columns[]
-
-== Column Details
-
-include::partial${docname}.adoc[tag=AntoraColumnDetails]
-
-endif::ExistsProperty--Columns[]
-
-ifdef::ExistsProperty--sql_modules_definition[]
-
-== sql_modules_definition
-
-.{docname} script
-include::partial${docname}.adoc[tag=sql_modules_definition]
-endif::ExistsProperty--sql_modules_definition[]
-' As NVarchar(Max))
+  , Parameter_default_value =
+  --
+  Concat (
+             Cast(N'' As NVarchar(Max))
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--AntoraIndexList[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Indexes' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=AntoraIndexList]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--AntoraIndexList[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Column Details' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=AntoraColumnDetails]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--sql_modules_definition[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== sql_modules_definition' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '.{docname} script' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=sql_modules_definition]' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--sql_modules_definition[]' + Char ( 13 ) + Char ( 10 )
+         )
 Union All
 Select
     Parameter_name          = 'AntoraDocSnippet'
   , sub_Parameter           = N'antora-export-prerequisites'
   , Parameter_desciption    = N'Documentation snippet for Antora export documentation.'
-  , Parameter_default_value = Concat (
-                                         Cast(N'' As NVarchar(Max))
-                                       , N'
+  , Parameter_default_value =
+  --
+  Concat (
+             Cast(N'' As NVarchar(Max))
+           , N'
 [discrete]
 === Prerequisites
 
@@ -613,11 +643,10 @@ Select
 * uses `xp_cmdshell`, to call `bcp`, you need to enable:
 +
 '
-                                       , '====
-[source,sql]
-'
-                                       , '----
---before executing the procedure:
+           , '====' + Char ( 13 ) + Char ( 10 )
+           , '[source,sql]' + Char ( 13 ) + Char ( 10 )
+           , '----' + Char ( 13 ) + Char ( 10 )
+           , '--before executing the procedure:
 --Temporarily or permanently enable xp_cmdshell
 sp_configure ''show advanced options''
  , 1;
@@ -647,11 +676,9 @@ sp_configure ''show advanced options''
 RECONFIGURE
 GO
 '
-                                       , '----
-'
-                                       , '====
-'
-                                     )
+           , '----' + Char ( 13 ) + Char ( 10 )
+           , '====' + Char ( 13 ) + Char ( 10 )
+         )
 
 Go
 Execute sp_addextendedproperty

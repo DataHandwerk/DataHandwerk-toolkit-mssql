@@ -286,7 +286,27 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[IndexColumn_ssas]
 * [repo].[IndexColumn_ssas_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [repo].[IndexColumn_ssas_T] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [repo].[IndexColumn_ssas] AS S
+WHERE
+T.[index_guid] = S.[index_guid]
+AND T.[index_column_id] = S.[index_column_id]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -296,7 +316,38 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[IndexColumn_ssas]
 * [repo].[IndexColumn_ssas_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[index_guid] = S.[index_guid]
+, T.[index_column_id] = S.[index_column_id]
+, T.[ColumnName] = S.[ColumnName]
+, T.[databasename] = S.[databasename]
+, T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
+, T.[TableName] = S.[TableName]
+
+FROM [repo].[IndexColumn_ssas_T] AS T
+INNER JOIN [repo].[IndexColumn_ssas] AS S
+ON
+T.[index_guid] = S.[index_guid]
+AND T.[index_column_id] = S.[index_column_id]
+
+WHERE
+   T.[ColumnName] <> S.[ColumnName]
+OR T.[databasename] <> S.[databasename]
+OR T.[RepoObjectColumn_guid] <> S.[RepoObjectColumn_guid]
+OR T.[TableName] <> S.[TableName]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -306,7 +357,46 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[IndexColumn_ssas]
 * [repo].[IndexColumn_ssas_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [repo].[IndexColumn_ssas_T]
+ (
+  [index_guid]
+, [index_column_id]
+, [ColumnName]
+, [databasename]
+, [RepoObjectColumn_guid]
+, [TableName]
+)
+SELECT
+  [index_guid]
+, [index_column_id]
+, [ColumnName]
+, [databasename]
+, [RepoObjectColumn_guid]
+, [TableName]
+
+FROM [repo].[IndexColumn_ssas] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [repo].[IndexColumn_ssas_T] AS T
+WHERE
+T.[index_guid] = S.[index_guid]
+AND T.[index_column_id] = S.[index_column_id]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ssas_T';
+
+
 

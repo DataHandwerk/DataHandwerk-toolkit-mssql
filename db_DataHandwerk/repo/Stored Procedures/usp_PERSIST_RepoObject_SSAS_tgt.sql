@@ -296,7 +296,26 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoObject_SSAS_src]
 * [repo].[RepoObject_SSAS_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [repo].[RepoObject_SSAS_tgt] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [repo].[RepoObject_SSAS_src] AS S
+WHERE
+T.[RepoObject_guid] = S.[RepoObject_guid]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -306,7 +325,44 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoObject_SSAS_src]
 * [repo].[RepoObject_SSAS_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[RepoObject_guid] = S.[RepoObject_guid]
+, T.[is_repo_managed] = S.[is_repo_managed]
+, T.[is_ssas] = S.[is_ssas]
+, T.[RepoObject_name] = S.[RepoObject_name]
+, T.[RepoObject_schema_name] = S.[RepoObject_schema_name]
+, T.[RepoObject_type] = S.[RepoObject_type]
+, T.[SysObject_name] = S.[SysObject_name]
+, T.[SysObject_schema_name] = S.[SysObject_schema_name]
+, T.[SysObject_type] = S.[SysObject_type]
+
+FROM [repo].[RepoObject_SSAS_tgt] AS T
+INNER JOIN [repo].[RepoObject_SSAS_src] AS S
+ON
+T.[RepoObject_guid] = S.[RepoObject_guid]
+
+WHERE
+   T.[is_repo_managed] <> S.[is_repo_managed]
+OR T.[is_ssas] <> S.[is_ssas]
+OR T.[RepoObject_name] <> S.[RepoObject_name]
+OR T.[RepoObject_schema_name] <> S.[RepoObject_schema_name]
+OR T.[RepoObject_type] <> S.[RepoObject_type]
+OR T.[SysObject_name] <> S.[SysObject_name]
+OR T.[SysObject_schema_name] <> S.[SysObject_schema_name]
+OR T.[SysObject_type] <> S.[SysObject_type]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -316,7 +372,51 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoObject_SSAS_src]
 * [repo].[RepoObject_SSAS_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [repo].[RepoObject_SSAS_tgt]
+ (
+  [RepoObject_guid]
+, [is_repo_managed]
+, [is_ssas]
+, [RepoObject_name]
+, [RepoObject_schema_name]
+, [RepoObject_type]
+, [SysObject_name]
+, [SysObject_schema_name]
+, [SysObject_type]
+)
+SELECT
+  [RepoObject_guid]
+, [is_repo_managed]
+, [is_ssas]
+, [RepoObject_name]
+, [RepoObject_schema_name]
+, [RepoObject_type]
+, [SysObject_name]
+, [SysObject_schema_name]
+, [SysObject_type]
+
+FROM [repo].[RepoObject_SSAS_src] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [repo].[RepoObject_SSAS_tgt] AS T
+WHERE
+T.[RepoObject_guid] = S.[RepoObject_guid]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SSAS_tgt';
+
+
 

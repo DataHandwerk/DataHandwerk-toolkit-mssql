@@ -561,8 +561,10 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'E88818B0-CA9
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.85AC3586-9B83-4474-AF3D-ED54F04062CA.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_ColumnList_T.adoc[]
 * xref:docs.usp_PERSIST_RepoObject_ColumnList_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
 
 
 

@@ -185,9 +185,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ef2038b5-27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[B8E5CA9C-A1BC-41C6-BFFB-02F3F3D964B6]
-* [docs].[RepoObject_ColumnList]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[RepoObject_ColumnList]
+* [docs].[RepoObject_ColumnList_T]
 * [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
+
+
 
 
 GO
@@ -225,7 +227,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * D
 * [docs].[RepoObject_ColumnList_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [docs].[RepoObject_ColumnList_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -235,7 +248,44 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * [docs].[RepoObject_ColumnList]
 * [docs].[RepoObject_ColumnList_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [docs].[RepoObject_ColumnList_T]
+ (
+  [RepoObject_guid]
+, [AntoraColumnDetails]
+, [AntoraNonPkColumnTableRows]
+, [AntoraPkColumnTableRows]
+, [PlantumlIndexColumns]
+, [PlantumlNonPkEntityColumns]
+, [PlantumlNonPkHiddenEntityColumns]
+, [PlantumlNonPkIndexColumns]
+, [PlantumlPkEntityColumns]
+)
+SELECT
+  [RepoObject_guid]
+, [AntoraColumnDetails]
+, [AntoraNonPkColumnTableRows]
+, [AntoraPkColumnTableRows]
+, [PlantumlIndexColumns]
+, [PlantumlNonPkEntityColumns]
+, [PlantumlNonPkHiddenEntityColumns]
+, [PlantumlNonPkIndexColumns]
+, [PlantumlPkEntityColumns]
+
+FROM [docs].[RepoObject_ColumnList] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
+
+
 

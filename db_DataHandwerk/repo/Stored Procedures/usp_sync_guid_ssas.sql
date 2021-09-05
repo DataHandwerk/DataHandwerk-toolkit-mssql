@@ -239,7 +239,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [ssas].[usp_PERSIST_model_json_31_tables_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[ssas].[usp_PERSIST_model_json_31_tables_T]
+----
+=====
+
 |
+
 
 |320
 |
@@ -247,7 +258,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [ssas].[usp_PERSIST_model_json_311_tables_columns_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[ssas].[usp_PERSIST_model_json_311_tables_columns_T]
+----
+=====
+
 |
+
 
 |330
 |
@@ -255,7 +277,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [ssas].[usp_PERSIST_model_json_32_relationships_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[ssas].[usp_PERSIST_model_json_32_relationships_T]
+----
+=====
+
 |
+
 
 |1000
 |
@@ -263,7 +296,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_PERSIST_RepoSchema_ssas_tgt]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_PERSIST_RepoSchema_ssas_tgt]
+----
+=====
+
 |
+
 
 |2000
 |
@@ -271,7 +315,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_PERSIST_RepoObject_SSAS_tgt]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_PERSIST_RepoObject_SSAS_tgt]
+----
+=====
+
 |
+
 
 |3000
 |
@@ -279,7 +334,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]
+----
+=====
+
 |
+
 
 |4010
 |
@@ -287,7 +353,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_PERSIST_Index_ssas_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_PERSIST_Index_ssas_T]
+----
+=====
+
 |
+
 
 |4020
 |
@@ -295,7 +372,20 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_PERSIST_IndexColumn_ssas_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_PERSIST_IndexColumn_ssas_T]
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
+
 

@@ -286,21 +286,68 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 *configure database connection*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE @instanceName NVARCHAR(500) = @@servername --example: ''ACER-F17\SQL2019'', ''.\SQL2019'', localhost\SQL2019
+DECLARE @databaseName NVARCHAR(128) = DB_NAME()
+DECLARE @TrustedUserPassword NVARCHAR(1000)
+
+IF @isTrustedConnection = 1
+ SET @TrustedUserPassword = '' -T''
+ELSE
+ SET @TrustedUserPassword = '' -U '' + @userName + '' -P '' + @password
+----
+=====
+
 |
+
 
 |120
 |
 *configure outputDir*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+SET @outputDir = ISNULL(@outputDir, (
+   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModul'', '''') + ''\''
+   ) + ''pages\other\'')
+SET @outputDir2 = ISNULL(@outputDir2, (
+   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModul'', '''') + ''\''
+   ) + ''partials\puml\'')
+   
+----
+=====
+
 |
+
 
 |210
 |
 *declare variables*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE @command NVARCHAR(4000)
+
+----
+=====
+
 |
+
 
 |410
 |
@@ -312,7 +359,33 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 IndexSemanticGroup.adoc
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+SET @command = ''bcp "SELECT [page_content] FROM [docs].[ObjectRefCyclic]"  queryout "'' + @outputDir + ''ObjectRefCyclic.adoc"''
+ --
+ + '' -S '' + @instanceName
+ --
+ + '' -d '' + @databaseName
+ --
+ + '' -c -C 65001''
+ --
+ + @TrustedUserPassword
+
+PRINT @command
+
+--Execute the BCP command
+EXEC xp_cmdshell @command
+ , no_output
+
+----
+=====
+
 |
+
 
 |420
 |
@@ -324,7 +397,35 @@ IndexSemanticGroup.adoc
 
 IndexSemanticGroup.adoc
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+SET @command = ''bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic]"  queryout "'' + @outputDir2 + ''ObjectRefCyclic.puml"''
+ --
+ + '' -S '' + @instanceName
+ --
+ + '' -d '' + @databaseName
+ --
+ + '' -c -C 65001''
+ --
+ + @TrustedUserPassword
+
+PRINT @command
+
+--Execute the BCP command
+EXEC xp_cmdshell @command
+ , no_output
+
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectRefCyclic';
+
+
 

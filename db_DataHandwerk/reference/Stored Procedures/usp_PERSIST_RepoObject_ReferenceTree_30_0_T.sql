@@ -211,7 +211,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * D
 * [reference].[RepoObject_ReferenceTree_30_0_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [reference].[RepoObject_ReferenceTree_30_0_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -221,9 +232,50 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [reference].[RepoObject_ReferenceTree_30_0]
 * [reference].[RepoObject_ReferenceTree_30_0_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [reference].[RepoObject_ReferenceTree_30_0_T]
+ (
+  [Referenced_Depth]
+, [Referenced_fullname]
+, [Referenced_fullname2]
+, [Referenced_guid]
+, [Referenced_type]
+, [Referencing_Depth]
+, [Referencing_fullname]
+, [Referencing_fullname2]
+, [Referencing_guid]
+, [Referencing_type]
+, [RepoObject_guid]
+)
+SELECT
+  [Referenced_Depth]
+, [Referenced_fullname]
+, [Referenced_fullname2]
+, [Referenced_guid]
+, [Referenced_type]
+, [Referencing_Depth]
+, [Referencing_fullname]
+, [Referencing_fullname2]
+, [Referencing_guid]
+, [Referencing_type]
+, [RepoObject_guid]
+
+FROM [reference].[RepoObject_ReferenceTree_30_0] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ReferenceTree_30_0_T';
+
+
 
 
 

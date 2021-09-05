@@ -314,7 +314,27 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [ss
 * [ssas].[TMSCHEMA_TABLES]
 * [ssas].[TMSCHEMA_TABLES_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [ssas].[TMSCHEMA_TABLES_T] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [ssas].[TMSCHEMA_TABLES] AS S
+WHERE
+T.[databasename] = S.[databasename]
+AND T.[ID] = S.[ID]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -324,7 +344,54 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [ss
 * [ssas].[TMSCHEMA_TABLES]
 * [ssas].[TMSCHEMA_TABLES_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[databasename] = S.[databasename]
+, T.[ID] = S.[ID]
+, T.[DataCategory] = S.[DataCategory]
+, T.[DefaultDetailRowsDefinitionID] = S.[DefaultDetailRowsDefinitionID]
+, T.[Description] = S.[Description]
+, T.[IsHidden] = S.[IsHidden]
+, T.[IsPrivate] = S.[IsPrivate]
+, T.[ModelID] = S.[ModelID]
+, T.[ModifiedTime] = S.[ModifiedTime]
+, T.[Name] = S.[Name]
+, T.[ShowAsVariationsOnly] = S.[ShowAsVariationsOnly]
+, T.[StructureModifiedTime] = S.[StructureModifiedTime]
+, T.[SystemFlags] = S.[SystemFlags]
+, T.[TableStorageID] = S.[TableStorageID]
+
+FROM [ssas].[TMSCHEMA_TABLES_T] AS T
+INNER JOIN [ssas].[TMSCHEMA_TABLES] AS S
+ON
+T.[databasename] = S.[databasename]
+AND T.[ID] = S.[ID]
+
+WHERE
+   T.[DataCategory] <> S.[DataCategory] OR (S.[DataCategory] IS NULL AND NOT T.[DataCategory] IS NULL) OR (NOT S.[DataCategory] IS NULL AND T.[DataCategory] IS NULL)
+OR T.[DefaultDetailRowsDefinitionID] <> S.[DefaultDetailRowsDefinitionID] OR (S.[DefaultDetailRowsDefinitionID] IS NULL AND NOT T.[DefaultDetailRowsDefinitionID] IS NULL) OR (NOT S.[DefaultDetailRowsDefinitionID] IS NULL AND T.[DefaultDetailRowsDefinitionID] IS NULL)
+OR T.[Description] <> S.[Description] OR (S.[Description] IS NULL AND NOT T.[Description] IS NULL) OR (NOT S.[Description] IS NULL AND T.[Description] IS NULL)
+OR T.[IsHidden] <> S.[IsHidden]
+OR T.[IsPrivate] <> S.[IsPrivate]
+OR T.[ModelID] <> S.[ModelID]
+OR T.[ModifiedTime] <> S.[ModifiedTime]
+OR T.[Name] <> S.[Name]
+OR T.[ShowAsVariationsOnly] <> S.[ShowAsVariationsOnly]
+OR T.[StructureModifiedTime] <> S.[StructureModifiedTime]
+OR T.[SystemFlags] <> S.[SystemFlags]
+OR T.[TableStorageID] <> S.[TableStorageID]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -334,7 +401,62 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [ss
 * [ssas].[TMSCHEMA_TABLES]
 * [ssas].[TMSCHEMA_TABLES_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [ssas].[TMSCHEMA_TABLES_T]
+ (
+  [databasename]
+, [ID]
+, [DataCategory]
+, [DefaultDetailRowsDefinitionID]
+, [Description]
+, [IsHidden]
+, [IsPrivate]
+, [ModelID]
+, [ModifiedTime]
+, [Name]
+, [ShowAsVariationsOnly]
+, [StructureModifiedTime]
+, [SystemFlags]
+, [TableStorageID]
+)
+SELECT
+  [databasename]
+, [ID]
+, [DataCategory]
+, [DefaultDetailRowsDefinitionID]
+, [Description]
+, [IsHidden]
+, [IsPrivate]
+, [ModelID]
+, [ModifiedTime]
+, [Name]
+, [ShowAsVariationsOnly]
+, [StructureModifiedTime]
+, [SystemFlags]
+, [TableStorageID]
+
+FROM [ssas].[TMSCHEMA_TABLES] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [ssas].[TMSCHEMA_TABLES_T] AS T
+WHERE
+T.[databasename] = S.[databasename]
+AND T.[ID] = S.[ID]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_TMSCHEMA_TABLES_T';
+
+
 

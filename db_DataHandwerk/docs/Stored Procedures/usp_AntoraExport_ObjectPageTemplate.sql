@@ -345,21 +345,69 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 *configure database connection*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE @instanceName NVARCHAR(500) = @@servername --example: ''ACER-F17\SQL2019'', ''.\SQL2019'', localhost\SQL2019
+DECLARE @databaseName NVARCHAR(128) = DB_NAME()
+DECLARE @TrustedUserPassword NVARCHAR(1000)
+
+IF @isTrustedConnection = 1
+ SET @TrustedUserPassword = '' -T''
+ELSE
+ SET @TrustedUserPassword = '' -U '' + @userName + '' -P '' + @password
+----
+=====
+
 |
+
 
 |120
 |
 *configure outputDir*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+SET @outputDir = ISNULL(@outputDir, (
+   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModul'', '''') + ''\''
+   ) + ''partials\template\'')
+
+----
+=====
+
 |
+
 
 |210
 |
 *declare variables*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE @command NVARCHAR(4000);
+DECLARE @sub_parameter NVARCHAR(128);
+DECLARE @BaseFileName NVARCHAR(128) = ''master-page-''
+DECLARE @Object_fullname NVARCHAR(261);
+DECLARE @Object_fullname2 NVARCHAR(257);
+
+----
+=====
+
 |
+
 
 |410
 |
@@ -368,7 +416,63 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * u
 * [repo].[Parameter]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE template_cursor CURSOR Local Fast_Forward
+FOR
+SELECT [sub_Parameter]
+--,[Parameter_value__result_nvarchar]
+FROM [config].[Parameter]
+WHERE [Parameter_name] = ''AntoraPageTemplate''
+ AND [sub_Parameter] <> ''''
+ORDER BY [sub_Parameter]
+
+OPEN template_cursor
+
+FETCH NEXT
+FROM template_cursor
+INTO @sub_parameter
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+ --Dynamically construct the BCP command
+ --
+ --bcp "SELECT [config].[fs_get_parameter_value](''AntoraPageTemplate'', N''1'')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\template\master-page-1.adoc -S localhost\sql2019 -d dhw_self -c -T
+ --
+ SET @command = ''bcp "SELECT [config].[fs_get_parameter_value](''''AntoraPageTemplate'''', N'''''' + @sub_parameter + '''''')" queryout "'' + @outputDir + @BaseFileName + @sub_parameter + ''.adoc"''
+  --
+  + '' -S '' + @instanceName
+  --
+  + '' -d '' + @databaseName
+  --
+  + '' -c -C 65001''
+  --
+  + @TrustedUserPassword
+
+ PRINT @command
+
+ --Execute the BCP command
+ EXEC xp_cmdshell @command
+  , no_output
+
+ FETCH NEXT
+ FROM template_cursor
+ INTO @sub_parameter
+END
+
+CLOSE template_cursor
+
+DEALLOCATE template_cursor
+
+----
+=====
+
 |
+
 
 |510
 |
@@ -379,9 +483,37 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 
 
 master-page-examples.adoc
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+SET @command = ''bcp "SELECT [page_content] FROM [docs].[AntoraTemplate_examples]"  queryout "'' + @outputDir + ''master-page-examples.adoc"''
+ --
+ + '' -S '' + @instanceName
+ --
+ + '' -d '' + @databaseName
+ --
+ + '' -c -C 65001''
+ --
+ + @TrustedUserPassword
+
+PRINT @command
+
+--Execute the BCP command
+EXEC xp_cmdshell @command
+ , no_output
+
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPageTemplate';
+
+
 
 
 GO

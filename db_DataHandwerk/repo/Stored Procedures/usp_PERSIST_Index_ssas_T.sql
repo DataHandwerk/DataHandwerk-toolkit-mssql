@@ -290,7 +290,27 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[Index_ssas]
 * [repo].[Index_ssas_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [repo].[Index_ssas_T] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [repo].[Index_ssas] AS S
+WHERE
+T.[databasename] = S.[databasename]
+AND T.[index_name] = S.[index_name]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -300,7 +320,40 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[Index_ssas]
 * [repo].[Index_ssas_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[databasename] = S.[databasename]
+, T.[index_name] = S.[index_name]
+, T.[ColumnName] = S.[ColumnName]
+, T.[is_index_primary_key] = S.[is_index_primary_key]
+, T.[is_index_unique] = S.[is_index_unique]
+, T.[RepoObject_guid] = S.[RepoObject_guid]
+, T.[TableName] = S.[TableName]
+
+FROM [repo].[Index_ssas_T] AS T
+INNER JOIN [repo].[Index_ssas] AS S
+ON
+T.[databasename] = S.[databasename]
+AND T.[index_name] = S.[index_name]
+
+WHERE
+   T.[ColumnName] <> S.[ColumnName]
+OR T.[is_index_primary_key] <> S.[is_index_primary_key]
+OR T.[is_index_unique] <> S.[is_index_unique]
+OR T.[RepoObject_guid] <> S.[RepoObject_guid]
+OR T.[TableName] <> S.[TableName]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -310,7 +363,48 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[Index_ssas]
 * [repo].[Index_ssas_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [repo].[Index_ssas_T]
+ (
+  [databasename]
+, [index_name]
+, [ColumnName]
+, [is_index_primary_key]
+, [is_index_unique]
+, [RepoObject_guid]
+, [TableName]
+)
+SELECT
+  [databasename]
+, [index_name]
+, [ColumnName]
+, [is_index_primary_key]
+, [is_index_unique]
+, [RepoObject_guid]
+, [TableName]
+
+FROM [repo].[Index_ssas] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [repo].[Index_ssas_T] AS T
+WHERE
+T.[databasename] = S.[databasename]
+AND T.[index_name] = S.[index_name]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_Index_ssas_T';
+
+
 

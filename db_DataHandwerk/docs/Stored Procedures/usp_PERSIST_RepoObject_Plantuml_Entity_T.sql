@@ -215,7 +215,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * D
 * [docs].[RepoObject_Plantuml_Entity_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [docs].[RepoObject_Plantuml_Entity_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -225,9 +236,44 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 * [docs].[RepoObject_Plantuml_Entity]
 * [docs].[RepoObject_Plantuml_Entity_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [docs].[RepoObject_Plantuml_Entity_T]
+ (
+  [RepoObject_guid]
+, [RepoObject_fullname2]
+, [RepoObject_Puml]
+, [RepoObject_PumlOnlyIndex]
+, [RepoObject_PumlOnlyPK]
+, [RepoObject_PumlOnlyPkOrIndex]
+, [RepoObject_PumlOnlyPkOrNotHidden]
+, [RepoObject_schema_name]
+)
+SELECT
+  [RepoObject_guid]
+, [RepoObject_fullname2]
+, [RepoObject_Puml]
+, [RepoObject_PumlOnlyIndex]
+, [RepoObject_PumlOnlyPK]
+, [RepoObject_PumlOnlyPkOrIndex]
+, [RepoObject_PumlOnlyPkOrNotHidden]
+, [RepoObject_schema_name]
+
+FROM [docs].[RepoObject_Plantuml_Entity] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_Plantuml_Entity_T';
+
+
 
 
 GO

@@ -344,7 +344,28 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [pr
 *DECLARE*
 
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DECLARE
+ --
+ @property_name NVARCHAR(128)
+ , @property_value SQL_VARIANT
+ , @schema_name NVARCHAR(128)
+ , @level0type VARCHAR(128)
+ , @level0name NVARCHAR(128)
+ , @level1type VARCHAR(128)
+ , @level1name NVARCHAR(128)
+ , @level2type VARCHAR(128)
+ , @level2name NVARCHAR(128)
+----
+=====
+
 |
+
 
 |310
 |
@@ -354,7 +375,32 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [pr
 * [property].[RepoObjectProperty_sys_repo]
 * [property].[RepoObjectProperty]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+Insert Into property.RepoObjectProperty
+(
+    RepoObject_guid
+  , property_name
+  , property_value
+)
+Select
+    Distinct
+    RepoObject_guid
+  , property_name
+  , CAST(property_value as NVarchar(max))
+From
+    property.RepoObjectProperty_sys_repo As T1
+Where
+    RepoObjectProperty_id Is Null;
+----
+=====
+
 |
+
 
 |320
 |
@@ -367,7 +413,24 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [pr
 
 update table [property].[RepoObjectProperty] via view
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+Update
+    property.RepoObjectProperty_sys_repo
+Set
+    RepoObjectProperty_property_value = CAST(property_value as NVarchar(4000))
+Where
+    Not RepoObjectProperty_id Is Null
+    And RepoObjectProperty_property_value <> CAST(property_value as NVarchar(4000));
+----
+=====
+
 |
+
 
 |410
 |
@@ -377,7 +440,32 @@ update table [property].[RepoObjectProperty] via view
 * [property].[RepoObjectColumnProperty_sys_repo]
 * [property].[RepoObjectColumnProperty]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+Insert Into property.RepoObjectColumnProperty
+(
+    RepoObjectColumn_guid
+  , property_name
+  , property_value
+)
+Select
+    Distinct
+    RepoObjectColumn_guid
+  , property_name
+  , CAST(property_value as NVarchar(max))
+From
+    property.RepoObjectColumnProperty_sys_repo As T1
+Where
+    RepoObjectColumnProperty_id Is Null;
+----
+=====
+
 |
+
 
 |420
 |
@@ -390,7 +478,24 @@ update table [property].[RepoObjectProperty] via view
 
 update table [property].[RepoObjectColumnProperty] via view
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+Update
+    property.RepoObjectColumnProperty_sys_repo
+Set
+    RepoObjectColumnProperty_property_value = CAST(property_value as NVarchar(4000))
+Where
+    Not RepoObjectColumnProperty_id Is Null
+    And RepoObjectColumnProperty_property_value <> CAST(property_value as NVarchar(4000));
+----
+=====
+
 |
+
 
 |520
 |
@@ -400,9 +505,37 @@ update table [property].[RepoObjectColumnProperty] via view
 * [repo_sys].[ExtendedProperties]
 * [repo].[RepoSchema]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+Update
+    rs
+Set
+    RepoSchema_ms_description = Cast(ses.property_value As NVarchar(4000))
+From
+    repo.RepoSchema                 rs
+    Inner Join
+        repo_sys.ExtendedProperties As ses
+            On
+            ses.major_id          = rs.SysSchema_id
+            And ses.class         = 3 --schema
+            And ses.property_name = ''MS_Description''
+Where
+    rs.RepoSchema_ms_description Is Null
+    Or rs.RepoSchema_ms_description <> ses.property_value;
+
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
+
 
 
 

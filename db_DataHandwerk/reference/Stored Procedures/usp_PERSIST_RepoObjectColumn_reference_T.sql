@@ -221,7 +221,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * D
 * [reference].[RepoObjectColumn_reference_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [reference].[RepoObjectColumn_reference_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -231,9 +242,56 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [reference].[RepoObjectColumn_reference]
 * [reference].[RepoObjectColumn_reference_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [reference].[RepoObjectColumn_reference_T]
+ (
+  [referenced_RepoObjectColumn_guid]
+, [referencing_RepoObjectColumn_guid]
+, [is_referenced_object]
+, [is_referencing_object_equal_referenced_object]
+, [referenced_column_name]
+, [referenced_entity_name]
+, [referenced_RepoObject_guid]
+, [referenced_schema_name]
+, [referenced_type]
+, [referencing_column_name]
+, [referencing_entity_name]
+, [referencing_RepoObject_guid]
+, [referencing_schema_name]
+, [referencing_type]
+)
+SELECT
+  [referenced_RepoObjectColumn_guid]
+, [referencing_RepoObjectColumn_guid]
+, [is_referenced_object]
+, [is_referencing_object_equal_referenced_object]
+, [referenced_column_name]
+, [referenced_entity_name]
+, [referenced_RepoObject_guid]
+, [referenced_schema_name]
+, [referenced_type]
+, [referencing_column_name]
+, [referencing_entity_name]
+, [referencing_RepoObject_guid]
+, [referencing_schema_name]
+, [referencing_type]
+
+FROM [reference].[RepoObjectColumn_reference] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObjectColumn_reference_T';
+
+
 
 
 

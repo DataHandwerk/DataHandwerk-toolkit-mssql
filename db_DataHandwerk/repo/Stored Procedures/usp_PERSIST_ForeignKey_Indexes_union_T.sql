@@ -247,7 +247,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * D
 * [repo].[ForeignKey_Indexes_union_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [repo].[ForeignKey_Indexes_union_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -257,9 +268,76 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[ForeignKey_Indexes_union]
 * [repo].[ForeignKey_Indexes_union_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [repo].[ForeignKey_Indexes_union_T]
+ (
+  [ForeignKey_guid]
+, [delete_referential_action]
+, [ForeignKey_fullname]
+, [ForeignKey_name]
+, [is_MatchingDatatypePattern]
+, [referenced_index_guid]
+, [referenced_index_name]
+, [referenced_IndexPatternColumnDatatype]
+, [referenced_IndexPatternColumnName]
+, [referenced_RepoObject_fullname]
+, [referenced_RepoObject_fullname2]
+, [referenced_RepoObject_guid]
+, [referenced_SysObject_name]
+, [referenced_SysObject_schema_name]
+, [referencing_index_guid]
+, [referencing_index_name]
+, [referencing_IndexPatternColumnDatatype]
+, [referencing_IndexPatternColumnName]
+, [referencing_RepoObject_fullname]
+, [referencing_RepoObject_fullname2]
+, [referencing_RepoObject_guid]
+, [referencing_SysObject_name]
+, [referencing_SysObject_schema_name]
+, [update_referential_action]
+)
+SELECT
+  [ForeignKey_guid]
+, [delete_referential_action]
+, [ForeignKey_fullname]
+, [ForeignKey_name]
+, [is_MatchingDatatypePattern]
+, [referenced_index_guid]
+, [referenced_index_name]
+, [referenced_IndexPatternColumnDatatype]
+, [referenced_IndexPatternColumnName]
+, [referenced_RepoObject_fullname]
+, [referenced_RepoObject_fullname2]
+, [referenced_RepoObject_guid]
+, [referenced_SysObject_name]
+, [referenced_SysObject_schema_name]
+, [referencing_index_guid]
+, [referencing_index_name]
+, [referencing_IndexPatternColumnDatatype]
+, [referencing_IndexPatternColumnName]
+, [referencing_RepoObject_fullname]
+, [referencing_RepoObject_fullname2]
+, [referencing_RepoObject_guid]
+, [referencing_SysObject_name]
+, [referencing_SysObject_schema_name]
+, [update_referential_action]
+
+FROM [repo].[ForeignKey_Indexes_union] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ForeignKey_Indexes_union_T';
+
+
 
 
 GO

@@ -157,7 +157,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_sync_guid_RepoSchema]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_sync_guid_RepoSchema]
+----
+=====
+
 |
+
 
 |300
 |
@@ -165,7 +176,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_sync_guid_RepoObject]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_sync_guid_RepoObject]
+----
+=====
+
 |
+
 
 |400
 |
@@ -173,9 +195,22 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [repo].[usp_sync_guid_RepoObjectColumn]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[repo].[usp_sync_guid_RepoObjectColumn]
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid';
+
+
 
 
 

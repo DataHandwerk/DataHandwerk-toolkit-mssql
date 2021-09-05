@@ -280,7 +280,26 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoSchema_ssas_src]
 * [repo].[RepoSchema_ssas_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [repo].[RepoSchema_ssas_tgt] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [repo].[RepoSchema_ssas_src] AS S
+WHERE
+T.[RepoSchema_name] = S.[RepoSchema_name]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -290,7 +309,36 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoSchema_ssas_src]
 * [repo].[RepoSchema_ssas_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[RepoSchema_name] = S.[RepoSchema_name]
+, T.[is_ssas] = S.[is_ssas]
+, T.[is_SysSchema_missing] = S.[is_SysSchema_missing]
+, T.[RepoSchema_ms_description] = S.[RepoSchema_ms_description]
+, T.[SysSchema_name] = S.[SysSchema_name]
+
+FROM [repo].[RepoSchema_ssas_tgt] AS T
+INNER JOIN [repo].[RepoSchema_ssas_src] AS S
+ON
+T.[RepoSchema_name] = S.[RepoSchema_name]
+
+WHERE
+   T.[is_ssas] <> S.[is_ssas]
+OR T.[is_SysSchema_missing] <> S.[is_SysSchema_missing]
+OR T.[RepoSchema_ms_description] <> S.[RepoSchema_ms_description] OR (S.[RepoSchema_ms_description] IS NULL AND NOT T.[RepoSchema_ms_description] IS NULL) OR (NOT S.[RepoSchema_ms_description] IS NULL AND T.[RepoSchema_ms_description] IS NULL)
+OR T.[SysSchema_name] <> S.[SysSchema_name]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -300,7 +348,43 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoSchema_ssas_src]
 * [repo].[RepoSchema_ssas_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [repo].[RepoSchema_ssas_tgt]
+ (
+  [RepoSchema_name]
+, [is_ssas]
+, [is_SysSchema_missing]
+, [RepoSchema_ms_description]
+, [SysSchema_name]
+)
+SELECT
+  [RepoSchema_name]
+, [is_ssas]
+, [is_SysSchema_missing]
+, [RepoSchema_ms_description]
+, [SysSchema_name]
+
+FROM [repo].[RepoSchema_ssas_src] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [repo].[RepoSchema_ssas_tgt] AS T
+WHERE
+T.[RepoSchema_name] = S.[RepoSchema_name]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoSchema_ssas_tgt';
+
+
 

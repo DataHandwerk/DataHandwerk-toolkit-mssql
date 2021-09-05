@@ -14,44 +14,64 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ed2038b5-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_ColumnList_T';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4f47b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlIndexColumns';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ef851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlIndexColumns';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4e47b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkHiddenEntityColumns';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eb851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkHiddenEntityColumns';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4d47b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkIndexColumns';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkIndexColumns';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4c47b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkEntityColumns';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ea851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlNonPkEntityColumns';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4b47b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlPkEntityColumns';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ec851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'PlantumlPkEntityColumns';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4a47b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'AntoraNonPkColumnTableRows';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e9851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'AntoraNonPkColumnTableRows';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4947b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'AntoraPkColumnTableRows';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e7851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'AntoraPkColumnTableRows';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4847b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'AntoraColumnDetails';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ed851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'AntoraColumnDetails';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4747b3bb-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e8851b1a-240e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
 
 
 GO
@@ -170,4 +190,30 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [docs].[RepoObject_ColumnList].[AntoraColumnDetails]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'AntoraColumnDetails';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_ColumnList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_ColumnList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'ED2038B5-270E-EC11-8518-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Adoc.adoc[]
+* xref:docs.RepoObject_Plantuml_Entity.adoc[]
+* xref:docs.usp_PERSIST_RepoObject_ColumnList_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T';
 
