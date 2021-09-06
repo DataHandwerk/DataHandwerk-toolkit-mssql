@@ -288,17 +288,17 @@ Union All
 Select
     Parameter_name          = 'AntoraComponentFolder'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'Antora component folder (the folder, containing the folder ''modules''), will be extended by ''\modules\'' AntoraModul and on next level by ''partials\'', ''pages\'', ''examples\'', ''images\'''
+  , Parameter_desciption    = N'Antora component folder (the folder, containing the folder ''modules''), will be extended by ''\modules\'' AntoraModule and on next level by ''partials\'', ''pages\'', ''examples\'', ''images\'''
   , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'AntoraModul'
+    Parameter_name          = 'AntoraModule'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'Antora: named modul to contain the exported documentation.'
   , Parameter_default_value = Cast(N'sqldb' As NVarchar(200))
 Union All
 Select
-    Parameter_name          = 'AntoraModulFolder'
+    Parameter_name          = 'AntoraModuleFolder'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'obsolet! use AntoraComponentFolder'
   , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules' As NVarchar(4000))
@@ -680,62 +680,8 @@ GO
            , '====' + Char ( 13 ) + Char ( 10 )
          )
 
-Go
-Execute sp_addextendedproperty
-    @name = N'RepoObject_guid'
-  , @value = 'dd8f291c-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'configT'
-  , @level1type = N'VIEW'
-  , @level1name = N'Parameter_default';
-
-
-Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '83f17926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'configT'
-  , @level1type = N'VIEW'
-  , @level1name = N'Parameter_default'
-  , @level2type = N'COLUMN'
-  , @level2name = N'sub_Parameter';
-
-
-Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '82f17926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'configT'
-  , @level1type = N'VIEW'
-  , @level1name = N'Parameter_default'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Parameter_name';
-
-
-Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '84f17926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'configT'
-  , @level1type = N'VIEW'
-  , @level1name = N'Parameter_default'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Parameter_desciption';
-
-
-Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '85f17926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'configT'
-  , @level1type = N'VIEW'
-  , @level1name = N'Parameter_default'
-  , @level2type = N'COLUMN'
-  , @level2name = N'Parameter_default_value';
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'dd8f291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
 
 
 GO
@@ -761,6 +707,14 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
 * resulting content is available in
 ** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
 ** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_nvarchar[+config.Parameter.Parameter_value__result_nvarchar+]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
 
 
 GO
@@ -790,9 +744,17 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '83f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'sub_Parameter';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '82f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'Parameter_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '84f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'Parameter_desciption';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '85f17926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default', @level2type = N'COLUMN', @level2name = N'Parameter_default_value';
 

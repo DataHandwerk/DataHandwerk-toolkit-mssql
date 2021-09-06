@@ -94,7 +94,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',33,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'pages\other\')
 
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
@@ -179,15 +179,211 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8b1293b9-de96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+Go
 
+--Execute sys_dwh.sp_addextendedproperty    @name = N'RepoObject_guid'
+--  , @value = '8b1293b9-de96-eb11-84f4-a81e8446d5b0'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'UspParameters'
+--  , @value = N'@outputDir NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\ */
+--,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
+--,@userName NVARCHAR(250) = ''loginName'' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
+--,@password NVARCHAR(250) = ''password'''
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'ReferencedObjectList'
+--  , @value = N'* [config].[fs_get_parameter_value]
+--* [logs].[usp_ExecutionLog_insert]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'MS_Description'
+--  , @value = N'one special page is exported into +
+--@outputDir + ''IndexSemanticGroup.adoc''
+
+--include::partial$docsnippet/antora-export-prerequisites.adoc[]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'ExampleUsage'
+--  , @value = N'EXEC [docs].[usp_AntoraExport_Page_IndexSemanticGroup]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'AntoraReferencingList'
+--  , @value = N'* xref:docs.usp_AntoraExport.adoc[]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'AntoraReferencedList'
+--  , @value = N'* xref:config.fs_get_parameter_value.adoc[]
+--* xref:logs.usp_ExecutionLog_insert.adoc[]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'AdocUspSteps'
+--  , @value = N'.Steps in [docs].[usp_AntoraExport_Page_IndexSemanticGroup]
+--[cols="d,15a,d"]
+--|===
+--|Number|Name (Action, Source, Target)|Parent
+
+--|110
+--|
+--*configure database connection*
+
+
+
+--.Statement
+--[%collapsible]
+--=====
+--[source,sql]
+------
+--DECLARE @instanceName NVARCHAR(500) = @@servername --example: ''ACER-F17\SQL2019'', ''.\SQL2019'', localhost\SQL2019
+--DECLARE @databaseName NVARCHAR(128) = DB_NAME()
+--DECLARE @TrustedUserPassword NVARCHAR(1000)
+
+--IF @isTrustedConnection = 1
+-- SET @TrustedUserPassword = '' -T''
+--ELSE
+-- SET @TrustedUserPassword = '' -U '' + @userName + '' -P '' + @password
+------
+--=====
+
+--|
+
+
+--|120
+--|
+--*configure outputDir*
+
+
+
+--.Statement
+--[%collapsible]
+--=====
+--[source,sql]
+------
+--SET @outputDir = ISNULL(@outputDir, (
+--   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModule'', '''') + ''\''
+--   ) + ''pages\other\'')
+------
+--=====
+
+--|
+
+
+--|210
+--|
+--*declare variables*
+
+
+
+--.Statement
+--[%collapsible]
+--=====
+--[source,sql]
+------
+--DECLARE @command NVARCHAR(4000)
+
+------
+--=====
+
+--|
+
+
+--|410
+--|
+--*export FROM [docs].[AntoraPage_IndexSemanticGroup]*
+
+--* u
+--* [docs].[AntoraPage_IndexSemanticGroup]
+
+
+--IndexSemanticGroup.adoc
+
+
+--.Statement
+--[%collapsible]
+--=====
+--[source,sql]
+------
+--SET @command = ''bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemanticGroup]"  queryout '' + @outputDir + ''IndexSemanticGroup.adoc''
+-- --
+-- + '' -S '' + @instanceName
+-- --
+-- + '' -d '' + @databaseName
+-- --
+-- + '' -c -C 65001''
+-- --
+-- + @TrustedUserPassword
+
+--PRINT @command
+
+----Execute the BCP command
+--EXEC xp_cmdshell @command
+-- , no_output
+
+------
+--=====
+
+--|
+
+--|===
+--'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'is_ssas'
+--  , @value = N'0'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'is_repo_managed'
+--  , @value = N'0'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
 
 GO
 EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDir NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\ */
 ,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
 ,@userName NVARCHAR(250) = ''loginName'' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
 ,@password NVARCHAR(250) = ''password''', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'8b1293b9-de96-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
 
 
 GO
@@ -200,6 +396,14 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'one special
 @outputDir + ''IndexSemanticGroup.adoc''
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
 
 
 GO
@@ -324,14 +528,4 @@ EXEC xp_cmdshell @command
 
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
-
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
 

@@ -112,34 +112,34 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_1_1_colref\')
 SET @outputDir2 = ISNULL(@outputDir2, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_1_1_objectref\')
 SET @outputDir3 = ISNULL(@outputDir3, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_1_1_fk\')
 SET @outputDir4 = ISNULL(@outputDir4, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_0_30_objectref\')
 SET @outputDir5 = ISNULL(@outputDir5, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_30_0_objectref\')
 SET @outputDir6 = ISNULL(@outputDir6, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\schema_ssas_er\')
 SET @outputDir7 = ISNULL(@outputDir7, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity\')
 SET @outputDir8 = ISNULL(@outputDir8, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_pk\')
 SET @outputDir9 = ISNULL(@outputDir9, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_pk_or_index\')
 SET @outputDir10 = ISNULL(@outputDir10, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_pk_or_nothidden\')
    
 
@@ -952,9 +952,252 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'f40b29c2-e595-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+Go
 
+--Execute sys_dwh.sp_addextendedproperty    @name = N'RepoObject_guid'
+--  , @value = 'f40b29c2-e595-eb11-84f4-a81e8446d5b0'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'UspParameters'
+--  , @value = N'@outputDir NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\ */
+--,@outputDir2 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_objectref\ */
+--,@outputDir3 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_fk\ */
+--,@outputDir4 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_0_30_objectref\ */
+--,@outputDir5 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_30_0_objectref\ */
+--,@outputDir6 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+--,@outputDir7 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+--,@outputDir8 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+--,@outputDir9 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+--,@outputDir10 NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
+--,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
+--,@userName NVARCHAR(250) = ''loginName'' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
+--,@password NVARCHAR(250) = ''password'''
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'ReferencedObjectList'
+--  , @value = N'* [config].[fs_get_parameter_value]
+--* [docs].[RepoObject_OutputFilter]
+--* [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
+--* [docs].[usp_PERSIST_RepoObject_Plantuml_T]
+--* [logs].[usp_ExecutionLog_insert]
+--* [repo].[RepoSchema]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'MS_Description'
+--  , @value = N'* the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
+--** export procedure: xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
+--** individual diagrams per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/partials/puml/``
+
+--include::partial$docsnippet/antora-export-prerequisites.adoc[]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'ExampleUsage'
+--  , @value = N'EXEC [docs].[usp_AntoraExport_ObjectPuml]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'AntoraReferencingList'
+--  , @value = N'* xref:docs.usp_AntoraExport.adoc[]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'AntoraReferencedList'
+--  , @value = N'* xref:config.fs_get_parameter_value.adoc[]
+--* xref:docs.RepoObject_OutputFilter.adoc[]
+--* xref:docs.usp_PERSIST_RepoObject_Plantuml_Entity_T.adoc[]
+--* xref:docs.usp_PERSIST_RepoObject_Plantuml_T.adoc[]
+--* xref:logs.usp_ExecutionLog_insert.adoc[]
+--* xref:repo.RepoSchema.adoc[]'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'AdocUspSteps'
+--  , @value = N'.Steps in [docs].[usp_AntoraExport_ObjectPuml]
+--[cols="d,15a,d"]
+--|===
+--|Number|Name (Action, Source, Target)|Parent
+
+--|110
+--|
+--*configure database connection*
+
+
+--|
+
+--|120
+--|
+--*configure outputDirs*
+
+
+--|
+
+--|210
+--|
+--*declare variables*
+
+
+--|
+
+--|330
+--|
+--*[docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]*
+
+--* `EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]`
+
+--|
+
+--|340
+--|
+--*[docs].[usp_PERSIST_RepoObject_Plantuml_T]*
+
+--* `EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_T]`
+
+--|
+
+--|430
+--|
+--*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_FkRef]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_T]
+
+--|
+
+--|500
+--|
+--*(select config.fs_get_parameter_value ( ''sync enable'', ''dwh'' )) = 1*
+
+--* `IF (select config.fs_get_parameter_value ( ''sync enable'', ''dwh'' )) = 1`
+
+--|
+
+--|510
+--|
+--*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_0_30_ObjectRef]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_T]
+
+--|500
+
+--|520
+--|
+--*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_30_0_ObjectRef]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_T]
+
+--|510
+
+--|530
+--|
+--*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ObjectRef]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_T]
+
+--|520
+
+--|540
+--|
+--*export FROM [docs].[RepoObject_Plantuml] [PlantumlEntity_1_1_ColRef]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_T]
+
+--|530
+
+--|610
+--|
+--*export FROM [docs].[Schema_puml] [PumlSchemaSsasEr]*
+
+--* u
+--* [docs].[Schema_puml]
+
+--|
+
+--|710
+--|
+--*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_Puml]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_Entity_T]
+
+--|
+
+--|720
+--|
+--*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_PumlOnlyPK]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_Entity_T]
+
+--|
+
+--|730
+--|
+--*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_PumlOnlyPkOrIndex]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_Entity_T]
+
+--|
+
+--|740
+--|
+--*export FROM [docs].[RepoObject_Plantuml_Entity_T] [RepoObject_PumlOnlyPkOrNotHidden]*
+
+--* u
+--* [docs].[RepoObject_Plantuml_Entity_T]
+
+--|
+--|===
+--'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'is_ssas'
+--  , @value = N'0'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
+--Go
+
+--Execute sys_dwh.sp_addextendedproperty    @name = N'is_repo_managed'
+--  , @value = N'0'
+--  , @level0type = N'SCHEMA'
+--  , @level0name = N'docs'
+--  , @level1type = N'PROCEDURE'
+--  , @level1name = N'usp_AntoraExport_ObjectPuml';
 
 GO
 EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDir NVARCHAR(1000) = NULL /* example: ''D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\ */
@@ -972,6 +1215,8 @@ EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = N'@outputDir N
 ,@password NVARCHAR(250) = ''password''', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 
 
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'f40b29c2-e595-eb11-84f4-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 
 
 GO
@@ -983,8 +1228,6 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 * [repo].[RepoSchema]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 
 
-
-
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
@@ -993,6 +1236,12 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the docum
 include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 
 
+GO
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 
 
 GO
@@ -1010,8 +1259,6 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:docs.usp_PERSIST_RepoObject_Plantuml_T.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]
 * xref:repo.RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
-
-
 
 
 GO
@@ -1156,14 +1403,4 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [do
 |
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
-
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPuml';
 

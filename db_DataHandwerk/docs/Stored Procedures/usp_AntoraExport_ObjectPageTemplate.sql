@@ -94,7 +94,7 @@ ELSE
 PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',120,';',NULL);
 
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModul', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\template\')
 
 
@@ -320,6 +320,8 @@ include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [docs].[usp_AntoraExport_ObjectPageTemplate]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPageTemplate';
 
@@ -512,6 +514,8 @@ EXEC xp_cmdshell @command
 
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPageTemplate';
+
+
 
 
 

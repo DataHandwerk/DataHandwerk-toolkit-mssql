@@ -1,4 +1,4 @@
-﻿CREATE View docs.DocsUnit
+﻿Create View docs.DocsUnit
 As
 Select
     Unit_guid
@@ -18,10 +18,10 @@ Select
   , Unit_SummarizeBy
   , Object_fullname2
   , Object_Type
-  , AntoraComponent = AntoraComponent.[Parameter_value_result]
-  , AntoraModul = AntoraModul.[Parameter_value_result]
-  --, AntoraPage
+  , AntoraComponent = AntoraComponent.Parameter_value_result
+  , AntoraModule    = AntoraModule.Parameter_value_result
+--, AntoraPage
 From
-    docs.DocsUnit_union T1
-	Cross Join [config].[ftv_get_parameter_value]('AntoraComponent','') As AntoraComponent
-	Cross Join [config].[ftv_get_parameter_value]('AntoraModul','') As AntoraModul
+    docs.DocsUnit_union                                                 As T1
+    Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
+    Cross Join config.ftv_get_parameter_value ( 'AntoraModule', '' ) As AntoraModule

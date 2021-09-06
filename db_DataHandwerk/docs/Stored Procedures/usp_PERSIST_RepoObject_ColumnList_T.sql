@@ -105,7 +105,8 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',87,';',800,';',NULL);
 INSERT INTO 
  [docs].[RepoObject_ColumnList_T]
  (
-  [AntoraColumnDetails]
+  [RepoObject_guid]
+, [AntoraColumnDetails]
 , [AntoraNonPkColumnTableRows]
 , [AntoraPkColumnTableRows]
 , [PlantumlIndexColumns]
@@ -113,10 +114,10 @@ INSERT INTO
 , [PlantumlNonPkHiddenEntityColumns]
 , [PlantumlNonPkIndexColumns]
 , [PlantumlPkEntityColumns]
-, [RepoObject_guid]
 )
 SELECT
-  [AntoraColumnDetails]
+  [RepoObject_guid]
+, [AntoraColumnDetails]
 , [AntoraNonPkColumnTableRows]
 , [AntoraPkColumnTableRows]
 , [PlantumlIndexColumns]
@@ -124,7 +125,6 @@ SELECT
 , [PlantumlNonPkHiddenEntityColumns]
 , [PlantumlNonPkIndexColumns]
 , [PlantumlPkEntityColumns]
-, [RepoObject_guid]
 
 FROM [docs].[RepoObject_ColumnList] AS S
 
