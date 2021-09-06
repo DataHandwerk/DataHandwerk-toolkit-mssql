@@ -301,7 +301,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * `EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]`
 * u
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
+----
+=====
+
 |
+
 
 |220
 |
@@ -310,7 +321,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * `EXEC [workflow].[usp_PERSIST_WorkflowStep]`
 * u
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[workflow].[usp_PERSIST_WorkflowStep]
+----
+=====
+
 |
+
 
 |310
 |
@@ -319,7 +341,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * `EXEC [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]`
 * u
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[workflow].[usp_PERSIST_Workflow_ProcedureDependency_T]
+----
+=====
+
 |
+
 
 |330
 |
@@ -328,7 +361,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * `EXEC [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T]`
 * u
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[workflow].[usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T]
+----
+=====
+
 |
+
 
 |410
 |
@@ -338,7 +382,49 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[Workflow_ProcedureDependency_T]
 * [workflow].[Workflow_ProcedureDependency_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+--Declare @rows Int;
+
+Set @rows = 0;
+Declare @updated Int = -1;
+
+While @updated <> 0
+Begin
+
+    Update
+        T1
+    Set
+        T1.is_redundant = 1
+    From
+        workflow.Workflow_ProcedureDependency_T             As T1
+        Inner Join
+            workflow.Workflow_ProcedureDependency_T_redundant As T2
+                On
+                T1.Workflow_id                               = T2.Workflow_id
+                And T1.referencing_Procedure_RepoObject_guid = T2.referencing_Procedure_RepoObject_guid
+                And T1.referenced_Procedure_RepoObject_guid  = T2.referenced_Procedure_RepoObject_guid
+    Where
+        ( T1.is_redundant            = 0 )
+        And T2.[RownrPerReferencing] = 1;
+
+    Set @updated = @@RowCount;
+    Set @rows = @rows + @updated;
+
+End;
+
+--Print @updated;
+--Print @rows;
+
+----
+=====
+
 |
+
 
 |510
 |
@@ -348,9 +434,60 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[WorkflowStep_active]
 * [workflow].[WorkflowStep_Sortorder]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+Truncate Table [workflow].[WorkflowStep_Sortorder];
+
+Insert Into [workflow].[WorkflowStep_Sortorder]
+(
+    Workflow_id
+  , Procedure_RepoObject_guid
+)
+
+--Procedure without referenced, not yet in [WorkflowStep_Sortorder]
+Select
+    T1.Workflow_id
+  , T1.Procedure_RepoObject_guid
+From
+    workflow.WorkflowStep_active As T1
+Where
+    --exclude those procedure that are already listed in the target table.
+    Not Exists
+(
+    Select
+        1
+    From
+        [workflow].[WorkflowStep_Sortorder] T2
+    Where
+        T2.Workflow_id                   = T1.Workflow_id
+        And T2.Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
+)
+    -- procedure should not be referenced by other procedures
+    And Not Exists
+(
+    Select
+        1
+    From
+        workflow.Workflow_ProcedureDependency_T_NotInSortorder T2
+    Where
+        T2.Workflow_id                               = T1.Workflow_id
+        And T2.referencing_Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
+);
+
+
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_workflow';
+
+
 
 
 

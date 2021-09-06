@@ -284,7 +284,28 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[Workflow_ProcedureDependency_T_bidirectional]
 * [workflow].[Workflow_ProcedureDependency_T_bidirectional_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [workflow].[Workflow_ProcedureDependency_T_bidirectional_T] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [workflow].[Workflow_ProcedureDependency_T_bidirectional] AS S
+WHERE
+T.[Workflow_id] = S.[Workflow_id]
+AND T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+AND T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -294,7 +315,36 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[Workflow_ProcedureDependency_T_bidirectional]
 * [workflow].[Workflow_ProcedureDependency_T_bidirectional_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[Workflow_id] = S.[Workflow_id]
+, T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+, T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+, T.[referenced_RepoObject_fullname] = S.[referenced_RepoObject_fullname]
+, T.[referencing_RepoObject_fullname] = S.[referencing_RepoObject_fullname]
+
+FROM [workflow].[Workflow_ProcedureDependency_T_bidirectional_T] AS T
+INNER JOIN [workflow].[Workflow_ProcedureDependency_T_bidirectional] AS S
+ON
+T.[Workflow_id] = S.[Workflow_id]
+AND T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+AND T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+
+WHERE
+   T.[referenced_RepoObject_fullname] <> S.[referenced_RepoObject_fullname]
+OR T.[referencing_RepoObject_fullname] <> S.[referencing_RepoObject_fullname]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -304,7 +354,45 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[Workflow_ProcedureDependency_T_bidirectional]
 * [workflow].[Workflow_ProcedureDependency_T_bidirectional_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [workflow].[Workflow_ProcedureDependency_T_bidirectional_T]
+ (
+  [Workflow_id]
+, [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+, [referenced_RepoObject_fullname]
+, [referencing_RepoObject_fullname]
+)
+SELECT
+  [Workflow_id]
+, [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+, [referenced_RepoObject_fullname]
+, [referencing_RepoObject_fullname]
+
+FROM [workflow].[Workflow_ProcedureDependency_T_bidirectional] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [workflow].[Workflow_ProcedureDependency_T_bidirectional_T] AS T
+WHERE
+T.[Workflow_id] = S.[Workflow_id]
+AND T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+AND T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T';
+
+
 

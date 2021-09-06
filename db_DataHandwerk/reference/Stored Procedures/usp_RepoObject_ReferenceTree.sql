@@ -158,7 +158,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[reference].[usp_PERSIST_RepoObject_ReferenceTree_30_0_T]
+----
+=====
+
 |
+
 
 |220
 |
@@ -166,7 +177,20 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 
 * `EXEC [reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]`
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+[reference].[usp_PERSIST_RepoObject_ReferenceTree_0_30_T]
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObject_ReferenceTree';
+
+
 

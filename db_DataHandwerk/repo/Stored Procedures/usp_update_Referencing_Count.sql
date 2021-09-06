@@ -240,7 +240,28 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo_sys].[RepoObjectReferencing]
 * [repo].[RepoObject]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE repo.RepoObject
+SET [RepoObject_Referencing_Count] = [rorc].[Referencing_Count]
+FROM [repo].[RepoObject]
+LEFT OUTER JOIN (
+ SELECT [RepoObject_guid]
+  , COUNT(*) AS [Referencing_Count]
+ FROM [repo_sys].[RepoObjectReferencing] AS [ror]
+ GROUP BY [RepoObject_guid]
+ ) AS [rorc]
+ ON [repo].[RepoObject].[RepoObject_guid] = [rorc].[RepoObject_guid]
+WHERE ISNULL([repo].[RepoObject].[RepoObject_Referencing_Count], 0) <> ISNULL([rorc].[Referencing_Count], 0)
+----
+=====
+
 |
+
 
 |310
 |
@@ -250,9 +271,56 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo_sys].[RepoObjectReferenced]
 * [repo].[RepoObjectColumn]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+Update
+    roc
+Set
+    [Referencing_Count] = [rorc].[Referencing_Count]
+From
+    [repo].[RepoObjectColumn] roc
+    Left Outer Join
+        [repo].[RepoObject]   [ro]
+            On
+            roc.[RepoObject_guid]        = [ro].[RepoObject_guid]
+
+    Left Outer Join
+    (
+        Select
+            ror.[referenced_schema_name]
+          , ror.[referenced_entity_name]
+          , ror.[referenced_minor_name]
+          , Count ( Distinct ror.[RepoObject_guid] ) As [Referencing_Count]
+        From
+            [repo_sys].[RepoObjectReferenced]   As [ror]
+            Cross Join config.ftv_dwh_database () As dwhdb
+        Where
+            ror.[referenced_database_name] = dwhdb.dwh_database_name
+            Or ror.[referenced_database_name] Is Null
+        Group By
+            ror.[referenced_schema_name]
+          , ror.[referenced_entity_name]
+          , ror.[referenced_minor_name]
+    )                         As [rorc]
+        On
+        roc.[SysObjectColumn_name]       = [rorc].[referenced_minor_name]
+        And [ro].[SysObject_name]        = [rorc].[referenced_entity_name]
+        And [ro].[SysObject_schema_name] = rorc.[referenced_schema_name]
+Where
+    IsNull ( roc.[Referencing_Count], 0 ) <> IsNull ( [rorc].[Referencing_Count], 0 );
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_update_Referencing_Count';
+
+
 
 
 GO

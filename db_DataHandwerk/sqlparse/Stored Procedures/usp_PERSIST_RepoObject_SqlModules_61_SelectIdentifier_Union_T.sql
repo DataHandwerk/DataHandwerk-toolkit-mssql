@@ -211,7 +211,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [sq
 * D
 * [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -221,9 +232,44 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [sq
 * [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union]
 * [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+ (
+  [alias_QuoteName]
+, [class]
+, [normalized]
+, [RepoObject_guid]
+, [RowNumber_per_Object]
+, [source_column_QuoteName]
+, [source_table_QuoteName]
+, [SysObject_fullname]
+)
+SELECT
+  [alias_QuoteName]
+, [class]
+, [normalized]
+, [RepoObject_guid]
+, [RowNumber_per_Object]
+, [source_column_QuoteName]
+, [source_table_QuoteName]
+, [SysObject_fullname]
+
+FROM [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
 
 
 GO

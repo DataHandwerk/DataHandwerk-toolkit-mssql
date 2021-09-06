@@ -292,7 +292,26 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoObjectColumn_SSAS_src]
 * [repo].[RepoObjectColumn_SSAS_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [repo].[RepoObjectColumn_SSAS_tgt] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [repo].[RepoObjectColumn_SSAS_src] AS S
+WHERE
+T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -302,7 +321,42 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoObjectColumn_SSAS_src]
 * [repo].[RepoObjectColumn_SSAS_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
+, T.[is_SysObjectColumn_missing] = S.[is_SysObjectColumn_missing]
+, T.[Repo_is_nullable] = S.[Repo_is_nullable]
+, T.[Repo_user_type_fullname] = S.[Repo_user_type_fullname]
+, T.[Repo_user_type_name] = S.[Repo_user_type_name]
+, T.[RepoObject_guid] = S.[RepoObject_guid]
+, T.[RepoObjectColumn_name] = S.[RepoObjectColumn_name]
+, T.[SysObjectColumn_name] = S.[SysObjectColumn_name]
+
+FROM [repo].[RepoObjectColumn_SSAS_tgt] AS T
+INNER JOIN [repo].[RepoObjectColumn_SSAS_src] AS S
+ON
+T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
+
+WHERE
+   T.[is_SysObjectColumn_missing] <> S.[is_SysObjectColumn_missing]
+OR T.[Repo_is_nullable] <> S.[Repo_is_nullable]
+OR T.[Repo_user_type_fullname] <> S.[Repo_user_type_fullname] OR (S.[Repo_user_type_fullname] IS NULL AND NOT T.[Repo_user_type_fullname] IS NULL) OR (NOT S.[Repo_user_type_fullname] IS NULL AND T.[Repo_user_type_fullname] IS NULL)
+OR T.[Repo_user_type_name] <> S.[Repo_user_type_name] OR (S.[Repo_user_type_name] IS NULL AND NOT T.[Repo_user_type_name] IS NULL) OR (NOT S.[Repo_user_type_name] IS NULL AND T.[Repo_user_type_name] IS NULL)
+OR T.[RepoObject_guid] <> S.[RepoObject_guid]
+OR T.[RepoObjectColumn_name] <> S.[RepoObjectColumn_name]
+OR T.[SysObjectColumn_name] <> S.[SysObjectColumn_name]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -312,7 +366,49 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[RepoObjectColumn_SSAS_src]
 * [repo].[RepoObjectColumn_SSAS_tgt]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [repo].[RepoObjectColumn_SSAS_tgt]
+ (
+  [RepoObjectColumn_guid]
+, [is_SysObjectColumn_missing]
+, [Repo_is_nullable]
+, [Repo_user_type_fullname]
+, [Repo_user_type_name]
+, [RepoObject_guid]
+, [RepoObjectColumn_name]
+, [SysObjectColumn_name]
+)
+SELECT
+  [RepoObjectColumn_guid]
+, [is_SysObjectColumn_missing]
+, [Repo_is_nullable]
+, [Repo_user_type_fullname]
+, [Repo_user_type_name]
+, [RepoObject_guid]
+, [RepoObjectColumn_name]
+, [SysObjectColumn_name]
+
+FROM [repo].[RepoObjectColumn_SSAS_src] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [repo].[RepoObjectColumn_SSAS_tgt] AS T
+WHERE
+T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObjectColumn_SSAS_tgt';
+
+
 

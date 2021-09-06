@@ -207,7 +207,18 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * D
 * [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+TRUNCATE TABLE [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+----
+=====
+
 |
+
 
 |800
 |
@@ -217,9 +228,44 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [re
 * [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing]
 * [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+ (
+  [index_guid]
+, [index_column_id]
+, [RowNumberInReferencing]
+, [is_descending_key]
+, [referenced_RepoObject_guid]
+, [referenced_RepoObjectColumn_guid]
+, [referencing_RepoObject_guid]
+, [referencing_RepoObjectColumn_guid]
+)
+SELECT
+  [index_guid]
+, [index_column_id]
+, [RowNumberInReferencing]
+, [is_descending_key]
+, [referenced_RepoObject_guid]
+, [referenced_RepoObjectColumn_guid]
+, [referencing_RepoObject_guid]
+, [referencing_RepoObjectColumn_guid]
+
+FROM [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing] AS S
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
+
 
 
 

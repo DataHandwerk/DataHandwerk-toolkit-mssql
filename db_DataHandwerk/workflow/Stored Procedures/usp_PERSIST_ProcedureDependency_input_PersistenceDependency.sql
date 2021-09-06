@@ -274,7 +274,27 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[ProcedureDependency_input_PersistenceDependency_S]
 * [workflow].[ProcedureDependency_input_PersistenceDependency]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+DELETE T
+FROM [workflow].[ProcedureDependency_input_PersistenceDependency] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [workflow].[ProcedureDependency_input_PersistenceDependency_S] AS S
+WHERE
+T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+AND T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+)
+ 
+----
+=====
+
 |
+
 
 |600
 |
@@ -284,7 +304,32 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[ProcedureDependency_input_PersistenceDependency_S]
 * [workflow].[ProcedureDependency_input_PersistenceDependency]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+UPDATE T
+SET
+  T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+, T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+, T.[is_PersistenceDependency] = S.[is_PersistenceDependency]
+
+FROM [workflow].[ProcedureDependency_input_PersistenceDependency] AS T
+INNER JOIN [workflow].[ProcedureDependency_input_PersistenceDependency_S] AS S
+ON
+T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+AND T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+
+WHERE
+   T.[is_PersistenceDependency] <> S.[is_PersistenceDependency]
+
+----
+=====
+
 |
+
 
 |700
 |
@@ -294,7 +339,40 @@ EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [wo
 * [workflow].[ProcedureDependency_input_PersistenceDependency_S]
 * [workflow].[ProcedureDependency_input_PersistenceDependency]
 
+
+.Statement
+[%collapsible]
+=====
+[source,sql]
+----
+INSERT INTO 
+ [workflow].[ProcedureDependency_input_PersistenceDependency]
+ (
+  [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+, [is_PersistenceDependency]
+)
+SELECT
+  [referenced_Procedure_RepoObject_guid]
+, [referencing_Procedure_RepoObject_guid]
+, [is_PersistenceDependency]
+
+FROM [workflow].[ProcedureDependency_input_PersistenceDependency_S] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [workflow].[ProcedureDependency_input_PersistenceDependency] AS T
+WHERE
+T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+AND T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+)
+----
+=====
+
 |
+
 |===
 ', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_ProcedureDependency_input_PersistenceDependency';
+
+
 

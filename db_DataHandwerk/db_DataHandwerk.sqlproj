@@ -680,6 +680,16 @@
     <Build Include="reference\Stored Procedures\usp_RepoObject_ReferenceTree_insert.sql" />
     <Build Include="docs\Tables\RepoObject_ColumnList_T.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_ColumnList_T.sql" />
+    <Build Include="ssas\Tables\model_json_312_tables_measures_T.sql" />
+    <Build Include="ssas\Views\model_json_31221_tables_measures_expressions_StrAgg.sql" />
+    <Build Include="ssas\Views\model_json_3122_tables_measures_expressions_multiline.sql" />
+    <Build Include="ssas\Views\model_json_31211_tables_columns_descriptions_StrAgg.sql" />
+    <Build Include="ssas\Views\model_json_3121_tables_columns_descriptions_multiline.sql" />
+    <Build Include="repo\Views\Measures.sql" />
+    <Build Include="docs\Views\DocsUnit_union.sql" />
+    <Build Include="docs\Views\DocsUnit.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_312_tables_measures_T.sql" />
+    <Build Include="Security\dmdocs.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />
