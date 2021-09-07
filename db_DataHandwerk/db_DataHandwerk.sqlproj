@@ -686,10 +686,11 @@
     <Build Include="ssas\Views\model_json_31211_tables_columns_descriptions_StrAgg.sql" />
     <Build Include="ssas\Views\model_json_3121_tables_columns_descriptions_multiline.sql" />
     <Build Include="repo\Views\Measures.sql" />
-    <Build Include="docs\Views\DocsUnit_union.sql" />
-    <Build Include="docs\Views\DocsUnit.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_312_tables_measures_T.sql" />
     <Build Include="Security\dmdocs.sql" />
+    <Build Include="docs\Views\Unit_3.sql" />
+    <Build Include="docs\Views\Unit_2.sql" />
+    <Build Include="docs\Views\Unit_1_union.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

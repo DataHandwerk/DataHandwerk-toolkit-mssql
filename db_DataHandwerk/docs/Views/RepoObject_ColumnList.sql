@@ -1,10 +1,11 @@
 ﻿
+
 /*
 alternative columns sort order for documentation:
 - PK
 - columns by name
 */
-CREATE View docs.RepoObject_ColumnList
+CREATE View [docs].[RepoObject_ColumnList]
 As
 Select
     roc.RepoObject_guid
@@ -263,12 +264,13 @@ Select
                                     Concat (
                                                '  '
                                              --* to identify mandatory attributes
-                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             , Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                              --{static}  => underline, {abstract} => italic
                                              , Case
                                                    When roc.Repo_is_computed = 1
                                                        Then
-                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       --Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       Iif(roc.Repo_is_persisted = 1, '# ', '~ ')
                                                End
                                              --PK in bold
                                              , '**'
@@ -304,12 +306,13 @@ Select
                                     Concat (
                                                '  '
                                              --* to identify mandatory attributes
-                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             , Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                              --{static}  => underline, {abstract} => italic
                                              , Case
                                                    When roc.Repo_is_computed = 1
                                                        Then
-                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       --Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       Iif(roc.Repo_is_persisted = 1, '# ', '~ ')
                                                End
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
@@ -342,12 +345,13 @@ Select
                                     Concat (
                                                '  '
                                              --* to identify mandatory attributes
-                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             , Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                              --{static}  => underline, {abstract} => italic
                                              , Case
                                                    When roc.Repo_is_computed = 1
                                                        Then
-                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       --Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       Iif(roc.Repo_is_persisted = 1, '# ', '~ ')
                                                End
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
@@ -380,12 +384,13 @@ Select
                                     Concat (
                                                '  '
                                              --* to identify mandatory attributes
-                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             , Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                              --{static}  => underline, {abstract} => italic
                                              , Case
                                                    When roc.Repo_is_computed = 1
                                                        Then
-                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       --Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       Iif(roc.Repo_is_persisted = 1, '# ', '~ ')
                                                End
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '
@@ -417,12 +422,13 @@ Select
                                     Concat (
                                                '  '
                                              --* to identify mandatory attributes
-                                             , Iif(roc.Repo_is_nullable = 0, '* ', Null)
+                                             , Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                              --{static}  => underline, {abstract} => italic
                                              , Case
                                                    When roc.Repo_is_computed = 1
                                                        Then
-                                                       Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       --Iif(roc.Repo_is_persisted = 1, '{static} ', '{abstract} ')
+                                                       Iif(roc.Repo_is_persisted = 1, '# ', '~ ')
                                                End
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              , ' : '

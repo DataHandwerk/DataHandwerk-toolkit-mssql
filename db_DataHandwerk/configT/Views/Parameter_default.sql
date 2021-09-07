@@ -42,7 +42,7 @@ Select
     Parameter_name          = 'dwh_database_name'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'The database name must be the same as the one used in the synonyms'
-  , Parameter_default_value = Cast(N'master' As sysname)
+  , Parameter_default_value = N'master'
 Union All
 Select
     Parameter_name          = 'dwh_readonly'
@@ -84,19 +84,19 @@ Select
     Parameter_name          = 'persistence_name_suffix'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'default suffix for persistence table which will be added to source object name'
-  , Parameter_default_value = Cast(N'_T' As sysname)
+  , Parameter_default_value = N'_T'
 Union All
 Select
     Parameter_name          = 'Hist_ValidFrom_column_name'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'default column name for column - datetime2 GENERATED ALWAYS AS ROW START'
-  , Parameter_default_value = Cast(N'SysStartTime' As sysname)
+  , Parameter_default_value = N'SysStartTime'
 Union All
 Select
     Parameter_name          = 'Hist_ValidTo_column_name'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'default column name for column - datetime2 GENERATED ALWAYS AS ROW END'
-  , Parameter_default_value = Cast(N'SysEndTime' As sysname)
+  , Parameter_default_value = N'SysEndTime'
 Union All
 Select
     Parameter_name          = 'Hist_Table_schema'
@@ -108,19 +108,19 @@ Select
     Parameter_name          = 'Hist_Table_name_suffix'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'default suffix for historization table which will be added to historized object name'
-  , Parameter_default_value = Cast(N'_hist' As sysname)
+  , Parameter_default_value = N'_hist'
 Union All
 Select
     Parameter_name          = 'RepoObjectColumn_column_id_OrderBy'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'used in repo.usp_RepoObjectColumn__update_RepoObjectColumn_column_id to define the order of columns'
-  , Parameter_default_value = Cast(N'
+  , Parameter_default_value = N'
 ISNULL([ic].[index_column_id] , 99999) --ensure PK index is sorted before other columns
 , [roc].[Repo_is_computed] --computed columns after normal columns
 , [roc].[Repo_is_identity] --IDENTITY columns after normal columns, because nothing should be inserted (they are like computed columns)
 , [roc].[Repo_generated_always_type]
 , [roc].[RepoObjectColumn_name]
-' As NVarchar(4000))
+'
 --
 --the following parameters can have [sub_Parameter]
 Union All
@@ -128,61 +128,61 @@ Select
     Parameter_name          = 'Inheritance_StringAggSeparatorSql_column'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
-  , Parameter_default_value = Cast(Null As NVarchar(4000))
+  , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'Inheritance_StringAggSeparatorSql_column'
   , sub_Parameter           = N'ReferencedObjectColumnList'
   , Parameter_desciption    = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
-  , Parameter_default_value = Cast(Char ( 13 ) + Char ( 10 ) As NVarchar(4000))
+  , Parameter_default_value = Char ( 13 ) + Char ( 10 )
 Union All
 Select
     Parameter_name          = 'Inheritance_StringAggSeparatorSql_object'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
-  , Parameter_default_value = Cast(Null As NVarchar(4000))
+  , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'Inheritance_StringAggSeparatorSql_object'
   , sub_Parameter           = N'ReferencedObjectList'
   , Parameter_desciption    = N'if NULL then only one source is used for inheritance; if not NULL then STRING_AGG( expression, separator ) is used to aggregate all sources. Content is interpreted as TSQL. Good values are ''CHAR(13)+CHAR(10)'' or '''';'''''
-  , Parameter_default_value = Cast(Char ( 13 ) + Char ( 10 ) As NVarchar(4000))
+  , Parameter_default_value = Char ( 13 ) + Char ( 10 )
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = Cast(Null As NVarchar(4000))
+  , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N'MS_Description'
   , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = Cast('CAST(COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(4000))' As NVarchar(4000))
+  , Parameter_default_value = 'CAST(COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(MAX))'
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N'ReferencedObjectColumnList'
   , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = Cast('''* '' + referenced.[RepoObjectColumn_fullname]' As NVarchar(4000))
+  , Parameter_default_value = '''* '' + referenced.[RepoObjectColumn_fullname]'
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = Cast(Null As NVarchar(4000))
+  , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N'MS_Description'
   , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = Cast(Null As NVarchar(4000))
+  , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N'ReferencedObjectList'
   , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = Cast('''* '' + referenced.[RepoObject_fullname]' As NVarchar(4000))
+  , Parameter_default_value = '''* '' + referenced.[RepoObject_fullname]'
 Union All
 Select
     Parameter_name          = 'InheritanceType_column'
@@ -253,7 +253,7 @@ Select
     Parameter_name          = 'puml_skinparam_class'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'skinparam class for generated PlantUML files. <<xxx>> - object type, see: [config].[type]'
-  , Parameter_default_value = Cast(N'
+  , Parameter_default_value = N'
 skinparam class {
   BackgroundColor White
   BackgroundColor<<FN>> Yellow
@@ -271,7 +271,7 @@ skinparam class {
   BackgroundColor<<V>> WhiteSmoke
   BackgroundColor<<X>> Aqua
 }
-' As NVarchar(4000))
+'
 --Union All
 --Select
 --    Parameter_name          = 'AntoraDocModulFolder'
@@ -283,25 +283,37 @@ Select
     Parameter_name          = 'AntoraComponent'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'Antora: component name, defined in Antora.yml in the Antora component folder (the folder, containing the folder ''modules'').'
-  , Parameter_default_value = Cast(N'mycomponent' As NVarchar(200))
+  , Parameter_default_value = N'mycomponent'
 Union All
 Select
     Parameter_name          = 'AntoraComponentFolder'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'Antora component folder (the folder, containing the folder ''modules''), will be extended by ''\modules\'' AntoraModule and on next level by ''partials\'', ''pages\'', ''examples\'', ''images\'''
-  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs' As NVarchar(4000))
+  , Parameter_default_value = N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs'
 Union All
 Select
     Parameter_name          = 'AntoraModule'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'Antora: named modul to contain the exported documentation.'
-  , Parameter_default_value = Cast(N'sqldb' As NVarchar(200))
+  , Parameter_default_value = N'sqldb'
+--Union All
+--Select
+--    Parameter_name          = 'AntoraModuleFolder'
+--  , sub_Parameter           = N''
+--  , Parameter_desciption    = N'obsolet! use AntoraComponentFolder'
+--  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules' As NVarchar(4000))
 Union All
 Select
-    Parameter_name          = 'AntoraModuleFolder'
+    Parameter_name          = 'AntoraSiteUrl'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'obsolet! use AntoraComponentFolder'
-  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules' As NVarchar(4000))
+  , Parameter_desciption    = N'Antora: Site Url to be used in docs.unit to create links to docs. examples: https://DataHandwerk.github.io file:///D:/Repos/GitHub/DataHandwerk/datahandwerk.github.io/local'
+  , Parameter_default_value = N'https://docs.myproject.io'
+Union All
+Select
+    Parameter_name          = 'AntoraVersion'
+  , sub_Parameter           = N''
+  , Parameter_desciption    = N'Antora: define a specific version required in the URL; or use playbook settings urls: latest_version_segment: current'
+  , Parameter_default_value = N'current'
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
@@ -408,7 +420,7 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , '== Entity Diagram' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
@@ -471,7 +483,7 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , 'todo: use other diagram containing relations an related objects' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_pk_or_index-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_pk_or_index-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_pk_or_index/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
@@ -483,7 +495,7 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , '== Foreign Key Diagram' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_1_1_fk-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_fk-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_1_1_fk/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
@@ -496,88 +508,77 @@ Select
     Parameter_name          = 'AntoraPageTemplate'
   , sub_Parameter           = N'5_references'
   , Parameter_desciption    = N'template for Antora pages which gets Content via include from Partials, using tags.'
-  , Parameter_default_value = Concat (
-                                         Cast(N'' As NVarchar(Max))
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'ifndef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '== References' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'ifdef::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== Referenced Objects' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial${docname}.adoc[tag=antorareferencedlist]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , 'endif::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'ifdef::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== External Referenced Objects' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial${docname}.adoc[tag=antoraexternalreferencedlist]'
-                                         + Char ( 13 ) + Char ( 10 )
-                                       , 'endif::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'ifdef::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== Referencing Objects' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial${docname}.adoc[tag=antorareferencinglist]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , 'endif::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'ifdef::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== External Referencing Objects' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial${docname}.adoc[tag=antoraexternalreferencinglist]'
-                                         + Char ( 13 ) + Char ( 10 )
-                                       , 'endif::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== Object Reference Diagram - 1 1' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '[plantuml, entity_1_1_objectref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial$puml/entity_1_1_objectref/{docname}.puml[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== Object Reference Diagram - Referenced - 30 0' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '[plantuml, entity_30_0_objectref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial$puml/entity_30_0_objectref/{docname}.puml[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== Object Reference Diagram - Referencing - 0 30' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '[plantuml, entity_0_30_objectref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial$puml/entity_0_30_objectref/{docname}.puml[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'ifdef::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '=== Column Reference Diagram' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , '[plantuml, entity_1_1_colref-{docname}, svg]' + Char ( 13 ) + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , 'include::partial$puml/entity_1_1_colref/{docname}.puml[]' + Char ( 13 )
-                                         + Char ( 10 )
-                                       , '....' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'endif::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
-                                       , '' + Char ( 13 ) + Char ( 10 )
-                                       , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
-                                     )
+  , Parameter_default_value =
+  --
+  Concat (
+             Cast(N'' As NVarchar(Max))
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifndef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== References' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== Referenced Objects' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=antorareferencedlist]' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== External Referenced Objects' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=antoraexternalreferencedlist]' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== Referencing Objects' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=antorareferencinglist]' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== External Referencing Objects' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=antoraexternalreferencinglist]' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== Object Reference Diagram - 1 1' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_objectref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$puml/entity_1_1_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== Object Reference Diagram - Referenced - 30 0' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_30_0_objectref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$puml/entity_30_0_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== Object Reference Diagram - Referencing - 0 30' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_0_30_objectref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$puml/entity_0_30_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '=== Column Reference Diagram' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_colref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial$puml/entity_1_1_colref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+         )
 Union All
 Select
     Parameter_name          = 'AntoraPageTemplate'
