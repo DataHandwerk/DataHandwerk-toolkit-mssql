@@ -1,6 +1,6 @@
-﻿Create View docs.Unit_3
+﻿
+CREATE View docs.Unit_3
 As
-
 Select
     Unit_guid
   , Unit_Metatype
@@ -31,7 +31,8 @@ Select
                         , '/' + AntoraComponent
                         , '/' + AntoraVersion
                         , '/' + AntoraModule
-                        , '/' + AntoraPage + '.html' + '#' + AntoraSectionId
+                        , '/' + AntoraPage + '.html'
+                        , '#' + AntoraSectionId
                       )
 From
     docs.Unit_2

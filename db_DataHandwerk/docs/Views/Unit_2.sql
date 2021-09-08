@@ -26,16 +26,16 @@ Select
   , AntoraPage      = Case
                           When T1.Unit_Metatype = 'schema'
                               Then
-                              'nav-schema-' + T1.Unit_Schema
+                              'nav-schema-' + docs.fs_cleanStringForAnchorId ( T1.Unit_Schema )
                           Else
                               --( 'object', 'column', 'measure' )
-                              T1.Object_fullname2
+                              docs.fs_cleanStringForAnchorId ( T1.Object_fullname2 )
                       End
   , AntoraSectionId = Case
                           When T1.Unit_Metatype In
                           ( 'column', 'measure' )
                               Then
-                              T1.Unit_Metatype + '-' + T1.Unit_Name
+                              T1.Unit_Metatype + '-' + docs.fs_cleanStringForAnchorId ( T1.Unit_Name )
                       End
 From
     docs.Unit_1_union                                                 As T1
