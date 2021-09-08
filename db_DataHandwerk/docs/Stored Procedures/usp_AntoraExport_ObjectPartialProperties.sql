@@ -264,13 +264,15 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the individual content per object is exported as ''partial'' into (AntoraModulFolder)``/``(AntoraModulName)``/partials/schemaname.objectname.adoc``
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* the individual content per object is exported as ''partial'' into (AntoraModuleFolder)``/``(AntoraModuleName)``/partials/schemaname.objectname.adoc``
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
 ** all properties from xref:property.RepoObjectProperty.adoc[] are exported with a `tag` per property
 ** some additional `tag` are exported
 ** the exported content is defined in xref:docs.RepoObject_Adoc.adoc[]
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
 
 
 
@@ -339,7 +341,7 @@ ELSE
 [source,sql]
 ----
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModul'', '''') + ''\''
+   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModule'', '''') + ''\''
    ) + ''partials\'')
 ----
 =====
@@ -495,6 +497,8 @@ DEALLOCATE db_cursor
 
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPartialProperties';
+
+
 
 
 

@@ -129,9 +129,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:docs.AntoraNavListRepoObject_by_schema_type.adoc[]
 * xref:docs.AntoraNavListRepoObject_by_type.adoc[]
 * xref:docs.RepoObject_Plantuml_Entity.adoc[]
+* xref:docs.Unit_1_union.adoc[]
 * xref:docs.usp_AntoraExport_ObjectPage.adoc[]
 * xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
 * xref:docs.usp_AntoraExport_ObjectPuml.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter';
+
+
 
 
 GO
@@ -192,4 +195,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2c208
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2d208663-370f-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'is_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[RepoObject_name]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'RepoObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[is_ssas]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'is_ssas';
 

@@ -210,7 +210,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [do
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* Database documentation uses https://antora.org/[Antora] and the markup language https://docs.asciidoctor.org/asciidoc/latest/[AsciiDoc]. One of many advantages of asciidoc over Markdown is the ability to use includes. This allows the *docs-as-code* and *code-as-docs* concepts to be implemented very well.
 * The procedure xref:sqldb:docs.usp_AntoraExport.adoc[] exports required files into the filesystem.
-** check and correct xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraModulFolder'', ''''), a possible parameter is
+** check and correct xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraModuleFolder'', ''''), a possible parameter is
 +
 ====
 D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules
@@ -231,7 +231,7 @@ FROM [config].[type]
 WHERE [is_DocsOutput] = 1
 order by [type_desc] desc
 ....
-* source pages per object are exported into (AntoraModulFolder)``/``(AntoraModulName)``/pages/schemaname.objectname.adoc``
+* source pages per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/pages/schemaname.objectname.adoc``
 ** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPage.adoc[]
 ** the content of all page files per object is the same, it has only includes. The content is defined in xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
  the default content is (real code without leading ''/''):
@@ -267,16 +267,18 @@ is_repo_managed:
 ....
 ====
 ** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
-* the individual content per object is exported as ''partial'' into (AntoraModulFolder)``/``(AntoraModulName)``/partials/schemaname.objectname.adoc``
+* the individual content per object is exported as ''partial'' into (AntoraModuleFolder)``/``(AntoraModuleName)``/partials/schemaname.objectname.adoc``
 ** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
 ** all properties from xref:sqldb:property.RepoObjectProperty.adoc[] are exported with a `tag` per property
 ** some additional `tag` are exported
 ** the exported content is defined in xref:sqldb:docs.RepoObject_Adoc.adoc[]
 * the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
 ** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPuml.adoc[]
-** individual diagrams per object are exported into (AntoraModulFolder)``/``(AntoraModulName)``/partials/puml/``
+** individual diagrams per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/partials/puml/``
 
 include::sqldb:partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
+
+
 
 
 

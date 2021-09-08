@@ -258,6 +258,7 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_OutputFilter.adoc[]
 * xref:docs.RepoObject_Plantuml.adoc[]
+* xref:docs.Unit_1_union.adoc[]
 * xref:reference.Persistence.adoc[]
 * xref:reference.RepoObject_reference_persistence_target_as_source.adoc[]
 * xref:reference.RepoObject_ReferenceTree_0_30.adoc[]
@@ -277,6 +278,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[]
 * xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]
 * xref:workflow.WorkflowStep_S.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross';
+
+
 
 
 GO

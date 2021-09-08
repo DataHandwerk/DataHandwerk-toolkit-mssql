@@ -1,5 +1,6 @@
 ﻿
-CREATE View docs.RepoObject_IndexList
+
+CREATE View [docs].[RepoObject_IndexList]
 As
 Select
     RepoObject_guid = ix.parent_RepoObject_guid
@@ -67,7 +68,7 @@ Select
                           , docs.fs_cleanStringForPuml ( ix.index_name )
                           , Iif(ix.is_index_primary_key = 1, '**', Null)
                           , Char ( 13 ) + Char ( 10 )
-                          , '{' + ix.IndexSemanticGroup + '}'
+                          , '"' + ix.IndexSemanticGroup + '"'
                           , Char ( 13 ) + Char ( 10 )
                           , '..'
                           , Char ( 13 ) + Char ( 10 )

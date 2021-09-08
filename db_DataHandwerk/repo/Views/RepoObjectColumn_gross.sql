@@ -1332,7 +1332,8 @@ EXECUTE sp_addextendedproperty @name = N'has_execution_plan_issue', @value = N'1
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:graph.RepoObjectColumn_S.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.Unit_1_union.adoc[]
+* xref:graph.RepoObjectColumn_S.adoc[]
 * xref:property.RepoObjectColumnProperty_ForUpdate.adoc[]
 * xref:reference.RepoObjectColumn_reference_FirstResultSet.adoc[]
 * xref:reference.RepoObjectColumn_reference_QueryPlan.adoc[]
@@ -1340,6 +1341,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:reference.usp_RepoObjectColumnSource_virtual_set.adoc[]
 * xref:repo.RepoObjectColumn_gross2.adoc[]
 * xref:repo.usp_sync_guid_RepoObjectColumn.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross';
+
+
 
 
 

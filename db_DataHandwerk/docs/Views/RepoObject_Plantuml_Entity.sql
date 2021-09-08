@@ -1,12 +1,27 @@
 ﻿
+
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
 
 you need to persist:
 EXEC [docs].[usp_PERSIST_RepoObject_Plantuml_Entity_T]
+
+it is possible to create interactive SVG diagrams.
+But they need to be inline, and big diagrams will not match and it will not be possible to open them in a separate window
+
+Code should be like
+entity "[[{site-url}/{page-component-name}/{page-component-version}/{page-module}/config.Parameter.html config.Parameter]]" as config.Parameter << U >> {
+
+But maybe this could be hard coded instead of using inline and parameters? At least to use the "current" version?
+page-component-name and page-module could also be hard coded,
+but what about the {site-url}?
+
+entity "[[{site-url}/{page-component-name}/current/{page-module}/config.Parameter.html config.Parameter]]" as config.Parameter << U >> {
+
+
 */
-CREATE View docs.RepoObject_Plantuml_Entity
+CREATE View [docs].[RepoObject_Plantuml_Entity]
 As
 Select
     ro.RepoObject_guid
@@ -14,6 +29,12 @@ Select
   --
   Concat (
              'entity '
+           , '"[[' + AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+             + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , '.html '
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , ']]" as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
@@ -25,6 +46,9 @@ Select
            , '  --'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlNonPkHiddenEntityColumns
+           , '  --'
+           , Char ( 13 ) + Char ( 10 )
+           , mlist.PlantumlMeasures
            , '}'
            , Char ( 13 ) + Char ( 10 )
          )
@@ -32,6 +56,12 @@ Select
   --
   Concat (
              'entity '
+           , '"[[' + AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+             + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , '.html '
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , ']]" as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
@@ -63,6 +93,12 @@ Select
   --
   Concat (
              'entity '
+           , '"[[' + AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+             + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , '.html '
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , ']]" as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
@@ -92,16 +128,25 @@ Select
   , ro.RepoObject_fullname2
   , ro.RepoObject_schema_name
 From
-    docs.RepoObject_OutputFilter     As ro
+    docs.RepoObject_OutputFilter                                      As ro
     Left Join
-        docs.RepoObject_ColumnList_T As collist
+        docs.RepoObject_ColumnList_T                                  As collist
             On
-            collist.RepoObject_guid   = ro.RepoObject_guid
+            collist.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_IndexList_T  As indexlist
+        docs.RepoObject_IndexList_T                                   As indexlist
             On
             indexlist.RepoObject_guid = ro.RepoObject_guid
+
+    Left Join
+        docs.RepoObject_MeasureList                                   As mlist
+            On
+            mlist.RepoObject_guid = ro.RepoObject_guid
+    Cross Join config.ftv_get_parameter_value ( 'AntoraSiteUrl', '' ) As AntoraSiteUrl
+    Cross Join config.ftv_get_parameter_value ( 'AntoraVersion', '' ) As AntoraVersion
+    Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
+    Cross Join config.ftv_get_parameter_value ( 'AntoraModule', '' ) As AntoraModule
 Go
 
 Go
@@ -159,10 +204,13 @@ Execute sp_addextendedproperty
   , @level2name = N'RepoObject_Puml';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[fs_cleanStringForPuml]
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[ftv_get_parameter_value]
+* [docs].[fs_cleanStringForPuml]
 * [docs].[RepoObject_ColumnList_T]
 * [docs].[RepoObject_IndexList_T]
 * [docs].[RepoObject_OutputFilter]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity';
+
+
 
 
 
@@ -191,10 +239,13 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.fs_cleanStringForPuml.adoc[]
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_get_parameter_value.adoc[]
+* xref:docs.fs_cleanStringForPuml.adoc[]
 * xref:docs.RepoObject_ColumnList_T.adoc[]
 * xref:docs.RepoObject_IndexList_T.adoc[]
 * xref:docs.RepoObject_OutputFilter.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity';
+
+
 
 
 

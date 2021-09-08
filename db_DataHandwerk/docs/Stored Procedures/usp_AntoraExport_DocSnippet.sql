@@ -286,7 +286,7 @@ ELSE
 [source,sql]
 ----
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModul'', '''') + ''\''
+   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModule'', '''') + ''\''
    ) + ''partials\docsnippet\'')
 ----
 =====
@@ -382,6 +382,8 @@ DEALLOCATE template_cursor
 
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_DocSnippet';
+
+
 
 
 

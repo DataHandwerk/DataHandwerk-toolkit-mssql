@@ -137,6 +137,8 @@
     <Folder Include="ssas\Tables\" />
     <Folder Include="ssas\Stored Procedures\" />
     <Folder Include="ssas\Views\" />
+    <Folder Include="dmdocs\" />
+    <Folder Include="dmdocs\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="repo\Tables\IndexColumn_virtual.sql" />
@@ -691,6 +693,8 @@
     <Build Include="docs\Views\Unit_3.sql" />
     <Build Include="docs\Views\Unit_2.sql" />
     <Build Include="docs\Views\Unit_1_union.sql" />
+    <Build Include="docs\Views\RepoObject_MeasureList.sql" />
+    <Build Include="dmdocs\Views\unit.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

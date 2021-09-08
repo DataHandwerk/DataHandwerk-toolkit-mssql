@@ -27,7 +27,7 @@ Select
                           , docs.fs_cleanStringForLabel ( roc.Column_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
-                          , '[cols="d,m,m,m,m,d"]'
+                          , '[cols="d,8m,m,m,m,d"]'
                           , Char ( 13 ) + Char ( 10 )
                           , '|==='
                           , Char ( 13 ) + Char ( 10 )
@@ -72,6 +72,9 @@ Select
                                              , roc.Description
                                              , Char ( 13 ) + Char ( 10 )
                                              , '--'
+                                             , Char ( 13 ) + Char ( 10 )
+                                             --add additional line to get more space
+                                             , '{empty} +'
                                              , Char ( 13 ) + Char ( 10 )
                                              , Char ( 13 ) + Char ( 10 )
                                            )

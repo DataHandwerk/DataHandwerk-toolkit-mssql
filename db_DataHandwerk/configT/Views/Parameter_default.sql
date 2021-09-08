@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -28,7 +29,7 @@ WHERE NOT EXISTS (
   )
 <<property_end>>
 */
-CREATE View configT.Parameter_default
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -408,7 +409,7 @@ Select
            , '//include::partial${docname}.adoc[tag=pk_indexpatterncolumndatatype]' + Char ( 13 ) + Char ( 10 )
            , '//' + Char ( 13 ) + Char ( 10 )
            , '//.PK columns of {docname}' + Char ( 13 ) + Char ( 10 )
-           , '//[cols="d,m,m,m,m,d"]' + Char ( 13 ) + Char ( 10 )
+           , '//[cols="d,8m,m,m,m,d"]' + Char ( 13 ) + Char ( 10 )
            , '//|===' + Char ( 13 ) + Char ( 10 )
            , '//|PK|Column Name|Data Type|NULL?|ID|Calc' + Char ( 13 ) + Char ( 10 )
            , '//' + Char ( 13 ) + Char ( 10 )
@@ -434,7 +435,7 @@ Select
            , '== Columns' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '.Columns of {docname}' + Char ( 13 ) + Char ( 10 )
-           , '[cols="d,m,m,m,m,d"]' + Char ( 13 ) + Char ( 10 )
+           , '[cols="d,8m,m,m,m,d"]' + Char ( 13 ) + Char ( 10 )
            , '|===' + Char ( 13 ) + Char ( 10 )
            , '|PK|Column Name|Data Type|NULL?|ID|Calc' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
@@ -605,6 +606,14 @@ Select
            , 'include::partial${docname}.adoc[tag=AntoraColumnDetails]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , 'endif::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--Measures[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== Measure Details' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=AntoraMeasureDetails]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--Measures[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , 'ifdef::ExistsProperty--sql_modules_definition[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )

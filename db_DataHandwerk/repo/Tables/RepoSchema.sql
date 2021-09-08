@@ -20,6 +20,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ae0747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoSchema_SysSchema_name';
 
@@ -99,6 +101,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'aa0747ec-8ca3
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.AntoraNavListPage_by_schema.adoc[]
 * xref:docs.Schema_puml.adoc[]
+* xref:docs.Unit_1_union.adoc[]
 * xref:docs.usp_AntoraExport_ObjectPuml.adoc[]
 * xref:property.ExtendedProperty_Repo2Sys_level0.adoc[]
 * xref:property.usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate.adoc[]
@@ -106,6 +109,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:repo.SysSchema_RepoSchema_via_guid.adoc[]
 * xref:repo.SysSchema_RepoSchema_via_name.adoc[]
 * xref:repo.usp_sync_guid_RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema';
+
+
 
 
 

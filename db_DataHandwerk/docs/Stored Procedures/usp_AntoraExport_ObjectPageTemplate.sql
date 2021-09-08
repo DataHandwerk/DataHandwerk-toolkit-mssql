@@ -275,7 +275,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* source pages per object are exported into (AntoraModulFolder)``/``(AntoraModulName)``/pages/schemaname.objectname.adoc``
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* source pages per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/pages/schemaname.objectname.adoc``
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPage.adoc[]
 ** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
  the default content is (real code without leading ''/''):
@@ -316,6 +316,8 @@ is_repo_managed:
 ** export procedure: xref:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
 
 include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPageTemplate';
+
+
 
 
 
@@ -379,7 +381,7 @@ ELSE
 [source,sql]
 ----
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModul'', '''') + ''\''
+   SELECT [config].[fs_get_parameter_value](''AntoraComponentFolder'', '''') + ''\modules\'' + [config].[fs_get_parameter_value](''AntoraModule'', '''') + ''\''
    ) + ''partials\template\'')
 
 ----
@@ -514,6 +516,8 @@ EXEC xp_cmdshell @command
 
 |===
 ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPageTemplate';
+
+
 
 
 
