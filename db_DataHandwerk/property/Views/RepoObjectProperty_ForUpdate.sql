@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View property.RepoObjectProperty_ForUpdate
 As
 Select
@@ -20,6 +19,7 @@ Select
   , T2.RepoObject_fullname2
   , T2.RepoObject_schema_name
   , T2.RepoObject_name
+  , T2.RepoObject_type
 From
     property.RepoObjectProperty As T1
     Inner Join
@@ -131,4 +131,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [property].[RepoObjectProperty].[inheritance]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'inheritance';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ea2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'RepoObject_type';
 

@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [repo].[RepoObjectColumn_gross2]
+CREATE View repo.RepoObjectColumn_gross2
 As
 Select
     roc.RepoObjectColumn_guid
@@ -86,7 +85,7 @@ Select
             Top 1
             1
         From
-            repo.IndexColumn_union As icu
+            repo.IndexColumn_union_T As icu
         Where
             icu.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
     )
@@ -95,7 +94,7 @@ Select
 From
     repo.RepoObjectColumn_gross                    As roc
     Left Outer Join
-        repo.IndexColumn_union                     As ic
+        repo.IndexColumn_union_T                   As ic
             On
             ic.index_guid                   = roc.pk_index_guid
             And ic.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid

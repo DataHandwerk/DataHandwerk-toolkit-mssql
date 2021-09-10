@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.Index_IndexPattern
+
+CREATE View [repo].[Index_IndexPattern]
 As
 --
 Select
@@ -9,7 +10,7 @@ Select
   , IndexPatternColumnDatatype = String_Agg ( SysObject_column_user_type_fullname, ',' ) Within Group(Order By
                                                                                                           index_column_id)
 From
-    repo.IndexColumn_union
+    repo.IndexColumn_union_T
 Where
     Not index_guid Is Null
 Group By

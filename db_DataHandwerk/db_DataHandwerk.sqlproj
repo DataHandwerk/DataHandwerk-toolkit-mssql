@@ -371,11 +371,11 @@
     <Build Include="uspgenerator\Functions\ftv_GeneratorUspStep_tree.sql" />
     <Build Include="uspgenerator\Stored Procedures\usp_GeneratorUsp_insert_update_persistence.sql" />
     <Build Include="config\Stored Procedures\usp_connect_database.sql" />
-    <Build Include="uspgenerator\Views\GeneratorUsp_filter_persistence.sql" />
+    <Build Include="uspgenerator\Views\GeneratorUsp_persistence_tgt.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_ParameterList.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_SqlUsp.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_StepList.sql" />
-    <Build Include="uspgenerator\Views\GeneratorUspStep_Persistence.sql" />
+    <Build Include="uspgenerator\Views\GeneratorUspStep_Persistence_src.sql" />
     <Build Include="uspgenerator\Views\GeneratorUspStep_Persistence_IsInactive_setpoint.sql" />
     <Build Include="uspgenerator\Views\GeneratorUspStep_Sql.sql" />
     <Build Include="workflow\Tables\ProcedureDependency.sql" />
@@ -695,6 +695,12 @@
     <Build Include="docs\Views\Unit_1_union.sql" />
     <Build Include="docs\Views\RepoObject_MeasureList.sql" />
     <Build Include="dmdocs\Views\unit.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_SourceMismatch.sql" />
+    <Build Include="repo\Tables\RepoObject_gross2_T.sql" />
+    <Build Include="repo\Tables\IndexColumn_union_T.sql" />
+    <Build Include="repo\Tables\Index_ColumList_T.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_IndexColumn_union_T.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_Index_ColumList_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

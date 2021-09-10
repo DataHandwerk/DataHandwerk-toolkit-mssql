@@ -1709,4 +1709,18 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[Workflow_ProcedureDependency_T_TaskName]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="737a1461-5d69-470f-924e-1f5ea00df5b5" ChangeDateTime="09/09/2021 21:55:45">
+    <Property Name="ElementName" Value="[uspgenerator].[GeneratorUsp_filter_persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[uspgenerator]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="GeneratorUsp_persistence_tgt" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="35afae2a-85d3-492e-ab80-fd20938d1ca1" ChangeDateTime="09/09/2021 22:01:46">
+    <Property Name="ElementName" Value="[uspgenerator].[GeneratorUspStep_Persistence]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[uspgenerator]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="GeneratorUspStep_Persistence_src" />
+  </Operation>
 </Operations>

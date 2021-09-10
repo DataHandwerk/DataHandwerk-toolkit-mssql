@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.Index_ColumList
+
+CREATE View [repo].[Index_ColumList]
 As
 Select
     col.index_guid
@@ -84,7 +85,7 @@ Select
              ) Within Group(Order By
                                 col.index_column_id)
 From
-    repo.IndexColumn_union As col
+    repo.IndexColumn_union_T As col
 Group By
     col.index_guid
 Go

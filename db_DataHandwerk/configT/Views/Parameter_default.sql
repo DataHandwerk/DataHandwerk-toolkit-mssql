@@ -170,19 +170,19 @@ Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], use sup_Parameter for specific logic'
   , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N'MS_Description'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments, for example: ''property.fs_get_RepoObjectProperty_nvarchar(referenced.[RepoObject_guid],''MS_Description'') + CHAR(13)+CHAR(10)+''''''+CHAR(13)+CHAR(10)'''
   , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
   , sub_Parameter           = N'ReferencedObjectList'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''''* '''' + referenced.[RepoObject_fullname]'
   , Parameter_default_value = '''* '' + referenced.[RepoObject_fullname]'
 Union All
 Select
@@ -369,6 +369,14 @@ Select
            , 'include::partial${docname}.adoc[tag=ms_description]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , 'endif::ExistsProperty--ms_description[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--InheritanceType[]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , '== InheritanceType' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=InheritanceType]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--InheritanceType[]' + Char ( 13 ) + Char ( 10 )
          )
 Union All
 Select

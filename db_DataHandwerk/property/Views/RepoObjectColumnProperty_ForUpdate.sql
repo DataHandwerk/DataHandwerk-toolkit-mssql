@@ -1,8 +1,5 @@
 ﻿
-
-
-
-CREATE View [property].[RepoObjectColumnProperty_ForUpdate]
+CREATE View property.RepoObjectColumnProperty_ForUpdate
 As
 Select
     rocp.RepoObjectColumnProperty_id
@@ -19,6 +16,8 @@ Select
   , rocg.RepoObject_guid
   , rocg.RepoObject_schema_name
   , rocg.RepoObject_name
+  , rocg.RepoObject_type
+  , rocg.Repo_user_type_fullname
 From
     property.RepoObjectColumnProperty As rocp
     Inner Join
@@ -186,4 +185,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[RepoObject_name]', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'RepoObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bf2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'RepoObject_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c02c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'Repo_user_type_fullname';
 

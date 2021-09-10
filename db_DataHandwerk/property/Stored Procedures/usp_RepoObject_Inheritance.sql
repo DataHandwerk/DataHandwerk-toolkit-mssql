@@ -1,5 +1,5 @@
 ﻿
-CREATE Procedure [property].[usp_RepoObject_Inheritance]
+CREATE Procedure property.usp_RepoObject_Inheritance
     ----keep the code between logging parameters and "START" unchanged!
     ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
     @execution_instance_guid UniqueIdentifier = Null --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -63,7 +63,8 @@ Exec logs.usp_ExecutionLog_insert
 ----you can log the content of your own parameters, do this only in the start-step
 ----data type is sql_variant
 --
-PRINT '[property].[usp_RepoObject_Inheritance]'
+Print '[property].[usp_RepoObject_Inheritance]'
+
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -73,7 +74,7 @@ Declare inheritance_cursor Cursor Local Fast_Forward For
 Select
     resulting_InheritanceDefinition
 From
-    [property].RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
+    property.RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition
 Group By
     resulting_InheritanceDefinition
 Having
@@ -100,7 +101,7 @@ Begin
         Set @resulting_InheritanceDefinition_ForSql = Replace ( @resulting_InheritanceDefinition, '''', '''''' );
 
         --PRINT @resulting_InheritanceDefinition_ForSql
-        Truncate Table [property].RepoObject_Inheritance_temp;
+        Truncate Table property.RepoObject_Inheritance_temp;
 
         /*
 INSERT INTO [property].[RepoObject_Inheritance_temp] (
@@ -200,14 +201,15 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
 '       ;
 
         Print @stmt;
+        Print GetDate ()
 
-        Execute sp_executesql @stmt = @stmt;
+        Execute sys.sp_executesql @stmt = @stmt;
 
         Declare separator_cursor Cursor Read_Only For
         Select
             Inheritance_StringAggSeparatorSql
         From
-            [property].RepoObject_Inheritance_temp
+            property.RepoObject_Inheritance_temp
         Group By
             Inheritance_StringAggSeparatorSql;
 
@@ -223,14 +225,16 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
         Begin
             If ( @@Fetch_Status <> -2 )
             Begin
-                --PRINT @Inheritance_StringAggSeparatorSql
+                Print @Inheritance_StringAggSeparatorSql
+                Print GetDate ()
+
                 If @Inheritance_StringAggSeparatorSql Is Null
                 Begin
                     --[is_StringAggAllSources] = 0
                     --T.[property_value] can't be NULL
                     --not [property_value_new] IS NULL 
                     --we need to delete, when S.[property_value_new] IS NULL
-                    Merge Into [property].RepoObjectProperty As T
+                    Merge Into property.RepoObjectProperty As T
                     Using
                     (
                         Select
@@ -250,7 +254,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                         --, [referencing_RepoObject_fullname]
                         --, [referencing_RepoObject_name]
                         From
-                            [property].RepoObject_Inheritance_temp
+                            property.RepoObject_Inheritance_temp
                         Where
                             --
                             is_StringAggAllSources                    = 0
@@ -277,7 +281,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                        And S.property_name = T.property_name
                     When Matched And Not S.property_value_new Is Null
                         Then Update Set
-                                 property_value = S.property_value_new
+                                 T.property_value = S.property_value_new
                     When Matched And S.property_value_new Is Null
                         Then Delete
                     When Not Matched By Target And Not S.property_value_new Is Null
@@ -300,14 +304,14 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                 End;
                 Else
                 Begin
-                    Merge Into [property].RepoObjectProperty As T
+                    Merge Into property.RepoObjectProperty As T
                     Using
                     (
                         Select
-                            RepoObject_guid
-                          , property_name
-                          , property_value
-                          , property_value_new
+                            T1.RepoObject_guid
+                          , T1.property_name
+                          , T1.property_value
+                          , T1.property_value_new
                         --, [is_force_inherit_empty_source]
                         --, [RowNumberSource]
                         From
@@ -334,28 +338,28 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                         --, [referencing_RepoObject_fullname]
                         --, [referencing_RepoObject_name]
                         From
-                            [property].RepoObject_Inheritance_temp
+                            property.RepoObject_Inheritance_temp
                         Where
                             --
                             is_StringAggAllSources = 1
                         Group By
                             RepoObject_guid
                           , property_name
-                    ) T1
+                    ) As T1
                         Where
                             (
-                                is_force_inherit_empty_source         = 1
-                                Or Not property_value_new Is Null
+                                T1.is_force_inherit_empty_source         = 1
+                                Or Not T1.property_value_new Is Null
                             )
                             And
                             (
-                                property_value Is Null
-                                Or property_value                     <> property_value_new
+                                T1.property_value Is Null
+                                Or T1.property_value                     <> T1.property_value_new
                                 Or
                                 (
-                                    Not property_value Is Null
-                                    And is_force_inherit_empty_source = 1
-                                    And property_value_new Is Null
+                                    Not T1.property_value Is Null
+                                    And T1.is_force_inherit_empty_source = 1
+                                    And T1.property_value_new Is Null
                                 )
                             )
                     ) As S
@@ -363,7 +367,7 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                        And S.property_name = T.property_name
                     When Matched And Not S.property_value_new Is Null
                         Then Update Set
-                                 property_value = S.property_value_new
+                                 T.property_value = S.property_value_new
                     When Matched And S.property_value_new Is Null
                         Then Delete
                     When Not Matched By Target And Not S.property_value_new Is Null
@@ -395,6 +399,31 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
         Deallocate separator_cursor;
     End;
 
+    -- Logging START --
+    Set @rows = @@RowCount
+    Set @step_id = @step_id + 1
+    Set @step_name = @resulting_InheritanceDefinition
+    Set @source_object = N'[property].[RepoObjectColumnProperty_InheritanceType_resulting_InheritanceDefinition]'
+    Set @target_object = N'[property].[RepoObjectProperty]'
+
+    Exec logs.usp_ExecutionLog_insert
+        @execution_instance_guid = @execution_instance_guid
+      , @ssis_execution_id = @ssis_execution_id
+      , @sub_execution_id = @sub_execution_id
+      , @parent_execution_log_id = @parent_execution_log_id
+      , @current_execution_guid = @current_execution_guid
+      , @proc_id = @proc_id
+      , @proc_schema_name = @proc_schema_name
+      , @proc_name = @proc_name
+      , @event_info = @event_info
+      , @step_id = @step_id
+      , @step_name = @step_name
+      , @source_object = @source_object
+      , @target_object = @target_object
+
+    --, @updated = @rows
+    --, @info_01 = @resulting_InheritanceDefinition
+    -- Logging END --
     Fetch Next From inheritance_cursor
     Into
         @resulting_InheritanceDefinition;

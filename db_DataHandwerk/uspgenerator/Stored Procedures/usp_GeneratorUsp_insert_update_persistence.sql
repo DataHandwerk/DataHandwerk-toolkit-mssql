@@ -157,7 +157,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @inserted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":510,"Name":"update steps, changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":510,"Name":"update steps, changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence_src]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',510,';',NULL);
 
 UPDATE T
@@ -171,7 +171,7 @@ SET [Parent_Number] = [S].[Parent_Number]
  , [log_target_object] = [S].[log_target_object]
  , [log_flag_InsertUpdateDelete] = [S].[log_flag_InsertUpdateDelete]
 FROM [uspgenerator].[GeneratorUspStep] [T]
-INNER JOIN [uspgenerator].[GeneratorUspStep_Persistence] AS [S]
+INNER JOIN [uspgenerator].[GeneratorUspStep_Persistence_src] AS [S]
  ON [T].[usp_id] = [S].[usp_id]
   AND [T].[Number] = [S].[Number]
 WHERE
@@ -234,7 +234,7 @@ WHERE
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'update steps, changed'
-SET @source_object = '[repo].[GeneratorUspStep_Persistence]'
+SET @source_object = '[repo].[GeneratorUspStep_Persistence_src]'
 SET @target_object = '[repo].[GeneratorUspStep]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -254,7 +254,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":610,"Name":"insert steps, not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"i"}]}*/
+/*{"ReportUspStep":[{"Number":610,"Name":"insert steps, not existing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[GeneratorUspStep_Persistence_src]","log_target_object":"[repo].[GeneratorUspStep]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',610,';',NULL);
 
 INSERT INTO [uspgenerator].[GeneratorUspStep] (
@@ -292,7 +292,7 @@ SELECT [usp_id]
  , [log_source_object]
  , [log_target_object]
  , [log_flag_InsertUpdateDelete]
-FROM [uspgenerator].[GeneratorUspStep_Persistence] AS S
+FROM [uspgenerator].[GeneratorUspStep_Persistence_src] AS S
 WHERE NOT EXISTS (
   SELECT 1
   FROM [uspgenerator].[GeneratorUspStep] AS [T]
@@ -304,7 +304,7 @@ WHERE NOT EXISTS (
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'insert steps, not existing'
-SET @source_object = '[repo].[GeneratorUspStep_Persistence]'
+SET @source_object = '[repo].[GeneratorUspStep_Persistence_src]'
 SET @target_object = '[repo].[GeneratorUspStep]'
 
 EXEC logs.usp_ExecutionLog_insert 

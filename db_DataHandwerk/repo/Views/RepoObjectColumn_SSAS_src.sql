@@ -7,6 +7,7 @@ converts xref:sqldb:ssas.TMSCHEMA_COLUMNS_T.adoc[] into xref:sqldb:repo.RepoObje
 CREATE View repo.RepoObjectColumn_SSAS_src
 As
 Select
+    --PK: RepoObjectColumn_guid
     T2.RepoObjectColumn_guid
   , is_SysObjectColumn_missing = 0
   , Repo_is_nullable           = IsNull ( T2.tables_columns_isNullable, 1 )

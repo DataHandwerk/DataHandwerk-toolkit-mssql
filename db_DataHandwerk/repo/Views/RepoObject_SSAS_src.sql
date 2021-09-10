@@ -4,23 +4,24 @@
 converts xref:sqldb:ssas.TMSCHEMA_TABLES_T.adoc[] into xref:sqldb:repo.RepoObject.adoc[]
 <<property_end>>
 */
-CREATE View [repo].[RepoObject_SSAS_src]
+CREATE View repo.RepoObject_SSAS_src
 As
 Select
-    RepoObject_guid
+    --PK: RepoObject_guid
+    T1.RepoObject_guid
   , is_repo_managed        = 1
   , is_ssas                = 1
   --, modify_dt              = ModifiedTime
-  , RepoObject_name        = tables_name
-  , RepoObject_schema_name = databasename
+  , RepoObject_name        = T1.tables_name
+  , RepoObject_schema_name = T1.databasename
   , RepoObject_type        = 'U'
   ----ID could interfer with relational database id
   ----we could use only, if we have only ssas objects in the repo
   ----that's why it is better, not to use it
   --, SysObject_id           = ID
   --, SysObject_modify_date  = ModifiedTime
-  , SysObject_name         = tables_name
-  , SysObject_schema_name  = databasename
+  , SysObject_name         = T1.tables_name
+  , SysObject_schema_name  = T1.databasename
   , SysObject_type         = 'U'
 From
     ssas.model_json_31_tables_T As T1

@@ -7,7 +7,10 @@ CREATE View repo.RepoObject_persistence_ForUpdate
 As
 Select
     ro_p.target_RepoObject_guid
-  , target_RepoObject_fullname = ro.RepoObject_fullname
+  , target_RepoObject_fullname     = ro.RepoObject_fullname
+  , target_RepoObject_fullname2    = ro.RepoObject_fullname2
+  , target_name                    = ro.RepoObject_name
+  , target_schema                  = ro.RepoObject_schema_name
   , ro_p.has_history
   , ro_p.has_history_columns
   , ro_p.history_schema_name
@@ -22,6 +25,10 @@ Select
   , ro_p.source_RepoObject_guid
   , ro_p.is_persistence
   , ro_p.temporal_type
+  , ro_p.source_RepoObject_name
+  , default_source_RepoObject_name = Iif(Right(ro.RepoObject_name, 2) = '_T'
+                                         , Left(ro.RepoObject_name, Len ( ro.RepoObject_name ) - 2)
+                                         , Null)
 From
     repo.RepoObject_persistence As ro_p
     Inner Join
@@ -283,4 +290,24 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'target_RepoObject_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ed2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'target_schema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eb2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'target_RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ec2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'target_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'source_RepoObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ef2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'default_source_RepoObject_name';
 

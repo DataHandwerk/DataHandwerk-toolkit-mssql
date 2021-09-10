@@ -76,7 +76,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',14,';',100,';',NULL);
 DECLARE
  --
  @property_name NVARCHAR(128)
- , @property_value SQL_VARIANT
+ , @property_value NVARCHAR(4000)
  , @schema_name NVARCHAR(128)
  , @level0type VARCHAR(128)
  , @level0name NVARCHAR(128)

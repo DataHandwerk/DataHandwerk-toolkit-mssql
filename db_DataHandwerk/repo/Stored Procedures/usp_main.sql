@@ -347,6 +347,50 @@ EXEC [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
  , @parent_execution_log_id = @current_execution_log_id
 
 
+/*{"ReportUspStep":[{"Number":920,"Name":"Persistence Target: update repo.RepoObject set InheritanceType = 13 (if NULL)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',920,';',NULL);
+
+Update
+    repo.RepoObject
+Set
+    InheritanceType = 13
+Where
+    ( RepoObject_type = 'U' )
+    And ( InheritanceType Is Null )
+    And Exists
+(
+    Select
+        1
+    From
+        repo.RepoObject_persistence As rop
+    Where
+        rop.target_RepoObject_guid = repo.RepoObject.RepoObject_guid
+)
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Persistence Target: update repo.RepoObject set InheritanceType = 13 (if NULL)'
+SET @source_object = '[repo].[RepoObject_persistence]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":4110,"Name":"[property].[usp_RepoObject_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObject_Inheritance]
 --add your own parameters

@@ -5,13 +5,14 @@ ssas databasename is used as RepoSchema_name
 CREATE View repo.RepoSchema_ssas_src
 As
 Select
+    --PK: RepoSchema_name
     RepoSchema_name           = T1.databasename
   , is_ssas                   = 1
   , is_SysSchema_missing      = 0
   , RepoSchema_ms_description = Coalesce ( T1.l2_description, T2.descriptions_StrAgg )
   , SysSchema_name            = T1.databasename
 From
-    ssas.model_json_20                          As T1
+    ssas.model_json_20                           As T1
     Left Join
         ssas.model_json_2011_descriptions_StrAgg As T2
             On

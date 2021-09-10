@@ -15,6 +15,7 @@
     [is_persistence_merge_insert]           BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_insert1] DEFAULT ((0)) NOT NULL,
     [is_persistence_merge_update_changed]   BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_update_changed1] DEFAULT ((0)) NOT NULL,
     [source_RepoObject_guid]                UNIQUEIDENTIFIER NULL,
+    [source_RepoObject_name]                NVARCHAR (128)   NULL,
     [source_filter]                         NVARCHAR (4000)  NULL,
     [target_filter]                         NVARCHAR (4000)  NULL,
     [is_persistence]                        AS               (CONVERT([bit],(1))),
@@ -22,6 +23,10 @@
     CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+
+
 
 
 
@@ -533,4 +538,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dc2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'source_RepoObject_name';
 

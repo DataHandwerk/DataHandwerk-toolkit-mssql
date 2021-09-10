@@ -1,14 +1,15 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence.adoc[] creates all possible steps for GeneratorUspStep
+* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence_src.adoc[] creates all possible steps for GeneratorUspStep
 * xref:sqldb:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[] determines which steps should be activated based on settings in xref:sqldb:repo.RepoObject_persistence.adoc[]
 * xref:sqldb:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[] uses these views
 <<property_end>>
 */
 
-CREATE View uspgenerator.GeneratorUspStep_Persistence
+CREATE View uspgenerator.GeneratorUspStep_Persistence_src
 As
+--00:00:01
 Select
     --
     usp_id                      = gu.id
@@ -34,6 +35,7 @@ From
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
 Union All
+--00:00:01
 Select
     --
     usp_id                      = gu.id
@@ -62,6 +64,7 @@ From
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
 Union All
+--00:01:19
 Select
     --will be empty if PK doesn't exist
     usp_id                      = gu.id
@@ -95,10 +98,11 @@ From
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList      As i
+        repo.Index_ColumList_T    As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
+--00:01:25
 Select
     --will be empty if PK doesn't exist
     usp_id                      = gu.id
@@ -135,10 +139,11 @@ From
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList      As i
+        repo.Index_ColumList_T    As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
+--00:00:00
 Select
     --
     usp_id                      = gu.id
@@ -164,6 +169,7 @@ From
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
 Union All
+--00:01:19
 Select
     --will be empty if PK doesn't exist
     usp_id                      = gu.id
@@ -203,10 +209,11 @@ From
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList      As i
+        repo.Index_ColumList_T    As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
+--00:01:53
 Select
     --will be empty if PK doesn't exist
     usp_id                      = gu.id
@@ -245,10 +252,11 @@ From
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList      As i
+        repo.Index_ColumList_T    As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
+--00:01:41
 Select
     --will be empty if PK doesn't exist
     usp_id                      = gu.id
@@ -289,10 +297,11 @@ From
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList      As i
+        repo.Index_ColumList_T    As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
+--00:02:06
 Select
     --will be empty if PK doesn't exist
     usp_id                      = gu.id
@@ -337,10 +346,11 @@ From
             ro_s.RepoObject_guid        = ro.persistence_source_RepoObject_guid
 
     Inner Join
-        repo.Index_ColumList      As i
+        repo.Index_ColumList_T    As i
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
+--00:00:04
 Select
     --should be used in combination with truncate
     usp_id                      = gu.id
@@ -372,6 +382,7 @@ From
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
 Union All
+--00:00:09
 Select
     usp_id                      = gu.id
   , Number                      = 900
@@ -451,7 +462,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence';
+  , @level1name = N'GeneratorUspStep_Persistence_src';
 Go
 
 Execute sp_addextendedproperty
@@ -460,7 +471,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'usp_id';
 Go
@@ -471,7 +482,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'usp_fullname';
 Go
@@ -482,7 +493,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'Statement';
 Go
@@ -493,7 +504,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'RepoObject_guid';
 Go
@@ -504,7 +515,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'Parent_Number';
 Go
@@ -515,7 +526,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'Number';
 Go
@@ -526,7 +537,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'Name';
 Go
@@ -537,7 +548,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'log_target_object';
 Go
@@ -548,7 +559,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'log_source_object';
 Go
@@ -559,7 +570,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'log_flag_InsertUpdateDelete';
 Go
@@ -570,7 +581,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'is_SubProcedure';
 Go
@@ -581,7 +592,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'is_inactive';
 Go
@@ -592,7 +603,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'is_condition';
 Go
@@ -603,43 +614,43 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'uspgenerator'
   , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Persistence'
+  , @level1name = N'GeneratorUspStep_Persistence_src'
   , @level2type = N'COLUMN'
   , @level2name = N'has_logging';
 Go
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [repo].[Index_ColumList]
 * [repo].[RepoObject_gross]
 * [repo].[RepoObject_gross2]
-* [uspgenerator].[GeneratorUsp]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+* [uspgenerator].[GeneratorUsp]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'usp_id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'usp_id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'usp_id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'usp_id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'int', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'319D0C2F-0796-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'319D0C2F-0796-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.Index_ColumList.adoc[]
 * xref:repo.RepoObject_gross.adoc[]
 * xref:repo.RepoObject_gross2.adoc[]
-* xref:uspgenerator.GeneratorUsp.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+* xref:uspgenerator.GeneratorUsp.adoc[]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 
@@ -648,13 +659,13 @@ GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
 * xref:sqldb:uspgenerator.GeneratorUspStep_Persistence.adoc[] creates all possible steps for GeneratorUspStep
 * xref:sqldb:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[] determines which steps should be activated based on settings in xref:sqldb:repo.RepoObject_persistence.adoc[]
-* xref:sqldb:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[] uses these views', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+* xref:sqldb:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[] uses these views', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence';
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Persistence_src';
 

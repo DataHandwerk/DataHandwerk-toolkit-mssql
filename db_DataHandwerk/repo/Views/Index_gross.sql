@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [repo].[Index_gross]
+CREATE View repo.Index_gross
 As
 --
 Select
@@ -62,19 +61,19 @@ Select
   , ColumList.PersistenceWhereColumnList
   , ColumList.PumlIndexColumnList
 From
-    repo.Index_Settings       As T1
+    repo.Index_Settings        As T1
     Inner Join
-        repo.Index_union      As T2
+        repo.Index_union       As T2
             On
             T2.index_guid        = T1.index_guid
 
     Inner Join
-        repo.RepoObject_gross As T3
+        repo.RepoObject_gross  As T3
             On
             T3.RepoObject_guid   = T2.parent_RepoObject_guid
 
     Left Join
-        repo.Index_ColumList  As ColumList
+        repo.Index_ColumList_T As ColumList
             On
             ColumList.index_guid = T1.index_guid
 Go

@@ -5,11 +5,13 @@ CREATE View repo.Index_ssas
 As
 Select
     Distinct
-    index_name
+    --logical PK: databasename,index_name
+    databasename
+  , index_name
+  --unique attributes per index
   , is_index_primary_key
   , is_index_unique
   , RepoObject_guid
-  , databasename
   --, TableID
   , TableName
   --is unique per Index, because one index connects one pair of columns

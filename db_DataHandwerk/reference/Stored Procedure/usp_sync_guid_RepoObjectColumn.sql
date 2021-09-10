@@ -327,51 +327,61 @@ use columns with [RepoObjectColumn_guid] stored in extended properties
 	=> thats way we use [RepoObjectColumn_guid] as [RepoObjectColumn_name] to avoid conflicts we will later rename [RepoObjectColumn_name] to [SysObjectColumn_name] where this is possible
 
 */
-INSERT INTO repo.RepoObjectColumn (
- [RepoObjectColumn_guid]
- , [RepoObject_guid]
- , [SysObjectColumn_name]
- , [SysObjectColumn_column_id]
- , [RepoObjectColumn_name]
- , [Repo_default_is_system_named]
- , [Repo_default_name]
- , [Repo_default_definition]
- , [Repo_definition]
- , [Repo_generated_always_type]
- , [Repo_graph_type]
- , [Repo_is_computed]
- , [Repo_is_identity]
- , [Repo_is_nullable]
- , [Repo_is_persisted]
- , [Repo_seed_value]
- , [Repo_increment_value]
- , [Repo_user_type_name]
- , [Repo_user_type_fullname]
- , [Repo_uses_database_collation]
- )
-SELECT [SysObject_RepoObjectColumn_guid]
- , [SysObject_RepoObject_guid]
- , [SysObject_column_name]
- , [SysObject_column_id]
- , [SysObject_RepoObjectColumn_guid] AS [RepoObjectColumn_name] --guid is used as name!
- , [default_is_system_named]
- , [default_name]
- , [default_definition]
- , [definition]
- , [generated_always_type]
- , [graph_type]
- , [is_computed]
- , [is_identity]
- , [is_nullable]
- , [is_persisted]
- , [seed_value]
- , [increment_value]
- , [user_type_name]
- , [user_type_fullname]
- , [uses_database_collation]
-FROM repo.SysColumn_RepoObjectColumn_via_guid
-WHERE [RepoObjectColumn_guid] IS NULL
- AND NOT [SysObject_RepoObjectColumn_guid] IS NULL;
+Insert Into repo.RepoObjectColumn
+(
+    RepoObjectColumn_guid
+  , RepoObject_guid
+  , SysObjectColumn_name
+  , SysObjectColumn_column_id
+  , RepoObjectColumn_name
+  , Repo_default_is_system_named
+  , Repo_default_name
+  , Repo_default_definition
+  , Repo_definition
+  , Repo_generated_always_type
+  , Repo_graph_type
+  , Repo_is_computed
+  , Repo_is_identity
+  , Repo_is_nullable
+  , Repo_is_persisted
+  , Repo_seed_value
+  , Repo_increment_value
+  , Repo_user_type_name
+  , Repo_user_type_fullname
+  , Repo_uses_database_collation
+)
+Select
+    SysObject_RepoObjectColumn_guid
+  , SysObject_RepoObject_guid
+  , SysObject_column_name
+  , SysObject_column_id
+  , RepoObjectColumn_name          = SysObject_RepoObjectColumn_guid --guid is used as name!
+  , default_is_system_named
+  , default_name
+  , default_definition
+  , definition
+  , generated_always_type
+  , graph_type
+  , is_computed
+  , is_identity
+  , is_nullable
+  , is_persisted
+  , seed_value
+  , increment_value
+  , user_type_name
+  , user_type_fullname
+  , uses_database_collation
+From
+    repo.SysColumn_RepoObjectColumn_via_guid
+Where
+    RepoObjectColumn_guid Is Null
+    And Not SysObject_RepoObjectColumn_guid Is Null
+    -- RepoObject_fullname = ro.RepoObject_fullname
+    --we need to ensure that the RepoObject exists
+    --otherwise we get 
+    --Msg 547, Level 16, State 0, Procedure repo.usp_sync_guid_RepoObjectColumn, Line 330 [Batch Start Line 2]
+    --The INSERT statement conflicted with the FOREIGN KEY constraint "FK_RepoObjectColumn_RepoObject". The conflict occurred in database "dhw_EventAnalytics", table "repo.RepoObject", column 'RepoObject_guid'.
+    And Not RepoObject_fullname Is Null
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -452,49 +462,59 @@ ensure all object columns existing in database (as SysObjectColumn) are also inc
 [SysObject_RepoObject_guid] must exists, because it is required to link to repo.RepoObject
 
 */
-INSERT INTO repo.RepoObjectColumn (
- [RepoObject_guid]
- , [SysObjectColumn_name]
- , [SysObjectColumn_column_id]
- --, [RepoObjectColumn_name]
- , [Repo_default_is_system_named]
- , [Repo_default_name]
- , [Repo_default_definition]
- , [Repo_definition]
- , [Repo_generated_always_type]
- , [Repo_graph_type]
- , [Repo_is_computed]
- , [Repo_is_identity]
- , [Repo_is_nullable]
- , [Repo_is_persisted]
- , [Repo_seed_value]
- , [Repo_increment_value]
- , [Repo_user_type_name]
- , [Repo_user_type_fullname]
- , [Repo_uses_database_collation]
- )
-SELECT [SysObject_RepoObject_guid]
- , [SysObject_column_name]
- , [SysObject_column_id]
- --, NEWID() AS [RepoObjectColumn_name] --a default is defined now
- , [default_is_system_named]
- , [default_name]
- , [default_definition]
- , [definition]
- , [generated_always_type]
- , [graph_type]
- , [is_computed]
- , [is_identity]
- , [is_nullable]
- , [is_persisted]
- , [seed_value]
- , [increment_value]
- , [user_type_name]
- , [user_type_fullname]
- , [uses_database_collation]
-FROM repo.SysColumn_RepoObjectColumn_via_name
-WHERE [RepoObjectColumn_guid] IS NULL
- AND NOT [SysObject_RepoObject_guid] IS NULL;
+Insert Into repo.RepoObjectColumn
+(
+    RepoObject_guid
+  , SysObjectColumn_name
+  , SysObjectColumn_column_id
+  --, [RepoObjectColumn_name]
+  , Repo_default_is_system_named
+  , Repo_default_name
+  , Repo_default_definition
+  , Repo_definition
+  , Repo_generated_always_type
+  , Repo_graph_type
+  , Repo_is_computed
+  , Repo_is_identity
+  , Repo_is_nullable
+  , Repo_is_persisted
+  , Repo_seed_value
+  , Repo_increment_value
+  , Repo_user_type_name
+  , Repo_user_type_fullname
+  , Repo_uses_database_collation
+)
+Select
+    SysObject_RepoObject_guid
+  , SysObject_column_name
+  , SysObject_column_id
+  --, NEWID() AS [RepoObjectColumn_name] --a default is defined now
+  , default_is_system_named
+  , default_name
+  , default_definition
+  , definition
+  , generated_always_type
+  , graph_type
+  , is_computed
+  , is_identity
+  , is_nullable
+  , is_persisted
+  , seed_value
+  , increment_value
+  , user_type_name
+  , user_type_fullname
+  , uses_database_collation
+From
+    repo.SysColumn_RepoObjectColumn_via_name
+Where
+    RepoObjectColumn_guid Is Null
+    And Not SysObject_RepoObject_guid Is Null
+    -- RepoObject_fullname = ro.RepoObject_fullname
+    --we need to ensure that the RepoObject exists
+    --otherwise we get 
+    --Msg 547, Level 16, State 0, Procedure repo.usp_sync_guid_RepoObjectColumn, Line 330 [Batch Start Line 2]
+    --The INSERT statement conflicted with the FOREIGN KEY constraint "FK_RepoObjectColumn_RepoObject". The conflict occurred in database "dhw_EventAnalytics", table "repo.RepoObject", column 'RepoObject_guid'.
+    And Not RepoObject_fullname Is Null
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

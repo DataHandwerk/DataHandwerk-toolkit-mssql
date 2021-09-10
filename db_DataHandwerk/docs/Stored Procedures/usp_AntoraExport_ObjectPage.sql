@@ -108,52 +108,53 @@ DECLARE @Object_fullname2 NVARCHAR(257);
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', N'')","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',410,';',NULL);
 
-DECLARE db_cursor CURSOR Local Fast_Forward
-FOR
-SELECT RepoObject_fullname
- , RepoObject_fullname2
-FROM docs.[RepoObject_OutputFilter]
-ORDER BY RepoObject_fullname
+Declare db_cursor Cursor Local Fast_Forward For
+Select
+    RepoObject_fullname
+  , RepoObject_fullname2
+From
+    docs.RepoObject_OutputFilter
+Order By
+    RepoObject_fullname
 
-OPEN db_cursor
+Open db_cursor
 
-FETCH NEXT
-FROM db_cursor
-INTO @Object_fullname
- , @Object_fullname2
-
-WHILE @@FETCH_STATUS = 0
-BEGIN
- --Dynamically construct the BCP command
- --
- --bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( 'AntoraPageTemplate', DEFAULT ) As AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
- --
- SET @command = 'bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', DEFAULT ) As AntoraPageTemplate" queryout "' + @outputDir + @Object_fullname2 + '.adoc"'
-  --
-  + ' -S ' + @instanceName
-  --
-  + ' -d ' + @databaseName
-  --
-  + ' -c -C 65001'
-  --
-  + @TrustedUserPassword
-
- PRINT @command
-
- --Execute the BCP command
- EXEC xp_cmdshell @command
-  , no_output
-
- FETCH NEXT
- FROM db_cursor
- INTO @Object_fullname
+Fetch Next From db_cursor
+Into
+    @Object_fullname
   , @Object_fullname2
-END
 
-CLOSE db_cursor
+While @@Fetch_Status = 0
+Begin
+    --Dynamically construct the BCP command
+    --
+    --bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( 'AntoraPageTemplate', DEFAULT ) As AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
+    --
+    Set @command
+        = 'bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', DEFAULT ) As AntoraPageTemplate" queryout "'
+          + @outputDir + @Object_fullname2 + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
-DEALLOCATE db_cursor
+    Print @command
 
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Fetch Next From db_cursor
+    Into
+        @Object_fullname
+      , @Object_fullname2
+End
+
+Close db_cursor
+Deallocate db_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

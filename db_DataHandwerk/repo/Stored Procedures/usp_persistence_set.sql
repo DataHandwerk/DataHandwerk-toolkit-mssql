@@ -76,10 +76,12 @@ ORDER BY
 <<property_start>>exampleUsage
 --use explicite parameters to create a delete-update-insert persistence procedure without history
 
-Exec repo.[usp_persistence_set]
+Exec repo.usp_persistence_set
     @source_fullname = '[SchemaName].[SourceViewName]'
-    ----alternatively @source_fullname2 can be used:
-    --@source_fullname2 = 'SchemaName.SourceViewName'
+  ----alternatively @source_fullname2 can be used:
+  --@source_fullname2 = 'SchemaName.SourceViewName'
+  ----define optinal persistence_table_name, if not the default will be used
+  --, @persistence_table_name = 'zzz_qqq'
   --these will define the structure of the table:
   , @has_history = 0
   , @has_history_columns = 0
@@ -90,11 +92,12 @@ Exec repo.[usp_persistence_set]
   , @is_persistence_delete_changed = 0
   , @is_persistence_update_changed = 1
   , @is_persistence_insert = 1
-  , @is_persistence_merge_delete_missing = 0
-  , @is_persistence_merge_update_changed = 0
-  , @is_persistence_merge_insert = 0
-  , @source_filter = NULL
-  , @target_filter = NULL;
+----not implemented:
+--, @is_persistence_merge_delete_missing = 0
+--, @is_persistence_merge_update_changed = 0
+--, @is_persistence_merge_insert = 0
+--, @source_filter = NULL
+--, @target_filter = NULL
 
 --prepare code for persistence table and procedure
 
@@ -352,9 +355,9 @@ Declare
 Set @persistence_name_suffix =
 (
     Select
-        [Parameter_value_result]
+        Parameter_value_result
     From
-        [config].Parameter
+        config.Parameter
     Where
         Parameter_name = 'persistence_name_suffix'
 );
@@ -395,11 +398,11 @@ Begin
     Set @source_RepoObject_guid =
     (
         Select
-            source_RepoObject_guid
+            ro.source_RepoObject_guid
         From
             repo.RepoObject_persistence As ro
         Where
-            target_RepoObject_guid = @persistence_RepoObject_guid
+            ro.target_RepoObject_guid = @persistence_RepoObject_guid
     );
 
     If @source_RepoObject_guid Is Null
@@ -453,14 +456,14 @@ Begin
     --create new @persistence_RepoObject_guid
     --check, if @source_RepoObject_guid exists and it is a view or table
     Select
-        @source_schema_name = SysObject_schema_name
-      , @source_table_name  = SysObject_name
+        @source_schema_name = ro.SysObject_schema_name
+      , @source_table_name  = ro.SysObject_name
     From
         repo.RepoObject As ro
     Where
         ro.SysObject_type In
         ( 'V', 'U' )
-        And RepoObject_guid = @source_RepoObject_guid;
+        And ro.RepoObject_guid = @source_RepoObject_guid;
 
     If @source_schema_name Is Null
     Begin
@@ -594,7 +597,7 @@ Begin
           , is_repo_managed
         )
         Output
-            INSERTED.RepoObject_guid
+            Inserted.RepoObject_guid
         Into @table
         Values
             (
@@ -641,8 +644,9 @@ If Not Exists
     From
         repo.RepoObject
     Where
-        RepoObject_guid     = @persistence_RepoObject_guid
-        And RepoObject_type IN ('U', 'V')
+        RepoObject_guid = @persistence_RepoObject_guid
+        And RepoObject_type In
+            ( 'U', 'V' )
 )
 Begin
     Set @info_01_message = N'@persistence_RepoObject_guid has not [RepoObject_type] ''U'' or ''V''';
@@ -692,15 +696,17 @@ Insert Into repo.RepoObject_persistence
 (
     target_RepoObject_guid
   , source_RepoObject_guid
+  , source_RepoObject_name
 )
 Select
     @persistence_RepoObject_guid
   , @source_RepoObject_guid
+  , @source_table_name
 Where
     Not Exists
 (
     Select
-        target_RepoObject_guid
+        rop.target_RepoObject_guid
     From
         repo.RepoObject_persistence As rop
     Where
@@ -745,6 +751,7 @@ Update
     repo.RepoObject_persistence
 Set
     source_RepoObject_guid = @source_RepoObject_guid
+  , source_RepoObject_name = @source_table_name
   , is_persistence_truncate = IsNull ( @is_persistence_truncate, is_persistence_truncate )
   , is_persistence_delete_missing = IsNull ( @is_persistence_delete_missing, is_persistence_delete_missing )
   , is_persistence_delete_changed = IsNull ( @is_persistence_delete_changed, is_persistence_delete_changed )
@@ -854,11 +861,11 @@ Exec logs.usp_ExecutionLog_insert
 Update
     ro
 Set
-    Repo_temporal_type = rop.temporal_type
+    ro.Repo_temporal_type = rop.temporal_type
 From
-    repo.RepoObject                 ro
+    repo.RepoObject                 As ro
     Inner Join
-        repo.RepoObject_persistence rop
+        repo.RepoObject_persistence As rop
             On
             rop.target_RepoObject_guid = ro.RepoObject_guid
 Where

@@ -2,8 +2,10 @@
 CREATE View repo.IndexColumn_ssas
 As
 Select
+    --PK: index_guid,index_column_id
     i.index_guid
   , col.index_column_id
+  --unique attriutes per IndexColum
   , col.RepoObjectColumn_guid
   , i.databasename
   --, i.TableID

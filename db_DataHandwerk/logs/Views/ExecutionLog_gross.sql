@@ -34,16 +34,19 @@ As
 Select
     id
   , parent_execution_log_id
-  , duration__current_execution_guid        = DateDiff (
+  , duration_current_execution_guid         = DateDiff (
                                                            ss
                                                          , Min ( created_dt ) Over ( Partition By current_execution_guid )
                                                          , Max ( created_dt ) Over ( Partition By current_execution_guid )
                                                        )
-  , duration__execution_instance_guid       = DateDiff (
+  , duration_execution_instance_guid        = DateDiff (
                                                            ss
                                                          , Min ( created_dt ) Over ( Partition By execution_instance_guid )
                                                          , Max ( created_dt ) Over ( Partition By execution_instance_guid )
                                                        )
+  , duration_step                           = Iif(Not step_name In ( 'start', 'end' )
+                        , DateDiff ( ss, created_dt, Lead ( created_dt ) Over ( Order By id ))
+                        , Null)
   , created_dt
   , proc_schema_name
   , proc_name
@@ -717,15 +720,7 @@ Execute sp_addextendedproperty
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '8ff77926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'logs'
-  , @level1type = N'VIEW'
-  , @level1name = N'ExecutionLog_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'duration__execution_instance_guid';
+
 
 
 Go
@@ -789,15 +784,7 @@ Execute sp_addextendedproperty
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '07b0ba8c-ad72-eb11-84e3-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'logs'
-  , @level1type = N'VIEW'
-  , @level1name = N'ExecutionLog_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'duration__current_execution_guid';
+
 
 
 Go

@@ -70,7 +70,7 @@ PRINT '[repo].[usp_sync_guid_RepoObject]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"SET several RepoObject_SysObject_...","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":210,"Name":"SET several RepoObject_SysObject_... via guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',210,';',NULL);
 
 /*
@@ -81,31 +81,37 @@ use objects with [RepoObject_guid] stored in extended properties
 ** don't change RepoObject names
 
 */
-UPDATE repo.SysObject_RepoObject_via_guid
-SET [RepoObject_SysObject_id] = [SysObject_id]
- , [RepoObject_SysObject_schema_name] = [SysObject_schema_name]
- , [RepoObject_SysObject_name] = [SysObject_name]
- , [RepoObject_SysObject_type] = [SysObject_type]
- , [RepoObject_SysObject_modify_date] = [modify_date]
- , [RepoObject_SysObject_parent_object_id] = [parent_object_id]
- , [RepoObject_is_SysObject_missing] = NULL
-WHERE NOT [RepoObject_guid] IS NULL
- AND (
-  [RepoObject_SysObject_id] <> [SysObject_id]
-  OR [RepoObject_SysObject_id] IS NULL
-  OR [RepoObject_SysObject_schema_name] <> [SysObject_schema_name]
-  OR [RepoObject_SysObject_name] <> [SysObject_name]
-  OR [RepoObject_SysObject_type] <> [SysObject_type]
-  OR [RepoObject_SysObject_modify_date] <> [modify_date]
-  OR [RepoObject_SysObject_modify_date] IS NULL
-  OR [RepoObject_SysObject_parent_object_id] <> [parent_object_id]
-  --
-  )
+Update
+    repo.SysObject_RepoObject_via_guid
+Set
+    RepoObject_SysObject_id = SysObject_id
+  , RepoObject_SysObject_schema_name = SysObject_schema_name
+  , RepoObject_SysObject_name = SysObject_name
+  , RepoObject_SysObject_type = SysObject_type
+  , RepoObject_SysObject_modify_date = modify_date
+  , RepoObject_SysObject_parent_object_id = parent_object_id
+  , RepoObject_is_SysObject_missing = Null
+Where
+    Not RepoObject_guid Is Null
+    And
+    (
+        RepoObject_SysObject_id                  <> SysObject_id
+        Or RepoObject_SysObject_id Is Null
+        Or RepoObject_SysObject_schema_name      <> SysObject_schema_name
+        Or RepoObject_SysObject_name             <> SysObject_name
+        Or RepoObject_SysObject_type             <> SysObject_type
+        Or RepoObject_SysObject_modify_date      <> modify_date
+        Or RepoObject_SysObject_modify_date Is Null
+        Or RepoObject_SysObject_parent_object_id <> parent_object_id
+        Or RepoObject_is_SysObject_missing       = 1
+        Or NOT(RepoObject_is_SysObject_missing IS NULL)
+    --
+    )
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'SET several RepoObject_SysObject_...'
+SET @step_name = 'SET several RepoObject_SysObject_... via guid'
 SET @source_object = '[repo_sys].[SysObject]'
 SET @target_object = '[repo].[RepoObject]'
 
@@ -736,8 +742,58 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2120,"Parent_Number":2110,"Name":"DELETE; marked missing SysObject, but not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2120,';',2110);
+/*{"ReportUspStep":[{"Number":2115,"Parent_Number":2110,"Name":"SET is_SysObject_missing = 0 where not missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2115,';',2110);
+
+/*
+some objects could still be marked as missing, but they are not missing +
+but normally this should not happen
+*/
+Update
+    repo.RepoObject
+Set
+    is_SysObject_missing = Null
+From
+    repo.RepoObject As T1
+Where
+    Exists
+(
+    Select
+        Filter.SysObject_id
+    From
+        repo_sys.SysObject As Filter
+    Where
+        t1.SysObject_schema_name = Filter.SysObject_schema_name
+        And t1.SysObject_name    = Filter.SysObject_name
+)
+    And T1.is_SysObject_missing = 1
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'SET is_SysObject_missing = 0 where not missing'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":2120,"Parent_Number":2115,"Name":"DELETE; marked missing SysObject, but not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2120,';',2115);
 
 /*
 delete objects, missing in SysObjects, if they are not is_repo_managed +

@@ -1,7 +1,4 @@
 ﻿
-
-
-
 /*
 we use all Index from repo.IndexColumn__union (real and virtual)
 and we use Object references
@@ -75,7 +72,7 @@ Select
                                                 )
 --, roc.[RepoObjectColumn_guid]
 From
-    repo.IndexColumn_union                     As ic
+    repo.IndexColumn_union_T                   As ic
     Inner Join --todo: maybe use another source for RepoObject references 
         --repo.[RepoObjectColumn_reference_FirstResultSet] AS ref
         reference.RepoObjectColumn_reference_T As ref

@@ -18,6 +18,8 @@ Select
   , T1.parent_SysObject_fullname
 From
     repo_sys.IndexColumn_unique As T1
+Where
+    Not T1.index_guid Is Null
 Union All
 Select
     T2.index_guid
@@ -36,9 +38,11 @@ Select
   , T2.parent_Object_fullname
 From
     repo.IndexColumn_virtual_gross As T2
+Where
+    Not T2.index_guid Is Null
 Union All
 Select
-    T2.Index_guid
+    T2.index_guid
   , T2.index_column_id
   , T2.is_descending_key
   , T2.RepoObjectColumn_guid
@@ -54,6 +58,8 @@ Select
   , T2.parent_Object_fullname
 From
     repo.IndexColumn_ssas_gross As T2
+Where
+    Not T2.index_guid Is Null
 Go
 
 Execute sp_addextendedproperty

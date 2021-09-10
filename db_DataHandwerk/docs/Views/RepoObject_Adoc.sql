@@ -330,6 +330,8 @@ From
             parlist.RepoObject_guid   = ro.RepoObject_guid
 Group By
     ro.RepoObject_guid
+Having
+    ( Max ( is_DocsOutput ) = 1 )
 Go
 
 Execute sp_addextendedproperty

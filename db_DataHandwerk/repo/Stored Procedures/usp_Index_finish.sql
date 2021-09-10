@@ -626,6 +626,26 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":3100,"Name":"[repo].[usp_PERSIST_IndexColumn_union_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_PERSIST_IndexColumn_union_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":3200,"Name":"[repo].[usp_PERSIST_Index_ColumList_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_PERSIST_Index_ColumList_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 --
 --finish your own code here
 --keep the code between "END" and the end of the procedure unchanged!

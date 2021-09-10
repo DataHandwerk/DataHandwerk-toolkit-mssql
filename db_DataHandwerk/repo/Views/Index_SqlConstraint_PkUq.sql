@@ -1,9 +1,9 @@
 ﻿
-
 --contains only PK or UNIQUE
 --requirement:
 -- - repo.Index_Settings.is_create_constraint = 1
 -- - repo.Index_union.is_index_unique = 1
+
 CREATE View repo.Index_SqlConstraint_PkUq
 As
 Select
@@ -42,14 +42,14 @@ Select
 ----, i.is_index_real
 ----, i_s.is_create_constraint
 From
-    repo.Index_union         As i
+    repo.Index_union           As i
     Left Outer Join
-        repo.Index_Settings  As i_s
+        repo.Index_Settings    As i_s
             On
             i_s.index_guid        = i.index_guid
 
     Left Outer Join
-        repo.Index_ColumList As ColumnList
+        repo.Index_ColumList_T As ColumnList
             On
             ColumnList.index_guid = i.index_guid
 Where

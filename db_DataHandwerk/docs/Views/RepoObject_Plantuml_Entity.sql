@@ -29,8 +29,12 @@ Select
   --
   Concat (
              'entity '
-           , '"[[' + AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-             + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+           , '"[['
+           ----dynamic definition for inline svg:
+           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
+           ----hard coded definition: 
+           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , '.html '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
@@ -56,8 +60,12 @@ Select
   --
   Concat (
              'entity '
-           , '"[[' + AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-             + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+           , '"[['
+           ----dynamic definition for inline svg:
+           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
+           ----hard coded definition: 
+           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , '.html '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
@@ -93,8 +101,12 @@ Select
   --
   Concat (
              'entity '
-           , '"[[' + AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-             + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+           , '"[['
+           ----dynamic definition for inline svg:
+           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
+           ----hard coded definition: 
+           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , '.html '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
@@ -116,6 +128,16 @@ Select
   --
   Concat (
              'entity '
+           , '"[['
+           ----dynamic definition for inline svg:
+           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
+           ----hard coded definition: 
+           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , '.html '
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , ']]" as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
