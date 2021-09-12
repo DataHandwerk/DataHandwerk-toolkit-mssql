@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -272,6 +273,17 @@ skinparam class {
   BackgroundColor<<V>> WhiteSmoke
   BackgroundColor<<X>> Aqua
 }
+'
+Union All
+Select
+    Parameter_name          = 'puml_footer'
+  , sub_Parameter           = N''
+  , Parameter_desciption    = N'footer content for PlantUML diagrams'
+  , Parameter_default_value = N'
+footer
+to view a reduced diagram in original size and to be able to click on the links:
+open the diagram in a new tab via the Context menu.
+end footer
 '
 --Union All
 --Select

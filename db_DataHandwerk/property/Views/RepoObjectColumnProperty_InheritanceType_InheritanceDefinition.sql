@@ -32,8 +32,8 @@ Select
   , sub_Inheritance_StringAggSeparatorSql = par_sub_sep.Parameter_value_result
   , par_Inheritance_StringAggSeparatorSql = par_sep.Parameter_value_result
 From
-    repo.RepoObjectColumn                             As roc
-    Cross Join property.PropertyName_RepoObjectColumn As pn
+    repo.RepoObjectColumn                               As roc
+    Cross Join property.PropertyName_RepoObjectColumn_T As pn
     Left Join
         property.RepoObjectColumnProperty As rocp
             On
@@ -75,6 +75,8 @@ From
             On
             par_sep.Parameter_name        = 'Inheritance_StringAggSeparatorSql_column'
             And par_sep.sub_Parameter     = ''
+Where
+    pn.has_inheritance = 1
 Go
 
 Execute sp_addextendedproperty

@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 PlantUML definition per RepoObject
 to be used in composed PlantUML diagrams
@@ -30,7 +31,7 @@ Select
   Concat (
              'entity '
            , '"[['
-           ----dynamic definition for inline svg:
+           ----dynamic definition for svg:
            , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
            ----hard coded definition: 
            --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
@@ -61,7 +62,7 @@ Select
   Concat (
              'entity '
            , '"[['
-           ----dynamic definition for inline svg:
+           ----dynamic definition for svg:
            , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
            ----hard coded definition: 
            --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
@@ -102,7 +103,7 @@ Select
   Concat (
              'entity '
            , '"[['
-           ----dynamic definition for inline svg:
+           ----dynamic definition for svg:
            , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
            ----hard coded definition: 
            --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
@@ -129,7 +130,7 @@ Select
   Concat (
              'entity '
            , '"[['
-           ----dynamic definition for inline svg:
+           ----dynamic definition for svg:
            , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
            ----hard coded definition: 
            --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'

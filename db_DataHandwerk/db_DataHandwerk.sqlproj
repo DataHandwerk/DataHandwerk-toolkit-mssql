@@ -696,11 +696,14 @@
     <Build Include="docs\Views\RepoObject_MeasureList.sql" />
     <Build Include="dmdocs\Views\unit.sql" />
     <Build Include="repo\Views\RepoObject_persistence_SourceMismatch.sql" />
-    <Build Include="repo\Tables\RepoObject_gross2_T.sql" />
     <Build Include="repo\Tables\IndexColumn_union_T.sql" />
     <Build Include="repo\Tables\Index_ColumList_T.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_IndexColumn_union_T.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_Index_ColumList_T.sql" />
+    <Build Include="property\Tables\PropertyName_RepoObjectColumn_T.sql" />
+    <Build Include="property\Tables\PropertyName_RepoObject_T.sql" />
+    <Build Include="property\Stored Procedures\usp_PERSIST_PropertyName_RepoObjectColumn_T.sql" />
+    <Build Include="property\Stored Procedures\usp_PERSIST_PropertyName_RepoObject_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />

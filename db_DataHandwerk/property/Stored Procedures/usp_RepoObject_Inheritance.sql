@@ -60,6 +60,8 @@ Exec logs.usp_ExecutionLog_insert
                             --all other calls should not overwrite @current_execution_log_id
   , @execution_log_id = @current_execution_log_id Output;
 
+Exec property.usp_PERSIST_PropertyName_RepoObject_T
+
 ----you can log the content of your own parameters, do this only in the start-step
 ----data type is sql_variant
 --

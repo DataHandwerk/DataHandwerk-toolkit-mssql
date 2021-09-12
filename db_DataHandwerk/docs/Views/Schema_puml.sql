@@ -14,26 +14,32 @@ Select
   , PumlSchemaEr      =
   --
   Concat (
-             docs.fs_PumlHeaderLeftToRight ()
+             '@startuml' + Char ( 13 ) + Char ( 10 )
+           , docs.fs_PumlHeaderLeftToRight ()
            , sel.EntityList_PumlOnlyPkOrIndex
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-         ----we still need an idea, how to show releations containing composite keys
-         --, ssas_rl.SsasRelationList_PumlRelation
-         --, Char ( 13 ) + Char ( 10 )
-         --, Char ( 13 ) + Char ( 10 )
+           ----we still need an idea, how to show releations containing composite keys
+           --, ssas_rl.SsasRelationList_PumlRelation
+           --, Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
+           , puml_footer.Parameter_value_result
+           , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
          )
   --it doesn't look very nice, we need wait for a solution to draw PumlSchemaEr
   , PumlSchemaIndexEr =
   --
   Concat (
-             docs.fs_PumlHeaderLeftToRight ()
+             '@startuml' + Char ( 13 ) + Char ( 10 )
+           , docs.fs_PumlHeaderLeftToRight ()
            , sel.EntityList_PumlOnlyIndex
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
            , fklist.FkRefList
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
+           , puml_footer.Parameter_value_result
+           , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
          )
   , PumlSchemaSsasEr  =
   --
@@ -41,13 +47,16 @@ Select
       When rs.is_ssas = 1
           Then
           Concat (
-                     docs.fs_PumlHeaderLeftToRight ()
+                     '@startuml' + Char ( 13 ) + Char ( 10 )
+                   , docs.fs_PumlHeaderLeftToRight ()
                    , sel.EntityList_PumlOnlyPkOrIndex
                    , Char ( 13 ) + Char ( 10 )
                    , Char ( 13 ) + Char ( 10 )
                    , ssas_rl.SsasRelationList_PumlRelation
                    , Char ( 13 ) + Char ( 10 )
                    , Char ( 13 ) + Char ( 10 )
+                   , puml_footer.Parameter_value_result
+                   , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                  )
   End
 From
@@ -67,6 +76,7 @@ From
             On
             ssas_rl.SchemaName = rs.RepoSchema_name
     Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin
+    Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0b60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml';
 

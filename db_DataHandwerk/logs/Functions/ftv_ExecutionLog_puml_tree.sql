@@ -161,7 +161,7 @@ Return
           , proc_schema_name
           , proc_name
           , step_id
-          , duration__current_execution_guid
+          , duration_current_execution_guid
         From
             logs.ExecutionLog_gross
         Where
@@ -185,7 +185,7 @@ Return
           , child.proc_schema_name
           , child.proc_name
           , child.step_id
-          , child.duration__current_execution_guid
+          , child.duration_current_execution_guid
         From
             logs.ExecutionLog_gross As child
             Inner Join
@@ -213,7 +213,7 @@ Return
                                      , '.'
                                      , QuoteName ( proc_name )
                                      , '  |  '
-                                     , duration__current_execution_guid
+                                     , duration_current_execution_guid
                                    )
     From
         tree

@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>exampleUsage 
 --get detailed PlantUML sequence diagram
@@ -29,7 +30,7 @@ Order By
     id;
 <<property_end>> 
 */
-CREATE View logs.ExecutionLog_gross
+CREATE View [logs].[ExecutionLog_gross]
 As
 Select
     id
@@ -45,7 +46,7 @@ Select
                                                          , Max ( created_dt ) Over ( Partition By execution_instance_guid )
                                                        )
   , duration_step                           = Iif(Not step_name In ( 'start', 'end' )
-                        , DateDiff ( ss, created_dt, Lead ( created_dt ) Over ( Order By id ))
+                        , DateDiff ( ss, Lag ( created_dt ) Over ( Order By id ), created_dt )
                         , Null)
   , created_dt
   , proc_schema_name
@@ -93,8 +94,8 @@ Select
   , parameter_19
   , parameter_20
   --
-  , created_dt_min__execution_instance_guid = Min ( created_dt ) Over ( Partition By execution_instance_guid )
-  , created_dt_max__execution_instance_guid = Max ( created_dt ) Over ( Partition By execution_instance_guid )
+  , created_dt_min_execution_instance_guid = Min ( created_dt ) Over ( Partition By execution_instance_guid )
+  , created_dt_max_execution_instance_guid = Max ( created_dt ) Over ( Partition By execution_instance_guid )
   --
   , puml_Sequence                           = --
   --combine the result with
@@ -748,27 +749,11 @@ Execute sp_addextendedproperty
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '8df77926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'logs'
-  , @level1type = N'VIEW'
-  , @level1name = N'ExecutionLog_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'created_dt_min__execution_instance_guid';
+
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '8ef77926-9d61-eb11-84dc-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'logs'
-  , @level1type = N'VIEW'
-  , @level1name = N'ExecutionLog_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'created_dt_max__execution_instance_guid';
+
 
 
 Go
@@ -1043,4 +1028,16 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b8952df6-4712-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'duration_step';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b7952df6-4712-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'duration_execution_instance_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b6952df6-4712-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'VIEW', @level1name = N'ExecutionLog_gross', @level2type = N'COLUMN', @level2name = N'duration_current_execution_guid';
 

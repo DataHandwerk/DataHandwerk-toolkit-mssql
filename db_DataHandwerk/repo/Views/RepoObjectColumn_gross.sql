@@ -16,6 +16,7 @@ Select
   , roc.is_required_ColumnMerge
   , roc.is_SysObjectColumn_missing
   , roc.is_SysObjectColumn_name_uniqueidentifier
+  , persistence_source_RepoObject_guid = rop.source_RepoObject_guid
   , roc.persistence_source_RepoObjectColumn_guid
   , roc.Referencing_Count
   , roc.Repo_default_definition
@@ -35,8 +36,8 @@ Select
   , roc.Repo_uses_database_collation
   , roc.RepoObject_guid
   , roc.RepoObjectColumn_column_id
-  , RepoObjectColumn_fullname  = Concat ( ro.RepoObject_fullname, '.', QuoteName ( roc.RepoObjectColumn_name ))
-  , RepoObjectColumn_fullname2 = Concat ( ro.RepoObject_fullname2, '.', roc.RepoObjectColumn_name )
+  , RepoObjectColumn_fullname          = Concat ( ro.RepoObject_fullname, '.', QuoteName ( roc.RepoObjectColumn_name ))
+  , RepoObjectColumn_fullname2         = Concat ( ro.RepoObject_fullname2, '.', roc.RepoObjectColumn_name )
   , roc.RepoObjectColumn_name
   , roc.SysObjectColumn_column_id
   , roc.SysObjectColumn_name
@@ -65,28 +66,28 @@ Select
   , ro.SysObject_parent_object_id
   --based on ro.pk_index_guid
   --in other words: only, if the columns are part of the PK
-  , Property_ms_description    = property.fs_get_RepoObjectColumnProperty_nvarchar (
-                                                                                       roc.RepoObjectColumn_guid
-                                                                                     , 'ms_description'
-                                                                                   )
-  , Description                = Coalesce (
-                                              tabcol.tables_columns_description
-                                            , tabcol2.descriptions_StrAgg
-                                            , property.fs_get_RepoObjectColumnProperty_nvarchar (
-                                                                                                    roc.RepoObjectColumn_guid
-                                                                                                  , 'ms_description'
-                                                                                                )
-                                          )
-  , tabcol_Description         = Coalesce ( tabcol.tables_columns_description, tabcol2.descriptions_StrAgg )
-  , tabcol_DisplayFolder       = tabcol.tables_columns_displayFolder
-  , tabcol_Expression            = Coalesce ( tabcol.tables_columns_expression, tabcol3.expressions_StrAgg )
-  , tabcol_FormatString        = tabcol.tables_columns_formatString
+  , Property_ms_description            = property.fs_get_RepoObjectColumnProperty_nvarchar (
+                                                                                               roc.RepoObjectColumn_guid
+                                                                                             , 'ms_description'
+                                                                                           )
+  , Description                        = Coalesce (
+                                                      tabcol.tables_columns_description
+                                                    , tabcol2.descriptions_StrAgg
+                                                    , property.fs_get_RepoObjectColumnProperty_nvarchar (
+                                                                                                            roc.RepoObjectColumn_guid
+                                                                                                          , 'ms_description'
+                                                                                                        )
+                                                  )
+  , tabcol_Description                 = Coalesce ( tabcol.tables_columns_description, tabcol2.descriptions_StrAgg )
+  , tabcol_DisplayFolder               = tabcol.tables_columns_displayFolder
+  , tabcol_Expression                  = Coalesce ( tabcol.tables_columns_expression, tabcol3.expressions_StrAgg )
+  , tabcol_FormatString                = tabcol.tables_columns_formatString
   --required in String_Agg in next steps
-  , tabcol_IsHidden            = IsNull ( tabcol.tables_columns_isHidden, 0 )
-  , tabcol_IsKey               = IsNull ( tabcol.tables_columns_isKey, 0 )
-  , tabcol_IsUnique            = IsNull ( tabcol.tables_columns_isUnique, 0 )
-  , tabcol_SummarizeBy         = tabcol.tables_columns_summarizeBy
-  , tabcol_Type                = tabcol.tables_columns_type
+  , tabcol_IsHidden                    = IsNull ( tabcol.tables_columns_isHidden, 0 )
+  , tabcol_IsKey                       = IsNull ( tabcol.tables_columns_isKey, 0 )
+  , tabcol_IsUnique                    = IsNull ( tabcol.tables_columns_isUnique, 0 )
+  , tabcol_SummarizeBy                 = tabcol.tables_columns_summarizeBy
+  , tabcol_Type                        = tabcol.tables_columns_type
 
 --, ic.index_column_id
 --, ic.index_name
@@ -109,6 +110,11 @@ From
         repo.RepoObject                                          As ro
             On
             roc.RepoObject_guid           = ro.RepoObject_guid
+
+    Left Join
+        repo.RepoObject_persistence                              As rop
+            On
+            roc.RepoObject_guid           = rop.target_RepoObject_guid
 
     Left Join
         ssas.model_json_311_tables_columns_T                     As tabcol
@@ -1512,4 +1518,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Column_name]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'Column_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2aa38ed4-6012-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_guid';
 

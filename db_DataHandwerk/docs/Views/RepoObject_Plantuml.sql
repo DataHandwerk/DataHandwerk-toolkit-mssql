@@ -14,44 +14,59 @@ Select
   , PlantumlEntity_1_1_ColRef
   --
                         = Concat (
-                                     docs.fs_PumlHeaderLeftToRight ()
+                                     '@startuml' + Char ( 13 ) + Char ( 10 )
+                                   , docs.fs_PumlHeaderLeftToRight ()
                                    , elist_1_1.PumlEntityList
                                    , Char ( 13 ) + Char ( 10 )
                                    , olist_1_1.ObjectRefList
                                    , Char ( 13 ) + Char ( 10 )
                                    , clist.ColRefList
+                                   , puml_footer.Parameter_value_result
+                                   , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                                  )
   , PlantumlEntity_1_1_ObjectRef
   --
                         = Concat (
-                                     docs.fs_PumlHeaderLeftToRight ()
+                                     '@startuml' + Char ( 13 ) + Char ( 10 )
+                                   , docs.fs_PumlHeaderLeftToRight ()
                                    , elist_1_1.PumlEntityOnlyPkList
                                    , Char ( 13 ) + Char ( 10 )
                                    , olist_1_1.ObjectRefList
+                                   , puml_footer.Parameter_value_result
+                                   , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                                  )
   , PlantumlEntity_0_30_ObjectRef
   --
                         = Concat (
-                                     docs.fs_PumlHeaderTopToBottom ()
+                                     '@startuml' + Char ( 13 ) + Char ( 10 )
+                                   , docs.fs_PumlHeaderTopToBottom ()
                                    , elist_0_30.PumlEntityOnlyPkList
                                    , Char ( 13 ) + Char ( 10 )
                                    , olist_0_30.ObjectRefList
+                                   , puml_footer.Parameter_value_result
+                                   , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                                  )
   , PlantumlEntity_30_0_ObjectRef
   --
                         = Concat (
-                                     docs.fs_PumlHeaderTopToBottom ()
+                                     '@startuml' + Char ( 13 ) + Char ( 10 )
+                                   , docs.fs_PumlHeaderTopToBottom ()
                                    , elist_30_0.PumlEntityOnlyPkList
                                    , Char ( 13 ) + Char ( 10 )
                                    , olist_30_0.ObjectRefList
+                                   , puml_footer.Parameter_value_result
+                                   , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                                  )
   , PlantumlEntity_1_1_FkRef
   --
                         = Concat (
-                                     docs.fs_PumlHeaderLeftToRight ()
+                                     '@startuml' + Char ( 13 ) + Char ( 10 )
+                                   , docs.fs_PumlHeaderLeftToRight ()
                                    , EntityFkList.PumlEntityFkList
                                    , Char ( 13 ) + Char ( 10 )
                                    , FkRefList.FkRefList
+                                   , puml_footer.Parameter_value_result
+                                   , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                                  )
 From
     repo.RepoObject_gross                                                                         As ro
@@ -84,14 +99,15 @@ From
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 0, 30 ) As elist_0_30
     --Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist_cyclic
     Left Join
-        docs.RepoObject_PlantUml_PumlEntityFkList As EntityFkList
+        docs.RepoObject_PlantUml_PumlEntityFkList                   As EntityFkList
             On
             EntityFkList.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_PlantUml_FkRefList        As FkRefList
+        docs.RepoObject_PlantUml_FkRefList                          As FkRefList
             On
-            FkRefList.RepoObject_guid    = ro.RepoObject_guid
+            FkRefList.RepoObject_guid = ro.RepoObject_guid
+    Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
 Go
 
 Execute sp_addextendedproperty

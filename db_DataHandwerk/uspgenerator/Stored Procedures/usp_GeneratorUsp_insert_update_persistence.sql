@@ -113,6 +113,44 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
+/*{"ReportUspStep":[{"Number":220,"Name":"set invalid persistence_source_RepoObjectColumn_guid = Null","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn_gross2]","log_target_object":"[repo].[RepoObjectColumn_gross2]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',220,';',NULL);
+
+/*
+if the peristence source for a target changes we need to remove old and invalide source columns
+
+*/
+Update
+    repo.RepoObjectColumn_gross2
+Set
+    persistence_source_RepoObjectColumn_guid = Null
+Where
+    ( persistence_source_RepoObject_guid <> persistence_source_RepoObject_guid_via_Column )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'set invalid persistence_source_RepoObjectColumn_guid = Null'
+SET @source_object = '[repo].[RepoObjectColumn_gross2]'
+SET @target_object = '[repo].[RepoObjectColumn_gross2]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":310,"Name":"insert new usp","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_gross]","log_target_object":"[repo].[GeneratorUsp]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',3,';',310,';',NULL);
 

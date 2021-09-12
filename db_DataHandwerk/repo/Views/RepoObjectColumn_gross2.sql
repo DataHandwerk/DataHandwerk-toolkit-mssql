@@ -16,7 +16,11 @@ Select
   , roc.is_required_ColumnMerge
   , roc.is_SysObjectColumn_missing
   , roc.is_SysObjectColumn_name_uniqueidentifier
+  , roc.persistence_source_RepoObject_guid
   , roc.persistence_source_RepoObjectColumn_guid
+  --should be the same like persistence_source_RepoObject_guid, 
+  --if not, then persistence_source_RepoObjectColumn_guid is invalid and should be deleted
+  , persistence_source_RepoObject_guid_via_Column = roc_pers_check.RepoObject_guid
   , roc.Referencing_Count
   , roc.Repo_default_definition
   , roc.Repo_default_is_system_named
@@ -79,7 +83,7 @@ Select
   , ic.index_column_id
   , ic.index_name
   , ic.is_index_primary_key
-  , isAnyIndexColumn =
+  , isAnyIndexColumn                              =
     (
         Select
             Top 1
@@ -96,18 +100,23 @@ From
     Left Outer Join
         repo.IndexColumn_union_T                   As ic
             On
-            ic.index_guid                   = roc.pk_index_guid
-            And ic.RepoObjectColumn_guid    = roc.RepoObjectColumn_guid
+            ic.index_guid                        = roc.pk_index_guid
+            And ic.RepoObjectColumn_guid         = roc.RepoObjectColumn_guid
 
     Left Join
         reference.RepoObjectColumn_ReferencedList  As roc_referenced
             On
-            roc_referenced.Referencing_guid = roc.RepoObjectColumn_guid
+            roc_referenced.Referencing_guid      = roc.RepoObjectColumn_guid
 
     Left Join
         reference.RepoObjectColumn_ReferencingList As roc_referencing
             On
-            roc_referencing.Referenced_guid = roc.RepoObjectColumn_guid
+            roc_referencing.Referenced_guid      = roc.RepoObjectColumn_guid
+
+    Left Join
+        repo.RepoObjectColumn                      As roc_pers_check
+            On
+            roc_pers_check.RepoObjectColumn_guid = roc.persistence_source_RepoObjectColumn_guid
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '43bbcce5-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2';
 
@@ -893,4 +902,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObjectColumn_ReferencedList].[AntoraReferencedColumnList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'AntoraReferencedColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '29a38ed4-6012-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_guid_via_Column';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '28a38ed4-6012-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_guid';
 

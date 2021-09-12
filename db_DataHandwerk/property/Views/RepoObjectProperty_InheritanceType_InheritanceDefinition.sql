@@ -29,8 +29,8 @@ Select
   , sub_Inheritance_StringAggSeparatorSql = par_sub_sep.Parameter_value_result
   , par_Inheritance_StringAggSeparatorSql = par_sep.Parameter_value_result
 From
-    repo.RepoObject                             As ro
-    Cross Join property.PropertyName_RepoObject As pn
+    repo.RepoObject                               As ro
+    Cross Join property.PropertyName_RepoObject_T As pn
     Left Join
         property.RepoObjectProperty As rop
             On
@@ -72,6 +72,8 @@ From
             On
             par_sep.Parameter_name        = 'Inheritance_StringAggSeparatorSql_object'
             And par_sep.sub_Parameter     = ''
+Where
+    pn.has_inheritance = 1
 Go
 
 Execute sp_addextendedproperty

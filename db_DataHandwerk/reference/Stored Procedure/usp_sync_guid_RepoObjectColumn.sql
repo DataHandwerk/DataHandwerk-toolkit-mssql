@@ -105,20 +105,26 @@ use objects with [RepoObjectColumn_guid] stored in extended properties
 ** don't change RepoObjectColumn names
 
 */
-UPDATE repo.SysColumn_RepoObjectColumn_via_guid
-SET [SysObjectColumn_name] = [SysObject_column_name]
- , [SysObjectColumn_column_id] = [SysObject_column_id]
- , [RepoObject_guid] = [SysObject_RepoObject_guid]
-WHERE NOT [RepoObjectColumn_guid] IS NULL
- AND (
-  --
-  [SysObjectColumn_name] <> [SysObject_column_name]
-  OR [SysObjectColumn_name] IS NULL
-  OR [SysObjectColumn_column_id] <> [SysObject_column_id]
-  OR [SysObjectColumn_column_id] IS NULL
-  OR [RepoObject_guid] <> [SysObject_RepoObject_guid]
-  ----
-  );
+Update
+    repo.SysColumn_RepoObjectColumn_via_guid
+Set
+    SysObjectColumn_name = SysObject_column_name
+  , SysObjectColumn_column_id = SysObject_column_id
+  , RepoObject_guid = SysObject_RepoObject_guid
+  , is_SysObjectColumn_missing = Null
+Where
+    Not RepoObjectColumn_guid Is Null
+    And
+    (
+        --
+        SysObjectColumn_name          <> SysObject_column_name
+        Or SysObjectColumn_name Is Null
+        Or SysObjectColumn_column_id  <> SysObject_column_id
+        Or SysObjectColumn_column_id Is Null
+        Or RepoObject_guid            <> SysObject_RepoObject_guid
+        Or is_SysObjectColumn_missing = 1
+    ----
+    )
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
