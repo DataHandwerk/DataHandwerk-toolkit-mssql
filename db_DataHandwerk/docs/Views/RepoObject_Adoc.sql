@@ -80,8 +80,9 @@ Select
                      ':ExistsProperty--AntoraParameterList:' + Char ( 13 ) + Char ( 10 )
              End
            , Case
-                 When Max ( ro.SysObject_type ) In
-                 ( 'U', 'V', 'IF' )
+                 --When Max ( ro.SysObject_type ) In
+                 --( 'U', 'V', 'IF' )
+                 When Max ( clist.AntoraColumnDetails ) <> ''
                      Then
                      ':ExistsProperty--Columns:' + Char ( 13 ) + Char ( 10 )
              End

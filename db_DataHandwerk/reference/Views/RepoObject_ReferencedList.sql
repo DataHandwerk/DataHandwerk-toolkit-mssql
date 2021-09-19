@@ -8,7 +8,7 @@ Select
   String_Agg ( Concat (
                           --* xref:target-page-filename.adoc[link text]
                           --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                          Cast('* xref:' As NVarchar(Max)), ror.Referenced_fullname2, '.adoc[]'
+                          Cast('* xref:' As NVarchar(Max)), ror.referenced_fullname2, '.adoc[]'
                       --, QuoteName(ror.[Referenced_fullname])
                       --, ' '
                       --, CHAR(13)
@@ -16,12 +16,14 @@ Select
                       )
              , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
-                                ror.Referenced_fullname)
-  , Referencing_fullname  = Max ( ror.Referencing_fullname )
-  , Referencing_fullname2 = Max ( ror.Referencing_fullname2 )
-  , Referencing_type      = Max ( ror.Referencing_type )
+                                ror.referenced_fullname)
+  , Referencing_fullname  = Max ( ror.referencing_fullname )
+  , Referencing_fullname2 = Max ( ror.referencing_fullname2 )
+  , Referencing_type      = Max ( ror.referencing_type )
 From
-    reference.RepoObject_ReferencingReferenced As ror
+    reference.RepoObject_ReferencedReferencing As ror
+Where
+    ror.referenced_is_DocsOutput = 1
 Group By
     ror.Referencing_guid
 Go

@@ -1723,4 +1723,11 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="GeneratorUspStep_Persistence_src" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="22751a14-1650-4da4-a90c-46cfde7844b0" ChangeDateTime="09/19/2021 17:32:25">
+    <Property Name="ElementName" Value="[reference].[RepoObject_ReferencingReferenced]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[reference]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="RepoObject_ReferencedReferencing" />
+  </Operation>
 </Operations>

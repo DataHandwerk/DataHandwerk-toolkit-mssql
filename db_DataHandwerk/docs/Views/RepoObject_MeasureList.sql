@@ -85,7 +85,7 @@ Select
              ) Within Group(Order By
                                 rom.measures_name)
 From
-    repo.Measures As rom
+    repo.Measures_union As rom
 Group By
     rom.RepoObject_guid
 GO

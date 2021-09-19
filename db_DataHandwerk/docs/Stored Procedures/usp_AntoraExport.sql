@@ -70,7 +70,7 @@ PRINT '[docs].[usp_AntoraExport]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":300,"Name":"[repo].[usp_RepoObjectProperty_collect]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":200,"Name":"[repo].[usp_RepoObjectProperty_collect]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObjectProperty_collect]
 --add your own parameters
 --logging parameters
@@ -79,6 +79,82 @@ EXEC [property].[usp_RepoObjectProperty_collect]
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id
 
+
+/*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',210,';',NULL);
+
+DECLARE @command NVARCHAR(4000)
+DECLARE @outputDir NVARCHAR(1000)
+DECLARE @outputDir2 NVARCHAR(1000)
+
+
+/*{"ReportUspStep":[{"Number":220,"Name":"configure outputDirs","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',220,';',NULL);
+
+SET @outputDir = ISNULL(@outputDir, (
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   ) + 'partials')
+SET @outputDir2 = ISNULL(@outputDir2, (
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   ) + 'pages')
+   
+
+/*{"ReportUspStep":[{"Number":300,"Name":"check Parameter AntoraDeleteFilesInModuleFolders","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[config].[Parameter]"}]}*/
+IF [config].[fs_get_parameter_value]('AntoraDeleteFilesInModuleFolders','') = 1
+
+/*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"Delete Files but not folder in AntoraModule pages and partials","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',310,';',300);
+
+/*
+FORFILES /p "D:\Repos\GitHub\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\partials" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"
+*/
+Set @command = N'FORFILES /p "'
+               --
+               + @outputDir
+               --
+               + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
+
+Print @command
+
+--Execute the BCP command
+Exec sys.xp_cmdshell @command
+
+Set @command = N'FORFILES /p "'
+               --
+               + @outputDir2
+               --
+               + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
+
+Print @command
+
+--Execute the BCP command
+Exec sys.xp_cmdshell @command
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Delete Files but not folder in AntoraModule pages and partials'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+END;
 
 /*{"ReportUspStep":[{"Number":400,"Name":"[docs].[usp_AntoraExport_navigation]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [docs].[usp_AntoraExport_navigation]
