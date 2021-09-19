@@ -713,6 +713,7 @@
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_ObjectColumn_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_Object_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_database_T.sql" />
+    <Build Include="repo\Views\Measures_union.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />
