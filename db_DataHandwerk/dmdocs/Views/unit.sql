@@ -1,9 +1,12 @@
-﻿Create View dmdocs.unit
+﻿
+CREATE View dmdocs.unit
 As
 Select
     Unit_guid
   , Unit_Metatype
   , Unit_Schema
+  , Unit_ObjectName
+  , Unit_ColummName
   , Unit_Name
   , Unit_fullname2
   , Unit_TypeName
@@ -125,4 +128,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd82c2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd62c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dmdocs', @level1type = N'VIEW', @level1name = N'unit', @level2type = N'COLUMN', @level2name = N'AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b3ed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dmdocs', @level1type = N'VIEW', @level1name = N'unit', @level2type = N'COLUMN', @level2name = N'Unit_ObjectName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b4ed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dmdocs', @level1type = N'VIEW', @level1name = N'unit', @level2type = N'COLUMN', @level2name = N'Unit_ColummName';
 

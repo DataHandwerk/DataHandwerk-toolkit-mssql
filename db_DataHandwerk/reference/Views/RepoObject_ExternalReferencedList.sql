@@ -1,4 +1,6 @@
-﻿CREATE View reference.RepoObject_ExternalReferencedList
+﻿
+
+CREATE View [reference].[RepoObject_ExternalReferencedList]
 As
 Select
     T1.RepoObject_guid
@@ -17,9 +19,9 @@ Select
                           , '.'
                           , T1.referenced_Object
                           , '.adoc[]'
-                          , ' xref:'
-                          , T1.referenced_AntoraModule
-                          , ':other/index.adoc[]'
+                          , ' in xref:'
+                          , T1.referenced_AntoraComponent
+                          , ':ROOT:index.adoc[]'
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By

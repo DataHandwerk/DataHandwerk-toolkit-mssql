@@ -704,6 +704,16 @@
     <Build Include="property\Tables\PropertyName_RepoObject_T.sql" />
     <Build Include="property\Stored Procedures\usp_PERSIST_PropertyName_RepoObjectColumn_T.sql" />
     <Build Include="property\Stored Procedures\usp_PERSIST_PropertyName_RepoObject_T.sql" />
+    <Build Include="reference\Tables\additional_Reference_ObjectColumn_T.sql" />
+    <Build Include="reference\Tables\additional_Reference_Object_T.sql" />
+    <Build Include="reference\Tables\additional_Reference_database_T.sql" />
+    <Build Include="reference\Views\additional_Reference_ObjectColumn.sql" />
+    <Build Include="reference\Views\additional_Reference_Object.sql" />
+    <Build Include="reference\Views\additional_Reference_database.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_ObjectColumn_T.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_Object_T.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_database_T.sql" />
+    <Build Include="repo\Views\Measures_union.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="db_self_2_project.scmp" />
@@ -716,6 +726,7 @@
     <None Include="Snapshots\db_DataHandwerk_20210426_19-52-33.dacpac" />
     <None Include="db_other_2_project.scmp" />
     <None Include="project_2_db_other.scmp" />
+    <None Include="some-cmd.adoc" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">

@@ -166,7 +166,7 @@ Select
   , FirstNode.referencing_fullname2
   , FirstNode.referencing_type
 From
-    reference.RepoObject_ReferencingReferenced As FirstNode
+    reference.RepoObject_ReferencedReferencing As FirstNode
 Where
     --FirstNode.Referencing_guid = @RepoObject_guid
     --And 
@@ -186,7 +186,7 @@ Select
   , FirstNode.referencing_fullname2
   , FirstNode.referencing_type
 From
-    reference.RepoObject_ReferencingReferenced As FirstNode
+    reference.RepoObject_ReferencedReferencing As FirstNode
 Where
     --FirstNode.Referenced_guid = @RepoObject_guid
     --And 
@@ -250,7 +250,7 @@ Begin
       , child.referencing_fullname2
       , child.referencing_type
     From
-        reference.RepoObject_ReferencingReferenced As child
+        reference.RepoObject_ReferencedReferencing As child
         Inner Join
             reference.RepoObject_ReferenceTree     As parent
                 On
@@ -333,7 +333,7 @@ Begin
       , child.referencing_fullname2
       , child.referencing_type
     From
-        reference.RepoObject_ReferencingReferenced As child
+        reference.RepoObject_ReferencedReferencing As child
         Inner Join
             reference.RepoObject_ReferenceTree     As parent
                 On

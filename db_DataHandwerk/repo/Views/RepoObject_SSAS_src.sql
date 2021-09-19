@@ -1,7 +1,8 @@
 ﻿
 /*
 <<property_start>>MS_Description
-converts xref:sqldb:ssas.TMSCHEMA_TABLES_T.adoc[] into xref:sqldb:repo.RepoObject.adoc[]
+* converts xref:sqldb:ssas.model_json_31_tables_T.adoc[] into xref:sqldb:repo.RepoObject.adoc[]
+* one virtual table '_measures' is created per ssas schema from xref:sqldb:repo.RepoSchema.adoc[]
 <<property_end>>
 */
 CREATE View repo.RepoObject_SSAS_src
@@ -25,6 +26,29 @@ Select
   , SysObject_type         = 'U'
 From
     ssas.model_json_31_tables_T As T1
+Union All
+Select
+    --PK: RepoObject_guid
+    --[VirtualRepoObjekt_guid] is created per Schema to be used as additional RepoObject_guid
+    RepoObject_guid        = T1.MeasuresRepoObjekt_guid
+  , is_repo_managed        = 1
+  , is_ssas                = 1
+  --, modify_dt              = ModifiedTime
+  , RepoObject_name        = T1.MeasuresRepoObjekt_name
+  , RepoObject_schema_name = T1.RepoSchema_name
+  , RepoObject_type        = 'U'
+  ----ID could interfer with relational database id
+  ----we could use only, if we have only ssas objects in the repo
+  ----that's why it is better, not to use it
+  --, SysObject_id           = ID
+  --, SysObject_modify_date  = ModifiedTime
+  , SysObject_name         = T1.MeasuresRepoObjekt_name
+  , SysObject_schema_name  = T1.RepoSchema_name
+  , SysObject_type         = 'U'
+From
+    repo.RepoSchema As T1
+Where
+    T1.is_ssas = 1
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b3f5bbfc-0807-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_src', @level2type = N'COLUMN', @level2name = N'SysObject_type';
 

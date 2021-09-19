@@ -30,16 +30,21 @@ Select
   --
   Concat (
              'entity '
-           , '"[['
-           ----dynamic definition for svg:
-           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
-           ----hard coded definition: 
-           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , '.html '
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , ']]" as '
+     --      , '"[['
+     --      ----dynamic definition for svg:
+     --      --, '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
+     --      , '{site-url}/{page-component-name}/' + AntoraVersion.Parameter_value_result + '/{page-module}' + '/'
+     --      ----hard coded definition: 
+     --      --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
+     --      --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
+     --      , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+     --      , '.html '
+     --      , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+     --      , ']]"'
+		   ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
+		   ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
+		   , '"puml-link:' + ro.RepoObject_fullname2 + '.adoc[prefix=..]"'
+		   , ' as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
@@ -61,16 +66,10 @@ Select
   --
   Concat (
              'entity '
-           , '"[['
-           ----dynamic definition for svg:
-           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
-           ----hard coded definition: 
-           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , '.html '
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , ']]" as '
+		   ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
+		   ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
+		   , '"puml-link:' + ro.RepoObject_fullname2 + '.adoc[prefix=..]"'
+		   , ' as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
@@ -85,6 +84,10 @@ Select
   --
   Concat (
              'entity '
+		   ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
+		   ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
+		   , '"puml-link:' + ro.RepoObject_fullname2 + '.adoc[prefix=..]"'
+		   , ' as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
@@ -102,16 +105,10 @@ Select
   --
   Concat (
              'entity '
-           , '"[['
-           ----dynamic definition for svg:
-           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
-           ----hard coded definition: 
-           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , '.html '
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , ']]" as '
+		   ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
+		   ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
+		   , '"puml-link:' + ro.RepoObject_fullname2 + '.adoc[prefix=..]"'
+		   , ' as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'
@@ -129,16 +126,10 @@ Select
   --
   Concat (
              'entity '
-           , '"[['
-           ----dynamic definition for svg:
-           , '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
-           ----hard coded definition: 
-           --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-           --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , '.html '
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , ']]" as '
+		   ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
+		   ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
+		   , '"puml-link:' + ro.RepoObject_fullname2 + '.adoc[prefix=..]"'
+		   , ' as '
            , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
            , ' << ' + Trim ( ro.SysObject_type ) + ' >>'
            , ' {'

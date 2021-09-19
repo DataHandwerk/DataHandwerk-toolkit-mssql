@@ -1,10 +1,6 @@
 ﻿
 
-
-
-
-
-CREATE View docs.ObjectRefCyclic
+CREATE View [docs].[ObjectRefCyclic]
 As
 Select
     page_content         =
@@ -22,7 +18,7 @@ Select
              , '== Object Reference Diagram - Cyclic'
              , Char ( 13 ) + Char ( 10 )
              , '
-[plantuml, ObjectRefCyclic, svg]
+[plantuml, ObjectRefCyclic, svg, subs=macros]
 ....
 include::partial$puml/ObjectRefCyclic.puml[]
 ....
@@ -31,27 +27,18 @@ include::partial$puml/ObjectRefCyclic.puml[]
   , ObjectRefCyclic_Puml =
   --
   Concat (
-             --'left to right direction'
-             'top to bottom direction'
-           , Char ( 13 ) + Char ( 10 )
-           , 'hide circle'
-           , Char ( 13 ) + Char ( 10 )
-           , '''avoide "." issues:'
-           , Char ( 13 ) + Char ( 10 )
-           , 'set namespaceSeparator none'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , skin.Parameter_value_result
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+             '@startuml' + Char ( 13 ) + Char ( 10 )
+           , docs.fs_PumlHeaderTopToBottom ()
            , elist.PumlEntityOnlyPkList
            , Char ( 13 ) + Char ( 10 )
            , olist.PumlObjectRefList
+           , puml_footer.Parameter_value_result
+           , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
          )
 From
     docs.ObjectRefCyclic_EntityList               As elist
     Cross Join docs.ObjectRefCyclic_ObjectRefList As olist
-    Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin
+    Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '87e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ObjectRefCyclic';
 

@@ -1,12 +1,13 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
 * merges default values for parameters from xref:sqldb:configT.Parameter_default.adoc[] into xref:sqldb:config.Parameter.adoc[]
 <<property_end>>
 */
-CREATE Procedure [config].[usp_init_parameter]
+CREATE Procedure config.usp_init_parameter
 As
 --
-Insert Into [config].Parameter
+Insert Into config.Parameter
 (
     Parameter_name
   , sub_Parameter
@@ -14,19 +15,19 @@ Insert Into [config].Parameter
   , Parameter_default_value
 )
 Select
-    Parameter_name
-  , sub_Parameter
-  , Parameter_desciption
-  , Parameter_default_value
+    T1.Parameter_name
+  , T1.sub_Parameter
+  , T1.Parameter_desciption
+  , T1.Parameter_default_value
 From
-    [configT].Parameter_default As T1
+    configT.Parameter_default As T1
 Where
     Not Exists
 (
     Select
         1
     From
-        [config].Parameter As target
+        config.Parameter As target
     Where
         target.Parameter_name    = T1.Parameter_name
         And target.sub_Parameter = T1.sub_Parameter
@@ -38,14 +39,15 @@ Set
     T2.Parameter_desciption = source.Parameter_desciption
   , T2.Parameter_default_value = source.Parameter_default_value
 From
-    [config].Parameter               As T2
+    config.Parameter              As T2
     Inner Join
-        [configT].Parameter_default As source
+        configT.Parameter_default As source
             On
             source.Parameter_name    = T2.Parameter_name
             And source.sub_Parameter = T2.sub_Parameter
 Where
-    T2.Parameter_desciption       <> source.Parameter_desciption
+    --we need case sensitive compairison
+    T2.Parameter_desciption Collate SQL_Latin1_General_CP1_CS_AS       <> source.Parameter_desciption Collate SQL_Latin1_General_CP1_CS_AS
     Or
     (
         T2.Parameter_desciption Is Null
@@ -56,7 +58,7 @@ Where
         Not T2.Parameter_desciption Is Null
         And source.Parameter_desciption Is Null
     )
-    Or T2.Parameter_default_value <> source.Parameter_default_value
+    Or T2.Parameter_default_value Collate SQL_Latin1_General_CP1_CS_AS <> source.Parameter_default_value Collate SQL_Latin1_General_CP1_CS_AS
     Or
     (
         T2.Parameter_default_value Is Null
