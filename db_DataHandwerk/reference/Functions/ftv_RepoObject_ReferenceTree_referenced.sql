@@ -48,7 +48,16 @@ Return
     As
         (
         Select
-            FirstNode.*
+            FirstNode.referenced_fullname
+          , FirstNode.referenced_fullname2
+          , FirstNode.Referenced_guid
+          , FirstNode.referenced_is_DocsOutput
+          , FirstNode.referenced_type
+          , FirstNode.referencing_fullname
+          , FirstNode.referencing_fullname2
+          , FirstNode.Referencing_guid
+          , FirstNode.referencing_type
+          , FirstNode.referencing_is_DocsOutput
           , Referenced_Depth  = 1
           , Referencing_Depth = 0
         From
@@ -64,7 +73,16 @@ Return
         --AND t2.[is_DocsOutput] = 1
         Union All
         Select
-            child.*
+            child.referenced_fullname
+          , child.referenced_fullname2
+          , child.Referenced_guid
+          , child.referenced_is_DocsOutput
+          , child.referenced_type
+          , child.referencing_fullname
+          , child.referencing_fullname2
+          , child.Referencing_guid
+          , child.referencing_type
+          , child.referencing_is_DocsOutput
           , Referenced_Depth = parent.Referenced_Depth + 1
           , 0
         From
@@ -122,7 +140,18 @@ Return
     --      --AND t2.[is_DocsOutput] = 1
     --      )
     Select
-        *
+        tree_referenced.referenced_fullname
+      , tree_referenced.referenced_fullname2
+      , tree_referenced.Referenced_guid
+      , tree_referenced.referenced_is_DocsOutput
+      , tree_referenced.referenced_type
+      , tree_referenced.referencing_fullname
+      , tree_referenced.referencing_fullname2
+      , tree_referenced.Referencing_guid
+      , tree_referenced.referencing_type
+      , tree_referenced.referencing_is_DocsOutput
+      , tree_referenced.Referenced_Depth
+      , tree_referenced.Referencing_Depth
       , RepoObject_guid = @RepoObject_guid
     From
         tree_referenced

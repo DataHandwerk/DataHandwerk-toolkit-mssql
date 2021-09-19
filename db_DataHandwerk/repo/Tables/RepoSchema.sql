@@ -9,9 +9,13 @@
     [SysSchema_name]                      NVARCHAR (128)   CONSTRAINT [DF_RepoSchema_SysSchema_name] DEFAULT (newid()) NOT NULL,
     [is_RepoSchema_name_uniqueidentifier] AS               (case when TRY_CAST([RepoSchema_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
     [is_SysSchema_name_uniqueidentifier]  AS               (case when TRY_CAST([SysSchema_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
+    [MeasuresRepoObjekt_guid]             UNIQUEIDENTIFIER CONSTRAINT [DF_RepoSchema_RepoSchema_guid1] DEFAULT (newsequentialid()) NOT NULL,
+    [MeasuresRepoObjekt_name]             AS               ('_measures') PERSISTED NOT NULL,
     CONSTRAINT [PK_RepoSchema] PRIMARY KEY CLUSTERED ([RepoSchema_guid] ASC),
     CONSTRAINT [UK_RepoSchema] UNIQUE NONCLUSTERED ([RepoSchema_name] ASC)
 );
+
+
 
 
 
@@ -210,4 +214,9 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:repo.RepoSchema_ssas_tgt.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'additional guid is created to be used as RepoObject_guid for additional virtual table per Schema. +
+It is used as virtual ssas table _measures', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'COLUMN', @level2name = N'MeasuresRepoObjekt_guid';
 

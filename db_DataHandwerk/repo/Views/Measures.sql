@@ -1,4 +1,5 @@
-﻿CREATE View repo.Measures
+﻿
+CREATE View repo.Measures
 As
 Select
     T1.Measure_guid
@@ -19,17 +20,24 @@ Select
   , RepoObject_fullname2    = T1.databasename + '.' + T1.tables_name
   , T1.RepoObject_guid
   , RepoObject_name         = T1.tables_name
+  , T4.MeasuresRepoObjekt_guid
+  , T4.MeasuresRepoObjekt_name
 From
     ssas.model_json_312_tables_measures_T                        As T1
     Left Outer Join
         ssas.model_json_31211_tables_columns_descriptions_StrAgg As T2
             On
-            T2.Measure_guid = T1.Measure_guid
+            T2.Measure_guid    = T1.Measure_guid
 
     Left Outer Join
         ssas.model_json_31221_tables_measures_expressions_StrAgg As T3
             On
-            T3.Measure_guid = T1.Measure_guid
+            T3.Measure_guid    = T1.Measure_guid
+
+    Left Outer Join
+        repo.RepoSchema                                          As T4
+            On
+            T4.RepoSchema_name = T1.databasename
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'dff27b65-9d0f-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Measures';
 
