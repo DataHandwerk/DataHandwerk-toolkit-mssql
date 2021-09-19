@@ -21,7 +21,7 @@ Select
   , Referencing_fullname2 = Max ( ror.referencing_fullname2 )
   , Referencing_type      = Max ( ror.referencing_type )
 From
-    reference.RepoObject_ReferencingReferenced As ror
+    reference.RepoObject_ReferencedReferencing As ror
 Where
     ror.referenced_is_DocsOutput = 1
 Group By

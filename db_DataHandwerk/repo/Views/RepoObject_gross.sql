@@ -22,7 +22,7 @@ Select
                                                            Select
                                                                1
                                                            From
-                                                               reference.RepoObject_ReferencingReferenced As ref
+                                                               reference.RepoObject_ReferencedReferencing As ref
                                                            Where
                                                                ref.Referenced_guid     = ro.RepoObject_guid
                                                                Or ref.Referencing_guid = ro.RepoObject_guid

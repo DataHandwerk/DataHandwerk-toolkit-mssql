@@ -91,7 +91,7 @@ Return
           , Referenced_Depth  = 0
           , Referencing_Depth = 1
         From
-            reference.RepoObject_ReferencingReferenced As FirstNode
+            reference.RepoObject_ReferencedReferencing As FirstNode
         --INNER JOIN [config].[type] t1
         -- ON t1.[type] = FirstNode.Referenced_type
         --INNER JOIN [config].[type] t2
@@ -107,7 +107,7 @@ Return
           , 0
           , Referencing_Depth = parent.Referencing_Depth + 1
         From
-            reference.RepoObject_ReferencingReferenced As child
+            reference.RepoObject_ReferencedReferencing As child
             Inner Join
                 tree_referencing                       As parent
                     On

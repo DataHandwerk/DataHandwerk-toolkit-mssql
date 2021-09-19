@@ -35,7 +35,7 @@ Where Match(
 ////
 
 */
-CREATE View reference.RepoObject_ReferencingReferenced
+CREATE View reference.RepoObject_ReferencedReferencing
 As
 Select
     T1.referenced_fullname
@@ -66,7 +66,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referenced_type';
 
@@ -78,7 +78,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referenced_guid';
 
@@ -90,7 +90,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referenced_fullname';
 
@@ -102,7 +102,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referencing_type';
 
@@ -114,7 +114,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referencing_guid';
 
@@ -126,7 +126,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referencing_fullname';
 
@@ -138,7 +138,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced';
+  , @level1name = N'RepoObject_ReferencedReferencing';
 
 
 Go
@@ -148,7 +148,7 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referencing_fullname2';
 
@@ -160,27 +160,27 @@ Execute sp_addextendedproperty
   , @level0type = N'SCHEMA'
   , @level0name = N'reference'
   , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_ReferencingReferenced'
+  , @level1name = N'RepoObject_ReferencedReferencing'
   , @level2type = N'COLUMN'
   , @level2name = N'Referenced_fullname2';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_T]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [reference].[RepoObject_reference_T]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'Referenced_guid,Referencing_guid', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'Referenced_guid,Referencing_guid', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier,uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'1AFD851C-0496-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'1AFD851C-0496-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 GO
@@ -191,67 +191,67 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 * xref:reference.RepoObject_ReferencedList.adoc[]
 * xref:reference.RepoObject_ReferencingList.adoc[]
 * xref:reference.usp_RepoObject_ReferenceTree_insert.adoc[]
-* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+* xref:repo.RepoObject_gross.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_reference_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:reference.RepoObject_reference_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat([referencing_schema_name],''.'',[referencing_entity_name]))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referencing_fullname2';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat([referencing_schema_name],''.'',[referencing_entity_name]))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'Referencing_fullname2';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[referencing_schema_name],''].['',[referencing_entity_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referencing_fullname';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[referencing_schema_name],''].['',[referencing_entity_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'Referencing_fullname';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat([referenced_schema_name],''.'',[referenced_entity_name]))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referenced_fullname2';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat([referenced_schema_name],''.'',[referenced_entity_name]))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'Referenced_fullname2';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[referenced_schema_name],''].['',[referenced_entity_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referenced_fullname';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[referenced_schema_name],''].['',[referenced_entity_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'Referenced_fullname';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced';
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_type]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'referencing_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_type]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_type';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referencing_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'Referencing_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_fullname2]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'referencing_fullname2';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_fullname2]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_fullname2';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_fullname]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'referencing_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referencing_fullname]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_fullname';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_type]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'referenced_type';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_type]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_type';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'Referenced_guid';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'Referenced_guid';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_fullname2]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'referenced_fullname2';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_fullname2]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_fullname2';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_fullname]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencingReferenced', @level2type = N'COLUMN', @level2name = N'referenced_fullname';
+EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_T].[referenced_fullname]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_fullname';
 
