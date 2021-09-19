@@ -1,5 +1,7 @@
 ﻿
-CREATE View docs.AntoraNavListPage_by_schema
+
+
+CREATE View [docs].[AntoraNavListPage_by_schema]
 As
 Select
     ro.RepoObject_schema_name
@@ -27,7 +29,7 @@ Select
                           , '== SSAS Relations Diagram'
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
-                          , '[plantuml, schema_ssas_er-' + ro.RepoObject_schema_name + ', svg]'
+                          , '[plantuml, schema_ssas_er-' + ro.RepoObject_schema_name + ', svg, subs=macros]'
                           , Char ( 13 ) + Char ( 10 )
                           , '....'
                           , Char ( 13 ) + Char ( 10 )

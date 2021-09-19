@@ -16,6 +16,7 @@ Select
                                                        , par_sub_def.Parameter_value_result
                                                        , par_def.Parameter_value_result
                                                      )
+  , ro.Inheritance_Source_fullname
   , InheritanceType                       = Coalesce ( ro.InheritanceType, par_sub.Parameter_value_result_int, par.Parameter_value_result_int )
   , ro.RepoObject_fullname
   , ro.RepoObject_type
@@ -420,4 +421,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_InheritanceType_InheritanceDefinition';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9bed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_InheritanceType_InheritanceDefinition', @level2type = N'COLUMN', @level2name = N'Inheritance_Source_fullname';
 

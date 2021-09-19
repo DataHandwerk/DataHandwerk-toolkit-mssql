@@ -1,9 +1,12 @@
-﻿Create   View docs.Unit_1_union
+﻿
+CREATE View docs.Unit_1_union
 As
 Select
     Unit_guid          = roc.RepoObjectColumn_guid
   , Unit_Metatype      = 'column'
   , Unit_Schema        = rof.RepoObject_schema_name
+  , Unit_ObjectName    = roc.RepoObject_name
+  , Unit_ColummName    = roc.RepoObjectColumn_name
   , Unit_Name          = roc.RepoObjectColumn_name
   , Unit_fullname2     = roc.RepoObjectColumn_fullname2
   , Unit_TypeName      = roc.Repo_user_type_fullname
@@ -29,6 +32,8 @@ Select
     Unit_guid          = rof.RepoObject_guid
   , Unit_Metatype      = 'object'
   , Unit_Schema        = rof.RepoObject_schema_name
+  , Unit_ObjectName    = ro.RepoObject_name
+  , Unit_ColummName    = Null
   , Unit_Name          = rof.RepoObject_name
   , Unit_fullname2     = rof.RepoObject_fullname2
   , Unit_TypeName      = rof.SysObject_type_name
@@ -54,6 +59,8 @@ Select
     Unit_guid          = rs.RepoSchema_guid
   , Unit_Metatype      = 'schema'
   , Unit_Schema        = rs.RepoSchema_name
+  , Unit_ObjectName    = Null
+  , Unit_ColummName    = Null
   , Unit_Name          = rs.RepoSchema_name
   , Unit_fullname2     = rs.RepoSchema_name
   , Unit_TypeName      = Null
@@ -75,6 +82,8 @@ Select
     Unit_guid          = m.Measure_guid
   , Unit_Metatype      = 'measure'
   , Unit_Schema        = m.RepoSchema_name
+  , Unit_ObjectName    = m.RepoObject_name
+  , Unit_ColummName    = Null
   , Unit_Name          = m.measures_name
   , Unit_fullname2     = m.measures_fullname2
   , Unit_TypeName      = Null
@@ -189,4 +198,12 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 * xref:repo.RepoObject_gross.adoc[]
 * xref:repo.RepoObjectColumn_gross.adoc[]
 * xref:repo.RepoSchema.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Unit_1_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9fed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Unit_1_union', @level2type = N'COLUMN', @level2name = N'Unit_ObjectName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a0ed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Unit_1_union', @level2type = N'COLUMN', @level2name = N'Unit_ColummName';
 

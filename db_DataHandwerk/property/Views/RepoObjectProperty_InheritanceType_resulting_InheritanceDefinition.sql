@@ -1,8 +1,4 @@
 ﻿
-
-
-
-
 /*
 --The result must be grouped to determine all required calculation variants of an inheritance
 
@@ -23,6 +19,7 @@ Select
     inh.RepoObject_guid
   , inh.property_name
   , inh.property_value
+  , inh.Inheritance_Source_fullname
   , inh.InheritanceType
   , is_force_inherit_empty_source   =
   --
@@ -282,4 +279,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9ced2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_InheritanceType_resulting_InheritanceDefinition', @level2type = N'COLUMN', @level2name = N'Inheritance_Source_fullname';
 

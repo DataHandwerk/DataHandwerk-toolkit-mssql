@@ -699,9 +699,10 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 -- Logging END --
+END;
 
-/*{"ReportUspStep":[{"Number":2110,"Parent_Number":2010,"Name":"SET is_SysObject_missing = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2110,';',2010);
+/*{"ReportUspStep":[{"Number":2110,"Name":"SET is_SysObject_missing = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2110,';',NULL);
 
 /*
 objects deleted or renamed in database but still referenced in [repo].[RepoObject] will be marked in RepoObject with is_SysObject_missing = 1
@@ -742,8 +743,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2115,"Parent_Number":2110,"Name":"SET is_SysObject_missing = 0 where not missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2115,';',2110);
+/*{"ReportUspStep":[{"Number":2115,"Name":"SET is_SysObject_missing = 0 where not missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2115,';',NULL);
 
 /*
 some objects could still be marked as missing, but they are not missing +
@@ -792,8 +793,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2120,"Parent_Number":2115,"Name":"DELETE; marked missing SysObject, but not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2120,';',2115);
+/*{"ReportUspStep":[{"Number":2120,"Name":"DELETE; marked missing SysObject, but not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2120,';',NULL);
 
 /*
 delete objects, missing in SysObjects, if they are not is_repo_managed +
@@ -828,8 +829,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2310,"Parent_Number":2120,"Name":"UPDATE other properties, where not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2310,';',2120);
+/*{"ReportUspStep":[{"Number":2310,"Name":"UPDATE other properties, where not is_repo_managed  = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',2310,';',NULL);
 
 /*
 update other properties for RepoObject which are not is_repo_managed
@@ -892,7 +893,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @updated = @rows
 -- Logging END --
-END;
 
 /*{"ReportUspStep":[{"Number":3010,"Name":"DELETE [reference].[RepoObjectSource_virtual] missing Source_RepoObject_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[reference].[RepoObjectSource_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',3010,';',NULL);

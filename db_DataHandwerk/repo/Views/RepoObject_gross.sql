@@ -1,4 +1,5 @@
-﻿CREATE View repo.RepoObject_gross
+﻿
+CREATE View repo.RepoObject_gross
 As
 Select
     --
@@ -70,6 +71,7 @@ Select
   , persistence_source_SysObject_fullname   = ro_p_s.SysObject_fullname
   , persistence_source_SysObject_fullname2  = ro_p_s.SysObject_fullname2
   , persistence_source_SysObject_xref       = 'xref:' + ro_p_s.SysObject_fullname2 + '.adoc[]'
+  , uspgenerator_usp_id                     = gusp.id
   , ro_p.has_history
   , ro_p.has_history_columns
   , ro_p.is_persistence
@@ -177,6 +179,11 @@ From
         ssas.model_json_3161_tables_descriptions_StrAgg As modeltab2
             On
             modeltab2.RepoObject_guid           = ro.RepoObject_guid
+
+    Left Join
+        uspgenerator.GeneratorUsp                       As gusp
+            On
+            gusp.usp_fullname                   = ro.RepoObject_fullname
 
 --Left Outer Join
 --    ssas.TMSCHEMA_TABLES_T                          As ssastab
@@ -1025,4 +1032,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([b
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '576d05d0-0b08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'Description';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b9ed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'uspgenerator_usp_id';
 

@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [property].[RepoObjectProperty_Collect_source_ROGross]
+CREATE View property.RepoObjectProperty_Collect_source_ROGross
 As
 Select
     ro.RepoObject_guid
@@ -26,6 +25,9 @@ Select
       When 'is_ssas'
           Then
           Cast(IsNull ( ro.is_ssas, 0 ) As NVarchar(Max))
+      When 'Description'
+          Then
+          Cast(ro.Description As NVarchar(Max))
       When 'usp_persistence_RepoObject_guid'
           Then
           Cast(ro.usp_persistence_RepoObject_guid As NVarchar(Max))
@@ -77,6 +79,15 @@ Select
       When 'history_table_name'
           Then
           Cast(ro.history_table_name As NVarchar(Max))
+      When 'Inheritance_StringAggSeparatorSql'
+          Then
+          Cast(ro.Inheritance_StringAggSeparatorSql As NVarchar(Max))
+      When 'InheritanceDefinition'
+          Then
+          Cast(ro.InheritanceDefinition As NVarchar(Max))
+      When 'InheritanceType'
+          Then
+          Cast(ro.InheritanceType As NVarchar(Max))
       When 'AntoraReferencedList'
           Then
           Cast(ro.AntoraReferencedList As NVarchar(Max))
@@ -108,6 +119,7 @@ From
           , ( 'pk_IndexSemanticGroup' )
           , ( 'is_repo_managed' )
           , ( 'is_ssas' )
+          , ( 'Description' )
           , ( 'usp_persistence_RepoObject_guid' )
           , ( 'persistence_source_RepoObject_guid' )
           , ( 'persistence_source_RepoObject_fullname' )
@@ -125,13 +137,16 @@ From
           , ( 'is_persistence_update_changed' )
           , ( 'history_schema_name' )
           , ( 'history_table_name' )
+          , ( 'Inheritance_StringAggSeparatorSql' )
+          , ( 'InheritanceDefinition' )
+          , ( 'InheritanceType' )
           , ( 'AntoraReferencedList' )
           , ( 'AntoraReferencingList' )
           , ( 'AntoraExternalReferencedList' )
           , ( 'AntoraExternalReferencingList' )
           , ( 'has_execution_plan_issue' )
           , ( 'has_get_referenced_issue' )
-    )                     As p_names ( property_name )
+    )                      As p_names ( property_name )
 Where
     Not ro.RepoObject_guid Is Null
 GO

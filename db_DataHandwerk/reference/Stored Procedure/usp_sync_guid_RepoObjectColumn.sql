@@ -1414,9 +1414,10 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 -- Logging END --
+END;
 
-/*{"ReportUspStep":[{"Number":2110,"Parent_Number":2010,"Name":"SET [is_SysObjectColumn_missing] = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2110,';',2010);
+/*{"ReportUspStep":[{"Number":2110,"Name":"SET [is_SysObjectColumn_missing] = 1","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2110,';',NULL);
 
 /*
 columns deleted or renamed in database but still referenced in [repo].[RepoObjectColumn] should be marked: [is_SysObjectColumn_missing] = 1
@@ -1457,8 +1458,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":2210,"Parent_Number":2110,"Name":"DELETE where is_SysObjectColumn_missing = 1, but not in objects which are is_repo_managed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"d"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2210,';',2110);
+/*{"ReportUspStep":[{"Number":2210,"Name":"DELETE where is_SysObjectColumn_missing = 1, but not in objects which are is_repo_managed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2210,';',NULL);
 
 /*
 delete columns, marked as missing in [repo_sys].SysColumn
@@ -1498,7 +1499,6 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @deleted = @rows
 -- Logging END --
-END;
 
 /*{"ReportUspStep":[{"Number":3010,"Name":"DELETE from [reference].[RepoObjectColumnSource_virtual] invalid [Source_RepoObjectColumn_guid]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[reference].[RepoObjectColumnSource_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',3010,';',NULL);

@@ -1,6 +1,8 @@
 ﻿
 
 
+
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -29,6 +31,7 @@ WHERE NOT EXISTS (
   WHERE S.[Parameter_name] = T.[Parameter_name]
   )
 <<property_end>>
+
 */
 CREATE View [configT].[Parameter_default]
 As
@@ -279,12 +282,7 @@ Select
     Parameter_name          = 'puml_footer'
   , sub_Parameter           = N''
   , Parameter_desciption    = N'footer content for PlantUML diagrams'
-  , Parameter_default_value = N'
-footer
-to view a reduced diagram in original size and to be able to click on the links:
-open the diagram in a new tab via the Context menu.
-end footer
-'
+  , Parameter_default_value = N''
 --Union All
 --Select
 --    Parameter_name          = 'AntoraDocModulFolder'
@@ -309,12 +307,12 @@ Select
   , sub_Parameter           = N''
   , Parameter_desciption    = N'Antora: named modul to contain the exported documentation.'
   , Parameter_default_value = N'sqldb'
---Union All
---Select
---    Parameter_name          = 'AntoraModuleFolder'
---  , sub_Parameter           = N''
---  , Parameter_desciption    = N'obsolet! use AntoraComponentFolder'
---  , Parameter_default_value = Cast(N'D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules' As NVarchar(4000))
+Union All
+Select
+    Parameter_name          = 'AntoraDeleteFilesInModuleFolders'
+  , sub_Parameter           = N''
+  , Parameter_desciption    = N'delete all files in the subfolder pages and partials; we need to delete in these subfolders to keep the file nav.doc'
+  , Parameter_default_value = N'0'
 Union All
 Select
     Parameter_name          = 'AntoraSiteUrl'
@@ -374,21 +372,34 @@ Select
            , 'is_ssas: 1' + Char ( 13 ) + Char ( 10 )
            , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'ifdef::ExistsProperty--MS_Description[]' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--uspgenerator_usp_id[]' + Char ( 13 ) + Char ( 10 )
+           , 'uspgenerator_usp_id:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=uspgenerator_usp_id]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--uspgenerator_usp_id[]' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--inheritancetype[]' + Char ( 13 ) + Char ( 10 )
+           , 'InheritanceType:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=inheritancetype]' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--inheritancetype[]' + Char ( 13 ) + Char ( 10 )
+           , 'ifdef::ExistsProperty--description[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '== Description' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'include::partial${docname}.adoc[tag=ms_description]' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=description]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'endif::ExistsProperty--ms_description[]' + Char ( 13 ) + Char ( 10 )
+           , 'endif::ExistsProperty--description[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'ifdef::ExistsProperty--InheritanceType[]' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , '== InheritanceType' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , 'include::partial${docname}.adoc[tag=InheritanceType]' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , 'endif::ExistsProperty--InheritanceType[]' + Char ( 13 ) + Char ( 10 )
+
+           --, 'ifdef::ExistsProperty--MS_Description[]' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+           --, '== Description' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+           --, 'include::partial${docname}.adoc[tag=ms_description]' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+           --, 'endif::ExistsProperty--ms_description[]' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+
          )
 Union All
 Select
@@ -441,12 +452,10 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , '== Entity Diagram' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , 'Dot prefix:: `NOT NULL`' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , 'todo: several entities (left to right), containing SSAS translations' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
@@ -504,7 +513,7 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , 'todo: use other diagram containing relations an related objects' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_pk_or_index-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_pk_or_index-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_pk_or_index/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
@@ -516,7 +525,7 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , '== Foreign Key Diagram' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_1_1_fk-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_fk-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_1_1_fk/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
@@ -568,21 +577,21 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , '=== Object Reference Diagram - 1 1' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_1_1_objectref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_objectref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_1_1_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '=== Object Reference Diagram - Referenced - 30 0' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_30_0_objectref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_30_0_objectref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_30_0_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '=== Object Reference Diagram - Referencing - 0 30' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_0_30_objectref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_0_30_objectref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_0_30_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
@@ -591,7 +600,7 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , '=== Column Reference Diagram' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_1_1_colref-{docname}, svg, subs=attributes]' + Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_colref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_1_1_colref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )

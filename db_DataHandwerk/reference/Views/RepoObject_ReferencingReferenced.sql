@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 per referencing RepoObject all directly referenced RepoOobject are listed
 
@@ -40,16 +38,27 @@ Where Match(
 CREATE View reference.RepoObject_ReferencingReferenced
 As
 Select
-    referencing_fullname
-  , referencing_fullname2
-  , Referencing_guid     = referencing_RepoObject_guid
-  , referencing_type
-  , referenced_fullname
-  , referenced_fullname2
-  , Referenced_guid      = referenced_RepoObject_guid
-  , referenced_type
+    T1.referenced_fullname
+  , T1.referenced_fullname2
+  , Referenced_guid           = T1.referenced_RepoObject_guid
+  , referenced_is_DocsOutput  = typ1.is_DocsOutput
+  , T1.referenced_type
+  , T1.referencing_fullname
+  , T1.referencing_fullname2
+  , Referencing_guid          = T1.referencing_RepoObject_guid
+  , T1.referencing_type
+  , referencing_is_DocsOutput = typ2.is_DocsOutput
 From
-    reference.RepoObject_reference_T
+    reference.RepoObject_reference_T As T1
+    Left Outer Join
+        configT.type                 As typ1
+            On
+            typ1.type = T1.referenced_type
+
+    Left Outer Join
+        configT.type                 As typ2
+            On
+            typ2.type = T1.referencing_type
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObjectColumn_guid'
