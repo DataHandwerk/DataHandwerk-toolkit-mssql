@@ -11,6 +11,7 @@ Select
   , roa.is_DocsOutput
   , roa.RepoObject_name
   , roa.is_ssas
+  , roa.tables_isHidden
 From
     repo.RepoObject_gross As roa
 Where

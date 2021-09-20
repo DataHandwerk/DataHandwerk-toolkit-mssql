@@ -7,12 +7,14 @@
     [tables_description]    NVARCHAR (MAX)   NULL,
     [tables_description_ja] NVARCHAR (MAX)   NULL,
     [tables_hierarchies_ja] NVARCHAR (MAX)   NULL,
-    [tables_isHidden]       NVARCHAR (500)   NULL,
+    [tables_isHidden]       BIT              NULL,
     [tables_measures_ja]    NVARCHAR (MAX)   NULL,
     [tables_partitions_ja]  NVARCHAR (MAX)   NULL,
     [RepoObject_guid]       UNIQUEIDENTIFIER CONSTRAINT [DF_model_json_31_tables_T_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
     CONSTRAINT [PK_model_json_31_tables_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [tables_name] ASC)
 );
+
+
 
 
 

@@ -1,10 +1,21 @@
 ﻿
-
 --bad performance
 CREATE View reference.RepoObject_ReferenceTree_referencing
 As
 Select
-    tree.*
+    tree.referenced_fullname
+  , tree.referenced_fullname2
+  , tree.Referenced_guid
+  , tree.referenced_is_DocsOutput
+  , tree.referenced_type
+  , tree.referencing_fullname
+  , tree.referencing_fullname2
+  , tree.Referencing_guid
+  , tree.referencing_type
+  , tree.referencing_is_DocsOutput
+  , tree.Referenced_Depth
+  , tree.Referencing_Depth
+  , tree.RepoObject_guid
 From
     repo.RepoObject_gross                                                                           As ro
     Cross Apply reference.ftv_RepoObject_ReferenceTree_referencing ( ro.RepoObject_guid, 100, 100 ) As tree

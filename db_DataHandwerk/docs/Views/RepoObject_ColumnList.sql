@@ -275,6 +275,7 @@ Select
                                                        -- to avoid a mix '- #' or '- ~'
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
+                                             , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
                                              --PK in bold
                                              , '**'
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
@@ -286,6 +287,7 @@ Select
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
                                              -- END
+                                             , Iif(roc.tabcol_IsHidden = 1, '</color>', Null)
                                              , Char ( 13 ) + Char ( 10 )
                                            )
                             End
@@ -318,6 +320,7 @@ Select
                                                        -- to avoid a mix '- #' or '- ~'
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
+                                             , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
@@ -326,6 +329,7 @@ Select
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
                                              -- END
+                                             , Iif(roc.tabcol_IsHidden = 1, '</color>', Null)
                                              , Char ( 13 ) + Char ( 10 )
                                            )
                             End
@@ -358,6 +362,7 @@ Select
                                                        -- to avoid a mix '- #' or '- ~'
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
+                                             , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
@@ -366,6 +371,7 @@ Select
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
                                              -- END
+                                             , Iif(roc.tabcol_IsHidden = 1, '</color>', Null)
                                              , Char ( 13 ) + Char ( 10 )
                                            )
                             End
@@ -398,6 +404,7 @@ Select
                                                        -- to avoid a mix '- #' or '- ~'
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
+                                             , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
@@ -406,6 +413,7 @@ Select
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
                                              -- END
+                                             , Iif(roc.tabcol_IsHidden = 1, '</color>', Null)
                                              , Char ( 13 ) + Char ( 10 )
                                            )
                             End
@@ -437,6 +445,7 @@ Select
                                                        -- to avoid a mix '- #' or '- ~'
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
+                                             , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
                                              , docs.fs_cleanStringForPuml ( roc.Column_name )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
@@ -445,6 +454,7 @@ Select
                                              -- WHEN roc.[Repo_is_computed] = 1
                                              --  THEN ' <<calc' + IIF(roc.[Repo_is_persisted] = 1, ' (Persisted)', '') + '>>'
                                              -- END
+                                             , Iif(roc.tabcol_IsHidden = 1, '</color>', Null)
                                              , Char ( 13 ) + Char ( 10 )
                                            )
                             End
