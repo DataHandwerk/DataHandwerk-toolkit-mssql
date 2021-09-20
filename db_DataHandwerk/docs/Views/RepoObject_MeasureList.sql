@@ -76,8 +76,10 @@ Select
                             Cast('' As NVarchar(Max))
                           , Concat (
                                        '  ~ '
+                                     , Iif(rom.measures_isHidden = 1, '<color:gray>', Null)
                                      , docs.fs_cleanStringForPuml ( rom.measures_name )
                                      , Iif(rom.measures_isHidden = 1, ' (hidden)', Null)
+                                     , Iif(rom.measures_isHidden = 1, '</color>', Null)
                                      , Char ( 13 ) + Char ( 10 )
                                    )
                         )

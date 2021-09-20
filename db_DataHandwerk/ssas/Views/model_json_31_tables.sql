@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 --check
 
@@ -19,7 +17,7 @@ order by
 Go
 */
 
-CREATE View [ssas].[model_json_31_tables]
+CREATE View ssas.model_json_31_tables
 As
 Select
     T1.databasename
@@ -59,7 +57,7 @@ From
       , tables_description NVarchar ( Max ) N'$.description'
       , tables_description_ja NVarchar ( Max ) N'$.description' As Json
       , tables_hierarchies_ja NVarchar ( Max ) N'$.hierarchies' As Json
-      , tables_isHidden NVarchar ( 500 ) N'$.isHidden'
+      , tables_isHidden Bit N'$.isHidden'
       , tables_measures_ja NVarchar ( Max ) N'$.measures' As Json
       , tables_partitions_ja NVarchar ( Max ) N'$.partitions' As Json
     ) As j2
