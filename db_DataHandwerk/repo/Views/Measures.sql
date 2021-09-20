@@ -185,3 +185,11 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [ssas].[model_json_312_tables_measures_T].[Measure_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Measures', @level2type = N'COLUMN', @level2name = N'Measure_guid';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b9fb2238-8d19-ec11-851e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Measures', @level2type = N'COLUMN', @level2name = N'MeasuresRepoObjekt_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b8fb2238-8d19-ec11-851e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Measures', @level2type = N'COLUMN', @level2name = N'MeasuresRepoObjekt_guid';
+
