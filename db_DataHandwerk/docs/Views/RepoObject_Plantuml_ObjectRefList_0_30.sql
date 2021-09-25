@@ -18,6 +18,7 @@ From
 --select all objects pairs that have any reference relation inside the reference path with ro.RepoObject_guid (in the desired direction)
 (
     Select
+        Distinct
         RepoObject_guid
       --,[RepoObject_fullname2]
       , Referencing_guid

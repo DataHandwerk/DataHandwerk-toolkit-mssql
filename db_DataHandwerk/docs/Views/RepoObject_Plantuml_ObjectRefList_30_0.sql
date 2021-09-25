@@ -27,6 +27,7 @@ From
     --    Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 30, 0 ) As T1
     --    Cross Apply [reference].ftv_RepoObject_ReferencedReferencing ( ro.RepoObject_guid, 30, 0 ) As T2
     Select
+        Distinct
         RepoObject_guid
       --,[RepoObject_fullname2]
       , Referencing_guid
