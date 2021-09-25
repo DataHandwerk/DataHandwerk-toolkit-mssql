@@ -1,8 +1,4 @@
 ﻿
-
-
-
-
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -33,7 +29,7 @@ WHERE NOT EXISTS (
 <<property_end>>
 
 */
-CREATE View [configT].[Parameter_default]
+CREATE View configT.Parameter_default
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -275,6 +271,7 @@ skinparam class {
   BackgroundColor<<U>> White
   BackgroundColor<<V>> WhiteSmoke
   BackgroundColor<<X>> Aqua
+  BackgroundColor<<external>> AliceBlue
 }
 '
 Union All
@@ -391,15 +388,14 @@ Select
            , 'endif::ExistsProperty--description[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
 
-           --, 'ifdef::ExistsProperty--MS_Description[]' + Char ( 13 ) + Char ( 10 )
-           --, '' + Char ( 13 ) + Char ( 10 )
-           --, '== Description' + Char ( 13 ) + Char ( 10 )
-           --, '' + Char ( 13 ) + Char ( 10 )
-           --, 'include::partial${docname}.adoc[tag=ms_description]' + Char ( 13 ) + Char ( 10 )
-           --, '' + Char ( 13 ) + Char ( 10 )
-           --, 'endif::ExistsProperty--ms_description[]' + Char ( 13 ) + Char ( 10 )
-           --, '' + Char ( 13 ) + Char ( 10 )
-
+         --, 'ifdef::ExistsProperty--MS_Description[]' + Char ( 13 ) + Char ( 10 )
+         --, '' + Char ( 13 ) + Char ( 10 )
+         --, '== Description' + Char ( 13 ) + Char ( 10 )
+         --, '' + Char ( 13 ) + Char ( 10 )
+         --, 'include::partial${docname}.adoc[tag=ms_description]' + Char ( 13 ) + Char ( 10 )
+         --, '' + Char ( 13 ) + Char ( 10 )
+         --, 'endif::ExistsProperty--ms_description[]' + Char ( 13 ) + Char ( 10 )
+         --, '' + Char ( 13 ) + Char ( 10 )
          )
 Union All
 Select
@@ -543,8 +539,6 @@ Select
   Concat (
              Cast(N'' As NVarchar(Max))
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'ifndef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
            , '== References' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , 'ifdef::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
@@ -554,13 +548,13 @@ Select
            , 'include::partial${docname}.adoc[tag=antorareferencedlist]' + Char ( 13 ) + Char ( 10 )
            , 'endif::ExistsProperty--antorareferencedlist[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'ifdef::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , '=== External Referenced Objects' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , 'include::partial${docname}.adoc[tag=antoraexternalreferencedlist]' + Char ( 13 ) + Char ( 10 )
-           , 'endif::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
+           --, 'ifdef::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+           --, '=== External Referenced Objects' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+           --, 'include::partial${docname}.adoc[tag=antoraexternalreferencedlist]' + Char ( 13 ) + Char ( 10 )
+           --, 'endif::ExistsProperty--antoraexternalreferencedlist[]' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
            , 'ifdef::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '=== Referencing Objects' + Char ( 13 ) + Char ( 10 )
@@ -568,19 +562,21 @@ Select
            , 'include::partial${docname}.adoc[tag=antorareferencinglist]' + Char ( 13 ) + Char ( 10 )
            , 'endif::ExistsProperty--antorareferencinglist[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'ifdef::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , '=== External Referencing Objects' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
-           , 'include::partial${docname}.adoc[tag=antoraexternalreferencinglist]' + Char ( 13 ) + Char ( 10 )
-           , 'endif::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 ) + Char ( 10 )
-           , '' + Char ( 13 ) + Char ( 10 )
+           --, 'ifdef::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+           --, '=== External Referencing Objects' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
+           --, 'include::partial${docname}.adoc[tag=antoraexternalreferencinglist]' + Char ( 13 ) + Char ( 10 )
+           --, 'endif::ExistsProperty--antoraexternalreferencinglist[]' + Char ( 13 ) + Char ( 10 )
+           --, '' + Char ( 13 ) + Char ( 10 )
            , '=== Object Reference Diagram - 1 1' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '[plantuml, entity_1_1_objectref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , 'include::partial$puml/entity_1_1_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'ifndef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '=== Object Reference Diagram - Referenced - 30 0' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
@@ -596,6 +592,7 @@ Select
            , 'include::partial$puml/entity_0_30_objectref/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
+           , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
            , 'ifdef::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '=== Column Reference Diagram' + Char ( 13 ) + Char ( 10 )
@@ -607,7 +604,6 @@ Select
            , '' + Char ( 13 ) + Char ( 10 )
            , 'endif::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
-           , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
          )
 Union All
 Select

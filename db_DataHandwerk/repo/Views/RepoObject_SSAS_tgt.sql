@@ -1,4 +1,5 @@
-﻿Create View repo.RepoObject_SSAS_tgt
+﻿
+CREATE View repo.RepoObject_SSAS_tgt
 As
 Select
     RepoObject_guid
@@ -26,6 +27,9 @@ Select
   , SysObject_parent_object_id
   , SysObject_schema_name
   , SysObject_type
+  , external_AntoraComponent
+  , external_AntoraModule
+  , is_external
 From
     repo.RepoObject
 Where
@@ -351,4 +355,16 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[has_execution_plan_issue]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_tgt', @level2type = N'COLUMN', @level2name = N'has_execution_plan_issue';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2dfe2e93-491a-ec11-851f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_tgt', @level2type = N'COLUMN', @level2name = N'is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2cfe2e93-491a-ec11-851f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_tgt', @level2type = N'COLUMN', @level2name = N'external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2bfe2e93-491a-ec11-851f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_tgt', @level2type = N'COLUMN', @level2name = N'external_AntoraComponent';
 

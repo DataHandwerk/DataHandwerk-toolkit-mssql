@@ -43,11 +43,39 @@ Select
   , Referenced_guid           = T1.referenced_RepoObject_guid
   , referenced_is_DocsOutput  = typ1.is_DocsOutput
   , T1.referenced_type
+  , T1.referenced_external_AntoraComponent
+  , T1.referenced_external_AntoraModule
+  , T1.referenced_is_external
+  , referenced_AntoraXref     = Concat (
+                                           --* xref:target-page-filename.adoc[link text]
+                                           --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                                           Cast('* xref:' As NVarchar(Max))
+                                         , T1.referenced_external_AntoraComponent + ':'
+                                         , T1.referenced_external_AntoraModule + ':'
+                                         , T1.referenced_fullname2
+                                         , '.adoc[]'
+                                         , ' in xref:' + T1.referenced_external_AntoraComponent + ':'
+                                           + T1.referenced_external_AntoraModule + ':' + 'nav/objects-by-schema.adoc[]'
+                                       )
   , T1.referencing_fullname
   , T1.referencing_fullname2
   , Referencing_guid          = T1.referencing_RepoObject_guid
   , T1.referencing_type
+  , T1.referencing_external_AntoraComponent
+  , T1.referencing_external_AntoraModule
+  , T1.referencing_is_external
   , referencing_is_DocsOutput = typ2.is_DocsOutput
+  , referencing_AntoraXref    = Concat (
+                                           --* xref:target-page-filename.adoc[link text]
+                                           --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                                           Cast('* xref:' As NVarchar(Max))
+                                         , T1.referencing_external_AntoraComponent + ':'
+                                         , T1.referencing_external_AntoraModule + ':'
+                                         , T1.referencing_fullname2
+                                         , '.adoc[]'
+                                         , ' in xref:' + T1.referencing_external_AntoraComponent + ':'
+                                           + T1.referencing_external_AntoraModule + ':' + 'nav/objects-by-schema.adoc[]'
+                                       )
 From
     reference.RepoObject_reference_T As T1
     Left Outer Join
@@ -262,4 +290,36 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd3fb2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd2fb2238-8d19-ec11-851e-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_is_DocsOutput';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1e557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1d557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1c557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '52f74f6d-791d-ec11-8522-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referencing_AntoraXref';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1b557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1a557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '19557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '51f74f6d-791d-ec11-8522-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferencedReferencing', @level2type = N'COLUMN', @level2name = N'referenced_AntoraXref';
 

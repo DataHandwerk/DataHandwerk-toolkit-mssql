@@ -64,6 +64,12 @@ Select
   , definition
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
+  , referenced_external_AntoraComponent  = Null
+  , referenced_external_AntoraModule     = Null
+  , referenced_is_external               = Cast(Null As TinyInt)
+  , referencing_external_AntoraComponent = Null
+  , referencing_external_AntoraModule    = Null
+  , referencing_is_external              = Cast(Null As TinyInt)
 From
     reference.RepoObjectColumn_reference_SqlExpressionDependencies
 --[repo].[RepoObjectColumn_reference__persistence]
@@ -95,6 +101,12 @@ Select
   , definition
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
+  , referenced_external_AntoraComponent  = Null
+  , referenced_external_AntoraModule     = Null
+  , referenced_is_external               = Null
+  , referencing_external_AntoraComponent = Null
+  , referencing_external_AntoraModule    = Null
+  , referencing_is_external              = Null
 From
     reference.RepoObjectColumn_reference_Persistence
 Union All
@@ -123,6 +135,12 @@ Select
   , definition
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
+  , referenced_external_AntoraComponent  = Null
+  , referenced_external_AntoraModule     = Null
+  , referenced_is_external               = Null
+  , referencing_external_AntoraComponent = Null
+  , referencing_external_AntoraModule    = Null
+  , referencing_is_external              = Null
 From
     reference.RepoObjectColumn_reference_SqlModules
 Union All
@@ -151,6 +169,12 @@ Select
   , definition
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
+  , referenced_external_AntoraComponent  = Null
+  , referenced_external_AntoraModule     = Null
+  , referenced_is_external               = Null
+  , referencing_external_AntoraComponent = Null
+  , referencing_external_AntoraModule    = Null
+  , referencing_is_external              = Null
 From
     reference.RepoObjectColumn_reference_virtual
 Union All
@@ -179,8 +203,14 @@ Select
   , definition
   , is_referencing_object_equal_referenced_object
   , is_referenced_object
+  , referenced_external_AntoraComponent
+  , referenced_external_AntoraModule
+  , referenced_is_external
+  , referencing_external_AntoraComponent
+  , referencing_external_AntoraModule
+  , referencing_is_external
 From
-    reference.RepoObjectColumn_reference_additional_internal
+    reference.RepoObjectColumn_reference_additional
 
 --UNION ALL
 ----repo.RepoObjectColumn_reference__first_result_set
@@ -565,4 +595,28 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7a320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union', @level2type = N'COLUMN', @level2name = N'referencing_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '79320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '78320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '77320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union', @level2type = N'COLUMN', @level2name = N'referenced_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '76320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_union', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraComponent';
 

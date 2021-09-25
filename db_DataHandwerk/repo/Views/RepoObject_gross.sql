@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.RepoObject_gross
+
+CREATE View [repo].[RepoObject_gross]
 As
 Select
     --
@@ -61,6 +62,13 @@ Select
   , ro.SysObject_query_sql
   , ro.SysObject_schema_name
   , ro.SysObject_type
+  , ro.external_AntoraComponent
+  , ro.external_AntoraModule
+  , external_DatabaseName                   = ard.DatabaseName
+  , external_RepoDatabaseName               = ard.RepoDatabaseName
+  , ro.is_external
+  , AntoraComponent                         = Coalesce ( ro.external_AntoraComponent, AntoraComponent.Parameter_value_result )
+  , AntoraModule                            = Coalesce ( ro.external_AntoraModule, AntoraModule.Parameter_value_result )
   , SysObject_type_name                     = sys_type.type_desc
   , ro.usp_persistence_name
   , usp_persistence_RepoObject_guid         = ro_usp_p.RepoObject_guid
@@ -90,8 +98,12 @@ Select
   , ro_p.source_filter
   , ro_p.target_filter
   , ro_p.temporal_type
+  --Attention, this will be written back into Property 'Description'
+  --this could be an issue, if it will be changed in differen places, which should be the primary?
   , Description                             = Coalesce (
-                                                           modeltab.tables_description
+                                                           --keep existing Description
+                                                           property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'Description' )
+                                                         , modeltab.tables_description
                                                          , modeltab2.descriptions_StrAgg
                                                          , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
                                                        )
@@ -128,63 +140,71 @@ Select
 --, AntoraModule                             = AntoraModule.Parameter_value_result
 --, AntoraComponent                         = AntoraComponent.Parameter_value_result
 From
-    repo.RepoObject                                     As ro
+    repo.RepoObject                                                     As ro
     Left Outer Join
-        repo.RepoObject_persistence                     As ro_p
+        repo.RepoObject_persistence                                     As ro_p
             On
-            ro_p.target_RepoObject_guid         = ro.RepoObject_guid
+            ro_p.target_RepoObject_guid = ro.RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                                 As ro_p_s
+        repo.RepoObject                                                 As ro_p_s
             On
-            ro_p_s.RepoObject_guid              = ro_p.source_RepoObject_guid
+            ro_p_s.RepoObject_guid = ro_p.source_RepoObject_guid
 
     Left Outer Join
-        repo.RepoObject                                 As ro_usp_p
+        repo.RepoObject                                                 As ro_usp_p
             On
-            ro_usp_p.RepoObject_name            = ro.usp_persistence_name
+            ro_usp_p.RepoObject_name = ro.usp_persistence_name
             And ro_usp_p.RepoObject_schema_name = ro.RepoObject_schema_name
 
     Left Outer Join
-        reference.RepoObject_QueryPlan                  As QueryPlan
+        reference.RepoObject_QueryPlan                                  As QueryPlan
             On
-            QueryPlan.RepoObject_guid           = ro.RepoObject_guid
+            QueryPlan.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        repo.Index_Settings                             As ipk
+        repo.Index_Settings                                             As ipk
             On
-            ipk.index_guid                      = ro.pk_index_guid
+            ipk.index_guid = ro.pk_index_guid
 
     Left Join
-        configT.type                                    As repo_type
+        configT.type                                                    As repo_type
             On
-            repo_type.type                      = ro.RepoObject_type
+            repo_type.type = ro.RepoObject_type
 
     Left Join
-        configT.type                                    As sys_type
+        configT.type                                                    As sys_type
             On
-            sys_type.type                       = ro.SysObject_type
+            sys_type.type = ro.SysObject_type
 
     Left Join
-        configT.type                                    As ty
+        configT.type                                                    As ty
             On
-            ty.type                             = ro.RepoObject_type
+            ty.type = ro.RepoObject_type
 
     Left Outer Join
-        ssas.model_json_31_tables_T                     As modeltab
+        ssas.model_json_31_tables_T                                     As modeltab
             On
-            modeltab.RepoObject_guid            = ro.RepoObject_guid
+            modeltab.RepoObject_guid = ro.RepoObject_guid
 
     Left Outer Join
-        ssas.model_json_3161_tables_descriptions_StrAgg As modeltab2
+        ssas.model_json_3161_tables_descriptions_StrAgg                 As modeltab2
             On
-            modeltab2.RepoObject_guid           = ro.RepoObject_guid
+            modeltab2.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        uspgenerator.GeneratorUsp                       As gusp
+        uspgenerator.GeneratorUsp                                       As gusp
             On
-            gusp.usp_fullname                   = ro.RepoObject_fullname
+            gusp.usp_fullname = ro.RepoObject_fullname
 
+    Left Join
+        reference.additional_Reference_database_T                       As ard
+            On
+            ard.AntoraComponent = ro.external_AntoraComponent
+            And ard.AntoraModule = ro.external_AntoraModule
+
+    Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
+    Cross Join config.ftv_get_parameter_value ( 'AntoraModule', '' ) As AntoraModule
 --Left Outer Join
 --    ssas.TMSCHEMA_TABLES_T                          As ssastab
 --        On
@@ -1036,4 +1056,32 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '576d0
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b9ed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'uspgenerator_usp_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a1e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '02557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'external_RepoDatabaseName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6e320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'external_DatabaseName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a0e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9fe80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a3e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a2e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraComponent';
 

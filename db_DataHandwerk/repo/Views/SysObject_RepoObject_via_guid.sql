@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View repo.SysObject_RepoObject_via_guid
 As
 --
@@ -32,6 +31,8 @@ Select
   , RepoObject_is_SysObject_missing       = ro.is_SysObject_missing
   , ro.is_RepoObject_name_uniqueidentifier
   , ro.is_SysObject_name_uniqueidentifier
+  , ro.is_ssas
+  , ro.is_external
 --, [ro].SysObject_parent_object_id AS          [RepoObject_parent_SysObject_id]
 --, [ro].[SysObject_temporal_type] AS      [RepoObject_SysObject_temporal_type]
 --, [ro].[SysObject_history_table_id] AS   [RepoObject_SysObject_history_table_id]
@@ -41,12 +42,16 @@ From
     Left Outer Join
         repo.RepoObject As ro
             On
-            so.SysObject_RepoObject_guid = ro.RepoObject_guid
+            ro.RepoObject_guid      = so.SysObject_RepoObject_guid
+            And ro.is_ssas          = 0
+            And ro.is_external      = 0
 
     Left Outer Join
         repo.RepoObject As ro_hist
             On
-            so.history_table_id          = ro_hist.SysObject_id
+            ro_hist.SysObject_id    = so.history_table_id
+            And ro_hist.is_ssas     = 0
+            And ro_hist.is_external = 0
 Go
 
 Execute sp_addextendedproperty
@@ -554,4 +559,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysObject_RepoObject_via_guid', @level2type = N'COLUMN', @level2name = N'history_table_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8be80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysObject_RepoObject_via_guid', @level2type = N'COLUMN', @level2name = N'is_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8ce80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysObject_RepoObject_via_guid', @level2type = N'COLUMN', @level2name = N'is_external';
 

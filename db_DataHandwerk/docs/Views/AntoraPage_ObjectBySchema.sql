@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 output example partial_content:
 
@@ -50,7 +48,9 @@ Select
   , page_content
   --
     = Concat (
-                 '= Objects by schema'
+                 Iif(Max ( ro.is_ssas ) = 1
+                 , '= SSAS Tabular Models'
+                 , '= ' + config.fs_dwh_database_name () + ' - Objects by schema')
                , Char ( 13 ) + Char ( 10 )
                , Char ( 13 ) + Char ( 10 )
                , String_Agg (

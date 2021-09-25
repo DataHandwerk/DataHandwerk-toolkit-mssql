@@ -1,30 +1,31 @@
 ﻿
-Create View reference.RepoObject_reference_additional_internal
+CREATE View reference.RepoObject_reference_additional_internal
 As
 Select
 --distinct, because the source also contains columns
     Distinct
-    referenced_RepoObject_guid
-  , referencing_RepoObject_guid
-  , referenced_entity_name     = referenced_Object
-  , referenced_fullname
-  , referenced_id
+    T1.referenced_RepoObject_guid
+  , T1.referencing_RepoObject_guid
+  , referenced_entity_name  = T1.referenced_Object
+  , T1.referenced_fullname
+  , T1.referenced_id
   --, referenced_node_id        
-  , referenced_schema_name     = referenced_Schema
-  , referenced_type
-  , referencing_entity_name    = referencing_Object
-  , referencing_fullname
-  , referencing_id
+  , referenced_schema_name  = T1.referenced_Schema
+  , T1.referenced_type
+  , referencing_entity_name = T1.referencing_Object
+  , T1.referencing_fullname
+  , T1.referencing_id
   --, referencing_node_id       
-  , referencing_schema_name    = referencing_Schema
-  , referencing_type
-  , InformationSource          = 'reference.additional_Reference'
+  , referencing_schema_name = T1.referencing_Schema
+  , T1.referencing_type
+  , InformationSource       = 'reference.additional_Reference'
 From
     reference.additional_Reference_guid As T1
 Where
-    T1.is_internal = 1
-    And Not referenced_RepoObject_guid Is Null
-    And Not referencing_RepoObject_guid Is Null
+    T1.referenced_is_external      = 0
+    And T1.referencing_is_external = 0
+    And Not T1.referenced_RepoObject_guid Is Null
+    And Not T1.referencing_RepoObject_guid Is Null
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6208fcfd-b004-ec11-8514-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_additional_internal', @level2type = N'COLUMN', @level2name = N'InformationSource';
 

@@ -47,6 +47,7 @@ Select
   , roc.has_get_referenced_issue
   , roc.is_repo_managed
   , roc.is_ssas
+  , roc.is_external
   , roc.is_RepoObject_name_uniqueidentifier
   , roc.is_SysObject_missing
   , roc.is_SysObject_name_uniqueidentifier
@@ -910,4 +911,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '29a38
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '28a38ed4-6012-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8de80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_external';
 

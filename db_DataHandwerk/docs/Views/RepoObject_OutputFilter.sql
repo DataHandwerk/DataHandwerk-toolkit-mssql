@@ -2,21 +2,28 @@
 CREATE View docs.RepoObject_OutputFilter
 As
 Select
-    roa.RepoObject_guid
-  , roa.SysObject_type
-  , roa.SysObject_type_name
-  , roa.RepoObject_fullname
-  , roa.RepoObject_fullname2
-  , roa.RepoObject_schema_name
-  , roa.is_DocsOutput
-  , roa.RepoObject_name
-  , roa.is_ssas
-  , roa.tables_isHidden
+    ro.RepoObject_guid
+  , ro.SysObject_type
+  , ro.SysObject_type_name
+  , ro.RepoObject_fullname
+  , ro.RepoObject_fullname2
+  , ro.RepoObject_schema_name
+  , ro.is_DocsOutput
+  , ro.RepoObject_name
+  , ro.is_external
+  , ro.is_ssas
+  , ro.tables_isHidden
+  , ro.external_AntoraComponent
+  , ro.external_AntoraModule
+  , ro.external_DatabaseName
+  , ro.AntoraComponent
+  , ro.AntoraModule
 From
-    repo.RepoObject_gross As roa
+    repo.RepoObject_gross As ro
 Where
-    roa.is_DocsOutput      = 1
-    And roa.is_DocsExclude = 0
+    ro.is_DocsOutput      = 1
+    And ro.is_DocsExclude = 0
+--And ro.is_external    = 0
 Go
 
 Execute sp_addextendedproperty
@@ -204,4 +211,32 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[is_ssas]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'is_ssas';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '32fe2e93-491a-ec11-851f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'tables_isHidden';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a4e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7b320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'external_DatabaseName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a6e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a5e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a8e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a7e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'AntoraComponent';
 

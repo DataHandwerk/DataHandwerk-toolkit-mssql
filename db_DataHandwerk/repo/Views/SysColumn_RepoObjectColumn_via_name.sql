@@ -1,5 +1,5 @@
 ﻿
-CREATE VIEW [repo].[SysColumn_RepoObjectColumn_via_name]
+CREATE View repo.SysColumn_RepoObjectColumn_via_name
 As
 --
 Select
@@ -71,8 +71,9 @@ From
     Left Join
         repo.RepoObject       As ro
             On
-            --roc.RepoObject_guid          = ro.RepoObject_guid;
             ro.SysObject_fullname2   = sc.SysObject_fullname2
+            And ro.is_ssas           = 0
+            And ro.is_external       = 0
 
     Left Join
         repo.RepoObjectColumn As roc

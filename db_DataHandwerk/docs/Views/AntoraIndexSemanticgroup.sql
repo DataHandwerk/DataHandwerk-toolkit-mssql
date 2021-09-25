@@ -7,8 +7,13 @@ CREATE View docs.AntoraIndexSemanticgroup
 As
 Select
     IndexSemanticGroup
-  , AntoraIndexSemanticgroup = Char ( 13 ) + Char ( 10 ) + '== ' + IsNull ( IndexSemanticGroup, '(no group)' )
-                               + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  , AntoraIndexSemanticgroup = Char ( 13 ) + Char ( 10 )
+                               --
+                               + '[#' + docs.fs_cleanStringForAnchorId ( IsNull ( IndexSemanticGroup, '(no group)' ))
+                               + ']' + Char ( 13 ) + Char ( 10 )
+                               --
+                               + '== ' + IsNull ( IndexSemanticGroup, '(no group)' ) + Char ( 13 ) + Char ( 10 )
+                               + Char ( 13 ) + Char ( 10 )
                                --
                                + String_Agg ( AntoraIndexSemanticgroupPatterndatatype, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                                    IndexPatternColumnDatatype)

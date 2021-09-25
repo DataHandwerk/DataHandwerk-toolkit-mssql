@@ -18,6 +18,9 @@ Select
                                 ro.RepoObject_fullname2)
 From
     docs.RepoObject_OutputFilter As ro
+Where
+    ro.is_DocsOutput   = 1
+    And ro.is_external = 0
 Group By
     ro.RepoObject_schema_name
   , ro.SysObject_type

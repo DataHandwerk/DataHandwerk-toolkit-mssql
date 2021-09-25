@@ -1,30 +1,19 @@
 ﻿
-
 CREATE View reference.RepoObjectColumn_ReferencedList
 As
 Select
     ror.Referencing_guid
   , AntoraReferencedColumnList  =
   --
-  String_Agg (
-                 Concat (
-                            --* xref:target-page-filename.adoc[link text]
-                            --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                            Cast('* xref:' As NVarchar(Max))
-                          , ror.Referenced_fullname2
-                          , '.adoc#column-' + docs.fs_cleanStringForAnchorId ( ror.ReferencedColumn_name ) + '[+'
-                            + ror.ReferencedColumn_fullname2 + '+]'
-                        )
-               , Char ( 13 ) + Char ( 10 )
-             ) Within Group(Order By
-                                ror.Referenced_fullname)
+  String_Agg ( ror.referenced_AntoraXref, Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                      ror.Referenced_fullname)
   , Referencing_fullname        = Max ( ror.Referencing_fullname )
   , Referencing_fullname2       = Max ( ror.Referencing_fullname2 )
   , ReferencingColumn_fullname  = Max ( ror.ReferencingColumn_fullname )
   , ReferencingColumn_fullname2 = Max ( ror.ReferencingColumn_fullname2 )
   , Referencing_type            = Max ( ror.Referencing_type )
 From
-    reference.RepoObjectColumn_ReferencingReferenced As ror
+    reference.RepoObjectColumn_ReferencedReferencing As ror
 Group By
     ror.Referencing_guid
 Go

@@ -7,13 +7,17 @@ Select
   , FkRefList            = String_Agg (
                                           Concat (
                                                      Cast(N'' As NVarchar(Max))
+                                                   , '"'
                                                    , docs.fs_cleanStringForPuml ( fk.referenced_RepoObject_fullname2 )
                                                    , '::'
                                                    , docs.fs_cleanStringForPuml ( fk.referenced_index_name )
+                                                   , '"'
                                                    , ' <-- '
+                                                   , '"'
                                                    , docs.fs_cleanStringForPuml ( fk.referencing_RepoObject_fullname2 )
                                                    , '::'
                                                    , docs.fs_cleanStringForPuml ( fk.referencing_index_name )
+                                                   , '"'
                                                  )
                                         , Char ( 13 ) + Char ( 10 )
                                       ) Within Group(Order By

@@ -564,24 +564,27 @@ there was an issue in [repo].[SysColumn] with some column duplicating
 Update
     repo.RepoObjectColumn
 Set
-    [RepoObjectColumn_name] = [repo].[RepoObjectColumn].[SysObjectColumn_name]
+    RepoObjectColumn_name = repo.RepoObjectColumn.SysObjectColumn_name
 From
-    [repo].[RepoObjectColumn]
+    repo.RepoObjectColumn
     Inner Join
-        [repo].[RepoObject] As [ro]
+        repo.RepoObject As ro
             On
-            [repo].[RepoObjectColumn].[RepoObject_guid] = [ro].[RepoObject_guid]
+            repo.RepoObjectColumn.RepoObject_guid = ro.RepoObject_guid
 Where
+    ro.is_ssas                                        = 0
+    And ro.is_external                                = 0
+    And
     --update [is_repo_managed] only when [is_RepoObjectColumn_name_uniqueidentifier] = 1
     (
-        IsNull ( ro.is_repo_managed, 0 )                    = 0
-        Or [is_RepoObjectColumn_name_uniqueidentifier]      = 1
+        IsNull ( ro.is_repo_managed, 0 )              = 0
+        Or is_RepoObjectColumn_name_uniqueidentifier  = 1
     )
-    And [repo].[RepoObjectColumn].[has_different_sys_names] = 1
+    And repo.RepoObjectColumn.has_different_sys_names = 1
     --exclude surrogate [SysObject_name]
-    And [is_SysObjectColumn_name_uniqueidentifier]          = 0
+    And is_SysObjectColumn_name_uniqueidentifier      = 0
     --exclude virtual columns, created from reference expressions
-    And IsNull ( [is_query_plan_expression], 0 )            = 0
+    And IsNull ( is_query_plan_expression, 0 )        = 0
     --avoid not unique entries
     --do not update, if the target entry ([RepoObject_guid], [RepoObjectColumn_name]) exists
     --The UK would prevent that
@@ -591,11 +594,11 @@ Where
         roc2.RepoObject_guid
       , roc2.RepoObjectColumn_name
     From
-        [repo].[RepoObjectColumn] As [roc2]
+        repo.RepoObjectColumn As roc2
     Where
-        [repo].[RepoObjectColumn].[SysObjectColumn_name] = roc2.RepoObjectColumn_name
-        And [repo].[RepoObjectColumn].[RepoObject_guid]  = roc2.RepoObject_guid
-);
+        repo.RepoObjectColumn.SysObjectColumn_name = roc2.RepoObjectColumn_name
+        And repo.RepoObjectColumn.RepoObject_guid  = roc2.RepoObject_guid
+)
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -1314,26 +1317,29 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2010,';',2000);
 Declare property_cursor Cursor Local Fast_Forward For
 --
 Select
-    [T1].[RepoObjectColumn_guid]
-  , [T1].[SysObject_schema_name]
-  , [T2].[level1type]
-  , [T1].[SysObject_name]
+    T1.RepoObjectColumn_guid
+  , T1.SysObject_schema_name
+  , T2.level1type
+  , T1.SysObject_name
   --, [T1].[SysObject_column_name]
-  , [T1].[Column_name]
-  , [T1].[SysObject_type]
+  , T1.Column_name
+  , T1.SysObject_type
 From
     --repo.SysColumn_RepoObjectColumn_via_name   As T1
-    repo.[RepoObjectColumn_gross]              As T1
+    repo.RepoObjectColumn_gross            As T1
     Inner Join
-        [configT].[type_level1type_level2type] As T2
+        configT.type_level1type_level2type As T2
             On
             T1.SysObject_type = T2.type
 Where
-    Not [T1].[RepoObjectColumn_guid] Is Null
+    Not T1.RepoObjectColumn_guid Is Null
+    And T1.is_ssas     = 0
+    And T1.is_external = 0
     --And [T1].[SysObject_RepoObjectColumn_guid] Is Null
-    And Not [T2].[level1type] Is Null
+    And Not T2.level1type Is Null
     --SchemaCompare has issues comparing extended properties for graph table columns, we exclude them
     And T1.Repo_graph_type Is Null;
+
 ----the next is redundant, these kind of Objects should not exist in the database
 --And [T1].[is_SysObjectColumn_name_uniqueidentifier] = 0;
 
@@ -1346,7 +1352,6 @@ Declare
   , @name                  NVarchar(128)
   , @type                  Char(2);
 */
-
 Set @rows = 0;
 
 Open property_cursor;
@@ -1364,7 +1369,7 @@ While @@Fetch_Status <> -1
 Begin
     If @@Fetch_Status <> -2
     Begin
-        Exec repo_sys.[usp_AddOrUpdateExtendedProperty]
+        Exec repo_sys.usp_AddOrUpdateExtendedProperty
             @name = N'RepoObjectColumn_guid'
           , @value = @RepoObjectColumn_guid
           , @level0type = N'Schema'
@@ -1388,7 +1393,6 @@ Begin
 End;
 
 Close property_cursor;
-
 Deallocate property_cursor;
 
 -- Logging START --
@@ -1423,16 +1427,46 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',2110,';',NULL);
 columns deleted or renamed in database but still referenced in [repo].[RepoObjectColumn] should be marked: [is_SysObjectColumn_missing] = 1
 
 */
-UPDATE repo.RepoObjectColumn
-SET [is_SysObjectColumn_missing] = 1
-FROM [repo].[RepoObjectColumn] [T1]
-WHERE ISNULL([is_SysObjectColumn_missing], 0) = 0
- AND NOT EXISTS (
-  SELECT [SysObject_id]
-  FROM [repo_sys].[SysColumn] AS [Filter]
-  WHERE [t1].[SysObjectColumn_name] = [Filter].[SysObject_column_name]
-   AND [T1].[RepoObject_guid] = [Filter].[SysObject_RepoObject_guid]
-  )
+Update
+    repo.RepoObjectColumn
+Set
+    is_SysObjectColumn_missing = 1
+From
+    repo.RepoObjectColumn As T1
+    Left Join
+        repo.RepoObject   As T2
+            On
+            T2.RepoObject_guid = T1.RepoObject_guid
+Where
+    IsNull ( T1.is_SysObjectColumn_missing, 0 ) = 0
+    And T2.is_ssas                              = 0
+    And T2.is_external                          = 0
+    --try to find via SysObject_RepoObject_guid, which not exists if dwh is read only
+    And Not Exists
+(
+    Select
+        1
+    From
+        repo_sys.SysColumn As Filter
+    Where
+        T1.SysObjectColumn_name = Filter.SysObject_column_name
+        And T1.RepoObject_guid  = Filter.SysObject_RepoObject_guid
+)
+    --try to find via name [SysObject_fullname] and repo.RepoObject.RepoObject_guid
+    And Not Exists
+(
+    Select
+        1
+    From
+        repo_sys.SysColumn  As Filter2
+        Left Join
+            repo.RepoObject As ro
+                On
+                ro.SysObject_fullname = Filter2.SysObject_fullname
+    Where
+        t1.SysObjectColumn_name = Filter2.SysObject_column_name
+        And t1.RepoObject_guid  = ro.RepoObject_guid
+)
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -1466,15 +1500,21 @@ delete columns, marked as missing in [repo_sys].SysColumn
 which are not [is_repo_managed]
 
 */
-DELETE
-FROM repo.RepoObjectColumn
-FROM [repo].[RepoObjectColumn]
-INNER JOIN [repo].[RepoObject] AS [ro]
- ON [repo].[RepoObjectColumn].[RepoObject_guid] = [ro].[RepoObject_guid]
-WHERE ISNULL([ro].[is_repo_managed], 0) = 0
- AND [repo].[RepoObjectColumn].[is_SysObjectColumn_missing] = 1
- --do not delete virtual colums required for source reference analysis
- AND ISNULL([repo].[RepoObjectColumn].[is_query_plan_expression], 0) = 0
+Delete From
+repo.RepoObjectColumn
+From
+    repo.RepoObjectColumn
+    Inner Join
+        repo.RepoObject As ro
+            On
+            repo.RepoObjectColumn.RepoObject_guid = ro.RepoObject_guid
+Where
+    IsNull ( ro.is_repo_managed, 0 )           = 0
+    And ro.is_ssas                             = 0
+    And ro.is_external                         = 0
+    And is_SysObjectColumn_missing             = 1
+    --do not delete virtual colums required for source reference analysis
+    And IsNull ( is_query_plan_expression, 0 ) = 0
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

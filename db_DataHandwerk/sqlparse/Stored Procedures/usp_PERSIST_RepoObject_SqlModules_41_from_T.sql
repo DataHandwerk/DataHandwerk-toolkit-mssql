@@ -105,9 +105,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',37,';',800,';',NULL);
 INSERT INTO 
  [sqlparse].[RepoObject_SqlModules_41_from_T]
  (
-  [RepoObject_guid]
-, [json_key]
-, [children]
+  [children]
 , [class]
 , [identifier_alias]
 , [identifier_name]
@@ -117,6 +115,7 @@ INSERT INTO
 , [is_keyword]
 , [is_whitespace]
 , [join_type]
+, [json_key]
 , [Min_RowNumber_From]
 , [Min_RowNumber_GroupBy]
 , [Min_RowNumber_Where]
@@ -124,13 +123,12 @@ INSERT INTO
 , [normalized_PatIndex_Select]
 , [normalized_wo_nolock]
 , [patindex_nolock]
+, [RepoObject_guid]
 , [RowNumber_per_Object]
 , [SysObject_fullname]
 )
 SELECT
-  [RepoObject_guid]
-, [json_key]
-, [children]
+  [children]
 , [class]
 , [identifier_alias]
 , [identifier_name]
@@ -140,6 +138,7 @@ SELECT
 , [is_keyword]
 , [is_whitespace]
 , [join_type]
+, [json_key]
 , [Min_RowNumber_From]
 , [Min_RowNumber_GroupBy]
 , [Min_RowNumber_Where]
@@ -147,6 +146,7 @@ SELECT
 , [normalized_PatIndex_Select]
 , [normalized_wo_nolock]
 , [patindex_nolock]
+, [RepoObject_guid]
 , [RowNumber_per_Object]
 , [SysObject_fullname]
 

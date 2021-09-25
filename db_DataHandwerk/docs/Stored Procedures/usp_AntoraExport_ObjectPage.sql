@@ -114,6 +114,8 @@ Select
   , RepoObject_fullname2
 From
     docs.RepoObject_OutputFilter
+Where
+    is_external = 0
 Order By
     RepoObject_fullname
 

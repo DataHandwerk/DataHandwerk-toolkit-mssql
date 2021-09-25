@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View repo.SysColumn_RepoObjectColumn_via_guid
 As
 --
@@ -72,12 +71,14 @@ From
     Left Outer Join
         repo.RepoObjectColumn As roc
             On
-            sc.SysObject_RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+            roc.RepoObjectColumn_guid = sc.SysObject_RepoObjectColumn_guid
 
-    Left Outer Join
+    Inner Join
         repo.RepoObject       As ro
             On
-            roc.RepoObject_guid                = ro.RepoObject_guid
+            ro.RepoObject_guid        = roc.RepoObject_guid
+            And ro.is_ssas            = 0
+            And ro.is_external        = 0
 Go
 
 Execute sp_addextendedproperty

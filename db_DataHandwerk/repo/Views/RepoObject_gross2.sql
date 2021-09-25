@@ -1,5 +1,5 @@
 ﻿
-CREATE View [repo].[RepoObject_gross2]
+CREATE View repo.RepoObject_gross2
 As
 Select
     ro.RepoObject_guid
@@ -46,6 +46,13 @@ Select
   , ro.SysObject_schema_name
   , ro.SysObject_type
   , ro.SysObject_type_name
+  , ro.external_AntoraComponent
+  , ro.external_AntoraModule
+  , ro.external_DatabaseName
+  , ro.external_RepoDatabaseName
+  , ro.is_external
+  , ro.AntoraComponent
+  , ro.AntoraModule
   , ro.usp_persistence_name
   , ro.usp_persistence_RepoObject_guid
   , ro.persistence_source_RepoObject_guid
@@ -98,43 +105,43 @@ Select
   , SqlModules.sql_modules_formatted2
   , ro_referenced.AntoraReferencedList
   , ro_referencing.AntoraReferencingList
-  , ext_referenced.AntoraExternalReferencedList
-  , ext_referencing.AntoraExternalReferencingList
-  , AntoraModule       = AntoraModule.Parameter_value_result
-  , AntoraComponent    = AntoraComponent.Parameter_value_result
+--, ext_referenced.AntoraExternalReferencedList
+--, ext_referencing.AntoraExternalReferencingList
+--, AntoraModule       = AntoraModule.Parameter_value_result
+--, AntoraComponent    = AntoraComponent.Parameter_value_result
 From
-    repo.RepoObject_gross                                               As ro
+    repo.RepoObject_gross                       As ro
     Left Outer Join
-        repo.RepoObject_ColumnList                                      As ColumnList
+        repo.RepoObject_ColumnList              As ColumnList
             On
-            ColumnList.RepoObject_guid = ro.RepoObject_guid
+            ColumnList.RepoObject_guid     = ro.RepoObject_guid
 
     Left Outer Join
-        sqlparse.RepoObject_SqlModules_Repo_Sys                         As SqlModules
+        sqlparse.RepoObject_SqlModules_Repo_Sys As SqlModules
             On
-            SqlModules.RepoObject_guid = ro.RepoObject_guid
+            SqlModules.RepoObject_guid     = ro.RepoObject_guid
 
     Left Join
-        reference.RepoObject_ReferencedList                             As ro_referenced
+        reference.RepoObject_ReferencedList     As ro_referenced
             On
             ro_referenced.Referencing_guid = ro.RepoObject_guid
 
     Left Join
-        reference.RepoObject_ReferencingList                            As ro_referencing
+        reference.RepoObject_ReferencingList    As ro_referencing
             On
             ro_referencing.Referenced_guid = ro.RepoObject_guid
 
-    Left Join
-        reference.RepoObject_ExternalReferencedList                     As ext_referenced
-            On
-            ext_referenced.RepoObject_guid = ro.RepoObject_guid
+--Left Join
+--    reference.RepoObject_ExternalReferencedList  As ext_referenced
+--        On
+--        ext_referenced.RepoObject_guid  = ro.RepoObject_guid
 
-    Left Join
-        reference.RepoObject_ExternalReferencingList                    As ext_referencing
-            On
-            ext_referencing.RepoObject_guid = ro.RepoObject_guid
-    Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
-    Cross Join config.ftv_get_parameter_value ( 'AntoraModule', '' ) As AntoraModule
+--Left Join
+--    reference.RepoObject_ExternalReferencingList As ext_referencing
+--        On
+--        ext_referencing.RepoObject_guid = ro.RepoObject_guid
+--Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
+--Cross Join config.ftv_get_parameter_value ( 'AntoraModule', '' ) As AntoraModule
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '42bbcce5-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2';
 
@@ -1013,19 +1020,19 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '236ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'AntoraExternalReferencingList';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_ExternalReferencingList].[AntoraExternalReferencingList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'AntoraExternalReferencingList';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '226ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'AntoraExternalReferencedList';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_ExternalReferencedList].[AntoraExternalReferencedList]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'AntoraExternalReferencedList';
+
+
+
+GO
+
 
 
 GO
@@ -1038,4 +1045,24 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ce5f9
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9eed2e9f-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'uspgenerator_usp_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8ae80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '00557e28-d01b-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'external_RepoDatabaseName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '52320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'external_DatabaseName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '89e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '88e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'external_AntoraComponent';
 
