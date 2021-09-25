@@ -471,11 +471,13 @@ From
 Where
     --not [is_query_plan_expression], these are not real columms
     roc.is_query_plan_expression Is Null
+    --And roc.is_external         = 0
     --we need the datatype, or it should be computed
     And
     (
         Not roc.Repo_user_type_fullname Is Null
         Or roc.Repo_is_computed = 1
+        Or roc.is_external      = 1
     )
 ----exclude system columns like 'RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61'
 ----all they have ssas_Type = 3

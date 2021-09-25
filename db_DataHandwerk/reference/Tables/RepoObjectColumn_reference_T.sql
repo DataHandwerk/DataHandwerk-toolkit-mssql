@@ -6,11 +6,17 @@
     [referenced_RepoObject_guid]                    UNIQUEIDENTIFIER NULL,
     [referenced_schema_name]                        NVARCHAR (128)   NULL,
     [referenced_type]                               CHAR (2)         NULL,
+    [referenced_external_AntoraComponent]           NVARCHAR (128)   NULL,
+    [referenced_external_AntoraModule]              NVARCHAR (128)   NULL,
+    [referenced_is_external]                        BIT              CONSTRAINT [DF_RepoObjectColumn_reference_T_referenced_is_external] DEFAULT ((0)) NOT NULL,
     [referencing_column_name]                       NVARCHAR (128)   NULL,
     [referencing_entity_name]                       NVARCHAR (128)   NULL,
     [referencing_RepoObject_guid]                   UNIQUEIDENTIFIER NULL,
     [referencing_schema_name]                       NVARCHAR (128)   NULL,
     [referencing_type]                              CHAR (2)         NULL,
+    [referencing_external_AntoraComponent]          NVARCHAR (128)   NULL,
+    [referencing_external_AntoraModule]             NVARCHAR (128)   NULL,
+    [referencing_is_external]                       BIT              CONSTRAINT [DF_RepoObjectColumn_reference_T_referencing_is_external] DEFAULT ((0)) NOT NULL,
     [is_referencing_object_equal_referenced_object] TINYINT          NULL,
     [is_referenced_object]                          TINYINT          NULL,
     [referenced_ro_fullname]                        AS               (concat('[',[referenced_schema_name],'].[',[referenced_entity_name],']')) PERSISTED NOT NULL,
@@ -21,8 +27,10 @@
     [referencing_ro_fullname2]                      AS               (concat([referencing_schema_name],'.',[referencing_entity_name])) PERSISTED NOT NULL,
     [referencing_roc_fullname]                      AS               (concat('[',[referencing_schema_name],'].[',[referencing_entity_name],'].[',[referencing_column_name],']')) PERSISTED NOT NULL,
     [referencing_roc_fullname2]                     AS               (concat([referencing_schema_name],'.',[referencing_entity_name],'.',[referencing_column_name])) PERSISTED NOT NULL,
-    CONSTRAINT [PK_RepoObjectColumn_reference_T] PRIMARY KEY CLUSTERED ([referenced_RepoObjectColumn_guid] ASC, [referencing_RepoObjectColumn_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [PK_RepoObjectColumn_reference_T] PRIMARY KEY CLUSTERED ([referenced_RepoObjectColumn_guid] ASC, [referencing_RepoObjectColumn_guid] ASC)
 );
+
+
 
 
 
@@ -400,4 +408,36 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[referenced_schema_name],''].['',[referenced_entity_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'COLUMN', @level2name = N'referenced_ro_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7adaaa1b-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_reference_T_referencing_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '79daaa1b-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumn_reference_T_referenced_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '81320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'COLUMN', @level2name = N'referencing_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '80320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7f320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7e320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'COLUMN', @level2name = N'referenced_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7d320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7c320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_reference_T', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraComponent';
 

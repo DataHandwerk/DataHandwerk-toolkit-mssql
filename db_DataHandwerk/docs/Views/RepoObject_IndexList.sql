@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [docs].[RepoObject_IndexList]
+CREATE View docs.RepoObject_IndexList
 As
 Select
     RepoObject_guid = ix.parent_RepoObject_guid
@@ -23,20 +22,9 @@ Select
                           , docs.fs_cleanStringForLabel ( ix.index_name )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
-                          , '* IndexSemanticGroup: ' + 'xref:other/IndexSemanticGroup.adoc#_'
-                            + Replace (
-                                          Replace (
-                                                      Replace (
-                                                                  Lower ( IsNull ( ix.IndexSemanticGroup, 'no_group' ))
-                                                                , ' '
-                                                                , '_'
-                                                              )
-                                                    , '__'
-                                                    , '_'
-                                                  )
-                                        , '__'
-                                        , '_'
-                                      ) + '[' + IsNull ( ix.IndexSemanticGroup, 'no_group' ) + ']'
+                          , '* IndexSemanticGroup: ' + 'xref:other/IndexSemanticGroup.adoc#'
+                            + docs.fs_cleanStringForAnchorId ( IsNull ( ix.IndexSemanticGroup, '(no group)' )) + '['
+                            + IsNull ( ix.IndexSemanticGroup, 'no_group' ) + ']'
                           , Char ( 13 ) + Char ( 10 )
                           , '+' + Char ( 13 ) + Char ( 10 )
                           , '--' + Char ( 13 ) + Char ( 10 )

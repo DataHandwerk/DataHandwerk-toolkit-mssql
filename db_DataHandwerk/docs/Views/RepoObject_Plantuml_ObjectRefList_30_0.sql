@@ -7,13 +7,13 @@ Select
   , ObjectRefList = String_Agg (
                                    Concat (
                                               Cast(N'' As NVarchar(Max))
-                                            , docs.fs_cleanStringForPuml ( objectref.Referenced_ro_fullname2 )
+                                            , objectref.referenced_puml_entity
                                             , ' <.. '
-                                            , docs.fs_cleanStringForPuml ( objectref.Referencing_ro_fullname2 )
+                                            , objectref.referencing_puml_entity
                                           )
                                  , Char ( 13 ) + Char ( 10 )
                                ) Within Group(Order By
-                                                  objectref.Referenced_ro_fullname2)
+                                                  objectref.referenced_puml_entity)
 From
 --select all objects pairs that have any reference relation inside the reference path with ro.RepoObject_guid (in the desired direction)
 (
@@ -53,10 +53,10 @@ From
         --Where Match(
         --    Object1-(referenced)->Object2)
         Select
-            Referencing_ro_fullname2 = referencing_fullname2
-          , Referencing_ro_guid      = referencing_RepoObject_guid
-          , Referenced_ro_fullname2  = referenced_fullname2
-          , Referenced_ro_guid       = referenced_RepoObject_guid
+            Referenced_ro_guid     = referenced_RepoObject_guid
+          , referenced_puml_entity
+          , Referencing_ro_guid    = referencing_RepoObject_guid
+          , referencing_puml_entity
         From
             reference.RepoObject_reference_T
     ) As objectref
@@ -65,7 +65,6 @@ From
         And objectref.Referenced_ro_guid = ro.Referenced_guid
 Group By
     ro.RepoObject_guid
---, ro.RepoObject_fullname2;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e926ab1d-619d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_30_0', @level2type = N'COLUMN', @level2name = N'ObjectRefList';
 

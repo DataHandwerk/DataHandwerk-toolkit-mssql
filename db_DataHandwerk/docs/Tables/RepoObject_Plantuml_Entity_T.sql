@@ -1,13 +1,16 @@
 ﻿CREATE TABLE [docs].[RepoObject_Plantuml_Entity_T] (
-    [RepoObject_guid]                  UNIQUEIDENTIFIER NOT NULL,
-    [RepoObject_Puml]                  NVARCHAR (MAX)   NOT NULL,
-    [RepoObject_PumlOnlyIndex]         NVARCHAR (MAX)   NOT NULL,
-    [RepoObject_PumlOnlyPK]            NVARCHAR (MAX)   NOT NULL,
-    [RepoObject_PumlOnlyPkOrNotHidden] NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden] DEFAULT ('') NOT NULL,
-    [RepoObject_PumlOnlyPkOrIndex]     NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden1] DEFAULT ('') NOT NULL,
-    [RepoObject_fullname2]             NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL,
-    [RepoObject_schema_name]           NVARCHAR (128)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname21] DEFAULT ('') NOT NULL
+    [RepoObject_guid]                       UNIQUEIDENTIFIER NOT NULL,
+    [RepoObject_Puml]                       NVARCHAR (MAX)   NOT NULL,
+    [RepoObject_PumlOnlyIndex]              NVARCHAR (MAX)   NOT NULL,
+    [RepoObject_PumlOnlyPK]                 NVARCHAR (MAX)   NOT NULL,
+    [RepoObject_PumlOnlyPkOrNotHidden]      NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden] DEFAULT ('') NOT NULL,
+    [RepoObject_PumlOnlyPkOrIndex]          NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden1] DEFAULT ('') NOT NULL,
+    [RepoObject_PumlOnlyPkOrIndexOrMeasure] NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrIndex1] DEFAULT ('') NULL,
+    [RepoObject_fullname2]                  NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL,
+    [RepoObject_schema_name]                NVARCHAR (128)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname21] DEFAULT ('') NOT NULL
 );
+
+
 
 
 
@@ -249,4 +252,12 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat([RepoObject_schema_name],''.'',[RepoObject_name]))', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ea216c32-5c1d-ec11-8522-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrIndex1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9c83d451-5c1d-ec11-8522-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'COLUMN', @level2name = N'RepoObject_PumlOnlyPkOrIndexOrMeasure';
 

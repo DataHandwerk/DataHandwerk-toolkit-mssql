@@ -44,6 +44,7 @@ Select
   , ro.has_get_referenced_issue
   , ro.is_repo_managed
   , ro.is_ssas
+  , ro.is_external
   , ro.is_RepoObject_name_uniqueidentifier
   , ro.is_SysObject_missing
   , ro.is_SysObject_name_uniqueidentifier
@@ -70,8 +71,15 @@ Select
                                                                                                roc.RepoObjectColumn_guid
                                                                                              , 'ms_description'
                                                                                            )
+  --Attention, this will be written back into Property 'Description'
+  --this could be an issue, if it will be changed in differen places, which should be the primary?
   , Description                        = Coalesce (
-                                                      tabcol.tables_columns_description
+                                                      --keep existing Description
+                                                      property.fs_get_RepoObjectColumnProperty_nvarchar (
+                                                                                                            roc.RepoObjectColumn_guid
+                                                                                                          , 'Description'
+                                                                                                        )
+                                                    , tabcol.tables_columns_description
                                                     , tabcol2.descriptions_StrAgg
                                                     , property.fs_get_RepoObjectColumnProperty_nvarchar (
                                                                                                             roc.RepoObjectColumn_guid
@@ -1522,4 +1530,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2aa38ed4-6012-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'persistence_source_RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '90e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'is_external';
 

@@ -4,12 +4,18 @@ As
 Select
     referenced_RepoObject_guid
   , referencing_RepoObject_guid
-  , referenced_entity_name  = Max ( referenced_entity_name )
-  , referenced_schema_name  = Max ( referenced_schema_name )
-  , referenced_type         = Max ( referenced_type )
-  , referencing_entity_name = Max ( referencing_entity_name )
-  , referencing_schema_name = Max ( referencing_schema_name )
-  , referencing_type        = Max ( referencing_type )
+  , referenced_entity_name               = Max ( referenced_entity_name )
+  , referenced_schema_name               = Max ( referenced_schema_name )
+  , referenced_type                      = Max ( referenced_type )
+  , referenced_external_AntoraComponent  = Max ( referenced_external_AntoraComponent )
+  , referenced_external_AntoraModule     = Max ( referenced_external_AntoraModule )
+  , referenced_is_external               = Max ( referenced_is_external )
+  , referencing_entity_name              = Max ( referencing_entity_name )
+  , referencing_schema_name              = Max ( referencing_schema_name )
+  , referencing_type                     = Max ( referencing_type )
+  , referencing_external_AntoraComponent = Max ( referencing_external_AntoraComponent )
+  , referencing_external_AntoraModule    = Max ( referencing_external_AntoraModule )
+  , referencing_is_external              = Max ( referencing_is_external )
 From
     reference.RepoObject_reference_union
 Group By
@@ -97,4 +103,28 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_union].[referenced_entity_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referenced_entity_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a6320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referencing_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a5320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a4320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referencing_external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a3320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referenced_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a2320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a1320d24-681b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referenced_external_AntoraComponent';
 

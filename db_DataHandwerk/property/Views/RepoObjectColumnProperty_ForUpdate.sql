@@ -18,6 +18,10 @@ Select
   , rocg.RepoObject_name
   , rocg.RepoObject_type
   , rocg.Repo_user_type_fullname
+  , repo_database   = Db_Name ()
+  , dwh_database    = config.fs_dwh_database_name ()
+  , AntoraComponent = config.fs_get_parameter_value ( 'AntoraComponent', '' )
+  , AntoraModule    = config.fs_get_parameter_value ( 'AntoraModule', '' )
 From
     property.RepoObjectColumnProperty As rocp
     Inner Join
@@ -193,4 +197,20 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bf2c2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c02c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'Repo_user_type_fullname';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2dd0ae3d-471c-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'repo_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2ed0ae3d-471c-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'dwh_database';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '30d0ae3d-471c-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'AntoraModule';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2fd0ae3d-471c-ec11-8521-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectColumnProperty_ForUpdate', @level2type = N'COLUMN', @level2name = N'AntoraComponent';
 

@@ -5,18 +5,9 @@ Select
     ror.Referencing_guid
   , AntoraReferencedList  =
   --
-  String_Agg ( Concat (
-                          --* xref:target-page-filename.adoc[link text]
-                          --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                          Cast('* xref:' As NVarchar(Max)), ror.referenced_fullname2, '.adoc[]'
-                      --, QuoteName(ror.[Referenced_fullname])
-                      --, ' '
-                      --, CHAR(13)
-                      --, CHAR(10)
-                      )
-             , Char ( 13 ) + Char ( 10 )
-             ) Within Group(Order By
-                                ror.referenced_fullname)
+  String_Agg ( ror.referenced_AntoraXref, Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                      ror.referenced_is_external
+                                                                                    , ror.referenced_fullname)
   , Referencing_fullname  = Max ( ror.referencing_fullname )
   , Referencing_fullname2 = Max ( ror.referencing_fullname2 )
   , Referencing_type      = Max ( ror.referencing_type )

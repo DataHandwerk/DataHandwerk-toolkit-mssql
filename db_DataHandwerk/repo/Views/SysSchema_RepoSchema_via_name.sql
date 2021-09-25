@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View repo.SysSchema_RepoSchema_via_name
 As
 --
@@ -20,6 +19,7 @@ From
         repo.RepoSchema As rs
             On
             ss.SysSchema_name = rs.SysSchema_name
+            And rs.is_ssas    = 0
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd70747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'SysSchema_RepoSchema_via_name', @level2type = N'COLUMN', @level2name = N'is_SysSchema_name_uniqueidentifier';
 

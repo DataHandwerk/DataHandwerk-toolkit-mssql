@@ -332,7 +332,8 @@ From
 Group By
     ro.RepoObject_guid
 Having
-    ( Max ( is_DocsOutput ) = 1 )
+    Max ( is_DocsOutput )               = 1
+    And Max ( Cast(is_external As Int)) = 0
 Go
 
 Execute sp_addextendedproperty

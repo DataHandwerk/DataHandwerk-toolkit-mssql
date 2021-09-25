@@ -49,7 +49,7 @@ Select
           Concat (
                      '@startuml' + Char ( 13 ) + Char ( 10 )
                    , docs.fs_PumlHeaderLeftToRight ()
-                   , sel.EntityList_PumlOnlyPkOrIndex
+                   , sel.EntityList_PumlOnlyPkOrIndexOrMeasure
                    , Char ( 13 ) + Char ( 10 )
                    , Char ( 13 ) + Char ( 10 )
                    , ssas_rl.SsasRelationList_PumlRelation

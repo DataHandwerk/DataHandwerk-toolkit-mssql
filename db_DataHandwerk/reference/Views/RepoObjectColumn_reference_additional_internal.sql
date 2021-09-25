@@ -1,29 +1,29 @@
 ﻿
-Create View reference.RepoObjectColumn_reference_additional_internal
+CREATE View reference.RepoObjectColumn_reference_additional_internal
 As
 --
 Select
-    referencing_id
+    T1.referencing_id
   --, referencing_minor_id                          = roc.SysObjectColumn_column_id
   --, referencing_node_id                           = roc.node_id
-  , referenced_id
+  , T1.referenced_id
   --, referenced_minor_id                           = roc2.SysObjectColumn_column_id
   --, referenced_node_id                            = roc2.node_id
-  , referencing_RepoObject_guid
-  , referencing_RepoObjectColumn_guid
-  , referenced_RepoObject_guid
-  , referenced_RepoObjectColumn_guid
-  , referencing_type
-  , referencing_schema_name                       = referencing_Schema
-  , referencing_entity_name                       = referencing_Object
-  , referencing_column_name                       = referencing_column
-  , referenced_schema_name                        = referenced_Schema
-  , referenced_entity_name                        = referenced_Object
-  , referenced_column_name                        = referenced_column
-  , referenced_type
+  , T1.referencing_RepoObject_guid
+  , T1.referencing_RepoObjectColumn_guid
+  , T1.referenced_RepoObject_guid
+  , T1.referenced_RepoObjectColumn_guid
+  , T1.referencing_type
+  , referencing_schema_name                       = T1.referencing_Schema
+  , referencing_entity_name                       = T1.referencing_Object
+  , referencing_column_name                       = T1.referencing_Column
+  , referenced_schema_name                        = T1.referenced_Schema
+  , referenced_entity_name                        = T1.referenced_Object
+  , referenced_column_name                        = T1.referenced_Column
+  , T1.referenced_type
   , InformationSource                             = 'reference.additional_Reference'
   , is_referencing_object_equal_referenced_object = Cast(Case
-                                                             When referenced_RepoObject_guid = referencing_RepoObject_guid
+                                                             When T1.referenced_RepoObject_guid = T1.referencing_RepoObject_guid
                                                                  Then
                                                                  1
                                                              Else
@@ -47,9 +47,10 @@ Select
 From
     reference.additional_Reference_guid As T1
 Where
-    T1.is_internal = 1
-    And Not referenced_RepoObjectColumn_guid Is Null
-    And Not referencing_RepoObjectColumn_guid Is Null
+    T1.referenced_is_external      = 0
+    And T1.referencing_is_external = 0
+    And Not T1.referenced_RepoObjectColumn_guid Is Null
+    And Not T1.referencing_RepoObjectColumn_guid Is Null
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7508fcfd-b004-ec11-8514-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_additional_internal', @level2type = N'COLUMN', @level2name = N'definition';
 

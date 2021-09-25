@@ -709,15 +709,25 @@ objects deleted or renamed in database but still referenced in [repo].[RepoObjec
 
 check is required by `schema_name` and `name` but not by SysObject_ID, because SysObject_ID can change when objects are recreated
 */
-UPDATE repo.RepoObject
-SET [is_SysObject_missing] = 1
-FROM [repo].[RepoObject] [T1]
-WHERE NOT EXISTS (
-  SELECT [SysObject_id]
-  FROM [repo_sys].[SysObject] AS [Filter]
-  WHERE [t1].[SysObject_schema_name] = [Filter].[SysObject_schema_name]
-   AND [T1].[SysObject_name] = [Filter].[SysObject_name]
-  )
+Update
+    repo.RepoObject
+Set
+    is_SysObject_missing = 1
+From
+    repo.RepoObject As T1
+Where
+    Not Exists
+(
+    Select
+        Filter.SysObject_id
+    From
+        repo_sys.SysObject As Filter
+    Where
+        t1.SysObject_schema_name = Filter.SysObject_schema_name
+        And t1.SysObject_name    = Filter.SysObject_name
+)
+    And T1.is_ssas     = 0
+    And T1.is_external = 0
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -757,7 +767,10 @@ Set
 From
     repo.RepoObject As T1
 Where
-    Exists
+    T1.is_SysObject_missing = 1
+    And
+    (
+        Exists
 (
     Select
         Filter.SysObject_id
@@ -767,7 +780,9 @@ Where
         t1.SysObject_schema_name = Filter.SysObject_schema_name
         And t1.SysObject_name    = Filter.SysObject_name
 )
-    And T1.is_SysObject_missing = 1
+        Or T1.is_ssas       = 0
+        Or T1.is_external   = 0
+    )
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -801,9 +816,13 @@ delete objects, missing in SysObjects, if they are not is_repo_managed +
 if they are is_repo_managed we don't want to delete them but there should be some handling
 
 */
-DELETE repo.RepoObject
-WHERE ISNULL([is_repo_managed], 0) = 0
- AND [is_SysObject_missing] = 1
+Delete
+repo.RepoObject
+Where
+    is_SysObject_missing              = 1
+    And IsNull ( is_repo_managed, 0 ) = 0
+    And is_ssas                       = 0
+    And is_external                   = 0
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -838,37 +857,47 @@ update other properties for RepoObject which are not is_repo_managed
 we do this after updating guid in SysObjects to ensure the guid can be used to get [history_table_guid]
 
 */
-UPDATE ro
-SET [Repo_history_table_guid] = [history_table_guid]
- , [Repo_temporal_type] = [temporal_type]
-FROM [repo].[SysObject_RepoObject_via_guid] [ro]
-WHERE
- --not is_repo_managed 
- ISNULL([ro].[is_repo_managed], 0) = 0
- AND (
-  --
-  1 = 0
-  --
-  OR [Repo_history_table_guid] <> [history_table_guid]
-  OR (
-   [Repo_history_table_guid] IS NULL
-   AND NOT [history_table_guid] IS NULL
-   )
-  OR (
-   [history_table_guid] IS NULL
-   AND NOT [Repo_history_table_guid] IS NULL
-   )
-  OR [Repo_temporal_type] <> [temporal_type]
-  OR (
-   [Repo_temporal_type] IS NULL
-   AND NOT [temporal_type] IS NULL
-   )
-  OR (
-   [temporal_type] IS NULL
-   AND NOT [Repo_temporal_type] IS NULL
-   )
-  --
-  )
+Update
+    ro
+Set
+    ro.Repo_history_table_guid = ro.history_table_guid
+  , ro.Repo_temporal_type = ro.temporal_type
+From
+    repo.SysObject_RepoObject_via_guid As ro
+Where
+    --not is_repo_managed
+    IsNull ( ro.is_repo_managed, 0 )  = 0
+    And ro.is_ssas                    = 0
+    And ro.is_external                = 0
+    And
+    (
+        --
+        1                             = 0
+        --
+        Or ro.Repo_history_table_guid <> ro.history_table_guid
+        Or
+        (
+            ro.Repo_history_table_guid Is Null
+            And Not ro.history_table_guid Is Null
+        )
+        Or
+        (
+            ro.history_table_guid Is Null
+            And Not ro.Repo_history_table_guid Is Null
+        )
+        Or ro.Repo_temporal_type      <> ro.temporal_type
+        Or
+        (
+            ro.Repo_temporal_type Is Null
+            And Not ro.temporal_type Is Null
+        )
+        Or
+        (
+            ro.temporal_type Is Null
+            And Not ro.Repo_temporal_type Is Null
+        )
+    --
+    )
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -900,17 +929,17 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',8,';',3010,';',NULL);
 Delete
 ros
 From
-    reference.RepoObjectSource_virtual ros
+    reference.RepoObjectSource_virtual As ros
 Where
     Not Exists
 (
     Select
         1
     From
-        repo.RepoObject ro
+        repo.RepoObject As ro
     Where
         ro.RepoObject_guid = ros.Source_RepoObject_guid
-);
+)
 
 
 -- Logging START --
@@ -947,13 +976,19 @@ set temporal_type
 * 1 = HISTORY_TABLE
 * 2 = SYSTEM_VERSIONED_TEMPORAL_TABLE
 */
-UPDATE ro
-SET [Repo_temporal_type] = rop.temporal_type
-FROM [repo].[RepoObject] ro
-INNER JOIN [repo].[RepoObject_persistence] rop
- ON rop.[target_RepoObject_guid] = ro.[RepoObject_guid]
-WHERE ro.[Repo_temporal_type] <> rop.temporal_type
- OR ro.[Repo_temporal_type] IS NULL
+Update
+    ro
+Set
+    ro.Repo_temporal_type = rop.temporal_type
+From
+    repo.RepoObject                 As ro
+    Inner Join
+        repo.RepoObject_persistence As rop
+            On
+            rop.target_RepoObject_guid = ro.RepoObject_guid
+Where
+    ro.Repo_temporal_type <> rop.temporal_type
+    Or ro.Repo_temporal_type Is Null
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

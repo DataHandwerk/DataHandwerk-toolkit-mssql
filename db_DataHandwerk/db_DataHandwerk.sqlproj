@@ -454,7 +454,6 @@
     <Build Include="reference\Views\RepoObjectColumn_ReferencingList.sql" />
     <Build Include="reference\Views\RepoObjectColumn_RelationScript.sql" />
     <Build Include="reference\Views\SysObjectColumn_QueryPlanExpression.sql" />
-    <Build Include="reference\Views\RepoObjectColumn_ReferencingReferenced.sql" />
     <Build Include="reference\Views\RepoObject_ReferencingReferenced.sql" />
     <Build Include="repo\Stored Procedures\usp_update_Referencing_Count.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_DocSnippet.sql" />
@@ -554,8 +553,6 @@
     <Build Include="workflow\Views\Workflow_SqlUsp.sql" />
     <Build Include="workflow\Views\Workflow_ProcedureDependency_T_NotInSortorder_check.sql" />
     <Build Include="repo\Views\RepoObject_wo_referencing.sql" />
-    <Build Include="reference\Views\RepoObject_ExternalReferencingList.sql" />
-    <Build Include="reference\Views\RepoObject_ExternalReferencedList.sql" />
     <Build Include="reference\Tables\additional_Reference.sql" />
     <Build Include="reference\Views\RepoObjectColumn_reference_additional_internal.sql" />
     <Build Include="reference\Views\RepoObject_reference_additional_internal.sql" />
@@ -714,6 +711,28 @@
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_Object_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_database_T.sql" />
     <Build Include="repo\Views\Measures_union.sql" />
+    <Build Include="property\Tables\external_RepoObjectProperty.sql" />
+    <Build Include="property\Tables\external_RepoObjectColumnProperty.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_external_tgt.sql" />
+    <Build Include="repo\Views\RepoObjectColumn_external_src.sql" />
+    <Build Include="repo\Views\RepoObject_external_tgt.sql" />
+    <Build Include="repo\Views\RepoObject_external_src.sql" />
+    <Build Include="reference\Views\RepoObjectColumn_ReferencedReferencing.sql" />
+    <Build Include="reference\Views\RepoObjectColumn_reference_additional.sql" />
+    <Build Include="reference\Views\RepoObject_reference_additional.sql" />
+    <Build Include="reference\Views\additional_Reference_is_external.sql" />
+    <Build Include="property\Views\RepoObjectProperty_external_tgt.sql" />
+    <Build Include="property\Views\RepoObjectProperty_external_src.sql" />
+    <Build Include="property\Views\RepoObjectColumnProperty_external_tgt.sql" />
+    <Build Include="property\Views\RepoObjectColumnProperty_external_src.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObjectColumn_external_tgt.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_external_tgt.sql" />
+    <Build Include="reference\Stored Procedures\usp_additional_Reference.sql" />
+    <Build Include="property\Stored Procedures\usp_RepoSchemaProperty_set.sql" />
+    <Build Include="property\Stored Procedures\usp_PERSIST_RepoObjectProperty_external_tgt.sql" />
+    <Build Include="property\Stored Procedures\usp_PERSIST_RepoObjectColumnProperty_external_tgt.sql" />
+    <Build Include="property\Stored Procedures\usp_external_RepoObjectProperty.sql" />
+    <Build Include="property\Stored Procedures\usp_external_property_import.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

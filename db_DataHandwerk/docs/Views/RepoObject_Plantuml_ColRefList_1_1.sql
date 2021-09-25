@@ -1,7 +1,5 @@
 ﻿
-
-
-CREATE View [docs].[RepoObject_Plantuml_ColRefList_1_1]
+CREATE View docs.RepoObject_Plantuml_ColRefList_1_1
 As
 Select
     ro.RepoObject_guid
@@ -9,16 +7,27 @@ Select
   , ColRefList =
   --
   String_Agg (
-                 Concat (   Cast(N'' As NVarchar(Max))
-                          --, REPLACE(colref.Referenced_ro_fullname2, '.', '___')
-                          , docs.fs_cleanStringForPuml(colref.Referenced_ro_fullname2)
+                 Concat (
+                            Cast(N'' As NVarchar(Max))
+                          , '"'
+                          , Iif(colref.referenced_is_external = 1
+                              , colref.referenced_external_AntoraComponent + '.'
+                                + colref.referenced_external_AntoraModule + '.'
+                              , Null)
+                          , docs.fs_cleanStringForPuml ( colref.Referenced_ro_fullname2 )
                           , '::'
-                          , docs.fs_cleanStringForPuml(colref.Referenced_ro_ColumnName)
+                          , docs.fs_cleanStringForPuml ( colref.Referenced_ro_ColumnName )
+                          , '"'
                           , ' <-- '
-                          --, REPLACE(colref.Referencing_ro_fullname2, '.', '___')
-                          , docs.fs_cleanStringForPuml(colref.Referencing_ro_fullname2)
+                          , '"'
+                          , Iif(colref.referencing_is_external = 1
+                              , colref.referencing_external_AntoraComponent + '.'
+                                + colref.referencing_external_AntoraModule + '.'
+                              , Null)
+                          , docs.fs_cleanStringForPuml ( colref.Referencing_ro_fullname2 )
                           , '::'
-                          , docs.fs_cleanStringForPuml(colref.Referencing_ro_ColumnName)
+                          , docs.fs_cleanStringForPuml ( colref.Referencing_ro_ColumnName )
+                          , '"'
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
@@ -42,12 +51,18 @@ From
         --Where Match(
         --    Object1-(referenced)->Object2)
         Select
-            Referencing_ro_fullname2  = referencing_ro_fullname2
-          , Referencing_ro_guid       = referencing_RepoObject_guid
-          , Referencing_ro_ColumnName = referencing_column_name
-          , Referenced_ro_fullname2   = referenced_ro_fullname2
-          , Referenced_ro_guid        = referenced_RepoObject_guid
-          , Referenced_ro_ColumnName  = referenced_column_name
+            Referenced_ro_guid                  = referenced_RepoObject_guid
+          , Referenced_ro_fullname2             = referenced_ro_fullname2
+          , Referenced_ro_ColumnName            = referenced_column_name
+          , referenced_external_AntoraComponent
+          , referenced_external_AntoraModule
+          , referenced_is_external
+          , Referencing_ro_guid                 = referencing_RepoObject_guid
+          , Referencing_ro_fullname2            = referencing_ro_fullname2
+          , Referencing_ro_ColumnName           = referencing_column_name
+          , referencing_external_AntoraComponent
+          , referencing_external_AntoraModule
+          , referencing_is_external
         From
             reference.RepoObjectColumn_reference_T
     )               As colref
@@ -58,7 +73,6 @@ From
            And colref.Referencing_ro_guid <> colref.Referenced_ro_guid
 Group By
     ro.RepoObject_guid
---, ro.RepoObject_fullname2
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5cc03c7f-23f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList_1_1', @level2type = N'COLUMN', @level2name = N'ColRefList';
 

@@ -100,6 +100,16 @@ EXEC [repo].[usp_sync_guid_ssas]
 
 END;
 
+/*{"ReportUspStep":[{"Number":240,"Name":"[reference].[usp_additional_Reference]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_additional_Reference]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 /*{"ReportUspStep":[{"Number":250,"Name":"[reference].[usp_PERSIST_RepoObject_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObject_reference_T]
 --add your own parameters
@@ -390,6 +400,26 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @updated = @rows
 -- Logging END --
+
+/*{"ReportUspStep":[{"Number":3100,"Name":"[property].[usp_external_property_import]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [property].[usp_external_property_import]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":3200,"Name":"[repo].[usp_RepoObjectProperty_collect]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [property].[usp_RepoObjectProperty_collect]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
 
 /*{"ReportUspStep":[{"Number":4110,"Name":"[property].[usp_RepoObject_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObject_Inheritance]

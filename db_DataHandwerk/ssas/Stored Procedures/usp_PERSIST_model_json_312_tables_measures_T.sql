@@ -115,8 +115,6 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',88,';',600,';',NULL);
 UPDATE T
 SET
   T.[databasename] = S.[databasename]
-, T.[tables_name] = S.[tables_name]
-, T.[tables_measures_name] = S.[tables_measures_name]
 , T.[RepoObject_guid] = S.[RepoObject_guid]
 , T.[tables_measures_description] = S.[tables_measures_description]
 , T.[tables_measures_description_ja] = S.[tables_measures_description_ja]
@@ -125,6 +123,8 @@ SET
 , T.[tables_measures_expression_ja] = S.[tables_measures_expression_ja]
 , T.[tables_measures_formatString] = S.[tables_measures_formatString]
 , T.[tables_measures_isHidden] = S.[tables_measures_isHidden]
+, T.[tables_measures_name] = S.[tables_measures_name]
+, T.[tables_name] = S.[tables_name]
 
 FROM [ssas].[model_json_312_tables_measures_T] AS T
 INNER JOIN [ssas].[model_json_312_tables_measures] AS S
@@ -134,7 +134,8 @@ AND T.[tables_name] = S.[tables_name]
 AND T.[tables_measures_name] = S.[tables_measures_name]
 
 WHERE
-   T.[RepoObject_guid] <> S.[RepoObject_guid]
+   T.[databasename] <> S.[databasename]
+OR T.[RepoObject_guid] <> S.[RepoObject_guid]
 OR T.[tables_measures_description] <> S.[tables_measures_description] OR (S.[tables_measures_description] IS NULL AND NOT T.[tables_measures_description] IS NULL) OR (NOT S.[tables_measures_description] IS NULL AND T.[tables_measures_description] IS NULL)
 OR T.[tables_measures_description_ja] <> S.[tables_measures_description_ja] OR (S.[tables_measures_description_ja] IS NULL AND NOT T.[tables_measures_description_ja] IS NULL) OR (NOT S.[tables_measures_description_ja] IS NULL AND T.[tables_measures_description_ja] IS NULL)
 OR T.[tables_measures_displayFolder] <> S.[tables_measures_displayFolder] OR (S.[tables_measures_displayFolder] IS NULL AND NOT T.[tables_measures_displayFolder] IS NULL) OR (NOT S.[tables_measures_displayFolder] IS NULL AND T.[tables_measures_displayFolder] IS NULL)
@@ -142,6 +143,8 @@ OR T.[tables_measures_expression] <> S.[tables_measures_expression] OR (S.[table
 OR T.[tables_measures_expression_ja] <> S.[tables_measures_expression_ja] OR (S.[tables_measures_expression_ja] IS NULL AND NOT T.[tables_measures_expression_ja] IS NULL) OR (NOT S.[tables_measures_expression_ja] IS NULL AND T.[tables_measures_expression_ja] IS NULL)
 OR T.[tables_measures_formatString] <> S.[tables_measures_formatString] OR (S.[tables_measures_formatString] IS NULL AND NOT T.[tables_measures_formatString] IS NULL) OR (NOT S.[tables_measures_formatString] IS NULL AND T.[tables_measures_formatString] IS NULL)
 OR T.[tables_measures_isHidden] <> S.[tables_measures_isHidden] OR (S.[tables_measures_isHidden] IS NULL AND NOT T.[tables_measures_isHidden] IS NULL) OR (NOT S.[tables_measures_isHidden] IS NULL AND T.[tables_measures_isHidden] IS NULL)
+OR T.[tables_measures_name] <> S.[tables_measures_name] OR (S.[tables_measures_name] IS NULL AND NOT T.[tables_measures_name] IS NULL) OR (NOT S.[tables_measures_name] IS NULL AND T.[tables_measures_name] IS NULL)
+OR T.[tables_name] <> S.[tables_name]
 
 
 -- Logging START --
@@ -175,8 +178,6 @@ INSERT INTO
  [ssas].[model_json_312_tables_measures_T]
  (
   [databasename]
-, [tables_name]
-, [tables_measures_name]
 , [RepoObject_guid]
 , [tables_measures_description]
 , [tables_measures_description_ja]
@@ -185,11 +186,11 @@ INSERT INTO
 , [tables_measures_expression_ja]
 , [tables_measures_formatString]
 , [tables_measures_isHidden]
+, [tables_measures_name]
+, [tables_name]
 )
 SELECT
   [databasename]
-, [tables_name]
-, [tables_measures_name]
 , [RepoObject_guid]
 , [tables_measures_description]
 , [tables_measures_description_ja]
@@ -198,6 +199,8 @@ SELECT
 , [tables_measures_expression_ja]
 , [tables_measures_formatString]
 , [tables_measures_isHidden]
+, [tables_measures_name]
+, [tables_name]
 
 FROM [ssas].[model_json_312_tables_measures] AS S
 WHERE

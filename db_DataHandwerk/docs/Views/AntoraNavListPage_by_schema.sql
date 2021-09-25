@@ -1,7 +1,5 @@
 ﻿
-
-
-CREATE View [docs].[AntoraNavListPage_by_schema]
+CREATE View docs.AntoraNavListPage_by_schema
 As
 Select
     ro.RepoObject_schema_name
@@ -41,11 +39,19 @@ Select
                , Null)
          )
 From
-    repo.RepoObject     As ro
+    repo.RepoObject                  As ro
     Left Join
-        repo.RepoSchema As rs
+        repo.RepoSchema              As rs
             On
-            rs.RepoSchema_name = ro.RepoObject_schema_name
+            rs.RepoSchema_name  = ro.RepoObject_schema_name
+
+    Left Join
+        docs.RepoObject_OutputFilter As rof
+            On
+            rof.RepoObject_guid = ro.RepoObject_guid
+Where
+    rof.is_external       = 0
+    And rof.is_DocsOutput = 1
 Group By
     ro.RepoObject_schema_name
 Go
