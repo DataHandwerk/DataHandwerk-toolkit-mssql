@@ -733,6 +733,13 @@
     <Build Include="property\Stored Procedures\usp_PERSIST_RepoObjectColumnProperty_external_tgt.sql" />
     <Build Include="property\Stored Procedures\usp_external_RepoObjectProperty.sql" />
     <Build Include="property\Stored Procedures\usp_external_property_import.sql" />
+    <Build Include="reference\Views\additional_Reference_wo_columns_from_properties_tgt.sql" />
+    <Build Include="reference\Views\additional_Reference_wo_columns_from_properties_src.sql" />
+    <Build Include="reference\Views\additional_Reference_from_properties_tgt.sql" />
+    <Build Include="reference\Views\additional_Reference_from_properties_src.sql" />
+    <Build Include="property\Views\RepoObjectProperty_SelectedPropertyName_split.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_wo_columns_from_properties_tgt.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_from_properties_tgt.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

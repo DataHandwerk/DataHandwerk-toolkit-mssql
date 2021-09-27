@@ -1,14 +1,13 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
 <<property_end>>
 */
-CREATE View [configT].[InheritanceType]
+CREATE View configT.InheritanceType
 As
---
 Select
     InheritanceType            = 0
   , InheritanceTypeDescription = 'No inheritance from predecessor'
---
 Union All
 Select
     InheritanceType            = 11

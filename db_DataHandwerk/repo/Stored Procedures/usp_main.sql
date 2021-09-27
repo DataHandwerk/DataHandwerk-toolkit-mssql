@@ -401,8 +401,8 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":3100,"Name":"[property].[usp_external_property_import]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [property].[usp_external_property_import]
+/*{"ReportUspStep":[{"Number":3200,"Name":"[property].[usp_RepoObjectProperty_collect]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [property].[usp_RepoObjectProperty_collect]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -411,8 +411,28 @@ EXEC [property].[usp_external_property_import]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":3200,"Name":"[repo].[usp_RepoObjectProperty_collect]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [property].[usp_RepoObjectProperty_collect]
+/*{"ReportUspStep":[{"Number":3310,"Name":"[reference].[usp_PERSIST_additional_Reference_from_properties_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_PERSIST_additional_Reference_from_properties_tgt]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":3320,"Name":"[reference].[usp_PERSIST_additional_Reference_wo_columns_from_properties_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_PERSIST_additional_Reference_wo_columns_from_properties_tgt]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":3400,"Name":"[property].[usp_external_property_import]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [property].[usp_external_property_import]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

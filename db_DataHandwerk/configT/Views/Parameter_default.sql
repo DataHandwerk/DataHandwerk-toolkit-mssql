@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 * default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
@@ -29,7 +30,17 @@ WHERE NOT EXISTS (
 <<property_end>>
 
 */
-CREATE View configT.Parameter_default
+
+/*
+<<property_start>>additional_reference_csv
+dhw,sqldb,configT,Parameter_default,Parameter_name,dhw,sqldb,config,Parameter,Parameter_name
+dhw,sqldb,configT,Parameter_default,sub_Parameter,dhw,sqldb,config,Parameter,sub_Parameter
+dhw,sqldb,configT,Parameter_default,Parameter_desciption,dhw,sqldb,config,Parameter,Parameter_desciption
+dhw,sqldb,configT,Parameter_default,Parameter_default_value,dhw,sqldb,config,Parameter,Parameter_default_value
+<<property_end>>
+*/
+
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
