@@ -17,11 +17,14 @@ Select
   , sed.referencing_id
   --, [sed].[referencing_minor_id]
   , sed.referenced_entity_name
-  , referenced_fullname  = Concat (
-                                      QuoteName ( sed.referenced_schema_name )
-                                    , '.'
-                                    , QuoteName ( sed.referenced_entity_name )
-                                  )
+  , referenced_fullname  = Coalesce (
+                                        ro1.RepoObject_fullname
+                                      , Concat (
+                                                   QuoteName ( sed.referenced_schema_name )
+                                                 , '.'
+                                                 , QuoteName ( sed.referenced_entity_name )
+                                               )
+                                    )
   --, [sed].[referenced_minor_id]
   --, Cast(sed.referenced_id As BigInt) * 10000  As referenced_node_id
   , sed.referenced_RepoObject_guid
@@ -30,11 +33,14 @@ Select
   --, [sed].[referenced_column_name]
   --, [sed].[referenced_RepoObjectColumn_guid]
   , sed.referencing_entity_name
-  , referencing_fullname = Concat (
-                                      QuoteName ( sed.referencing_schema_name )
-                                    , '.'
-                                    , QuoteName ( sed.referencing_entity_name )
-                                  )
+  , referencing_fullname = Coalesce (
+                                        ro2.RepoObject_fullname
+                                      , Concat (
+                                                   QuoteName ( sed.referencing_schema_name )
+                                                 , '.'
+                                                 , QuoteName ( sed.referencing_entity_name )
+                                               )
+                                    )
   --, Cast(sed.referencing_id As BigInt) * 10000 As referencing_node_id
   , sed.referencing_RepoObject_guid
   , sed.referencing_schema_name
@@ -55,6 +61,15 @@ Select
 --, [sed].[is_ambiguous]
 From
     repo_sys.sql_expression_dependencies As sed
+    Left Join
+        repo.RepoObject                  As ro1
+            On
+            ro1.RepoObject_guid = sed.referenced_RepoObject_guid
+
+    Left Join
+        repo.RepoObject                  As ro2
+            On
+            ro1.RepoObject_guid = sed.referencing_RepoObject_guid
 Where
     --object level
     sed.referencing_minor_id    = 0
