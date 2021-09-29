@@ -1,0 +1,5 @@
+name: mycomponent
+# title: My Component
+version: 0.1.0
+nav:
+- modules/sqldb/nav.adoc
