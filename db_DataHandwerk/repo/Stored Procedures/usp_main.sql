@@ -431,6 +431,16 @@ EXEC [reference].[usp_PERSIST_additional_Reference_wo_columns_from_properties_tg
  , @parent_execution_log_id = @current_execution_log_id
 
 
+/*{"ReportUspStep":[{"Number":3330,"Name":"[reference].[usp_PERSIST_additional_Reference_from_ssas_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [reference].[usp_PERSIST_additional_Reference_from_ssas_tgt]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 /*{"ReportUspStep":[{"Number":3400,"Name":"[property].[usp_external_property_import]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_external_property_import]
 --add your own parameters

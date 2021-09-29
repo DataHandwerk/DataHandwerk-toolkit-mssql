@@ -740,6 +740,20 @@
     <Build Include="property\Views\RepoObjectProperty_SelectedPropertyName_split.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_wo_columns_from_properties_tgt.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_from_properties_tgt.sql" />
+    <Build Include="ssas\Tables\model_json_33_dataSources_T.sql" />
+    <Build Include="ssas\Views\model_json_3132111_tables_partitions_Part123.sql" />
+    <Build Include="ssas\Views\model_json_313211_tables_partitions_PosDot.sql" />
+    <Build Include="ssas\Views\model_json_31321_tables_partitions_StringFrom.sql" />
+    <Build Include="ssas\Views\model_json_3132_tables_partitions_PosFrom.sql" />
+    <Build Include="ssas\Views\model_json_31311111_tables_partitions_source_Part123.sql" />
+    <Build Include="ssas\Views\model_json_3131111_tables_partitions_source_PosDot.sql" />
+    <Build Include="ssas\Views\model_json_313111_tables_partitions_source_StringFrom.sql" />
+    <Build Include="ssas\Views\model_json_31311_tables_partitions_source_PosFrom.sql" />
+    <Build Include="ssas\Views\additional_Reference_step1.sql" />
+    <Build Include="reference\Views\additional_Reference_from_ssas_tgt.sql" />
+    <Build Include="reference\Views\additional_Reference_from_ssas_src.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_33_dataSources_T.sql" />
+    <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_from_ssas_tgt.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

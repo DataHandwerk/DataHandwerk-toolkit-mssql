@@ -20,6 +20,7 @@ As
 Select
     T1.databasename
   , T1.tables_name
+  , T1.RepoObject_guid
   , T1.tables_partitions_name
   --, T1.tables_partitions_annotations_ja
   --, T1.tables_partitions_dataView
@@ -125,4 +126,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [ssas].[model_json_313_tables_partitions].[databasename]', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_3131_tables_partitions_source', @level2type = N'COLUMN', @level2name = N'databasename';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f686717b-7a20-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_3131_tables_partitions_source', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
 

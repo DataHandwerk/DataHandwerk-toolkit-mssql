@@ -1,25 +1,26 @@
 = some cmd command
 
-== create dacpac containing data
-
-execute this in a commandline:
-
-....
-"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\150\sqlpackage.exe" /TargetFile:"D:\Repos\GitHub\DataHandwerk\DataHandwerk-toolkit-mssql\db_DataHandwerk\Snapshots\dhw_self.dacpac" /Action:Extract /SourceServerName:"localhost\sql2019" /SourceDatabaseName:"dhw_self" /p:ExtractAllTableData=TRUE
-....
-
-== sript with data
-
-....
-py -m mssqlscripter -S localhost\sql2019 -d dhw_self --schema-and-data --data-compressions -f "D:\Repos\GitHub\DataHandwerk\DataHandwerk-toolkit-mssql\mssql\script\dhw_self.sql"
-....
-
 == call sqlparser
 
 execute this in a commandline:
 
 ....
 D:
-cd D:\Repos\GitHub\DataHandwerk\DataHandwerk-toolkit-mssql\python\SqlParser\dist\SqlParser
+cd D:\Repos\gitlab\DataHandwerk\DataHandwerk-toolkit-mssql\python\SqlParser\dist\SqlParser
 SqlParser --server localhost\sql2019 --database dhw_self
 ....
+
+== create dacpac containing data
+
+execute this in a commandline:
+
+....
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\150\sqlpackage.exe" /TargetFile:"D:\Repos\gitlab\DataHandwerk\DataHandwerk-toolkit-mssql\db_DataHandwerk\Snapshots\dhw_self.dacpac" /Action:Extract /SourceServerName:"localhost\sql2019" /SourceDatabaseName:"dhw_self" /p:ExtractAllTableData=TRUE
+....
+
+== sript with data (don't do this, it creates too big files)
+
+....
+py -m mssqlscripter -S localhost\sql2019 -d dhw_self --schema-and-data --data-compressions -f "D:\Repos\GitHub\DataHandwerk\DataHandwerk-toolkit-mssql\mssql\script\dhw_self.sql"
+....
+
