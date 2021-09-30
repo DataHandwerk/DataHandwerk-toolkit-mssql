@@ -3,17 +3,7 @@ code of this procedure is managed in the dhw repository. Do not modify manually.
 Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
 */
 CREATE   PROCEDURE [docs].[usp_AntoraExport_ObjectPuml]
-@outputDir NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_colref\ */
-,@outputDir2 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_objectref\ */
-,@outputDir3 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_1_1_fk\ */
-,@outputDir4 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_0_30_objectref\ */
-,@outputDir5 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\entity_30_0_objectref\ */
-,@outputDir6 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
-,@outputDir7 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
-,@outputDir8 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
-,@outputDir9 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
-,@outputDir10 NVARCHAR(1000) = NULL /* example: 'D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\puml\schema_ssas_er\ */
-,@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
+@isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
 ,@userName NVARCHAR(250) = 'loginName' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
 ,@password NVARCHAR(250) = 'password'
 ,
@@ -75,19 +65,9 @@ EXEC logs.usp_ExecutionLog_insert
  , @execution_log_id = @current_execution_log_id OUTPUT
 ----you can log the content of your own parameters, do this only in the start-step
 ----data type is sql_variant
- , @parameter_01 = @outputDir
- , @parameter_02 = @outputDir2
- , @parameter_03 = @outputDir3
- , @parameter_04 = @outputDir4
- , @parameter_05 = @outputDir5
- , @parameter_06 = @outputDir6
- , @parameter_07 = @outputDir7
- , @parameter_08 = @outputDir8
- , @parameter_09 = @outputDir9
- , @parameter_10 = @outputDir10
- , @parameter_11 = @isTrustedConnection
- , @parameter_12 = @userName
- , @parameter_13 = @password
+ , @parameter_01 = @isTrustedConnection
+ , @parameter_02 = @userName
+ , @parameter_03 = @password
 --
 PRINT '[docs].[usp_AntoraExport_ObjectPuml]'
 --keep the code between logging parameters and "START" unchanged!
@@ -111,35 +91,56 @@ ELSE
 /*{"ReportUspStep":[{"Number":120,"Name":"configure outputDirs","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',32,';',120,';',NULL);
 
+DECLARE @outputDir NVARCHAR(1000)
+DECLARE @outputDir2 NVARCHAR(1000)
+DECLARE @outputDir3 NVARCHAR(1000)
+DECLARE @outputDir4 NVARCHAR(1000)
+DECLARE @outputDir5 NVARCHAR(1000)
+DECLARE @outputDir6 NVARCHAR(1000)
+DECLARE @outputDir7 NVARCHAR(1000)
+DECLARE @outputDir8 NVARCHAR(1000)
+DECLARE @outputDir9 NVARCHAR(1000)
+DECLARE @outputDir10 NVARCHAR(1000)
+
 SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_1_1_colref\')
 SET @outputDir2 = ISNULL(@outputDir2, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_1_1_objectref\')
 SET @outputDir3 = ISNULL(@outputDir3, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_1_1_fk\')
 SET @outputDir4 = ISNULL(@outputDir4, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_0_30_objectref\')
 SET @outputDir5 = ISNULL(@outputDir5, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_30_0_objectref\')
 SET @outputDir6 = ISNULL(@outputDir6, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\schema_ssas_er\')
 SET @outputDir7 = ISNULL(@outputDir7, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity\')
 SET @outputDir8 = ISNULL(@outputDir8, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_pk\')
 SET @outputDir9 = ISNULL(@outputDir9, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_pk_or_index\')
 SET @outputDir10 = ISNULL(@outputDir10, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
+   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
+   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
    ) + 'partials\puml\entity_pk_or_nothidden\')
    
 

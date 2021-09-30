@@ -27,29 +27,7 @@ Select
   , RepoObject_Puml                       =
   --
   Concat (
-             'entity '
-           --      , '"[['
-           --      ----dynamic definition for svg:
-           --      --, '{site-url}/{page-component-name}/{page-component-version}/{page-module}' + '/'
-           --      , '{site-url}/{page-component-name}/' + AntoraVersion.Parameter_value_result + '/{page-module}' + '/'
-           --      ----hard coded definition: 
-           --      --, AntoraSiteUrl.Parameter_value_result + '/' + AntoraComponent.Parameter_value_result + '/'
-           --      --  + AntoraVersion.Parameter_value_result + '/' + AntoraModule.Parameter_value_result + '/'
-           --      , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           --      , '.html '
-           --      , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           --      , ']]"'
-           ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
-           ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2 + '.adoc[]"'
-           , ' as '
-           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , Iif(ro.is_external = 1
-               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
-               , Null)
-           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
-           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+             PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -68,18 +46,7 @@ Select
   , RepoObject_PumlOnlyPK                 =
   --
   Concat (
-             'entity '
-           ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
-           ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2 + '.adoc[]"'
-           , ' as '
-           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , Iif(ro.is_external = 1
-               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
-               , Null)
-           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
-           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+             PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -91,18 +58,7 @@ Select
   , RepoObject_PumlOnlyPkOrNotHidden      =
   --
   Concat (
-             'entity '
-           ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
-           ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2 + '.adoc[]"'
-           , ' as '
-           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , Iif(ro.is_external = 1
-               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
-               , Null)
-           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
-           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+             PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -117,18 +73,7 @@ Select
   , RepoObject_PumlOnlyPkOrIndex          =
   --
   Concat (
-             'entity '
-           ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
-           ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2 + '.adoc[]"'
-           , ' as '
-           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , Iif(ro.is_external = 1
-               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
-               , Null)
-           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
-           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+             PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -143,20 +88,7 @@ Select
   , RepoObject_PumlOnlyPkOrIndexOrMeasure =
   --
   Concat (
-             'entity '
-           ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
-           ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2
-             ----workaround empty prefix for #10 - prefix=
-             + '.adoc[prefix=]"'
-           , ' as '
-           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , Iif(ro.is_external = 1
-               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
-               , Null)
-           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
-           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+             PumlEntityTopWorkaround
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -172,18 +104,7 @@ Select
   , RepoObject_PumlOnlyIndex              =
   --
   Concat (
-             'entity '
-           ---- puml-link:sqldb:config.Event_isInaktiv.adoc[prefix=..]
-           ---- puml-link:config.Event_isInaktiv.adoc[prefix=..]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2 + '.adoc[]"'
-           , ' as '
-           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
-           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
-           , Iif(ro.is_external = 1
-               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
-               , Null)
-           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
-           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+             PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , indexlist.PumlIndexList
@@ -194,25 +115,21 @@ Select
   , ro.RepoObject_fullname2
   , ro.RepoObject_schema_name
 From
-    docs.RepoObject_OutputFilter                                      As ro
+    docs.RepoObject_OutputFilter     As ro
     Left Join
-        docs.RepoObject_ColumnList_T                                  As collist
+        docs.RepoObject_ColumnList_T As collist
             On
-            collist.RepoObject_guid = ro.RepoObject_guid
+            collist.RepoObject_guid   = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_IndexList_T                                   As indexlist
+        docs.RepoObject_IndexList_T  As indexlist
             On
             indexlist.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_MeasureList                                   As mlist
+        docs.RepoObject_MeasureList  As mlist
             On
-            mlist.RepoObject_guid = ro.RepoObject_guid
-    Cross Join config.ftv_get_parameter_value ( 'AntoraSiteUrl', '' ) As AntoraSiteUrl
-    Cross Join config.ftv_get_parameter_value ( 'AntoraVersion', '' ) As AntoraVersion
-    Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
-    Cross Join config.ftv_get_parameter_value ( 'AntoraModule', '' ) As AntoraModule
+            mlist.RepoObject_guid     = ro.RepoObject_guid
 Go
 
 Go

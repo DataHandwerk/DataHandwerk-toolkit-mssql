@@ -18,6 +18,42 @@ Select
   , ro.external_DatabaseName
   , ro.AntoraComponent
   , ro.AntoraModule
+  , PumlEntityTopDefault    =
+  --
+  Concat (
+             'entity '
+           ---- puml-link:mycomponent:sqldb:config.Event_isInaktiv.adoc[]
+           ---- puml-link:config.Event_isInaktiv.adoc[]
+           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2
+             --default
+             + '.adoc[]"'
+           , ' as '
+           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , Iif(ro.is_external = 1
+               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
+               , Null)
+           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
+           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+         )
+  , PumlEntityTopWorkaround =
+  --
+  Concat (
+             'entity '
+           ---- puml-link:mycomponent:sqldb:config.Event_isInaktiv.adoc[]
+           ---- puml-link:config.Event_isInaktiv.adoc[]
+           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2
+             ----workaround empty prefix for #10 - prefix=
+             + '.adoc[prefix=]"'
+           , ' as '
+           , Iif(ro.is_external = 1, ro.AntoraComponent + '.' + ro.AntoraModule + '.', Null)
+           , docs.fs_cleanStringForPuml ( ro.RepoObject_fullname2 )
+           , Iif(ro.is_external = 1
+               , ' <' + Coalesce ( ro.external_DatabaseName, ro.AntoraComponent + ':' + ro.AntoraModule, '' ) + '> '
+               , Null)
+           , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
+           , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
+         )
 From
     repo.RepoObject_gross As ro
 Where
