@@ -755,6 +755,10 @@
     <Build Include="reference\Views\additional_Reference_from_ssas_src.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_33_dataSources_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_from_ssas_tgt.sql" />
+    <Build Include="repo_sys\Views\drop_all_extendedproperty_sql.sql" />
+    <Build Include="repo_sys\Stored Procedures\usp_dropextendedproperty_level_0.sql" />
+    <Build Include="repo_sys\Stored Procedures\usp_DropExtendedProperty_in_self.sql" />
+    <Build Include="repo_sys\Stored Procedures\usp_DropExtendedProperty_in_dwh.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />
