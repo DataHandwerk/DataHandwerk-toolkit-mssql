@@ -88,22 +88,12 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
-/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDir","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',120,';',NULL);
-
-DECLARE @outputDir NVARCHAR(1000)
-
-SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
-   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'pages\')
-
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',210,';',NULL);
 
-DECLARE @command NVARCHAR(4000);
-DECLARE @Object_fullname NVARCHAR(261);
-DECLARE @Object_fullname2 NVARCHAR(257);
+DECLARE @command NVARCHAR(4000)
+DECLARE @cultures_name NVARCHAR(10)
+DECLARE @Object_fullname2 NVARCHAR(257)
 
 
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', N'')","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
@@ -111,31 +101,31 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',410,';',NULL);
 
 Declare db_cursor Cursor Local Fast_Forward For
 Select
-    RepoObject_fullname
+    cultures_name
   , RepoObject_fullname2
 From
     docs.RepoObject_OutputFilter
 Where
     is_external = 0
 Order By
-    RepoObject_fullname
+    cultures_name
+  , RepoObject_fullname
 
 Open db_cursor
 
 Fetch Next From db_cursor
 Into
-    @Object_fullname
+    @cultures_name
   , @Object_fullname2
 
 While @@Fetch_Status = 0
 Begin
-    --Dynamically construct the BCP command
-    --
-    --bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( 'AntoraPageTemplate', DEFAULT ) As AntoraPageTemplate" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\pages\[config].[type].adoc -S localhost\sql2019 -d dhw_self -c -T
-    --
     Set @command
         = 'bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', DEFAULT ) As AntoraPageTemplate" queryout "'
-          + @outputDir + @Object_fullname2 + '.adoc"'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\pages\' + @Object_fullname2 + '.adoc"'
           --
           + ' -S ' + @instanceName
           --
@@ -152,7 +142,7 @@ Begin
 
     Fetch Next From db_cursor
     Into
-        @Object_fullname
+        @cultures_name
       , @Object_fullname2
 End
 

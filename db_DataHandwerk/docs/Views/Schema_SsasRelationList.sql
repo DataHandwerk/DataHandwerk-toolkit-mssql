@@ -1,8 +1,9 @@
 ﻿
-create View docs.Schema_SsasRelationList
+CREATE View docs.Schema_SsasRelationList
 As
 Select
     rel.SchemaName
+  , cultures_name                 = Cast('' As NVarchar(10))
   , SsasRelationList_PumlRelation = String_Agg ( rel.PumlRelation, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                rel.referenced_RepoObject_fullname2
                                                                                                              , rel.referencing_RepoObject_fullname2)
@@ -44,4 +45,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [docs].[ssas_PumlRelation].[SchemaName]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_SsasRelationList', @level2type = N'COLUMN', @level2name = N'SchemaName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4b0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_SsasRelationList', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

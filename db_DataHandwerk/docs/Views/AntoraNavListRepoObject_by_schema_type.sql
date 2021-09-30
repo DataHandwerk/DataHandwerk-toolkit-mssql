@@ -3,6 +3,7 @@ CREATE View docs.AntoraNavListRepoObject_by_schema_type
 As
 Select
     ro.RepoObject_schema_name
+  , ro.cultures_name
   , type      = ro.SysObject_type
   , type_name = ro.SysObject_type_name
   , nav_list  =
@@ -23,6 +24,7 @@ Where
     And ro.is_external = 0
 Group By
     ro.RepoObject_schema_name
+  , ro.cultures_name
   , ro.SysObject_type
   , ro.SysObject_type_name
 Go
@@ -121,4 +123,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListRepoObject_by_schema_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4a7481bb-0a22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListRepoObject_by_schema_type', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

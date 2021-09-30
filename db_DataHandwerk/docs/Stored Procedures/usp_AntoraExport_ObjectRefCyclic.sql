@@ -88,104 +88,92 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
-/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDir","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',69,';',120,';',NULL);
-
-DECLARE @outputDir NVARCHAR(1000)
-DECLARE @outputDir2 NVARCHAR(1000)
-
-SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
-   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'pages\other\')
-SET @outputDir2 = ISNULL(@outputDir2, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
-   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'partials\puml\')
-   
-
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',69,';',210,';',NULL);
 
 DECLARE @command NVARCHAR(4000)
+DECLARE @cultures_name NVARCHAR(10)
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"export page_content FROM [docs].[ObjectRefCyclic]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_IndexSemanticGroup]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [docs].[ObjectRefCyclic]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_IndexSemanticGroup]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',69,';',410,';',NULL);
 
 /*
 IndexSemanticGroup.adoc
 
 */
-SET @command = 'bcp "SELECT [page_content] FROM [docs].[ObjectRefCyclic]"  queryout "' + @outputDir + 'ObjectRefCyclic.adoc"'
- --
- + ' -S ' + @instanceName
- --
- + ' -d ' + @databaseName
- --
- + ' -c -C 65001'
- --
- + @TrustedUserPassword
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+From
+    docs.culture
+Order By
+    cultures_name
 
-PRINT @command
+Open page_cursor
 
---Execute the BCP command
-EXEC xp_cmdshell @command
- , no_output
+Fetch Next From page_cursor
+Into
+    @cultures_name
 
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [partial_content] FROM [docs].[ObjectRefCyclic]" '
+          --
+          + '" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\pages\other\' + 'ObjectRefCyclic.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
+
+    Print @command
+
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Set @command
+        = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic]" '
+          --
+          + '" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials\puml\' + 'ObjectRefCyclic.puml"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
+
+    Print @command
+
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+End
+
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'export page_content FROM [docs].[ObjectRefCyclic]'
-SET @source_object = '[docs].[AntoraPage_IndexSemanticGroup]'
-SET @target_object = NULL
-
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":420,"Name":"export ObjectRefCyclic_Puml FROM [docs].[ObjectRefCyclic]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_IndexSemanticGroup]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',69,';',420,';',NULL);
-
-/*
-IndexSemanticGroup.adoc
-
-*/
-SET @command = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic]"  queryout "' + @outputDir2 + 'ObjectRefCyclic.puml"'
- --
- + ' -S ' + @instanceName
- --
- + ' -d ' + @databaseName
- --
- + ' -c -C 65001'
- --
- + @TrustedUserPassword
-
-PRINT @command
-
---Execute the BCP command
-EXEC xp_cmdshell @command
- , no_output
-
-
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'export ObjectRefCyclic_Puml FROM [docs].[ObjectRefCyclic]'
+SET @step_name = 'export FROM [docs].[ObjectRefCyclic]'
 SET @source_object = '[docs].[AntoraPage_IndexSemanticGroup]'
 SET @target_object = NULL
 

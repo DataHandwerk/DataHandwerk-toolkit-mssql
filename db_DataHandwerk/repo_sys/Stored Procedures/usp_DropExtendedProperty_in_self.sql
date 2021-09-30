@@ -42,3 +42,6 @@ Begin Catch
                    , ';'
                  )
 End Catch
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '873efd10-0222-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'PROCEDURE', @level1name = N'usp_DropExtendedProperty_in_self';
+

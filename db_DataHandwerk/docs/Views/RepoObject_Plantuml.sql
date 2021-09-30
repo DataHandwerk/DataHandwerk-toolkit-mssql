@@ -3,6 +3,8 @@ CREATE View docs.RepoObject_Plantuml
 As
 Select
     ro.RepoObject_guid
+  --in case of ro.is_external = 1 the cultures_name is ''
+  , cultures_name       = Coalesce ( rof.cultures_name, '' )
   , ro.RepoObject_fullname2
   , elist_1_1.PumlEntityList
   , PumlEntityList_0_30 = elist_0_30.PumlEntityList
@@ -71,29 +73,37 @@ Select
 From
     repo.RepoObject_gross                                                                         As ro
     Left Join
+        docs.RepoObject_OutputFilter                                                              As rof
+            On
+            rof.RepoObject_guid = ro.RepoObject_guid
+
+    Left Join
         docs.RepoObject_Plantuml_ColRefList_1_1                                                   As clist
             On
             clist.RepoObject_guid = ro.RepoObject_guid
+            --in case of ro.is_external = 1 the cultures_name is ''
+            And clist.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
         docs.RepoObject_Plantuml_ObjectRefList_1_1                                                As olist_1_1
             On
             olist_1_1.RepoObject_guid = ro.RepoObject_guid
+            --in case of ro.is_external = 1 the cultures_name is ''
+            And olist_1_1.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
         docs.RepoObject_Plantuml_ObjectRefList_0_30                                               As olist_0_30
             On
             olist_0_30.RepoObject_guid = ro.RepoObject_guid
+            --in case of ro.is_external = 1 the cultures_name is ''
+            And olist_0_30.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
         docs.RepoObject_Plantuml_ObjectRefList_30_0                                               As olist_30_0
             On
             olist_30_0.RepoObject_guid = ro.RepoObject_guid
-
-    --Left Join
-    --    docs.RepoObject_Plantuml_ObjectRefList_cyclic                                             As olist_cyclic
-    --        On
-    --        olist_1_1.RepoObject_guid = ro.RepoObject_guid
+            --in case of ro.is_external = 1 the cultures_name is ''
+            And olist_30_0.cultures_name = Coalesce ( rof.cultures_name, '' )
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist_1_1
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 30, 0 ) As elist_30_0
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 0, 30 ) As elist_0_30
@@ -108,6 +118,9 @@ From
             On
             FkRefList.RepoObject_guid = ro.RepoObject_guid
     Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
+Where
+    Not rof.RepoObject_guid Is Null
+    Or ro.is_external = 1
 Go
 
 Execute sp_addextendedproperty
@@ -325,4 +338,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [docs].[RepoObject_Plantuml_ObjectRefList_0_30].[ObjectRefList]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml', @level2type = N'COLUMN', @level2name = N'ObjectRefList_0_30';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '590389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

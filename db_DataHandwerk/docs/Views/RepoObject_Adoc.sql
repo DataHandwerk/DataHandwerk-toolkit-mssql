@@ -21,6 +21,7 @@ CREATE View docs.RepoObject_Adoc
 As
 Select
     ro.RepoObject_guid
+  , cultures_name          = Cast('' As NVarchar(10))
   , is_DocsOutput          = Max ( ro.is_DocsOutput )
   , RepoObject_fullname    = Max ( ro.RepoObject_fullname )
   , RepoObject_fullname2   = Max ( ro.RepoObject_fullname2 )
@@ -332,8 +333,8 @@ From
 Group By
     ro.RepoObject_guid
 Having
-    Max ( is_DocsOutput )               = 1
-    And Max ( Cast(is_external As Int)) = 0
+    Max ( is_DocsOutput )                  = 1
+    And Max ( Cast(ro.is_external As Int)) = 0
 Go
 
 Execute sp_addextendedproperty
@@ -557,4 +558,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5a0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

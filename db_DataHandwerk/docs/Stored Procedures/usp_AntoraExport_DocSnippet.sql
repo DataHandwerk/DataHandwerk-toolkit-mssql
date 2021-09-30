@@ -88,74 +88,70 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
-/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDir","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',39,';',120,';',NULL);
-
-DECLARE @outputDir NVARCHAR(1000)
-
-SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
-   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'partials\docsnippet\')
-
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',39,';',210,';',NULL);
 
-DECLARE @command NVARCHAR(4000);
-DECLARE @sub_parameter NVARCHAR(128);
-DECLARE @Object_fullname NVARCHAR(261);
-DECLARE @Object_fullname2 NVARCHAR(257);
-
+DECLARE @command NVARCHAR(4000)
+DECLARE @cultures_name NVARCHAR(10)
+DECLARE @sub_parameter NVARCHAR(128)
 
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraDocSnippet', N'xxx') and other sub_Parameters","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',39,';',410,';',NULL);
 
-DECLARE template_cursor CURSOR Local Fast_Forward
-FOR
-SELECT [sub_Parameter]
+Declare template_cursor Cursor Local Fast_Forward For
+Select
+    c.cultures_name
+  , p.sub_Parameter
 --,[Parameter_value__result_nvarchar]
-FROM [config].[Parameter]
-WHERE [Parameter_name] = 'AntoraDocSnippet'
- AND [sub_Parameter] <> ''
-ORDER BY [sub_Parameter]
+From
+    config.Parameter As p
+  , docs.Culture As c
+Where
+    p.Parameter_name    = 'AntoraDocSnippet'
+    And p.sub_Parameter <> ''
+Order By
+    c.cultures_name
+  , p.sub_Parameter
 
-OPEN template_cursor
+Open template_cursor
 
-FETCH NEXT
-FROM template_cursor
-INTO @sub_parameter
+Fetch Next From template_cursor
+Into
+    @cultures_name
+  , @sub_parameter
 
-WHILE @@FETCH_STATUS = 0
-BEGIN
- --Dynamically construct the BCP command
- --
- --bcp "SELECT [config].[fs_get_parameter_value]('AntoraDocSnippet', N'1')" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\docsnippet\xxx.adoc -S localhost\sql2019 -d dhw_self -c -T
- --
- SET @command = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraDocSnippet'', N''' + @sub_parameter + ''')" queryout "' + @outputDir + @sub_parameter + '.adoc"'
-  --
-  + ' -S ' + @instanceName
-  --
-  + ' -d ' + @databaseName
-  --
-  + ' -c -C 65001'
-  --
-  + @TrustedUserPassword
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraDocSnippet'', N''' + @sub_parameter
+          --
+          + ''')" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials\docsnippet\' + @sub_parameter + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
- PRINT @command
+    Print @command
 
- --Execute the BCP command
- EXEC xp_cmdshell @command
-  , no_output
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
- FETCH NEXT
- FROM template_cursor
- INTO @sub_parameter
-END
+    Fetch Next From template_cursor
+    Into
+        @cultures_name
+      , @sub_parameter
+End
 
-CLOSE template_cursor
-
-DEALLOCATE template_cursor
-
+Close template_cursor
+Deallocate template_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

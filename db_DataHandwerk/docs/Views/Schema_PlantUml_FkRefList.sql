@@ -2,22 +2,23 @@
 CREATE View docs.Schema_PlantUml_FkRefList
 As
 Select
-    SchemaName = fk.referencing_SysObject_schema_name
-  , FkRefList  = String_Agg (
-                                Concat (
-                                           Cast(N'' As NVarchar(Max))
-                                         , docs.fs_cleanStringForPuml ( fk.referenced_RepoObject_fullname2 )
-                                         , '::'
-                                         , docs.fs_cleanStringForPuml ( fk.referenced_index_name )
-                                         , ' <-- '
-                                         , docs.fs_cleanStringForPuml ( fk.referencing_RepoObject_fullname2 )
-                                         , '::'
-                                         , docs.fs_cleanStringForPuml ( fk.referencing_index_name )
-                                       )
-                              , Char ( 13 ) + Char ( 10 )
-                            ) Within Group(Order By
-                                               fk.referenced_RepoObject_fullname2
-                                             , fk.referencing_RepoObject_fullname2)
+    SchemaName    = fk.referencing_SysObject_schema_name
+  , cultures_name = Cast('' As NVarchar(10))
+  , FkRefList     = String_Agg (
+                                   Concat (
+                                              Cast(N'' As NVarchar(Max))
+                                            , docs.fs_cleanStringForPuml ( fk.referenced_RepoObject_fullname2 )
+                                            , '::'
+                                            , docs.fs_cleanStringForPuml ( fk.referenced_index_name )
+                                            , ' <-- '
+                                            , docs.fs_cleanStringForPuml ( fk.referencing_RepoObject_fullname2 )
+                                            , '::'
+                                            , docs.fs_cleanStringForPuml ( fk.referencing_index_name )
+                                          )
+                                 , Char ( 13 ) + Char ( 10 )
+                               ) Within Group(Order By
+                                                  fk.referenced_RepoObject_fullname2
+                                                , fk.referencing_RepoObject_fullname2)
 From
     repo.ForeignKey_Indexes_union_T As fk
 Where
@@ -60,4 +61,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[ForeignKey_Indexes_union_T].[referencing_SysObject_schema_name]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_PlantUml_FkRefList', @level2type = N'COLUMN', @level2name = N'SchemaName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4d0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_PlantUml_FkRefList', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

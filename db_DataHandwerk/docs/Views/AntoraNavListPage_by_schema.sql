@@ -3,6 +3,7 @@ CREATE View docs.AntoraNavListPage_by_schema
 As
 Select
     ro.RepoObject_schema_name
+  , rof.cultures_name
   , nav_list =
   --
   Concat (
@@ -54,6 +55,7 @@ Where
     And rof.is_DocsOutput = 1
 Group By
     ro.RepoObject_schema_name
+  , rof.cultures_name
 Go
 
 Execute sp_addextendedproperty
@@ -122,4 +124,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListPage_by_schema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '487481bb-0a22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListPage_by_schema', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

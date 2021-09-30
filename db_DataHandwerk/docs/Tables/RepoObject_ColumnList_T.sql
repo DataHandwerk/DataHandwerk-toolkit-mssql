@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [docs].[RepoObject_ColumnList_T] (
     [RepoObject_guid]                  UNIQUEIDENTIFIER NOT NULL,
+    [cultures_name]                    NVARCHAR (10)    CONSTRAINT [DF_RepoObject_ColumnList_T_cultures_name] DEFAULT ('') NOT NULL,
     [AntoraColumnDetails]              NVARCHAR (MAX)   NULL,
     [AntoraPkColumnTableRows]          NVARCHAR (MAX)   NULL,
     [AntoraNonPkColumnTableRows]       NVARCHAR (MAX)   NULL,
@@ -8,8 +9,10 @@
     [PlantumlNonPkIndexColumns]        NVARCHAR (MAX)   NULL,
     [PlantumlNonPkHiddenEntityColumns] NVARCHAR (MAX)   NULL,
     [PlantumlIndexColumns]             NVARCHAR (MAX)   NULL,
-    CONSTRAINT [PK_RepoObject_ColumnList_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [PK_RepoObject_ColumnList_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -216,4 +219,12 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.RepoObject_Adoc.adoc[]
 * xref:docs.RepoObject_Plantuml_Entity.adoc[]
 * xref:docs.usp_PERSIST_RepoObject_ColumnList_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a3a507d5-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_ColumnList_T_cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4f0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

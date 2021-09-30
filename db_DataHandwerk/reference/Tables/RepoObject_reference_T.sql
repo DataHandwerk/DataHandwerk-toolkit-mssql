@@ -25,8 +25,10 @@
     [is_ReversePersistenceViaView]           BIT              CONSTRAINT [DF_RepoObject_reference_T_is_ReversePersistenceViaView] DEFAULT ((0)) NOT NULL,
     [referenced_puml_entity]                 AS               (case when [referenced_is_external]=(1) then (([referenced_external_AntoraComponent]+'.')+[referenced_external_AntoraModule])+'.' else '' end+[docs].[fs_cleanStringForPuml](concat([referenced_schema_name],'.',[referenced_entity_name]))),
     [referencing_puml_entity]                AS               (case when [referencing_is_external]=(1) then (([referencing_external_AntoraComponent]+'.')+[referencing_external_AntoraModule])+'.' else '' end+[docs].[fs_cleanStringForPuml](concat([referencing_schema_name],'.',[referencing_entity_name]))),
-    CONSTRAINT [PK_RepoObject_reference_T] PRIMARY KEY CLUSTERED ([referenced_RepoObject_guid] ASC, [referencing_RepoObject_guid] ASC)
+    CONSTRAINT [PK_RepoObject_reference_T] PRIMARY KEY CLUSTERED ([referenced_RepoObject_guid] ASC, [referencing_RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

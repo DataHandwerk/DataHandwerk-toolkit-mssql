@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [docs].[RepoObject_Plantuml_Entity_T] (
     [RepoObject_guid]                       UNIQUEIDENTIFIER NOT NULL,
+    [cultures_name]                         NVARCHAR (10)    CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_cultures_name] DEFAULT ('') NOT NULL,
     [RepoObject_Puml]                       NVARCHAR (MAX)   NOT NULL,
     [RepoObject_PumlOnlyIndex]              NVARCHAR (MAX)   NOT NULL,
     [RepoObject_PumlOnlyPK]                 NVARCHAR (MAX)   NOT NULL,
@@ -7,8 +8,11 @@
     [RepoObject_PumlOnlyPkOrIndex]          NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrNotHidden1] DEFAULT ('') NOT NULL,
     [RepoObject_PumlOnlyPkOrIndexOrMeasure] NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrIndex1] DEFAULT ('') NULL,
     [RepoObject_fullname2]                  NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL,
-    [RepoObject_schema_name]                NVARCHAR (128)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname21] DEFAULT ('') NOT NULL
+    [RepoObject_schema_name]                NVARCHAR (128)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname21] DEFAULT ('') NOT NULL,
+    CONSTRAINT [PK_RepoObject_Plantuml_Entity_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -260,4 +264,16 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ea216c32-5c
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9c83d451-5c1d-ec11-8522-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'COLUMN', @level2name = N'RepoObject_PumlOnlyPkOrIndexOrMeasure';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'aaa507d5-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_Plantuml_Entity_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a5a507d5-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_Plantuml_Entity_T_cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '520389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [docs].[RepoObject_Plantuml_T] (
     [RepoObject_guid]               UNIQUEIDENTIFIER NOT NULL,
+    [cultures_name]                 NVARCHAR (10)    CONSTRAINT [DF_RepoObject_Plantuml_T_cultures_name] DEFAULT ('') NOT NULL,
     [ColRefList]                    NVARCHAR (MAX)   NULL,
     [ObjectRefList]                 NVARCHAR (MAX)   NULL,
     [ObjectRefList_0_30]            NVARCHAR (MAX)   NULL,
@@ -12,8 +13,11 @@
     [PumlEntityList]                NVARCHAR (MAX)   NULL,
     [PumlEntityList_0_30]           NVARCHAR (MAX)   NULL,
     [PumlEntityList_30_0]           NVARCHAR (MAX)   NULL,
-    [RepoObject_fullname2]          NVARCHAR (257)   NOT NULL
+    [RepoObject_fullname2]          NVARCHAR (257)   NOT NULL,
+    CONSTRAINT [PK_RepoObject_Plantuml_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -89,8 +93,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ec26a
 
 
 GO
-CREATE CLUSTERED COLUMNSTORE INDEX [CSI_docs_RepoObject_Plantuml_T]
-    ON [docs].[RepoObject_Plantuml_T];
+
 
 
 GO
@@ -247,4 +250,16 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'aba507d5-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_Plantuml_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a6a507d5-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_Plantuml_T_cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '540389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_T', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

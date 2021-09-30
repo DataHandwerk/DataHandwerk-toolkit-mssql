@@ -88,20 +88,11 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
-/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDir","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',33,';',120,';',NULL);
-
-DECLARE @outputDir NVARCHAR(1000)
-
-SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
-   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'pages\other\')
-
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',33,';',210,';',NULL);
 
 DECLARE @command NVARCHAR(4000)
+DECLARE @cultures_name NVARCHAR(10)
 
 
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [docs].[AntoraPage_IndexSemanticGroup]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_IndexSemanticGroup]","log_flag_InsertUpdateDelete":"u"}]}*/
@@ -111,22 +102,51 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',33,';',410,';',NULL);
 IndexSemanticGroup.adoc
 
 */
-SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemanticGroup]"  queryout ' + @outputDir + 'IndexSemanticGroup.adoc'
- --
- + ' -S ' + @instanceName
- --
- + ' -d ' + @databaseName
- --
- + ' -c -C 65001'
- --
- + @TrustedUserPassword
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+From
+    docs.culture
+Order By
+    cultures_name
 
-PRINT @command
+Open page_cursor
 
---Execute the BCP command
-EXEC xp_cmdshell @command
- , no_output
+Fetch Next From page_cursor
+Into
+    @cultures_name
 
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemanticGroup]" '
+          --
+          + '" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\pages\other\' + 'IndexSemanticGroup.adoc'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
+
+    Print @command
+
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+End
+
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

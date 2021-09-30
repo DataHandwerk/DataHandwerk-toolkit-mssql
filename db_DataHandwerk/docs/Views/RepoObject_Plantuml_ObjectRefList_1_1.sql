@@ -3,6 +3,7 @@ CREATE View docs.RepoObject_Plantuml_ObjectRefList_1_1
 As
 Select
     ro.RepoObject_guid
+  , cultures_name = Cast('' As NVarchar(10))
   --, ro.RepoObject_fullname2
   , ObjectRefList = String_Agg (
                                    Concat (
@@ -82,4 +83,8 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject].[RepoObject_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_1_1', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '570389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ObjectRefList_1_1', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

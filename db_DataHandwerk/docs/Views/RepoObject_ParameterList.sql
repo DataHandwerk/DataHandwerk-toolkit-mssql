@@ -1,5 +1,8 @@
-﻿
-CREATE View docs.RepoObject_ParameterList
+﻿/*
+[cultures_name] is not part of the key. parameters are the same for all cultures
+*/
+
+CREATE View [docs].[RepoObject_ParameterList]
 As
 Select
     RepoObject_guid     = SysObject_RepoObject_guid

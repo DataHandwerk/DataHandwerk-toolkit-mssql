@@ -88,77 +88,70 @@ IF @isTrustedConnection = 1
 ELSE
  SET @TrustedUserPassword = ' -U ' + @userName + ' -P ' + @password
 
-/*{"ReportUspStep":[{"Number":120,"Name":"configure outputDirs","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',120,';',NULL);
-
---DECLARE @outputDir NVARCHAR(1000)
---DECLARE @outputDir2 NVARCHAR(1000)
-
-DECLARE @outputDirPartNav NVARCHAR(1000)
-DECLARE @outputDirPageNav NVARCHAR(1000)
-
-SET @outputDirPartNav = ISNULL(@outputDirPartNav, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
-   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'partials\navlist\')
-SET @outputDirPageNav = ISNULL(@outputDirPageNav, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') 
-   + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'pages\nav\')
-
 /*{"ReportUspStep":[{"Number":210,"Name":"declare variables","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',210,';',NULL);
 
 DECLARE @schema_name NVARCHAR(128)
 DECLARE @type varchar(2)
 DECLARE @command NVARCHAR(4000)
+DECLARE @cultures_name NVARCHAR(10)
+
 
 /*{"ReportUspStep":[{"Number":410,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_schema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_schema]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',410,';',NULL);
 
-DECLARE page_cursor CURSOR Local Fast_Forward
-FOR
-SELECT [RepoObject_schema_name]
-FROM [docs].[AntoraNavListRepoObject_by_schema]
-ORDER BY [RepoObject_schema_name]
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+  , RepoObject_schema_name
+From
+    docs.AntoraNavListRepoObject_by_schema
+Order By
+    cultures_name
+  , RepoObject_schema_name
 
-OPEN page_cursor
+Open page_cursor
 
-FETCH NEXT
-FROM page_cursor
-INTO @schema_name
+Fetch Next From page_cursor
+Into
+    @cultures_name
+  , @schema_name
 
-WHILE @@FETCH_STATUS = 0
-BEGIN
- --Dynamically construct the BCP command
- --
- --bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = 'dbo'" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\navlist-schema-dbo.adoc -S localhost\sql2019 -d dhw_self -c -T
- --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = ''' + @schema_name + '''"  queryout "' + @outputDirPartNav + 'navlist-schema-' + @schema_name + '.adoc"'
-  --
-  + ' -S ' + @instanceName
-  --
-  + ' -d ' + @databaseName
-  --
-  + ' -c -C 65001'
-  --
-  + @TrustedUserPassword
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = '''
+          + @schema_name
+          --
+          + ''' AND cultures_name = ''' + @cultures_name
+          --
+          + '''" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials\navlist\' + 'navlist-schema-' + @schema_name + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
- PRINT @command
+    Print @command
 
- --Execute the BCP command
- EXEC xp_cmdshell @command
-  , no_output
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
- FETCH NEXT
- FROM page_cursor
- INTO @schema_name
-END
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+      , @schema_name
+End
 
-CLOSE page_cursor
-
-DEALLOCATE page_cursor
-
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -187,50 +180,57 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":420,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_type]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',420,';',NULL);
 
-DECLARE part2_cursor CURSOR Local Fast_Forward
-FOR
-SELECT TRIM([type])
---, [nav_list]
-FROM [docs].[AntoraNavListRepoObject_by_type]
-ORDER BY [type]
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+  , Trim ( type )
+From
+    docs.AntoraNavListRepoObject_by_type
+Order By
+    cultures_name
+  , type
 
-OPEN part2_cursor
+Open page_cursor
 
-FETCH NEXT
-FROM part2_cursor
-INTO @type
+Fetch Next From page_cursor
+Into
+    @cultures_name
+  , @type
 
-WHILE @@FETCH_STATUS = 0
-BEGIN
- --Dynamically construct the BCP command
- --
- --bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_type] WHERE [type] = 'u'" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\navlist-type-u.adoc -S localhost\sql2019 -d dhw_self -c -T
- --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_type] WHERE [type] = ''' + @type + '''"  queryout "' + @outputDirPartNav + 'navlist-type-' + @type + '.adoc"'
-  --
-  + ' -S ' + @instanceName
-  --
-  + ' -d ' + @databaseName
-  --
-  + ' -c -C 65001'
-  --
-  + @TrustedUserPassword
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_type] WHERE [type] = ''' + @type
+          --
+          + ''' AND cultures_name = ''' + @cultures_name
+          --
+          + '''" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials\navlist\' + 'navlist-type-' + @type + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
- PRINT @command
+    Print @command
 
- --Execute the BCP command
- EXEC xp_cmdshell @command
-  , no_output
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
- FETCH NEXT
- FROM part2_cursor
- INTO @type
-END
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+      , @type
+End
 
-CLOSE part2_cursor
-
-DEALLOCATE part2_cursor
-
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -259,53 +259,63 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":430,"Name":"export FROM [docs].[AntoraNavListRepoObject_by_schema_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListRepoObject_by_schema_type]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',430,';',NULL);
 
-DECLARE part3_cursor CURSOR Local Fast_Forward
-FOR
-SELECT [RepoObject_schema_name]
- , TRIM([type])
---, [nav_list]
-FROM [docs].[AntoraNavListRepoObject_by_schema_type]
-ORDER BY [type]
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+  , RepoObject_schema_name
+  , Trim ( type )
+From
+    docs.AntoraNavListRepoObject_by_schema_type
+Order By
+    cultures_name
+  , type
 
-OPEN part3_cursor
+Open page_cursor
 
-FETCH NEXT
-FROM part3_cursor
-INTO @schema_name
- , @type
-
-WHILE @@FETCH_STATUS = 0
-BEGIN
- --Dynamically construct the BCP command
- --
- --bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema_type] WHERE [RepoObject_schema_name] = 'dbo' and [type] = 'u'" queryout D:\Repos\GitHub\DataHandwerk\DataHandwerk-docs\docs\modules\sqldb\partials\navlist-type-u.adoc -S localhost\sql2019 -d dhw_self -c -T
- --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema_type] WHERE [RepoObject_schema_name] = ''' + @schema_name + ''' AND [type] = ''' + @type + '''"  queryout "' + @outputDirPartNav + 'navlist-schema-type-' + @type + '.adoc"'
-  --
-  + ' -S ' + @instanceName
-  --
-  + ' -d ' + @databaseName
-  --
-  + ' -c -C 65001'
-  --
-  + @TrustedUserPassword
-
- PRINT @command
-
- --Execute the BCP command
- EXEC xp_cmdshell @command
-  , no_output
-
- FETCH NEXT
- FROM part3_cursor
- INTO @schema_name
+Fetch Next From page_cursor
+Into
+    @cultures_name
+  , @schema_name
   , @type
-END
 
-CLOSE part3_cursor
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema_type] WHERE [RepoObject_schema_name] = '''
+          + @schema_name
+          --
+          + ''' AND [type] = ''' + @type
+          --
+          + ''' AND cultures_name = ''' + @cultures_name
+          --
+          + '''" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials\navlist\' + 'navlist-schema-type-' + +@schema_name + '-' + @type + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
-DEALLOCATE part3_cursor
+    Print @command
 
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+      , @schema_name
+      , @type
+End
+
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -334,48 +344,58 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":510,"Name":"export FROM [docs].[AntoraNavListPage_by_schema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListPage_by_schema]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',510,';',NULL);
 
-DECLARE page_cursor CURSOR Local Fast_Forward
-FOR
-SELECT [RepoObject_schema_name]
-FROM [docs].[AntoraNavListRepoObject_by_schema]
-ORDER BY [RepoObject_schema_name]
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+  , RepoObject_schema_name
+From
+    docs.AntoraNavListRepoObject_by_schema
+Order By
+    cultures_name
+  , RepoObject_schema_name
 
-OPEN page_cursor
+Open page_cursor
 
-FETCH NEXT
-FROM page_cursor
-INTO @schema_name
+Fetch Next From page_cursor
+Into
+    @cultures_name
+  , @schema_name
 
---, @nav_list
-WHILE @@FETCH_STATUS = 0
-BEGIN
- --Dynamically construct the BCP command
- --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_schema] WHERE [RepoObject_schema_name] = ''' + @schema_name + '''"  queryout "' + @outputDirPageNav + 'nav-schema-' + @schema_name + '.adoc"'
-  --
-  + ' -S ' + @instanceName
-  --
-  + ' -d ' + @databaseName
-  --
-  + ' -c -C 65001'
-  --
-  + @TrustedUserPassword
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = '''
+          + @schema_name
+          --
+          + ''' AND cultures_name = ''' + @cultures_name
+          --
+          + '''" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\pages\nav\' + 'nav-schema-' + @schema_name + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
- PRINT @command
+    Print @command
 
- --Execute the BCP command
- EXEC xp_cmdshell @command
-  , no_output
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
- FETCH NEXT
- FROM page_cursor
- INTO @schema_name
-END
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+      , @schema_name
+End
 
-CLOSE page_cursor
-
-DEALLOCATE page_cursor
-
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -404,55 +424,56 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":520,"Name":"export FROM [docs].[AntoraNavListPage_by_type]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraNavListPage_by_type]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',520,';',NULL);
 
-DECLARE page_cursor CURSOR Local Fast_Forward
-FOR
-SELECT type
-FROM configT.type
-WHERE (is_DocsOutput = 1)
-ORDER BY type
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+  , T1.type
+From
+    docs.AntoraNavListPage_by_type As T1
+  , docs.culture
+Order By
+    cultures_name
+  , T1.type
 
-----some entries doesn't exist in [docs].[AntoraNavListPage_by_type]
-----but we will generate empty files to avoid old files with not existing content
---FROM [docs].[AntoraNavListPage_by_type]
---ORDER BY type
+Open page_cursor
 
+Fetch Next From page_cursor
+Into
+    @cultures_name
+  , @type
 
-OPEN page_cursor
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_type] WHERE [type] = ''' + @type
+          --
+          + '''" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\pages\nav\' + 'nav-type-' + @type + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
-FETCH NEXT
-FROM page_cursor
-INTO @type
+    Print @command
 
---, @nav_list
-WHILE @@FETCH_STATUS = 0
-BEGIN
- --Dynamically construct the BCP command
- --
- SET @command = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_type] WHERE [type] = ''' + @type + '''"  queryout "' + @outputDirPageNav + 'nav-type-' + @type + '.adoc"'
-  --
-  + ' -S ' + @instanceName
-  --
-  + ' -d ' + @databaseName
-  --
-  + ' -c'
-  --
-  + @TrustedUserPassword
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
- PRINT @command
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+      , @type
+End
 
- --Execute the BCP command
- EXEC xp_cmdshell @command
-  , no_output
-
- FETCH NEXT
- FROM page_cursor
- INTO @type
-END
-
-CLOSE page_cursor
-
-DEALLOCATE page_cursor
-
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -478,130 +499,107 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":610,"Name":"export partial_content FROM [docs].[AntoraPage_ObjectBySchema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectBySchema]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":610,"Name":"export partial_content FROM [docs].[AntoraPage_ObjectBySchema] and [docs].[AntoraPage_ObjectByType]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectBySchema]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',610,';',NULL);
 
 /*
 --nav-by-schema.adoc
 
 */
-SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout "' + @outputDirPartNav + 'nav-by-schema.adoc"'
- --
- + ' -S ' + @instanceName
- --
- + ' -d ' + @databaseName
- --
- + ' -c -C 65001'
- --
- + @TrustedUserPassword
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+From
+    docs.culture
+Order By
+    cultures_name
 
-PRINT @command
+Open page_cursor
 
---Execute the BCP command
-EXEC xp_cmdshell @command
- , no_output
+Fetch Next From page_cursor
+Into
+    @cultures_name
 
+While @@Fetch_Status = 0
+Begin
+    Set @command
+        = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySchema]" '
+          --
+          + '" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials\navlist\' + 'nav-by-schema.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'export partial_content FROM [docs].[AntoraPage_ObjectBySchema]'
-SET @source_object = '[docs].[AntoraPage_ObjectBySchema]'
-SET @target_object = NULL
+    Print @command
 
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
-/*{"ReportUspStep":[{"Number":620,"Name":"export FROM [docs].[AntoraPage_ObjectByType]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectByType]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',620,';',NULL);
+    Set @command
+        = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]" '
+          --
+          + '" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials\navlist\' + 'nav-by-type.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
-/*
-nav-by-type.adoc
+    Print @command
 
-*/
-SET @command = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]"  queryout "' + @outputDirPartNav + 'nav-by-type.adoc"'
- --
- + ' -S ' + @instanceName
- --
- + ' -d ' + @databaseName
- --
- + ' -c -C 65001'
- --
- + @TrustedUserPassword
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
-PRINT @command
+    Set @command
+        = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_ObjectBySchema]" '
+          --
+          + '" queryout "'
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\pages\nav\' + 'objects-by-schema.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
 
---Execute the BCP command
-EXEC xp_cmdshell @command
- , no_output
+    Print @command
 
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
--- Logging START --
-SET @rows = @@ROWCOUNT
-SET @step_id = @step_id + 1
-SET @step_name = 'export FROM [docs].[AntoraPage_ObjectByType]'
-SET @source_object = '[docs].[AntoraPage_ObjectByType]'
-SET @target_object = NULL
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+End
 
-EXEC logs.usp_ExecutionLog_insert 
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @parent_execution_log_id
- , @current_execution_guid = @current_execution_guid
- , @proc_id = @proc_id
- , @proc_schema_name = @proc_schema_name
- , @proc_name = @proc_name
- , @event_info = @event_info
- , @step_id = @step_id
- , @step_name = @step_name
- , @source_object = @source_object
- , @target_object = @target_object
- , @updated = @rows
--- Logging END --
-
-/*{"ReportUspStep":[{"Number":710,"Name":"export page_content FROM [docs].[AntoraPage_ObjectBySchema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[AntoraPage_ObjectBySchema]","log_flag_InsertUpdateDelete":"u"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',28,';',710,';',NULL);
-
-/*
---objects-by-schema.adoc
-
-*/
-SET @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_ObjectBySchema]"  queryout "' + @outputDirPageNav + 'objects-by-schema.adoc"'
- --
- + ' -S ' + @instanceName
- --
- + ' -d ' + @databaseName
- --
- + ' -c -C 65001'
- --
- + @TrustedUserPassword
-
-PRINT @command
-
---Execute the BCP command
-EXEC xp_cmdshell @command
- , no_output
-
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'export page_content FROM [docs].[AntoraPage_ObjectBySchema]'
+SET @step_name = 'export partial_content FROM [docs].[AntoraPage_ObjectBySchema] and [docs].[AntoraPage_ObjectByType]'
 SET @source_object = '[docs].[AntoraPage_ObjectBySchema]'
 SET @target_object = NULL
 

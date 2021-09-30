@@ -48,7 +48,7 @@ Select
   , T1.cultures_name
   , j2.cultures_translations_model_j
 From
-    ssas.model_json_34_cultures As T1
+    ssas.model_json_34_cultures_T As T1
     Cross Apply
     OpenJson ( T1.cultures_translations_j )
     --As j1
@@ -57,7 +57,7 @@ From
     With
     (
         cultures_translations_model_j NVarchar ( Max ) N'$.model' As Json
-    )                           As j2
+    )                             As j2
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9860d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_341_cultures_translations', @level2type = N'COLUMN', @level2name = N'cultures_translations_model_j';
 

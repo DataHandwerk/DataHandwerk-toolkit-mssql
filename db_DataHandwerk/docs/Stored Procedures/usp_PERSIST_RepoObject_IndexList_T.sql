@@ -106,11 +106,13 @@ INSERT INTO
  [docs].[RepoObject_IndexList_T]
  (
   [RepoObject_guid]
+, [cultures_name]
 , [AntoraIndexList]
 , [PumlIndexList]
 )
 SELECT
   [RepoObject_guid]
+, [cultures_name]
 , [AntoraIndexList]
 , [PumlIndexList]
 

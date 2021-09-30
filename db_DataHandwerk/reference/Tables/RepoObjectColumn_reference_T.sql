@@ -27,8 +27,10 @@
     [referencing_ro_fullname2]                      AS               (concat([referencing_schema_name],'.',[referencing_entity_name])) PERSISTED NOT NULL,
     [referencing_roc_fullname]                      AS               (concat('[',[referencing_schema_name],'].[',[referencing_entity_name],'].[',[referencing_column_name],']')) PERSISTED NOT NULL,
     [referencing_roc_fullname2]                     AS               (concat([referencing_schema_name],'.',[referencing_entity_name],'.',[referencing_column_name])) PERSISTED NOT NULL,
-    CONSTRAINT [PK_RepoObjectColumn_reference_T] PRIMARY KEY CLUSTERED ([referenced_RepoObjectColumn_guid] ASC, [referencing_RepoObjectColumn_guid] ASC)
+    CONSTRAINT [PK_RepoObjectColumn_reference_T] PRIMARY KEY CLUSTERED ([referenced_RepoObjectColumn_guid] ASC, [referencing_RepoObjectColumn_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

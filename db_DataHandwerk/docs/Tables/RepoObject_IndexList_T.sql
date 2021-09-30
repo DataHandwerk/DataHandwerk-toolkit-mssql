@@ -1,9 +1,12 @@
 ﻿CREATE TABLE [docs].[RepoObject_IndexList_T] (
+    [RepoObject_guid] UNIQUEIDENTIFIER NOT NULL,
+    [cultures_name]   NVARCHAR (10)    CONSTRAINT [DF_RepoObject_IndexList_T_cultures_name] DEFAULT ('') NOT NULL,
     [AntoraIndexList] NVARCHAR (MAX)   NULL,
     [PumlIndexList]   NVARCHAR (MAX)   NULL,
-    [RepoObject_guid] UNIQUEIDENTIFIER NULL
-)
-WITH (DATA_COMPRESSION = PAGE);
+    CONSTRAINT [PK_RepoObject_IndexList_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
+);
+
+
 
 
 
@@ -136,4 +139,16 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_IndexList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a9a507d5-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_IndexList_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_IndexList_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a4a507d5-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_IndexList_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_IndexList_T_cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '500389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_IndexList_T', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

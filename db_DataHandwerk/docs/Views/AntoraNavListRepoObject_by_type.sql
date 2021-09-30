@@ -4,6 +4,7 @@ As
 Select
     type      = ro.SysObject_type
   , type_name = ro.SysObject_type_name
+  , ro.cultures_name
   , nav_list  =
   --
   String_Agg (
@@ -23,6 +24,7 @@ Where
 Group By
     ro.SysObject_type
   , ro.SysObject_type_name
+  , ro.cultures_name
 Go
 
 Execute sp_addextendedproperty
@@ -105,4 +107,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListRepoObject_by_type';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4b7481bb-0a22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraNavListRepoObject_by_type', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

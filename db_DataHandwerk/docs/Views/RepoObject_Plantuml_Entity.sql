@@ -24,10 +24,11 @@ CREATE View docs.RepoObject_Plantuml_Entity
 As
 Select
     ro.RepoObject_guid
+  , ro.cultures_name
   , RepoObject_Puml                       =
   --
   Concat (
-             PumlEntityTopDefault
+             ro.PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -46,7 +47,7 @@ Select
   , RepoObject_PumlOnlyPK                 =
   --
   Concat (
-             PumlEntityTopDefault
+             ro.PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -58,7 +59,7 @@ Select
   , RepoObject_PumlOnlyPkOrNotHidden      =
   --
   Concat (
-             PumlEntityTopDefault
+             ro.PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -73,7 +74,7 @@ Select
   , RepoObject_PumlOnlyPkOrIndex          =
   --
   Concat (
-             PumlEntityTopDefault
+             ro.PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -88,7 +89,7 @@ Select
   , RepoObject_PumlOnlyPkOrIndexOrMeasure =
   --
   Concat (
-             PumlEntityTopWorkaround
+             ro.PumlEntityTopWorkaround
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , collist.PlantumlPkEntityColumns
@@ -104,7 +105,7 @@ Select
   , RepoObject_PumlOnlyIndex              =
   --
   Concat (
-             PumlEntityTopDefault
+             ro.PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
            , indexlist.PumlIndexList
@@ -119,17 +120,20 @@ From
     Left Join
         docs.RepoObject_ColumnList_T As collist
             On
-            collist.RepoObject_guid   = ro.RepoObject_guid
+            collist.RepoObject_guid     = ro.RepoObject_guid
+            And collist.cultures_name   = ro.cultures_name
 
     Left Join
         docs.RepoObject_IndexList_T  As indexlist
             On
-            indexlist.RepoObject_guid = ro.RepoObject_guid
+            indexlist.RepoObject_guid   = ro.RepoObject_guid
+            And indexlist.cultures_name = ro.cultures_name
 
     Left Join
         docs.RepoObject_MeasureList  As mlist
             On
-            mlist.RepoObject_guid     = ro.RepoObject_guid
+            mlist.RepoObject_guid       = ro.RepoObject_guid
+            And mlist.cultures_name     = ro.cultures_name
 Go
 
 Go
@@ -275,4 +279,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat([Re
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9b83d451-5c1d-ec11-8522-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'RepoObject_PumlOnlyPkOrIndexOrMeasure';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '580389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_Entity', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

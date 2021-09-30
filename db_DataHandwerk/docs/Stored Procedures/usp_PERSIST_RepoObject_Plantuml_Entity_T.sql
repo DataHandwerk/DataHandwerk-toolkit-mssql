@@ -105,8 +105,9 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',26,';',800,';',NULL);
 INSERT INTO 
  [docs].[RepoObject_Plantuml_Entity_T]
  (
-  [RepoObject_fullname2]
-, [RepoObject_guid]
+  [RepoObject_guid]
+, [cultures_name]
+, [RepoObject_fullname2]
 , [RepoObject_Puml]
 , [RepoObject_PumlOnlyIndex]
 , [RepoObject_PumlOnlyPK]
@@ -116,8 +117,9 @@ INSERT INTO
 , [RepoObject_schema_name]
 )
 SELECT
-  [RepoObject_fullname2]
-, [RepoObject_guid]
+  [RepoObject_guid]
+, [cultures_name]
+, [RepoObject_fullname2]
 , [RepoObject_Puml]
 , [RepoObject_PumlOnlyIndex]
 , [RepoObject_PumlOnlyPK]

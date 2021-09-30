@@ -3,6 +3,7 @@ CREATE View docs.Schema_EntityList
 As
 Select
     roe.RepoObject_schema_name
+  , cultures_name                         = Cast('' As NVarchar(10))
   , EntityList_Puml                       = String_Agg ( roe.RepoObject_Puml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                           roe.RepoObject_fullname2)
   , EntityList_PumlOnlyIndex              = String_Agg ( roe.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
@@ -76,4 +77,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9a83d451-5c1d-ec11-8522-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_EntityList', @level2type = N'COLUMN', @level2name = N'EntityList_PumlOnlyPkOrIndexOrMeasure';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4a0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_EntityList', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

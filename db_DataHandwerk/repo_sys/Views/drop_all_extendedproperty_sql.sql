@@ -367,3 +367,10 @@ From
 Where
     extended_properties.class_desc   = 'INDEX'
     And extended_properties.minor_id > 0
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '853efd10-0222-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'drop_all_extendedproperty_sql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e1dcf21e-0222-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo_sys', @level1type = N'VIEW', @level1name = N'drop_all_extendedproperty_sql', @level2type = N'COLUMN', @level2name = N'Tsql';
+

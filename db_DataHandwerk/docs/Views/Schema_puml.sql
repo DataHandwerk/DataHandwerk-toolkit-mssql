@@ -9,7 +9,9 @@ CREATE View docs.Schema_puml
 As
 Select
     rs.RepoSchema_guid
+  , cultures_name     = Cast('' As NVarchar(10))
   , rs.RepoSchema_name
+  , rs.is_ssas
   --todo, how to draw relations between composed keys?
   , PumlSchemaEr      =
   --
@@ -133,4 +135,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoSchema].[RepoSchema_guid]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml', @level2type = N'COLUMN', @level2name = N'RepoSchema_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4c0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

@@ -2,7 +2,7 @@
 code of this procedure is managed in the dhw repository. Do not modify manually.
 Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
 */
-CREATE   PROCEDURE [docs].[usp_PERSIST_RepoObject_ColumnList_T]
+CREATE   PROCEDURE [ssas].[usp_PERSIST_model_json_34_cultures_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -63,24 +63,33 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[docs].[usp_PERSIST_RepoObject_ColumnList_T]'
+PRINT '[ssas].[usp_PERSIST_model_json_34_cultures_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[docs].[RepoObject_ColumnList_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',87,';',400,';',NULL);
+/*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssas].[model_json_34_cultures]","log_target_object":"[ssas].[model_json_34_cultures_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',107,';',500,';',NULL);
 
-TRUNCATE TABLE [docs].[RepoObject_ColumnList_T]
+DELETE T
+FROM [ssas].[model_json_34_cultures_T] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [ssas].[model_json_34_cultures] AS S
+WHERE
+T.[databasename] = S.[databasename]
+AND T.[cultures_name] = S.[cultures_name]
+)
+ 
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'truncate persistence target'
-SET @source_object = NULL
-SET @target_object = '[docs].[RepoObject_ColumnList_T]'
+SET @step_name = 'delete persistence target missing in source'
+SET @source_object = '[ssas].[model_json_34_cultures]'
+SET @target_object = '[ssas].[model_json_34_cultures_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -99,43 +108,80 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[docs].[RepoObject_ColumnList]","log_target_object":"[docs].[RepoObject_ColumnList_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',87,';',800,';',NULL);
+/*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssas].[model_json_34_cultures]","log_target_object":"[ssas].[model_json_34_cultures_T]","log_flag_InsertUpdateDelete":"U"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',107,';',600,';',NULL);
 
-INSERT INTO 
- [docs].[RepoObject_ColumnList_T]
- (
-  [RepoObject_guid]
-, [cultures_name]
-, [AntoraColumnDetails]
-, [AntoraNonPkColumnTableRows]
-, [AntoraPkColumnTableRows]
-, [PlantumlIndexColumns]
-, [PlantumlNonPkEntityColumns]
-, [PlantumlNonPkHiddenEntityColumns]
-, [PlantumlNonPkIndexColumns]
-, [PlantumlPkEntityColumns]
-)
-SELECT
-  [RepoObject_guid]
-, [cultures_name]
-, [AntoraColumnDetails]
-, [AntoraNonPkColumnTableRows]
-, [AntoraPkColumnTableRows]
-, [PlantumlIndexColumns]
-, [PlantumlNonPkEntityColumns]
-, [PlantumlNonPkHiddenEntityColumns]
-, [PlantumlNonPkIndexColumns]
-, [PlantumlPkEntityColumns]
+UPDATE T
+SET
+  T.[databasename] = S.[databasename]
+, T.[cultures_name] = S.[cultures_name]
+, T.[cultures_translations_j] = S.[cultures_translations_j]
 
-FROM [docs].[RepoObject_ColumnList] AS S
+FROM [ssas].[model_json_34_cultures_T] AS T
+INNER JOIN [ssas].[model_json_34_cultures] AS S
+ON
+T.[databasename] = S.[databasename]
+AND T.[cultures_name] = S.[cultures_name]
+
+WHERE
+   T.[cultures_translations_j] <> S.[cultures_translations_j] OR (S.[cultures_translations_j] IS NULL AND NOT T.[cultures_translations_j] IS NULL) OR (NOT S.[cultures_translations_j] IS NULL AND T.[cultures_translations_j] IS NULL)
+
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'insert all'
-SET @source_object = '[docs].[RepoObject_ColumnList]'
-SET @target_object = '[docs].[RepoObject_ColumnList_T]'
+SET @step_name = 'update changed'
+SET @source_object = '[ssas].[model_json_34_cultures]'
+SET @target_object = '[ssas].[model_json_34_cultures_T]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssas].[model_json_34_cultures]","log_target_object":"[ssas].[model_json_34_cultures_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',107,';',700,';',NULL);
+
+INSERT INTO 
+ [ssas].[model_json_34_cultures_T]
+ (
+  [databasename]
+, [cultures_name]
+, [cultures_translations_j]
+)
+SELECT
+  [databasename]
+, [cultures_name]
+, [cultures_translations_j]
+
+FROM [ssas].[model_json_34_cultures] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [ssas].[model_json_34_cultures_T] AS T
+WHERE
+T.[databasename] = S.[databasename]
+AND T.[cultures_name] = S.[cultures_name]
+)
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'insert missing'
+SET @source_object = '[ssas].[model_json_34_cultures]'
+SET @target_object = '[ssas].[model_json_34_cultures_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -183,111 +229,5 @@ EXEC logs.usp_ExecutionLog_insert
 
 END
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ef2038b5-270e-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [docs].[RepoObject_ColumnList]
-* [docs].[RepoObject_ColumnList_T]
-* [logs].[usp_ExecutionLog_insert]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ExampleUsage', @value = N'EXEC [docs].[usp_PERSIST_RepoObject_ColumnList_T]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:docs.RepoObject_ColumnList.adoc[]
-* xref:docs.RepoObject_ColumnList_T.adoc[]
-* xref:logs.usp_ExecutionLog_insert.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AdocUspSteps', @value = N'.Steps in [docs].[usp_PERSIST_RepoObject_ColumnList_T]
-[cols="d,15a,d"]
-|===
-|Number|Name (Action, Source, Target)|Parent
-
-|400
-|
-*truncate persistence target*
-
-* D
-* [docs].[RepoObject_ColumnList_T]
-
-
-.Statement
-[%collapsible]
-=====
-[source,sql]
-----
-TRUNCATE TABLE [docs].[RepoObject_ColumnList_T]
-----
-=====
-
-|
-
-
-|800
-|
-*insert all*
-
-* I
-* [docs].[RepoObject_ColumnList]
-* [docs].[RepoObject_ColumnList_T]
-
-
-.Statement
-[%collapsible]
-=====
-[source,sql]
-----
-INSERT INTO 
- [docs].[RepoObject_ColumnList_T]
- (
-  [RepoObject_guid]
-, [AntoraColumnDetails]
-, [AntoraNonPkColumnTableRows]
-, [AntoraPkColumnTableRows]
-, [PlantumlIndexColumns]
-, [PlantumlNonPkEntityColumns]
-, [PlantumlNonPkHiddenEntityColumns]
-, [PlantumlNonPkIndexColumns]
-, [PlantumlPkEntityColumns]
-)
-SELECT
-  [RepoObject_guid]
-, [AntoraColumnDetails]
-, [AntoraNonPkColumnTableRows]
-, [AntoraPkColumnTableRows]
-, [PlantumlIndexColumns]
-, [PlantumlNonPkEntityColumns]
-, [PlantumlNonPkHiddenEntityColumns]
-, [PlantumlNonPkIndexColumns]
-, [PlantumlPkEntityColumns]
-
-FROM [docs].[RepoObject_ColumnList] AS S
-----
-=====
-
-|
-
-|===
-', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_RepoObject_ColumnList_T';
-
-
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '12b444b3-0a22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_model_json_34_cultures_T';
 

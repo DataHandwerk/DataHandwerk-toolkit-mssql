@@ -74,20 +74,8 @@ PRINT '[docs].[usp_AntoraExport]'
 PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',210,';',NULL);
 
 DECLARE @command NVARCHAR(4000)
-DECLARE @outputDir NVARCHAR(1000)
-DECLARE @outputDir2 NVARCHAR(1000)
+DECLARE @cultures_name NVARCHAR(10)
 
-
-/*{"ReportUspStep":[{"Number":220,"Name":"configure outputDirs","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',220,';',NULL);
-
-SET @outputDir = ISNULL(@outputDir, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'partials')
-SET @outputDir2 = ISNULL(@outputDir2, (
-   SELECT [config].[fs_get_parameter_value]('AntoraComponentFolder', '') + '\modules\' + [config].[fs_get_parameter_value]('AntoraModule', '') + '\'
-   ) + 'pages')
-   
 
 /*{"ReportUspStep":[{"Number":300,"Name":"check Parameter AntoraDeleteFilesInModuleFolders","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[config].[Parameter]"}]}*/
 IF [config].[fs_get_parameter_value]('AntoraDeleteFilesInModuleFolders','') = 1
@@ -96,30 +84,63 @@ IF [config].[fs_get_parameter_value]('AntoraDeleteFilesInModuleFolders','') = 1
 BEGIN
 PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',310,';',300);
 
-/*
-FORFILES /p "D:\Repos\GitHub\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\partials" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"
+Declare page_cursor Cursor Local Fast_Forward For
+Select
+    cultures_name
+From
+    docs.culture
+Order By
+    cultures_name
+
+Open page_cursor
+
+Fetch Next From page_cursor
+Into
+    @cultures_name
+
+While @@Fetch_Status = 0
+Begin
+
+    /*
+FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\partials" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"
 */
-Set @command = N'FORFILES /p "'
-               --
-               + @outputDir
-               --
-               + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
+    Set @command
+        = N'FORFILES /p "'
+          --
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\partials'
+          --
+          + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
 
-Print @command
+    Print @command
 
---Execute the BCP command
-Exec sys.xp_cmdshell @command
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
 
-Set @command = N'FORFILES /p "'
-               --
-               + @outputDir2
-               --
-               + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
+    Set @command
+        = N'FORFILES /p "'
+          --
+          --
+          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
+          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + '\pages'
+          --
+          + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
 
-Print @command
+    Print @command
 
---Execute the BCP command
-Exec sys.xp_cmdshell @command
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Fetch Next From page_cursor
+    Into
+        @cultures_name
+End
+
+Close page_cursor
+Deallocate page_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

@@ -10,7 +10,10 @@
     [Referencing_fullname]  NVARCHAR (261)   NULL,
     [Referencing_fullname2] NVARCHAR (257)   NULL,
     [Referencing_type]      VARCHAR (2)      NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 
