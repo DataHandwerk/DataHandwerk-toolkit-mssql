@@ -120,8 +120,8 @@ EXEC [ssas].[usp_PERSIST_model_json_33_dataSources_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":340,"Name":"[ssas].[usp_PERSIST_model_json_34_cultures_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [ssas].[usp_PERSIST_model_json_34_cultures_T]
+/*{"ReportUspStep":[{"Number":340,"Name":"[ssas].[usp_PERSIST_model_json_3411_cultures_translations_model_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_model_json_3411_cultures_translations_model_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

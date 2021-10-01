@@ -127,8 +127,7 @@ Begin
           --
           + ''')" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\docsnippet\' + @sub_parameter + '.adoc"'
           --
           + ' -S ' + @instanceName

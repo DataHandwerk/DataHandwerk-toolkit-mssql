@@ -119,12 +119,11 @@ Into
 While @@Fetch_Status = 0
 Begin
     Set @command
-        = 'bcp "SELECT [partial_content] FROM [docs].[ObjectRefCyclic]" '
+        = 'bcp "SELECT [page_content] FROM [docs].[ObjectRefCyclic]" '
           --
-          + '" queryout "'
+          + ' queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\pages\other\' + 'ObjectRefCyclic.adoc"'
           --
           + ' -S ' + @instanceName
@@ -143,10 +142,9 @@ Begin
     Set @command
         = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic]" '
           --
-          + '" queryout "'
+          + ' queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\' + 'ObjectRefCyclic.puml"'
           --
           + ' -S ' + @instanceName

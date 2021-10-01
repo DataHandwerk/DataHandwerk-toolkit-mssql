@@ -1,4 +1,5 @@
 ﻿
+
 /*
 --get and check existing values
 
@@ -41,14 +42,14 @@ Where
     j2.[Key] = 'model'
 GO
 */
-CREATE View ssas.model_json_341_cultures_translations
+CREATE View [ssas].[model_json_341_cultures_translations]
 As
 Select
     T1.databasename
   , T1.cultures_name
   , j2.cultures_translations_model_j
 From
-    ssas.model_json_34_cultures_T As T1
+    ssas.model_json_34_cultures As T1
     Cross Apply
     OpenJson ( T1.cultures_translations_j )
     --As j1

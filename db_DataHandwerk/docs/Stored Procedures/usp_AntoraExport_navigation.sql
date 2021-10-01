@@ -127,8 +127,7 @@ Begin
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\navlist\' + 'navlist-schema-' + @schema_name + '.adoc"'
           --
           + ' -S ' + @instanceName
@@ -206,8 +205,7 @@ Begin
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\navlist\' + 'navlist-type-' + @type + '.adoc"'
           --
           + ' -S ' + @instanceName
@@ -290,9 +288,8 @@ Begin
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
-          + '\partials\navlist\' + 'navlist-schema-type-' + +@schema_name + '-' + @type + '.adoc"'
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
+          + '\partials\navlist\' + 'navlist-schema-type-' + @schema_name + '-' + @type + '.adoc"'
           --
           + ' -S ' + @instanceName
           --
@@ -364,15 +361,14 @@ Into
 While @@Fetch_Status = 0
 Begin
     Set @command
-        = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListRepoObject_by_schema] WHERE [RepoObject_schema_name] = '''
+        = 'bcp "SELECT [nav_list] FROM [docs].[AntoraNavListPage_by_schema] WHERE [RepoObject_schema_name] = '''
           + @schema_name
           --
           + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\pages\nav\' + 'nav-schema-' + @schema_name + '.adoc"'
           --
           + ' -S ' + @instanceName
@@ -449,8 +445,7 @@ Begin
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\pages\nav\' + 'nav-type-' + @type + '.adoc"'
           --
           + ' -S ' + @instanceName
@@ -525,10 +520,9 @@ Begin
     Set @command
         = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectBySchema]" '
           --
-          + '" queryout "'
+          + ' queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\navlist\' + 'nav-by-schema.adoc"'
           --
           + ' -S ' + @instanceName
@@ -547,10 +541,9 @@ Begin
     Set @command
         = 'bcp "SELECT [partial_content] FROM [docs].[AntoraPage_ObjectByType]" '
           --
-          + '" queryout "'
+          + ' queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\navlist\' + 'nav-by-type.adoc"'
           --
           + ' -S ' + @instanceName
@@ -569,10 +562,9 @@ Begin
     Set @command
         = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_ObjectBySchema]" '
           --
-          + '" queryout "'
+          + ' queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\pages\nav\' + 'objects-by-schema.adoc"'
           --
           + ' -S ' + @instanceName

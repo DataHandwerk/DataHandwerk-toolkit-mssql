@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 <<property_start>>MS_Description
 * generates the content for the 'partial$template/master-page-examples.adoc[]'
@@ -28,38 +26,50 @@ As
 Select
     page_content = Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + '== Examples'
                    --
-                   + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                   + String_Agg (
-                                    Concat (
-                                               Cast(N'' As Varchar(Max))
-                                             , 'ifdef::ExistsProperty--' + Lower ( property_name ) + '[]'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '.' + Substring ( property_name, 8, Len ( property_name ))
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '===='
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '[source,sql]'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '----'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'include::partial${docname}.adoc[tag=' + Lower ( property_name ) + ']'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '----'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '===='
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , 'endif::ExistsProperty--' + Lower ( property_name ) + '[]'
-                                             , Char ( 13 ) + Char ( 10 )
-                                           )
-                                  , Char ( 13 ) + Char ( 10 )
-                                ) Within Group(Order By
-                                                   property_name)
+                   + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + IsNull ( sta.sta, '' )
 From
-    property.PropertyName_RepoObject
-Where
-    property_name Like 'example%'
+(
+    --ensure existing of one row in case no property_name Like 'example%' exists
+    Select
+        dummy = 1
+)     As dummy
+    Left Join
+    (
+        Select
+            sta = String_Agg (
+                                 Concat (
+                                            Cast(N'' As Varchar(Max))
+                                          , 'ifdef::ExistsProperty--' + Lower ( property_name ) + '[]'
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , '.' + Substring ( property_name, 8, Len ( property_name ))
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , '===='
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , '[source,sql]'
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , '----'
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , 'include::partial${docname}.adoc[tag=' + Lower ( property_name ) + ']'
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , '----'
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , '===='
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , Char ( 13 ) + Char ( 10 )
+                                          , 'endif::ExistsProperty--' + Lower ( property_name ) + '[]'
+                                          , Char ( 13 ) + Char ( 10 )
+                                        )
+                               , Char ( 13 ) + Char ( 10 )
+                             ) Within Group(Order By
+                                                property_name)
+        From
+            property.PropertyName_RepoObject
+        Where
+            property_name Like 'example%'
+    ) As sta
+        On
+        1 = 1
 Go
 
 Execute sp_addextendedproperty

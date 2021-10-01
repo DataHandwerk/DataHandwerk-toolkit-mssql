@@ -121,11 +121,10 @@ Begin
     Set @command
         = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemanticGroup]" '
           --
-          + '" queryout "'
+          + ' queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
-          + '\pages\other\' + 'IndexSemanticGroup.adoc'
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
+          + '\pages\other\' + 'IndexSemanticGroup.adoc"'
           --
           + ' -S ' + @instanceName
           --

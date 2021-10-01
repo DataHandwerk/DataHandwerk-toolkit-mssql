@@ -128,8 +128,7 @@ Begin
         = 'bcp "SELECT [config].[fs_get_parameter_value](''AntoraPageTemplate'', N''' + @sub_parameter
           + ''')" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\template\' + 'master-page-' + @sub_parameter + '.adoc"'
           --
           + ' -S ' + @instanceName
@@ -203,10 +202,9 @@ Begin
     Set @command
         = 'bcp "SELECT [page_content] FROM [docs].[AntoraTemplate_examples]" '
           --
-          + '" queryout "'
+          + ' queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\template\' + 'master-page-examples.adoc"'
           --
           + ' -S ' + @instanceName

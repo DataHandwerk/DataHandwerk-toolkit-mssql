@@ -155,12 +155,11 @@ Begin
           --
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\' + @Object_fullname2 + '.adoc"'
           --
           + ' -S ' + @instanceName

@@ -145,12 +145,11 @@ Begin
           --
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\entity_1_1_colref\' + @Object_fullname2 + '.puml"'
           --
           + ' -S ' + @instanceName
@@ -171,12 +170,11 @@ Begin
           --
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\entity_1_1_fk\' + @Object_fullname2 + '.puml"'
           --
           + ' -S ' + @instanceName
@@ -197,12 +195,11 @@ Begin
           --
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\entity_1_1_objectref\' + @Object_fullname2 + '.puml"'
           --
           + ' -S ' + @instanceName
@@ -228,13 +225,12 @@ Begin
               --
               + @Object_fullname2
               --
-              + ' AND cultures_name = ''' + @cultures_name
+              + ''' AND cultures_name = ''' + @cultures_name
               --
               + '''" queryout "'
               --
-              + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-              + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '')
-              + @cultures_name + '\partials\puml\entity_0_30_objectref\' + @Object_fullname2 + '.puml"'
+              + docs.fs_AntoraModuleFolder ( @cultures_name )
+              + '\partials\puml\entity_0_30_objectref\' + @Object_fullname2 + '.puml"'
               --
               + ' -S ' + @instanceName
               --
@@ -254,13 +250,12 @@ Begin
               --
               + @Object_fullname2
               --
-              + ' AND cultures_name = ''' + @cultures_name
+              + ''' AND cultures_name = ''' + @cultures_name
               --
               + '''" queryout "'
               --
-              + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-              + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '')
-              + @cultures_name + '\partials\puml\entity_30_0_objectref\' + @Object_fullname2 + '.puml"'
+              + docs.fs_AntoraModuleFolder ( @cultures_name )
+              + '\partials\puml\entity_30_0_objectref\' + @Object_fullname2 + '.puml"'
               --
               + ' -S ' + @instanceName
               --
@@ -337,12 +332,11 @@ Begin
         = 'bcp "SELECT docs.fs_PumlHeaderTopToBottom () + [RepoObject_Puml] FROM [docs].[RepoObject_Plantuml_Entity_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\entity\' + @Object_fullname2 + '.puml"'
           --
           + ' -S ' + @instanceName
@@ -362,12 +356,11 @@ Begin
         = 'bcp "SELECT docs.fs_PumlHeaderTopToBottom () + [RepoObject_PumlOnlyPK] FROM [docs].[RepoObject_Plantuml_Entity_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\entity_pk\' + @Object_fullname2 + '.puml"'
           --
           + ' -S ' + @instanceName
@@ -387,12 +380,11 @@ Begin
         = 'bcp "SELECT docs.fs_PumlHeaderTopToBottom () + [RepoObject_PumlOnlyPkOrIndex] FROM [docs].[RepoObject_Plantuml_Entity_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\entity_pk_or_index\' + @Object_fullname2 + '.puml"'
           --
           + ' -S ' + @instanceName
@@ -412,12 +404,11 @@ Begin
         = 'bcp "SELECT docs.fs_PumlHeaderTopToBottom () + [RepoObject_PumlOnlyPkOrNotHidden] FROM [docs].[RepoObject_Plantuml_Entity_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
           + @Object_fullname2
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\entity_pk_or_nothidden\' + @Object_fullname2 + '.puml"'
           --
           + ' -S ' + @instanceName
@@ -497,12 +488,11 @@ Begin
           --
           + @SchemaName
           --
-          + ' AND cultures_name = ''' + @cultures_name
+          + ''' AND cultures_name = ''' + @cultures_name
           --
           + '''" queryout "'
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\schema_ssas_er\' + @SchemaName + '.puml"'
           --
           + ' -S ' + @instanceName

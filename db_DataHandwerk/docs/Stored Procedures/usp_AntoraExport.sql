@@ -108,8 +108,7 @@ FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\pa
         = N'FORFILES /p "'
           --
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials'
           --
           + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
@@ -123,8 +122,7 @@ FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\pa
         = N'FORFILES /p "'
           --
           --
-          + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\'
-          + config.fs_get_parameter_value ( 'AntoraModule', '' ) + Iif(@cultures_name <> '', '-', '') + @cultures_name
+          + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\pages'
           --
           + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'

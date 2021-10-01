@@ -759,9 +759,10 @@
     <Build Include="repo_sys\Stored Procedures\usp_dropextendedproperty_level_0.sql" />
     <Build Include="repo_sys\Stored Procedures\usp_DropExtendedProperty_in_self.sql" />
     <Build Include="repo_sys\Stored Procedures\usp_DropExtendedProperty_in_dwh.sql" />
-    <Build Include="ssas\Tables\model_json_34_cultures_T.sql" />
     <Build Include="docs\Views\Culture.sql" />
-    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_34_cultures_T.sql" />
+    <Build Include="ssas\Tables\model_json_3411_cultures_translations_model_T.sql" />
+    <Build Include="docs\Functions\fs_AntoraModuleFolder.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_3411_cultures_translations_model_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />
