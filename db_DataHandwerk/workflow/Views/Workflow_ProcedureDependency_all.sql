@@ -71,23 +71,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [wo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-per active Workflow all active ProcedureDependency, including redundant references
 
-.redundant references
-====
-are to be preserved:
-
-* A <= B
-* B <= C
-* C <= D
-
-redundant:
-
-* A <= C
-* A <= D
-* B <= C
-====', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'Workflow_ProcedureDependency_all';
 
 
 GO

@@ -252,17 +252,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'consecutive number of the column within the index.
-sys.index_columns.index_column_id: "ID of the index column. index_column_id is unique only within index_id."
-'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'repo'
-  , @level1type = N'VIEW'
-  , @level1name = N'IndexColumn_virtual_gross'
-  , @level2type = N'COLUMN'
-  , @level2name = N'index_column_id';
+
 Go
 
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Repo_user_type_fullname]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_virtual_gross', @level2type = N'COLUMN', @level2name = N'column_user_type_fullname';

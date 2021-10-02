@@ -14,6 +14,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2690291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'CONSTRAINT', @level2name = N'PK_Parameter';
 
@@ -62,7 +64,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [nvarchar](4000)))', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result';
+
 
 
 GO
@@ -74,7 +76,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1715
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'PK_Parameter', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter';
+
 
 
 GO
@@ -90,12 +92,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'2690291C-9D6
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
-* default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
-* resulting content is available in
-** xref:sqldb:config.Parameter.adoc#column-Parameter_value__result_int[config.Parameter.Parameter_value__result_int]
-** xref:sqldb:config.Parameter.adoc#column-Parameter_value__result_nvarchar[config.Parameter.Parameter_value__result_nvarchar]
-', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter';
+
 
 
 
@@ -122,15 +119,15 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST(coalesce([Parameter_value],[Parameter_default_value]) AS [int]))', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_int';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_value] AS [datetime]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_default_value] AS [datetime])  end)', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_datetime';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when NOT [Parameter_value] IS NULL AND NOT sql_variant_property([Parameter_value],''BaseType'')=''uniqueidentifier'' then TRY_CAST([Parameter_value] AS [date]) when NOT [Parameter_default_value] IS NULL AND NOT sql_variant_property([Parameter_default_value],''BaseType'')=''uniqueidentifier'' then CONVERT([date],TRY_CAST([Parameter_default_value] AS [datetime]))  end)', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'TABLE', @level1name = N'Parameter', @level2type = N'COLUMN', @level2name = N'Parameter_value_result_date';
+
+
+
+GO
+
 
 
 GO

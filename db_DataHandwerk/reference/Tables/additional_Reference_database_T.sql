@@ -9,6 +9,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ceb17b93-d017-ec11-851c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference_database_T', @level2type = N'CONSTRAINT', @level2name = N'PK_additional_Reference_database_T';
 
@@ -30,7 +32,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'c9b17b93-d0
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'name of the dwh database', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference_database_T', @level2type = N'COLUMN', @level2name = N'DatabaseName';
+
 
 
 GO
@@ -38,5 +40,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '01557
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'name of the connected repository database. will be used as source for descriptions and defines the Antora docs', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference_database_T', @level2type = N'COLUMN', @level2name = N'RepoDatabaseName';
+
 

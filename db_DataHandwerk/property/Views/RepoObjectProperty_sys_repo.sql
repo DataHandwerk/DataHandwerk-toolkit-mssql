@@ -149,7 +149,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [pr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid,property_name', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_sys_repo';
+
 
 
 GO

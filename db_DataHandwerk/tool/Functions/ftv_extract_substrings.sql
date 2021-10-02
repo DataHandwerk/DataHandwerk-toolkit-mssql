@@ -132,12 +132,7 @@ Execute sp_addextendedproperty
   , @level1name = N'ftv_extract_substrings';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* extract multiple substrings between two tags from @string
-* each part between @pattern1 and @pattern2 resultes in one row
-* split the extracted substring_net into the parts for and after the first EOL (end of line)
-** substring_netPreEol
-** substring_netPostEol', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'FUNCTION', @level1name = N'ftv_extract_substrings';
+
 
 
 GO

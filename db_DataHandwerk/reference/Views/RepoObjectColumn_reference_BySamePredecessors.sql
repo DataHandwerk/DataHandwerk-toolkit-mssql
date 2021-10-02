@@ -453,17 +453,15 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'reference in [repo_sys].[type]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_type';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'ID of the column. Is unique within the object.
-Column IDs might not be sequential.', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referencing_minor_id';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'ID of the column. Is unique within the object.
-Column IDs might not be sequential.', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_reference_BySamePredecessors', @level2type = N'COLUMN', @level2name = N'referenced_minor_id';
+
+
+
+GO
+
 
 
 GO

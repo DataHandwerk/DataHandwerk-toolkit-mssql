@@ -53,12 +53,6 @@
 
 
 
-GO
-
-
-
-GO
-
 
 
 GO
@@ -150,9 +144,15 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'extra table is required to allow FK with
-ON UPDATE CASCADE
-ON DELETE CASCADE', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence';
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO
@@ -278,11 +278,11 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end))', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'temporal_type';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence';
+
 
 
 GO
@@ -316,56 +316,43 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'changed columns should be updated in persistence target +
-An alternative option is ''is_persistence_delete_changed'' +
-This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_update_changed';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'missing columns or all columns should be inserted into persistence target +
-The final result depends on other settings
 
-* ''is_persistence_truncate'' = 1 and ''is_persistence_insert'' = 1 will just truncate the persistence target and insert all entries from persistence source
-* if a (real or virtual) PK is defined in the source, the insert can be combined with delete and update
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_insert';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'missing columns should be deleted in persistence target +
-This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_delete_missing';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'changed columns should be deleted in persistence target +
-An alternative option is ''is_persistence_update_changed'' +
-This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_delete_changed';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'persistence source should be checked empty source, empty source should not be persisted', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_check_for_empty_source';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'persistence source should be checked for duplicates per entry in the primary key. +
-This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_check_duplicate_per_pk';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'the final history_table_name will be defined in xref:sqldb:repo.RepoObject_SqlCreateTable.adoc[] +
-it looks like this column here is currently not used and should or could be deleted', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'history_table_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'the final history_schema_name will be defined in xref:sqldb:repo.RepoObject_SqlCreateTable.adoc[] +
-it looks like this column here is currently not used and should or could be deleted', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'history_schema_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'history columns are created. Can be used if only these columns are required, but not the related history table', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'has_history_columns';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'temporal table should be created, it will also automatically create the columns required for the history', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'has_history';
+
+
+
+GO
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO
@@ -393,9 +380,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58d9c
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'changed columns should be updated in persistence target +
-An alternative option is ''is_persistence_delete_changed'' +
-This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
+
 
 
 GO
@@ -403,12 +388,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57d9c
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'missing columns or all columns should be inserted into persistence target +
-The final result depends on other settings
 
-* ''is_persistence_truncate'' = 1 and ''is_persistence_insert'' = 1 will just truncate the persistence target and insert all entries from persistence source
-* if a (real or virtual) PK is defined in the source, the insert can be combined with delete and update
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
 
 
 GO
@@ -416,8 +396,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56d9c
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = 'missing columns should be deleted in persistence target +
-This requires a (real or virtual) PK defined in the source', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
+
 
 
 GO

@@ -8,7 +8,7 @@ EXEC [tool].[usp_RefreshViews]
 @Schema = 'MySchema'
 <<property_end>>
 */
-Create Procedure [tool].[usp_RefreshViews]
+CREATE Procedure [tool].[usp_RefreshViews]
 ( @Schema Varchar(100) = Null )
 As
 Declare @View_Schema Varchar(100);
@@ -67,8 +67,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '1bacb147-4a
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* refreshes views in a given schema or in all schemas', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_RefreshViews';
+
 
 
 GO

@@ -452,32 +452,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [lo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual.adoc[]
-* but it will not be visible in xref:sqldb:repo.Index_gross.adoc[] until it was also included into xref:sqldb:repo.Index_Settings.adoc[]
-* and after inserting a new index there could be duplicates for the same columns which needs to be removed again
 
-That''s why it is required run the folowing procedure (this also happens in xref:sqldb:repo.usp_main.adoc[])
-
-[source,sql]
-------
-EXEC [repo].[usp_Index_finish]
-------
-
-index_type:
-
-......
-Type of index:
-0 = Heap
-1 = Clustered
-2 = Nonclustered
-3 = XML
-4 = Spatial
-5 = Clustered columnstore index. Applies to: SQL Server 2014 (12.x) and later.
-6 = Nonclustered columnstore index. Applies to: SQL Server 2012 (11.x) and later.
-7 = Nonclustered hash index. Applies to: SQL Server 2014 (12.x) and later.
-......
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_Index_virtual_set';
 
 
 

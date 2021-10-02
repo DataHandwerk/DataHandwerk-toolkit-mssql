@@ -326,11 +326,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '59b33a4a-42
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate';
+
 
 
 GO

@@ -9,6 +9,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '3090291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values';
 
@@ -38,9 +40,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '87f37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* Equivalent to undocumented master.dbo.spt_values
-* But the database should not depend on this undocumented feature
-* See details in xref:user-guide:create-update-connect-repo-db.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values';
+
 
 
 GO

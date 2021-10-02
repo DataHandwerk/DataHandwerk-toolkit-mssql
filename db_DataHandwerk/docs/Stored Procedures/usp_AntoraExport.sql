@@ -293,75 +293,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [do
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* Database documentation uses https://antora.org/[Antora] and the markup language https://docs.asciidoctor.org/asciidoc/latest/[AsciiDoc]. One of many advantages of asciidoc over Markdown is the ability to use includes. This allows the *docs-as-code* and *code-as-docs* concepts to be implemented very well.
-* The procedure xref:sqldb:docs.usp_AntoraExport.adoc[] exports required files into the filesystem.
-** check and correct xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraModuleFolder'', ''''), a possible parameter is
-+
-====
-D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules
-====
 
-[discrete]
-=== How does it work?
-
-* Antora uses https://docs.antora.org/antora/2.3/navigation/files-and-lists/[Navigation Files and Lists]. Content for these files is exported:
-** export procedure: xref:sqldb:docs.usp_AntoraExport_navigation.adoc[]
-* exported object types are defined in the view xref:sqldb:configT.type.adoc[]
-+
-....
-SELECT [type]
- , [type_desc]
- , [is_DocsOutput]
-FROM [config].[type]
-WHERE [is_DocsOutput] = 1
-order by [type_desc] desc
-....
-* source pages per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/pages/schemaname.objectname.adoc``
-** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPage.adoc[]
-** the content of all page files per object is the same, it has only includes. The content is defined in xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
- the default content is (real code without leading ''/''):
-+
-====
-....
-/include::partial$template/master-page-1.adoc[]
-/include::partial$template/master-page-examples.adoc[]
-/include::partial$template/master-page-4.adoc[]
-/include::partial$template/master-page-5.adoc[]
-....
-====
-** the content of these includes is defined in xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', ''x'') (*non empty* `Sub_parameter` ''x''). Avoild blanks, because these `Sub_parameter` values become filname suffix.
-* the template content is the same for all objects. We use +{docname}+ and get the final content from individual ''partials'' per object. (real code without leading ''/'')
-+
-====
-....
-= {docname}
-
-/include::partial${docname}.adoc[tag=existing_properties]
-
-type:
-/include::partial${docname}.adoc[tag=SysObject_type]
-(
-/include::partial${docname}.adoc[tag=SysObject_type_name]
-), modify_date:
-/include::partial${docname}.adoc[tag=SysObject_modify_date]
-
-/ifdef::ExistsProperty--is_repo_managed[]
-is_repo_managed:
-/include::partial${docname}.adoc[tag=is_repo_managed]
-/endif::ExistsProperty--is_repo_managed[]
-....
-====
-** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
-* the individual content per object is exported as ''partial'' into (AntoraModuleFolder)``/``(AntoraModuleName)``/partials/schemaname.objectname.adoc``
-** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPartialProperties.adoc[]
-** all properties from xref:sqldb:property.RepoObjectProperty.adoc[] are exported with a `tag` per property
-** some additional `tag` are exported
-** the exported content is defined in xref:sqldb:docs.RepoObject_Adoc.adoc[]
-* the documentation contains diagrams. These diagrams are defined using https://plantuml.com/[plantUML]
-** export procedure: xref:sqldb:docs.usp_AntoraExport_ObjectPuml.adoc[]
-** individual diagrams per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/partials/puml/``
-
-include::sqldb:partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport';
 
 
 

@@ -145,15 +145,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_10_statement'
-  , @level2type = N'COLUMN'
-  , @level2name = N'SysObject_fullname';
+
 Go
 
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [sqlparse].[RepoObject_SqlModules].[sql_modules_json]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_10_statement', @level2type = N'COLUMN', @level2name = N'sql_modules_json';
@@ -171,19 +163,19 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_10_statement';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_10_statement';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_10_statement';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'E589A10A-AB97-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_10_statement';
+
+
+
+GO
+
 
 
 GO

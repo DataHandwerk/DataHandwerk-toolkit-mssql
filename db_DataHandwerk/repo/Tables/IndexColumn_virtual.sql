@@ -16,6 +16,12 @@ ALTER TABLE [repo].[IndexColumn_virtual] NOCHECK CONSTRAINT [FK_IndexColumn_virt
 
 
 GO
+ALTER TABLE [repo].[IndexColumn_virtual] NOCHECK CONSTRAINT [FK_IndexColumn_virtual_RepoObjectColumn];
+
+
+
+
+GO
 
 
 
@@ -54,9 +60,7 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'consecutive number of the column within the index.
-sys.index_columns.index_column_id: "ID of the index column. index_column_id is unique only within index_id."
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual', @level2type = N'COLUMN', @level2name = N'index_column_id';
+
 
 
 GO
@@ -100,7 +104,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '03dc7461-49
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'index_guid,index_column_id', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual';
+
 
 
 GO

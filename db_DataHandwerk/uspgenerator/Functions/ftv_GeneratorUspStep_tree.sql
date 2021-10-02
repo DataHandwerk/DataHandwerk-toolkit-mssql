@@ -306,17 +306,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [us
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* xref:sqldb:uspgenerator.GeneratorUspStep.adoc[] has a parent child structure.
-Here in this function we try to get the numbers in the right order.
-* It is not perfect if the tree is to deep and some "deep" numbers are lower.
-** check the result per [usp_id]
-** and if it not fits try to use better sorted numbers
-* one goal is to solve steps which are conditions
-** is_condition = 1
-** we need to encapsulate condition THEN and ELSE statement in BEGIN...END blocks
-** and this should work recursively
-** see the comment on top of the code for more details and testing', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'FUNCTION', @level1name = N'ftv_GeneratorUspStep_tree';
+
 
 
 GO

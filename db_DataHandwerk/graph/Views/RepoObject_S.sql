@@ -67,15 +67,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'reference in [repo_sys].[type]'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_type';
+
 
 
 Go
@@ -91,15 +83,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'graph'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_S'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObject_fullname';
+
 
 
 Go
@@ -119,25 +103,23 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'uniqueidentifier', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'888AA10A-AB97-EB11-84F4-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:graph.RepoObject.adoc[]
-* xref:graph.usp_PERSIST_RepoObject.adoc[]
-* xref:repo.usp_sync_guid_RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'graph', @level1type = N'VIEW', @level1name = N'RepoObject_S';
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO

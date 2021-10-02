@@ -112,7 +112,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(isjson([model_json]))', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_ImportModelSql', @level2type = N'COLUMN', @level2name = N'isModelJson';
+
 
 
 GO

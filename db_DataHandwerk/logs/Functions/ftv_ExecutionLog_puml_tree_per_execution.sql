@@ -169,79 +169,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [lo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* xref:sqldb:logs.ftv_ExecutionLog_puml_tree_per_execution.adoc[] uses xref:sqldb:logs.ExecutionLog.adoc[] to create PlantUML code for procedure execution
-* Only procedure calls are considered, not "normal code".
 
-results:
-
-[plantuml, ProcedurePumlTree-usp_main, svg]
-....
-
-@startsalt
-{
-{T
-+ Procedure
-+ [repo].[usp_main]
-++ [repo].[usp_sync_guid]
-+++ [repo].[usp_sync_guid_RepoSchema]
-+++ [repo].[usp_sync_guid_RepoObject]
-++++ [graph].[usp_PERSIST_RepoObject]
-+++ [repo].[usp_sync_guid_RepoObjectColumn]
-++++ [graph].[usp_PERSIST_RepoObjectColumn]
-++ [reference].[usp_update_Referencing_Count]
-++ [repo].[usp_index_inheritance]
-+++ [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
-+++ [repo].[usp_Index_finish]
-++++ [repo].[usp_Index_Settings]
-++++ [graph].[usp_PERSIST_Index]
-++ [repo].[usp_Index_ForeignKey]
-+++ [repo].[usp_PERSIST_ForeignKey_Indexes_union_T]
-+++ [repo].[usp_Index_finish]
-++++ [repo].[usp_Index_Settings]
-++++ [graph].[usp_PERSIST_Index]
-++ [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
-++ [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
-++ [property].[usp_RepoObject_Inheritance]
-++ [property].[usp_RepoObjectColumn_Inheritance]
-}
-}
-@endsalt
-....
-
-[plantuml, ProcedurePumlTreeTable-ExecutionLog-usp_main, svg]
-....
-@startsalt
-{
-{T
-+ Procedure  |  Duration
-+ [repo].[usp_main]  |  243
-++ [repo].[usp_sync_guid]  |  12
-+++ [repo].[usp_sync_guid_RepoSchema]  |  0
-+++ [repo].[usp_sync_guid_RepoObject]  |  3
-++++ [graph].[usp_PERSIST_RepoObject]  |  0
-+++ [repo].[usp_sync_guid_RepoObjectColumn]  |  4
-++++ [graph].[usp_PERSIST_RepoObjectColumn]  |  0
-++ [reference].[usp_update_Referencing_Count]  |  13
-++ [repo].[usp_index_inheritance]  |  31
-+++ [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]  |  12
-+++ [repo].[usp_Index_finish]  |  8
-++++ [repo].[usp_Index_Settings]  |  1
-++++ [graph].[usp_PERSIST_Index]  |  0
-++ [repo].[usp_Index_ForeignKey]  |  9
-+++ [repo].[usp_PERSIST_ForeignKey_Indexes_union_T]  |  1
-+++ [repo].[usp_Index_finish]  |  1
-++++ [repo].[usp_Index_Settings]  |  1
-++++ [graph].[usp_PERSIST_Index]  |  0
-++ [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]  |  1
-++ [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]  |  53
-++ [property].[usp_RepoObject_Inheritance]  |  3
-++ [property].[usp_RepoObjectColumn_Inheritance]  |  30
-}
-}
-@endsalt
-....
-', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_tree_per_execution';
 
 
 GO

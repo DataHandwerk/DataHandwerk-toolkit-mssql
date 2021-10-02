@@ -52,7 +52,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [pr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid,property_name', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_cross';
+
 
 
 GO
@@ -68,10 +68,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = '50094558-5f9f
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* cross join between RepoObject and *all* used properties in any RepoObject
-* required for Antora export: per RepoObject we export partials for all Properties: +
-When we use includes with tags we can''t check if the tags exists or not. That''s why we need to create all tags, with contents without content', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_cross';
+
 
 
 GO

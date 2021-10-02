@@ -203,15 +203,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'(concat(''['',[SysObject_schema_name],''].['',[SysObject_name],'']''))'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias'
-  , @level2type = N'COLUMN'
-  , @level2name = N'source_SysObject_fullname';
+
 Go
 
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_name]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias', @level2type = N'COLUMN', @level2name = N'source_RepoObjectColumn_name';
@@ -219,15 +211,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'Name of the column. Is unique within the object.'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias'
-  , @level2type = N'COLUMN'
-  , @level2name = N'source_RepoObjectColumn_name';
+
 Go
 
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias', @level2type = N'COLUMN', @level2name = N'source_RepoObjectColumn_guid';
@@ -245,15 +229,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'Name of the column. Is unique within the object.'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'sqlparse'
-  , @level1type = N'VIEW'
-  , @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias'
-  , @level2type = N'COLUMN'
-  , @level2name = N'RepoObjectColumn_name';
+
 Go
 
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[RepoObjectColumn_guid]', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'VIEW', @level1name = N'RepoObject_SqlModules_71_reference_ExpliciteTableAlias', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_guid';

@@ -63,8 +63,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'fd643d36-edf5
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:reference.RepoObject_ReferenceTree_referenced_30_0_T.adoc[]
-* xref:reference.usp_PERSIST_RepoObject_ReferenceTree_referenced_30_0_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_referenced_30_0';
+
 
 
 GO
@@ -94,5 +93,5 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_ReferenceTree_referenced_30_0', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
+
 

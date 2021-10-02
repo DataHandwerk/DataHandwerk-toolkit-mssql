@@ -1146,77 +1146,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target (table or view), based on a given persistence source (view or table)
-* create or update entries in xref:sqldb:repo.RepoObject_persistence.adoc[]
-** default properties are used, defined in this table
-*** [is_persistence_truncate] = 1
-*** [is_persistence_insert] = 1
-*** all others bit values = 0
 
-TIP: see details for usage in xref:user-guide:persistence-generator.adoc[]
-
-[NOTE]
-.How does it work:
---
-* insert or update xref:sqldb:repo.RepoObject_persistence.adoc[]
-** update existing RepoObject which [.line-through]#should be a table and# will be marked as persistence
-** create new RepoObject which will be a table and will be marked as persistence
-* persistence source
-** uses @source_RepoObject_guid, if not empty
-** tries to get @source_RepoObject_guid from @source_fullname
-* persistence target
-** with @persistence_RepoObject_guid an _existing_ table can be defined as target
-** otherwise defaults are used
-*** same schema as persistence source
-*** if the `@persistence_table_name` is `NULL`, defaults are used:
-**** name of persistence source + suffix (`FROM [repo].[Parameter] WHERE [Parameter_name] = ''persistence_name_suffix''`)
-* persistence source NULL, persistence target NULL
-** => error
---
-
-[NOTE]
-.pesistence procedure naming
---
-the default name for the *persistence procedure* is
-
-* ''persistence target schema''.''usp_PERSIST_'' + ''persistence target name''
-+
-[source,sql]
-------
-[SchemaName].[usp_PERSIST_SourceViewName_T]
-------
---
-
-[NOTE]
---
-after executing xref:sqldb:repo.usp_persistence_set.adoc[] you should
-
-* EXEC xref:sqldb:repo.usp_main.adoc[]
-* check and update attributes in xref:sqldb:repo.RepoObject_persistence.adoc[]
-* physically create the persistence table (the procedure xref:sqldb:repo.usp_persistence_set.adoc[] will only create the code)
-+
-[source,sql]
-------
-SELECT
-    [RepoObject_guid]
-  , [DbmlTable]
-  , [RepoObject_fullname]
-  , [SqlCreateTable]
-  , [ConList]
-  , [persistence_source_RepoObject_fullname]
-  , [persistence_source_RepoObject_guid]
-  , [persistence_source_SysObject_fullname]
-FROM
-    [repo].[RepoObject_SqlCreateTable]
-WHERE
-    NOT [persistence_source_RepoObject_fullname] IS NULL
-ORDER BY
-    [RepoObject_fullname];
-------
-** Use the sql statement in column [SqlCreateTable] to create the table
-* get the usp code in xref:sqldb:uspgenerator.GeneratorUsp_SqlUsp.adoc[] and execute it to create the persistence procedure
---', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
 
 
 

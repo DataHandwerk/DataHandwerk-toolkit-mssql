@@ -93,7 +93,7 @@ Declare property_cursor Cursor Read_Only For
 --level 0 extended properties
 Select
     property_name
-  , property_value
+  , cast(property_value as nvarchar(4000))
   , level0type
   , level0name
   , level1type
@@ -213,7 +213,7 @@ Declare property_cursor Cursor Read_Only For
 --level 1 extended properties
 Select
     property_name
-  , property_value
+  , cast(property_value as nvarchar(4000))
   , level0type
   , level0name
   , level1type
@@ -333,7 +333,7 @@ Declare property_cursor Cursor Read_Only For
 --level 2 extended properties
 Select
     property_name
-  , property_value
+  , cast(property_value as nvarchar(4000))
   , level0type
   , level0name
   , level1type
@@ -478,11 +478,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5bb33a4a-42
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_Delete';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_sync_ExtendedProperties_Repo2Sys_Delete';
+
 
 
 GO

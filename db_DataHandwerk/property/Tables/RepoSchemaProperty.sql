@@ -1,4 +1,4 @@
-CREATE TABLE [property].[RepoSchemaProperty] (
+﻿CREATE TABLE [property].[RepoSchemaProperty] (
     [RepoSchemaProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [RepoSchema_guid]       UNIQUEIDENTIFIER NOT NULL,
     [property_name]         NVARCHAR (128)   NOT NULL,
@@ -13,6 +13,8 @@ CREATE TABLE [property].[RepoSchemaProperty] (
     CONSTRAINT [FK_RepoSchemaProperty__RepoSchema] FOREIGN KEY ([RepoSchema_guid]) REFERENCES [repo].[RepoSchema] ([RepoSchema_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoSchemaProperty] UNIQUE NONCLUSTERED ([RepoSchema_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 
@@ -116,7 +118,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [real]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_real';
+
 
 
 GO
@@ -132,7 +134,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [money]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_money';
+
 
 
 GO
@@ -140,7 +142,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [int]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_int';
+
 
 
 GO
@@ -148,7 +150,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [float]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_float';
+
 
 
 GO
@@ -156,7 +158,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(TRY_CAST([property_value] AS [bigint]))', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoSchemaProperty', @level2type = N'COLUMN', @level2name = N'property_bigint';
+
 
 
 GO

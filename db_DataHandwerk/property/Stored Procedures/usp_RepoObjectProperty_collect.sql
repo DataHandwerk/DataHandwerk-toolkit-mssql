@@ -351,17 +351,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [lo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'collects the content for RepoObjectProperty from several sources:
 
-* xref:uspgenerator.GeneratorUsp.adoc[] +
-via xref:property.RepoObjectProperty_Collect_source_uspgenerator.adoc[]
-* xref:repo.RepoObject_gross.adoc[] +
-via xref:property.RepoObjectProperty_Collect_source_ROGross.adoc[]
-** Persistence attributes
-** AntoraReferenceLists
-** some common properties
-* xref:property.RepoObjectProperty_Collect_source_sql_modules_definition.adoc[] +
-this parses sql_modules_definition for tagged parts defining extended properties', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectProperty_collect';
 
 
 

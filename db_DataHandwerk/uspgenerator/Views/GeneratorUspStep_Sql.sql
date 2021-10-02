@@ -255,15 +255,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 Go
 
-Execute sp_addextendedproperty
-    @name = N'MS_Description'
-  , @value = N'(concat(''['',[usp_schema],''].['',[usp_name],'']''))'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'uspgenerator'
-  , @level1type = N'VIEW'
-  , @level1name = N'GeneratorUspStep_Sql'
-  , @level2type = N'COLUMN'
-  , @level2name = N'usp_fullname';
+
 Go
 
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [uspgenerator].[GeneratorUsp].[has_logging]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql', @level2type = N'COLUMN', @level2name = N'has_logging';
@@ -289,7 +281,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [us
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'usp_id,Number', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUspStep_Sql';
+
 
 
 GO

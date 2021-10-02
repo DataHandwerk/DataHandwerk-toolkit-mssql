@@ -225,8 +225,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [lo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes [repo].[RepoSchema], [repo].[RepoObject], [repo].[RepoObjectColumn] with ssas-tabular metadata in schem ssas
-* ssas databasename is used as RepoSchema_name', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_ssas';
+
 
 
 GO

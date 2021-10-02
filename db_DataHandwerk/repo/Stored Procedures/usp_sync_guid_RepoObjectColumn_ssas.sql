@@ -108,7 +108,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [lo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoObjectColumn_guid with [ssas].[TMSCHEMA_COLUMNS_T]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn_ssas';
+
 
 
 GO

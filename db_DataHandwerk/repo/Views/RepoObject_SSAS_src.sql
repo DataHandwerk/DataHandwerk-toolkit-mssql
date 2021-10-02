@@ -115,8 +115,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'AFE4D30B-090
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-converts xref:sqldb:ssas.TMSCHEMA_TABLES_T.adoc[] into xref:sqldb:repo.RepoObject.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_SSAS_src';
+
 
 
 GO

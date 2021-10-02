@@ -1664,11 +1664,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'b590291c-9d
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
 
 
 GO
@@ -1829,7 +1829,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* synchronizes RepoObjectColumn_guid with dwh database extended properties "RepoObjectColumn_guid"', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_sync_guid_RepoObjectColumn';
+
 
 
 GO

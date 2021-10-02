@@ -172,10 +172,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'cfe6a70a-8a
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-obsolet
 
-defines, which SSAS DMV tables should be imported', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'SsasDmvTableImport';
 
 
 GO

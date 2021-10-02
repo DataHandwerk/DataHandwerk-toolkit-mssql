@@ -22,6 +22,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a756741b-6373-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual', @level2type = N'CONSTRAINT', @level2name = N'PK_ForeignKey_virtual';
 
@@ -95,7 +97,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '47df2
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'ForeignKey_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'ForeignKey_virtual';
+
 
 
 GO

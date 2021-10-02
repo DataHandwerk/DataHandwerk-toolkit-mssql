@@ -664,16 +664,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'https://antora.org/[Antora] uses https://docs.antora.org/antora/2.3/navigation/files-and-lists/[Navigation Files and Lists]. Content for these files is exported
 
-* check and correct xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraModuleFolder'', ''''), a possible parameter is
-+
-====
-D:\Repos\GitHub\MyOrganisation\MyProject-docs\docs\modules
-====
-
-include::partial$docsnippet/antora-export-prerequisites.adoc[]
-', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_navigation';
 
 
 

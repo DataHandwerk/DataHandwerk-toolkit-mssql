@@ -90,7 +90,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [do
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'IndexSemanticGroup,IndexPatternColumnDatatype', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraIndexSemanticgroupPatterndatatype';
+
 
 
 GO

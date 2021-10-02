@@ -10,6 +10,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '95be898f-9381-eb11-84e9-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'TABLE', @level1name = N'DataSources', @level2type = N'CONSTRAINT', @level2name = N'PK_dbeaver_DataSources';
 
@@ -52,7 +54,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(isjson([BulkColumn]))', @level0type = N'SCHEMA', @level0name = N'dbeaver', @level1type = N'TABLE', @level1name = N'DataSources', @level2type = N'COLUMN', @level2name = N'is_json';
+
 
 
 GO

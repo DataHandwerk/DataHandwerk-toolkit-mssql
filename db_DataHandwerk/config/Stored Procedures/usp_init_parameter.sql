@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>Description
-* merges default values for parameters from xref:sqldb:configt.Parameter_default.adoc[] into xref:sqldb:config.parameter.adoc[]
+* merges default values for parameters from xref:sqldb:configt.parameter_default.adoc[] into xref:sqldb:config.parameter.adoc[]
 <<property_end>>
 */
 CREATE Procedure config.usp_init_parameter
@@ -88,8 +88,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* merges default values for parameters from xref:sqldb:configT.Parameter_default.adoc[] into xref:sqldb:config.Parameter.adoc[]', @level0type = N'SCHEMA', @level0name = N'config', @level1type = N'PROCEDURE', @level1name = N'usp_init_parameter';
+
 
 
 GO

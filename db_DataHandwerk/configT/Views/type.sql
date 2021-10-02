@@ -86,7 +86,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'object_type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
 
 
 GO
@@ -102,9 +102,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'0E45DFF8-FB9
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* based on master.dbo.spt_values, which  is an undocumemted hidden view or table, containing useful entries 
-* master.dbo.spt_values content is available as copy in xref:sqldb:configT.spt_values.adoc[]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type';
+
 
 
 

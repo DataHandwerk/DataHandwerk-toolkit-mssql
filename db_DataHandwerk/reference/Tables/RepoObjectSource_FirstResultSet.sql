@@ -24,10 +24,10 @@
 
 
 
+
+
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'references on column level
-target: repo.RepoObjectSource
-source: sys.dm_exec_describe_first_result_set', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet';
+
 
 
 GO
@@ -91,7 +91,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '3af37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid,column_ordinal', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet';
+
 
 
 GO

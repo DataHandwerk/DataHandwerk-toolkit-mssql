@@ -52,7 +52,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [sq
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid,property_name', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition';
+
 
 
 GO
@@ -68,12 +68,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = 'f8564e46-5f9f
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* extracts properties from sql_modules_definition
-* properties can be added (normally in comments) following this syntax
-** use one line to mark the starting point for parsing: `\<<property_start>>abcde` markes the property_name `abcde`
-** use one line to mark the end point: `\<<property_end>>`
-* The correct sequence must be followed. Nested parsing is not supported.', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'VIEW', @level1name = N'RepoObjectProperty_Collect_source_sql_modules_definition';
+
 
 
 

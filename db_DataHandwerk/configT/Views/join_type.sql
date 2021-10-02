@@ -69,7 +69,7 @@ Execute sp_addextendedproperty
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'join_type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'join_type';
+
 
 
 GO

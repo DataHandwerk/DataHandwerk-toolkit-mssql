@@ -67,6 +67,8 @@
 
 
 
+
+
 GO
 
 
@@ -275,23 +277,23 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(quotename([proc_schema_name]),''.'',quotename([proc_name])))', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'COLUMN', @level2name = N'proc_fullname';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'ExecutionLog_id', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'id', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'bigint', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'1E90291C-9D61-EB11-84DC-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog';
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO

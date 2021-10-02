@@ -47,15 +47,15 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [ss
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnName', @value = N'RepoSchema_name', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_src';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexPatternColumnDatatype', @value = N'nvarchar(128)', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_src';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'DE9E1E69-2007-EC11-8515-A81E8446D5B0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_src';
+
+
+
+GO
+
 
 
 GO

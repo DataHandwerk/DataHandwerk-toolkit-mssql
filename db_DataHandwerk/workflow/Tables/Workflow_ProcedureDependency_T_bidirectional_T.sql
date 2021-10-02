@@ -13,6 +13,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '78e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow_ProcedureDependency_T_bidirectional_T', @level2type = N'CONSTRAINT', @level2name = N'PK_Workflow_ProcedureDependency_T_bidirectional_T';
 
@@ -150,7 +152,7 @@ EXECUTE sp_addextendedproperty @name = N'has_history', @value = N'0', @level0typ
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xref:workflow.usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T.adoc[]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow_ProcedureDependency_T_bidirectional_T';
+
 
 
 GO
@@ -166,7 +168,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow_ProcedureDependency_T_bidirectional_T', @level2type = N'COLUMN', @level2name = N'referencing_RepoObject_fullname';
+
 
 
 GO
@@ -178,7 +180,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'Workflow_ProcedureDependency_T_bidirectional_T', @level2type = N'COLUMN', @level2name = N'referenced_RepoObject_fullname';
+
 
 
 GO

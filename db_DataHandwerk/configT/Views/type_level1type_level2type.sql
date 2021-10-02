@@ -136,7 +136,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'object_type', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
 
 
 GO
@@ -172,9 +172,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-Mappping from xref:configT.type.adoc[] (used in [type] in system catalog views)
-to `level1type` (used in sp_addextendedproperty, sp_updateextendedproperty) ', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'type_level1type_level2type';
+
 
 
 GO

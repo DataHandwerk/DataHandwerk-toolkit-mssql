@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>Description
 `AdocContent` is the content of a page to be used by Antora as partial.
@@ -18,7 +17,7 @@ All Parts of the documentations are tagged, Antora can reference the content usi
 To use additional content in Antora documentation first try to include new properties into xref:property.repoobjectproperty.adoc[]
 <<property_end>>
 */
-CREATE View [docs].[RepoObject_Adoc]
+CREATE View docs.RepoObject_Adoc
 As
 Select
     rof.RepoObject_guid
@@ -44,10 +43,10 @@ Select
            --, Max ( rof.RepoObject_fullname )
            --, Char ( 13 ) + Char ( 10 )
            --
-           , Char ( 13 ) + Char ( 10 )
-           , '== HeaderFullDisplayName'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
+           --, '== HeaderFullDisplayName'
+           --, Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
            , '// tag::HeaderFullDisplayName[]'
            , Char ( 13 ) + Char ( 10 )
            , '= ' + Max ( rof.RepoObject_FullDisplayName2 )
@@ -527,7 +526,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [do
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'RepoObject_guid', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
+
 
 
 GO
@@ -571,21 +570,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-`AdocContent` is the content of a page to be used by Antora as partial.
 
-The view xref:docs.RepoObject_Adoc.adoc[] will persisted into xref:docs.RepoObject_Adoc_T.adoc[] +
-and later exported for Antora by xref:docs.usp_PERSIST_RepoObject_Adoc_T.adoc[]
-
-One document per RepoObject is generated, it contains all information (but not diagrams) which is used by Antora. 
-
-All Parts of the documentations are tagged, Antora can reference the content using this tags.
-
-* any per RepoObject existing properties in xref:property.RepoObjectProperty.adoc[] are extracted as separate tags
-* some specific additional tags are extracted from other sources (some lists, some content from xref:repo.RepoObject_gross.adoc[])
-* a special entry per exported tag is created: `'':ExistsProperty--'' + Lower ( rop.property_name ) + '':''` which can be used to check the existence of a tag entry
-
-To use additional content in Antora documentation first try to include new properties into xref:property.RepoObjectProperty.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc';
 
 
 GO

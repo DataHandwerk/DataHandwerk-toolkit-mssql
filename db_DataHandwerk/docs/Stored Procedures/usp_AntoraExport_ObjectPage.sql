@@ -218,32 +218,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* exported object types are defined in the view xref:configT.type.adoc[]
-+
-....
-SELECT [type]
- , [type_desc]
- , [is_DocsOutput]
-FROM [config].[type]
-WHERE [is_DocsOutput] = 1
-order by [type_desc] desc
-....
-* source pages per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/pages/schemaname.objectname.adoc``
-** export procedure: xref:docs.usp_AntoraExport_ObjectPage.adoc[]
-** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
- the default content is (real code without leading ''/''):
-+
-====
-....
-/include::partial$template/master-page-1.adoc[]
-/include::partial$template/master-page-examples.adoc[]
-/include::partial$template/master-page-4.adoc[]
-/include::partial$template/master-page-5.adoc[]
-....
-====
 
-include::partial$docsnippet/antora-export-prerequisites.adoc[]
-', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPage';
 
 
 

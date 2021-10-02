@@ -183,24 +183,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-list of conflicting entries which needs to be merged
 
-mismatch of RepoObjectColumn_guid can create 2 entries per one RepoObjectColumn +
-this can happen, if the guid exists in the database extended properties and a new guid will be created in the repo
-
-* roc1 has the right RepoObjectColumn_fullname, but the guid was new created
-* roc2 got the "right" guid from database, but roc2 can''t propagate the fullname into RepoObjectColumn because the RepoObjectColumn_fullname is occupied
-now we have 2 entries, but we need to merge them
-
-what we need to do in xref:sqldb:repo.usp_sync_guid_RepoObjectColumn.adoc[]
-
-* keep roc1 (which has the right RepoObjectColumn_name)
-** mark them set is_required_ColumnMerge = 1
-* delete columns with RepoObjectColumn_guid in roc2_RepoObjectColumn_guid
-* set SysObjectColumn_name = RepoObjectColumn_name (for roc1, for marked columns)
-* remove marker where SysObjectColumn_name = RepoObjectColumn_name
-', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge';
 
 
 
@@ -220,17 +203,15 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Name of the column. Is unique within the object.
-if it not exists in the database, the RepoObject_guid or any other guid is used, because this column should not be empty', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'SysObjectColumn_name';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Name of the column. Is unique within the object.
-if it not exists in the database, the RepoObject_guid or any other guid is used, because this column should not be empty', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'roc2_SysObjectColumn_name';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Name of the column. Is unique within the object.', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'roc2_RepoObjectColumn_name';
+
+
+
+GO
+
 
 
 GO
@@ -240,7 +221,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Name of the column. Is unique within the object.', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'RepoObjectColumn_name';
+
 
 
 GO
@@ -264,7 +245,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when TRY_CAST([SysObjectColumn_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end)', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'is_SysObjectColumn_name_uniqueidentifier';
+
 
 
 GO
@@ -272,7 +253,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(case when TRY_CAST([RepoObjectColumn_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end)', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_RequiredRepoObjectColumnMerge', @level2type = N'COLUMN', @level2name = N'is_RepoObjectColumn_name_uniqueidentifier';
+
 
 
 GO

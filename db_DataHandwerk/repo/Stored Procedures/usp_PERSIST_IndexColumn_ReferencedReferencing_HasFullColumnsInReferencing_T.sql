@@ -183,11 +183,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ac7ed154-6b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspExamples', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
 
 
 GO

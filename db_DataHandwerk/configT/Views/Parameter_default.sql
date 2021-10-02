@@ -4,6 +4,8 @@
 
 
 
+
+
 /*
 <<property_start>>Description
 * default parameter values are defined (hard coded) in xref:sqldb:configt.parameter_default.adoc[] and available in xref:sqldb:config.parameter.adoc#column-Parameter_default_value[config.parameter.parameter_default_value]
@@ -167,19 +169,19 @@ Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N''
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''Description'')'''
   , Parameter_default_value = Null
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
-  , sub_Parameter           = N'MS_Description'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
-  , Parameter_default_value = 'CAST(COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''MS_Description'')) AS NVARCHAR(MAX))'
+  , sub_Parameter           = N'Description'
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''Description'')'''
+  , Parameter_default_value = 'CAST(COALESCE(referencing.[Repo_definition], property.fs_get_RepoObjectColumnProperty_nvarchar(referenced.[RepoObjectColumn_guid], ''Description'')) AS NVARCHAR(MAX))'
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_column'
   , sub_Parameter           = N'ReferencedObjectColumnList'
-  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''MS_Description'')'''
+  , Parameter_desciption    = N'CONCAT arguments to be used with some specific values in [config].[InheritanceType], for example: ''[RepoObject_name],CHAR(13),CHAR(10),EineNochZuDefinierendeFunktion(''Description'')'''
   , Parameter_default_value = '''* '' + referenced.[RepoObjectColumn_fullname]'
 Union All
 Select
@@ -190,8 +192,8 @@ Select
 Union All
 Select
     Parameter_name          = 'InheritanceDefinition_object'
-  , sub_Parameter           = N'MS_Description'
-  , Parameter_desciption    = N'CONCAT arguments, for example: ''property.fs_get_RepoObjectProperty_nvarchar(referenced.[RepoObject_guid],''MS_Description'') + CHAR(13)+CHAR(10)+''''''+CHAR(13)+CHAR(10)'''
+  , sub_Parameter           = N'Description'
+  , Parameter_desciption    = N'CONCAT arguments, for example: ''property.fs_get_RepoObjectProperty_nvarchar(referenced.[RepoObject_guid],''Description'') + CHAR(13)+CHAR(10)+''''''+CHAR(13)+CHAR(10)'''
   , Parameter_default_value = Null
 Union All
 Select
@@ -208,7 +210,7 @@ Select
 Union All
 Select
     Parameter_name          = 'InheritanceType_column'
-  , sub_Parameter           = N'MS_Description'
+  , sub_Parameter           = N'Description'
   , Parameter_desciption    = N'TINYINT; InheritanceType for column: possible values in [config].[InheritanceType]'
   , Parameter_default_value = '0'
 Union All
@@ -226,7 +228,7 @@ Select
 Union All
 Select
     Parameter_name          = 'InheritanceType_object'
-  , sub_Parameter           = N'MS_Description'
+  , sub_Parameter           = N'Description'
   , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
   , Parameter_default_value = '0'
 Union All
@@ -663,6 +665,8 @@ Select
            , '== sql_modules_definition' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '.{docname} script' + Char ( 13 ) + Char ( 10 )
+           --, 'include::partial${docname}.adoc[tag=RepoObject_FullDisplayName2]' + Char ( 13 ) + Char ( 10 )
+           --, ' script' + Char ( 13 ) + Char ( 10 )
            , 'include::partial${docname}.adoc[tag=sql_modules_definition]' + Char ( 13 ) + Char ( 10 )
            , 'endif::ExistsProperty--sql_modules_definition[]' + Char ( 13 ) + Char ( 10 )
          )
@@ -738,7 +742,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'dd8f291c-9
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'PK_Parameter', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
 
 
 GO
@@ -754,12 +758,7 @@ EXECUTE sp_addextendedproperty @name = N'pk_index_guid', @value = N'14E2E7E8-FB9
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
-* default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
-* resulting content is available in
-** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
-** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_nvarchar[+config.Parameter.Parameter_value__result_nvarchar+]', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'VIEW', @level1name = N'Parameter_default';
+
 
 
 GO

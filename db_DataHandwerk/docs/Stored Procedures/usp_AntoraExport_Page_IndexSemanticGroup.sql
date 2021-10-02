@@ -124,7 +124,7 @@ Begin
           + ' queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\pages\other\' + 'IndexSemanticGroup.adoc"'
+          + '\pages\other\' + 'indexsemanticgroup.adoc"'
           --
           + ' -S ' + @instanceName
           --
@@ -412,10 +412,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'one special page is exported into +
-@outputDir + ''IndexSemanticGroup.adoc''
 
-include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_Page_IndexSemanticGroup';
 
 
 GO

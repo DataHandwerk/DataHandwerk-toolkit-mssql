@@ -303,9 +303,7 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-NOTE: Duplicates are possible, if exists alternative path between objects with different depth +
-to elimenate them, exclude `Referenced_Depth` and `Referencing_Depth` and use `DISTINCT`', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_ReferenceTree';
+
 
 
 GO

@@ -14,6 +14,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '2290291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_Settings', @level2type = N'CONSTRAINT', @level2name = N'PK_Index_Settings';
 
@@ -47,7 +49,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0cf37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'index_guid', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_Settings';
+
 
 
 GO

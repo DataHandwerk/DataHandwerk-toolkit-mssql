@@ -178,11 +178,7 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-PlantUML for all entities to be included into the reference diagram, defined by  @Referenced_Depth and @Referencing_Depth +
 
-relations between these entities are generated in +
-xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_1_1.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[] ', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'ftv_RepoObject_Reference_PlantUml_EntityRefList';
 
 
 GO

@@ -670,7 +670,6 @@
     <Build Include="ssas\Views\model_json_316_tables_descriptions_multiline.sql" />
     <Build Include="ssas\Views\model_json_2011_descriptions_StrAgg.sql" />
     <Build Include="ssas\Views\model_json_201_descriptions_multiline.sql" />
-    <Build Include="repo\Views\ForeignKey_ssas_IndexPattern_old.sql" />
     <Build Include="ssas\Views\model_json_31121_tables_columns_expressions_StrAgg.sql" />
     <Build Include="ssas\Views\model_json_3112_tables_columns_expressions_multiline.sql" />
     <Build Include="ssas\Views\model_json_31111_tables_columns_descriptions_StrAgg.sql" />
@@ -768,7 +767,6 @@
     <Build Include="ssas\Views\model_json_341111_cultures_translations_model_tables_columns.sql" />
     <Build Include="ssas\Views\model_json_34111_cultures_translations_model_tables.sql" />
     <Build Include="docs\Functions\fs_cleanStringForFilename.sql" />
-    <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_34_cultures_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

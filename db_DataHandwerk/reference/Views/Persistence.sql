@@ -53,7 +53,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1cb3a
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(''usp_PERSIST_''+[RepoObject_name])', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence', @level2type = N'COLUMN', @level2name = N'referencing_usp_persistence_name';
+
 
 
 GO
@@ -65,7 +65,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1ab3a
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence', @level2type = N'COLUMN', @level2name = N'referencing_fullname';
+
 
 
 GO
@@ -81,7 +81,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '17b3a
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(''usp_PERSIST_''+[RepoObject_name])', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence', @level2type = N'COLUMN', @level2name = N'referenced_usp_persistence_name';
+
 
 
 GO
@@ -93,7 +93,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '15b3a
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'(concat(''['',[RepoObject_schema_name],''].['',[RepoObject_name],'']''))', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence', @level2type = N'COLUMN', @level2name = N'referenced_fullname';
+
 
 
 GO
@@ -105,16 +105,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fea5bb9c-a0
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* references between persistence tables and therefore between persistence procedures to call them in the right order
-* to get only relations between persistence tables (or views) the result set is limited:
-+
-[source,sql]
-------
-Where
-    ro1.[is_persistence]     = 1
-    And ro2.[is_persistence] = 1;
-------', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'Persistence';
+
 
 
 

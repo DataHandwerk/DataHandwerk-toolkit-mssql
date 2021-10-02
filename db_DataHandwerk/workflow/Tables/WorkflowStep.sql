@@ -25,6 +25,8 @@
 
 
 
+
+
 GO
 
 
@@ -66,7 +68,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69cda
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'WorkflowStep_id', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'TABLE', @level1name = N'WorkflowStep';
+
 
 
 GO

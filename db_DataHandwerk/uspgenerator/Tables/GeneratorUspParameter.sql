@@ -24,6 +24,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5290291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspParameter', @level2type = N'CONSTRAINT', @level2name = N'UK_GeneratorUspParameter_Number';
 
@@ -97,7 +99,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '72e2b
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'UspParameter_id', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspParameter';
+
 
 
 GO

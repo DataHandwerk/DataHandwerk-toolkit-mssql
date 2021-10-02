@@ -97,25 +97,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [pr
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* generates the content for the ''partial$template/master-page-examples.adoc[]''
-* uses all properties with prefix ''example'' (here: exampleAbc)
 
-====
-....
-	ifdef::ExistsProperty--exampleabc[]
-
-	.Abc
-	====
-	[source,sql]
-	----
-	include::partial${docname}.adoc[tag=exampleabc]
-	----
-	====
-
-	endif::ExistsProperty--exampleabc[]
-....
-====', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraTemplate_examples';
 
 
 GO

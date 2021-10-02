@@ -73,9 +73,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [lo
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-* xref:sqldb:logs.ftv_ExecutionLog_puml_sequence_start_stop_per_execution.adoc[] uses xref:sqldb:logs.ExecutionLog.adoc[] to create PlantUML code for sequence diagrams
-* Only procedure calls are considered, not "normal code".', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'FUNCTION', @level1name = N'ftv_ExecutionLog_puml_sequence_start_stop_per_execution';
+
 
 
 GO

@@ -298,47 +298,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'* source pages per object are exported into (AntoraModuleFolder)``/``(AntoraModuleName)``/pages/schemaname.objectname.adoc``
-** export procedure: xref:docs.usp_AntoraExport_ObjectPage.adoc[]
-** the content of all page files per object is the same, it has only includes. The content is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', '''') (*empty* `Sub_parameter`)
- the default content is (real code without leading ''/''):
-+
-====
-....
-/include::partial$template/master-page-1.adoc[]
-/include::partial$template/master-page-examples.adoc[]
-/include::partial$template/master-page-4.adoc[]
-/include::partial$template/master-page-5.adoc[]
-....
-====
-** the content of these includes is defined in xref:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value] for (''AntoraPageTemplate'', ''x'') (*non empty* `Sub_parameter` ''x''). The default for ''x'' are `1` and `2`, these are nvarchar values. You can also use strings like ''part_a'', ''part_b'', but avoild blanks, because these `Sub_parameter` values become filname suffix.
-* the template content is the same for all objects. We use +{docname}+ and get the final content from individual ''partials'' per object. (real code without leading ''/'')
-+
-====
-....
-= {docname}
 
-/include::partial${docname}.adoc[tag=existing_properties]
-
-type:
-/include::partial${docname}.adoc[tag=SysObject_type]
-(
-/include::partial${docname}.adoc[tag=SysObject_type_name]
-), modify_date:
-/include::partial${docname}.adoc[tag=SysObject_modify_date]
-
-RepoObject_guid:
-/include::partial${docname}.adoc[tag=RepoObject_guid]
-
-/ifdef::ExistsProperty--is_repo_managed[]
-is_repo_managed:
-/include::partial${docname}.adoc[tag=is_repo_managed]
-/endif::ExistsProperty--is_repo_managed[]
-....
-====
-** export procedure: xref:docs.usp_AntoraExport_ObjectPageTemplate.adoc[]
-
-include::partial$docsnippet/antora-export-prerequisites.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_ObjectPageTemplate';
 
 
 

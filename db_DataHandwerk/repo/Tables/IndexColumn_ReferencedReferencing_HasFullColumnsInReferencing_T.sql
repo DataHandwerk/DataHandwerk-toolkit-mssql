@@ -18,6 +18,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b47ed154-6b62-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T', @level2type = N'COLUMN', @level2name = N'referencing_RepoObjectColumn_guid';
 
@@ -115,7 +117,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'pk_IndexSemanticGroup', @value = N'index_guid,index_column_id,RowNumberInReferencing', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T';
+
 
 
 GO

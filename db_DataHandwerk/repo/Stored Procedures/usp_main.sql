@@ -504,7 +504,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6bcbc49c-38
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'UspParameters', @value = NULL, @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
+
 
 
 GO
@@ -729,25 +729,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [co
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'main procedure
 
-this central procedure must be executed regularly, try to get e feeling, when it is required +
-It does:
-
-* `EXEC repo.usp_sync_guid` to synchronize repository database and dwh database
-** some dwh database extended properties (ep) are synchronized with repository database
-*** ep RepoObject_guid for each database object
-*** ep RepoObjectColumn_guid for each database object column
-* index processing
-** combination of real and virtual indexes
-** virtual and real foreign key
-** code generation and updates for persistence procedures
-* process references and data lineage
-* inheritance of properties
-
-see xref:sqldb:repo.usp_main.adoc#_procdure_steps[Procedure steps] for details.
-
-use links in xref:sqldb:repo.usp_main.adoc#_referenced_objects[Referenced objects] to get details of called sub procedures', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_main';
 
 
 GO

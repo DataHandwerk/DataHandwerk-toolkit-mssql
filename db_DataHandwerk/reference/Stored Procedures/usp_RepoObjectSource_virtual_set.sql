@@ -145,8 +145,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'
-insert entries into xref:sqldb:reference.RepoObjectSource_virtual.adoc[], using guid, fullname or fullname2', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'PROCEDURE', @level1name = N'usp_RepoObjectSource_virtual_set';
+
 
 
 GO
