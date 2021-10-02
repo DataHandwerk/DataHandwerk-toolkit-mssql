@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description 
+<<property_start>>Description 
 insert entries into xref:sqldb:reference.repoobjectcolumnsource_virtual.adoc[], using guid, fullname or fullname2
 <<property_end>> 
 

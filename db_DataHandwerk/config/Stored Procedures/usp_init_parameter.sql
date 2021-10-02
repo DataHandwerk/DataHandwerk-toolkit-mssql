@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * merges default values for parameters from xref:sqldb:configt.Parameter_default.adoc[] into xref:sqldb:config.parameter.adoc[]
 <<property_end>>
 */

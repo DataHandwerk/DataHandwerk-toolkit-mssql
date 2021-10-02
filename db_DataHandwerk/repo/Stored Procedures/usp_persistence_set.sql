@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * create or update RepoObject in xref:sqldb:repo.repoobject.adoc[] for a new persistence target (table or view), based on a given persistence source (view or table)
 * create or update entries in xref:sqldb:repo.repoobject_persistence.adoc[]
 ** default properties are used, defined in this table

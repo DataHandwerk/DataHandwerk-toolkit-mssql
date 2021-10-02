@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 NOTE: Duplicates are possible, if exists alternative path between objects with different depth +
 to elimenate them, exclude `Referenced_Depth` and `Referencing_Depth` and use `DISTINCT`
 <<property_end>>

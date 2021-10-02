@@ -2,7 +2,7 @@
 
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 Mappping from xref:configt.type.adoc[] (used in [type] in system catalog views)
 to `level1type` (used in sp_addextendedproperty, sp_updateextendedproperty) 
 <<property_end>>

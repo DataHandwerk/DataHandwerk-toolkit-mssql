@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 included_RepoObject:
 * all RepoObject with potential FK (u - user table, v - view) +
 Relation to themself to ensure, all RO are included into docs

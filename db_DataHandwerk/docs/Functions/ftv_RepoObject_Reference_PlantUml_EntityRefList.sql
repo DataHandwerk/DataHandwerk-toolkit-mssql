@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 PlantUML for all entities to be included into the reference diagram, defined by  @Referenced_Depth and @Referencing_Depth +
 
 relations between these entities are generated in +

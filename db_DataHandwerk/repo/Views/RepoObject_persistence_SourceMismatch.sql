@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 this view can be used to try to repair mismatch between source_RepoObject_guid and source_RepoObject_name or missing them
 
 this could happen in case of renaming or guid changes

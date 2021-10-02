@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description 
+<<property_start>>Description 
 * xref:sqldb:logs.ftv_executionlog_puml_sequence_start_stop_per_execution.adoc[] uses xref:sqldb:logs.executionlog.adoc[] to create PlantUML code for sequence diagrams
 * Only procedure calls are considered, not "normal code".
 <<property_end>> 

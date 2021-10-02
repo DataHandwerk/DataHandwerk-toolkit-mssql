@@ -1,7 +1,7 @@
 ﻿
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 obsolet
 
 defines, which SSAS DMV tables should be imported

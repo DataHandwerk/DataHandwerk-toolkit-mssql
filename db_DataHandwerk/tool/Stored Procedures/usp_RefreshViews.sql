@@ -1,5 +1,5 @@
 ﻿/*
-<<property_start>>MS_Description
+<<property_start>>Description
 * refreshes views in a given schema or in all schemas
 <<property_end>>
 

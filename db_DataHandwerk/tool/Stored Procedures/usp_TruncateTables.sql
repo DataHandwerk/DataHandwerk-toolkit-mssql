@@ -1,5 +1,5 @@
 ﻿/*
-<<property_start>>MS_Description
+<<property_start>>Description
 * truncate tables in a given schema
 <<property_end>>
 

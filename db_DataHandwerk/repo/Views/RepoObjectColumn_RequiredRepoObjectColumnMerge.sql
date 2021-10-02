@@ -4,7 +4,7 @@
 
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 list of conflicting entries which needs to be merged
 
 mismatch of RepoObjectColumn_guid can create 2 entries per one RepoObjectColumn +

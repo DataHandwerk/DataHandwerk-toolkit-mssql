@@ -1,7 +1,7 @@
 ﻿
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 `AdocContent` is the content of a page to be used by Antora as partial.
 
 The view xref:docs.repoobject_adoc.adoc[] will persisted into xref:docs.repoobject_adoc_t.adoc[] +

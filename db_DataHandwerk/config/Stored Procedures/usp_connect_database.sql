@@ -1,5 +1,5 @@
 ﻿/*
-<<property_start>>MS_Description
+<<property_start>>Description
 * connect repo datatabase to dwh database using synonyms executing
 * see details in xref:user-guide:create-update-connect-repo-db.adoc[]
 <<property_end>>

@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * references between persistence tables and therefore between persistence procedures to call them in the right order
 * to get only relations between persistence tables (or views) the result set is limited:
 +

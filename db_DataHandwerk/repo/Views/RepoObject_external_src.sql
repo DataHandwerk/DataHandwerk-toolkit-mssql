@@ -1,7 +1,7 @@
 ﻿
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * converts xref:sqldb:reference.additional_reference_object_t.adoc[] into xref:sqldb:repo.repoobject.adoc[]
 <<property_end>>
 */

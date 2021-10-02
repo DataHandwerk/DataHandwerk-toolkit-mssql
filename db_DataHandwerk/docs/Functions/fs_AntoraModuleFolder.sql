@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 generate AntoraModuleFolder for Antora export based on cofiguration
 
 use @cultures_name as suffix if @cultures_name <> ''

@@ -1,6 +1,6 @@
 ﻿
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 this procedure will drop extended property with property_name = @name used in all "level 0 objects"
 
 level 0 objects are: +

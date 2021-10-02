@@ -1,7 +1,7 @@
 ﻿
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * xref:sqldb:uspgenerator.generatoruspstep_persistence_src.adoc[] creates all possible steps for GeneratorUspStep
 * xref:sqldb:uspgenerator.generatoruspstep_persistence_isinactive_setpoint.adoc[] determines which steps should be activated based on settings in xref:sqldb:repo.repoobject_persistence.adoc[]
 * xref:sqldb:uspgenerator.usp_generatorusp_insert_update_persistence.adoc[] uses these views

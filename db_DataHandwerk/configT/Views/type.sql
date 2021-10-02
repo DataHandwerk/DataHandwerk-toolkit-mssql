@@ -2,7 +2,7 @@
 
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * based on master.dbo.spt_values, which  is an undocumemted hidden view or table, containing useful entries 
 * master.dbo.spt_values content is available as copy in xref:sqldb:configt.spt_values.adoc[]
 <<property_end>>

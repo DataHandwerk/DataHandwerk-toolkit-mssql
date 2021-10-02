@@ -1,5 +1,5 @@
 ﻿/*
-<<property_start>>MS_Description
+<<property_start>>Description
 * extract multiple substrings between two tags from @string
 * each part between @pattern1 and @pattern2 resultes in one row
 * split the extracted substring_net into the parts for and after the first EOL (end of line)

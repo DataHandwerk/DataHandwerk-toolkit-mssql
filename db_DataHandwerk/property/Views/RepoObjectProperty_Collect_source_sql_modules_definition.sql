@@ -2,7 +2,7 @@
 
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * extracts properties from sql_modules_definition
 * properties can be added (normally in comments) following this syntax
 ** use one line to mark the starting point for parsing: `\<<property_start>>abcde` markes the property_name `abcde`

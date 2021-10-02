@@ -3,7 +3,7 @@
 
 
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 per active Workflow all active ProcedureDependency, including redundant references
 
 .redundant references
