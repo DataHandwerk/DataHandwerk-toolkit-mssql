@@ -86,7 +86,7 @@ Using
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
 When Matched And (
-                     t.property_value <> s.property_value
+                     t.property_value Collate Latin1_General_100_CS_AS <> s.property_value Collate Latin1_General_100_CS_AS
                      Or t.property_value Is Null
                         And Not s.property_value Is Null
                      Or s.property_value Is Null
@@ -155,7 +155,7 @@ Using
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
 When Matched And (
-                     t.property_value <> s.property_value
+                     t.property_value Collate Latin1_General_100_CS_AS <> s.property_value Collate Latin1_General_100_CS_AS
                      Or t.property_value Is Null
                         And Not s.property_value Is Null
                      Or s.property_value Is Null
@@ -224,7 +224,7 @@ Using
 On t.RepoObject_guid = s.RepoObject_guid
    And t.property_name = s.property_name
 When Matched And (
-                     t.property_value <> s.property_value
+                     t.property_value Collate Latin1_General_100_CS_AS <> s.property_value Collate Latin1_General_100_CS_AS
                      Or t.property_value Is Null
                         And Not s.property_value Is Null
                      Or s.property_value Is Null

@@ -1,8 +1,8 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* create or update RepoObject in xref:sqldb:repo.RepoObject.adoc[] for a new persistence target (table or view), based on a given persistence source (view or table)
-* create or update entries in xref:sqldb:repo.RepoObject_persistence.adoc[]
+* create or update RepoObject in xref:sqldb:repo.repoobject.adoc[] for a new persistence target (table or view), based on a given persistence source (view or table)
+* create or update entries in xref:sqldb:repo.repoobject_persistence.adoc[]
 ** default properties are used, defined in this table
 *** [is_persistence_truncate] = 1
 *** [is_persistence_insert] = 1
@@ -13,7 +13,7 @@ TIP: see details for usage in xref:user-guide:persistence-generator.adoc[]
 [NOTE]
 .How does it work:
 --
-* insert or update xref:sqldb:repo.RepoObject_persistence.adoc[]
+* insert or update xref:sqldb:repo.repoobject_persistence.adoc[]
 ** update existing RepoObject which [.line-through]#should be a table and# will be marked as persistence
 ** create new RepoObject which will be a table and will be marked as persistence
 * persistence source
@@ -47,7 +47,7 @@ the default name for the *persistence procedure* is
 after executing xref:sqldb:repo.usp_persistence_set.adoc[] you should
 
 * EXEC xref:sqldb:repo.usp_main.adoc[]
-* check and update attributes in xref:sqldb:repo.RepoObject_persistence.adoc[]
+* check and update attributes in xref:sqldb:repo.repoobject_persistence.adoc[]
 * physically create the persistence table (the procedure xref:sqldb:repo.usp_persistence_set.adoc[] will only create the code)
 +
 [source,sql]
@@ -69,7 +69,7 @@ ORDER BY
     [RepoObject_fullname];
 ------
 ** Use the sql statement in column [SqlCreateTable] to create the table
-* get the usp code in xref:sqldb:uspgenerator.GeneratorUsp_SqlUsp.adoc[] and execute it to create the persistence procedure
+* get the usp code in xref:sqldb:uspgenerator.generatorusp_sqlusp.adoc[] and execute it to create the persistence procedure
 --
 <<property_end>>
 
@@ -191,7 +191,7 @@ EXEC repo.[usp_persistence_set]
 <<property_end>>
 
 */
-CREATE Procedure repo.usp_persistence_set
+CREATE Procedure [repo].[usp_persistence_set]
     @source_RepoObject_guid                UniqueIdentifier = Null        --
   , @source_fullname                       NVarchar(261)    = Null        --it is possible to use @source_RepoObject_guid OR @source_fullname; use: "[schema].[object_name]"
   , @persistence_RepoObject_guid           UniqueIdentifier = Null Output --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created, don't use brackts: "object_name_T"

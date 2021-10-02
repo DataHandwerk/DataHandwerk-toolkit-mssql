@@ -21,7 +21,7 @@ CREATE Function [docs].[fs_cleanStringForAnchorId]
 Returns NVarchar(4000)
 As
 Begin
-    Return Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( @source_string, '+', 'plus' ), '&', 'ampersand' ), '#', 'hash' ), ')', 'closingbracket' ), '(', 'openingbracket' ), '\', 'backslash' ), '/', 'slash' ), '.', 'dot' ), '?', 'questionmark' ), '%', 'percent' ), '--', '2x-' ), '--', '2x-' ), ' ', 'blank' ), '__', '2x_' );
+    Return Lower(Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( @source_string, '+', 'plus' ), '&', 'ampersand' ), '#', 'hash' ), ')', 'closingbracket' ), '(', 'openingbracket' ), '\', 'backslash' ), '/', 'slash' ), '.', 'dot' ), '?', 'questionmark' ), '%', 'percent' ), '--', '2x-' ), '--', '2x-' ), ' ', 'blank' ), '__', '2x_' ))
 End;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '667159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'fs_cleanStringForAnchorId';

@@ -1,13 +1,14 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
-* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence_src.adoc[] creates all possible steps for GeneratorUspStep
-* xref:sqldb:uspgenerator.GeneratorUspStep_Persistence_IsInactive_setpoint.adoc[] determines which steps should be activated based on settings in xref:sqldb:repo.RepoObject_persistence.adoc[]
-* xref:sqldb:uspgenerator.usp_GeneratorUsp_insert_update_persistence.adoc[] uses these views
+* xref:sqldb:uspgenerator.generatoruspstep_persistence_src.adoc[] creates all possible steps for GeneratorUspStep
+* xref:sqldb:uspgenerator.generatoruspstep_persistence_isinactive_setpoint.adoc[] determines which steps should be activated based on settings in xref:sqldb:repo.repoobject_persistence.adoc[]
+* xref:sqldb:uspgenerator.usp_generatorusp_insert_update_persistence.adoc[] uses these views
 <<property_end>>
 */
 
-CREATE View uspgenerator.GeneratorUspStep_Persistence_src
+CREATE View [uspgenerator].[GeneratorUspStep_Persistence_src]
 As
 --00:00:01
 Select

@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [property].[RepoObjectProperty_Collect_source_ROGross]
 As
 Select
@@ -29,6 +30,9 @@ Select
       When 'Description'
           Then
           Cast(ro.Description As NVarchar(Max))
+      When 'uspgenerator_usp_id'
+          Then
+          Cast(ro.uspgenerator_usp_id As NVarchar(Max))
       When 'usp_persistence_RepoObject_guid'
           Then
           Cast(ro.usp_persistence_RepoObject_guid As NVarchar(Max))
@@ -121,6 +125,7 @@ From
           , ( 'is_repo_managed' )
           , ( 'is_ssas' )
           , ( 'Description' )
+          , ( 'uspgenerator_usp_id' )
           , ( 'usp_persistence_RepoObject_guid' )
           , ( 'persistence_source_RepoObject_guid' )
           , ( 'persistence_source_RepoObject_fullname' )

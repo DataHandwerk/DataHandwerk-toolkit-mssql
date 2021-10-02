@@ -1,12 +1,16 @@
 ﻿
 
+
+
+
+
 /*
 <<property_start>>MS_Description
-* default parameter values are defined (hard coded) in xref:sqldb:configT.Parameter_default.adoc[] and available in xref:sqldb:config.Parameter.adoc#column-Parameter_default_value[config.Parameter.Parameter_default_value]
-* default parameter values can be overwritten by project specific content using xref:sqldb:config.Parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
+* default parameter values are defined (hard coded) in xref:sqldb:configt.parameter_default.adoc[] and available in xref:sqldb:config.parameter.adoc#column-Parameter_default_value[config.parameter.parameter_default_value]
+* default parameter values can be overwritten by project specific content using xref:sqldb:config.parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
 * resulting content is available in
-** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
-** xref:sqldb:config.Parameter.adoc#column-Parameter_value_result_nvarchar[+config.Parameter.Parameter_value__result_nvarchar+]
+** xref:sqldb:config.parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
+** xref:sqldb:config.parameter.adoc#column-Parameter_value_result_nvarchar[+config.Parameter.Parameter_value__result_nvarchar+]
 <<property_end>>
 
 <<property_start>>exampleUsage
@@ -357,7 +361,7 @@ Select
   --
   Concat (
              Cast(N'' As NVarchar(Max))
-           , '= {docname}' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=HeaderFullDisplayName]' + Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
            , 'include::partial${docname}.adoc[tag=existing_properties]' + Char ( 13 ) + Char ( 10 )
            , 'include::partial${docname}.adoc[tag=boolean_attributes]' + Char ( 13 ) + Char ( 10 )
@@ -428,6 +432,9 @@ Select
            , 'ifdef::ExistsProperty--adocuspsteps[]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , '== Procedure steps' + Char ( 13 ) + Char ( 10 )
+           , '' + Char ( 13 ) + Char ( 10 )
+           , 'uspgenerator_usp_id:' + Char ( 13 ) + Char ( 10 )
+           , 'include::partial${docname}.adoc[tag=uspgenerator_usp_id]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )
            , 'include::partial${docname}.adoc[tag=adocuspsteps]' + Char ( 13 ) + Char ( 10 )
            , '' + Char ( 13 ) + Char ( 10 )

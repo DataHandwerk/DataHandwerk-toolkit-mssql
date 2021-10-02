@@ -1,9 +1,10 @@
 ﻿
 
+
 /*
 <<property_start>>MS_Description
 * based on master.dbo.spt_values, which  is an undocumemted hidden view or table, containing useful entries 
-* master.dbo.spt_values content is available as copy in xref:sqldb:configT.spt_values.adoc[]
+* master.dbo.spt_values content is available as copy in xref:sqldb:configt.spt_values.adoc[]
 <<property_end>>
 */
 CREATE View [configT].[type]

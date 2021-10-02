@@ -1,4 +1,5 @@
 ﻿
+
 /*
 per referencing RepoObject all directly referenced RepoOobject are listed
 
@@ -35,7 +36,7 @@ Where Match(
 ////
 
 */
-CREATE View reference.RepoObject_ReferencedReferencing
+CREATE View [reference].[RepoObject_ReferencedReferencing]
 As
 Select
     T1.referenced_fullname
@@ -52,7 +53,7 @@ Select
                                            Cast('* xref:' As NVarchar(Max))
                                          , T1.referenced_external_AntoraComponent + ':'
                                          , T1.referenced_external_AntoraModule + ':'
-                                         , T1.referenced_fullname2
+                                         , docs.fs_cleanStringForFilename ( T1.referenced_fullname2 )
                                          , '.adoc[]'
                                          , ' in xref:' + T1.referenced_external_AntoraComponent + ':'
                                            + T1.referenced_external_AntoraModule + ':' + 'nav/objects-by-schema.adoc[]'
@@ -71,7 +72,7 @@ Select
                                            Cast('* xref:' As NVarchar(Max))
                                          , T1.referencing_external_AntoraComponent + ':'
                                          , T1.referencing_external_AntoraModule + ':'
-                                         , T1.referencing_fullname2
+                                         , docs.fs_cleanStringForFilename ( T1.referencing_fullname2 )
                                          , '.adoc[]'
                                          , ' in xref:' + T1.referencing_external_AntoraComponent + ':'
                                            + T1.referencing_external_AntoraModule + ':' + 'nav/objects-by-schema.adoc[]'

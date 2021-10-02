@@ -1,0 +1,29 @@
+[
+    {
+        "type": "File",
+        "name": "d:\\Repos\\gitlab\\DataHandwerk\\datahandwerk.gitlab.io\\antora-playbook-local.yml",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\gitlab\\DataHandwerk\\datahandwerk.gitlab.io\\antora-playbook-local.yml",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "Bu8LFWGl9ANxdmJh"
+    },
+    {
+        "type": "File",
+        "name": "d:\\Repos\\gitlab\\DataHandwerk\\datahandwerk.gitlab.io\\antora-playbook-public.yml",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\gitlab\\DataHandwerk\\datahandwerk.gitlab.io\\antora-playbook-public.yml",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "cdWQ2pRL5Bkbtsrj"
+    },
+    {
+        "type": "File",
+        "name": "d:\\Repos\\gitlab\\DataHandwerk\\dhw-antora-sqldb\\docs\\modules\\sqldb\\partials\\template\\master-page-1.adoc",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\gitlab\\DataHandwerk\\dhw-antora-sqldb\\docs\\modules\\sqldb\\partials\\template\\master-page-1.adoc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "DtBGHqKgkjoiNLUT"
+    }
+]

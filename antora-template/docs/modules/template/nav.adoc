@@ -1,7 +1,7 @@
 //.DHW Repository (database)
 include::partial$navlist/nav-by-schema.adoc[]
-* xref:other/ObjectRefCyclic.adoc[]
-* xref:other/IndexSemanticGroup.adoc[]
+* xref:other/objectrefcyclic.adoc[]
+* xref:other/indexsemanticgroup.adoc[]
 // ** xref:nav/nav-type-U.adoc[]
 // ** xref:nav/nav-type-V.adoc[]
 // ** xref:nav/nav-type-SN.adoc[]

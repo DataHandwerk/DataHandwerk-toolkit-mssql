@@ -160,7 +160,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\' + @Object_fullname2 + '.adoc"'
+          + '\partials\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --

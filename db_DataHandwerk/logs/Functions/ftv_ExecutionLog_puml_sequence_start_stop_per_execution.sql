@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>MS_Description 
-* xref:sqldb:logs.ftv_ExecutionLog_puml_sequence_start_stop_per_execution.adoc[] uses xref:sqldb:logs.ExecutionLog.adoc[] to create PlantUML code for sequence diagrams
+* xref:sqldb:logs.ftv_executionlog_puml_sequence_start_stop_per_execution.adoc[] uses xref:sqldb:logs.executionlog.adoc[] to create PlantUML code for sequence diagrams
 * Only procedure calls are considered, not "normal code".
 <<property_end>> 
 
@@ -40,7 +40,7 @@ from
 
 <<property_end>> 
 */
-CREATE Function logs.ftv_ExecutionLog_puml_sequence_start_stop_per_execution
+CREATE Function [logs].[ftv_ExecutionLog_puml_sequence_start_stop_per_execution]
 (
     @execution_instance_guid UniqueIdentifier
 )

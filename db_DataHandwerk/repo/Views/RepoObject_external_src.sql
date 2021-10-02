@@ -1,10 +1,11 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
-* converts xref:sqldb:reference.additional_Reference_Object_T.adoc[] into xref:sqldb:repo.RepoObject.adoc[]
+* converts xref:sqldb:reference.additional_reference_object_t.adoc[] into xref:sqldb:repo.repoobject.adoc[]
 <<property_end>>
 */
-CREATE View repo.RepoObject_external_src
+CREATE View [repo].[RepoObject_external_src]
 As
 Select
     --PK: RepoObject_guid

@@ -1,11 +1,12 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
-* converts xref:sqldb:ssas.model_json_31_tables_T.adoc[] into xref:sqldb:repo.RepoObject.adoc[]
-* one virtual table '_measures' is created per ssas schema from xref:sqldb:repo.RepoSchema.adoc[]
+* converts xref:sqldb:ssas.model_json_31_tables_t.adoc[] into xref:sqldb:repo.repoobject.adoc[]
+* one virtual table '_measures' is created per ssas schema from xref:sqldb:repo.reposchema.adoc[]
 <<property_end>>
 */
-CREATE View repo.RepoObject_SSAS_src
+CREATE View [repo].[RepoObject_SSAS_src]
 As
 Select
     --PK: RepoObject_guid

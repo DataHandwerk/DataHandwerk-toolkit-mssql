@@ -1,10 +1,11 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
-converts xref:sqldb:ssas.TMSCHEMA_COLUMNS_T.adoc[] into xref:sqldb:repo.RepoObjectColumn.adoc[]
+converts xref:sqldb:ssas.tmschema_columns_t.adoc[] into xref:sqldb:repo.repoobjectcolumn.adoc[]
 <<property_end>>
 */
-CREATE View repo.RepoObjectColumn_SSAS_src
+CREATE View [repo].[RepoObjectColumn_SSAS_src]
 As
 Select
     --PK: RepoObjectColumn_guid

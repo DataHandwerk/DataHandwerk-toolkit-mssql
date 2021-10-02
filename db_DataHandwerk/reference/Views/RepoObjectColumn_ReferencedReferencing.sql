@@ -1,5 +1,6 @@
 ﻿
-CREATE View reference.RepoObjectColumn_ReferencedReferencing
+
+CREATE View [reference].[RepoObjectColumn_ReferencedReferencing]
 As
 --Select
 --    Object2.RepoObject_fullname        As Referenced_fullname
@@ -45,7 +46,7 @@ Select
                                                      Cast('* xref:' As NVarchar(Max))
                                                    , referenced_external_AntoraComponent + ':'
                                                    , referenced_external_AntoraModule + ':'
-                                                   , referenced_ro_fullname2
+                                                   , docs.fs_cleanStringForFilename ( referenced_ro_fullname2 )
                                                    , '.adoc#column-' + docs.fs_cleanStringForAnchorId ( referenced_column_name )
                                                      + '[+' + referenced_roc_fullname2 + '+]'
                                                    , ' in xref:' + referenced_external_AntoraComponent + ':'
@@ -69,7 +70,7 @@ Select
                                                      Cast('* xref:' As NVarchar(Max))
                                                    , referencing_external_AntoraComponent + ':'
                                                    , referencing_external_AntoraModule + ':'
-                                                   , referencing_ro_fullname2
+                                                   , docs.fs_cleanStringForFilename ( referencing_ro_fullname2 )
                                                    , '.adoc#column-' + docs.fs_cleanStringForAnchorId ( referencing_column_name )
                                                      + '[+' + referencing_roc_fullname2 + '+]'
                                                    , ' in xref:' + referencing_external_AntoraComponent + ':'

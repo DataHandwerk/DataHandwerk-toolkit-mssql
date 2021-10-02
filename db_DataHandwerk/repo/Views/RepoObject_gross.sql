@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [repo].[RepoObject_gross]
 As
 Select
@@ -75,10 +76,10 @@ Select
   , persistence_source_RepoObject_guid      = ro_p.source_RepoObject_guid
   , persistence_source_RepoObject_fullname  = ro_p_s.RepoObject_fullname
   , persistence_source_RepoObject_fullname2 = ro_p_s.RepoObject_fullname2
-  , persistence_source_RepoObject_xref      = 'xref:' + ro_p_s.RepoObject_fullname2 + '.adoc[]'
+  , persistence_source_RepoObject_xref      = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.RepoObject_fullname2 ) + '.adoc[]'
   , persistence_source_SysObject_fullname   = ro_p_s.SysObject_fullname
   , persistence_source_SysObject_fullname2  = ro_p_s.SysObject_fullname2
-  , persistence_source_SysObject_xref       = 'xref:' + ro_p_s.SysObject_fullname2 + '.adoc[]'
+  , persistence_source_SysObject_xref       = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.SysObject_fullname2 ) + '.adoc[]'
   , uspgenerator_usp_id                     = gusp.id
   , ro_p.has_history
   , ro_p.has_history_columns

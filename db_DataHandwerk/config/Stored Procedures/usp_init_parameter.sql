@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* merges default values for parameters from xref:sqldb:configT.Parameter_default.adoc[] into xref:sqldb:config.Parameter.adoc[]
+* merges default values for parameters from xref:sqldb:configt.Parameter_default.adoc[] into xref:sqldb:config.parameter.adoc[]
 <<property_end>>
 */
 CREATE Procedure config.usp_init_parameter
@@ -47,7 +47,7 @@ From
             And source.sub_Parameter = T2.sub_Parameter
 Where
     --we need case sensitive compairison
-    T2.Parameter_desciption Collate SQL_Latin1_General_CP1_CS_AS       <> source.Parameter_desciption Collate SQL_Latin1_General_CP1_CS_AS
+    T2.Parameter_desciption Collate Latin1_General_100_CS_AS       <> source.Parameter_desciption Collate Latin1_General_100_CS_AS
     Or
     (
         T2.Parameter_desciption Is Null
@@ -58,7 +58,7 @@ Where
         Not T2.Parameter_desciption Is Null
         And source.Parameter_desciption Is Null
     )
-    Or T2.Parameter_default_value Collate SQL_Latin1_General_CP1_CS_AS <> source.Parameter_default_value Collate SQL_Latin1_General_CP1_CS_AS
+    Or T2.Parameter_default_value Collate Latin1_General_100_CS_AS <> source.Parameter_default_value Collate Latin1_General_100_CS_AS
     Or
     (
         T2.Parameter_default_value Is Null

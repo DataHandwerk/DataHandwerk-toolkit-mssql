@@ -1,6 +1,7 @@
 ﻿
+
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 * generates the content for the 'partial$template/master-page-examples.adoc[]'
 * uses all properties with prefix 'example' (here: exampleAbc)
 
@@ -21,7 +22,7 @@
 ====
 <<property_end>>
 */
-CREATE View docs.AntoraTemplate_examples
+CREATE View [docs].[AntoraTemplate_examples]
 As
 Select
     page_content = Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + '== Examples'

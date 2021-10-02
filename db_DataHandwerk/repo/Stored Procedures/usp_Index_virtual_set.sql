@@ -1,8 +1,8 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* Index will be inserted (or updated) into xref:sqldb:repo.Index_virtual.adoc[]
-* but it will not be visible in xref:sqldb:repo.Index_gross.adoc[] until it was also included into xref:sqldb:repo.Index_Settings.adoc[]
+* Index will be inserted (or updated) into xref:sqldb:repo.index_virtual.adoc[]
+* but it will not be visible in xref:sqldb:repo.index_gross.adoc[] until it was also included into xref:sqldb:repo.index_settings.adoc[]
 * and after inserting a new index there could be duplicates for the same columns which needs to be removed again
 
 That's why it is required run the folowing procedure (this also happens in xref:sqldb:repo.usp_main.adoc[])

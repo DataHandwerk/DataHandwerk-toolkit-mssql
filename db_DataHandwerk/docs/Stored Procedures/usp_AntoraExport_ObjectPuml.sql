@@ -150,7 +150,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\entity_1_1_colref\' + @Object_fullname2 + '.puml"'
+          + '\partials\puml\entity_1_1_colref\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --
@@ -175,7 +175,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\entity_1_1_fk\' + @Object_fullname2 + '.puml"'
+          + '\partials\puml\entity_1_1_fk\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --
@@ -200,7 +200,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\entity_1_1_objectref\' + @Object_fullname2 + '.puml"'
+          + '\partials\puml\entity_1_1_objectref\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --
@@ -230,7 +230,7 @@ Begin
               + '''" queryout "'
               --
               + docs.fs_AntoraModuleFolder ( @cultures_name )
-              + '\partials\puml\entity_0_30_objectref\' + @Object_fullname2 + '.puml"'
+              + '\partials\puml\entity_0_30_objectref\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
               --
               + ' -S ' + @instanceName
               --
@@ -255,7 +255,7 @@ Begin
               + '''" queryout "'
               --
               + docs.fs_AntoraModuleFolder ( @cultures_name )
-              + '\partials\puml\entity_30_0_objectref\' + @Object_fullname2 + '.puml"'
+              + '\partials\puml\entity_30_0_objectref\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
               --
               + ' -S ' + @instanceName
               --
@@ -337,7 +337,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\entity\' + @Object_fullname2 + '.puml"'
+          + '\partials\puml\entity\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --
@@ -361,7 +361,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\entity_pk\' + @Object_fullname2 + '.puml"'
+          + '\partials\puml\entity_pk\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --
@@ -385,7 +385,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\entity_pk_or_index\' + @Object_fullname2 + '.puml"'
+          + '\partials\puml\entity_pk_or_index\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --
@@ -409,7 +409,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\entity_pk_or_nothidden\' + @Object_fullname2 + '.puml"'
+          + '\partials\puml\entity_pk_or_nothidden\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --
@@ -493,7 +493,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\schema_ssas_er\' + @SchemaName + '.puml"'
+          + '\partials\puml\schema_ssas_er\' + docs.fs_cleanStringForFilename ( @SchemaName ) + '.puml"'
           --
           + ' -S ' + @instanceName
           --

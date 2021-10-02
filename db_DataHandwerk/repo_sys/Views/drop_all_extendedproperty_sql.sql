@@ -1,6 +1,7 @@
 ﻿
+
 /*
-<<property_start>>MS_Description
+<<property_start>>Description
 This view generates tsql to drop all extended properties
 
 based on https://stackoverflow.com/questions/12368448/drop-all-extended-properties-on-sql-server/17853448[]
@@ -54,7 +55,7 @@ From
     repo_sys.drop_all_extendedproperty_sql<<property_end>>
 
 */
-CREATE View repo_sys.drop_all_extendedproperty_sql
+CREATE View [repo_sys].[drop_all_extendedproperty_sql]
 As
 Select
     Tsql = 'EXEC repo_sys.usp_DropExtendedProperty_in_self

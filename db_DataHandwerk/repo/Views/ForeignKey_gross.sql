@@ -1,6 +1,7 @@
 ﻿
 
-CREATE View repo.ForeignKey_gross
+
+CREATE View [repo].[ForeignKey_gross]
 As
 Select
     fk.ForeignKey_guid
@@ -33,8 +34,8 @@ Select
              --++ForeignKey_name++ xref:aaa.bbb.adoc#index-pk_ccc[+pk_ccc+]
              '++' + fk.ForeignKey_name + '++ +'
            , Char ( 13 ) + Char ( 10 )
-           , 'referenced: xref:' + fk.referenced_RepoObject_fullname2 + '.adoc[], xref:'
-             + fk.referenced_RepoObject_fullname2 + '.adoc#' + 'index-'
+           , 'referenced: xref:' + docs.fs_cleanStringForFilename ( fk.referenced_RepoObject_fullname2 ) + '.adoc[], xref:'
+             + docs.fs_cleanStringForFilename ( fk.referenced_RepoObject_fullname2 ) + '.adoc#' + 'index-'
              + docs.fs_cleanStringForAnchorId ( refed.index_name ) + '[+' + refed.index_name + '+]'
          )
 From

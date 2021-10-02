@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>MS_Description
-* xref:sqldb:uspgenerator.GeneratorUspStep.adoc[] has a parent child structure.
+* xref:sqldb:uspgenerator.generatoruspstep.adoc[] has a parent child structure.
 Here in this function we try to get the numbers in the right order.
 * It is not perfect if the tree is to deep and some "deep" numbers are lower.
 ** check the result per [usp_id]

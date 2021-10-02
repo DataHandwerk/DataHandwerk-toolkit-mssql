@@ -1,6 +1,7 @@
 ﻿
 
 
+
 /*
 output example:
 
@@ -12,7 +13,7 @@ include::partial$navlist/navlist-type-U.adoc[]
 --
 
 */
-CREATE View docs.AntoraPage_ObjectByType
+CREATE View [docs].[AntoraPage_ObjectByType]
 As
 Select
     partial_content = Concat (
@@ -20,13 +21,13 @@ Select
                                , Char ( 13 ) + Char ( 10 )
                                , String_Agg (
                                                 Concat (
-                                                           '** xref:nav/nav-type-' + ct.type + '.adoc[]'
+                                                           '** xref:nav/nav-type-' + docs.fs_cleanStringForFilename ( ct.type ) + '.adoc[]'
                                                          , Char ( 13 ) + Char ( 10 )
                                                          , '+'
                                                          , Char ( 13 ) + Char ( 10 )
                                                          , '--'
                                                          , Char ( 13 ) + Char ( 10 )
-                                                         , 'include::partial$navlist/navlist-type-' + ct.type
+                                                         , 'include::partial$navlist/navlist-type-' + docs.fs_cleanStringForFilename ( ct.type )
                                                            + '.adoc[]'
                                                          , Char ( 13 ) + Char ( 10 )
                                                          , '--'

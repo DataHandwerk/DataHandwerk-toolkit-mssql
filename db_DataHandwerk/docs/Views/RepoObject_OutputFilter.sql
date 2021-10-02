@@ -3,11 +3,18 @@ CREATE View docs.RepoObject_OutputFilter
 As
 Select
     ro.RepoObject_guid
-  , cultures_name           = Cast('' As NVarchar(10))
+  , cultures_name               = IsNull ( tm.cultures_name, '' )
   , ro.SysObject_type
   , ro.SysObject_type_name
   , ro.RepoObject_fullname
   , ro.RepoObject_fullname2
+  , RepoObject_FullDisplayName2 = ro.RepoObject_schema_name + '.'
+                                  + Coalesce (
+                                                 tmt.cultures_translations_model_tables_translatedCaption
+                                               , ro.RepoObject_name
+                                             )
+  , RepoObject_DisplayName      = Coalesce ( tmt.cultures_translations_model_tables_translatedCaption, ro.RepoObject_name )
+  , RepoObject_translation      = tmt.cultures_translations_model_tables_translatedCaption
   , ro.RepoObject_schema_name
   , ro.is_DocsOutput
   , ro.RepoObject_name
@@ -19,13 +26,14 @@ Select
   , ro.external_DatabaseName
   , ro.AntoraComponent
   , ro.AntoraModule
-  , PumlEntityTopDefault    =
+  , PumlEntityTopDefault        =
   --
   Concat (
              'entity '
            ---- puml-link:mycomponent:sqldb:config.Event_isInaktiv.adoc[]
            ---- puml-link:config.Event_isInaktiv.adoc[]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2
+           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':'
+             + docs.fs_cleanStringForFilename ( ro.RepoObject_fullname2 )
              --default
              + '.adoc[]"'
            , ' as '
@@ -37,13 +45,14 @@ Select
            , ' << ' + Iif(ro.is_external = 1, 'external', Trim ( ro.SysObject_type )) + ' >>'
            , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
          )
-  , PumlEntityTopWorkaround =
+  , PumlEntityTopWorkaround     =
   --
   Concat (
              'entity '
            ---- puml-link:mycomponent:sqldb:config.Event_isInaktiv.adoc[]
            ---- puml-link:config.Event_isInaktiv.adoc[]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':' + ro.RepoObject_fullname2
+           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':'
+             + docs.fs_cleanStringForFilename ( ro.RepoObject_fullname2 )
              ----workaround empty prefix for #10 - prefix=
              + '.adoc[prefix=]"'
            , ' as '
@@ -56,7 +65,18 @@ Select
            , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
          )
 From
-    repo.RepoObject_gross As ro
+    repo.RepoObject_gross                                        As ro
+    Left Join
+        ssas.model_json_3411_cultures_translations_model_T       As tm
+            On
+            tm.databasename                                 = ro.RepoObject_schema_name
+
+    Left Join
+        ssas.model_json_34111_cultures_translations_model_tables As tmt
+            On
+            tmt.databasename                                = tm.databasename
+            And tmt.cultures_name                           = tm.cultures_name
+            And tmt.cultures_translations_model_tables_name = ro.RepoObject_name
 Where
     ro.is_DocsOutput      = 1
     And ro.is_DocsExclude = 0
@@ -288,4 +308,16 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e2dcf
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '550389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a132fc8a-c322-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'RepoObject_translation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9f32fc8a-c322-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'RepoObject_FullDisplayName2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a032fc8a-c322-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_OutputFilter', @level2type = N'COLUMN', @level2name = N'RepoObject_DisplayName';
 

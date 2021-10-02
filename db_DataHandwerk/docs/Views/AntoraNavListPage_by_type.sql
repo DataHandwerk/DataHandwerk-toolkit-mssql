@@ -1,5 +1,6 @@
 ﻿
-CREATE View docs.AntoraNavListPage_by_type
+
+CREATE View [docs].[AntoraNavListPage_by_type]
 As
 Select
     t.type
@@ -11,7 +12,7 @@ Select
            , t.type_desc
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , 'include::partial$navlist/navlist-type-' + t.type + '.adoc[]'
+           , 'include::partial$navlist/navlist-type-' + docs.fs_cleanStringForFilename ( t.type ) + '.adoc[]'
            , Char ( 13 ) + Char ( 10 )
          )
 From

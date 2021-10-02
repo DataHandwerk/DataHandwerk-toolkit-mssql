@@ -1,10 +1,11 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
-* property_value of xref:dhw:sqldb:property.RepoObjectProperty.adoc[] is splitted in lines and these lines are splitted in rows
+* property_value of xref:dhw:sqldb:property.repoobjectproperty.adoc[] is splitted in lines and these lines are splitted in rows
 * Where property_name = 'additional_reference_csv'
 <<property_end>>
 */
-CREATE View property.RepoObjectProperty_SelectedPropertyName_split
+CREATE View [property].[RepoObjectProperty_SelectedPropertyName_split]
 As
 Select
     RepoObject_guid

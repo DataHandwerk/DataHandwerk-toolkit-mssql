@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [docs].[ObjectRefCyclic]
 As
 Select
@@ -20,7 +21,7 @@ Select
              , '
 [plantuml, ObjectRefCyclic, svg, subs=macros]
 ....
-include::partial$puml/ObjectRefCyclic.puml[]
+include::partial$puml/objectrefcyclic.puml[]
 ....
 '
            )

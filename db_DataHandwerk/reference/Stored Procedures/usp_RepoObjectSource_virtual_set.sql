@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>MS_Description 
-insert entries into xref:sqldb:reference.RepoObjectSource_virtual.adoc[], using guid, fullname or fullname2
+insert entries into xref:sqldb:reference.repoobjectsource_virtual.adoc[], using guid, fullname or fullname2
 <<property_end>> 
 
 <<property_start>>exampleUsage
@@ -14,7 +14,7 @@ EXEC reference.usp_RepoObjectSource_virtual_set
   , @Source_RepoObject_fullname = '[SourceSchemaName].[SourceObjectName]';
 <<property_end>>
 */
-Create Procedure reference.usp_RepoObjectSource_virtual_set
+CREATE Procedure [reference].[usp_RepoObjectSource_virtual_set]
     --
     @RepoObject_guid             UniqueIdentifier = Null --if @RepoObject_guid is NULL, then @RepoObject_fullname or @RepoObject_fullname2 are used
   , @RepoObject_fullname         NVarchar(520)    = Null --can be used to define @RepoObject_guid; use '[SchemaName].[ObjectName]'

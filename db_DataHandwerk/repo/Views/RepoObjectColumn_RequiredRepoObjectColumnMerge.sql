@@ -2,6 +2,7 @@
 
 
 
+
 /*
 <<property_start>>MS_Description
 list of conflicting entries which needs to be merged
@@ -13,7 +14,7 @@ this can happen, if the guid exists in the database extended properties and a ne
 * roc2 got the "right" guid from database, but roc2 can't propagate the fullname into RepoObjectColumn because the RepoObjectColumn_fullname is occupied
 now we have 2 entries, but we need to merge them
 
-what we need to do in xref:sqldb:repo.usp_sync_guid_RepoObjectColumn.adoc[]
+what we need to do in xref:sqldb:repo.usp_sync_guid_repoobjectcolumn.adoc[]
 
 * keep roc1 (which has the right RepoObjectColumn_name)
 ** mark them set is_required_ColumnMerge = 1

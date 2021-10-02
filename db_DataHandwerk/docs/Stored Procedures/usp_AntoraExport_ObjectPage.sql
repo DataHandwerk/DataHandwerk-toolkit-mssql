@@ -124,7 +124,7 @@ Begin
         = 'bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', DEFAULT ) As AntoraPageTemplate" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\pages\' + @Object_fullname2 + '.adoc"'
+          + '\pages\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --

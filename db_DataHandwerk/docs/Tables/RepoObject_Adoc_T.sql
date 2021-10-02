@@ -1,19 +1,24 @@
 ﻿CREATE TABLE [docs].[RepoObject_Adoc_T] (
-    [RepoObject_guid]        UNIQUEIDENTIFIER NOT NULL,
-    [cultures_name]          NVARCHAR (10)    CONSTRAINT [DF_RepoObject_Adoc_T_cultures_name] DEFAULT ('') NOT NULL,
-    [AdocContent]            NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Adoc_T_AdocContent] DEFAULT ('') NOT NULL,
-    [is_DocsOutput]          INT              NULL,
-    [PropertyCount]          INT              NULL,
-    [RepoObject_fullname]    NVARCHAR (261)   NULL,
-    [RepoObject_fullname2]   NVARCHAR (257)   NULL,
-    [RepoObject_schema_name] NVARCHAR (128)   NULL,
-    [SysObject_fullname]     NVARCHAR (261)   NULL,
-    [SysObject_fullname2]    NVARCHAR (257)   NULL,
-    [SysObject_schema_name]  NVARCHAR (128)   NULL,
-    [SysObject_type]         CHAR (2)         NULL,
-    [SysObject_type_name]    NVARCHAR (128)   NULL,
+    [RepoObject_guid]             UNIQUEIDENTIFIER NOT NULL,
+    [cultures_name]               NVARCHAR (10)    CONSTRAINT [DF_RepoObject_Adoc_T_cultures_name] DEFAULT ('') NOT NULL,
+    [AdocContent]                 NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Adoc_T_AdocContent] DEFAULT ('') NOT NULL,
+    [is_DocsOutput]               INT              NULL,
+    [PropertyCount]               INT              NULL,
+    [RepoObject_fullname]         NVARCHAR (261)   NULL,
+    [RepoObject_fullname2]        NVARCHAR (257)   NULL,
+    [RepoObject_FullDisplayName2] NVARCHAR (257)   NULL,
+    [RepoObject_DisplayName]      NVARCHAR (128)   NULL,
+    [RepoObject_translation]      NVARCHAR (128)   NULL,
+    [RepoObject_schema_name]      NVARCHAR (128)   NULL,
+    [SysObject_fullname]          NVARCHAR (261)   NULL,
+    [SysObject_fullname2]         NVARCHAR (257)   NULL,
+    [SysObject_schema_name]       NVARCHAR (128)   NULL,
+    [SysObject_type]              CHAR (2)         NULL,
+    [SysObject_type_name]         NVARCHAR (128)   NULL,
     CONSTRAINT [PK_RepoObject_Adoc_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -244,4 +249,16 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a1a507d5-06
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4e0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '67871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'COLUMN', @level2name = N'RepoObject_translation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'COLUMN', @level2name = N'RepoObject_FullDisplayName2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '68871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'COLUMN', @level2name = N'RepoObject_DisplayName';
 

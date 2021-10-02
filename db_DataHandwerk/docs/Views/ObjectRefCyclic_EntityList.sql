@@ -2,7 +2,8 @@
 
 
 
-CREATE View docs.ObjectRefCyclic_EntityList
+
+CREATE View [docs].[ObjectRefCyclic_EntityList]
 As
 Select
     PumlEntityList       =
@@ -19,7 +20,7 @@ Select
                  Concat (
                             --* xref:sqldb:target-page-filename.adoc[link text]
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                            Cast('* xref:sqldb:' As NVarchar(Max)), ro.ro_fullname2, '.adoc[]'
+                            Cast('* xref:sqldb:' As NVarchar(Max)), docs.fs_cleanStringForFilename ( ro.ro_fullname2 ), '.adoc[]'
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By

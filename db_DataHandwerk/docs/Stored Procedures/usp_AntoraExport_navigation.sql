@@ -128,7 +128,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\navlist\' + 'navlist-schema-' + @schema_name + '.adoc"'
+          + '\partials\navlist\' + 'navlist-schema-' + docs.fs_cleanStringForFilename ( @schema_name ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --
@@ -206,7 +206,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\navlist\' + 'navlist-type-' + @type + '.adoc"'
+          + '\partials\navlist\' + 'navlist-type-' + docs.fs_cleanStringForFilename ( @type ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --
@@ -289,7 +289,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\navlist\' + 'navlist-schema-type-' + @schema_name + '-' + @type + '.adoc"'
+          + '\partials\navlist\' + 'navlist-schema-type-' + docs.fs_cleanStringForFilename ( @schema_name ) + '-' + docs.fs_cleanStringForFilename ( @type ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --
@@ -369,7 +369,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\pages\nav\' + 'nav-schema-' + @schema_name + '.adoc"'
+          + '\pages\nav\' + 'nav-schema-' + docs.fs_cleanStringForFilename ( @schema_name ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --
@@ -446,7 +446,7 @@ Begin
           + '''" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\pages\nav\' + 'nav-type-' + @type + '.adoc"'
+          + '\pages\nav\' + 'nav-type-' + docs.fs_cleanStringForFilename ( @type ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --

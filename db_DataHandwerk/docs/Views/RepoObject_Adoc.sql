@@ -1,42 +1,60 @@
 ﻿
+
 /*
 <<property_start>>MS_Description
 `AdocContent` is the content of a page to be used by Antora as partial.
 
-The view xref:docs.RepoObject_Adoc.adoc[] will persisted into xref:docs.RepoObject_Adoc_T.adoc[] +
-and later exported for Antora by xref:docs.usp_PERSIST_RepoObject_Adoc_T.adoc[]
+The view xref:docs.repoobject_adoc.adoc[] will persisted into xref:docs.repoobject_adoc_t.adoc[] +
+and later exported for Antora by xref:docs.usp_persist_repoobject_adoc_t.adoc[]
 
 One document per RepoObject is generated, it contains all information (but not diagrams) which is used by Antora. 
 
 All Parts of the documentations are tagged, Antora can reference the content using this tags.
 
-* any per RepoObject existing properties in xref:property.RepoObjectProperty.adoc[] are extracted as separate tags
-* some specific additional tags are extracted from other sources (some lists, some content from xref:repo.RepoObject_gross.adoc[])
+* any per RepoObject existing properties in xref:property.repoobjectproperty.adoc[] are extracted as separate tags
+* some specific additional tags are extracted from other sources (some lists, some content from xref:repo.repoobject_gross.adoc[])
 * a special entry per exported tag is created: `':ExistsProperty--' + Lower ( rop.property_name ) + ':'` which can be used to check the existence of a tag entry
 
-To use additional content in Antora documentation first try to include new properties into xref:property.RepoObjectProperty.adoc[]
+To use additional content in Antora documentation first try to include new properties into xref:property.repoobjectproperty.adoc[]
 <<property_end>>
 */
-CREATE View docs.RepoObject_Adoc
+CREATE View [docs].[RepoObject_Adoc]
 As
 Select
-    ro.RepoObject_guid
-  , cultures_name          = Cast('' As NVarchar(10))
-  , is_DocsOutput          = Max ( ro.is_DocsOutput )
-  , RepoObject_fullname    = Max ( ro.RepoObject_fullname )
-  , RepoObject_fullname2   = Max ( ro.RepoObject_fullname2 )
-  , RepoObject_schema_name = Max ( ro.RepoObject_schema_name )
-  , SysObject_fullname     = Max ( ro.SysObject_fullname )
-  , SysObject_fullname2    = Max ( ro.SysObject_fullname2 )
-  , SysObject_schema_name  = Max ( ro.SysObject_schema_name )
-  , SysObject_type         = Max ( ro.SysObject_type )
-  , SysObject_type_name    = Max ( ro.SysObject_type_name )
-  , AdocContent            =
+    rof.RepoObject_guid
+  , rof.cultures_name
+  , is_DocsOutput               = Max ( rof.is_DocsOutput )
+  , RepoObject_fullname         = Max ( rof.RepoObject_fullname )
+  , RepoObject_fullname2        = Max ( rof.RepoObject_fullname2 )
+  , RepoObject_FullDisplayName2 = Max ( rof.RepoObject_FullDisplayName2 )
+  , RepoObject_DisplayName      = Max ( rof.RepoObject_DisplayName )
+  , RepoObject_translation      = Max ( rof.RepoObject_translation )
+  , RepoObject_schema_name      = Max ( rof.RepoObject_schema_name )
+  , SysObject_fullname          = Max ( ro.SysObject_fullname )
+  , SysObject_fullname2         = Max ( ro.SysObject_fullname2 )
+  , SysObject_schema_name       = Max ( ro.SysObject_schema_name )
+  , SysObject_type              = Max ( rof.SysObject_type )
+  , SysObject_type_name         = Max ( rof.SysObject_type_name )
+  , AdocContent                 =
   --
   Concat (
-             '= '
-           , Max ( ro.SysObject_fullname )
+             ''
+           --, '= '
+           ----, Max ( ro.SysObject_fullname )
+           --, Max ( rof.RepoObject_fullname )
+           --, Char ( 13 ) + Char ( 10 )
+           --
            , Char ( 13 ) + Char ( 10 )
+           , '== HeaderFullDisplayName'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// tag::HeaderFullDisplayName[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '= ' + Max ( rof.RepoObject_FullDisplayName2 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::HeaderFullDisplayName[]'
+           , Char ( 13 ) + Char ( 10 )
+
            --
            , Char ( 13 ) + Char ( 10 )
            , '== existing_properties'
@@ -101,9 +119,20 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// tag::RepoObject_guid[]'
            , Char ( 13 ) + Char ( 10 )
-           , ro.RepoObject_guid
+           , rof.RepoObject_guid
            , Char ( 13 ) + Char ( 10 )
            , '// end::RepoObject_guid[]'
+           , Char ( 13 ) + Char ( 10 )
+           --
+           , Char ( 13 ) + Char ( 10 )
+           , '== RepoObject_FullDisplayName2'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// tag::RepoObject_FullDisplayName2[]'
+           , Char ( 13 ) + Char ( 10 )
+           , Max ( rof.RepoObject_FullDisplayName2 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::RepoObject_FullDisplayName2[]'
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
@@ -112,7 +141,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_type[]'
            , Char ( 13 ) + Char ( 10 )
-           , Max ( ro.SysObject_type )
+           , Max ( rof.SysObject_type )
            , Char ( 13 ) + Char ( 10 )
            , '// end::SysObject_type[]'
            , Char ( 13 ) + Char ( 10 )
@@ -123,7 +152,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_type_name[]'
            , Char ( 13 ) + Char ( 10 )
-           , Max ( ro.SysObject_type_name )
+           , Max ( rof.SysObject_type_name )
            , Char ( 13 ) + Char ( 10 )
            , '// end::SysObject_type_name[]'
            , Char ( 13 ) + Char ( 10 )
@@ -296,9 +325,14 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
          )
-  , PropertyCount          = Count ( Distinct rop.property_name )
+  , PropertyCount               = Count ( Distinct rop.property_name )
 From
-    repo.RepoObject_gross2                As ro
+    docs.RepoObject_OutputFilter          As rof
+    Left Join
+        repo.RepoObject_gross2            As ro
+            On
+            ro.RepoObject_guid        = rof.RepoObject_guid
+
     Left Join
         property.RepoObjectProperty_cross As rop_cross
             On
@@ -331,10 +365,12 @@ From
             On
             parlist.RepoObject_guid   = ro.RepoObject_guid
 Group By
-    ro.RepoObject_guid
+    rof.RepoObject_guid
+  , rof.cultures_name
 Having
-    Max ( is_DocsOutput )                  = 1
-    And Max ( Cast(ro.is_external As Int)) = 0
+    --Max ( is_DocsOutput )                  = 1
+    --And 
+    Max ( Cast(rof.is_external As Int)) = 0
 Go
 
 Execute sp_addextendedproperty
@@ -562,4 +598,16 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5a0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '66871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'RepoObject_translation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '64871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'RepoObject_FullDisplayName2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '65871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'RepoObject_DisplayName';
 

@@ -4,7 +4,7 @@
 PlantUML for all entities to be included into the reference diagram, defined by  @Referenced_Depth and @Referencing_Depth +
 
 relations between these entities are generated in +
-xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_1_1.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_0_30.adoc[], xref:sqldb:docs.RepoObject_Plantuml_ObjectRefList_30_0.adoc[] 
+xref:sqldb:docs.repoobject_plantuml_objectreflist_1_1.adoc[], xref:sqldb:docs.repoobject_plantuml_objectreflist_0_30.adoc[], xref:sqldb:docs.repoobject_plantuml_objectreflist_30_0.adoc[] 
 <<property_end>>
 
 <<property_start>>exampleUsage
@@ -36,7 +36,7 @@ check:
 SELECT * from [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList]('69CE8EB8-5F62-EB11-84DC-A81E8446D5B0', 1, 1)
 
 */
-CREATE Function docs.ftv_RepoObject_Reference_PlantUml_EntityRefList
+CREATE Function [docs].[ftv_RepoObject_Reference_PlantUml_EntityRefList]
 (
     @RepoObject_guid   UniqueIdentifier
   , @Referenced_Depth  Int = 1

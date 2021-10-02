@@ -1,13 +1,14 @@
-﻿/*
+﻿
+/*
 <<property_start>>MS_Description
 Measures should assigned twice to two different tables
 
 * original table
 * virtual table '_measures' +
-  the guid and name of this table are defined in xref:sqldb:repo.RepoSchema.adoc[]
+  the guid and name of this table are defined in xref:sqldb:repo.reposchema.adoc[]
 <<property_end>>
 */
-Create View repo.Measures_union
+CREATE View [repo].[Measures_union]
 As
 Select
     Measure_guid
