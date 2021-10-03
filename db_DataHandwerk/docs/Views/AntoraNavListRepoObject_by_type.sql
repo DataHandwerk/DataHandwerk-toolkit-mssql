@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [docs].[AntoraNavListRepoObject_by_type]
 As
 Select
@@ -18,7 +19,7 @@ Select
              ) Within Group(Order By
                                 ro.RepoObject_fullname2)
 From
-    docs.RepoObject_OutputFilter As ro
+    docs.RepoObject_OutputFilter_T As ro
 Where
     ro.is_DocsOutput   = 1
     And ro.is_external = 0

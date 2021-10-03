@@ -73,7 +73,7 @@ Select
 From
     repo.RepoObject_gross                                                                         As ro
     Left Join
-        docs.RepoObject_OutputFilter                                                              As rof
+        docs.RepoObject_OutputFilter_T                                                            As rof
             On
             rof.RepoObject_guid = ro.RepoObject_guid
 
@@ -88,22 +88,28 @@ From
         docs.RepoObject_Plantuml_ObjectRefList_1_1                                                As olist_1_1
             On
             olist_1_1.RepoObject_guid = ro.RepoObject_guid
-            --in case of ro.is_external = 1 the cultures_name is ''
-            And olist_1_1.cultures_name = Coalesce ( rof.cultures_name, '' )
+    --object references are the same for all cultures
+    --because the filenames are the same for all cultures
+    ----in case of ro.is_external = 1 the cultures_name is ''
+    --And olist_1_1.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
         docs.RepoObject_Plantuml_ObjectRefList_0_30                                               As olist_0_30
             On
             olist_0_30.RepoObject_guid = ro.RepoObject_guid
-            --in case of ro.is_external = 1 the cultures_name is ''
-            And olist_0_30.cultures_name = Coalesce ( rof.cultures_name, '' )
+    --object references are the same for all cultures
+    --because the filenames are the same for all cultures
+    ----in case of ro.is_external = 1 the cultures_name is ''
+    --And olist_0_30.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
         docs.RepoObject_Plantuml_ObjectRefList_30_0                                               As olist_30_0
             On
             olist_30_0.RepoObject_guid = ro.RepoObject_guid
-            --in case of ro.is_external = 1 the cultures_name is ''
-            And olist_30_0.cultures_name = Coalesce ( rof.cultures_name, '' )
+    --object references are the same for all cultures
+    --because the filenames are the same for all cultures
+    ----in case of ro.is_external = 1 the cultures_name is ''
+    --And olist_30_0.cultures_name = Coalesce ( rof.cultures_name, '' )
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist_1_1
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 30, 0 ) As elist_30_0
     Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 0, 30 ) As elist_0_30

@@ -6,13 +6,10 @@
 
 
 
+
 /*
 <<property_start>>Description
-* default parameter values are defined (hard coded) in xref:sqldb:configt.parameter_default.adoc[] and available in xref:sqldb:config.parameter.adoc#column-Parameter_default_value[config.parameter.parameter_default_value]
-* default parameter values can be overwritten by project specific content using xref:sqldb:config.parameter.adoc#column-Parameter_value[config.Parameter.Parameter_value]
-* resulting content is available in
-** xref:sqldb:config.parameter.adoc#column-Parameter_value_result_int[+config.Parameter.Parameter_value__result_int+]
-** xref:sqldb:config.parameter.adoc#column-Parameter_value_result_nvarchar[+config.Parameter.Parameter_value__result_nvarchar+]
+include::sqldb:partial$description/config.parameter.adoc[]
 <<property_end>>
 
 <<property_start>>exampleUsage

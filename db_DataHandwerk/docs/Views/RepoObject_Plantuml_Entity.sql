@@ -116,7 +116,7 @@ Select
   , ro.RepoObject_fullname2
   , ro.RepoObject_schema_name
 From
-    docs.RepoObject_OutputFilter     As ro
+    docs.RepoObject_OutputFilter_T   As ro
     Left Join
         docs.RepoObject_ColumnList_T As collist
             On

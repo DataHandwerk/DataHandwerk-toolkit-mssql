@@ -22,7 +22,7 @@ Select
   , Object_fullname2   = rof.RepoObject_fullname2
   , Object_Type        = rof.SysObject_type
 From
-    docs.RepoObject_OutputFilter    As rof
+    docs.RepoObject_OutputFilter_T  As rof
     Inner Join
         repo.RepoObjectColumn_gross As roc
             On
@@ -49,9 +49,9 @@ Select
   , Object_fullname2   = rof.RepoObject_fullname2
   , Object_Type        = rof.SysObject_type
 From
-    docs.RepoObject_OutputFilter As rof
+    docs.RepoObject_OutputFilter_T As rof
     Inner Join
-        repo.RepoObject_gross    As ro
+        repo.RepoObject_gross      As ro
             On
             ro.RepoObject_guid = rof.RepoObject_guid
 Union All

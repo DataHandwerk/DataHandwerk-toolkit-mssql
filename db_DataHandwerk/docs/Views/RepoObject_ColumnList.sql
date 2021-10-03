@@ -7,8 +7,8 @@ alternative columns sort order for documentation:
 CREATE View docs.RepoObject_ColumnList
 As
 Select
-    roc.RepoObject_guid
-  , cultures_name                    = Cast('' As NVarchar(10))
+    rof.RepoObject_guid
+  , rof.cultures_name
   , AntoraColumnDetails              =
   --
   String_Agg (
@@ -18,13 +18,13 @@ Select
                           , '[#column-'
                           --, '[id=column-'
                           --, '[[column-' --deprecated
-                          , docs.fs_cleanStringForAnchorId ( roc.Column_name )
+                          , docs.fs_cleanStringForAnchorId ( transl.RepoObjectColumn_DisplayName )
                           --, ']]'
                           , ']'
                           , Char ( 13 ) + Char ( 10 )
                           , '=== '
-                          --, roc.Column_name
-                          , docs.fs_cleanStringForLabel ( roc.Column_name )
+                          --, transl.RepoObjectColumn_DisplayName
+                          , docs.fs_cleanStringForLabel ( transl.RepoObjectColumn_DisplayName )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
                           , '[cols="d,8m,m,m,m,d"]'
@@ -37,7 +37,7 @@ Select
                                      , Char ( 13 ) + Char ( 10 )
                                      , '|'
                                      , Iif(roc.is_index_primary_key = 1, '*', '')
-                                     , roc.Column_name
+                                     , transl.RepoObjectColumn_DisplayName
                                      , Iif(roc.is_index_primary_key = 1, '*', '')
                                      , Char ( 13 ) + Char ( 10 )
                                      , '|'
@@ -163,7 +163,7 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
   , AntoraPkColumnTableRows          =
   --
   String_Agg (
@@ -180,7 +180,7 @@ Select
                                              , '|'
                                              , '*'
                                              , '<<column-'
-                                             , docs.fs_cleanStringForAnchorId ( roc.Column_name )
+                                             , docs.fs_cleanStringForAnchorId ( transl.RepoObjectColumn_DisplayName )
                                              , '>>'
                                              , '*'
                                              , Char ( 13 ) + Char ( 10 )
@@ -210,7 +210,7 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
   , AntoraNonPkColumnTableRows       =
   --
   String_Agg (
@@ -226,7 +226,7 @@ Select
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
                                              , '<<column-'
-                                             , docs.fs_cleanStringForAnchorId ( roc.Column_name )
+                                             , docs.fs_cleanStringForAnchorId ( transl.RepoObjectColumn_DisplayName )
                                              , '>>'
                                              , Char ( 13 ) + Char ( 10 )
                                              , '|'
@@ -255,7 +255,7 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
   , PlantumlPkEntityColumns          =
   --
   String_Agg (
@@ -279,7 +279,7 @@ Select
                                              , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
                                              --PK in bold
                                              , '**'
-                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
+                                             , docs.fs_cleanStringForPuml ( transl.RepoObjectColumn_DisplayName )
                                              , '**'
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
@@ -299,7 +299,7 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
   , PlantumlNonPkEntityColumns       =
   --
   String_Agg (
@@ -322,7 +322,7 @@ Select
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
                                              , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
-                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
+                                             , docs.fs_cleanStringForPuml ( transl.RepoObjectColumn_DisplayName )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
                                              , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
@@ -341,7 +341,7 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
   , PlantumlNonPkIndexColumns        =
   --
   String_Agg (
@@ -364,7 +364,7 @@ Select
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
                                              , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
-                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
+                                             , docs.fs_cleanStringForPuml ( transl.RepoObjectColumn_DisplayName )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
                                              , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
@@ -383,7 +383,7 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
   , PlantumlNonPkHiddenEntityColumns =
   --
   String_Agg (
@@ -406,7 +406,7 @@ Select
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
                                              , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
-                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
+                                             , docs.fs_cleanStringForPuml ( transl.RepoObjectColumn_DisplayName )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
                                              , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
@@ -425,7 +425,7 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
   , PlantumlIndexColumns             =
   --
   String_Agg (
@@ -447,7 +447,7 @@ Select
                                                        Iif(roc.Repo_is_nullable = 0, '- ', Null)
                                                End
                                              , Iif(roc.tabcol_IsHidden = 1, '<color:gray>', Null)
-                                             , docs.fs_cleanStringForPuml ( roc.Column_name )
+                                             , docs.fs_cleanStringForPuml ( transl.RepoObjectColumn_DisplayName )
                                              --we add () to get a puml "method" to get unique icons
                                              , ' : (' + roc.Repo_user_type_fullname + ')'
                                              , Iif(roc.tabcol_IsHidden = 1, ' (hidden)', Null)
@@ -466,9 +466,19 @@ Select
                               , roc.tabcol_IsHidden
                               , roc.index_column_id
                               , roc.Repo_is_computed
-                              , roc.Column_name)
+                              , transl.RepoObjectColumn_DisplayName)
 From
-    repo.RepoObjectColumn_gross2 As roc
+    docs.RepoObject_OutputFilter_T          As rof
+    Left Join
+        repo.RepoObjectColumn_gross2        As roc
+            On
+            roc.RepoObject_guid          = rof.RepoObject_guid
+
+    Left Join
+        ssas.RepoObjectColumn_translation_T As transl
+            On
+            transl.RepoObjectColumn_guid = roc.RepoObjectColumn_guid
+            And transl.cultures_name     = rof.cultures_name
 Where
     --not [is_query_plan_expression], these are not real columms
     roc.is_query_plan_expression Is Null
@@ -478,13 +488,14 @@ Where
     (
         Not roc.Repo_user_type_fullname Is Null
         Or roc.Repo_is_computed = 1
-        Or roc.is_external      = 1
+        Or rof.is_external      = 1
     )
 ----exclude system columns like 'RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61'
 ----all they have ssas_Type = 3
 --And Not roc.ssas_Type = 3
 Group By
-    roc.RepoObject_guid
+    rof.RepoObject_guid
+  , rof.cultures_name
 Go
 
 Execute sp_addextendedproperty

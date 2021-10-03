@@ -780,8 +780,8 @@ Where
         t1.SysObject_schema_name = Filter.SysObject_schema_name
         And t1.SysObject_name    = Filter.SysObject_name
 )
-        Or T1.is_ssas       = 0
-        Or T1.is_external   = 0
+        Or T1.is_ssas       = 1
+        Or T1.is_external   = 1
     )
 
 -- Logging START --

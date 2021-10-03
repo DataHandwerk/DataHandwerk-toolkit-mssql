@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [docs].[AntoraNavListRepoObject_by_schema]
 As
 Select
@@ -18,7 +19,7 @@ Select
                                 ro.RepoObject_fullname2)
   , is_ssas  = Max ( Cast(ro.is_ssas As TinyInt))
 From
-    docs.RepoObject_OutputFilter As ro
+    docs.RepoObject_OutputFilter_T As ro
 Where
     ro.is_external = 0
 Group By

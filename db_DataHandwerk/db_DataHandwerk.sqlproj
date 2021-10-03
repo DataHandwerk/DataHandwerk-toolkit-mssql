@@ -767,6 +767,14 @@
     <Build Include="ssas\Views\model_json_341111_cultures_translations_model_tables_columns.sql" />
     <Build Include="ssas\Views\model_json_34111_cultures_translations_model_tables.sql" />
     <Build Include="docs\Functions\fs_cleanStringForFilename.sql" />
+    <Build Include="ssas\Tables\RepoObjectColumn_translation_T.sql" />
+    <Build Include="ssas\Tables\Measures_translation_T.sql" />
+    <Build Include="docs\Tables\RepoObject_OutputFilter_T.sql" />
+    <Build Include="ssas\Views\RepoObjectColumn_translation.sql" />
+    <Build Include="ssas\Views\Measures_translation.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_RepoObjectColumn_translation_T.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_Measures_translation_T.sql" />
+    <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_OutputFilter_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

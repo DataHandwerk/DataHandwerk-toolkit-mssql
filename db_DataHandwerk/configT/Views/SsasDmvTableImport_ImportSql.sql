@@ -1,5 +1,7 @@
-﻿/*
-there could be more than one isActive = 1 in config.SsasDatabasename
+﻿
+/*
+<<property_start>>Description
+obsolet
 
 * we could truncate once and import all
 * or we could use the [isCurrentImport] and loop through aktive databasename and import them one by one
@@ -7,9 +9,9 @@ there could be more than one isActive = 1 in config.SsasDatabasename
 todo:
 
 * ExecPersistSql only, if persistence exists
-
+<<property_end>>
 */
-Create   View configT.SsasDmvTableImport_ImportSql
+CREATE   View [configT].[SsasDmvTableImport_ImportSql]
 As
 Select
     T2.databasename

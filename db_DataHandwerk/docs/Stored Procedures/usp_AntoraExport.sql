@@ -165,7 +165,17 @@ EXEC logs.usp_ExecutionLog_insert
 -- Logging END --
 END;
 
-/*{"ReportUspStep":[{"Number":400,"Name":"[docs].[usp_AntoraExport_navigation]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":400,"Name":"[docs].[usp_PERSIST_RepoObject_OutputFilter_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_PERSIST_RepoObject_OutputFilter_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":440,"Name":"[docs].[usp_AntoraExport_navigation]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [docs].[usp_AntoraExport_navigation]
 --add your own parameters
 --logging parameters
@@ -175,7 +185,7 @@ EXEC [docs].[usp_AntoraExport_navigation]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"[docs].[usp_AntoraExport_DocSnippet]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":450,"Name":"[docs].[usp_AntoraExport_DocSnippet]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [docs].[usp_AntoraExport_DocSnippet]
 --add your own parameters
 --logging parameters

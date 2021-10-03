@@ -3,7 +3,7 @@ CREATE View docs.RepoObject_OutputFilter
 As
 Select
     ro.RepoObject_guid
-  , cultures_name               = IsNull ( tm.cultures_name, '' )
+  , c.cultures_name
   , ro.SysObject_type
   , ro.SysObject_type_name
   , ro.RepoObject_fullname
@@ -65,11 +65,13 @@ Select
            , Iif(ro.tables_isHidden = 1, ' #line.dotted', Iif(ro.is_external = 1, ' #line.dashed', Null))
          )
 From
-    repo.RepoObject_gross                                        As ro
+    repo.RepoObject_gross   As ro
+    Cross Join docs.Culture As c
     Left Join
         ssas.model_json_3411_cultures_translations_model_T       As tm
             On
             tm.databasename                                 = ro.RepoObject_schema_name
+            And tm.cultures_name                            = c.cultures_name
 
     Left Join
         ssas.model_json_34111_cultures_translations_model_tables As tmt
@@ -78,9 +80,15 @@ From
             And tmt.cultures_name                           = tm.cultures_name
             And tmt.cultures_translations_model_tables_name = ro.RepoObject_name
 Where
-    ro.is_DocsOutput      = 1
-    And ro.is_DocsExclude = 0
---And ro.is_external    = 0
+    ro.is_DocsOutput        = 1
+    And ro.is_DocsExclude   = 0
+    And
+    (
+        --include all by default
+        c.cultures_name     = ''
+        --additional include existing culters from tm
+        Or tm.cultures_name <> ''
+    )
 Go
 
 Execute sp_addextendedproperty

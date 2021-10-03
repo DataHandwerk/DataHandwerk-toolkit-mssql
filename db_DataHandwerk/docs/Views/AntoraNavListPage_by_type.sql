@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [docs].[AntoraNavListPage_by_type]
 As
 Select
@@ -24,7 +25,7 @@ Where
     Select
         1
     From
-        docs.RepoObject_OutputFilter As f
+        docs.RepoObject_OutputFilter_T As f
     Where
         f.SysObject_type = t.type
 )

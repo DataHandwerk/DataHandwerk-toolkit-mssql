@@ -326,7 +326,7 @@ Select
          )
   , PropertyCount               = Count ( Distinct rop.property_name )
 From
-    docs.RepoObject_OutputFilter          As rof
+    docs.RepoObject_OutputFilter_T        As rof
     Left Join
         repo.RepoObject_gross2            As ro
             On

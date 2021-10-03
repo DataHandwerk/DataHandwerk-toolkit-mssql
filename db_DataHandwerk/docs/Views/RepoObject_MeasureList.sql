@@ -3,7 +3,7 @@ CREATE View docs.RepoObject_MeasureList
 As
 Select
     rom.RepoObject_guid
-  , cultures_name        = Cast('' As NVarchar(10))
+  , rof.cultures_name
   , AntoraMeasureDetails =
   --
   String_Agg (
@@ -11,11 +11,11 @@ Select
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                             Cast('' As NVarchar(Max))
                           , '[#measure-'
-                          , docs.fs_cleanStringForAnchorId ( rom.measures_name )
+                          , docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName )
                           , ']'
                           , Char ( 13 ) + Char ( 10 )
                           , '=== '
-                          , docs.fs_cleanStringForLabel ( rom.measures_name )
+                          , docs.fs_cleanStringForLabel ( transl.Measure_DisplayName )
                           , Char ( 13 ) + Char ( 10 )
                           , Char ( 13 ) + Char ( 10 )
                           , Case
@@ -69,7 +69,7 @@ Select
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
-                                rom.measures_name)
+                                transl.Measure_DisplayName)
   , PlantumlMeasures     =
   --
   String_Agg (
@@ -78,7 +78,7 @@ Select
                           , Concat (
                                        '  ~ '
                                      , Iif(rom.measures_isHidden = 1, '<color:gray>', Null)
-                                     , docs.fs_cleanStringForPuml ( rom.measures_name )
+                                     , docs.fs_cleanStringForPuml ( transl.Measure_DisplayName )
                                      , Iif(rom.measures_isHidden = 1, ' (hidden)', Null)
                                      , Iif(rom.measures_isHidden = 1, '</color>', Null)
                                      , Char ( 13 ) + Char ( 10 )
@@ -86,11 +86,23 @@ Select
                         )
                , ''
              ) Within Group(Order By
-                                rom.measures_name)
+                                transl.Measure_DisplayName)
 From
-    repo.Measures_union As rom
+    repo.Measures_union                As rom
+    Left Join
+        docs.RepoObject_OutputFilter_T As rof
+            On
+            rof.RepoObject_schema_name = rom.RepoSchema_name
+            And rof.RepoObject_name    = rom.RepoObject_name
+
+    Left Join
+        ssas.Measures_translation_T    As transl
+            On
+            transl.Measure_guid        = rom.Measure_guid
+            And transl.cultures_name   = rof.cultures_name
 Group By
     rom.RepoObject_guid
+  , rof.cultures_name
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '72e1c56a-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList';
 

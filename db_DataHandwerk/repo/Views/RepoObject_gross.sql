@@ -1,7 +1,5 @@
 ﻿
-
-
-CREATE View [repo].[RepoObject_gross]
+CREATE View repo.RepoObject_gross
 As
 Select
     --
@@ -76,10 +74,12 @@ Select
   , persistence_source_RepoObject_guid      = ro_p.source_RepoObject_guid
   , persistence_source_RepoObject_fullname  = ro_p_s.RepoObject_fullname
   , persistence_source_RepoObject_fullname2 = ro_p_s.RepoObject_fullname2
-  , persistence_source_RepoObject_xref      = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.RepoObject_fullname2 ) + '.adoc[]'
+  , persistence_source_RepoObject_xref      = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.RepoObject_fullname2 )
+                                              + '.adoc[]'
   , persistence_source_SysObject_fullname   = ro_p_s.SysObject_fullname
   , persistence_source_SysObject_fullname2  = ro_p_s.SysObject_fullname2
-  , persistence_source_SysObject_xref       = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.SysObject_fullname2 ) + '.adoc[]'
+  , persistence_source_SysObject_xref       = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.SysObject_fullname2 )
+                                              + '.adoc[]'
   , uspgenerator_usp_id                     = gusp.id
   , ro_p.has_history
   , ro_p.has_history_columns
@@ -102,8 +102,10 @@ Select
   --Attention, this will be written back into Property 'Description'
   --this could be an issue, if it will be changed in differen places, which should be the primary?
   , Description                             = Coalesce (
-                                                           --keep existing Description
-                                                           property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'Description' )
+                                                           --use description in uspgenerator.GeneratorUsp
+                                                           gusp.usp_Description
+                                                         --keep existing Description
+                                                         , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'Description' )
                                                          , modeltab.tables_description
                                                          , modeltab2.descriptions_StrAgg
                                                          , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
@@ -203,7 +205,6 @@ From
             On
             ard.AntoraComponent = ro.external_AntoraComponent
             And ard.AntoraModule = ro.external_AntoraModule
-
     Cross Join config.ftv_get_parameter_value ( 'AntoraComponent', '' ) As AntoraComponent
     Cross Join config.ftv_get_parameter_value ( 'AntoraModule', '' ) As AntoraModule
 --Left Outer Join

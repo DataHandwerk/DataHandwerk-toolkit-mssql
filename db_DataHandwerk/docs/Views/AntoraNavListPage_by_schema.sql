@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [docs].[AntoraNavListPage_by_schema]
 As
 Select
@@ -48,7 +49,7 @@ From
             rs.RepoSchema_name  = ro.RepoObject_schema_name
 
     Left Join
-        docs.RepoObject_OutputFilter As rof
+        docs.RepoObject_OutputFilter_T As rof
             On
             rof.RepoObject_guid = ro.RepoObject_guid
 Where

@@ -104,7 +104,7 @@ Select
     cultures_name
   , RepoObject_fullname2
 From
-    docs.RepoObject_OutputFilter
+    docs.RepoObject_OutputFilter_T
 Where
     is_external = 0
 Order By

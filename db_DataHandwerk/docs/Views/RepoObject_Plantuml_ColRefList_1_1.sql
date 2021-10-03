@@ -3,9 +3,9 @@ CREATE View docs.RepoObject_Plantuml_ColRefList_1_1
 As
 Select
     ro.RepoObject_guid
-  , cultures_name = Cast('' As NVarchar(10))
+  , ro.cultures_name
   --, ro.RepoObject_fullname2
-  , ColRefList    =
+  , ColRefList =
   --
   String_Agg (
                  Concat (
@@ -27,7 +27,7 @@ Select
                               , Null)
                           , docs.fs_cleanStringForPuml ( colref.Referencing_ro_fullname2 )
                           , '::'
-                          , docs.fs_cleanStringForPuml ( colref.Referencing_ro_ColumnName )
+                          , docs.fs_cleanStringForPuml ( referencing_trans.RepoObjectColumn_DisplayName )
                           , '"'
                         )
                , Char ( 13 ) + Char ( 10 )
@@ -35,7 +35,7 @@ Select
                                 colref.Referenced_ro_fullname2
                               , colref.Referenced_ro_ColumnName)
 From
-    repo.RepoObject As ro
+    docs.RepoObject_OutputFilter_T          As ro
     Inner Join
     (
         --Select
@@ -58,22 +58,34 @@ From
           , referenced_external_AntoraComponent
           , referenced_external_AntoraModule
           , referenced_is_external
+          , referenced_RepoObjectColumn_guid
           , Referencing_ro_guid                 = referencing_RepoObject_guid
           , Referencing_ro_fullname2            = referencing_ro_fullname2
           , Referencing_ro_ColumnName           = referencing_column_name
           , referencing_external_AntoraComponent
           , referencing_external_AntoraModule
           , referencing_is_external
+          , referencing_RepoObjectColumn_guid
         From
             reference.RepoObjectColumn_reference_T
-    )               As colref
+    )                                       As colref
         On
-        colref.Referencing_ro_guid        = ro.RepoObject_guid
-        Or colref.Referenced_ro_guid      = ro.RepoObject_guid
+        colref.Referencing_ro_guid                  = ro.RepoObject_guid
+        Or colref.Referenced_ro_guid                = ro.RepoObject_guid
            --exclude column references inside object (calculated columns):
-           And colref.Referencing_ro_guid <> colref.Referenced_ro_guid
+           And colref.Referencing_ro_guid           <> colref.Referenced_ro_guid
+
+    --currently we need only translation for referencing columns
+    --because translations ar implemented only in ssas
+    --and references are implemented only between referenced external data source (no culture) and referencing ssas table columns
+
+    Left Join
+        ssas.RepoObjectColumn_translation_T As referencing_trans
+            On
+            referencing_trans.RepoObjectColumn_guid = colref.referencing_RepoObjectColumn_guid
 Group By
     ro.RepoObject_guid
+  , ro.cultures_name
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5cc03c7f-23f6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Plantuml_ColRefList_1_1', @level2type = N'COLUMN', @level2name = N'ColRefList';
 
