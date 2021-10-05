@@ -4,6 +4,7 @@ As
 Select
     rom.RepoObject_guid
   , rof.cultures_name
+  , is_external          = Max ( Cast(rof.is_external As TinyInt))
   , AntoraMeasureDetails =
   --
   String_Agg (
@@ -89,17 +90,17 @@ Select
                                 transl.Measure_DisplayName)
 From
     repo.Measures_union                As rom
-    Left Join
+    Left Outer Join
         docs.RepoObject_OutputFilter_T As rof
             On
-            rof.RepoObject_schema_name = rom.RepoSchema_name
-            And rof.RepoObject_name    = rom.RepoObject_name
+            rom.RepoObject_guid        = rof.RepoObject_guid
 
     Left Join
         ssas.Measures_translation_T    As transl
             On
             transl.Measure_guid        = rom.Measure_guid
             And transl.cultures_name   = rof.cultures_name
+            And transl.RepoObject_name = rof.RepoObject_name
 Group By
     rom.RepoObject_guid
   , rof.cultures_name
@@ -121,4 +122,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c22c2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '530389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75f9eb01-da25-ec11-8528-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList', @level2type = N'COLUMN', @level2name = N'is_external';
 

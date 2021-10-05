@@ -71,21 +71,21 @@ Select
                                    , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                                  )
 From
-    repo.RepoObject_gross                                                                         As ro
+    repo.RepoObject_gross                                                                                            As ro
     Left Join
-        docs.RepoObject_OutputFilter_T                                                            As rof
+        docs.RepoObject_OutputFilter_T                                                                               As rof
             On
             rof.RepoObject_guid = ro.RepoObject_guid
 
     Left Join
-        docs.RepoObject_Plantuml_ColRefList_1_1                                                   As clist
+        docs.RepoObject_Plantuml_ColRefList_1_1                                                                      As clist
             On
             clist.RepoObject_guid = ro.RepoObject_guid
             --in case of ro.is_external = 1 the cultures_name is ''
             And clist.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
-        docs.RepoObject_Plantuml_ObjectRefList_1_1                                                As olist_1_1
+        docs.RepoObject_Plantuml_ObjectRefList_1_1                                                                   As olist_1_1
             On
             olist_1_1.RepoObject_guid = ro.RepoObject_guid
     --object references are the same for all cultures
@@ -94,7 +94,7 @@ From
     --And olist_1_1.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
-        docs.RepoObject_Plantuml_ObjectRefList_0_30                                               As olist_0_30
+        docs.RepoObject_Plantuml_ObjectRefList_0_30                                                                  As olist_0_30
             On
             olist_0_30.RepoObject_guid = ro.RepoObject_guid
     --object references are the same for all cultures
@@ -103,21 +103,22 @@ From
     --And olist_0_30.cultures_name = Coalesce ( rof.cultures_name, '' )
 
     Left Join
-        docs.RepoObject_Plantuml_ObjectRefList_30_0                                               As olist_30_0
+        docs.RepoObject_Plantuml_ObjectRefList_30_0                                                                  As olist_30_0
             On
             olist_30_0.RepoObject_guid = ro.RepoObject_guid
     --object references are the same for all cultures
     --because the filenames are the same for all cultures
     ----in case of ro.is_external = 1 the cultures_name is ''
     --And olist_30_0.cultures_name = Coalesce ( rof.cultures_name, '' )
-    Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist_1_1
-    Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 30, 0 ) As elist_30_0
-    Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 0, 30 ) As elist_0_30
-    --Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 ) As elist_cyclic
+    Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1, rof.cultures_name ) As elist_1_1
+    Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 30, 0, rof.cultures_name ) As elist_30_0
+    Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 0, 30, rof.cultures_name ) As elist_0_30
+    --Cross Apply docs.ftv_RepoObject_Reference_PlantUml_EntityRefList ( ro.RepoObject_guid, 1, 1 , rof.cultures_name) As elist_cyclic
     Left Join
         docs.RepoObject_PlantUml_PumlEntityFkList                   As EntityFkList
             On
             EntityFkList.RepoObject_guid = ro.RepoObject_guid
+            And EntityFkList.cultures_name = rof.cultures_name
 
     Left Join
         docs.RepoObject_PlantUml_FkRefList                          As FkRefList

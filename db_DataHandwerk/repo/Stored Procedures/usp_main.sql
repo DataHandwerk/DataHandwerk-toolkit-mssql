@@ -100,6 +100,56 @@ EXEC [repo].[usp_sync_guid_ssas]
 
 END;
 
+/*{"ReportUspStep":[{"Number":230,"Name":"(select config.fs_get_parameter_value ( 'sync enable', 'ssas' )) = 1 AND ( 'sync enable', 'dwh' )) = 0 ","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF (select config.fs_get_parameter_value ( 'sync enable', 'ssas' )) = 1
+AND
+(select config.fs_get_parameter_value ( 'sync enable', 'dwh' )) = 0
+
+/*{"ReportUspStep":[{"Number":231,"Parent_Number":230,"Name":"delete where is_ssas = 0 and is_external = 0","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject]","log_target_object":"[repo].[RepoObject]","log_flag_InsertUpdateDelete":"d"}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',231,';',230);
+
+Delete From
+repo.RepoObject
+Where
+    is_ssas         = 0
+    And is_external = 0
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'delete where is_ssas = 0 and is_external = 0'
+SET @source_object = '[repo].[RepoObject]'
+SET @target_object = '[repo].[RepoObject]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+END;
+
+/*{"ReportUspStep":[{"Number":235,"Name":"[ssas].[usp_PERSIST_RepoObjectColumn_translation_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [ssas].[usp_PERSIST_RepoObjectColumn_translation_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 /*{"ReportUspStep":[{"Number":240,"Name":"[reference].[usp_additional_Reference]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_additional_Reference]
 --add your own parameters
@@ -253,6 +303,16 @@ EXEC [reference].[usp_RepoObject_ReferenceTree_insert]
 
 /*{"ReportUspStep":[{"Number":290,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObjectColumn_reference_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":292,"Name":"[repo].[usp_PERSIST_RepoObject_sat2_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_PERSIST_RepoObject_sat2_T]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

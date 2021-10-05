@@ -1,10 +1,9 @@
 ﻿
-
-CREATE View [docs].[RepoObject_IndexList]
+CREATE View docs.RepoObject_IndexList
 As
 Select
     RepoObject_guid = ix.parent_RepoObject_guid
-  , cultures_name   = Cast('' As NVarchar(10))
+  , rof.cultures_name
   , AntoraIndexList =
   --
   String_Agg (
@@ -70,13 +69,21 @@ Select
                               , ix.is_index_unique Desc
                               , ix.index_name)
 From
-    repo.Index_gross          As ix
+    repo.Index_gross                   As ix
     Left Join
-        repo.ForeignKey_gross As fk
+        repo.ForeignKey_gross          As fk
             On
             fk.referencing_index_guid = ix.index_guid
+
+    Left Join
+        docs.RepoObject_OutputFilter_T As rof
+            On
+            rof.RepoObject_guid       = ix.parent_RepoObject_guid
+Where
+    Not rof.cultures_name Is Null
 Group By
     ix.parent_RepoObject_guid
+  , rof.cultures_name
 Go
 
 Execute sp_addextendedproperty

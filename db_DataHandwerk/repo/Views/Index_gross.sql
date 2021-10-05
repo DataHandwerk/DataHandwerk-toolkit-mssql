@@ -15,6 +15,8 @@ Select
   , T2.is_index_unique
   , T3.is_persistence
   , T3.is_repo_managed
+  , T3.is_DocsExclude
+  , T3.is_DocsOutput
   , T2.parent_RepoObject_guid
   , T2.referenced_index_guid
   , T3.RepoObject_fullname
@@ -605,4 +607,12 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '21896e49-f924-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'is_DocsOutput';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '20896e49-f924-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'is_DocsExclude';
 

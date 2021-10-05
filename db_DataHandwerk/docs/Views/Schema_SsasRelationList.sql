@@ -3,14 +3,28 @@ CREATE View docs.Schema_SsasRelationList
 As
 Select
     rel.SchemaName
-  , cultures_name                 = Cast('' As NVarchar(10))
+  , schema_2_culture.cultures_name
   , SsasRelationList_PumlRelation = String_Agg ( rel.PumlRelation, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                rel.referenced_RepoObject_fullname2
                                                                                                              , rel.referencing_RepoObject_fullname2)
 From
     docs.ssas_PumlRelation As rel
+    Left Join
+    (
+        Select
+            Distinct
+            RepoObject_schema_name
+          , cultures_name
+        From
+            docs.RepoObject_OutputFilter_T
+        Where
+            is_ssas = 1
+    )                      As schema_2_culture
+        On
+        schema_2_culture.RepoObject_schema_name = rel.SchemaName
 Group By
     rel.SchemaName
+  , schema_2_culture.cultures_name
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0c60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_SsasRelationList';
 

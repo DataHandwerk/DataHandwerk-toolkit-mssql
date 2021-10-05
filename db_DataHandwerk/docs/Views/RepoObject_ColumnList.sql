@@ -9,6 +9,7 @@ As
 Select
     rof.RepoObject_guid
   , rof.cultures_name
+  , is_external                      = Max ( Cast(rof.is_external As TinyInt))
   , AntoraColumnDetails              =
   --
   String_Agg (
@@ -643,4 +644,8 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '510389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '03d67baa-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'is_external';
 

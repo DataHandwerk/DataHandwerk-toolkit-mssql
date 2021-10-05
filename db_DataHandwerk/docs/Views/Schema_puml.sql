@@ -9,7 +9,7 @@ CREATE View docs.Schema_puml
 As
 Select
     rs.RepoSchema_guid
-  , cultures_name     = Cast('' As NVarchar(10))
+  , schema_culture.cultures_name
   , rs.RepoSchema_name
   , rs.is_ssas
   --todo, how to draw relations between composed keys?
@@ -64,21 +64,40 @@ Select
 From
     repo.RepoSchema                                                          As rs
     Left Join
+    (
+        Select
+            Distinct
+            RepoObject_schema_name
+          , cultures_name
+        From
+            docs.RepoObject_OutputFilter_T
+        Where
+            is_ssas = 1
+    )                                                                        As schema_culture
+        On
+        schema_culture.RepoObject_schema_name = rs.RepoSchema_name
+
+    Left Join
         docs.Schema_EntityList                                               As sel
             On
-            sel.RepoObject_schema_name = rs.RepoSchema_name
+            sel.RepoObject_schema_name = schema_culture.RepoObject_schema_name
+            And sel.cultures_name = schema_culture.cultures_name
 
     Left Join
         docs.Schema_PlantUml_FkRefList                                       As fklist
             On
-            fklist.SchemaName = rs.RepoSchema_name
+            fklist.SchemaName = schema_culture.RepoObject_schema_name
+            And fklist.cultures_name = schema_culture.cultures_name
 
     Left Join
         docs.Schema_SsasRelationList                                         As ssas_rl
             On
-            ssas_rl.SchemaName = rs.RepoSchema_name
+            ssas_rl.SchemaName = schema_culture.RepoObject_schema_name
+            And ssas_rl.cultures_name = schema_culture.cultures_name
     Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin
     Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
+Where
+    Not schema_culture.cultures_name Is Null
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0b60d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_puml';
 

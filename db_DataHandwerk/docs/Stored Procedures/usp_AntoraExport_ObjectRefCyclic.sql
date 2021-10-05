@@ -119,9 +119,10 @@ Into
 While @@Fetch_Status = 0
 Begin
     Set @command
-        = 'bcp "SELECT [page_content] FROM [docs].[ObjectRefCyclic]" '
+        = 'bcp "SELECT [page_content] FROM [docs].[ObjectRefCyclic] '
+          + 'WHERE cultures_name = ''' + @cultures_name + ''''
           --
-          + ' queryout "'
+          + '" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\pages\other\' + 'objectrefcyclic.adoc"'
@@ -140,9 +141,10 @@ Begin
     Exec sys.xp_cmdshell @command, no_output
 
     Set @command
-        = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic]" '
+        = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic] '
+          + 'WHERE cultures_name = ''' + @cultures_name + ''''
           --
-          + ' queryout "'
+          + '" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\partials\puml\' + 'objectrefcyclic.puml"'

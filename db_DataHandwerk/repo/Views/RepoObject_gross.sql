@@ -103,9 +103,9 @@ Select
   --this could be an issue, if it will be changed in differen places, which should be the primary?
   , Description                             = Coalesce (
                                                            --use description in uspgenerator.GeneratorUsp
-                                                           gusp.usp_Description
+                                                           NullIf(gusp.usp_Description, '')
                                                          --keep existing Description
-                                                         , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'Description' )
+                                                         , NullIf(property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'Description' ), '')
                                                          , modeltab.tables_description
                                                          , modeltab2.descriptions_StrAgg
                                                          , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )

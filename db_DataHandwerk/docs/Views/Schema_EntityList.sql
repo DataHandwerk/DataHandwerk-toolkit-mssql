@@ -3,7 +3,7 @@ CREATE View docs.Schema_EntityList
 As
 Select
     roe.RepoObject_schema_name
-  , cultures_name                         = Cast('' As NVarchar(10))
+  , roe.cultures_name
   , EntityList_Puml                       = String_Agg ( roe.RepoObject_Puml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                           roe.RepoObject_fullname2)
   , EntityList_PumlOnlyIndex              = String_Agg ( roe.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
@@ -23,6 +23,7 @@ From
     docs.RepoObject_Plantuml_Entity_T As roe
 Group By
     roe.RepoObject_schema_name
+  , roe.cultures_name
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0960d8ee-e90a-ec11-8516-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Schema_EntityList';
 

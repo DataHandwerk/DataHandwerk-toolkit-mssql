@@ -120,20 +120,32 @@ From
     Left Join
         docs.RepoObject_ColumnList_T As collist
             On
-            collist.RepoObject_guid     = ro.RepoObject_guid
-            And collist.cultures_name   = ro.cultures_name
+            collist.RepoObject_guid           = ro.RepoObject_guid
+            And
+            (
+                (
+                    collist.is_external       = 0
+                    And collist.cultures_name = ro.cultures_name
+                )
+                Or
+                --external objects are without culture
+                (
+                    collist.is_external       = 1
+                    And collist.cultures_name = ''
+                )
+            )
 
     Left Join
         docs.RepoObject_IndexList_T  As indexlist
             On
-            indexlist.RepoObject_guid   = ro.RepoObject_guid
-            And indexlist.cultures_name = ro.cultures_name
+            indexlist.RepoObject_guid         = ro.RepoObject_guid
+            And indexlist.cultures_name       = ro.cultures_name
 
     Left Join
         docs.RepoObject_MeasureList  As mlist
             On
-            mlist.RepoObject_guid       = ro.RepoObject_guid
-            And mlist.cultures_name     = ro.cultures_name
+            mlist.RepoObject_guid             = ro.RepoObject_guid
+            And mlist.cultures_name           = ro.cultures_name
 Go
 
 Go

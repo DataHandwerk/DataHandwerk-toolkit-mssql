@@ -1,13 +1,14 @@
 ﻿
-
 /*
 <<property_start>>Description
 <<property_end>>
 */
-CREATE View [docs].[AntoraIndexSemanticgroup]
+
+CREATE View docs.AntoraIndexSemanticgroup
 As
 Select
     IndexSemanticGroup
+  , cultures_name
   , AntoraIndexSemanticgroup = Char ( 13 ) + Char ( 10 )
                                --
                                + '[#' + docs.fs_cleanStringForAnchorId ( IsNull ( IndexSemanticGroup, '(no group)' ))
@@ -23,6 +24,7 @@ From
     docs.AntoraIndexSemanticgroupPatterndatatype
 Group By
     IndexSemanticGroup
+  , cultures_name
 Go
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
@@ -46,15 +48,9 @@ Execute sp_addextendedproperty
 
 
 Go
-Execute sp_addextendedproperty
-    @name = N'RepoObjectColumn_guid'
-  , @value = '951293b9-de96-eb11-84f4-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'docs'
-  , @level1type = N'VIEW'
-  , @level1name = N'AntoraIndexSemanticgroup'
-  , @level2type = N'COLUMN'
-  , @level2name = N'fixvalue';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '60daf573-5d25-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraIndexSemanticgroup', @level2type = N'COLUMN', @level2name = N'fixvalue';
+
+
 
 
 Go
@@ -107,4 +103,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraIndexSemanticgroup';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '08d67baa-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraIndexSemanticgroup', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

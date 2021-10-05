@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>Description
 * xref:sqldb:uspgenerator.generatoruspstep_persistence_src.adoc[] creates all possible steps for GeneratorUspStep
@@ -8,7 +7,7 @@
 <<property_end>>
 */
 
-CREATE View [uspgenerator].[GeneratorUspStep_Persistence_src]
+CREATE View uspgenerator.GeneratorUspStep_Persistence_src
 As
 --00:00:01
 Select
@@ -396,9 +395,9 @@ Select
   , Statement                   = 'INSERT INTO 
  ' + ro.RepoObject_fullname + '
  (
-' + ro.PersistenceInsertColumnList + ')
+' + ros2.PersistenceInsertColumnList + ')
 SELECT
-' + ro.PersistenceInsertColumnList + '
+' + ros2.PersistenceInsertColumnList + '
 FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
   , log_source_object           = ro.persistence_source_SysObject_fullname
   , log_target_object           = ro.RepoObject_fullname
@@ -407,7 +406,12 @@ FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross2        As ro
+    repo.RepoObject_gross         As ro
+    Left Join
+        repo.RepoObject_sat2_T    As ros2
+            On
+            ros2.RepoObject_guid        = ro.RepoObject_guid
+
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On

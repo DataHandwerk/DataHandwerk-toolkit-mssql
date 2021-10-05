@@ -77,7 +77,7 @@ Select
                         ) Within Group(Order By
                                            rop_cross.property_name)
            , Case
-                 When Max ( ro.sql_modules_antora ) <> ''
+                 When Max ( ros2.sql_modules_antora ) <> ''
                      Then
                      ':ExistsProperty--sql_modules_definition:' + Char ( 13 ) + Char ( 10 )
              End
@@ -313,7 +313,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '----'
            , Char ( 13 ) + Char ( 10 )
-           , Max ( ro.sql_modules_antora )
+           , Max ( ros2.sql_modules_antora )
            , Char ( 13 ) + Char ( 10 )
            , '----'
            , Char ( 13 ) + Char ( 10 )
@@ -328,14 +328,19 @@ Select
 From
     docs.RepoObject_OutputFilter_T        As rof
     Left Join
-        repo.RepoObject_gross2            As ro
+        repo.RepoObject_gross             As ro
             On
             ro.RepoObject_guid        = rof.RepoObject_guid
 
     Left Join
+        repo.RepoObject_sat2_T            As ros2
+            On
+            ros2.RepoObject_guid      = rof.RepoObject_guid
+
+    Left Join
         property.RepoObjectProperty_cross As rop_cross
             On
-            rop_cross.RepoObject_guid = ro.RepoObject_guid
+            rop_cross.RepoObject_guid = rof.RepoObject_guid
 
     Left Join
         property.RepoObjectProperty       As rop
@@ -348,16 +353,19 @@ From
         docs.RepoObject_ColumnList_T      As clist
             On
             clist.RepoObject_guid     = ro.RepoObject_guid
+            And clist.cultures_name   = rof.cultures_name
 
     Left Join
         docs.RepoObject_IndexList_T       As ilist
             On
             ilist.RepoObject_guid     = ro.RepoObject_guid
+            And ilist.cultures_name   = rof.cultures_name
 
     Left Join
         docs.RepoObject_MeasureList       As mlist
             On
             mlist.RepoObject_guid     = ro.RepoObject_guid
+            And mlist.cultures_name   = rof.cultures_name
 
     Left Join
         docs.RepoObject_ParameterList     As parlist
@@ -367,8 +375,6 @@ Group By
     rof.RepoObject_guid
   , rof.cultures_name
 Having
-    --Max ( is_DocsOutput )                  = 1
-    --And 
     Max ( Cast(rof.is_external As Int)) = 0
 Go
 

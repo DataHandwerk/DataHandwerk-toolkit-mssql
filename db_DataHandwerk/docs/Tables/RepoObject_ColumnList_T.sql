@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [docs].[RepoObject_ColumnList_T] (
     [RepoObject_guid]                  UNIQUEIDENTIFIER NOT NULL,
     [cultures_name]                    NVARCHAR (10)    CONSTRAINT [DF_RepoObject_ColumnList_T_cultures_name] DEFAULT ('') NOT NULL,
+    [is_external]                      TINYINT          CONSTRAINT [DF_RepoObject_ColumnList_T_is_external] DEFAULT ((0)) NOT NULL,
     [AntoraColumnDetails]              NVARCHAR (MAX)   NULL,
     [AntoraPkColumnTableRows]          NVARCHAR (MAX)   NULL,
     [AntoraNonPkColumnTableRows]       NVARCHAR (MAX)   NULL,
@@ -11,6 +12,8 @@
     [PlantumlIndexColumns]             NVARCHAR (MAX)   NULL,
     CONSTRAINT [PK_RepoObject_ColumnList_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -227,4 +230,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a3a507d5-06
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4f0389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7b7fdba0-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_ColumnList_T_is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '00d67baa-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_ColumnList_T', @level2type = N'COLUMN', @level2name = N'is_external';
 

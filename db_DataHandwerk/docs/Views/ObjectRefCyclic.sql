@@ -1,30 +1,29 @@
 ﻿
-
-
-CREATE View [docs].[ObjectRefCyclic]
+CREATE View docs.ObjectRefCyclic
 As
 Select
-    page_content         =
-    --
-    Concat (
-               '= Cyclic Object References'
-             , Char ( 13 ) + Char ( 10 )
-             , Char ( 13 ) + Char ( 10 )
-             , '== Object List'
-             , Char ( 13 ) + Char ( 10 )
-             , Char ( 13 ) + Char ( 10 )
-             , elist.XrefEntityList
-             , Char ( 13 ) + Char ( 10 )
-             , Char ( 13 ) + Char ( 10 )
-             , '== Object Reference Diagram - Cyclic'
-             , Char ( 13 ) + Char ( 10 )
-             , '
+    cultures_name
+  , page_content         =
+  --
+  Concat (
+             '= Cyclic Object References'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '== Object List'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , elist.XrefEntityList
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '== Object Reference Diagram - Cyclic'
+           , Char ( 13 ) + Char ( 10 )
+           , '
 [plantuml, ObjectRefCyclic, svg, subs=macros]
 ....
 include::partial$puml/objectrefcyclic.puml[]
 ....
 '
-           )
+         )
   , ObjectRefCyclic_Puml =
   --
   Concat (
@@ -70,4 +69,8 @@ GO
 EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.ftv_get_parameter_value.adoc[]
 * xref:docs.ObjectRefCyclic_EntityList.adoc[]
 * xref:docs.ObjectRefCyclic_ObjectRefList.adoc[]', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ObjectRefCyclic';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '02d67baa-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ObjectRefCyclic', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

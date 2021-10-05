@@ -190,16 +190,6 @@ EXEC [ssas].[usp_PERSIST_Measures_translation_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":3200,"Name":"[ssas].[usp_PERSIST_RepoObjectColumn_translation_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [ssas].[usp_PERSIST_RepoObjectColumn_translation_T]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
 --
 --finish your own code here
 --keep the code between "END" and the end of the procedure unchanged!

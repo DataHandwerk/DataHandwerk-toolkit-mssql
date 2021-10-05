@@ -21,8 +21,10 @@
     [AntoraModule]                NVARCHAR (MAX)   NULL,
     [PumlEntityTopDefault]        NVARCHAR (MAX)   NOT NULL,
     [PumlEntityTopWorkaround]     NVARCHAR (MAX)   NOT NULL,
-    CONSTRAINT [PK_RepoObject_OutputFilter_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC)
+    CONSTRAINT [PK_RepoObject_OutputFilter_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 GO

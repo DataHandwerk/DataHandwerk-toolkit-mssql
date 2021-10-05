@@ -1,5 +1,4 @@
 ﻿
-
 /*
 output example partial_content:
 
@@ -21,47 +20,52 @@ include::nav-schema-Config.adoc[leveloffset=+1]
 include::nav-schema-ConfigH.adoc[leveloffset=+1]
 
 */
-CREATE View [docs].[AntoraPage_ObjectBySchema]
+CREATE View docs.AntoraPage_ObjectBySchema
 As
 Select
-    partial_content
-    --
-    = Concat (
-                 '* xref:nav/objects-by-schema.adoc[]'
-               , Char ( 13 ) + Char ( 10 )
-               , String_Agg (
-                                Concat (
-                                           '** xref:nav/nav-schema-' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.adoc[]'
-                                         , Char ( 13 ) + Char ( 10 )
-                                         , '+'
-                                         , Char ( 13 ) + Char ( 10 )
-                                         , '--'
-                                         , Char ( 13 ) + Char ( 10 )
-                                         , 'include::partial$navlist/navlist-schema-' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name )
-                                           + '.adoc[]'
-                                         , Char ( 13 ) + Char ( 10 )
-                                         , '--'
-                                       )
-                              , Char ( 13 ) + Char ( 10 )
-                            ) Within Group(Order By
-                                               ro.RepoObject_schema_name)
-             )
+    ro.cultures_name
+  , partial_content
+  --
+  = Concat (
+               '* xref:nav/objects-by-schema.adoc[]'
+             , Char ( 13 ) + Char ( 10 )
+             , String_Agg (
+                              Concat (
+                                         '** xref:nav/nav-schema-'
+                                         + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.adoc[]'
+                                       , Char ( 13 ) + Char ( 10 )
+                                       , '+'
+                                       , Char ( 13 ) + Char ( 10 )
+                                       , '--'
+                                       , Char ( 13 ) + Char ( 10 )
+                                       , 'include::partial$navlist/navlist-schema-'
+                                         + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.adoc[]'
+                                       , Char ( 13 ) + Char ( 10 )
+                                       , '--'
+                                     )
+                            , Char ( 13 ) + Char ( 10 )
+                          ) Within Group(Order By
+                                             ro.RepoObject_schema_name)
+           )
   , page_content
   --
-    = Concat (
-                 Iif(Max ( ro.is_ssas ) = 1
-                 , '= SSAS Tabular Models'
+  = Concat (
+               Iif(Max ( ro.is_ssas ) = 1
+                 , '= SSAS Tabular Models' + Iif(ro.cultures_name <> '', ' - ' + ro.cultures_name, '')
                  , '= ' + config.fs_dwh_database_name () + ' - Objects by schema')
-               , Char ( 13 ) + Char ( 10 )
-               , Char ( 13 ) + Char ( 10 )
-               , String_Agg (
-                                'include::nav-schema-' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.adoc[leveloffset=+1]'
-                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                            ) Within Group(Order By
-                                               ro.RepoObject_schema_name)
-             )
+             , Char ( 13 ) + Char ( 10 )
+             , Char ( 13 ) + Char ( 10 )
+             , String_Agg (
+                              'include::nav-schema-' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name )
+                              + '.adoc[leveloffset=+1]'
+                            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                          ) Within Group(Order By
+                                             ro.RepoObject_schema_name)
+           )
 From
     docs.AntoraNavListRepoObject_by_schema As ro
+Group By
+    ro.cultures_name
 Go
 
 Execute sp_addextendedproperty
@@ -101,4 +105,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraPage_ObjectBySchema';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '05d67baa-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraPage_ObjectBySchema', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

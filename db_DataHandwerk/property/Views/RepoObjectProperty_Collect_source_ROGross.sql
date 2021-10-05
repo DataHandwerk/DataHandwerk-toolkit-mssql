@@ -1,7 +1,5 @@
 ﻿
-
-
-CREATE View [property].[RepoObjectProperty_Collect_source_ROGross]
+CREATE View property.RepoObjectProperty_Collect_source_ROGross
 As
 Select
     ro.RepoObject_guid
@@ -95,10 +93,10 @@ Select
           Cast(ro.InheritanceType As NVarchar(Max))
       When 'AntoraReferencedList'
           Then
-          Cast(ro.AntoraReferencedList As NVarchar(Max))
+          Cast(ros2.AntoraReferencedList As NVarchar(Max))
       When 'AntoraReferencingList'
           Then
-          Cast(ro.AntoraReferencingList As NVarchar(Max))
+          Cast(ros2.AntoraReferencingList As NVarchar(Max))
       --When 'AntoraExternalReferencedList'
       --    Then
       --    Cast(ro.AntoraExternalReferencedList As NVarchar(Max))
@@ -113,7 +111,12 @@ Select
           Cast(ro.has_get_referenced_issue As NVarchar(Max))
   End
 From
-    repo.RepoObject_gross2 As ro
+    repo.RepoObject_gross      As ro
+    Left Join
+        repo.RepoObject_sat2_T As ros2
+            On
+            ros2.RepoObject_guid = ro.RepoObject_guid
+
     --ensure all these property_name are included in the resulting view per RepoObject
     Cross Join
     (
@@ -152,7 +155,7 @@ From
           --, ( 'AntoraExternalReferencingList' )
           , ( 'has_execution_plan_issue' )
           , ( 'has_get_referenced_issue' )
-    )                      As p_names ( property_name )
+    )                          As p_names ( property_name )
 Where
     Not ro.RepoObject_guid Is Null
 GO

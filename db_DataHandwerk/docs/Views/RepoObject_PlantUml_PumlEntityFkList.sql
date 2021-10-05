@@ -1,10 +1,9 @@
-﻿
 
-CREATE View [docs].[RepoObject_PlantUml_PumlEntityFkList]
+CREATE View docs.RepoObject_PlantUml_PumlEntityFkList
 As
 Select
     ro.RepoObject_guid
-  --, cultures_name        = Cast('' As NVarchar(10))
+  , rop.cultures_name
   , RepoObject_fullname2 = Max ( ro.RepoObject_fullname2 )
   , PumlEntityFkList     = String_Agg ( rop.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                   ro.included_RepoObject_fullname2)
@@ -16,6 +15,7 @@ From
             rop.RepoObject_guid = ro.included_RepoObject_guid
 Group By
     ro.RepoObject_guid
+  , rop.cultures_name
 Go
 
 Execute sp_addextendedproperty
@@ -111,5 +111,5 @@ GO
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '09d67baa-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_PlantUml_PumlEntityFkList', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

@@ -32,7 +32,8 @@ Select
              'entity '
            ---- puml-link:mycomponent:sqldb:config.Event_isInaktiv.adoc[]
            ---- puml-link:config.Event_isInaktiv.adoc[]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':'
+           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule
+             + Iif(ro.is_external = 1, '', Iif(c.cultures_name <> '', '-', '') + c.cultures_name) + ':'
              + docs.fs_cleanStringForFilename ( ro.RepoObject_fullname2 )
              --default
              + '.adoc[]"'
@@ -51,7 +52,8 @@ Select
              'entity '
            ---- puml-link:mycomponent:sqldb:config.Event_isInaktiv.adoc[]
            ---- puml-link:config.Event_isInaktiv.adoc[]
-           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule + ':'
+           , '"puml-link:' + ro.AntoraComponent + ':' + ro.AntoraModule
+             + Iif(ro.is_external = 1, '', Iif(c.cultures_name <> '', '-', '') + c.cultures_name) + ':'
              + docs.fs_cleanStringForFilename ( ro.RepoObject_fullname2 )
              ----workaround empty prefix for #10 - prefix=
              + '.adoc[prefix=]"'
@@ -86,7 +88,7 @@ Where
     (
         --include all by default
         c.cultures_name     = ''
-        --additional include existing culters from tm
+        --additional include existing culters from tm, per ssas model
         Or tm.cultures_name <> ''
     )
 Go

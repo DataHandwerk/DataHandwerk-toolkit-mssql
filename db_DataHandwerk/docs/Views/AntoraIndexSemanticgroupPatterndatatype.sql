@@ -1,43 +1,50 @@
 ﻿
 
-
 CREATE View [docs].[AntoraIndexSemanticgroupPatterndatatype]
 As
 Select
-    IndexSemanticGroup
-  , IndexPatternColumnDatatype
+    i.IndexSemanticGroup
+  , i.IndexPatternColumnDatatype
+  , rof.cultures_name
   , AntoraIndexSemanticgroupPatterndatatype =
   --
   String_Agg (
                  Concat (
                             Cast(N'' As NVarchar(Max))
                           --** xref:aaa.bbb.adoc#index-pk_ccc[aaa.bbb - pk_abc]
-                          , '** xref:' + docs.fs_cleanStringForFilename ( RepoObject_fullname2 ) + '.adoc#' + 'index-'
-                            + docs.fs_cleanStringForAnchorId ( index_name ) + '['
-                            + docs.fs_cleanStringForLabel ( RepoObject_fullname2 ) + ' - '
-                            + docs.fs_cleanStringForLabel ( index_name ) + '] +'
+                          , '** xref:' + docs.fs_cleanStringForFilename ( i.RepoObject_fullname2 ) + '.adoc#'
+                            + 'index-' + docs.fs_cleanStringForAnchorId ( i.index_name ) + '['
+                            + docs.fs_cleanStringForLabel ( i.RepoObject_fullname2 ) + ' - '
+                            + docs.fs_cleanStringForLabel ( i.index_name ) + '] +'
                           , Char ( 13 ) + Char ( 10 )
-                          , IndexPatternColumnName
+                          , i.IndexPatternColumnName
                           , ' +'
                           , Char ( 13 ) + Char ( 10 )
-                          , IndexPatternColumnDatatype
+                          , i.IndexPatternColumnDatatype
                           , ' +'
                           , Char ( 13 ) + Char ( 10 )
                           , 'PK, Unique, Real: '
-                          , is_index_primary_key
+                          , i.is_index_primary_key
                           , ', '
-                          , is_index_unique
+                          , i.is_index_unique
                           , ', '
-                          , is_index_real
+                          , i.is_index_real
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
-                                RepoObject_fullname2)
+                                i.RepoObject_fullname2)
 From
-    repo.Index_gross
+    repo.Index_gross                   As i
+    Left Join
+        docs.RepoObject_OutputFilter_T As rof
+            On
+            rof.RepoObject_guid = i.parent_RepoObject_guid
+Where
+    Not rof.cultures_name Is Null
 Group By
-    IndexSemanticGroup
-  , IndexPatternColumnDatatype;
+    i.IndexSemanticGroup
+  , i.IndexPatternColumnDatatype
+  , rof.cultures_name
 Go
 
 Execute sp_addextendedproperty
@@ -129,4 +136,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraIndexSemanticgroupPatterndatatype';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '04d67baa-5925-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraIndexSemanticgroupPatterndatatype', @level2type = N'COLUMN', @level2name = N'cultures_name';
 

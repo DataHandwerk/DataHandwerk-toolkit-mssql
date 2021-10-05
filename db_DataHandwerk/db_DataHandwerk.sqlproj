@@ -775,6 +775,9 @@
     <Build Include="ssas\Stored Procedures\usp_PERSIST_RepoObjectColumn_translation_T.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_Measures_translation_T.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_OutputFilter_T.sql" />
+    <Build Include="repo\Tables\RepoObject_sat2_T.sql" />
+    <Build Include="repo\Views\RepoObject_sat2.sql" />
+    <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_sat2_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

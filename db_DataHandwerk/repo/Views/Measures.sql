@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.Measures
+
+CREATE View [repo].[Measures]
 As
 Select
     T1.Measure_guid
@@ -20,6 +21,8 @@ Select
   , RepoObject_fullname2    = T1.databasename + '.' + T1.tables_name
   , T1.RepoObject_guid
   , RepoObject_name         = T1.tables_name
+  --one RepoObjekt_guid per schema, because we create one virtual table '_measures' per schema
+  --schema = ssas model
   , T4.MeasuresRepoObjekt_guid
   , T4.MeasuresRepoObjekt_name
 From

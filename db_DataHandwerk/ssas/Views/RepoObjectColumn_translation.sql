@@ -1,9 +1,10 @@
-﻿/****** Script for SelectTopNRows command from SSMS  ******/
+﻿
+/****** Script for SelectTopNRows command from SSMS  ******/
 CREATE View ssas.RepoObjectColumn_translation
 As
 Select
     roc.RepoObjectColumn_guid
-  , cultures_name                = IsNull ( cult.cultures_name, '' )
+  , c.cultures_name
   , roc.Column_name
   , RepoObjectColumn_translation = cult.cultures_translations_model_tables_columns_translatedCaption
   , RepoObjectColumn_DisplayName = Coalesce (
@@ -17,7 +18,8 @@ Select
   , cult.cultures_translations_model_tables_name
   , cult.cultures_translations_model_tables_columns_name
 From
-    repo.RepoObjectColumn                                                 As roc
+    repo.RepoObjectColumn   As roc
+    Cross Join docs.Culture As c
     Left Outer Join
         ssas.model_json_311_tables_columns_T                              As tabcol
             On
@@ -27,6 +29,7 @@ From
         ssas.model_json_341111_cultures_translations_model_tables_columns As cult
             On
             cult.databasename                                        = tabcol.databasename
+            And cult.cultures_name                                   = c.cultures_name
             And cult.cultures_translations_model_tables_name         = tabcol.tables_name
             And cult.cultures_translations_model_tables_columns_name = roc.Column_name
 GO

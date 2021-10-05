@@ -1,5 +1,6 @@
 ﻿
-CREATE View docs.AntoraPage_IndexSemanticGroup
+
+CREATE View [docs].[AntoraPage_IndexSemanticGroup]
 As
 Select
     page_content =

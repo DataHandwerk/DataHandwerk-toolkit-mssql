@@ -1,0 +1,7 @@
+how to create the sql examiner snapshot
+
+[SQL Examiner](https://www.sqlaccessories.com/sql-examiner/)
+
+```
+"C:\Program Files (x86)\SQL Examiner Suite 2022\SQLECmd.exe" /server1:localhost\sql2019 /database1:dhw_self /WinAuth1 /SaveSnapshot:"D:\Repos\gitlab\DataHandwerk\DataHandwerk-toolkit-mssql\sqlexaminer\dhw.%DB1.sesnap" /force
+```

@@ -106,7 +106,7 @@ Declare page_cursor Cursor Local Fast_Forward For
 Select
     cultures_name
 From
-    docs.culture
+    docs.Culture
 Order By
     cultures_name
 
@@ -118,21 +118,21 @@ Into
 
 While @@Fetch_Status = 0
 Begin
-    Set @command
-        = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemanticGroup]" '
-          --
-          + ' queryout "'
-          --
-          + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\pages\other\' + 'indexsemanticgroup.adoc"'
-          --
-          + ' -S ' + @instanceName
-          --
-          + ' -d ' + @databaseName
-          --
-          + ' -c -C 65001'
-          --
-          + @TrustedUserPassword
+    Set @command = 'bcp "SELECT [page_content] FROM [docs].[AntoraPage_IndexSemanticGroup] '
+                   --
+                   + 'WHERE cultures_name = ''' + @cultures_name + ''''
+                   --
+                   + '" queryout "'
+                   --
+                   + docs.fs_AntoraModuleFolder ( @cultures_name ) + '\pages\other\' + 'indexsemanticgroup.adoc"'
+                   --
+                   + ' -S ' + @instanceName
+                   --
+                   + ' -d ' + @databaseName
+                   --
+                   + ' -c -C 65001'
+                   --
+                   + @TrustedUserPassword
 
     Print @command
 

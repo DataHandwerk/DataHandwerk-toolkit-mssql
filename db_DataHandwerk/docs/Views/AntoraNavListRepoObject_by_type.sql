@@ -1,6 +1,5 @@
 ﻿
 
-
 CREATE View [docs].[AntoraNavListRepoObject_by_type]
 As
 Select
@@ -13,11 +12,13 @@ Select
                  Concat (
                             --* xref:target-page-filename.adoc[link text]
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                            Cast('* xref:' As NVarchar(Max)), docs.fs_cleanStringForFilename ( ro.RepoObject_fullname2 ), '.adoc[]'
+                            Cast('* xref:' As NVarchar(Max))
+                          , docs.fs_cleanStringForFilename ( ro.RepoObject_fullname2 )
+                          , '.adoc[]'
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
-                                ro.RepoObject_fullname2)
+                                ro.RepoObject_DisplayName)
 From
     docs.RepoObject_OutputFilter_T As ro
 Where
