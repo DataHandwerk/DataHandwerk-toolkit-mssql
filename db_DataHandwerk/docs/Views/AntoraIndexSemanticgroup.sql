@@ -19,7 +19,6 @@ Select
                                --
                                + String_Agg ( AntoraIndexSemanticgroupPatterndatatype, Char ( 13 ) + Char ( 10 )) Within Group(Order By
                                                                                                                                    IndexPatternColumnDatatype)
-  , fixvalue                 = 1
 From
     docs.AntoraIndexSemanticgroupPatterndatatype
 Group By
@@ -48,7 +47,7 @@ Execute sp_addextendedproperty
 
 
 Go
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '60daf573-5d25-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'AntoraIndexSemanticgroup', @level2type = N'COLUMN', @level2name = N'fixvalue';
+
 
 
 
