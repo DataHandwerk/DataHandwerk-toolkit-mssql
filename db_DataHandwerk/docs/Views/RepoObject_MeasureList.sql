@@ -11,92 +11,123 @@ Select
                  Concat (
                             --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                             Cast('' As NVarchar(Max))
-                          , '[#measure-'
-                          , docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName )
-                          , ']'
-                          , Char ( 13 ) + Char ( 10 )
-                          , '=== '
-                          , docs.fs_cleanStringForLabel ( transl.Measure_DisplayName )
-                          , Char ( 13 ) + Char ( 10 )
-                          , Char ( 13 ) + Char ( 10 )
-                          , Case
-                                When rom.Description <> ''
-                                    Then
-                                    Concat (
-                                               '.Description'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '--'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , rom.Description
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '--'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             --add additional line to get more space
-                                             , '{empty} +'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                           )
-                            End
-                          , Case
-                                When rom.Expression <> ''
-                                    Then
-                                    Concat (
-                                               '.Expression'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '....'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , rom.Expression
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '....'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                           )
-                            End
-                          , Case
-                                When rom.measures_displayFolder <> ''
-                                    Then
-                                    Concat (
-                                               '.DisplayFolder: '
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '--'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , rom.measures_displayFolder
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , '--'
-                                             , Char ( 13 ) + Char ( 10 )
-                                             , Char ( 13 ) + Char ( 10 )
-                                           )
-                            End
+                          , Iif(transl.is_displayfolder = 1
+                              , Concat (
+                                           '[#displayfolder-'
+                                         , docs.fs_cleanStringForAnchorId ( transl.displayfolder_DisplayName )
+                                         , ']'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , '=== '
+                                         , docs.fs_cleanStringForLabel ( IsNull ( transl.displayfolder_DisplayName, '_' ))
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                       )
+                              , Concat (
+                                           '[#measure-'
+                                         , docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName )
+                                         , ']'
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , '==== '
+                                         , docs.fs_cleanStringForLabel ( transl.Measure_DisplayName )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 )
+                                         --, Case
+                                         --      When transl.displayfolder_DisplayName <> ''
+                                         --          Then
+                                         --          Concat (
+                                         --                     '.DisplayFolder: '
+                                         --                   , Char ( 13 ) + Char ( 10 )
+                                         --                   , '--'
+                                         --                   , Char ( 13 ) + Char ( 10 )
+                                         --                   , transl.displayfolder_DisplayName
+                                         --                   , Char ( 13 ) + Char ( 10 )
+                                         --                   , '--'
+                                         --                   , Char ( 13 ) + Char ( 10 )
+                                         --                   , Char ( 13 ) + Char ( 10 )
+                                         --                 )
+                                         --  End
+                                         , Case
+                                               When rom.Description <> ''
+                                                   Then
+                                                   Concat (
+                                                              '.Description'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '--'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , rom.Description
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '--'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            --add additional line to get more space
+                                                            , '{empty} +'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                          )
+                                           End
+                                         , Case
+                                               When rom.Expression <> ''
+                                                   Then
+                                                   Concat (
+                                                              '.Expression'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '....'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , rom.Expression
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '....'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                          )
+                                           End
+                                       )
+                          --
+                          )
                         )
                , Char ( 13 ) + Char ( 10 )
              ) Within Group(Order By
-                                transl.Measure_DisplayName)
+                                transl.displayfolder_DisplayName
+                              , transl.is_displayfolder Desc
+                              , transl.Measure_DisplayName)
   , PlantumlMeasures     =
   --
   String_Agg (
                  Concat (
                             Cast('' As NVarchar(Max))
-                          , Concat (
-                                       '  ~ '
-                                     , Iif(rom.measures_isHidden = 1, '<color:gray>', Null)
-                                     , docs.fs_cleanStringForPuml ( transl.Measure_DisplayName )
-                                     , Iif(rom.measures_isHidden = 1, ' (hidden)', Null)
-                                     , Iif(rom.measures_isHidden = 1, '</color>', Null)
-                                     , Char ( 13 ) + Char ( 10 )
-                                   )
+                          , Iif(transl.is_displayfolder = 1
+                              , Concat (
+                                           '  **'
+                                         , IsNull (
+                                                      docs.fs_cleanStringForPuml ( transl.displayfolder_DisplayName )
+                                                    , '_'
+                                                  )
+                                         , '**'
+                                         , Char ( 13 ) + Char ( 10 )
+                                       )
+                              , Concat (
+                                           '  ~ '
+                                         , Iif(rom.measures_isHidden = 1, '<color:gray>', Null)
+                                         , docs.fs_cleanStringForPuml ( transl.Measure_DisplayName )
+                                         , Iif(rom.measures_isHidden = 1, ' (hidden)', Null)
+                                         , Iif(rom.measures_isHidden = 1, '</color>', Null)
+                                         , Char ( 13 ) + Char ( 10 )
+                                       )
+                          --
+                          )
                         )
                , ''
              ) Within Group(Order By
-                                transl.Measure_DisplayName)
+                                transl.displayfolder_DisplayName
+                              , transl.is_displayfolder Desc
+                              , transl.Measure_DisplayName)
 From
-    repo.Measures_union                As rom
+    repo.Measures_union                               As rom
     Left Outer Join
-        docs.RepoObject_OutputFilter_T As rof
+        docs.RepoObject_OutputFilter_T                As rof
             On
             rom.RepoObject_guid        = rof.RepoObject_guid
 
     Left Join
-        ssas.Measures_translation_T    As transl
+        ssas.Measures_translation_displayfolder_union As transl
             On
             transl.Measure_guid        = rom.Measure_guid
             And transl.cultures_name   = rof.cultures_name

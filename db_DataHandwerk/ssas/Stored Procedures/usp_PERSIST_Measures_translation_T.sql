@@ -108,8 +108,11 @@ INSERT INTO
   [Measure_guid]
 , [cultures_name]
 , [RepoObject_name]
+, [displayfolder_DisplayName]
+, [displayfolder_translation]
 , [Measure_DisplayName]
 , [Measure_translation]
+, [measures_displayFolder]
 , [measures_name]
 , [RepoSchema_name]
 )
@@ -117,8 +120,11 @@ SELECT
   [Measure_guid]
 , [cultures_name]
 , [RepoObject_name]
+, [displayfolder_DisplayName]
+, [displayfolder_translation]
 , [Measure_DisplayName]
 , [Measure_translation]
+, [measures_displayFolder]
 , [measures_name]
 , [RepoSchema_name]
 

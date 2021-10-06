@@ -8,11 +8,17 @@ Select
   , m.RepoSchema_name
   , m.RepoObject_name
   , m.measures_name
-  , Measure_translation = cult.cultures_translations_model_tables_measures_translatedCaption
-  , Measure_DisplayName = Coalesce (
-                                       cult.cultures_translations_model_tables_measures_translatedCaption
-                                     , m.measures_name
-                                   )
+  , Measure_translation       = cult.cultures_translations_model_tables_measures_translatedCaption
+  , Measure_DisplayName       = Coalesce (
+                                             cult.cultures_translations_model_tables_measures_translatedCaption
+                                           , m.measures_name
+                                         )
+  , m.measures_displayFolder
+  , displayfolder_translation = cult.cultures_translations_model_tables_measures_translatedDisplayFolder
+  , displayfolder_DisplayName = Coalesce (
+                                             cult.cultures_translations_model_tables_measures_translatedDisplayFolder
+                                           , m.measures_displayFolder
+                                         )
 From
     repo.Measures_union     As m
     Cross Join docs.Culture As c
@@ -57,4 +63,16 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75ab2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '1c8b3c65-6124-ec11-8526-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'Measures_translation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6820c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'Measures_translation', @level2type = N'COLUMN', @level2name = N'measures_displayFolder';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6920c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'Measures_translation', @level2type = N'COLUMN', @level2name = N'displayfolder_translation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6a20c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'Measures_translation', @level2type = N'COLUMN', @level2name = N'displayfolder_DisplayName';
 

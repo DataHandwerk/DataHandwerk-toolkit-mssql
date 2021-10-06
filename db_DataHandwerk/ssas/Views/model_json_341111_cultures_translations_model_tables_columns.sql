@@ -1,4 +1,6 @@
 ﻿
+
+
 /*
 --get and check existing values
 
@@ -44,7 +46,7 @@ Where
 Go
 
 */
-Create View ssas.model_json_341111_cultures_translations_model_tables_columns
+CREATE   View [ssas].[model_json_341111_cultures_translations_model_tables_columns]
 As
 Select
     T1.databasename
@@ -53,6 +55,8 @@ Select
   , T1.cultures_translations_model_tables_name
   , j2.cultures_translations_model_tables_columns_name
   , j2.cultures_translations_model_tables_columns_translatedCaption
+  , j2.cultures_translations_model_tables_columns_translatedDescription
+  , j2.cultures_translations_model_tables_columns_translatedDisplayFolder
 From
     ssas.model_json_34111_cultures_translations_model_tables                  As T1
     Cross Apply OpenJson ( T1.cultures_translations_model_tables_columns_ja ) As j1
@@ -62,6 +66,8 @@ From
     (
         cultures_translations_model_tables_columns_name NVarchar ( 128 ) N'$.name'
       , cultures_translations_model_tables_columns_translatedCaption NVarchar ( 128 ) N'$.translatedCaption'
+      , cultures_translations_model_tables_columns_translatedDescription NVarchar ( Max ) N'$.translatedDescription'
+      , cultures_translations_model_tables_columns_translatedDisplayFolder NVarchar ( 512 ) N'$.translatedDisplayFolder'
     ) As j2
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'af32fc8a-c322-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_341111_cultures_translations_model_tables_columns', @level2type = N'COLUMN', @level2name = N'cultures_translations_model_tables_columns_translatedCaption';
@@ -89,4 +95,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'aa32f
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '0e09da81-c322-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_341111_cultures_translations_model_tables_columns';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6720c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_341111_cultures_translations_model_tables_columns', @level2type = N'COLUMN', @level2name = N'cultures_translations_model_tables_columns_translatedDisplayFolder';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6620c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'VIEW', @level1name = N'model_json_341111_cultures_translations_model_tables_columns', @level2type = N'COLUMN', @level2name = N'cultures_translations_model_tables_columns_translatedDescription';
 

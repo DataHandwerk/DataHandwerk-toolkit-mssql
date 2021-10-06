@@ -1,13 +1,18 @@
 ﻿CREATE TABLE [ssas].[Measures_translation_T] (
-    [Measure_guid]        UNIQUEIDENTIFIER NOT NULL,
-    [cultures_name]       NVARCHAR (10)    NOT NULL,
-    [RepoObject_name]     NVARCHAR (128)   NOT NULL,
-    [RepoSchema_name]     NVARCHAR (128)   NOT NULL,
-    [measures_name]       NVARCHAR (500)   NOT NULL,
-    [Measure_translation] NVARCHAR (128)   NULL,
-    [Measure_DisplayName] NVARCHAR (500)   NULL,
+    [Measure_guid]              UNIQUEIDENTIFIER NOT NULL,
+    [cultures_name]             NVARCHAR (10)    NOT NULL,
+    [RepoObject_name]           NVARCHAR (128)   NOT NULL,
+    [RepoSchema_name]           NVARCHAR (128)   NOT NULL,
+    [measures_name]             NVARCHAR (500)   NOT NULL,
+    [Measure_translation]       NVARCHAR (128)   NULL,
+    [Measure_DisplayName]       NVARCHAR (500)   NULL,
+    [measures_displayFolder]    NVARCHAR (500)   NULL,
+    [displayfolder_translation] NVARCHAR (512)   NULL,
+    [displayfolder_DisplayName] NVARCHAR (512)   NULL,
     CONSTRAINT [PK_Measures_translation_T] PRIMARY KEY CLUSTERED ([Measure_guid] ASC, [cultures_name] ASC, [RepoObject_name] ASC)
 );
+
+
 
 
 GO
@@ -44,4 +49,16 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c951f
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '44ae5b16-6224-ec11-8526-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'Measures_translation_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6b20c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'Measures_translation_T', @level2type = N'COLUMN', @level2name = N'measures_displayFolder';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6c20c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'Measures_translation_T', @level2type = N'COLUMN', @level2name = N'displayfolder_translation';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6d20c60c-ca26-ec11-8529-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'Measures_translation_T', @level2type = N'COLUMN', @level2name = N'displayfolder_DisplayName';
 
