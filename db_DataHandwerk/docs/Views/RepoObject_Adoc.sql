@@ -177,6 +177,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// end::SysObject_modify_date[]'
            , Char ( 13 ) + Char ( 10 )
+
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraColumnDetails'
@@ -187,17 +188,6 @@ Select
            , Max ( clist.AntoraColumnDetails )
            , Char ( 13 ) + Char ( 10 )
            , '// end::AntoraColumnDetails[]'
-           , Char ( 13 ) + Char ( 10 )
-           --
-           , Char ( 13 ) + Char ( 10 )
-           , '== AntoraMeasureDetails'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , '// tag::AntoraMeasureDetails[]'
-           , Char ( 13 ) + Char ( 10 )
-           , Max ( mlist.AntoraMeasureDetails )
-           , Char ( 13 ) + Char ( 10 )
-           , '// end::AntoraMeasureDetails[]'
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
@@ -221,6 +211,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// end::AntoraNonPkColumnTableRows[]'
            , Char ( 13 ) + Char ( 10 )
+
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraIndexList'
@@ -232,6 +223,19 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// end::AntoraIndexList[]'
            , Char ( 13 ) + Char ( 10 )
+
+           --
+           , Char ( 13 ) + Char ( 10 )
+           , '== AntoraMeasureDetails'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// tag::AntoraMeasureDetails[]'
+           , Char ( 13 ) + Char ( 10 )
+           , Max ( mlist.AntoraMeasureDetails )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::AntoraMeasureDetails[]'
+           , Char ( 13 ) + Char ( 10 )
+
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraParameterList'
@@ -243,6 +247,31 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// end::AntoraParameterList[]'
            , Char ( 13 ) + Char ( 10 )
+
+           --
+           , Char ( 13 ) + Char ( 10 )
+           , '== AntoraXrefCulturesList'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// tag::AntoraXrefCulturesList[]'
+           , Char ( 13 ) + Char ( 10 )
+           , Max ( axlist.AntoraXrefCulturesList )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::AntoraXrefCulturesList[]'
+           , Char ( 13 ) + Char ( 10 )
+           --
+           , Char ( 13 ) + Char ( 10 )
+           , '== cultures_count'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// tag::cultures_count[]'
+           , Char ( 13 ) + Char ( 10 )
+           , Max ( axlist.cultures_count )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::cultures_count[]'
+           , Char ( 13 ) + Char ( 10 )
+
+           --
            , Char ( 13 ) + Char ( 10 )
            , '== Other tags'
            , Char ( 13 ) + Char ( 10 )
@@ -326,51 +355,56 @@ Select
          )
   , PropertyCount               = Count ( Distinct rop.property_name )
 From
-    docs.RepoObject_OutputFilter_T        As rof
+    docs.RepoObject_OutputFilter_T             As rof
     Left Join
-        repo.RepoObject_gross             As ro
+        repo.RepoObject_gross                  As ro
             On
             ro.RepoObject_guid        = rof.RepoObject_guid
 
     Left Join
-        repo.RepoObject_sat2_T            As ros2
+        repo.RepoObject_sat2_T                 As ros2
             On
             ros2.RepoObject_guid      = rof.RepoObject_guid
 
     Left Join
-        property.RepoObjectProperty_cross As rop_cross
+        property.RepoObjectProperty_cross      As rop_cross
             On
             rop_cross.RepoObject_guid = rof.RepoObject_guid
 
     Left Join
-        property.RepoObjectProperty       As rop
+        property.RepoObjectProperty            As rop
             On
             rop.RepoObject_guid       = rop_cross.RepoObject_guid
             And rop.property_name     = rop_cross.property_name
     --AND NOT rop.[property_nvarchar] IS NULL
 
     Left Join
-        docs.RepoObject_ColumnList_T      As clist
+        docs.RepoObject_ColumnList_T           As clist
             On
             clist.RepoObject_guid     = ro.RepoObject_guid
             And clist.cultures_name   = rof.cultures_name
 
     Left Join
-        docs.RepoObject_IndexList_T       As ilist
+        docs.RepoObject_IndexList_T            As ilist
             On
             ilist.RepoObject_guid     = ro.RepoObject_guid
             And ilist.cultures_name   = rof.cultures_name
 
     Left Join
-        docs.RepoObject_MeasureList       As mlist
+        docs.RepoObject_MeasureList            As mlist
             On
             mlist.RepoObject_guid     = ro.RepoObject_guid
             And mlist.cultures_name   = rof.cultures_name
 
     Left Join
-        docs.RepoObject_ParameterList     As parlist
+        docs.RepoObject_ParameterList          As parlist
             On
             parlist.RepoObject_guid   = ro.RepoObject_guid
+
+    Left Join
+        docs.RepoObject_AntoraXrefCulturesList As axlist
+            On
+            axlist.RepoObject_guid    = ro.RepoObject_guid
 Group By
     rof.RepoObject_guid
   , rof.cultures_name

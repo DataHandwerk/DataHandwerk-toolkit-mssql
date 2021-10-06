@@ -12,15 +12,28 @@ SqlParser --server localhost\sql2019 --database dhw_self
 
 == create dacpac containing data
 
-execute this in a commandline:
+how to create the dacpac of the dhw_repository containing data
+
+https://docs.microsoft.com/de-de/sql/tools/sqlpackage/sqlpackage?view=sql-server-ver15
 
 ....
-"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\150\sqlpackage.exe" /TargetFile:"D:\Repos\gitlab\DataHandwerk\DataHandwerk-toolkit-mssql\db_DataHandwerk\Snapshots\dhw_self.dacpac" /Action:Extract /SourceServerName:"localhost\sql2019" /SourceDatabaseName:"dhw_self" /p:ExtractAllTableData=TRUE
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\150\sqlpackage.exe" /TargetFile:"D:\Repos\gitlab\DataHandwerk\DataHandwerk-toolkit-mssql\dhw_dacpac\dhw_self.dacpac" /Action:Extract /SourceServerName:"localhost\sql2019" /SourceDatabaseName:"dhw_self" /p:ExtractAllTableData=TRUE /p:IgnorePermissions=TRUE /p:IgnoreUserLoginMappings=TRUE
 ....
 
+== how to create the sql examiner snapshot
+
+[SQL Examiner](https://www.sqlaccessories.com/sql-examiner/)
+
+....
+"C:\Program Files (x86)\SQL Examiner Suite 2022\SQLECmd.exe" /server1:localhost\sql2019 /database1:dhw_self /WinAuth1 /SaveSnapshot:"D:\Repos\gitlab\DataHandwerk\DataHandwerk-toolkit-mssql\sqlexaminer\dhw.%DB1.sesnap" /force
+....
+
+
+
+////
 == sript with data (don't do this, it creates too big files)
 
 ....
 py -m mssqlscripter -S localhost\sql2019 -d dhw_self --schema-and-data --data-compressions -f "D:\Repos\GitHub\DataHandwerk\DataHandwerk-toolkit-mssql\mssql\script\dhw_self.sql"
 ....
-
+////

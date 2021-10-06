@@ -52,5 +52,23 @@
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "T3Xkt7vOL0CViQyB"
+    },
+    {
+        "type": "File",
+        "name": "d:\\Repos\\gitlab\\DataHandwerk\\DataHandwerk-toolkit-mssql\\dhw_dacpac\\readme.adoc",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\gitlab\\DataHandwerk\\DataHandwerk-toolkit-mssql\\dhw_dacpac\\readme.adoc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "yLmXpax1ceOzh2TJ"
+    },
+    {
+        "type": "File",
+        "name": "d:\\Repos\\gitlab\\DataHandwerk\\DataHandwerk-toolkit-mssql\\sqlexaminer\\readme.adoc",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\gitlab\\DataHandwerk\\DataHandwerk-toolkit-mssql\\sqlexaminer\\readme.adoc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "wBQkuyjxVTth94Uz"
     }
 ]

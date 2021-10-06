@@ -778,6 +778,8 @@
     <Build Include="repo\Tables\RepoObject_sat2_T.sql" />
     <Build Include="repo\Views\RepoObject_sat2.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_sat2_T.sql" />
+    <Build Include="docs\Views\RepoObject_AntoraXrefCulturesList.sql" />
+    <Build Include="docs\Functions\ftv_RepoObject_AntoraXref.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />
