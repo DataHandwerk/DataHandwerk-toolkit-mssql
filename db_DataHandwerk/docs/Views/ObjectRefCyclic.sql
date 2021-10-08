@@ -2,7 +2,7 @@
 CREATE View docs.ObjectRefCyclic
 As
 Select
-    cultures_name
+    c.cultures_name
   , page_content         =
   --
   Concat (
@@ -36,7 +36,11 @@ include::partial$puml/objectrefcyclic.puml[]
            , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
          )
 From
-    docs.ObjectRefCyclic_EntityList               As elist
+    docs.Culture                                  As c
+    Left Join
+        docs.ObjectRefCyclic_EntityList           As elist
+            On
+            elist.cultures_name = c.cultures_name
     Cross Join docs.ObjectRefCyclic_ObjectRefList As olist
     Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
 GO
