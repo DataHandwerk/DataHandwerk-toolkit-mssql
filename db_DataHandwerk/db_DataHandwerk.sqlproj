@@ -781,6 +781,7 @@
     <Build Include="docs\Views\RepoObject_AntoraXrefCulturesList.sql" />
     <Build Include="docs\Functions\ftv_RepoObject_AntoraXref.sql" />
     <Build Include="ssas\Views\Measures_translation_displayfolder_union.sql" />
+    <Build Include="ssas\Views\RepoObjectColumn_translation_displayfolder_union.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

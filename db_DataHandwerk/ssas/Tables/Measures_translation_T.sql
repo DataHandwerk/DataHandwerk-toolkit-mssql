@@ -9,8 +9,10 @@
     [measures_displayFolder]    NVARCHAR (500)   NULL,
     [displayfolder_translation] NVARCHAR (512)   NULL,
     [displayfolder_DisplayName] NVARCHAR (512)   NULL,
-    CONSTRAINT [PK_Measures_translation_T] PRIMARY KEY CLUSTERED ([Measure_guid] ASC, [cultures_name] ASC, [RepoObject_name] ASC)
+    CONSTRAINT [PK_Measures_translation_T] PRIMARY KEY CLUSTERED ([Measure_guid] ASC, [cultures_name] ASC, [RepoObject_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

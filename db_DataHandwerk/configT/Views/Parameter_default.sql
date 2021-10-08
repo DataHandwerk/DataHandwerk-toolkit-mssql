@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 <<property_start>>Description
 include::sqldb:partial$description/config.parameter.adoc[]
@@ -467,8 +468,8 @@ Select
            , 'include::partial$puml/entity/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
            , '....' + Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , 'todo: several entities (left to right), containing SSAS translations' + Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           --, 'todo: several entities (left to right), containing SSAS translations' + Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
            , 'ifdef::ExistsProperty--Columns[]' + Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
            , '== Columns' + Char ( 13 ) + Char ( 10 )
@@ -517,19 +518,19 @@ Select
            , 'endif::ExistsProperty--is_persistence,ExistsProperty--has_history,ExistsProperty--has_history_columns[]'
              + Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , 'ifdef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , '== todo SSAS Relation Diagram' + Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , 'todo: use other diagram containing relations an related objects' + Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , '[plantuml, entity_pk_or_index-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
-           , '....' + Char ( 13 ) + Char ( 10 )
-           , 'include::partial$puml/entity_pk_or_index/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
-           , '....' + Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           --, 'ifdef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
+           --, '== todo SSAS Relation Diagram' + Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
+           --, 'todo: use other diagram containing relations an related objects' + Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
+           --, '[plantuml, entity_pk_or_index-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
+           --, '....' + Char ( 13 ) + Char ( 10 )
+           --, 'include::partial$puml/entity_pk_or_index/{docname}.puml[]' + Char ( 13 ) + Char ( 10 )
+           --, '....' + Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
+           --, 'endif::is_ssas[]' + Char ( 13 ) + Char ( 10 )
+           --, Char ( 13 ) + Char ( 10 )
            , 'ifndef::is_ssas[]' + Char ( 13 ) + Char ( 10 )
            , 'ifdef::ExistsProperty--FK[]' + Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )

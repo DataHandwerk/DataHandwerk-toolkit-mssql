@@ -31,13 +31,15 @@ Select
              ro.PumlEntityTopDefault
            , ' {'
            , Char ( 13 ) + Char ( 10 )
-           , collist.PlantumlPkEntityColumns
-           , Iif(ro.tables_isHidden = 1, '  ..', '  --')
-           , Char ( 13 ) + Char ( 10 )
-           , collist.PlantumlNonPkEntityColumns
-           , Iif(ro.tables_isHidden = 1, '  ..', '  --')
-           , Char ( 13 ) + Char ( 10 )
-           , collist.PlantumlNonPkHiddenEntityColumns
+           , collist.PlantumlAllEntityColumns
+
+           --, collist.PlantumlPkEntityColumns
+           --, Iif(ro.tables_isHidden = 1, '  ..', '  --')
+           --, Char ( 13 ) + Char ( 10 )
+           --, collist.PlantumlNonPkEntityColumns
+           --, Iif(ro.tables_isHidden = 1, '  ..', '  --')
+           --, Char ( 13 ) + Char ( 10 )
+           --, collist.PlantumlNonPkHiddenEntityColumns
            , Iif(ro.tables_isHidden = 1, '  ..', '  --')
            , Char ( 13 ) + Char ( 10 )
            , mlist.PlantumlMeasures

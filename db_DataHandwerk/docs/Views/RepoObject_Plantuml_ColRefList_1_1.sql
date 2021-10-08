@@ -83,6 +83,7 @@ From
         ssas.RepoObjectColumn_translation_T As referencing_trans
             On
             referencing_trans.RepoObjectColumn_guid = colref.referencing_RepoObjectColumn_guid
+            And referencing_trans.cultures_name     = ro.cultures_name
 Group By
     ro.RepoObject_guid
   , ro.cultures_name

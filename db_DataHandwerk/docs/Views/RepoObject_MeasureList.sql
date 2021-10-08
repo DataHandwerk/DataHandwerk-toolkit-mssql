@@ -1,5 +1,6 @@
 ﻿
-CREATE View docs.RepoObject_MeasureList
+
+CREATE View [docs].[RepoObject_MeasureList]
 As
 Select
     rom.RepoObject_guid
@@ -13,11 +14,9 @@ Select
                             Cast('' As NVarchar(Max))
                           , Iif(transl.is_displayfolder = 1
                               , Concat (
-                                           '[#displayfolder-'
-                                         , docs.fs_cleanStringForAnchorId ( transl.displayfolder_DisplayName )
-                                         , ']'
+                                           '[discrete]'
                                          , Char ( 13 ) + Char ( 10 )
-                                         , '=== '
+                                         , '== '
                                          , docs.fs_cleanStringForLabel ( IsNull ( transl.displayfolder_DisplayName, '_' ))
                                          , Char ( 13 ) + Char ( 10 )
                                          , Char ( 13 ) + Char ( 10 )
@@ -27,7 +26,7 @@ Select
                                          , docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName )
                                          , ']'
                                          , Char ( 13 ) + Char ( 10 )
-                                         , '==== '
+                                         , '=== '
                                          , docs.fs_cleanStringForLabel ( transl.Measure_DisplayName )
                                          , Char ( 13 ) + Char ( 10 )
                                          , Char ( 13 ) + Char ( 10 )
@@ -94,15 +93,14 @@ Select
                  Concat (
                             Cast('' As NVarchar(Max))
                           , Iif(transl.is_displayfolder = 1
-                              , Concat (
-                                           '  **'
-                                         , IsNull (
-                                                      docs.fs_cleanStringForPuml ( transl.displayfolder_DisplayName )
-                                                    , '_'
-                                                  )
-                                         , '**'
-                                         , Char ( 13 ) + Char ( 10 )
-                                       )
+                              , Iif(transl.displayfolder_DisplayName <> ''
+                                  , Concat (
+                                               '  **'
+                                             , docs.fs_cleanStringForPuml ( transl.displayfolder_DisplayName )
+                                             , '**'
+                                             , Char ( 13 ) + Char ( 10 )
+                                           )
+                                  , Null)
                               , Concat (
                                            '  ~ '
                                          , Iif(rom.measures_isHidden = 1, '<color:gray>', Null)
