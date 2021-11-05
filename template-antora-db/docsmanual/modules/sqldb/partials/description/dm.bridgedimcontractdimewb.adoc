@@ -1,0 +1,24 @@
+Das ist ein Beispiel für eine extern erstellte Beschreibung.
+
+Diese Beschreibung kommt nicht aus der Datenbank, sondern wird in einer separaten Text-Datei erstellt.
+
+Diese Beschreibung kann selbst auch wieder andere includes beinhalten, beispielsweise Inhalte der fachlichen Dokumentation:
+
+Deckungsbeitrag::
+
+include::abcfinance:ROOT:page$contributionmargin.adoc[tag=definition]
+
+Das Repository, aus welchem heraus die Quellen der Dokumentation erstellt werden, muss wissen, dass die externe Beschreibung verwendet werden soll. Dazu muss die `property` 'Description' eine `include`-Anweisung enthalten. Das geht beispielsweise so (oder durch direkte Bearbeitung der Tabelle):
+
+[source,sql]
+....
+Exec property.usp_RepoObjectProperty_set
+    @RepoObject_fullname2 = 'dm.bridgedimcontractdimewb'
+  , @property_name = 'Description'
+  , @property_value = 'include::sqldbdm:partial$description/dm.bridgedimcontractdimewb.adoc[]
+'
+....
+
+
+
+Dieser Prozess lässt sich bei Bedarf auch automatisieren, indem die Existenz von Dateien geprüft wird und bei Existenz diese Einträge generiert werden.

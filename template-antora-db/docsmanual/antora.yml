@@ -1,0 +1,10 @@
+name: mycomponent
+title: My Component
+version: 0.1.0
+# nav:
+# #es gibt immer einen Link zum Index einer Komponente
+# # - modules/ROOT/nav.adoc
+#  - modules/sqldbtool/nav.adoc
+#  - modules/sqldbstg/nav.adoc
+#  - modules/sqldbedw/nav.adoc
+#  - modules/sqldbdm/nav.adoc

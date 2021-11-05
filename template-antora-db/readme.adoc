@@ -1,0 +1,1 @@
+use this empty repository as template for the required folder structure required by Antora and by the export procedure [docs].[usp_AntoraExport]

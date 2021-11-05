@@ -1,0 +1,7 @@
+//.NAV15_DM
+//folgender Link ist nicht notwendig, da es immer einen impliziten Link zum index einer Komponente gibt.
+//alternativ einfach diese Navigation nicht in der antora.yml einschließen
+* xref:index.adoc[]
+//include::partial$navlist/nav-by-schema.adoc[]
+//* xref:other/ObjectRefCyclic.adoc[]
+//* xref:other/IndexSemanticGroup.adoc[]
