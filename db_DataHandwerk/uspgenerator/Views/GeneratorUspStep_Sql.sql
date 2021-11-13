@@ -1,4 +1,5 @@
 ﻿
+
 /*
 --usage:
 
@@ -9,7 +10,7 @@ ORDER BY [id]
 
 
 */
-CREATE View uspgenerator.GeneratorUspStep_Sql
+CREATE View [uspgenerator].[GeneratorUspStep_Sql]
 As
 Select
     usp_id   = u.id
@@ -90,7 +91,7 @@ Select
                         , '.Statement' + Char ( 13 ) + Char ( 10 )
                         , '[%collapsible]' + Char ( 13 ) + Char ( 10 )
                         , '=====' + Char ( 13 ) + Char ( 10 )
-                        , '[source,sql]' + Char ( 13 ) + Char ( 10 )
+                        , '[source,sql,numbered]' + Char ( 13 ) + Char ( 10 )
                         , '----' + Char ( 13 ) + Char ( 10 )
                         , step.Statement + Char ( 13 ) + Char ( 10 )
                         , '----' + Char ( 13 ) + Char ( 10 )

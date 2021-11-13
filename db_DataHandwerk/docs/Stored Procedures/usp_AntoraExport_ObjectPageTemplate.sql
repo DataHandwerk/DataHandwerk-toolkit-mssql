@@ -97,7 +97,7 @@ DECLARE @sub_parameter NVARCHAR(128)
 --DECLARE @BaseFileName NVARCHAR(128) = 'master-page-'
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', N'1') and other sub_Parameters","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', 'xyz') - all sub_Parameters","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',30,';',410,';',NULL);
 
 Declare page_cursor Cursor Local Fast_Forward For
@@ -156,7 +156,7 @@ Deallocate page_cursor
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', N''1'') and other sub_Parameters'
+SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', ''xyz'') - all sub_Parameters'
 SET @source_object = '[repo].[Parameter]'
 SET @target_object = NULL
 

@@ -75,16 +75,18 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',210,';',NULL);
 
 DECLARE @command NVARCHAR(4000)
 DECLARE @cultures_name NVARCHAR(10)
+Declare @AntoraModule Varchar(50)
+
 
 
 /*{"ReportUspStep":[{"Number":300,"Name":"check Parameter AntoraDeleteFilesInModuleFolders","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[config].[Parameter]"}]}*/
 IF [config].[fs_get_parameter_value]('AntoraDeleteFilesInModuleFolders','') = 1
 
-/*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"Delete Files but not folder in AntoraModule pages and partials","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
+/*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"Delete Files but not folder in AntoraModule pages and partials - by cultures_name","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
 BEGIN
 PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',310,';',300);
 
-Declare page_cursor Cursor Local Fast_Forward For
+Declare module_cursor Cursor Local Fast_Forward For
 Select
     cultures_name
 From
@@ -92,9 +94,9 @@ From
 Order By
     cultures_name
 
-Open page_cursor
+Open module_cursor
 
-Fetch Next From page_cursor
+Fetch Next From module_cursor
 Into
     @cultures_name
 
@@ -132,18 +134,18 @@ FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\pa
     --Execute the BCP command
     Exec sys.xp_cmdshell @command, no_output
 
-    Fetch Next From page_cursor
+    Fetch Next From module_cursor
     Into
         @cultures_name
 End
 
-Close page_cursor
-Deallocate page_cursor
+Close module_cursor
+Deallocate module_cursor
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'Delete Files but not folder in AntoraModule pages and partials'
+SET @step_name = 'Delete Files but not folder in AntoraModule pages and partials - by cultures_name'
 SET @source_object = NULL
 SET @target_object = NULL
 
@@ -165,6 +167,102 @@ EXEC logs.usp_ExecutionLog_insert
 -- Logging END --
 END;
 
+/*{"ReportUspStep":[{"Number":320,"Parent_Number":300,"Name":"Delete Files but not folder in AntoraModule pages and partials - by SSIS AntoraModule","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
+ELSE
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',320,';',300);
+
+Declare module_cursor Cursor Local Fast_Forward For
+Select
+    AntoraModule
+From
+    ssis.Project
+Order By
+    AntoraModule
+
+Open module_cursor
+
+Fetch Next From module_cursor
+Into
+    @AntoraModule
+
+While @@Fetch_Status = 0
+Begin
+
+    /*
+FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\partials" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"
+*/
+    Set @command = N'FORFILES /p "'
+                   --
+                   --
+                   + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\' + @AntoraModule
+                   --
+                   + '\partials'
+                   --
+                   + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
+
+    Print @command
+
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Set @command = N'FORFILES /p "'
+                   --
+                   --
+                   + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\' + @AntoraModule
+                   --
+                   + '\pages'
+                   --
+                   + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
+
+    Print @command
+
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Fetch Next From module_cursor
+    Into
+        @AntoraModule
+End
+
+Close module_cursor
+Deallocate module_cursor
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Delete Files but not folder in AntoraModule pages and partials - by SSIS AntoraModule'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+END;
+
+/*{"ReportUspStep":[{"Number":350,"Name":"[docs].[usp_AntoraExport_DocSnippet]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_DocSnippet]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 /*{"ReportUspStep":[{"Number":400,"Name":"[docs].[usp_PERSIST_RepoObject_OutputFilter_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [docs].[usp_PERSIST_RepoObject_OutputFilter_T]
 --add your own parameters
@@ -175,18 +273,8 @@ EXEC [docs].[usp_PERSIST_RepoObject_OutputFilter_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":440,"Name":"[docs].[usp_AntoraExport_navigation]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [docs].[usp_AntoraExport_navigation]
---add your own parameters
---logging parameters
- @execution_instance_guid = @execution_instance_guid
- , @ssis_execution_id = @ssis_execution_id
- , @sub_execution_id = @sub_execution_id
- , @parent_execution_log_id = @current_execution_log_id
-
-
-/*{"ReportUspStep":[{"Number":450,"Name":"[docs].[usp_AntoraExport_DocSnippet]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [docs].[usp_AntoraExport_DocSnippet]
+/*{"ReportUspStep":[{"Number":440,"Name":"[docs].[usp_AntoraExport_ObjectNavigation]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_ObjectNavigation]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -247,6 +335,56 @@ EXEC [docs].[usp_AntoraExport_Page_IndexSemanticGroup]
 
 /*{"ReportUspStep":[{"Number":920,"Name":"[docs].[usp_AntoraExport_ObjectRefCyclic]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [docs].[usp_AntoraExport_ObjectRefCyclic]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":1440,"Name":"[docs].[usp_AntoraExport_SsisNavigation]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_SsisNavigation]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":1500,"Name":"[docs].[usp_AntoraExport_SsisPage]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_SsisPage]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":1600,"Name":"[docs].[usp_AntoraExport_SsisPageTemplate]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_SsisPageTemplate]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":1750,"Name":"[docs].[usp_AntoraExport_SsisPartialProperties]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_SsisPartialProperties]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
+/*{"ReportUspStep":[{"Number":1800,"Name":"[docs].[usp_AntoraExport_SsisPuml]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_SsisPuml]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

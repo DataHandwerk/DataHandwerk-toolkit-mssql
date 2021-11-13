@@ -96,7 +96,7 @@ DECLARE @cultures_name NVARCHAR(10)
 DECLARE @Object_fullname2 NVARCHAR(257)
 
 
-/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', N'')","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":410,"Name":"export FROM [repo].[fs_get_parameter_value]('AntoraPageTemplate', 'object_page_content')","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[Parameter]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',29,';',410,';',NULL);
 
 Declare db_cursor Cursor Local Fast_Forward For
@@ -121,7 +121,7 @@ Into
 While @@Fetch_Status = 0
 Begin
     Set @command
-        = 'bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', DEFAULT ) As AntoraPageTemplate" queryout "'
+        = 'bcp "SELECT AntoraPageTemplate.Parameter_value_result From [config].[ftv_get_parameter_value] ( ''AntoraPageTemplate'', ''object_page_content'' ) As AntoraPageTemplate" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
           + '\pages\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.adoc"'
@@ -151,7 +151,7 @@ Deallocate db_cursor
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', N'''')'
+SET @step_name = 'export FROM [repo].[fs_get_parameter_value](''AntoraPageTemplate'', ''object_page_content'')'
 SET @source_object = '[repo].[Parameter]'
 SET @target_object = NULL
 

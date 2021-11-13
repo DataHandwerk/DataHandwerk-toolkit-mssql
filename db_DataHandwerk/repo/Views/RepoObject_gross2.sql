@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.RepoObject_gross2
+
+CREATE View [repo].[RepoObject_gross2]
 As
 Select
     ro.RepoObject_guid
@@ -60,6 +61,7 @@ Select
   , ro.persistence_source_RepoObject_fullname2
   , ro.persistence_source_RepoObject_xref
   , ro.persistence_source_SysObject_fullname
+  , ro.persistence_source_SysObject_fullname_or_tempsource
   , ro.persistence_source_SysObject_fullname2
   , ro.persistence_source_SysObject_xref
   , ro.uspgenerator_usp_id
@@ -76,6 +78,7 @@ Select
   , ro.is_persistence_merge_delete_missing
   , ro.is_persistence_merge_insert
   , ro.is_persistence_merge_update_changed
+  , ro.is_persistence_persist_source
   , ro.history_schema_name
   , ro.history_table_name
   , ro.source_filter
@@ -1044,4 +1047,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '89e80
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '88e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'external_AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '42ddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'persistence_source_SysObject_fullname_or_tempsource';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '43ddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_persist_source';
 

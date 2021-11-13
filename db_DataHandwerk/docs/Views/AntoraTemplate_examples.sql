@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 <<property_start>>Description
 * generates the content for the 'partial$template/master-page-examples.adoc[]'
@@ -11,7 +13,7 @@
 
 	.Abc
 	====
-	[source,sql]
+	[source,sql,numbered]
 	----
 	include::partial${docname}.adoc[tag=exampleabc]
 	----
@@ -47,7 +49,7 @@ From
                                           , Char ( 13 ) + Char ( 10 )
                                           , '===='
                                           , Char ( 13 ) + Char ( 10 )
-                                          , '[source,sql]'
+                                          , '[source,sql,numbered]'
                                           , Char ( 13 ) + Char ( 10 )
                                           , '----'
                                           , Char ( 13 ) + Char ( 10 )

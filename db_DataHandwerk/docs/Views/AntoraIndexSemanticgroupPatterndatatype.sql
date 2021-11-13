@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [docs].[AntoraIndexSemanticgroupPatterndatatype]
+CREATE View docs.AntoraIndexSemanticgroupPatterndatatype
 As
 Select
     i.IndexSemanticGroup
@@ -14,8 +13,8 @@ Select
                           --** xref:aaa.bbb.adoc#index-pk_ccc[aaa.bbb - pk_abc]
                           , '** xref:' + docs.fs_cleanStringForFilename ( i.RepoObject_fullname2 ) + '.adoc#'
                             + 'index-' + docs.fs_cleanStringForAnchorId ( i.index_name ) + '['
-                            + docs.fs_cleanStringForLabel ( i.RepoObject_fullname2 ) + ' - '
-                            + docs.fs_cleanStringForLabel ( i.index_name ) + '] +'
+                            + docs.fs_cleanStringForHeader ( i.RepoObject_fullname2 ) + ' - '
+                            + docs.fs_cleanStringForHeader ( i.index_name ) + '] +'
                           , Char ( 13 ) + Char ( 10 )
                           , i.IndexPatternColumnName
                           , ' +'

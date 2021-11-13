@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>Description
 * xref:sqldb:uspgenerator.generatoruspstep_persistence_src.adoc[] creates all possible steps for GeneratorUspStep
@@ -7,7 +8,7 @@
 <<property_end>>
 */
 
-CREATE View uspgenerator.GeneratorUspStep_Persistence_src
+CREATE View [uspgenerator].[GeneratorUspStep_Persistence_src]
 As
 --00:00:01
 Select
@@ -64,6 +65,43 @@ From
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
 Union All
+Select
+    --
+    usp_id                      = gu.id
+  , Number                      = 200
+  , Parent_Number               = Null
+  , Name                        = 'persist source into #source'
+  , has_logging                 = 1
+  , is_condition                = 0
+  , is_inactive                 = 0
+  , is_SubProcedure             = 0
+  , Statement                   = '--do this in two steps: create table and then fill table
+--create empty temp table #source
+SELECT Top 0 * into #source  FROM ' + ro.persistence_source_SysObject_fullname
+                                  + '
+--fill temp table #source from source
+INSERT
+INTO #source
+SELECT * FROM ' + ro.persistence_source_SysObject_fullname
+  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_target_object           = '#source'
+  , log_flag_InsertUpdateDelete = 'I'
+  --
+  , gu.usp_fullname
+  , ro.RepoObject_guid
+From
+    repo.RepoObject_gross         As ro
+    Inner Join
+        uspgenerator.GeneratorUsp As gu
+            On
+            ro.RepoObject_schema_name   = gu.usp_schema
+            And ro.usp_persistence_name = gu.usp_name
+Union All
+
+-- todo
+-- distinguish between real ro.persistence_source_SysObject_fullname or #source
+--instead of ro.persistence_source_SysObject_fullname we use
+--ro.persistence_source_SysObject_fullname_or_tempsource
 --00:01:19
 Select
     --will be empty if PK doesn't exist
@@ -75,9 +113,9 @@ Select
   , is_condition                = 1
   , is_inactive                 = 0
   , is_SubProcedure             = 0
-  , Statement                   = 'EXISTS(SELECT TOP 1 1 FROM ' + ro.persistence_source_SysObject_fullname + ' GROUP BY ' + i.ColumnList
-                                  + ' HAVING COUNT(*) > 1)'
-  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , Statement                   = 'EXISTS(SELECT TOP 1 1 FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' GROUP BY '
+                                  + i.ColumnList + ' HAVING COUNT(*) > 1)'
+  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = Cast(Null As NVarchar(261))
   , log_flag_InsertUpdateDelete = Cast(Null As Char(1))
   --
@@ -114,8 +152,8 @@ Select
   , is_inactive                 = 0
   , is_SubProcedure             = 0
   , Statement                   = ' THROW 50310
-  , ''persistence source PK not unique: ' + ro.persistence_source_SysObject_fullname + '; ' + i.ColumnList
-                                  + '''
+  , ''persistence source PK not unique: ' + ro.persistence_source_SysObject_fullname_or_tempsource + '; '
+                                  + i.ColumnList + '''
   , 1;
 '
   , log_source_object           = Cast(Null As NVarchar(261))
@@ -184,11 +222,11 @@ Select
 FROM ' + ro.RepoObject_fullname + ' AS T
 WHERE
 NOT EXISTS
-(SELECT 1 FROM ' + ro.persistence_source_SysObject_fullname + ' AS S
+(SELECT 1 FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 WHERE
 ' + i.PersistenceWhereColumnList + ')
  '
-  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'D'
   --
@@ -226,12 +264,12 @@ Select
   , is_SubProcedure             = 0
   , Statement                   = 'DELETE T
 FROM ' + ro.RepoObject_fullname + ' AS T
-INNER JOIN ' + ro.persistence_source_SysObject_fullname + ' AS S
+INNER JOIN ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 ON
 ' + i.PersistenceWhereColumnList + '
 WHERE
 ' + ro.PersistenceCompareColumnList
-  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'D'
   --
@@ -271,12 +309,12 @@ Select
 SET
 ' + ro.PersistenceUpdateColumnList + '
 FROM ' + ro.RepoObject_fullname + ' AS T
-INNER JOIN ' + ro.persistence_source_SysObject_fullname + ' AS S
+INNER JOIN ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 ON
 ' + i.PersistenceWhereColumnList + '
 WHERE
 ' + ro.PersistenceCompareColumnList
-  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'U'
   --
@@ -318,14 +356,14 @@ Select
 ' + ro.PersistenceInsertColumnList + ')
 SELECT
 ' + ro.PersistenceInsertColumnList + '
-FROM ' + ro.persistence_source_SysObject_fullname + ' AS S
+FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 WHERE
 NOT EXISTS
 (SELECT 1
 FROM ' + ro.RepoObject_fullname + ' AS T
 WHERE
 ' + i.PersistenceWhereColumnList + ')'
-  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'I'
   --
@@ -367,8 +405,8 @@ Select
 ' + ro.PersistenceInsertColumnList + ')
 SELECT
 ' + ro.PersistenceInsertColumnList + '
-FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
-  , log_source_object           = ro.persistence_source_SysObject_fullname
+FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S'
+  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'I'
   --
@@ -398,8 +436,8 @@ Select
 ' + ros2.PersistenceInsertColumnList + ')
 SELECT
 ' + ros2.PersistenceInsertColumnList + '
-FROM ' + ro.persistence_source_SysObject_fullname + ' AS S'
-  , log_source_object           = ro.persistence_source_SysObject_fullname
+FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S'
+  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'I'
   --

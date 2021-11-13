@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [docs].[RepoObject_MeasureList]
+CREATE View docs.RepoObject_MeasureList
 As
 Select
     rom.RepoObject_guid
@@ -17,7 +16,11 @@ Select
                                            '[discrete]'
                                          , Char ( 13 ) + Char ( 10 )
                                          , '== '
-                                         , docs.fs_cleanStringForLabel ( IsNull ( transl.displayfolder_DisplayName, '_' ))
+                                         , docs.fs_cleanStringForHeader ( IsNull (
+                                                                                     transl.displayfolder_DisplayName
+                                                                                   , '_'
+                                                                                 )
+                                                                        )
                                          , Char ( 13 ) + Char ( 10 )
                                          , Char ( 13 ) + Char ( 10 )
                                        )
@@ -27,7 +30,7 @@ Select
                                          , ']'
                                          , Char ( 13 ) + Char ( 10 )
                                          , '=== '
-                                         , docs.fs_cleanStringForLabel ( transl.Measure_DisplayName )
+                                         , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
                                          , Char ( 13 ) + Char ( 10 )
                                          , Char ( 13 ) + Char ( 10 )
                                          --, Case

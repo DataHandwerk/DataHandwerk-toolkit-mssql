@@ -79,7 +79,7 @@ ORDER BY
 Exec repo.usp_persistence_set
     @source_fullname = '[SchemaName].[SourceViewName]'
   ----define optinal persistence_table_name, if not the default will be used
-  --, @persistence_table_name = 'zzz_qqq'
+  --, @persistence_table_name = 'zzz_qqq_tgt'
   --these will define the structure of the table:
   , @has_history = 0
   , @has_history_columns = 0
@@ -90,6 +90,7 @@ Exec repo.usp_persistence_set
   , @is_persistence_delete_changed = 0
   , @is_persistence_update_changed = 1
   , @is_persistence_insert = 1
+  , @is_persistence_persist_source = 0
 ----not implemented:
 --, @is_persistence_merge_delete_missing = 0
 --, @is_persistence_merge_update_changed = 0
@@ -158,7 +159,8 @@ EXEC repo.[usp_persistence_set]
 
 
 <<property_start>>exampleUsage_4
---an existing table, for example in another schema, is to be used as target
+--not recommanded, but possible:
+--an existing table in another schema is to be used as target
 --we NEED to obtain @persistence_RepoObject_guid
 
 
@@ -202,6 +204,7 @@ CREATE Procedure [repo].[usp_persistence_set]
   , @is_persistence_delete_changed         Bit              = Null
   , @is_persistence_update_changed         Bit              = Null
   , @is_persistence_insert                 Bit              = Null
+  , @is_persistence_persist_source         Bit              = Null
                                                                           --, @is_persistence_merge_delete_missing   Bit              = Null
                                                                           --, @is_persistence_merge_update_changed   Bit              = Null
                                                                           --, @is_persistence_merge_insert           Bit              = Null
@@ -295,6 +298,7 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_08 = @is_persistence_delete_changed
   , @parameter_09 = @is_persistence_update_changed
   , @parameter_10 = @is_persistence_insert
+  , @parameter_11 = @is_persistence_persist_source
   --, @parameter_11 = @is_persistence_merge_delete_missing
   --, @parameter_12 = @is_persistence_merge_update_changed
   --, @parameter_13 = @is_persistence_merge_insert
@@ -729,6 +733,8 @@ Set
   , is_persistence_delete_changed = IsNull ( @is_persistence_delete_changed, is_persistence_delete_changed )
   , is_persistence_update_changed = IsNull ( @is_persistence_update_changed, is_persistence_update_changed )
   , is_persistence_insert = IsNull ( @is_persistence_insert, is_persistence_insert )
+  , is_persistence_persist_source = IsNull ( @is_persistence_persist_source, is_persistence_persist_source )
+
   --, is_persistence_merge_delete_missing = IsNull (
   --                                                   @is_persistence_merge_delete_missing
   --                                                 , is_persistence_merge_delete_missing

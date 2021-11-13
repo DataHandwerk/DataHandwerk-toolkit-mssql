@@ -1,6 +1,4 @@
-﻿
-
-/*
+﻿/*
 allowed characters in ID see the link from here
 https://docs.asciidoctor.org/asciidoc/latest/sections/ids/#how-a-section-id-is-assembled
 to here
@@ -14,14 +12,37 @@ https://www.w3.org/TR/REC-xml/#NT-Name
 
 there could be additinal issues with äüö and so on, if this happens, we will need to add replacements here
 */
-CREATE Function [docs].[fs_cleanStringForAnchorId]
+CREATE FUNCTION [docs].[fs_cleanStringForAnchorId]
 (
     @source_string NVarchar(4000)
 )
 Returns NVarchar(4000)
 As
 Begin
-    Return Lower(Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( @source_string, '+', 'plus' ), '&', 'ampersand' ), '#', 'hash' ), ')', 'closingbracket' ), '(', 'openingbracket' ), '\', 'backslash' ), '/', 'slash' ), '.', 'dot' ), '?', 'questionmark' ), '%', 'percent' ), '--', '2x-' ), '--', '2x-' ), ' ', 'blank' ), '__', '2x_' ))
+    Return
+	Lower ( 
+	Replace ( Replace (  Replace ( Replace (  Replace (Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( 
+		Trim( @source_string )
+		, ' ', 'blank' )
+		, '+', 'plus' )
+		, '-', 'minus' )
+		, '_', 'underline' )
+		, '#', 'hash' )
+		, '&', 'amp' )
+		, '(', 'startb' )
+		, ')', 'endb' )
+		, '[', 'startsb' )
+		, ']', 'endsb' )
+		, '/', 'slash' )
+		, '\', 'backslash' )
+		, '.', 'dot' )
+		, '?', 'questionmark' )
+		, '*', 'star' )
+		, '%', 'percent' )
+		, '|', 'vbar')
+		, '`', 'backtick')
+	--Lower:
+	)
 End;
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '667159e3-27e6-eb11-8507-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'FUNCTION', @level1name = N'fs_cleanStringForAnchorId';

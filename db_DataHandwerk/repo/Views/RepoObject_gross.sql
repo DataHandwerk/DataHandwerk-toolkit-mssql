@@ -7,7 +7,7 @@ Select
   , ro.RepoObject_schema_name
   , ro.RepoObject_name
   , ro.RepoObject_type
-  , RepoObject_type_name                    = repo_type.type_desc
+  , RepoObject_type_name                                = repo_type.type_desc
   , ro.has_different_sys_names
   , ro.has_execution_plan_issue
   , ro.has_get_referenced_issue
@@ -16,22 +16,22 @@ Select
   , ro.InheritanceType
   , ro.is_DocsExclude
   , ty.is_DocsOutput
-  , is_in_reference                         = Case
-                                                  When Exists
-                                                       (
-                                                           Select
-                                                               1
-                                                           From
-                                                               reference.RepoObject_ReferencedReferencing As ref
-                                                           Where
-                                                               ref.Referenced_guid     = ro.RepoObject_guid
-                                                               Or ref.Referencing_guid = ro.RepoObject_guid
-                                                       )
-                                                      Then
-                                                      1
-                                                  Else
-                                                      0
-                                              End
+  , is_in_reference                                     = Case
+                                                              When Exists
+                                                                   (
+                                                                       Select
+                                                                           1
+                                                                       From
+                                                                           reference.RepoObject_ReferencedReferencing As ref
+                                                                       Where
+                                                                           ref.Referenced_guid     = ro.RepoObject_guid
+                                                                           Or ref.Referencing_guid = ro.RepoObject_guid
+                                                                   )
+                                                                  Then
+                                                                  1
+                                                              Else
+                                                                  0
+                                                          End
   , ro.is_repo_managed
   , ro.is_ssas
   , ro.is_required_ObjectMerge
@@ -41,10 +41,10 @@ Select
   , ro.modify_dt
   , ro.node_id
   , ro.pk_index_guid
-  , pk_IndexPatternColumnDatatype           = ipk.IndexPatternColumnDatatype
-  , pk_IndexPatternColumnName               = ipk.IndexPatternColumnName
+  , pk_IndexPatternColumnDatatype                       = ipk.IndexPatternColumnDatatype
+  , pk_IndexPatternColumnName                           = ipk.IndexPatternColumnName
   , ro.pk_IndexPatternColumnName_new
-  , pk_IndexSemanticGroup                   = ipk.IndexSemanticGroup
+  , pk_IndexSemanticGroup                               = ipk.IndexSemanticGroup
   , ro.Repo_history_table_guid
   , ro.Repo_temporal_type
   , ro.RepoObject_fullname
@@ -63,24 +63,27 @@ Select
   , ro.SysObject_type
   , ro.external_AntoraComponent
   , ro.external_AntoraModule
-  , external_DatabaseName                   = ard.DatabaseName
-  , external_RepoDatabaseName               = ard.RepoDatabaseName
+  , external_DatabaseName                               = ard.DatabaseName
+  , external_RepoDatabaseName                           = ard.RepoDatabaseName
   , ro.is_external
-  , AntoraComponent                         = Coalesce ( ro.external_AntoraComponent, AntoraComponent.Parameter_value_result )
-  , AntoraModule                            = Coalesce ( ro.external_AntoraModule, AntoraModule.Parameter_value_result )
-  , SysObject_type_name                     = sys_type.type_desc
+  , AntoraComponent                                     = Coalesce ( ro.external_AntoraComponent, AntoraComponent.Parameter_value_result )
+  , AntoraModule                                        = Coalesce ( ro.external_AntoraModule, AntoraModule.Parameter_value_result )
+  , SysObject_type_name                                 = sys_type.type_desc
   , ro.usp_persistence_name
-  , usp_persistence_RepoObject_guid         = ro_usp_p.RepoObject_guid
-  , persistence_source_RepoObject_guid      = ro_p.source_RepoObject_guid
-  , persistence_source_RepoObject_fullname  = ro_p_s.RepoObject_fullname
-  , persistence_source_RepoObject_fullname2 = ro_p_s.RepoObject_fullname2
-  , persistence_source_RepoObject_xref      = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.RepoObject_fullname2 )
-                                              + '.adoc[]'
-  , persistence_source_SysObject_fullname   = ro_p_s.SysObject_fullname
-  , persistence_source_SysObject_fullname2  = ro_p_s.SysObject_fullname2
-  , persistence_source_SysObject_xref       = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.SysObject_fullname2 )
-                                              + '.adoc[]'
-  , uspgenerator_usp_id                     = gusp.id
+  , usp_persistence_RepoObject_guid                     = ro_usp_p.RepoObject_guid
+  , persistence_source_RepoObject_guid                  = ro_p.source_RepoObject_guid
+  , persistence_source_RepoObject_fullname              = ro_p_s.RepoObject_fullname
+  , persistence_source_RepoObject_fullname2             = ro_p_s.RepoObject_fullname2
+  , persistence_source_RepoObject_xref                  = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.RepoObject_fullname2 )
+                                                          + '.adoc[]'
+  , persistence_source_SysObject_fullname               = ro_p_s.SysObject_fullname
+  , persistence_source_SysObject_fullname_or_tempsource = Iif(ro_p.is_persistence_persist_source = 1
+                                                              , '#source'
+                                                              , ro_p_s.SysObject_fullname)
+  , persistence_source_SysObject_fullname2              = ro_p_s.SysObject_fullname2
+  , persistence_source_SysObject_xref                   = 'xref:' + docs.fs_cleanStringForFilename ( ro_p_s.SysObject_fullname2 )
+                                                          + '.adoc[]'
+  , uspgenerator_usp_id                                 = gusp.id
   , ro_p.has_history
   , ro_p.has_history_columns
   , ro_p.is_persistence
@@ -94,6 +97,7 @@ Select
   , ro_p.is_persistence_merge_delete_missing
   , ro_p.is_persistence_merge_insert
   , ro_p.is_persistence_merge_update_changed
+  , ro_p.is_persistence_persist_source
   , ro_p.history_schema_name
   , ro_p.history_table_name
   , ro_p.source_filter
@@ -101,19 +105,19 @@ Select
   , ro_p.temporal_type
   --Attention, this will be written back into Property 'Description'
   --this could be an issue, if it will be changed in differen places, which should be the primary?
-  , Description                             = Coalesce (
-                                                           --use description in uspgenerator.GeneratorUsp
-                                                           NullIf(gusp.usp_Description, '')
-                                                         --keep existing Description
-                                                         , NullIf(property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'Description' ), '')
-                                                         , modeltab.tables_description
-                                                         , modeltab2.descriptions_StrAgg
-                                                         , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
-                                                       )
-  , Property_ms_description                 = property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
+  , Description                                         = Coalesce (
+                                                                       --use description in uspgenerator.GeneratorUsp
+                                                                       NullIf(gusp.usp_Description, '')
+                                                                     --keep existing Description
+                                                                     , NullIf(property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'Description' ), '')
+                                                                     , modeltab.tables_description
+                                                                     , modeltab2.descriptions_StrAgg
+                                                                     , property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
+                                                                   )
+  , Property_ms_description                             = property.fs_get_RepoObjectProperty_nvarchar ( ro.RepoObject_guid, 'ms_description' )
   , modeltab.tables_dataCategory
   , modeltab.tables_isHidden
-  , tables_description                      = Coalesce ( modeltab.tables_description, modeltab2.descriptions_StrAgg )
+  , tables_description                                  = Coalesce ( modeltab.tables_description, modeltab2.descriptions_StrAgg )
 
 --, ssas_Description                        = ssastab.Description
 --, ssas_IsHidden                           = ssastab.IsHidden
@@ -1065,4 +1069,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a3e80
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a2e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'AntoraComponent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '45ddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'persistence_source_SysObject_fullname_or_tempsource';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '46ddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross', @level2type = N'COLUMN', @level2name = N'is_persistence_persist_source';
 

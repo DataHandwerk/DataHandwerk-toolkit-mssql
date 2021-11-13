@@ -70,8 +70,8 @@ PRINT '[repo].[usp_sync_guid_RepoObjectColumn]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":100,"Name":"intro","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',100,';',NULL);
+/*{"ReportUspStep":[{"Number":50,"Name":"intro","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',50,';',NULL);
 
 /*
 ATTENTION!
@@ -93,6 +93,16 @@ Declare
   , @name                  NVarchar(128)
   , @type                  Char(2);
 
+
+/*{"ReportUspStep":[{"Number":100,"Name":"config.fs_get_parameter_value ( 'sync enable', 'dwh' ) = 0","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF config.fs_get_parameter_value ( 'sync enable', 'dwh' ) = 0
+
+/*{"ReportUspStep":[{"Number":110,"Parent_Number":100,"Name":"RETURN","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',110,';',100);
+
+RETURN
+END;
 
 /*{"ReportUspStep":[{"Number":210,"Name":"UPDATE repo_sys.SysColumn_RepoObjectColumn_via_RepoObjectColumn_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',210,';',NULL);

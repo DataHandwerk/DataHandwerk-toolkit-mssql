@@ -16,6 +16,7 @@ As
       , ro.is_persistence_insert
       , ro.is_persistence_truncate
       , ro.is_persistence_update_changed
+      , ro.is_persistence_persist_source
       , source_pk_index_guid = ro_s.pk_index_guid
     From
         repo.RepoObject_gross         As ro
@@ -35,6 +36,21 @@ Select
     ro_u.usp_id
   , Number      = 100
   , is_inactive = Case ro_u.is_persistence_check_for_empty_source
+                      When 1
+                          Then
+                          0
+                      Else
+                          1
+                  End
+  , ro_u.source_pk_index_guid -- required only for debugging
+From
+    ro_u
+Union All
+Select
+    --persist source into #source
+    ro_u.usp_id
+  , Number      = 200
+  , is_inactive = Case ro_u.is_persistence_persist_source
                       When 1
                           Then
                           0

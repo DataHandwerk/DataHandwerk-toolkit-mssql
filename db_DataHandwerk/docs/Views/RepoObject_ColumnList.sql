@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [docs].[RepoObject_ColumnList]
+CREATE View docs.RepoObject_ColumnList
 As
 Select
     rof.RepoObject_guid
@@ -16,7 +15,7 @@ Select
                               , '[discrete]'
                               , Char ( 13 ) + Char ( 10 )
                               , '== '
-                              , docs.fs_cleanStringForLabel ( IsNull ( transl.displayfolder_DisplayName, '_' ))
+                              , docs.fs_cleanStringForHeader ( IsNull ( transl.displayfolder_DisplayName, '_' ))
                               , Char ( 13 ) + Char ( 10 )
                               , Char ( 13 ) + Char ( 10 )
                             )
@@ -29,8 +28,7 @@ Select
                               , ']'
                               , Char ( 13 ) + Char ( 10 )
                               , '=== '
-                              --, transl.RepoObjectColumn_DisplayName
-                              , docs.fs_cleanStringForLabel ( transl.RepoObjectColumn_DisplayName )
+                              , docs.fs_cleanStringForHeader ( transl.RepoObjectColumn_DisplayName )
                               , Char ( 13 ) + Char ( 10 )
                               , Char ( 13 ) + Char ( 10 )
                               , '[cols="d,8m,m,m,m,d"]'

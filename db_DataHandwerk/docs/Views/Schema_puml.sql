@@ -25,7 +25,8 @@ Select
            --, ssas_rl.SsasRelationList_PumlRelation
            --, Char ( 13 ) + Char ( 10 )
            --, Char ( 13 ) + Char ( 10 )
-           , puml_footer.Parameter_value_result
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + puml_footer.Parameter_value_result + Char ( 13 )
+             + Char ( 10 )
            , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
          )
   --it doesn't look very nice, we need wait for a solution to draw PumlSchemaEr
@@ -37,10 +38,10 @@ Select
            , sel.EntityList_PumlOnlyIndex
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , fklist.FkRefList
+           , fklist.PumlPartial_FkRefList
            , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
-           , puml_footer.Parameter_value_result
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + puml_footer.Parameter_value_result + Char ( 13 )
+             + Char ( 10 )
            , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
          )
   , PumlSchemaSsasEr  =
@@ -56,8 +57,8 @@ Select
                    , Char ( 13 ) + Char ( 10 )
                    , ssas_rl.SsasRelationList_PumlRelation
                    , Char ( 13 ) + Char ( 10 )
-                   , Char ( 13 ) + Char ( 10 )
-                   , puml_footer.Parameter_value_result
+                   , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + puml_footer.Parameter_value_result
+                     + Char ( 13 ) + Char ( 10 )
                    , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
                  )
   End
@@ -84,7 +85,7 @@ From
             And sel.cultures_name = schema_culture.cultures_name
 
     Left Join
-        docs.Schema_PlantUml_FkRefList                                       As fklist
+        docs.Schema_PumlPartial_FkRefList                                    As fklist
             On
             fklist.SchemaName = schema_culture.RepoObject_schema_name
             And fklist.cultures_name = schema_culture.cultures_name
@@ -95,7 +96,7 @@ From
             ssas_rl.SchemaName = schema_culture.RepoObject_schema_name
             And ssas_rl.cultures_name = schema_culture.cultures_name
     Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_class', '' ) As skin
-    Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
+    Cross Join config.ftv_get_parameter_value ( 'puml_footer', 'interactive' ) As puml_footer
 Where
     Not schema_culture.cultures_name Is Null
 GO

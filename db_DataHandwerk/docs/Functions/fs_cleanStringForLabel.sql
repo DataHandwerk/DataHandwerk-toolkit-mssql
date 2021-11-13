@@ -6,7 +6,7 @@ CREATE Function docs.fs_cleanStringForLabel
 Returns NVarchar(4000)
 As
 Begin
-    Return Lower ( Replace ( @source_string, '__', '++__++' ))
+    Return Lower ( Replace ( Replace ( @source_string, '__', '++__++' ), '\', '{backslash}' ))
 --Return Replace ( Replace ( @source_string, ' ', '_' ), '__', '++__++' )
 End;
 GO

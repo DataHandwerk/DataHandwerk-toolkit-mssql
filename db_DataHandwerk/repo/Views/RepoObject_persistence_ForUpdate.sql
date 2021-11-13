@@ -1,9 +1,10 @@
 ﻿
+
 /*
 Added some lookup columns [repo].[RepoObject_persistence]
 to simplify data entry in the frontend
 */
-CREATE View repo.RepoObject_persistence_ForUpdate
+CREATE View [repo].[RepoObject_persistence_ForUpdate]
 As
 Select
     ro_p.target_RepoObject_guid
@@ -22,6 +23,7 @@ Select
   , ro_p.is_persistence_insert
   , ro_p.is_persistence_truncate
   , ro_p.is_persistence_update_changed
+  , ro_p.is_persistence_persist_source
   , ro_p.source_RepoObject_guid
   , ro_p.is_persistence
   , ro_p.temporal_type
@@ -297,4 +299,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee2c2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ef2c2877-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'default_source_RepoObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7addc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'is_persistence_persist_source';
 

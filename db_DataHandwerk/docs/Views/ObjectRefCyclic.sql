@@ -32,8 +32,8 @@ include::partial$puml/objectrefcyclic.puml[]
            , elist.PumlEntityOnlyPkList
            , Char ( 13 ) + Char ( 10 )
            , olist.PumlObjectRefList
-           , puml_footer.Parameter_value_result
-           , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + puml_footer.Parameter_value_result + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
          )
 From
     docs.Culture                                  As c
@@ -42,7 +42,7 @@ From
             On
             elist.cultures_name = c.cultures_name
     Cross Join docs.ObjectRefCyclic_ObjectRefList As olist
-    Cross Join config.ftv_get_parameter_value ( 'puml_footer', '' ) As puml_footer
+    Cross Join config.ftv_get_parameter_value ( 'puml_footer', 'interactive' ) As puml_footer
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '87e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ObjectRefCyclic';
 

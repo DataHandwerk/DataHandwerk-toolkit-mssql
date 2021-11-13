@@ -70,6 +70,16 @@ PRINT '[repo].[usp_sync_guid_RepoSchema]'
 --
 ----- start here with your own code
 --
+/*{"ReportUspStep":[{"Number":100,"Name":"config.fs_get_parameter_value ( 'sync enable', 'dwh' ) = 0","has_logging":1,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
+IF config.fs_get_parameter_value ( 'sync enable', 'dwh' ) = 0
+
+/*{"ReportUspStep":[{"Number":110,"Parent_Number":100,"Name":"RETURN","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',110,';',100);
+
+RETURN
+END;
+
 /*{"ReportUspStep":[{"Number":210,"Name":"SET several RepoSchema_SysSchema_...","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysSchema]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',40,';',210,';',NULL);
 
