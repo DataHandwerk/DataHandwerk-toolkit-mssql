@@ -255,7 +255,7 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',520,';',NULL);
 Update
     rs
 Set
-    RepoSchema_ms_description = Cast(ses.property_value As NVarchar(4000))
+    [RepoSchema_description] = Cast(ses.property_value As NVarchar(4000))
 From
     repo.RepoSchema                 rs
     Inner Join
@@ -265,8 +265,8 @@ From
             And ses.class         = 3 --schema
             And ses.property_name = 'MS_Description'
 Where
-    rs.RepoSchema_ms_description Is Null
-    Or rs.RepoSchema_ms_description <> ses.property_value;
+    rs.[RepoSchema_description] Is Null
+    Or rs.[RepoSchema_description] <> ses.property_value;
 
 
 -- Logging START --

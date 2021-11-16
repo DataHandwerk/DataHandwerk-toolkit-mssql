@@ -3,7 +3,7 @@
     [has_different_sys_names]             AS               (CONVERT([bit],case when [RepoSchema_name]<>[SysSchema_name] then (1) else (0) end)),
     [is_ssas]                             BIT              CONSTRAINT [DF_RepoSchema_is_ssas] DEFAULT ((0)) NOT NULL,
     [is_SysSchema_missing]                BIT              NULL,
-    [RepoSchema_ms_description]           NVARCHAR (4000)  NULL,
+    [RepoSchema_description]           NVARCHAR (4000)  NULL,
     [RepoSchema_name]                     NVARCHAR (128)   CONSTRAINT [DF_RepoSchema_RepoSchema_name] DEFAULT (newid()) NOT NULL,
     [SysSchema_id]                        INT              NULL,
     [SysSchema_name]                      NVARCHAR (128)   CONSTRAINT [DF_RepoSchema_SysSchema_name] DEFAULT (newid()) NOT NULL,
@@ -71,7 +71,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'bb074
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ba0747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'COLUMN', @level2name = N'RepoSchema_ms_description';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ba0747ec-8ca3-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoSchema', @level2type = N'COLUMN', @level2name = N'RepoSchema_description';
 
 
 GO

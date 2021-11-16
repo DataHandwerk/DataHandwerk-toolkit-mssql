@@ -1,11 +1,11 @@
-﻿Create View repo.[RepoSchema_ssas_tgt]
+﻿CREATE View repo.[RepoSchema_ssas_tgt]
 As
 Select
     RepoSchema_guid
   , has_different_sys_names
   , is_ssas
   , is_SysSchema_missing
-  , RepoSchema_ms_description
+  , [RepoSchema_description]
   , RepoSchema_name
   , SysSchema_id
   , SysSchema_name
@@ -36,7 +36,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57441
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '564419fd-1f07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_tgt', @level2type = N'COLUMN', @level2name = N'RepoSchema_ms_description';
+
 
 
 GO
@@ -169,8 +169,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoSchema].[RepoSchema_ms_description]
-* [repo].[RepoSchema_ssas_src].[RepoSchema_ms_description]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_tgt', @level2type = N'COLUMN', @level2name = N'RepoSchema_ms_description';
+
 
 
 GO

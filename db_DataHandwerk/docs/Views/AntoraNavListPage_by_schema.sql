@@ -16,7 +16,7 @@ Select
            , '== Description'
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , Max ( rs.RepoSchema_ms_description )
+           , Max ( rs.[RepoSchema_description] )
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
            , '== Objects'

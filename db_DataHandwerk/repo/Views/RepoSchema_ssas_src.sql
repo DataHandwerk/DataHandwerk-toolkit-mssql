@@ -6,11 +6,11 @@ CREATE View repo.RepoSchema_ssas_src
 As
 Select
     --PK: RepoSchema_name
-    RepoSchema_name           = T1.databasename
-  , is_ssas                   = 1
-  , is_SysSchema_missing      = 0
-  , RepoSchema_ms_description = Coalesce ( T1.l2_description, T2.descriptions_StrAgg )
-  , SysSchema_name            = T1.databasename
+    RepoSchema_name        = T1.databasename
+  , is_ssas                = 1
+  , is_SysSchema_missing   = 0
+  , RepoSchema_description = Coalesce ( T1.l2_description, T2.descriptions_StrAgg )
+  , SysSchema_name         = T1.databasename
 From
     ssas.model_json_20                           As T1
     Left Join
@@ -22,7 +22,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '51441
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '504419fd-1f07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_src', @level2type = N'COLUMN', @level2name = N'RepoSchema_ms_description';
+
 
 
 GO
@@ -78,4 +78,8 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xre
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [ssas].[model_json_20].[databasename]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_src', @level2type = N'COLUMN', @level2name = N'RepoSchema_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '504419fd-1f07-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_src', @level2type = N'COLUMN', @level2name = N'RepoSchema_description';
 

@@ -66,7 +66,7 @@ Select
   , Unit_TypeName      = Null
   , Unit_isHidden      = Null
   , Unit_IsSsas        = rs.is_ssas
-  , Unit_Description   = rs.RepoSchema_ms_description
+  , Unit_Description   = rs.[RepoSchema_description]
   , Unit_DisplayFolder = Null
   , Unit_Expression    = Null
   , Unit_FormatString  = Null

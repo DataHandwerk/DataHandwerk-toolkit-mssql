@@ -1730,4 +1730,11 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="RepoObject_ReferencedReferencing" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="be14bfda-b4cf-48ea-a525-0a3025ec0330" ChangeDateTime="11/16/2021 10:39:45">
+    <Property Name="ElementName" Value="[repo].[RepoSchema].[RepoSchema_ms_description]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[RepoSchema]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RepoSchema_description]" />
+  </Operation>
 </Operations>
