@@ -30,6 +30,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '6ad1ce74-7b24-ec11-8526-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_OutputFilter_T', @level2type = N'CONSTRAINT', @level2name = N'PK_RepoObject_OutputFilter_T';
 
@@ -124,4 +126,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4e1e7
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '16ebff08-7824-ec11-8526-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_OutputFilter_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f0c51ae6-cc46-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_OutputFilter_T', @level2type = N'COLUMN', @level2name = N'FilenameRelatedMeasures';
 

@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>Description
 `AdocContent` is the content of a page to be used by Antora as partial.
@@ -18,7 +17,7 @@ All Parts of the documentations are tagged, Antora can reference the content usi
 To use additional content in Antora documentation first try to include new properties into xref:property.repoobjectproperty.adoc[]
 <<property_end>>
 */
-CREATE View [docs].[RepoObject_Adoc]
+CREATE View docs.RepoObject_Adoc
 As
 Select
     rof.RepoObject_guid
@@ -58,10 +57,9 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== existing_properties'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::existing_properties[]'
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , String_Agg (
                             Concat (
                                        Cast('' As NVarchar(Max))
@@ -115,8 +113,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== RepoObject_guid'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::RepoObject_guid[]'
            , Char ( 13 ) + Char ( 10 )
            , rof.RepoObject_guid
@@ -126,8 +123,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== RepoObject_FullDisplayName2'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::RepoObject_FullDisplayName2[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( rof.RepoObject_FullDisplayName2 )
@@ -137,8 +133,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== SysObject_type'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_type[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( rof.SysObject_type )
@@ -148,8 +143,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== SysObject_type_name'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_type_name[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( rof.SysObject_type_name )
@@ -159,8 +153,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== SysObject_id'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_id[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( ro.SysObject_id )
@@ -170,8 +163,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== SysObject_modify_date'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_modify_date[]'
            , Char ( 13 ) + Char ( 10 )
            , Convert ( NVarchar(20), Max ( ro.SysObject_modify_date ), 120 )
@@ -182,8 +174,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraColumnDetails'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraColumnDetails[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( clist.AntoraColumnDetails )
@@ -193,8 +184,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraPkColumnTableRows'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraPkColumnTableRows[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( clist.AntoraPkColumnTableRows )
@@ -204,8 +194,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraNonPkColumnTableRows'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraNonPkColumnTableRows[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( clist.AntoraNonPkColumnTableRows )
@@ -216,8 +205,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraIndexList'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraIndexList[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( ilist.AntoraIndexList )
@@ -228,8 +216,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraMeasureDetails'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraMeasureDetails[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( mlist.AntoraMeasureDetails )
@@ -240,11 +227,10 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraMeasureDescriptions'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            --, '// tag::AntoraMeasureDescriptions[]'
            --, Char ( 13 ) + Char ( 10 )
-           , Max ( mlist.AntoraMeasureDescriptions )
+           , Max ( mdlist.AntoraMeasureDescriptions )
            --, Char ( 13 ) + Char ( 10 )
            --, '// end::AntoraMeasureDescriptions[]'
            , Char ( 13 ) + Char ( 10 )
@@ -252,8 +238,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraParameterList'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraParameterList[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( parlist.AntoraParameterList )
@@ -264,8 +249,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== AntoraXrefCulturesList'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraXrefCulturesList[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( axlist.AntoraXrefCulturesList )
@@ -275,8 +259,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== cultures_count'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::cultures_count[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( axlist.cultures_count )
@@ -287,19 +270,16 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== Other tags'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , 'source: property.RepoObjectProperty_cross As rop_cross'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , String_Agg (
                             Concat (
                                        Cast('' As NVarchar(Max))
                                      , Char ( 13 ) + Char ( 10 )
                                      , '=== '
                                      , rop_cross.property_name Collate Database_Default
-                                     , Char ( 13 ) + Char ( 10 )
-                                     , Char ( 13 ) + Char ( 10 )
+                                     , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                                      , '// tag::'
                                      , Lower ( rop_cross.property_name ) Collate Database_Default
                                      , '[]'
@@ -316,13 +296,11 @@ Select
                                            rop_cross.property_name)
            , Char ( 13 ) + Char ( 10 )
            , '== Boolean Attributes'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , 'source: property.RepoObjectProperty WHERE property_int = 1'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::boolean_attributes[]'
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , String_Agg (
                             Concat (
                                        Cast('' As NVarchar(Max))
@@ -343,8 +321,7 @@ Select
            --
            , Char ( 13 ) + Char ( 10 )
            , '== sql_modules_definition'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::sql_modules_definition[]'
            , Char ( 13 ) + Char ( 10 )
            , '[%collapsible]'
@@ -375,15 +352,18 @@ Select
            , '= ' + Max ( rof.RepoObject_FullDisplayName2 )
            , Char ( 13 ) + Char ( 10 )
            , '// end::HeaderFullDisplayName[]'
-           , Char ( 13 ) + Char ( 10 )
-           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::description[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// uncomment the following attribute, to hide exported descriptions' + Char ( 13 ) + Char ( 10 )
+             + Char ( 13 ) + Char ( 10 )
            , '//:hide-exported-description:'
            , Char ( 13 ) + Char ( 10 )
            , '// end::description[]'
-           , Max ( mlist.AntoraMeasureDescriptionTagContent )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== Measures'
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , Max ( mdlist.AntoraMeasureDescriptionTagContent )
            , Char ( 13 ) + Char ( 10 )
 
          --
@@ -430,6 +410,12 @@ From
             On
             mlist.RepoObject_guid     = ro.RepoObject_guid
             And mlist.cultures_name   = rof.cultures_name
+
+    Left Join
+        docs.RepoObject_MeasureDescriptionList As mdlist
+            On
+            mdlist.RepoObject_guid    = ro.RepoObject_guid
+            And mdlist.cultures_name  = rof.cultures_name
 
     Left Join
         docs.RepoObject_ParameterList          As parlist

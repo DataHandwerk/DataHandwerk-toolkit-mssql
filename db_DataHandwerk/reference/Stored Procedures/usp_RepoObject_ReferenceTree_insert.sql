@@ -12,6 +12,7 @@ CREATE   PROCEDURE [reference].[usp_RepoObject_ReferenceTree_insert]
 , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
 , @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
 , @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
+
 AS
 BEGIN
 DECLARE
@@ -143,14 +144,14 @@ Insert Into reference.RepoObject_ReferenceTree
     RepoObject_guid
   , Referenced_guid
   , Referenced_Depth
-  , referenced_fullname
-  , referenced_fullname2
-  , referenced_type
+  , Referenced_fullname
+  , Referenced_fullname2
+  , Referenced_type
   , Referencing_guid
   , Referencing_Depth
-  , referencing_fullname
-  , referencing_fullname2
-  , referencing_type
+  , Referencing_fullname
+  , Referencing_fullname2
+  , Referencing_type
 )
 --RepoObject_guid = FirstNode.Referencing_guid 
 Select
@@ -311,14 +312,14 @@ Begin
         RepoObject_guid
       , Referenced_guid
       , Referenced_Depth
-      , referenced_fullname
-      , referenced_fullname2
-      , referenced_type
+      , Referenced_fullname
+      , Referenced_fullname2
+      , Referenced_type
       , Referencing_guid
       , Referencing_Depth
-      , referencing_fullname
-      , referencing_fullname2
-      , referencing_type
+      , Referencing_fullname
+      , Referencing_fullname2
+      , Referencing_type
     )
     Select
         parent.RepoObject_guid

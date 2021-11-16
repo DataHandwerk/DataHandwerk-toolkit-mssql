@@ -9,6 +9,7 @@ CREATE   PROCEDURE [property].[usp_sync_ExtendedProperties_Sys2Repo_InsertUpdate
 , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
 , @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
 , @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
+
 AS
 BEGIN
 DECLARE
@@ -249,13 +250,13 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":520,"Name":"UPDATE [repo].[RepoSchema] - [RepoSchema_ms_description]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[ExtendedProperties]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":520,"Name":"UPDATE [repo].[RepoSchema] - [RepoSchema_description]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[ExtendedProperties]","log_target_object":"[repo].[RepoSchema]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',12,';',520,';',NULL);
 
 Update
     rs
 Set
-    [RepoSchema_description] = Cast(ses.property_value As NVarchar(4000))
+    RepoSchema_description = Cast(ses.property_value As NVarchar(4000))
 From
     repo.RepoSchema                 rs
     Inner Join
@@ -265,14 +266,14 @@ From
             And ses.class         = 3 --schema
             And ses.property_name = 'MS_Description'
 Where
-    rs.[RepoSchema_description] Is Null
-    Or rs.[RepoSchema_description] <> ses.property_value;
+    rs.RepoSchema_description Is Null
+    Or rs.RepoSchema_description <> ses.property_value;
 
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'UPDATE [repo].[RepoSchema] - [RepoSchema_ms_description]'
+SET @step_name = 'UPDATE [repo].[RepoSchema] - [RepoSchema_description]'
 SET @source_object = '[repo_sys].[ExtendedProperties]'
 SET @target_object = '[repo].[RepoSchema]'
 

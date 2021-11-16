@@ -1,4 +1,4 @@
-﻿CREATE View repo.[RepoSchema_ssas_tgt]
+CREATE View repo.[RepoSchema_ssas_tgt]
 As
 Select
     RepoSchema_guid
@@ -207,5 +207,5 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '1140f2f7-cf46-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoSchema_ssas_tgt', @level2type = N'COLUMN', @level2name = N'RepoSchema_description';
 

@@ -1,6 +1,4 @@
-﻿
-
-CREATE View [docs].[RepoObject_MeasureList]
+﻿CREATE View docs.RepoObject_MeasureList
 As
 Select
     rom.RepoObject_guid
@@ -24,8 +22,7 @@ Select
                                                                                    , '_'
                                                                                  )
                                                                         )
-                                         , Char ( 13 ) + Char ( 10 )
-                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                                        )
                               , Concat (
                                            '[#measure-'
@@ -34,8 +31,7 @@ Select
                                          , Char ( 13 ) + Char ( 10 )
                                          , '=== '
                                          , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
-                                         , Char ( 13 ) + Char ( 10 )
-                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                                          --, Case
                                          --      When transl.displayfolder_DisplayName <> ''
                                          --          Then
@@ -81,8 +77,7 @@ Select
                                          , Char ( 13 ) + Char ( 10 )
                                          --add additional line to get more space
                                          , '{empty} +'
-                                         , Char ( 13 ) + Char ( 10 )
-                                         , Char ( 13 ) + Char ( 10 )
+                                         , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
 
                                          --, Case
                                          --      When rom.Description <> ''
@@ -113,8 +108,7 @@ Select
                                                             , rom.Expression
                                                             , Char ( 13 ) + Char ( 10 )
                                                             , '....'
-                                                            , Char ( 13 ) + Char ( 10 )
-                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                                                           )
                                            End
                                        )
@@ -126,18 +120,24 @@ Select
                                 transl.displayfolder_DisplayName
                               , transl.is_displayfolder Desc
                               , transl.Measure_DisplayName)
+  --todo: some measures are in multiple displayfolders, but we need a measure only once. How to do? And how to get them in the right order?
   , AntoraMeasureDescriptions          =
   --
   Iif(rof.RepoObject_DisplayName = '_measures'
     , String_Agg (
                      Concat (
                                 --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                                Cast('' As NVarchar(Max))
+                                Cast(N'' As NVarchar(Max))
+                              , Char ( 13 ) + Char ( 10 )
+                              , '=== '
+                              , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
+                              , ' - description'
+                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                               , '// tag::description-measure-'
                                 + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
-                              , Char ( 13 ) + Char ( 10 )
+                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                               , rom.Description
-                              , Char ( 13 ) + Char ( 10 )
+                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                               , '// end::description-measure-'
                                 + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
                             )
@@ -147,18 +147,23 @@ Select
                                   , transl.is_displayfolder Desc
                                   , transl.Measure_DisplayName)
     , '')
+  --todo: some measures are in multiple displayfolders, but we need a measure only once. How to do? And how to get them in the right order?
   , AntoraMeasureDescriptionTagContent =
   --
   Iif(rof.RepoObject_DisplayName = '_measures'
     , String_Agg (
                      Concat (
                                 --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                                Cast('' As NVarchar(Max))
+                                Cast(N'' As NVarchar(Max))
+                              , Char ( 13 ) + Char ( 10 )
+                              , '=== '
+                              , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
+                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                               , '// tag::description-measure-'
                                 + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
-                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                               , '// uncomment the following attribute, to hide exported descriptions' + Char ( 13 )
-                                + Char ( 10 )
+                                + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                               , '//:hide-exported-description-measure-'
                                 + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + ':'
                               , Char ( 13 ) + Char ( 10 )
@@ -249,4 +254,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fb641
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fa641888-fd45-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList', @level2type = N'COLUMN', @level2name = N'AntoraMeasureDescriptions';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f1c51ae6-cc46-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList', @level2type = N'COLUMN', @level2name = N'RepoObject_DisplayName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f2c51ae6-cc46-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList', @level2type = N'COLUMN', @level2name = N'FilenameRelatedMeasures';
 

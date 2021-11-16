@@ -939,6 +939,7 @@
     <Build Include="ssis\Stored Procedures\usp_PERSIST_PackageTask_Dft_Component_tgt.sql" />
     <Build Include="Security\ssis_t.sql" />
     <Build Include="Security\ssis.sql" />
+    <Build Include="docs\Views\RepoObject_MeasureDescriptionList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

@@ -1,10 +1,12 @@
-﻿/*
+﻿
+
+/*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
 - [repo].[GeneratorUspParameter]
 - [repo].[GeneratorUspStep]
 */
-CREATE View uspgenerator.GeneratorUsp_SqlUsp
+CREATE View [uspgenerator].[GeneratorUsp_SqlUsp]
 As
 Select
     usp_id         = u.id
