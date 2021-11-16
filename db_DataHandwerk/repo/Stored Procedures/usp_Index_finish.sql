@@ -70,6 +70,16 @@ PRINT '[repo].[usp_Index_finish]'
 --
 ----- start here with your own code
 --
+/*{"ReportUspStep":[{"Number":205,"Name":"[repo].[usp_PERSIST_IndexColumn_union_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [repo].[usp_PERSIST_IndexColumn_union_T]
+--add your own parameters
+--logging parameters
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @current_execution_log_id
+
+
 /*{"ReportUspStep":[{"Number":210,"Name":"[repo].[usp_Index_Settings]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_Index_Settings]
 --add your own parameters

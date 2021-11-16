@@ -239,6 +239,18 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
+           , '== AntoraMeasureDescriptions'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           --, '// tag::AntoraMeasureDescriptions[]'
+           --, Char ( 13 ) + Char ( 10 )
+           , Max ( mlist.AntoraMeasureDescriptions )
+           --, Char ( 13 ) + Char ( 10 )
+           --, '// end::AntoraMeasureDescriptions[]'
+           , Char ( 13 ) + Char ( 10 )
+
+           --
+           , Char ( 13 ) + Char ( 10 )
            , '== AntoraParameterList'
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
@@ -353,6 +365,28 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
+         )
+  , AdocDescriptionTagsContent  =
+  --
+  Concat (
+             ''
+           , '// tag::HeaderFullDisplayName[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '= ' + Max ( rof.RepoObject_FullDisplayName2 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::HeaderFullDisplayName[]'
+           , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// tag::description[]'
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '// uncomment the following attribute, to hide exported descriptions' + Char ( 13 ) + Char ( 10 )
+           , '//:hide-exported-description:'
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::description[]'
+           , Max ( mlist.AntoraMeasureDescriptionTagContent )
+           , Char ( 13 ) + Char ( 10 )
+
+         --
          )
   , PropertyCount               = Count ( Distinct rop.property_name )
 From
@@ -636,4 +670,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '64871
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '65871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'RepoObject_DisplayName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fd641888-fd45-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_Adoc', @level2type = N'COLUMN', @level2name = N'AdocDescriptionTagsContent';
 

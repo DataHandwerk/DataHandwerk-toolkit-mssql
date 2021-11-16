@@ -159,8 +159,33 @@ Begin
           --
           + '''" queryout "'
           --
-          + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\' + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.adoc"'
+          + docs.fs_AntoraModuleFolder ( @cultures_name ) + '\partials\'
+          + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.adoc"'
+          --
+          + ' -S ' + @instanceName
+          --
+          + ' -d ' + @databaseName
+          --
+          + ' -c -C 65001'
+          --
+          + @TrustedUserPassword
+
+    Print @command
+
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Set @command
+        = 'bcp "SELECT [AdocDescriptionTagsContent] FROM [docs].[RepoObject_Adoc_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
+          --
+          + @Object_fullname2
+          --
+          + ''' AND cultures_name = ''' + @cultures_name
+          --
+          + '''" queryout "'
+          --
+          + docs.fs_AntoraModuleFolder ( @cultures_name ) + '\partials\_descriptiontags\'
+          + docs.fs_cleanStringForFilename ( @Object_fullname2 ) + '.adoc"'
           --
           + ' -S ' + @instanceName
           --

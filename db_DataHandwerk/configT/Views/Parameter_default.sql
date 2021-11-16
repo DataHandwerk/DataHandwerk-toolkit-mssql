@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 <<property_start>>Description
 include::sqldb:partial$description/config.parameter.adoc[]
 <<property_end>>
@@ -399,13 +400,17 @@ InheritanceType:
 include::partial${docname}.adoc[tag=inheritancetype]
 
 endif::ExistsProperty--inheritancetype[]
-ifdef::ExistsProperty--description[]
 
 == Description
 
-include::partial${docname}.adoc[tag=description]
+include::partial$descriptiontags/{docname}.adoc[tag=description,opts=optional]
 
-endif::ExistsProperty--description[]
+//the following attribute could be set in the include above to enable or disable the usage of exported descriptions
+ifndef::hide-exported-description[]
+
+include::partial${docname}.adoc[tag=description,opts=optional]
+
+endif::hide-exported-description[]
 
 '
 --  Concat (

@@ -2,6 +2,7 @@
     [RepoObject_guid]             UNIQUEIDENTIFIER NOT NULL,
     [cultures_name]               NVARCHAR (10)    CONSTRAINT [DF_RepoObject_Adoc_T_cultures_name] DEFAULT ('') NOT NULL,
     [AdocContent]                 NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Adoc_T_AdocContent] DEFAULT ('') NOT NULL,
+    [AdocDescriptionTagsContent]  NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Adoc_T_AdocContent1] DEFAULT ('') NOT NULL,
     [is_DocsOutput]               INT              NULL,
     [PropertyCount]               INT              NULL,
     [RepoObject_fullname]         NVARCHAR (261)   NULL,
@@ -17,6 +18,8 @@
     [SysObject_type_name]         NVARCHAR (128)   NULL,
     CONSTRAINT [PK_RepoObject_Adoc_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -263,4 +266,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69871
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '68871b6d-cf22-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'COLUMN', @level2name = N'RepoObject_DisplayName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'd0a94a7f-fd45-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_Adoc_T_AdocContent1';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fc641888-fd45-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'COLUMN', @level2name = N'AdocDescriptionTagsContent';
 

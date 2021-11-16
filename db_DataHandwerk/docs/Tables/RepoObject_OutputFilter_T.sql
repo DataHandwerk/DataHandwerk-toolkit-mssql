@@ -21,8 +21,11 @@
     [AntoraModule]                NVARCHAR (MAX)   NULL,
     [PumlEntityTopDefault]        NVARCHAR (MAX)   NOT NULL,
     [PumlEntityTopWorkaround]     NVARCHAR (MAX)   NOT NULL,
+    [FilenameRelatedMeasures]     AS               (case when [is_ssas]=(1) then [docs].[fs_cleanStringForFilename]([RepoObject_schema_name]+'._measures')  end),
     CONSTRAINT [PK_RepoObject_OutputFilter_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

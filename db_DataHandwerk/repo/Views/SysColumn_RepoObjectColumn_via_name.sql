@@ -1,5 +1,4 @@
-﻿
-CREATE View repo.SysColumn_RepoObjectColumn_via_name
+﻿CREATE View repo.SysColumn_RepoObjectColumn_via_name
 As
 --
 Select
@@ -60,7 +59,7 @@ Select
   --here we prepare, which to keep (RowNumberOverName = 1)
   --we should keep RepoObjectColumn_name, because there could be PK defined and other properties
   , RowNumberOverName         = Row_Number () Over ( Partition By
-                                                         sc.SysObject_RepoObject_guid
+                                                         Coalesce ( sc.SysObject_RepoObject_guid, ro.RepoObject_guid )
                                                        , sc.SysObject_column_name
                                                      Order By
                                                          roc.is_RepoObjectColumn_name_uniqueidentifier

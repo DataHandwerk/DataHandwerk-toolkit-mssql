@@ -80,8 +80,8 @@ EXEC [repo].[usp_PERSIST_IndexColumn_ReferencedReferencing_HasFullColumnsInRefer
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":310,"Name":"DELETE (if it is a referencing index (NOT [referenced_index_guid] IS NULL), but referenced index is missing)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',310,';',NULL);
+/*{"ReportUspStep":[{"Number":320,"Name":"DELETE (if it is a referencing index (NOT [referenced_index_guid] IS NULL), but referenced index is missing)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexReferencedReferencing_HasFullColumnsInReferencing]","log_target_object":"[repo].[Index_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',320,';',NULL);
 
 DELETE
 FROM repo.[Index_virtual]
@@ -210,19 +210,37 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":510,"Name":"DELETE (referenced index, where entries are missing in setpoint)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[IndexColumn_virtual_referenced_setpoint]","log_target_object":"[repo].[IndexColumn_virtual]","log_flag_InsertUpdateDelete":"d"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',17,';',510,';',NULL);
 
-DELETE
-FROM repo.[IndexColumn_virtual]
-FROM [repo].[IndexColumn_virtual]
-INNER JOIN [repo].[Index_virtual] AS [i]
- ON [repo].[IndexColumn_virtual].[index_guid] = [i].[index_guid]
-LEFT OUTER JOIN [repo].[IndexColumn_virtual_referenced_setpoint] AS [setpoint]
- ON [repo].[IndexColumn_virtual].[index_column_id] = [setpoint].[index_column_id]
-  AND [repo].[IndexColumn_virtual].[index_guid] = [setpoint].[index_guid]
-WHERE
- --only referenced_index_guid
- NOT [i].[referenced_index_guid] IS NULL
- --where entries are missing in setpoint
- AND [setpoint].[index_column_id] IS NULL
+Delete
+ic
+From
+    repo.IndexColumn_virtual                         As ic
+    Inner Join
+        repo.Index_virtual                           As i
+            On
+            ic.index_guid      = i.index_guid
+
+    Left Outer Join
+        repo.IndexColumn_virtual_referenced_setpoint As setpoint
+            On
+            ic.index_column_id = setpoint.index_column_id
+            And ic.index_guid  = setpoint.index_guid
+Where
+    --only referenced_index_guid
+    Not i.referenced_index_guid Is Null
+    --where entries are missing in setpoint
+    And setpoint.index_column_id Is Null
+    --setpoint should not be empty for the index, there should be at least one column;
+    --there could be no columns in a (wrong?) soure, in this case we wan't to keep columns in ic
+    --otherwise in a later step the index would be deleted, if it has no columns
+    And Exists
+(
+    Select
+        1
+    From
+        repo.IndexColumn_virtual_referenced_setpoint As T1
+    Where
+        T1.index_guid = ic.index_guid
+)
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

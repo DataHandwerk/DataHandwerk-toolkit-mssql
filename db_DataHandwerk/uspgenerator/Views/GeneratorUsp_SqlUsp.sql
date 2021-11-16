@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
 - [repo].[GeneratorUspParameter]
@@ -41,9 +40,18 @@ Select
 , @ssis_execution_id BIGINT = NULL --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix different number systems
 , @sub_execution_id INT = NULL --in case you log some sub_executions, for example in SSIS loops or sub packages
 , @parent_execution_log_id BIGINT = NULL --in case a sup procedure is called, the @current_execution_log_id of the parent procedure should be propagated here. It allowes call stack analyzing
+'
+                                               )
+                                End --[u].[has_logging]
+                              , '
 AS
 BEGIN
-DECLARE
+'
+                              , Case u.has_logging
+                                    When 1
+                                        Then
+                                        Concat (
+                                                   'DECLARE
  --
    @current_execution_log_id BIGINT --this variable should be filled only once per procedure call, it contains the first logging call for the step ''start''.
  , @current_execution_guid UNIQUEIDENTIFIER = NEWID() --a unique guid for any procedure call. It should be propagated to sub procedures using "@parent_execution_log_id = @current_execution_log_id"
@@ -140,12 +148,13 @@ EXEC logs.usp_ExecutionLog_insert
  , @step_name = @step_name
  , @source_object = @source_object
  , @target_object = @target_object
-
+'
+                                End --[u].[has_logging]
+                              , '
 END
 
 GO
 '
-                                End --[u].[has_logging]
                             )
   , AdocUspSteps   = Concat (
                                 '.Steps in '
