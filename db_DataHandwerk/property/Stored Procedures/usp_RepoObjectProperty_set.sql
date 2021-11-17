@@ -11,13 +11,13 @@ see details in xref:user-guide:create-update-connect-repo-db.adoc[]
 '
 <<property_end>>
 */
-CREATE Procedure [property].[usp_RepoObjectProperty_set]
+CREATE Procedure property.usp_RepoObjectProperty_set
     --
     @RepoObject_guid      UniqueIdentifier = Null --if @RepoObject_guid is NULL, then @RepoObject_fullname or @RepoObject_fullname2 is used
   , @RepoObject_fullname  NVarchar(261)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]
   , @RepoObject_fullname2 NVarchar(257)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use schema.TableOrView
   , @property_name        NVarchar(128)
-  , @property_value       NVarchar(MAX)
+  , @property_value       NVarchar(Max)
 As
 Begin
     Declare @step_name NVarchar(1000) = Null;
@@ -68,7 +68,60 @@ Begin
         Throw 51001, @step_name, 1;
     End;
 
-    Merge [property].RepoObjectProperty T
+    ----insert missing
+    --Insert property.RepoObjectProperty
+    --(
+    --    RepoObject_guid
+    --  , property_name
+    --  , property_value
+    --)
+    --Select
+    --    S.RepoObject_guid
+    --  , S.property_name
+    --  , S.property_value
+    --From
+    --(
+    --    Select
+    --        RepoObject_guid = @RepoObject_guid
+    --      , property_name   = @property_name
+    --      , property_value  = @property_value
+    --) As S
+    --Where
+    --    Not Exists
+    --(
+    --    Select
+    --        1
+    --    From
+    --        property.RepoObjectProperty As T
+    --    Where
+    --        T.RepoObject_guid   = S.RepoObject_guid
+    --        And T.property_name = S.property_name
+    --);
+
+    ----update changed
+    --Update
+    --    T
+    --Set
+    --    T.property_value = S.property_value
+    --From
+    --(
+    --    Select
+    --        RepoObject_guid = @RepoObject_guid
+    --      , property_name   = @property_name
+    --      , property_value  = @property_value
+    --)                                   As S
+    --    Inner Join
+    --        property.RepoObjectProperty As T
+    --            On
+    --            T.RepoObject_guid    = S.RepoObject_guid
+    --            And T.property_name  = S.property_name
+    --            And
+    --            (
+    --                T.property_value <> S.property_name
+    --                Or T.property_value Is Null
+    --                Or S.property_value Is Null
+    --            )
+    Merge property.RepoObjectProperty As T
     Using
     (
         Select
@@ -83,7 +136,7 @@ Begin
        )
     When Matched
         Then Update Set
-                 property_value = S.property_value
+                 T.property_value = S.property_value
     When Not Matched
         Then Insert
              (
@@ -97,10 +150,12 @@ Begin
                    , S.property_name
                    , S.property_value
                  )
-    Output
-        deleted.*
-      , $ACTION
-      , inserted.*;
+    ----Output issue because of calculated column in target table
+    --Output
+    --    deleted.*
+    --  , $ACTION
+    --  , inserted.*
+    ;
 End;
 Go
 Execute sp_addextendedproperty

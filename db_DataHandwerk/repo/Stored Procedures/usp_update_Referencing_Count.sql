@@ -116,38 +116,38 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',19,';',310,';',NULL);
 Update
     roc
 Set
-    [Referencing_Count] = [rorc].[Referencing_Count]
+    roc.Referencing_Count = rorc.Referencing_Count
 From
-    [repo].[RepoObjectColumn] roc
+    repo.RepoObjectColumn As roc
     Left Outer Join
-        [repo].[RepoObject]   [ro]
+        repo.RepoObject   As ro
             On
-            roc.[RepoObject_guid]        = [ro].[RepoObject_guid]
+            roc.RepoObject_guid      = ro.RepoObject_guid
 
     Left Outer Join
     (
         Select
-            ror.[referenced_schema_name]
-          , ror.[referenced_entity_name]
-          , ror.[referenced_minor_name]
-          , Count ( Distinct ror.[RepoObject_guid] ) As [Referencing_Count]
+            ror.referenced_schema_name
+          , ror.referenced_entity_name
+          , ror.referenced_minor_name
+          , Referencing_Count = Count ( Distinct ror.RepoObject_guid )
         From
-            [repo_sys].[RepoObjectReferenced]   As [ror]
+            repo_sys.RepoObjectReferenced         As ror
             Cross Join config.ftv_dwh_database () As dwhdb
         Where
-            ror.[referenced_database_name] = dwhdb.dwh_database_name
-            Or ror.[referenced_database_name] Is Null
+            ror.referenced_database_name = dwhdb.dwh_database_name
+            Or ror.referenced_database_name Is Null
         Group By
-            ror.[referenced_schema_name]
-          , ror.[referenced_entity_name]
-          , ror.[referenced_minor_name]
-    )                         As [rorc]
+            ror.referenced_schema_name
+          , ror.referenced_entity_name
+          , ror.referenced_minor_name
+    )                     As rorc
         On
-        roc.[SysObjectColumn_name]       = [rorc].[referenced_minor_name]
-        And [ro].[SysObject_name]        = [rorc].[referenced_entity_name]
-        And [ro].[SysObject_schema_name] = rorc.[referenced_schema_name]
+        roc.SysObjectColumn_name     = rorc.referenced_minor_name
+        And ro.SysObject_name        = rorc.referenced_entity_name
+        And ro.SysObject_schema_name = rorc.referenced_schema_name
 Where
-    IsNull ( roc.[Referencing_Count], 0 ) <> IsNull ( [rorc].[Referencing_Count], 0 );
+    IsNull ( roc.Referencing_Count, 0 ) <> IsNull ( rorc.Referencing_Count, 0 )
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

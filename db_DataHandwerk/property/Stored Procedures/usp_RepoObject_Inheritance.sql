@@ -323,10 +323,12 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                                        , S.property_name
                                        , S.property_value_new
                                      )
-                        Output
-                            deleted.*
-                          , $ACTION
-                          , inserted.*;
+                        ----Output issue because of calculated column in target table
+                        --Output
+                        --    deleted.*
+                        --  , $ACTION
+                        --  , inserted.*
+                        ;
 
                         Set @rows = @@RowCount
                         Set @loop_rows = @loop_rows + @rows
@@ -423,10 +425,12 @@ WHERE [T1].[resulting_InheritanceDefinition] = ''' + @resulting_InheritanceDefin
                                        , S.property_name
                                        , S.property_value_new
                                      )
-                        Output
-                            deleted.*
-                          , $ACTION
-                          , inserted.*;
+                        ----Output issue because of calculated column in target table
+                        --Output
+                        --    deleted.*
+                        --  , $ACTION
+                        --  , inserted.*
+                        ;
 
                         Set @rows = @@RowCount
                         Set @loop_rows = @loop_rows + @rows
