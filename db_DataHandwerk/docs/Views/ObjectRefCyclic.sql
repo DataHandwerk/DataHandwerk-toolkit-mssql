@@ -20,10 +20,22 @@ Select
            , '
 [plantuml, ObjectRefCyclic, svg, subs=macros]
 ....
-include::partial$puml/objectrefcyclic.puml[]
+'
+           --, 'include::partial$puml/objectrefcyclic.puml[]'
+           , Concat (
+                        '@startuml' + Char ( 13 ) + Char ( 10 )
+                      , docs.fs_PumlHeaderTopToBottom ()
+                      , elist.PumlEntityOnlyPkList
+                      , Char ( 13 ) + Char ( 10 )
+                      , olist.PumlObjectRefList
+                      , Char ( 13 ) + Char ( 10 ) + puml_footer.Parameter_value_result + Char ( 13 ) + Char ( 10 )
+                      , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
+                    )
+           , '
 ....
 '
          )
+  --can be removed, if export is not required:
   , ObjectRefCyclic_Puml =
   --
   Concat (

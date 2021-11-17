@@ -5,9 +5,12 @@
     [sql_modules_formatted2]   NVARCHAR (MAX)   NULL,
     [sql_modules_json]         NVARCHAR (MAX)   NULL,
     [is_json_sql_modules_json] AS               (isjson([sql_modules_json])) PERSISTED,
+    [RepoObject_fullname2]     AS               ([config].[fs_RepoObject_fullname2]([RepoObject_guid])),
     CONSTRAINT [PK_RepoObject_SqlModules] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_SqlModules__RepoObject1] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -124,4 +127,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '485889ab-cb47-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
 

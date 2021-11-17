@@ -141,27 +141,27 @@ Begin
     --Execute the BCP command
     Exec sys.xp_cmdshell @command, no_output
 
-    Set @command
-        = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic] '
-          + 'WHERE cultures_name = ''' + @cultures_name + ''''
-          --
-          + '" queryout "'
-          --
-          + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\partials\puml\' + 'objectrefcyclic.puml"'
-          --
-          + ' -S ' + @instanceName
-          --
-          + ' -d ' + @databaseName
-          --
-          + ' -c -C 65001'
-          --
-          + @TrustedUserPassword
+    --Set @command
+    --    = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic] '
+    --      + 'WHERE cultures_name = ''' + @cultures_name + ''''
+    --      --
+    --      + '" queryout "'
+    --      --
+    --      + docs.fs_AntoraModuleFolder ( @cultures_name )
+    --      + '\partials\puml\' + 'objectrefcyclic.puml"'
+    --      --
+    --      + ' -S ' + @instanceName
+    --      --
+    --      + ' -d ' + @databaseName
+    --      --
+    --      + ' -c -C 65001'
+    --      --
+    --      + @TrustedUserPassword
 
-    Print @command
+    --Print @command
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     Fetch Next From page_cursor
     Into

@@ -56,8 +56,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== existing_properties'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== existing_properties' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::existing_properties[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , String_Agg (
@@ -112,8 +111,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== RepoObject_guid'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== RepoObject_guid' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::RepoObject_guid[]'
            , Char ( 13 ) + Char ( 10 )
            , rof.RepoObject_guid
@@ -122,8 +120,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== RepoObject_FullDisplayName2'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== RepoObject_FullDisplayName2' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::RepoObject_FullDisplayName2[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( rof.RepoObject_FullDisplayName2 )
@@ -132,8 +129,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== SysObject_type'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== SysObject_type' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_type[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( rof.SysObject_type )
@@ -142,8 +138,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== SysObject_type_name'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== SysObject_type_name' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_type_name[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( rof.SysObject_type_name )
@@ -152,8 +147,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== SysObject_id'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== SysObject_id' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_id[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( ro.SysObject_id )
@@ -162,8 +156,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== SysObject_modify_date'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== SysObject_modify_date' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::SysObject_modify_date[]'
            , Char ( 13 ) + Char ( 10 )
            , Convert ( NVarchar(20), Max ( ro.SysObject_modify_date ), 120 )
@@ -173,8 +166,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraColumnDetails'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraColumnDetails' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraColumnDetails[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( clist.AntoraColumnDetails )
@@ -183,8 +175,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraPkColumnTableRows'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraPkColumnTableRows' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraPkColumnTableRows[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( clist.AntoraPkColumnTableRows )
@@ -193,8 +184,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraNonPkColumnTableRows'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraNonPkColumnTableRows' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraNonPkColumnTableRows[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( clist.AntoraNonPkColumnTableRows )
@@ -204,8 +194,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraIndexList'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraIndexList' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraIndexList[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( ilist.AntoraIndexList )
@@ -215,8 +204,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraMeasureDetails'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraMeasureDetails' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraMeasureDetails[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( mlist.AntoraMeasureDetails )
@@ -226,8 +214,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraMeasureDescriptions'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraMeasureDescriptions' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            --, '// tag::AntoraMeasureDescriptions[]'
            --, Char ( 13 ) + Char ( 10 )
            , Max ( mdlist.AntoraMeasureDescriptions )
@@ -237,8 +224,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraParameterList'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraParameterList' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraParameterList[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( parlist.AntoraParameterList )
@@ -248,8 +234,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== AntoraXrefCulturesList'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== AntoraXrefCulturesList' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::AntoraXrefCulturesList[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( axlist.AntoraXrefCulturesList )
@@ -258,8 +243,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== cultures_count'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== cultures_count' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::cultures_count[]'
            , Char ( 13 ) + Char ( 10 )
            , Max ( axlist.cultures_count )
@@ -269,8 +253,7 @@ Select
 
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== Other tags'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== Other tags' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , 'source: property.RepoObjectProperty_cross As rop_cross'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , String_Agg (
@@ -295,8 +278,7 @@ Select
                         ) Within Group(Order By
                                            rop_cross.property_name)
            , Char ( 13 ) + Char ( 10 )
-           , '== Boolean Attributes'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== Boolean Attributes' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , 'source: property.RepoObjectProperty WHERE property_int = 1'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::boolean_attributes[]'
@@ -318,10 +300,74 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// end::boolean_attributes[]'
            , Char ( 13 ) + Char ( 10 )
+
            --
            , Char ( 13 ) + Char ( 10 )
-           , '== sql_modules_definition'
+           , '== PlantUML diagrams' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '=== PlantUML Entity' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '// tag::puml_entity[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , docs.fs_PumlHeaderTopToBottom () + Max ( pumle.RepoObject_Puml )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::puml_entity[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '=== PlantUML Entity 1 1 FK' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '// tag::puml_entity_1_1_fk[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_fk-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Max ( puml.PlantumlEntity_1_1_FkRef )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::puml_entity_1_1_fk[]'
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '=== PlantUML 1 1 ObjectRef' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '// tag::puml_entity_1_1_objectref[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_objectref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Max ( puml.PlantumlEntity_1_1_ObjectRef )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::puml_entity_1_1_objectref[]'
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '=== PlantUML 30 0 ObjectRef' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '// tag::puml_entity_30_0_objectref[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_30_0_objectref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Max ( puml.PlantumlEntity_30_0_ObjectRef )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::puml_entity_30_0_objectref[]'
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '=== PlantUML 0 30 ObjectRef' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '// tag::puml_entity_0_30_objectref[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_0_30_objectref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Max ( puml.PlantumlEntity_0_30_ObjectRef )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::puml_entity_0_30_objectref[]'
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '=== PlantUML 1 1 ColumnRef' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '// tag::puml_entity_1_1_colref[]'
+           , Char ( 13 ) + Char ( 10 )
+           , '[plantuml, entity_1_1_colref-{docname}, svg, subs=macros]' + Char ( 13 ) + Char ( 10 )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Max ( puml.PlantumlEntity_1_1_ColRef )
+           , '....' + Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 )
+           , '// end::puml_entity_1_1_colref[]'
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+
+           --
+           , Char ( 13 ) + Char ( 10 )
+           , '== sql_modules_definition' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::sql_modules_definition[]'
            , Char ( 13 ) + Char ( 10 )
            , '[%collapsible]'
@@ -347,11 +393,7 @@ Select
   --
   Concat (
              ''
-           , '// tag::HeaderFullDisplayName[]'
-           , Char ( 13 ) + Char ( 10 )
            , '= ' + Max ( rof.RepoObject_FullDisplayName2 )
-           , Char ( 13 ) + Char ( 10 )
-           , '// end::HeaderFullDisplayName[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::description[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
@@ -361,8 +403,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// end::description[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-           , '== Measures'
-           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+           , '== Measures' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , Max ( mdlist.AntoraMeasureDescriptionTagContent )
            , Char ( 13 ) + Char ( 10 )
 
@@ -426,6 +467,18 @@ From
         docs.RepoObject_AntoraXrefCulturesList As axlist
             On
             axlist.RepoObject_guid    = ro.RepoObject_guid
+
+    Left Join
+        docs.RepoObject_Plantuml_Entity_T      As pumle
+            On
+            pumle.RepoObject_guid     = rof.RepoObject_guid
+            And pumle.cultures_name   = rof.cultures_name
+
+    Left Join
+        docs.RepoObject_Plantuml_T             As puml
+            On
+            puml.RepoObject_guid      = rof.RepoObject_guid
+            And puml.cultures_name    = rof.cultures_name
 Group By
     rof.RepoObject_guid
   , rof.cultures_name

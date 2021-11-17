@@ -72,3 +72,30 @@ Group By
   , rof.FilenameRelatedMeasures
 Having
     rof.RepoObject_DisplayName = '_measures'
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '84dc9176-b547-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureDescriptionList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ed675087-b547-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureDescriptionList', @level2type = N'COLUMN', @level2name = N'RepoObject_guid';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ef675087-b547-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureDescriptionList', @level2type = N'COLUMN', @level2name = N'RepoObject_DisplayName';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f0675087-b547-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureDescriptionList', @level2type = N'COLUMN', @level2name = N'FilenameRelatedMeasures';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ee675087-b547-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureDescriptionList', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f2675087-b547-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureDescriptionList', @level2type = N'COLUMN', @level2name = N'AntoraMeasureDescriptionTagContent';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f1675087-b547-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureDescriptionList', @level2type = N'COLUMN', @level2name = N'AntoraMeasureDescriptions';
+

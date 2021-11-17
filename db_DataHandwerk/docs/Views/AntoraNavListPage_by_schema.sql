@@ -1,7 +1,5 @@
 ﻿
-
-
-CREATE View [docs].[AntoraNavListPage_by_schema]
+CREATE View docs.AntoraNavListPage_by_schema
 As
 Select
     ro.RepoObject_schema_name
@@ -16,13 +14,14 @@ Select
            , '== Description'
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , Max ( rs.[RepoSchema_description] )
+           , Max ( rs.RepoSchema_description )
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
            , '== Objects'
            , Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 )
-           , 'include::partial$navlist/navlist-schema-' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.adoc[]'
+           , 'include::partial$navlist/navlist-schema-' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name )
+             + '.adoc[]'
            , Char ( 13 ) + Char ( 10 )
            , Iif(Max ( Cast(rs.is_ssas As Int)) = 1
                , Concat (
@@ -34,7 +33,9 @@ Select
                           , Char ( 13 ) + Char ( 10 )
                           , '....'
                           , Char ( 13 ) + Char ( 10 )
-                          , 'include::partial$puml/schema_ssas_er/' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.puml[]'
+                          --, 'include::partial$puml/schema_ssas_er/'
+                          --  + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.puml[]'
+                          , Max ( puml.PumlSchemaSsasEr )
                           , Char ( 13 ) + Char ( 10 )
                           , '....'
                           , Char ( 13 ) + Char ( 10 )
@@ -42,16 +43,22 @@ Select
                , Null)
          )
 From
-    repo.RepoObject                  As ro
+    repo.RepoObject                    As ro
     Left Join
-        repo.RepoSchema              As rs
+        repo.RepoSchema                As rs
             On
-            rs.RepoSchema_name  = ro.RepoObject_schema_name
+            rs.RepoSchema_name     = ro.RepoObject_schema_name
 
     Left Join
         docs.RepoObject_OutputFilter_T As rof
             On
-            rof.RepoObject_guid = ro.RepoObject_guid
+            rof.RepoObject_guid    = ro.RepoObject_guid
+
+    Left Join
+        docs.Schema_puml               As puml
+            On
+            puml.RepoSchema_guid   = rs.RepoSchema_guid
+            And puml.cultures_name = rof.cultures_name
 Where
     rof.is_external       = 0
     And rof.is_DocsOutput = 1

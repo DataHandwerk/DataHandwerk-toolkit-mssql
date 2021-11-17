@@ -71,6 +71,142 @@ PRINT '[repo].[usp_PERSIST_RepoSchema_ssas_tgt]'
 --
 ----- start here with your own code
 --
+/*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema_ssas_src]","log_target_object":"[repo].[RepoSchema_ssas_tgt]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',78,';',500,';',NULL);
+
+DELETE T
+FROM [repo].[RepoSchema_ssas_tgt] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [repo].[RepoSchema_ssas_src] AS S
+WHERE
+T.[RepoSchema_name] = S.[RepoSchema_name]
+)
+ 
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'delete persistence target missing in source'
+SET @source_object = '[repo].[RepoSchema_ssas_src]'
+SET @target_object = '[repo].[RepoSchema_ssas_tgt]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @deleted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema_ssas_src]","log_target_object":"[repo].[RepoSchema_ssas_tgt]","log_flag_InsertUpdateDelete":"U"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',78,';',600,';',NULL);
+
+UPDATE T
+SET
+  T.[is_ssas] = S.[is_ssas]
+, T.[is_SysSchema_missing] = S.[is_SysSchema_missing]
+, T.[RepoSchema_description] = S.[RepoSchema_description]
+, T.[RepoSchema_name] = S.[RepoSchema_name]
+, T.[SysSchema_name] = S.[SysSchema_name]
+
+FROM [repo].[RepoSchema_ssas_tgt] AS T
+INNER JOIN [repo].[RepoSchema_ssas_src] AS S
+ON
+T.[RepoSchema_name] = S.[RepoSchema_name]
+
+WHERE
+   T.[is_ssas] <> S.[is_ssas]
+OR T.[is_SysSchema_missing] <> S.[is_SysSchema_missing]
+OR T.[RepoSchema_description] <> S.[RepoSchema_description] OR (S.[RepoSchema_description] IS NULL AND NOT T.[RepoSchema_description] IS NULL) OR (NOT S.[RepoSchema_description] IS NULL AND T.[RepoSchema_description] IS NULL)
+OR T.[RepoSchema_name] <> S.[RepoSchema_name]
+OR T.[SysSchema_name] <> S.[SysSchema_name]
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'update changed'
+SET @source_object = '[repo].[RepoSchema_ssas_src]'
+SET @target_object = '[repo].[RepoSchema_ssas_tgt]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoSchema_ssas_src]","log_target_object":"[repo].[RepoSchema_ssas_tgt]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',78,';',700,';',NULL);
+
+INSERT INTO 
+ [repo].[RepoSchema_ssas_tgt]
+ (
+  [is_ssas]
+, [is_SysSchema_missing]
+, [RepoSchema_description]
+, [RepoSchema_name]
+, [SysSchema_name]
+)
+SELECT
+  [is_ssas]
+, [is_SysSchema_missing]
+, [RepoSchema_description]
+, [RepoSchema_name]
+, [SysSchema_name]
+
+FROM [repo].[RepoSchema_ssas_src] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [repo].[RepoSchema_ssas_tgt] AS T
+WHERE
+T.[RepoSchema_name] = S.[RepoSchema_name]
+)
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'insert missing'
+SET @source_object = '[repo].[RepoSchema_ssas_src]'
+SET @target_object = '[repo].[RepoSchema_ssas_tgt]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
 
 --
 --finish your own code here

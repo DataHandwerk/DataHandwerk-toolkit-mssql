@@ -1,8 +1,11 @@
 ﻿
 
+
+
+
 /*
 <<property_start>>Description
-include::sqldb:partial$description/config.parameter.adoc[]
+include::sqldb:partial$descriptiontags/config.parameter.adoc[tag=description,opts=optional]
 <<property_end>>
 
 <<property_start>>exampleUsage
@@ -467,10 +470,12 @@ endif::ExistsProperty--adocuspsteps[]
 
 == Entity Diagram
 
-[plantuml, entity-{docname}, svg, subs=macros]
-....
-include::partial$puml/entity/{docname}.puml[]
-....
+include::partial$content/{docname}.adoc[tag=puml_entity,opts=optional]
+
+//[plantuml, entity-{docname}, svg, subs=macros]
+//....
+//include::partial$puml/entity/{docname}.puml[]
+//....
 
 ifdef::ExistsProperty--Columns[]
 
@@ -523,10 +528,12 @@ ifdef::ExistsProperty--FK[]
 
 == Foreign Key Diagram
 
-[plantuml, entity_1_1_fk-{docname}, svg, subs=macros]
-....
-include::partial$puml/entity_1_1_fk/{docname}.puml[]
-....
+include::partial$content/{docname}.adoc[tag=puml_entity_1_1_fk,opts=optional]
+
+//[plantuml, entity_1_1_fk-{docname}, svg, subs=macros]
+//....
+//include::partial$puml/entity_1_1_fk/{docname}.puml[]
+//....
 
 endif::ExistsProperty--FK[]
 endif::is_ssas[]
@@ -559,36 +566,44 @@ endif::ExistsProperty--antorareferencinglist[]
 
 === Object Reference Diagram - 1 1
 
-[plantuml, entity_1_1_objectref-{docname}, svg, subs=macros]
-....
-include::partial$puml/entity_1_1_objectref/{docname}.puml[]
-....
+include::partial$content/{docname}.adoc[tag=puml_entity_1_1_objectref,opts=optional]
+
+//[plantuml, entity_1_1_objectref-{docname}, svg, subs=macros]
+//....
+//include::partial$puml/entity_1_1_objectref/{docname}.puml[]
+//....
 
 ifndef::is_ssas[]
 
 === Object Reference Diagram - Referenced - 30 0
 
-[plantuml, entity_30_0_objectref-{docname}, svg, subs=macros]
-....
-include::partial$puml/entity_30_0_objectref/{docname}.puml[]
-....
+include::partial$content/{docname}.adoc[tag=puml_entity_30_0_objectref,opts=optional]
+
+//[plantuml, entity_30_0_objectref-{docname}, svg, subs=macros]
+//....
+//include::partial$puml/entity_30_0_objectref/{docname}.puml[]
+//....
 
 === Object Reference Diagram - Referencing - 0 30
 
-[plantuml, entity_0_30_objectref-{docname}, svg, subs=macros]
-....
-include::partial$puml/entity_0_30_objectref/{docname}.puml[]
-....
+include::partial$content/{docname}.adoc[tag=puml_entity_0_30_objectref,opts=optional]
+
+//[plantuml, entity_0_30_objectref-{docname}, svg, subs=macros]
+//....
+//include::partial$puml/entity_0_30_objectref/{docname}.puml[]
+//....
 
 endif::is_ssas[]
 ifdef::ExistsProperty--Columns[]
 
 === Column Reference Diagram
 
-[plantuml, entity_1_1_colref-{docname}, svg, subs=macros]
-....
-include::partial$puml/entity_1_1_colref/{docname}.puml[]
-....
+include::partial$content/{docname}.adoc[tag=puml_entity_1_1_colref,opts=optional]
+
+//[plantuml, entity_1_1_colref-{docname}, svg, subs=macros]
+//....
+//include::partial$puml/entity_1_1_colref/{docname}.puml[]
+//....
 
 endif::ExistsProperty--Columns[]
 
@@ -691,7 +706,7 @@ Union All
 Select
     Parameter_name          = 'AntoraDocSnippet'
   , sub_Parameter           = N'antora-export-prerequisites'
-  , Parameter_desciption    = N'Documentation snippet for Antora export documentation.'
+  , Parameter_desciption    = N'obsolete! Documentation snippet for Antora export documentation.'
   , Parameter_default_value =
   --
   Concat (
