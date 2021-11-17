@@ -1,4 +1,5 @@
-﻿CREATE View docs.RepoObject_MeasureList
+﻿
+CREATE View [docs].[RepoObject_MeasureList]
 As
 Select
     rom.RepoObject_guid
@@ -64,7 +65,7 @@ Select
                                            + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
                                          , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                                          ----instead of {docname} use the _measures document
-                                         --, 'include::partial${docname}.adoc[tag=description-measure-'
+                                         --, 'include::partial$content/{docname}.adoc[tag=description-measure-'
                                          , 'include::partial$' + rof.FilenameRelatedMeasures
                                            + '.adoc[tag=description-measure-'
                                            + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName )

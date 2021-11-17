@@ -374,8 +374,8 @@ EXEC [docs].[usp_AntoraExport_SsisPageTemplate]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":1750,"Name":"[docs].[usp_AntoraExport_SsisPartialProperties]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [docs].[usp_AntoraExport_SsisPartialProperties]
+/*{"ReportUspStep":[{"Number":1750,"Name":"[docs].[usp_AntoraExport_SsisPartialsContent]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+EXEC [docs].[usp_AntoraExport_SsisPartialsContent]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

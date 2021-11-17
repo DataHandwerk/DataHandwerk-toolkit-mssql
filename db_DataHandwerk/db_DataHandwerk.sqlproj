@@ -281,7 +281,6 @@
     <Build Include="docs\Views\AntoraNavListRepoObject_by_type.sql" />
     <Build Include="docs\Views\AntoraNavListRepoObject_by_schema_type.sql" />
     <Build Include="docs\Views\AntoraNavListRepoObject_by_schema.sql" />
-    <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPartialProperties.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPage.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_Adoc_T.sql" />
     <Build Include="docs\Tables\RepoObject_Plantuml_Entity_T.sql" />
@@ -912,7 +911,6 @@
     <Build Include="dbo\Functions\crlf.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_ssis_Adoc_T.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_SsisPuml.sql" />
-    <Build Include="docs\Stored Procedures\usp_AntoraExport_SsisPartialProperties.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_SsisPageTemplate.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_SsisPage.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_SsisNavigation.sql" />
@@ -940,6 +938,8 @@
     <Build Include="Security\ssis_t.sql" />
     <Build Include="Security\ssis.sql" />
     <Build Include="docs\Views\RepoObject_MeasureDescriptionList.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_SsisPartialsContent.sql" />
+    <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPartialsContent.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

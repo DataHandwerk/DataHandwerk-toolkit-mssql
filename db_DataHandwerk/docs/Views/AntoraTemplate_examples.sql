@@ -2,6 +2,7 @@
 
 
 
+
 /*
 <<property_start>>Description
 * generates the content for the 'partial$template/master-page-examples.adoc[]'
@@ -15,7 +16,7 @@
 	====
 	[source,sql,numbered]
 	----
-	include::partial${docname}.adoc[tag=exampleabc]
+	include::partial$content/{docname}.adoc[tag=exampleabc]
 	----
 	====
 
@@ -53,7 +54,7 @@ From
                                           , Char ( 13 ) + Char ( 10 )
                                           , '----'
                                           , Char ( 13 ) + Char ( 10 )
-                                          , 'include::partial${docname}.adoc[tag=' + Lower ( property_name ) + ']'
+                                          , 'include::partial$content/{docname}.adoc[tag=' + Lower ( property_name ) + ']'
                                           , Char ( 13 ) + Char ( 10 )
                                           , '----'
                                           , Char ( 13 ) + Char ( 10 )

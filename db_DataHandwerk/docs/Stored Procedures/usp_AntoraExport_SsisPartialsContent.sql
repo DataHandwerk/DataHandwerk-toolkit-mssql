@@ -2,7 +2,7 @@
 code of this procedure is managed in the dhw repository. Do not modify manually.
 Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
 */
-CREATE   PROCEDURE [docs].[usp_AntoraExport_SsisPartialProperties]
+CREATE   PROCEDURE [docs].[usp_AntoraExport_SsisPartialsContent]
 @isTrustedConnection BIT = 1 /* specify whether you are connecting to the SQL instance with a trusted connection (Windows Authentication) or not */
 ,@userName NVARCHAR(250) = 'loginName' /* If isTrustedConnection is set to 0 then you will need to add username and password for connecting to the SQL Server instance */
 ,@password NVARCHAR(250) = 'password'
@@ -70,7 +70,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @parameter_02 = @userName
  , @parameter_03 = @password
 --
-PRINT '[docs].[usp_AntoraExport_SsisPartialProperties]'
+PRINT '[docs].[usp_AntoraExport_SsisPartialsContent]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
@@ -145,7 +145,7 @@ Begin
                    --
                    + config.fs_get_parameter_value ( 'AntoraComponentFolder', '' ) + '\modules\' + @AntoraModule
                    --
-                   + '\partials\' + docs.fs_cleanStringForFilename ( @PackageBasename ) + '.adoc"'
+                   + '\partials\content\' + docs.fs_cleanStringForFilename ( @PackageBasename ) + '.adoc"'
                    --
                    + ' -S ' + @instanceName
                    --
@@ -221,6 +221,3 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
 
 END
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '8f9a07f7-c23c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'PROCEDURE', @level1name = N'usp_AntoraExport_SsisPartialProperties';
-
