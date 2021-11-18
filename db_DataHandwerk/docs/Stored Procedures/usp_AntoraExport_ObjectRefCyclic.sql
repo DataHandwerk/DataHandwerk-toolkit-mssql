@@ -126,7 +126,7 @@ Begin
           + '" queryout "'
           --
           + docs.fs_AntoraModuleFolder ( @cultures_name )
-          + '\pages\other\' + 'objectrefcyclic.adoc"'
+          + '\pages\' + 'objectrefcyclic.adoc"'
           --
           + ' -S ' + @instanceName
           --

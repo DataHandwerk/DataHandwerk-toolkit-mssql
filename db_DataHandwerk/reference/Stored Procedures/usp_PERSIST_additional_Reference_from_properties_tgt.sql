@@ -79,26 +79,26 @@ INSERT INTO
  (
   [referenced_AntoraComponent]
 , [referenced_AntoraModule]
-, [referenced_Column]
-, [referenced_Object]
 , [referenced_Schema]
+, [referenced_Object]
+, [referenced_Column]
 , [referencing_AntoraComponent]
 , [referencing_AntoraModule]
-, [referencing_Column]
-, [referencing_Object]
 , [referencing_Schema]
+, [referencing_Object]
+, [referencing_Column]
 )
 SELECT
   [referenced_AntoraComponent]
 , [referenced_AntoraModule]
-, [referenced_Column]
-, [referenced_Object]
 , [referenced_Schema]
+, [referenced_Object]
+, [referenced_Column]
 , [referencing_AntoraComponent]
 , [referencing_AntoraModule]
-, [referencing_Column]
-, [referencing_Object]
 , [referencing_Schema]
+, [referencing_Object]
+, [referencing_Column]
 
 FROM [reference].[additional_Reference_from_properties_src] AS S
 WHERE

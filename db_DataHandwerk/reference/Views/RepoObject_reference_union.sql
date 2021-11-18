@@ -96,6 +96,9 @@ Select
   , one                                  = 1
 From
     reference.RepoObject_reference_persistence_target_as_source As T1
+Where
+    --the naming of the objects matches: `aaa.bbb_ccc_tgt <- aaa.bbb`
+    T1.has_match_left_and_suffix_tgt = 1
 Union All
 Select
     T1.referenced_RepoObject_guid
@@ -107,7 +110,7 @@ Select
   , T1.referenced_type
   , T1.referenced_external_AntoraComponent
   , T1.referenced_external_AntoraModule
-  , referenced_is_external
+  , T1.referenced_is_external
   , T1.referencing_entity_name
   , T1.referencing_fullname
   , T1.referencing_id
@@ -115,7 +118,7 @@ Select
   , T1.referencing_type
   , T1.referencing_external_AntoraComponent
   , T1.referencing_external_AntoraModule
-  , referencing_is_external
+  , T1.referencing_is_external
   , T1.InformationSource
   , one = 1
 From

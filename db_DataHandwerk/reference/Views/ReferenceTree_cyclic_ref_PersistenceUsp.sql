@@ -1,28 +1,34 @@
 ﻿
 /*
-reference.RepoObject_ReferenceTree_cyclic_ref_primary are uses as source to find related persistence procedures
+cyclic references are detected between persistence source and persistence target
+
+we want to include related persistence usp into the diagram
+
 */
-CREATE View [reference].[ReferenceTree_cyclic_ref_PersistenceUsp]
+CREATE View reference.ReferenceTree_cyclic_ref_PersistenceUsp
 As
 Select
     Distinct
-    T1.referenced_RepoObject_guid  As Referencing_guid
-  , T1.referencing_RepoObject_guid As Referenced_guid
-  , T1.referenced_fullname
-  , T1.referenced_fullname2
-  , T1.referenced_type
+    Referenced_guid  = T1.referenced_RepoObject_guid
+  , Referencing_guid = T1.referencing_RepoObject_guid
   , T1.referencing_fullname
   , T1.referencing_fullname2
   , T1.referencing_type
+  , T1.referenced_fullname
+  , T1.referenced_fullname2
+  , T1.referenced_type
 From
-    reference.RepoObject_reference_T                          As T1
+    --get persistence usp
+    reference.RepoObject_reference_T               As T1
     Inner Join
         reference.ReferenceTree_cyclic_ref_primary As T2
             On
             T1.referenced_RepoObject_guid = T2.Referencing_guid
 Where
+    --referencing object is a persistence usp
     ( T1.referencing_is_PersistenceUspTargetRef = 1 )
-    And ( T1.referenced_is_PersistenceTarget    = 1 );
+    --referenced object is the persistence target object
+    And ( T1.referenced_is_PersistenceTarget    = 1 )
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '82e72f09-c5fd-eb11-850f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'ReferenceTree_cyclic_ref_PersistenceUsp';
 

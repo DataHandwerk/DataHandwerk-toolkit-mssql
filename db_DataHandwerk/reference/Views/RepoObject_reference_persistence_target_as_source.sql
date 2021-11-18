@@ -1,30 +1,44 @@
 ﻿
-
 /*
-If a view is the target of a persistence to write to the data source of the view via this view, then this reverse reference is also to be displayed and used
+<<property_start>>Description
+include::partial$docsnippet/reference-from-persistence.adoc[]
+<<property_end>>
 */
-CREATE View [reference].[RepoObject_reference_persistence_target_as_source]
+CREATE View reference.RepoObject_reference_persistence_target_as_source
 As
 Select
-    referenced_id               = ref.referencing_id
-  , referencing_id              = ref.referenced_id
-  , referenced_entity_name      = ref.referencing_entity_name
-  , referenced_fullname         = ref.referencing_fullname
+    referenced_id                 = ref.referencing_id
+  , referencing_id                = ref.referenced_id
+  , referenced_entity_name        = ref.referencing_entity_name
+  , referenced_fullname           = ref.referencing_fullname
   --, [referenced_node_id]          = [referencing_node_id]
-  , referenced_RepoObject_guid  = ref.referencing_RepoObject_guid
-  , referenced_schema_name      = ref.referencing_schema_name
-  , referenced_type             = ref.referencing_type
-  , referencing_entity_name     = ref.referenced_entity_name
-  , referencing_fullname        = ref.referenced_fullname
+  , referenced_RepoObject_guid    = ref.referencing_RepoObject_guid
+  , referenced_schema_name        = ref.referencing_schema_name
+  , referenced_type               = ref.referencing_type
+  , referencing_entity_name       = ref.referenced_entity_name
+  , referencing_fullname          = ref.referenced_fullname
   --, [referencing_node_id]         = [referenced_node_id]
-  , referencing_RepoObject_guid = ref.referenced_RepoObject_guid
-  , referencing_schema_name     = ref.referenced_schema_name
-  , referencing_type            = ref.referenced_type
-  , InformationSource           = 'persistence_target_as_source'
+  , referencing_RepoObject_guid   = ref.referenced_RepoObject_guid
+  , referencing_schema_name       = ref.referenced_schema_name
+  , referencing_type              = ref.referenced_type
+  , InformationSource             = 'persistence_target_as_source'
+  --example: aaa.bbb_ccc_tgt <- aaa.bbb
+  , has_match_left_and_suffix_tgt = Iif(
+                                        ref.referencing_schema_name = ref.referenced_schema_name
+                                        And Right(ref.referencing_entity_name, 4) = '_tgt'
+                                        And ref.referencing_entity_name Like ref.referenced_entity_name + '%'
+                                      , 1
+                                      , 0)
+----example: aaa.bbb_tgt <- aaa.bbb
+--, has_match_exact_and_suffix_tgt = Iif(
+--                                       ref.referencing_schema_name = ref.referenced_schema_name
+--                                       And ref.referencing_entity_name = ref.referenced_entity_name + '_tgt'
+--                                     , 1
+--                                     , 0)
 From
     reference.RepoObject_reference_SqlExpressionDependencies As ref
     Left Join
-        repo.RepoObject_gross                                As ro
+        repo.RepoObject_gross_persistence                    As ro
             On
             ro.RepoObject_guid = ref.referencing_RepoObject_guid
 Where
@@ -162,4 +176,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [reference].[RepoObject_reference_SqlExpressionDependencies].[referencing_entity_name]', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_persistence_target_as_source', @level2type = N'COLUMN', @level2name = N'referenced_entity_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b09ff6cf-f347-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference_persistence_target_as_source', @level2type = N'COLUMN', @level2name = N'has_match_left_and_suffix_tgt';
 

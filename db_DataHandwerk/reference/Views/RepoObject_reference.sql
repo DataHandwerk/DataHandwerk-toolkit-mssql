@@ -2,28 +2,42 @@
 CREATE View reference.RepoObject_reference
 As
 Select
-    referenced_RepoObject_guid
-  , referencing_RepoObject_guid
-  , referenced_entity_name               = Max ( referenced_entity_name )
-  , referenced_schema_name               = Max ( referenced_schema_name )
-  , referenced_type                      = Max ( referenced_type )
-  , referenced_external_AntoraComponent  = Max ( referenced_external_AntoraComponent )
-  , referenced_external_AntoraModule     = Max ( referenced_external_AntoraModule )
-  , referenced_is_external               = Max ( referenced_is_external )
-  , referencing_entity_name              = Max ( referencing_entity_name )
-  , referencing_schema_name              = Max ( referencing_schema_name )
-  , referencing_type                     = Max ( referencing_type )
-  , referencing_external_AntoraComponent = Max ( referencing_external_AntoraComponent )
-  , referencing_external_AntoraModule    = Max ( referencing_external_AntoraModule )
-  , referencing_is_external              = Max ( referencing_is_external )
+    T1.referenced_RepoObject_guid
+  , T1.referencing_RepoObject_guid
+  , referenced_entity_name               = Max ( T1.referenced_entity_name )
+  , referenced_schema_name               = Max ( T1.referenced_schema_name )
+  , referenced_type                      = Max ( T1.referenced_type )
+  , referenced_external_AntoraComponent  = Max ( T1.referenced_external_AntoraComponent )
+  , referenced_external_AntoraModule     = Max ( T1.referenced_external_AntoraModule )
+  , referenced_is_external               = Max ( T1.referenced_is_external )
+  , referencing_entity_name              = Max ( T1.referencing_entity_name )
+  , referencing_schema_name              = Max ( T1.referencing_schema_name )
+  , referencing_type                     = Max ( T1.referencing_type )
+  , referencing_external_AntoraComponent = Max ( T1.referencing_external_AntoraComponent )
+  , referencing_external_AntoraModule    = Max ( T1.referencing_external_AntoraModule )
+  , referencing_is_external              = Max ( T1.referencing_is_external )
 From
-    reference.RepoObject_reference_union
+    reference.RepoObject_reference_union As T1
+Where
+    --avoid cyclic references
+    --exclude references `aaa.bbb <- aaa.bbb_ccc_tgt`, we already added `aaa.bbb_ccc_tgt <- aaa.bbb`
+    Not Exists
+(
+    Select
+        1
+    From
+        reference.RepoObject_reference_persistence_target_as_source As T2
+    Where
+        T2.has_match_left_and_suffix_tgt   = 1
+        And T2.referenced_RepoObject_guid  = T1.referencing_RepoObject_guid
+        And T2.referencing_RepoObject_guid = T1.referenced_RepoObject_guid
+)
 Group By
-    referenced_RepoObject_guid
-  , referencing_RepoObject_guid
+    T1.referenced_RepoObject_guid
+  , T1.referencing_RepoObject_guid
 Having
-    ( Not ( referenced_RepoObject_guid Is Null ))
-    And ( Not ( referencing_RepoObject_guid Is Null ))
+    ( Not ( T1.referenced_RepoObject_guid Is Null ))
+    And ( Not ( T1.referencing_RepoObject_guid Is Null ))
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6ba279f1-54f5-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'VIEW', @level1name = N'RepoObject_reference', @level2type = N'COLUMN', @level2name = N'referencing_type';
 

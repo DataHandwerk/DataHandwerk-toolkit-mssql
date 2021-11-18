@@ -1,6 +1,11 @@
 ﻿
 
-CREATE View reference.RepoObject_reference_persistence
+/*
+<<property_start>>Description
+include::partial$docsnippet/reference-from-persistence.adoc[]
+<<property_end>>
+*/
+CREATE View [reference].[RepoObject_reference_persistence]
 As
 --
 Select
