@@ -1,1 +1,50 @@
-use this empty repository as template for the required folder structure required by Antora and by the export procedure [docs].[usp_AntoraExport]
+use this folder as template for the folder structure required by Antora and by the export procedure [docs].[usp_AntoraExport]
+
+* create required folder structure
+** copy the required folder structure including all basic content from https://gitlab.com/datahandwerk/DataHandwerk-toolkit-mssql/-/tree/main/template-antora-db[] into into your target repository.
+** rename the folder, in our example 'dhw-antora-ssas'
+** check and update the content of some files and rename some folders
+** create a local git repository and do a first commit
+
+the template structure:
+
+* 'docs' and 'docsmanual' are two (2) start_paths, used in the Antora Playbook yaml files
+** 'docs' should be filled using the export procedure [docs].[usp_AntoraExport] +
+when exporting the files in subfolders 'partials' and 'pages' are deleted, that's why you should not add manuell context into these folder
+** 'docsmanual' contains additional manual created and updated content. We use this separate start_path to avoid automatic deletion of files by [docs].[usp_AntoraExport]
+* the next level folder in both start_path is the folder 'modules', containing Antora modules
+* parallel to the folder 'modules' a file 'antora.yml' is required to define the Antora component. See https://docs.antora.org/antora/2.3/component-version/[What’s a Component Version?] and https://docs.antora.org/antora/2.3/component-version-descriptor/[What’s antora.yml?]
++
+IMPORTANT: Both 'antora.yml' files in 'docs' and 'docsmanual' needs to match.
++
+====
+[source,yaml]
+....
+name: mycomponent <1>
+title: My Project <2>
+version: 0.1.0 <3>
+nav:
+- modules/sqldb/nav.adoc <4>
+....
+<1> use the same component name in multiple `antora.yml` to combine them in one component
+<2> define the component `title` _only in one file_, not in both
+<3> use the same version(s) in related `antora.yml` to get a consistent documentation, use `~` to https://docs.antora.org/antora/3.0/component-with-no-version/[Define a Component with No Version]
+<4> define the `nav` (Navigation structure) _only in one file_, not in both
+====
+* the default module in both start_path is 'sqldb'. if you don't use the default AntoraModule 'sqldb' then rename the folder to match your 'AntoraModule' parameter settings in config.parameter.adoc[]. You also need to adapt the `nav` entry in 'antora.yml' to match
+* the start_path 'docsmanual' contains an additional component ROOT. The file 'index.adoc' in the folder 'pages' defines the *home page* of the component. You need to update the content.
+* 'nav.adoc' - each module needs one (1) file 'nav.adoc' to define the navigation structure. See: https://docs.antora.org/antora/2.3/navigation/files-and-lists/[Navigation Files and Lists]
+** if a module has multiple source folders, for example the module 'sqldb' is included under both start_path 'docs' and 'docsmanual' you need to care about _having only one 'nav.adoc'_ under 'docs\modules\sqldb' or 'docsmanual\modules\sqldb' +
+We suggest using the 'docs\modules\sqldb\nav.adoc' because it contains the links to automated exported content.
+*** When you document *relational databases* then you should keep the `include::partial$navlist/nav-by-schema.adoc[]`
+*** to document *SSAS Tabular models*, uncomment `* xref:other/objectrefcyclic.adoc[]` and `* xref:other/indexsemanticgroup.adoc[]`
+** example file content (unindent the content, if you want to use it, the indent should avoild `include` processing.)
++
+====
+....
+ include::partial$navlist/nav-by-schema.adoc[]
+ * xref:other/objectrefcyclic.adoc[]
+ * xref:other/indexsemanticgroup.adoc[]
+....
+====
+
