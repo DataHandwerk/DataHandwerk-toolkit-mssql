@@ -940,11 +940,12 @@
     <Build Include="docs\Views\RepoObject_MeasureDescriptionList.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_SsisPartialsContent.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_ObjectPartialsContent.sql" />
-    <Build Include="config\Functions\fs_RepoObject_fullname2.sql" />
     <Build Include="workflow\Views\ProcedureDependency_PersistenceDependency_tgt.sql" />
     <Build Include="workflow\Views\ProcedureDependency_PersistenceDependency_src.sql" />
     <Build Include="repo\Views\RepoObject_gross_persistence.sql" />
     <Build Include="workflow\Stored Procedures\usp_PERSIST_ProcedureDependency_PersistenceDependency_tgt.sql" />
+    <Build Include="uspgenerator\Functions\fs_usp_fullname.sql" />
+    <Build Include="repo\Functions\fs_RepoObject_fullname2.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

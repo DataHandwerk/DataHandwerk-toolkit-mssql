@@ -9,11 +9,13 @@
     [property_real]         AS               (TRY_CAST(left([property_value],(4000)) AS [real])),
     [property_float]        AS               (TRY_CAST(left([property_value],(4000)) AS [float])),
     [property_money]        AS               (TRY_CAST(left([property_value],(4000)) AS [money])),
-    [RepoObject_fullname2]  AS               ([config].[fs_RepoObject_fullname2]([RepoObject_guid])),
+    [RepoObject_fullname2]  AS               ([repo].[fs_RepoObject_fullname2]([RepoObject_guid])),
     CONSTRAINT [PK_RepoObjectProperty] PRIMARY KEY CLUSTERED ([RepoObjectProperty_id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObjectProperty__RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObjectProperty] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 

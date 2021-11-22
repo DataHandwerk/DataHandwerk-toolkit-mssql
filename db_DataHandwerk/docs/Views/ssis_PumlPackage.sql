@@ -25,6 +25,8 @@ package "'
            , Max ( pf.PumlPartialControlFlows )
            --
            , Char ( 13 ) + Char ( 10 )
+           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+             + Max ( puml_skinparam_component.Parameter_value_result ) + Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + Max ( puml_footer.Parameter_value_result )
              + Char ( 13 ) + Char ( 10 )
            , Char ( 13 ) + Char ( 10 ) + '@enduml' + Char ( 13 ) + Char ( 10 )
@@ -37,6 +39,7 @@ From
             pf.AntoraModule = pt.AntoraModule
             And pf.PackageName = pt.PackageName
     Cross Join config.ftv_get_parameter_value ( 'puml_footer', 'interactive' ) As puml_footer
+    Cross Join config.ftv_get_parameter_value ( 'puml_skinparam_component', 'ssis_task' ) As puml_skinparam_component
 Group By
     pt.AntoraModule
   , pt.PackageName

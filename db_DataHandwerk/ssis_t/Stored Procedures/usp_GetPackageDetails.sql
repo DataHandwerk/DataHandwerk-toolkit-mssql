@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 logic and implementation is based on this blog article https://www.sqlservercentral.com/articles/ssis-package-documentor[SSIS Package documentor] +
 from 2016-11-04 (first published: 2015-09-01) +
 author: https://www.sqlservercentral.com/author/Divya-Agrawal
@@ -7,39 +6,6 @@ author: https://www.sqlservercentral.com/author/Divya-Agrawal
 the article explains how does it work and provides a link for a procedure script: 
 https://www.sqlservercentral.com/wp-content/uploads/2019/05/CodeReviewAcceleratior_v10.sql
 
-changes:
-
-* create and use dedicated schema ssis
-* don't drop and create tables, but truncate them
-* drop only temp tables
-* reformat code
-* replace temp tables by permanent tables for better error tracking
-* added [ssis].[pkgStats].[ProjectPath]
-
-issues:
-
-* empty columns in [ssis].[PackageAnalysis]
-** [x] SourceColumn
-** [x] DestinationColumn
-** [ ] SortKeyPosition
-** [ ] DerivedValue
-** [ ] ResultSetParameterName
-** [ ] ParameterBindingSequence
-** [ ] ParameterBindingParameterName
-** [ ] ExecutePackageExpression
-** [ ] ExecutedPackageName
-** [ ] ExecutePackageConnection
-** [ ] Script
-** [ ] Variable
-** [ ] LookupJoins
-** [ ] IsSortedProperty
-** [ ] MultihashcolumnSortPosition
-** [ ] RetainSameConnectionProperty
-* empty tables
-** [x] [ssis].[TblDFTTaskDetails]
-** [x] [ssis].[TblSrcDestDetails]
-** [x] [ssis].[TblDerivedTaskDetails]
-** [ ] [ssis].[TblLookupTaskDetails]
 
 * empty columns in ssis.TblControlFlowDetails
 ** [ ] TaskTypeDescription
@@ -112,7 +78,7 @@ Exec sys.sp_configure 'xp_cmdshell', 1
 Reconfigure With Override
 
 */
-CREATE Procedure ssis_t.usp_GetPackageDetails @ProjectPath Varchar(8000) = 'C:\Packages1'
+CREATE Procedure [ssis_t].[usp_GetPackageDetails] @ProjectPath Varchar(8000) = 'C:\Packages1'
 As
 Begin
     Set NoCount On;
@@ -178,7 +144,7 @@ Begin
     Declare @CommandLine Varchar(8000);
 
     Select
-        @CommandLine = Left('dir "' + @Path + '" /A-D /B /S ', 8000);
+        @CommandLine = Left('dir "' + @Path + '" /A-D /B /S', 8000);
 
     Insert Into @MyFiles
     (

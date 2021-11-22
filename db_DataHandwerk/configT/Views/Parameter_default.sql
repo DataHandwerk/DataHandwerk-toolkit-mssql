@@ -1,4 +1,6 @@
 ﻿
+
+
 /*
 <<property_start>>Description
 include::sqldb:partial$descriptiontags/config.parameter.adoc[tag=description,opts=optional]
@@ -35,7 +37,7 @@ dhw,sqldb,configT,Parameter_default,Parameter_default_value,dhw,sqldb,config,Par
 <<property_end>>
 */
 
-CREATE View configT.Parameter_default
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -245,16 +247,34 @@ skinparam class {
   BackgroundColor<<FT>> LightGray
   BackgroundColor<<IF>> Yellow
   BackgroundColor<<IS>> Yellow
-  BackgroundColor<<P>> Aqua
+  BackgroundColor<<P>>  Aqua
   BackgroundColor<<PC>> Aqua
   BackgroundColor<<SN>> Yellow
   BackgroundColor<<SO>> SlateBlue
   BackgroundColor<<TF>> LightGray
   BackgroundColor<<TR>> Tomato
-  BackgroundColor<<U>> White
-  BackgroundColor<<V>> WhiteSmoke
-  BackgroundColor<<X>> Aqua
+  BackgroundColor<<U>>  White
+  BackgroundColor<<V>>  WhiteSmoke
+  BackgroundColor<<X>>  Aqua
   BackgroundColor<<external>> AliceBlue
+}
+'
+Union All
+Select
+    Parameter_name          = 'puml_skinparam_component'
+  , sub_Parameter           = N'ssis_task'
+  , Parameter_desciption    = N'skinparam component for generated PlantUML files for SSIS task components.'
+  , Parameter_default_value = N'
+skinparam component {
+    backgroundColor<<Microsoft.ASExecuteDDLTask>>   Aqua
+    backgroundColor<<Microsoft.DTSProcessingTask>>  DeepSkyBlue
+    backgroundColor<<Microsoft.ExecutePackageTask>> Yellow
+    backgroundColor<<Microsoft.ExecuteSQLTask>>     Khaki
+    backgroundColor<<Microsoft.ExpressionTask>>     Pink
+    backgroundColor<<Microsoft.Pipeline>>           LightCyan
+    backgroundColor<<Microsoft.ScriptTask>>         LightGreen
+    backgroundColor<<STOCK:FOREACHLOOP>>            LightGray
+    backgroundColor<<STOCK:SEQUENCE>>               White
 }
 '
 Union All

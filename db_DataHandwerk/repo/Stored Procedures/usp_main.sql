@@ -71,6 +71,35 @@ PRINT '[repo].[usp_main]'
 --
 ----- start here with your own code
 --
+/*{"ReportUspStep":[{"Number":150,"Name":"EXEC [config].[usp_init_parameter]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',2,';',150,';',NULL);
+
+EXEC [config].[usp_init_parameter]
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'EXEC [config].[usp_init_parameter]'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+
+-- Logging END --
+
 /*{"ReportUspStep":[{"Number":210,"Name":"(select config.fs_get_parameter_value ( 'sync enable', 'dwh' )) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select config.fs_get_parameter_value ( 'sync enable', 'dwh' )) = 1
 

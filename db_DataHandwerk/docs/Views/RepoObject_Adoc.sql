@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 <<property_start>>Description
 `AdocContent` is the content of a page to be used by Antora as partial.
 
@@ -374,7 +373,9 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '======='
            , Char ( 13 ) + Char ( 10 )
-           , '[source,sql,numbered]'
+           --indent_sql_modules_definition > 0 should be used if the code contains includes, ifdef and other parts, which should not apply
+           , '[source,sql,numbered' + ',indent='
+             + Cast(Max ( IsNull ( ro.indent_sql_modules_definition, 0 )) As NVarchar(10)) + ']'
            , Char ( 13 ) + Char ( 10 )
            , '----'
            , Char ( 13 ) + Char ( 10 )

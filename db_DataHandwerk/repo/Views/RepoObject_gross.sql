@@ -11,6 +11,7 @@ Select
   , ro.has_different_sys_names
   , ro.has_execution_plan_issue
   , ro.has_get_referenced_issue
+  , ro.indent_sql_modules_definition
   , ro.Inheritance_StringAggSeparatorSql
   , ro.InheritanceDefinition
   , ro.InheritanceType

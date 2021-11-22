@@ -166,12 +166,9 @@ EXEC logs.usp_ExecutionLog_insert
  , @target_object = @target_object
  , @inserted = @rows
 -- Logging END --
-END;
 
-/*{"ReportUspStep":[{"Number":320,"Parent_Number":300,"Name":"Delete Files but not folder in AntoraModule pages and partials - by SSIS AntoraModule","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
-ELSE
-BEGIN
-PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',320,';',300);
+/*{"ReportUspStep":[{"Number":320,"Parent_Number":310,"Name":"Delete Files but not folder in AntoraModule pages and partials - by SSIS AntoraModule","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',320,';',310);
 
 Declare module_cursor Cursor Local Fast_Forward For
 Select

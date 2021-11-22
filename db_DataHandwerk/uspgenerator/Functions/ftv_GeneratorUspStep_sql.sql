@@ -1,5 +1,5 @@
 ﻿
-CREATE Function [uspgenerator].[ftv_GeneratorUspStep_sql]
+CREATE Function uspgenerator.ftv_GeneratorUspStep_sql
 (
     @usp_id               Int
   , @number               Int
@@ -21,25 +21,25 @@ Return
                  , '/*'
                  , (
                        Select
-                           Number
-                         , Parent_Number
-                         , Name
-                         , has_logging
-                         , is_condition
-                         , is_inactive
-                         , is_SubProcedure
-                         , log_source_object
-                         , log_target_object
-                         , log_flag_InsertUpdateDelete
-                         , info_01
-                         , info_02
-                         , info_03
-                         , info_04
-                         , info_05
-                         , info_06
-                         , info_07
-                         , info_08
-                         , info_09
+                           s.Number
+                         , s.Parent_Number
+                         , s.Name
+                         , s.has_logging
+                         , s.is_condition
+                         , s.is_inactive
+                         , s.is_SubProcedure
+                         , s.log_source_object
+                         , s.log_target_object
+                         , s.log_flag_InsertUpdateDelete
+                         , s.info_01
+                         , s.info_02
+                         , s.info_03
+                         , s.info_04
+                         , s.info_05
+                         , s.info_06
+                         , s.info_07
+                         , s.info_08
+                         , s.info_09
                        For Json Path, Root('ReportUspStep')
                    )
                  , '*/'
@@ -51,58 +51,58 @@ Return
                    End
                  , Replicate ( 'BEGIN' + Char ( 13 ) + Char ( 10 ), @required_Begin_count )
                  , Case
-                       When is_SubProcedure = 1
+                       When s.is_SubProcedure = 1
                            Then
                            --no logging
                            Concat (
                                       'EXEC '
-                                    , Statement
+                                    , s.Statement
                                     , Char ( 13 ) + Char ( 10 )
                                     , '--add your own parameters'
                                     , Case
-                                          When Not info_01 Is Null
+                                          When Not s.info_01 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', '@', info_01 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', '@', s.info_01 )
                                       End
                                     , Case
-                                          When Not info_02 Is Null
+                                          When Not s.info_02 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_02 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_02 )
                                       End
                                     , Case
-                                          When Not info_03 Is Null
+                                          When Not s.info_03 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_03 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_03 )
                                       End
                                     , Case
-                                          When Not info_04 Is Null
+                                          When Not s.info_04 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_04 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_04 )
                                       End
                                     , Case
-                                          When Not info_05 Is Null
+                                          When Not s.info_05 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_05 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_05 )
                                       End
                                     , Case
-                                          When Not info_06 Is Null
+                                          When Not s.info_06 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_06 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_06 )
                                       End
                                     , Case
-                                          When Not info_07 Is Null
+                                          When Not s.info_07 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_07 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_07 )
                                       End
                                     , Case
-                                          When Not info_08 Is Null
+                                          When Not s.info_08 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_08 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_08 )
                                       End
                                     , Case
-                                          When Not info_09 Is Null
+                                          When Not s.info_09 Is Null
                                               Then
-                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', info_09 )
+                                              Concat ( Char ( 13 ) + Char ( 10 ), '  ', ',', '@', s.info_09 )
                                       End
                                     , Case
                                           When @usp_has_logging = 1
@@ -110,15 +110,15 @@ Return
                                               Concat (
                                                          ''
                                                        , Case
-                                                             When Not info_01 Is Null
-                                                                  Or Not info_02 Is Null
-                                                                  Or Not info_03 Is Null
-                                                                  Or Not info_04 Is Null
-                                                                  Or Not info_05 Is Null
-                                                                  Or Not info_06 Is Null
-                                                                  Or Not info_07 Is Null
-                                                                  Or Not info_08 Is Null
-                                                                  Or Not info_09 Is Null
+                                                             When Not s.info_01 Is Null
+                                                                  Or Not s.info_02 Is Null
+                                                                  Or Not s.info_03 Is Null
+                                                                  Or Not s.info_04 Is Null
+                                                                  Or Not s.info_05 Is Null
+                                                                  Or Not s.info_06 Is Null
+                                                                  Or Not s.info_07 Is Null
+                                                                  Or Not s.info_08 Is Null
+                                                                  Or Not s.info_09 Is Null
                                                                  Then
                                                                  Concat ( Char ( 13 ) + Char ( 10 ), ',' )
                                                          End
@@ -136,36 +136,36 @@ Return
                                       End
                                     , Char ( 13 ) + Char ( 10 )
                                   )
-                       When is_condition = 1
+                       When s.is_condition = 1
                            Then
                            --no logging
-                           Concat ( 'IF ', Statement )
+                           Concat ( 'IF ', s.Statement )
                        Else
                            --other statements
                            Concat (
                                       ''
                                     , 'PRINT CONCAT(''usp_id;Number;Parent_Number: '','
-                                    , usp_id
+                                    , s.usp_id
                                     , ','';'','
-                                    , Number
+                                    , s.Number
                                     , ','';'','
                                     , Case
-                                          When Not Parent_Number Is Null
+                                          When Not s.Parent_Number Is Null
                                               Then
-                                              Cast(Parent_Number As Varchar(50))
+                                              Cast(s.Parent_Number As Varchar(50))
                                           Else
                                               'NULL'
                                       End
                                     , ');'
                                     , Char ( 13 ) + Char ( 10 )
                                     , Char ( 13 ) + Char ( 10 )
-                                    , '/*' + Char ( 13 ) + Char ( 10 ) + Description + Char ( 13 ) + Char ( 10 ) + '*/'
-                                      + Char ( 13 ) + Char ( 10 )
-                                    , Statement
+                                    , '/*' + Char ( 13 ) + Char ( 10 ) + s.Description + Char ( 13 ) + Char ( 10 )
+                                      + '*/' + Char ( 13 ) + Char ( 10 )
+                                    , s.Statement
                                     --logging depending on parameter @usp_has_logging
                                     , Case
                                           When @usp_has_logging = 1
-                                               And has_logging = 1
+                                               And s.has_logging = 1
                                               Then
                                               Concat (
                                                          ''
@@ -180,27 +180,27 @@ Return
                                                        , Char ( 13 ) + Char ( 10 )
                                                        , 'SET @step_name = '
                                                        , Case
-                                                             When Not Name Is Null
+                                                             When Not s.Name Is Null
                                                                  Then
-                                                                 '''' + Replace ( Name, '''', '''''' ) + ''''
+                                                                 '''' + Replace ( s.Name, '''', '''''' ) + ''''
                                                              Else
                                                                  'NULL'
                                                          End
                                                        , Char ( 13 ) + Char ( 10 )
                                                        , 'SET @source_object = '
                                                        , Case
-                                                             When Not log_source_object Is Null
+                                                             When Not s.log_source_object Is Null
                                                                  Then
-                                                                 '''' + log_source_object + ''''
+                                                                 '''' + s.log_source_object + ''''
                                                              Else
                                                                  'NULL'
                                                          End
                                                        , Char ( 13 ) + Char ( 10 )
                                                        , 'SET @target_object = '
                                                        , Case
-                                                             When Not log_target_object Is Null
+                                                             When Not s.log_target_object Is Null
                                                                  Then
-                                                                 '''' + log_target_object + ''''
+                                                                 '''' + s.log_target_object + ''''
                                                              Else
                                                                  'NULL'
                                                          End
@@ -234,7 +234,7 @@ Return
                                                        , Char ( 13 ) + Char ( 10 )
                                                        , ' , @target_object = @target_object'
                                                        , Char ( 13 ) + Char ( 10 )
-                                                       , Case log_flag_InsertUpdateDelete
+                                                       , Case s.log_flag_InsertUpdateDelete
                                                              When 'I'
                                                                  Then
                                                                  ' , @inserted = @rows'
@@ -246,93 +246,84 @@ Return
                                                                  ' , @deleted = @rows'
                                                          End
                                                        , Case
-                                                             When Not info_01 Is Null
+                                                             When Not s.info_01 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_01
-                                                                          , ''''
+                                                                          , ' , @info_01 = '
+                                                                          , s.info_01
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_02 Is Null
+                                                             When Not s.info_02 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_02
-                                                                          , ''''
+                                                                          , ' , @info_02 = '
+                                                                          , s.info_02
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_03 Is Null
+                                                             When Not s.info_03 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_03
-                                                                          , ''''
+                                                                          , ' , @info_03 = '
+                                                                          , s.info_03
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_04 Is Null
+                                                             When Not s.info_04 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_04
-                                                                          , ''''
+                                                                          , ' , @info_04 = '
+                                                                          , s.info_04
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_05 Is Null
+                                                             When Not s.info_05 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_05
-                                                                          , ''''
+                                                                          , ' , @info_05 = '
+                                                                          , s.info_05
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_06 Is Null
+                                                             When Not s.info_06 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_06
-                                                                          , ''''
+                                                                          , ' , @info_06 = '
+                                                                          , s.info_06
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_07 Is Null
+                                                             When Not s.info_07 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_07
-                                                                          , ''''
+                                                                          , ' , @info_07 = '
+                                                                          , s.info_07
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_08 Is Null
+                                                             When Not s.info_08 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_08
-                                                                          , ''''
+                                                                          , ' , @info_08 = '
+                                                                          , s.info_08
                                                                         )
                                                          End
                                                        , Case
-                                                             When Not info_09 Is Null
+                                                             When Not s.info_09 Is Null
                                                                  Then
                                                                  Concat (
                                                                             Char ( 13 ) + Char ( 10 )
-                                                                          , ' , @info_01 = '''
-                                                                          , info_09
-                                                                          , ''''
+                                                                          , ' , @info_09 = '
+                                                                          , s.info_09
                                                                         )
                                                          End
                                                        , Char ( 13 ) + Char ( 10 )
@@ -345,10 +336,10 @@ Return
                  , Replicate ( Char ( 13 ) + Char ( 10 ) + 'END;', @required_End_count )
                  , Char ( 13 ) + Char ( 10 )
                )
-      , Number
-      , Statement
+      , s.Number
+      , s.Statement
     From
-        [uspgenerator].GeneratorUspStep s
+        uspgenerator.GeneratorUspStep As s
     Where
         s.usp_id     = @usp_id
         And s.Number = @number

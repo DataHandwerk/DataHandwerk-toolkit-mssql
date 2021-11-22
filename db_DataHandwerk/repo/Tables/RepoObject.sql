@@ -3,6 +3,7 @@
     [has_different_sys_names]             AS               (CONVERT([bit],case when [RepoObject_schema_name]<>[SysObject_schema_name] OR [RepoObject_name]<>[SysObject_name] OR [RepoObject_type]<>[SysObject_type] then (1) else (0) end)),
     [has_execution_plan_issue]            BIT              NULL,
     [has_get_referenced_issue]            BIT              NULL,
+    [indent_sql_modules_definition]       TINYINT          NULL,
     [Inheritance_StringAggSeparatorSql]   NVARCHAR (4000)  NULL,
     [InheritanceDefinition]               NVARCHAR (4000)  NULL,
     [Inheritance_Source_fullname]         NVARCHAR (261)   NULL,
@@ -45,6 +46,8 @@
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 

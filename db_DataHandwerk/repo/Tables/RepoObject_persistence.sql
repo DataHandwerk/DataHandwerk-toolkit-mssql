@@ -19,12 +19,14 @@
     [source_RepoObject_name]                NVARCHAR (128)   NULL,
     [source_filter]                         NVARCHAR (4000)  NULL,
     [target_filter]                         NVARCHAR (4000)  NULL,
-    [is_persistence]                        AS               (CONVERT([bit],(1))),
-    [temporal_type]                         AS               (CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end)),
-    [target_RepoObject_fullname2]           AS               ([config].[fs_RepoObject_fullname2]([target_RepoObject_guid])),
+    [is_persistence]                        AS               (CONVERT([bit],(1),(0))),
+    [temporal_type]                         AS               (CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end,(0))),
+    [target_RepoObject_fullname2]           AS               ([repo].[fs_RepoObject_fullname2]([target_RepoObject_guid])),
     CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 

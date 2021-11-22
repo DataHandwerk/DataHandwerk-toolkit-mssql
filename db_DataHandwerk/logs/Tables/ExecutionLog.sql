@@ -47,8 +47,10 @@
     [parameter_20]            NVARCHAR (4000)  NULL,
     [proc_schema_name]        NVARCHAR (128)   NULL,
     [proc_name]               NVARCHAR (128)   NULL,
-    CONSTRAINT [uq_ExecutionLog] UNIQUE NONCLUSTERED ([id] ASC)
+    CONSTRAINT [PK_ExecutionLog] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -304,20 +306,19 @@ EXECUTE sp_addextendedproperty @name = N'AntoraReferencingList', @value = N'* xr
 
 
 GO
-CREATE CLUSTERED COLUMNSTORE INDEX [CSI_logs_ExecutionLog]
-    ON [logs].[ExecutionLog];
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a064b404-96f7-eb11-850d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'uq_ExecutionLog';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'uq_ExecutionLog';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'uq_ExecutionLog';
+
+
+
+GO
+
 
 
 GO

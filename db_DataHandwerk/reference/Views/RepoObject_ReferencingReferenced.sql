@@ -1,5 +1,4 @@
 ﻿
-
 /*
 per referencing RepoObject all directly referenced RepoOobject are listed
 
@@ -36,7 +35,7 @@ Where Match(
 ////
 
 */
-CREATE View [reference].[RepoObject_ReferencedReferencing]
+CREATE View reference.RepoObject_ReferencedReferencing
 As
 Select
     T1.referenced_fullname
@@ -51,8 +50,10 @@ Select
                                            --* xref:target-page-filename.adoc[link text]
                                            --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                                            Cast('* xref:' As NVarchar(Max))
-                                         , T1.referenced_external_AntoraComponent + ':'
-                                         , T1.referenced_external_AntoraModule + ':'
+                                         --, T1.referenced_external_AntoraComponent + ':'
+                                         --, T1.referenced_external_AntoraModule + ':'
+                                         , T1.referenced_AntoraComponent + ':'
+                                         , T1.referenced_AntoraModule + ':'
                                          , docs.fs_cleanStringForFilename ( T1.referenced_fullname2 )
                                          , '.adoc[]'
                                          , ' in xref:' + T1.referenced_external_AntoraComponent + ':'
@@ -70,8 +71,10 @@ Select
                                            --* xref:target-page-filename.adoc[link text]
                                            --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
                                            Cast('* xref:' As NVarchar(Max))
-                                         , T1.referencing_external_AntoraComponent + ':'
-                                         , T1.referencing_external_AntoraModule + ':'
+                                         --, T1.referencing_external_AntoraComponent + ':'
+                                         --, T1.referencing_external_AntoraModule + ':'
+                                         , T1.referencing_AntoraComponent + ':'
+                                         , T1.referencing_AntoraModule + ':'
                                          , docs.fs_cleanStringForFilename ( T1.referencing_fullname2 )
                                          , '.adoc[]'
                                          , ' in xref:' + T1.referencing_external_AntoraComponent + ':'

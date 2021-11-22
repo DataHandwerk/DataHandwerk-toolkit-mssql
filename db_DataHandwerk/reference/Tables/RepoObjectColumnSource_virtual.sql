@@ -23,6 +23,12 @@ GO
 
 
 
+
+
+GO
+
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4377342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObjectColumnSource_virtual_RepoObjectColumn_guid1';
 
@@ -32,11 +38,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4277342a-21
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4577342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4477342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn';
+
 
 
 GO
@@ -82,19 +88,19 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn';
+
+
+
+GO
+
 
 
 GO

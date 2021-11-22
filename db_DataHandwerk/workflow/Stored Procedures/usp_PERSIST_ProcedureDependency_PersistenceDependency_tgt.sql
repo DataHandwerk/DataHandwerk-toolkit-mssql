@@ -114,9 +114,9 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',138,';',600,';',NULL);
 
 UPDATE T
 SET
-  T.[is_PersistenceDependency] = S.[is_PersistenceDependency]
-, T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
+  T.[referenced_Procedure_RepoObject_guid] = S.[referenced_Procedure_RepoObject_guid]
 , T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObject_guid]
+, T.[is_PersistenceDependency] = S.[is_PersistenceDependency]
 
 FROM [workflow].[ProcedureDependency_PersistenceDependency_tgt] AS T
 INNER JOIN [workflow].[ProcedureDependency_PersistenceDependency_src] AS S
@@ -126,8 +126,6 @@ AND T.[referencing_Procedure_RepoObject_guid] = S.[referencing_Procedure_RepoObj
 
 WHERE
    T.[is_PersistenceDependency] <> S.[is_PersistenceDependency]
-OR T.[referenced_Procedure_RepoObject_guid] <> S.[referenced_Procedure_RepoObject_guid] OR (S.[referenced_Procedure_RepoObject_guid] IS NULL AND NOT T.[referenced_Procedure_RepoObject_guid] IS NULL) OR (NOT S.[referenced_Procedure_RepoObject_guid] IS NULL AND T.[referenced_Procedure_RepoObject_guid] IS NULL)
-OR T.[referencing_Procedure_RepoObject_guid] <> S.[referencing_Procedure_RepoObject_guid] OR (S.[referencing_Procedure_RepoObject_guid] IS NULL AND NOT T.[referencing_Procedure_RepoObject_guid] IS NULL) OR (NOT S.[referencing_Procedure_RepoObject_guid] IS NULL AND T.[referencing_Procedure_RepoObject_guid] IS NULL)
 
 
 -- Logging START --
@@ -160,14 +158,14 @@ PRINT CONCAT('usp_id;Number;Parent_Number: ',138,';',700,';',NULL);
 INSERT INTO 
  [workflow].[ProcedureDependency_PersistenceDependency_tgt]
  (
-  [is_PersistenceDependency]
-, [referenced_Procedure_RepoObject_guid]
+  [referenced_Procedure_RepoObject_guid]
 , [referencing_Procedure_RepoObject_guid]
+, [is_PersistenceDependency]
 )
 SELECT
-  [is_PersistenceDependency]
-, [referenced_Procedure_RepoObject_guid]
+  [referenced_Procedure_RepoObject_guid]
 , [referencing_Procedure_RepoObject_guid]
+, [is_PersistenceDependency]
 
 FROM [workflow].[ProcedureDependency_PersistenceDependency_src] AS S
 WHERE

@@ -1,4 +1,5 @@
-﻿CREATE View [ssis].[PackageTask_LevelLagLead]
+﻿
+CREATE View ssis.PackageTask_LevelLagLead
 As
 Select
     T1.AntoraModule
@@ -9,6 +10,7 @@ Select
   , TaskPathLevelLag  = Lag ( T1.TaskPathLevel ) Over ( Partition By T1.AntoraModule, T1.PackageName Order By T1.TaskPath )
   , TaskPathLevelLead = Lead ( T1.TaskPathLevel ) Over ( Partition By T1.AntoraModule, T1.PackageName Order By T1.TaskPath )
   , T1.TaskPathParent
+  , T1.TaskType
   , T1.PackageBasename
 From
     ssis.PackageTask As T1

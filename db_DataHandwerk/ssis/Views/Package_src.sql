@@ -1,8 +1,5 @@
 ﻿
-
-
-
-CREATE View [ssis].[Package_src]
+CREATE View ssis.Package_src
 As
 Select
     proj.AntoraModule
@@ -69,6 +66,8 @@ From
         ssis.Project As proj
             On
             p.ProjectPath = proj.ProjectPath
+Where
+    Not Left(p.PackageName, 4) = 'obj\'
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'eafad5ee-113b-ec11-852c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssis', @level1type = N'VIEW', @level1name = N'Package_src', @level2type = N'COLUMN', @level2name = N'RowID';
 

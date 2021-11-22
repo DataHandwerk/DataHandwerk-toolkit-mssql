@@ -1,5 +1,4 @@
-﻿
-CREATE Procedure ssis_t.usp_GetProjectConnection @ProjectPath Varchar(8000) = 'C:\Packages1'
+﻿CREATE Procedure [ssis_t].[usp_GetProjectConnection] @ProjectPath Varchar(8000) = 'C:\Packages1'
 As
 Begin
     Set NoCount On;

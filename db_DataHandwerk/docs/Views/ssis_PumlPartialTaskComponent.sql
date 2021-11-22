@@ -1,4 +1,6 @@
-﻿CREATE View docs.ssis_PumlPartialTaskComponent
+﻿
+
+CREATE View [docs].[ssis_PumlPartialTaskComponent]
 As
 Select
     T3.AntoraModule
@@ -19,6 +21,9 @@ Select
   --
   Replicate ( '  ', T3.TaskPathLevel ) + 'component "' + T3.TaskName + '" as '
   + docs.fs_cleanStringForAnchorId ( T3.TaskPath )
+  --
+  + ' <<' + T3.TaskType + '>> '
+  --
   --hyperlink:
   --+ ' [[#task-' + docs.fs_cleanStringForAnchorId ( T3.TaskPath ) + ']]'
   --+ ' [[puml-link:' + docs.fs_cleanStringForFilename ( T3.PackageBasename ) + '.adoc#task-'
