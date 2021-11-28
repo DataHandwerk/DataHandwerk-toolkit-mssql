@@ -10,8 +10,10 @@
     [relationships_toColumn]               NVARCHAR (500)   NULL,
     [relationships_toTable]                NVARCHAR (500)   NULL,
     [ForeignKey_guid]                      UNIQUEIDENTIFIER CONSTRAINT [DF_model_json_32_relationships_T_ForeignKey_guid] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_model_json_32_relationships_T] PRIMARY KEY CLUSTERED ([ForeignKey_guid] ASC)
+    CONSTRAINT [PK_model_json_32_relationships_T] PRIMARY KEY CLUSTERED ([ForeignKey_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

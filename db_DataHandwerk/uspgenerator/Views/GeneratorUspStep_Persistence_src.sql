@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>Description
 * xref:sqldb:uspgenerator.generatoruspstep_persistence_src.adoc[] creates all possible steps for GeneratorUspStep
@@ -8,7 +7,7 @@
 <<property_end>>
 */
 
-CREATE View [uspgenerator].[GeneratorUspStep_Persistence_src]
+CREATE View uspgenerator.GeneratorUspStep_Persistence_src
 As
 --00:00:01
 Select
@@ -262,13 +261,19 @@ Select
   , is_condition                = 0
   , is_inactive                 = 0
   , is_SubProcedure             = 0
-  , Statement                   = 'DELETE T
-FROM ' + ro.RepoObject_fullname + ' AS T
-INNER JOIN ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
+  , Statement                   = Concat (
+                                             'DELETE T
+FROM '                                       + ro.RepoObject_fullname + ' AS T
+INNER JOIN '
+                                             + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 ON
-' + i.PersistenceWhereColumnList + '
+'
+                                             + i.PersistenceWhereColumnList
+                                           --ro.PersistenceCompareColumnList could be empty
+                                           , '
 WHERE
 ' + ro.PersistenceCompareColumnList
+                                         )
   , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'D'
@@ -305,15 +310,22 @@ Select
   , is_condition                = 0
   , is_inactive                 = 0
   , is_SubProcedure             = 0
-  , Statement                   = 'UPDATE T
+  , Statement                   = Concat (
+                                             'UPDATE T
 SET
-' + ro.PersistenceUpdateColumnList + '
-FROM ' + ro.RepoObject_fullname + ' AS T
-INNER JOIN ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
+'                                            + ro.PersistenceUpdateColumnList + '
+FROM '                                                                                    + ro.RepoObject_fullname
+                                             + ' AS T
+INNER JOIN '
+                                             + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 ON
-' + i.PersistenceWhereColumnList + '
+'
+                                             + i.PersistenceWhereColumnList
+                                           --ro.PersistenceCompareColumnList could be empty
+                                           , '
 WHERE
 ' + ro.PersistenceCompareColumnList
+                                         )
   , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
   , log_flag_InsertUpdateDelete = 'U'

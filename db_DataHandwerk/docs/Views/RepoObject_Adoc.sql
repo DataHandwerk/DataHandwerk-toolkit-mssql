@@ -1,4 +1,6 @@
-﻿/*
+﻿
+
+/*
 <<property_start>>Description
 `AdocContent` is the content of a page to be used by Antora as partial.
 
@@ -16,7 +18,7 @@ All Parts of the documentations are tagged, Antora can reference the content usi
 To use additional content in Antora documentation first try to include new properties into xref:property.repoobjectproperty.adoc[]
 <<property_end>>
 */
-CREATE View docs.RepoObject_Adoc
+CREATE View [docs].[RepoObject_Adoc]
 As
 Select
     rof.RepoObject_guid
@@ -398,7 +400,7 @@ Select
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::description[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-           , '// uncomment the following attribute, to hide exported descriptions' + Char ( 13 ) + Char ( 10 )
+           , '// uncomment the following attribute, to hide exported (by AntoraExport) descriptions. Keep the empty line on top of the attribute!' + Char ( 13 ) + Char ( 10 )
              + Char ( 13 ) + Char ( 10 )
            , '//:hide-exported-description:'
            , Char ( 13 ) + Char ( 10 )
@@ -416,70 +418,72 @@ From
     Left Join
         repo.RepoObject_gross                  As ro
             On
-            ro.RepoObject_guid        = rof.RepoObject_guid
+            ro.RepoObject_guid             = rof.RepoObject_guid
 
     Left Join
         repo.RepoObject_sat2_T                 As ros2
             On
-            ros2.RepoObject_guid      = rof.RepoObject_guid
+            ros2.RepoObject_guid           = rof.RepoObject_guid
 
     Left Join
         property.RepoObjectProperty_cross      As rop_cross
             On
-            rop_cross.RepoObject_guid = rof.RepoObject_guid
+            rop_cross.RepoObject_guid      = rof.RepoObject_guid
 
     Left Join
         property.RepoObjectProperty            As rop
             On
-            rop.RepoObject_guid       = rop_cross.RepoObject_guid
-            And rop.property_name     = rop_cross.property_name
+            rop.RepoObject_guid            = rop_cross.RepoObject_guid
+            And rop.property_name          = rop_cross.property_name
     --AND NOT rop.[property_nvarchar] IS NULL
 
     Left Join
         docs.RepoObject_ColumnList_T           As clist
             On
-            clist.RepoObject_guid     = ro.RepoObject_guid
-            And clist.cultures_name   = rof.cultures_name
+            clist.RepoObject_guid          = rof.RepoObject_guid
+            And clist.cultures_name        = rof.cultures_name
 
     Left Join
         docs.RepoObject_IndexList_T            As ilist
             On
-            ilist.RepoObject_guid     = ro.RepoObject_guid
-            And ilist.cultures_name   = rof.cultures_name
+            ilist.RepoObject_guid          = rof.RepoObject_guid
+            And ilist.cultures_name        = rof.cultures_name
 
     Left Join
         docs.RepoObject_MeasureList            As mlist
             On
-            mlist.RepoObject_guid     = ro.RepoObject_guid
-            And mlist.cultures_name   = rof.cultures_name
+            mlist.RepoObject_guid          = rof.RepoObject_guid
+            And mlist.cultures_name        = rof.cultures_name
+
+    --Attention, different join for mdlist, because external descriptions will be used only from pseudo table '_measures'
 
     Left Join
         docs.RepoObject_MeasureDescriptionList As mdlist
             On
-            mdlist.RepoObject_guid    = ro.RepoObject_guid
-            And mdlist.cultures_name  = rof.cultures_name
+            mdlist.FilenameRelatedMeasures = rof.FilenameRelatedMeasures
+            And mdlist.cultures_name       = rof.cultures_name
 
     Left Join
         docs.RepoObject_ParameterList          As parlist
             On
-            parlist.RepoObject_guid   = ro.RepoObject_guid
+            parlist.RepoObject_guid        = ro.RepoObject_guid
 
     Left Join
         docs.RepoObject_AntoraXrefCulturesList As axlist
             On
-            axlist.RepoObject_guid    = ro.RepoObject_guid
+            axlist.RepoObject_guid         = ro.RepoObject_guid
 
     Left Join
         docs.RepoObject_Plantuml_Entity_T      As pumle
             On
-            pumle.RepoObject_guid     = rof.RepoObject_guid
-            And pumle.cultures_name   = rof.cultures_name
+            pumle.RepoObject_guid          = rof.RepoObject_guid
+            And pumle.cultures_name        = rof.cultures_name
 
     Left Join
         docs.RepoObject_Plantuml_T             As puml
             On
-            puml.RepoObject_guid      = rof.RepoObject_guid
-            And puml.cultures_name    = rof.cultures_name
+            puml.RepoObject_guid           = rof.RepoObject_guid
+            And puml.cultures_name         = rof.cultures_name
 Group By
     rof.RepoObject_guid
   , rof.cultures_name

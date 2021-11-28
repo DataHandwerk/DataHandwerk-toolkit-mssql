@@ -6,8 +6,10 @@
     [cultures_translations_model_tables_ja]             NVARCHAR (MAX) NULL,
     [cultures_translations_model_translatedDescription] NVARCHAR (MAX) NULL,
     [is_CultureDocsOutput]                              BIT            CONSTRAINT [DF_model_json_3411_cultures_translations_model_T_is_CultureDocsOutput] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_model_json_3411_cultures_translations_model_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [cultures_name] ASC)
+    CONSTRAINT [PK_model_json_3411_cultures_translations_model_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

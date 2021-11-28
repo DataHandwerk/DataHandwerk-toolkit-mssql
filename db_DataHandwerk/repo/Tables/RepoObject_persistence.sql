@@ -21,10 +21,11 @@
     [target_filter]                         NVARCHAR (4000)  NULL,
     [is_persistence]                        AS               (CONVERT([bit],(1),(0))),
     [temporal_type]                         AS               (CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end,(0))),
-    [target_RepoObject_fullname2]           AS               ([repo].[fs_RepoObject_fullname2]([target_RepoObject_guid])),
-    CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
+    CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -540,5 +541,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '44ddc
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '465889ab-cb47-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'target_RepoObject_fullname2';
+
 

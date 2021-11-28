@@ -1058,3 +1058,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '42ddc
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '43ddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_persist_source';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '717f7d5a-464d-ec11-8531-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'indent_sql_modules_definition';
+

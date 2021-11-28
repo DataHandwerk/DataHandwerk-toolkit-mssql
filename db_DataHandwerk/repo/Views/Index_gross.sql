@@ -17,6 +17,7 @@ Select
   , T3.is_repo_managed
   , T3.is_DocsExclude
   , T3.is_DocsOutput
+  , T3.is_external
   , T2.parent_RepoObject_guid
   , T2.referenced_index_guid
   , T3.RepoObject_fullname

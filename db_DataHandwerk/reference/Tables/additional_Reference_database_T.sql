@@ -3,8 +3,10 @@
     [AntoraModule]     NVARCHAR (128) NOT NULL,
     [DatabaseName]     NVARCHAR (128) NULL,
     [RepoDatabaseName] NVARCHAR (128) NULL,
-    CONSTRAINT [PK_additional_Reference_database_T] PRIMARY KEY CLUSTERED ([AntoraComponent] ASC, [AntoraModule] ASC)
+    CONSTRAINT [PK_additional_Reference_database_T] PRIMARY KEY CLUSTERED ([AntoraComponent] ASC, [AntoraModule] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

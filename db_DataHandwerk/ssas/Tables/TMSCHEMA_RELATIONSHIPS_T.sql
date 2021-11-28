@@ -21,8 +21,10 @@
     [RefreshedTime]              DATETIME         NULL,
     [SecurityFilteringBehavior]  BIGINT           NOT NULL,
     [ForeignKey_guid]            UNIQUEIDENTIFIER CONSTRAINT [DF_TMSCHEMA_RELATIONSHIPS_T_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_RELATIONSHIPS_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_RELATIONSHIPS_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

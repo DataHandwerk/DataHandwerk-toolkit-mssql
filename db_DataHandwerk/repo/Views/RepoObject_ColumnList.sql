@@ -1,6 +1,5 @@
 ﻿
-
-CREATE View [repo].[RepoObject_ColumnList]
+CREATE View repo.RepoObject_ColumnList
 As
 Select
     roc.RepoObject_guid
@@ -90,10 +89,55 @@ Select
                                              , ' NULL '
                                            )
                             End
-                          , Char ( 13 )
-                          , Char ( 10 )
+                          , Char ( 13 ) + Char ( 10 )
                         )
                , ', '
+             ) Within Group(Order By
+                                roc.RepoObjectColumn_column_id)
+  , TemporalTableColumnList      =
+  --
+  String_Agg (
+                 Concat (
+                            --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                            Cast('' As NVarchar(Max))
+                          , Case
+                                When roc.Repo_generated_always_type In
+                                ( 1, 2 )
+                                    Then
+                                    Concat (
+                                               Iif(roc.Repo_generated_always_type = 2, ', ', '')
+                                             , QuoteName ( roc.RepoObjectColumn_name )
+                                             , ' '
+                                             , Concat (
+                                                          roc.Repo_user_type_fullname
+                                                        --temporal table columns
+                                                        , Case roc.Repo_generated_always_type
+                                                              When 1
+                                                                  Then
+                                                                  ' GENERATED ALWAYS AS ROW START'
+                                                              When 2
+                                                                  Then
+                                                                  ' GENERATED ALWAYS AS ROW END'
+                                                          End
+                                                        , Char ( 13 ) + Char ( 10 )
+                                                        , Case roc.Repo_generated_always_type
+                                                              When 1
+                                                                  Then
+                                                                  ' CONSTRAINT [DF_' + roc.RepoObject_name + '_'
+                                                                  + roc.RepoObjectColumn_name
+                                                                  + '] DEFAULT SYSUTCDATETIME()'
+                                                              When 2
+                                                                  Then
+                                                                  ' CONSTRAINT [DF_' + roc.RepoObject_name + '_'
+                                                                  + roc.RepoObjectColumn_name
+                                                                  + '] DEFAULT CONVERT(DATETIME2, ''9999-12-31 23:59:59.9999999'')'
+                                                          End
+                                                      )
+                                             , Char ( 13 ) + Char ( 10 )
+                                           )
+                            End
+                        )
+               , ''
              ) Within Group(Order By
                                 roc.RepoObjectColumn_column_id)
   , DbmlColumnList               =
@@ -198,8 +242,7 @@ Select
                                                                           , ' IS NULL)'
                                                                         )
                                                          End
-                                                       , Char ( 13 )
-                                                       , Char ( 10 )
+                                                       , Char ( 13 ) + Char ( 10 )
                                                      )
                                       End
                                   )
@@ -231,8 +274,7 @@ Select
                                               Concat (
                                                          ', '
                                                        , QuoteName ( roc.RepoObjectColumn_name )
-                                                       , Char ( 13 )
-                                                       , Char ( 10 )
+                                                       , Char ( 13 ) + Char ( 10 )
                                                      )
                                       End
                                   )
@@ -267,8 +309,7 @@ Select
                                                        , QuoteName ( roc.RepoObjectColumn_name )
                                                        , ' = S.'
                                                        , QuoteName ( roc.RepoObjectColumn_name )
-                                                       , Char ( 13 )
-                                                       , Char ( 10 )
+                                                       , Char ( 13 ) + Char ( 10 )
                                                      )
                                       End
                                   )
@@ -419,4 +460,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2e535aab-3250-ec11-8532-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'TemporalTableColumnList';
 

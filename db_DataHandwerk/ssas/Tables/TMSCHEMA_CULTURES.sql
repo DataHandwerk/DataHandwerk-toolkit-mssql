@@ -6,8 +6,10 @@
     [LinguisticMetadataID]  NUMERIC (20)   NULL,
     [ModifiedTime]          DATETIME       NOT NULL,
     [StructureModifiedTime] DATETIME       NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_CULTURES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_CULTURES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

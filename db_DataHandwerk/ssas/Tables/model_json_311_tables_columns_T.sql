@@ -23,8 +23,10 @@
     [tables_columns_type]               NVARCHAR (500)   NULL,
     [RepoObject_guid]                   UNIQUEIDENTIFIER NOT NULL,
     [RepoObjectColumn_guid]             UNIQUEIDENTIFIER CONSTRAINT [DF_model_json_311_tables_columns_T_RepoObjectColumn_guid] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_model_json_311_tables_columns_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [tables_name] ASC, [tables_columns_name] ASC)
+    CONSTRAINT [PK_model_json_311_tables_columns_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [tables_name] ASC, [tables_columns_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

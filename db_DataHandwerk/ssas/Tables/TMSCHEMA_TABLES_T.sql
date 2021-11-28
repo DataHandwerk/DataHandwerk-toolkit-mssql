@@ -14,8 +14,10 @@
     [SystemFlags]                   BIGINT           NOT NULL,
     [TableStorageID]                NUMERIC (20)     NOT NULL,
     [RepoObject_guid]               UNIQUEIDENTIFIER CONSTRAINT [DF_TMSCHEMA_TABLES_T_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_TABLES_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_TABLES_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

@@ -7,8 +7,10 @@
     [Description]  NVARCHAR (MAX) NULL,
     [ColumnID]     NUMERIC (20)   NOT NULL,
     [ModifiedTime] DATETIME       NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_LEVELS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_LEVELS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

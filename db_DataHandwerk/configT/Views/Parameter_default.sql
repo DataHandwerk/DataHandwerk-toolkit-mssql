@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 <<property_start>>Description
 include::sqldb:partial$descriptiontags/config.parameter.adoc[tag=description,opts=optional]
@@ -37,7 +35,7 @@ dhw,sqldb,configT,Parameter_default,Parameter_default_value,dhw,sqldb,config,Par
 <<property_end>>
 */
 
-CREATE View [configT].[Parameter_default]
+CREATE View configT.Parameter_default
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -234,6 +232,18 @@ Select
   , sub_Parameter           = N'ReferencedObjectList'
   , Parameter_desciption    = N'TINYINT; InheritanceType for object: possible values in [config].[InheritanceType]'
   , Parameter_default_value = '14'
+Union All
+Select
+    Parameter_name          = 'sqlpackage'
+  , sub_Parameter           = N'ProgrammFolder'
+  , Parameter_desciption    = N'Folder, where sqlpackage.exe is located'
+  , Parameter_default_value = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\150'
+Union All
+Select
+    Parameter_name          = 'sqlpackage'
+  , sub_Parameter           = N'TargetFolder'
+  , Parameter_desciption    = N'default Folder, where dacpac should be extracted'
+  , Parameter_default_value = 'D:\Repos\aaa\bbb\ccc\dhw_dacpac'
 Union All
 Select
     Parameter_name          = 'puml_skinparam_class'

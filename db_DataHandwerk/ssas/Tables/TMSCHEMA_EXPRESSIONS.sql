@@ -7,8 +7,10 @@
     [Kind]         BIGINT         NULL,
     [Expression]   NVARCHAR (MAX) NULL,
     [ModifiedTime] DATETIME       NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_EXPRESSIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_EXPRESSIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

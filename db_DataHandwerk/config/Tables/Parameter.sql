@@ -8,8 +8,10 @@
     [Parameter_value_result_int]      AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [int])),
     [Parameter_value_result_date]     AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [date])),
     [Parameter_value_result_datetime] AS              (TRY_CAST(left(coalesce([Parameter_value],[Parameter_default_value]),(4000)) AS [datetime])),
-    CONSTRAINT [PK_Parameter] PRIMARY KEY CLUSTERED ([Parameter_name] ASC, [sub_Parameter] ASC)
+    CONSTRAINT [PK_Parameter] PRIMARY KEY CLUSTERED ([Parameter_name] ASC, [sub_Parameter] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

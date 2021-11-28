@@ -6,10 +6,12 @@
     [referenced_index_guid]     UNIQUEIDENTIFIER NULL,
     [delete_referential_action] TINYINT          CONSTRAINT [DF_ForeignKey_virtual_delete_referential_action] DEFAULT ((0)) NOT NULL,
     [update_referential_action] TINYINT          CONSTRAINT [DF_ForeignKey_virtual_update_referential_action] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_ForeignKey_virtual] PRIMARY KEY CLUSTERED ([ForeignKey_guid] ASC),
+    CONSTRAINT [PK_ForeignKey_virtual] PRIMARY KEY CLUSTERED ([ForeignKey_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_ForeignKey_virtual__Index_Settings__ForeignKey_index] FOREIGN KEY ([referencing_index_guid]) REFERENCES [repo].[Index_Settings] ([index_guid]),
     CONSTRAINT [FK_ForeignKey_virtual__Index_Settings__referenced_index] FOREIGN KEY ([referenced_index_guid]) REFERENCES [repo].[Index_Settings] ([index_guid])
 );
+
+
 
 
 

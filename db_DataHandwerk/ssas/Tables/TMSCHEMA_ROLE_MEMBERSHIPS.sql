@@ -7,8 +7,10 @@
     [IdentityProvider] NVARCHAR (MAX) NULL,
     [MemberType]       BIGINT         NOT NULL,
     [ModifiedTime]     DATETIME       NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_ROLE_MEMBERSHIPS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_ROLE_MEMBERSHIPS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

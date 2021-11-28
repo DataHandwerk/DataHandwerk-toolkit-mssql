@@ -7,7 +7,10 @@
     [RowNumberInReferencing]            BIGINT           NULL,
     [referencing_RepoObject_guid]       UNIQUEIDENTIFIER NULL,
     [referencing_RepoObjectColumn_guid] UNIQUEIDENTIFIER NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

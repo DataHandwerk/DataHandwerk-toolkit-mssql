@@ -8,7 +8,10 @@
     [ColumnName]           NVARCHAR (MAX)   CONSTRAINT [DF_Index_ssas_T_ColumnName] DEFAULT ('') NOT NULL,
     [index_guid]           UNIQUEIDENTIFIER CONSTRAINT [DF_Index_ssas_T_index_guid] DEFAULT (newsequentialid()) NOT NULL,
     CONSTRAINT [uq_Index_ssas_T] UNIQUE NONCLUSTERED ([index_guid] ASC)
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

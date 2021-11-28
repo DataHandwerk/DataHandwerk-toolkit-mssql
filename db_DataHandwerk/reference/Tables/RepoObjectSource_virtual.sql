@@ -1,10 +1,16 @@
 ﻿CREATE TABLE [reference].[RepoObjectSource_virtual] (
     [RepoObject_guid]        UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectSource_virtual_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
     [Source_RepoObject_guid] UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectSource_virtual_RepoObject_guid1] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_RepoObjectSource_virtual] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [Source_RepoObject_guid] ASC),
+    CONSTRAINT [PK_RepoObjectSource_virtual] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [Source_RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObjectSource_virtual_RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_RepoObjectSource_virtual_RepoObject_source] FOREIGN KEY ([Source_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid])
 );
+
+
+GO
+ALTER TABLE [reference].[RepoObjectSource_virtual] NOCHECK CONSTRAINT [FK_RepoObjectSource_virtual_RepoObject_source];
+
+
 
 
 GO

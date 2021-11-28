@@ -11,9 +11,11 @@
     [is_SysSchema_name_uniqueidentifier]  AS               (case when TRY_CAST([SysSchema_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
     [MeasuresRepoObjekt_guid]             UNIQUEIDENTIFIER CONSTRAINT [DF_RepoSchema_RepoSchema_guid1] DEFAULT (newsequentialid()) NOT NULL,
     [MeasuresRepoObjekt_name]             AS               ('_measures') PERSISTED NOT NULL,
-    CONSTRAINT [PK_RepoSchema] PRIMARY KEY CLUSTERED ([RepoSchema_guid] ASC),
+    CONSTRAINT [PK_RepoSchema] PRIMARY KEY CLUSTERED ([RepoSchema_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [UK_RepoSchema] UNIQUE NONCLUSTERED ([RepoSchema_name] ASC)
 );
+
+
 
 
 

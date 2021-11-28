@@ -9,11 +9,13 @@
     [has_DefaultValue] TINYINT         CONSTRAINT [DF_GeneratorUspParameter_has_DefaultValue] DEFAULT ((0)) NOT NULL,
     [DefaultValue]     NVARCHAR (MAX)  NULL,
     [Description]      NVARCHAR (4000) NULL,
-    CONSTRAINT [PK_GeneratorUspParameter] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [PK_GeneratorUspParameter] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_GeneratorUspParameter_GeneratorUsp] FOREIGN KEY ([usp_id]) REFERENCES [uspgenerator].[GeneratorUsp] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_GeneratorUspParameter_name] UNIQUE NONCLUSTERED ([usp_id] ASC, [Name] ASC),
     CONSTRAINT [UK_GeneratorUspParameter_Number] UNIQUE NONCLUSTERED ([usp_id] ASC, [Number] ASC)
 );
+
+
 
 
 

@@ -4,7 +4,7 @@
 EXEC property.usp_RepoObjectColumnProperty_set
     @RepoObject_fullname2 = 'SchemaName.TableName'
   , @RepoObjectColumn_name = 'ColumnName'
-  , @property_name = 'MS_Description'
+  , @property_name = 'Description'
   , @property_value = 'some text, multiples lines are OK';
 <<property_end>>
 */

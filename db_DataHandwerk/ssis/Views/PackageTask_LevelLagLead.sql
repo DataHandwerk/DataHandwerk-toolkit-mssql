@@ -53,3 +53,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '8f9c4
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'bddcad7f-f73e-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssis', @level1type = N'VIEW', @level1name = N'PackageTask_LevelLagLead';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '897f7d5a-464d-ec11-8531-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssis', @level1type = N'VIEW', @level1name = N'PackageTask_LevelLagLead', @level2type = N'COLUMN', @level2name = N'TaskType';
+

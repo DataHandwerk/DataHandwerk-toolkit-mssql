@@ -16,8 +16,10 @@
     [SystemFlags]                  BIGINT         NOT NULL,
     [ErrorMessage]                 NVARCHAR (MAX) NULL,
     [RetainDataTillForceCalculate] BIT            NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_PARTITIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_PARTITIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

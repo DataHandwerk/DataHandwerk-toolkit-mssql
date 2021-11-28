@@ -6,8 +6,10 @@
     [AttributeHierarchyStorageID] NUMERIC (20)   NULL,
     [ModifiedTime]                DATETIME       NULL,
     [RefreshedTime]               DATETIME       NULL,
-    CONSTRAINT [PK_TMSCHEMA_ATTRIBUTE_HIERARCHIES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_ATTRIBUTE_HIERARCHIES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

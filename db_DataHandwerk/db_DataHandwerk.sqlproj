@@ -295,8 +295,6 @@
     <Build Include="docs\Views\RepoObject_IndexList.sql" />
     <Build Include="docs\Views\AntoraNavListPage_by_type.sql" />
     <Build Include="docs\Views\AntoraPage_ObjectByType.sql" />
-    <Build Include="docs\Views\AntoraIndexSemanticgroupPatterndatatype.sql" />
-    <Build Include="docs\Views\AntoraIndexSemanticgroup.sql" />
     <Build Include="docs\Views\AntoraPage_IndexSemanticGroup.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport_Page_IndexSemanticGroup.sql" />
     <Build Include="docs\Stored Procedures\usp_AntoraExport.sql" />
@@ -311,7 +309,6 @@
     <Build Include="docs\Views\AntoraNavListPage_by_schema.sql" />
     <Build Include="tool\Functions\ftv_extract_substrings.sql" />
     <Build Include="Security\tool.sql" />
-    <Build Include="tool\Stored Procedures\usp_longprint.sql" />
     <Build Include="repo\Views\RepoObject_related_FK_union.sql" />
     <Build Include="docs\Views\RepoObject_PlantUml_PumlEntityFkList.sql" />
     <Build Include="docs\Views\RepoObject_PlantUml_FkRefList.sql" />
@@ -491,14 +488,11 @@
     <Build Include="Security\configT.sql" />
     <Build Include="configT\Tables\spt_values.sql" />
     <Build Include="configT\Stored Procedures\usp_init_spt_values.sql" />
-    <Build Include="tool\Stored Procedures\usp_generate_merge.sql" />
     <Build Include="configT\Views\InheritanceType.sql" />
     <Build Include="configT\Views\join_type.sql" />
     <Build Include="configT\Views\Parameter_default.sql" />
     <Build Include="configT\Views\type.sql" />
     <Build Include="configT\Views\type_level1type_level2type.sql" />
-    <Build Include="tool\Stored Procedures\usp_RefreshViews.sql" />
-    <Build Include="tool\Stored Procedures\usp_TruncateTables.sql" />
     <Build Include="configT\Views\numbers_0_2047.sql" />
     <Build Include="reference\Tables\RepoObjectColumn_reference_T.sql" />
     <Build Include="reference\Tables\RepoObject_reference_T.sql" />
@@ -689,7 +683,6 @@
     <Build Include="ssas\Views\model_json_3122_tables_measures_expressions_multiline.sql" />
     <Build Include="ssas\Views\model_json_31211_tables_columns_descriptions_StrAgg.sql" />
     <Build Include="ssas\Views\model_json_3121_tables_columns_descriptions_multiline.sql" />
-    <Build Include="repo\Views\Measures.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_model_json_312_tables_measures_T.sql" />
     <Build Include="Security\dmdocs.sql" />
     <Build Include="docs\Views\Unit_3.sql" />
@@ -715,7 +708,6 @@
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_ObjectColumn_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_Object_T.sql" />
     <Build Include="reference\Stored Procedures\usp_PERSIST_additional_Reference_database_T.sql" />
-    <Build Include="repo\Views\Measures_union.sql" />
     <Build Include="property\Tables\external_RepoObjectProperty.sql" />
     <Build Include="property\Tables\external_RepoObjectColumnProperty.sql" />
     <Build Include="repo\Views\RepoObjectColumn_external_tgt.sql" />
@@ -774,19 +766,15 @@
     <Build Include="ssas\Views\model_json_34111_cultures_translations_model_tables.sql" />
     <Build Include="docs\Functions\fs_cleanStringForFilename.sql" />
     <Build Include="ssas\Tables\RepoObjectColumn_translation_T.sql" />
-    <Build Include="ssas\Tables\Measures_translation_T.sql" />
     <Build Include="docs\Tables\RepoObject_OutputFilter_T.sql" />
     <Build Include="ssas\Views\RepoObjectColumn_translation.sql" />
-    <Build Include="ssas\Views\Measures_translation.sql" />
     <Build Include="ssas\Stored Procedures\usp_PERSIST_RepoObjectColumn_translation_T.sql" />
-    <Build Include="ssas\Stored Procedures\usp_PERSIST_Measures_translation_T.sql" />
     <Build Include="docs\Stored Procedures\usp_PERSIST_RepoObject_OutputFilter_T.sql" />
     <Build Include="repo\Tables\RepoObject_sat2_T.sql" />
     <Build Include="repo\Views\RepoObject_sat2.sql" />
     <Build Include="repo\Stored Procedures\usp_PERSIST_RepoObject_sat2_T.sql" />
     <Build Include="docs\Views\RepoObject_AntoraXrefCulturesList.sql" />
     <Build Include="docs\Functions\ftv_RepoObject_AntoraXref.sql" />
-    <Build Include="ssas\Views\Measures_translation_displayfolder_union.sql" />
     <Build Include="ssas\Views\RepoObjectColumn_translation_displayfolder_union.sql" />
     <Build Include="docs\Tables\ssis_Adoc_T.sql" />
     <Build Include="ssis_t\Tables\tempprecedence6.sql" />
@@ -946,6 +934,29 @@
     <Build Include="workflow\Stored Procedures\usp_PERSIST_ProcedureDependency_PersistenceDependency_tgt.sql" />
     <Build Include="uspgenerator\Functions\fs_usp_fullname.sql" />
     <Build Include="repo\Functions\fs_RepoObject_fullname2.sql" />
+    <Build Include="ssas\Tables\Measure_translation_T.sql" />
+    <Build Include="property\Tables\PropertyName_Measure_T.sql" />
+    <Build Include="property\Tables\MeasureProperty.sql" />
+    <Build Include="ssas\Views\Measure_translation_displayfolder_union.sql" />
+    <Build Include="ssas\Views\Measure_translation.sql" />
+    <Build Include="repo\Views\Measure_union.sql" />
+    <Build Include="repo\Views\Measure.sql" />
+    <Build Include="property\Views\PropertyName_Measure.sql" />
+    <Build Include="docs\Views\Measure_MeasurePropertyList.sql" />
+    <Build Include="docs\Views\IndexSemanticgroupPatterndatatype.sql" />
+    <Build Include="docs\Views\IndexSemanticgroup.sql" />
+    <Build Include="repo\Functions\fs_Measure_fullname2.sql" />
+    <Build Include="uspgenerator\Stored Procedures\usp_copy_procedure.sql" />
+    <Build Include="ssas\Stored Procedures\usp_PERSIST_Measure_translation_T.sql" />
+    <Build Include="repo\Stored Procedures\usp_persistence_delete.sql" />
+    <Build Include="property\Stored Procedures\usp_PERSIST_PropertyName_Measure_T.sql" />
+    <Build Include="property\Stored Procedures\usp_MeasureProperty_set.sql" />
+    <Build Include="dbo\Stored Procedures\usp_TruncateTables.sql" />
+    <Build Include="dbo\Stored Procedures\usp_RefreshViews.sql" />
+    <Build Include="dbo\Stored Procedures\usp_longprint.sql" />
+    <Build Include="dbo\Stored Procedures\usp_generate_merge.sql" />
+    <Build Include="dbo\Stored Procedures\usp_AlterTablesDataCompression.sql" />
+    <Build Include="config\Stored Procedures\usp_extract_dacpac.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

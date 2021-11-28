@@ -2,7 +2,7 @@
 code of this procedure is managed in the dhw repository. Do not modify manually.
 Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
 */
-CREATE   PROCEDURE [repo].[usp_sync_guid_ssas]
+CREATE   PROCEDURE repo.usp_sync_guid_ssas
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -182,7 +182,7 @@ EXEC [repo].[usp_PERSIST_IndexColumn_ssas_T]
 
 
 /*{"ReportUspStep":[{"Number":3100,"Name":"[ssas].[usp_PERSIST_Measures_translation_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
-EXEC [ssas].[usp_PERSIST_Measures_translation_T]
+EXEC ssas.usp_PERSIST_Measure_translation_T
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid

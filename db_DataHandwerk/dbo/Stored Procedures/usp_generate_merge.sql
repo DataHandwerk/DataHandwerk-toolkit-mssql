@@ -17,7 +17,7 @@ for sql_variant type the procedure generates wrong code:
 
 */
 
-CREATE Procedure [tool].usp_generate_merge
+CREATE Procedure dbo.usp_generate_merge
 As
 
 --issues with sql_variant
@@ -122,20 +122,14 @@ Exec sp_generate_merge
     @table_name = 'WorkflowStep'
   , @schema = 'repo'
   , @debug_mode = 1;
-Go
-Execute sp_addextendedproperty
-    @name = N'RepoObject_guid'
-  , @value = 'fcafba8c-ad72-eb11-84e3-a81e8446d5b0'
-  , @level0type = N'SCHEMA'
-  , @level0name = N'tool'
-  , @level1type = N'PROCEDURE'
-  , @level1name = N'usp_generate_merge';
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = N'fcafba8c-ad72-eb11-84e3-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
+EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'tool', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
+EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'PROCEDURE', @level1name = N'usp_generate_merge';
 

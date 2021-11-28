@@ -5,8 +5,10 @@
     [ColumnID]           NUMERIC (20)   NULL,
     [ModifiedTime]       DATETIME       NULL,
     [MetadataPermission] BIGINT         NULL,
-    CONSTRAINT [PK_TMSCHEMA_COLUMN_PERMISSIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_COLUMN_PERMISSIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

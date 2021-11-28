@@ -12,8 +12,10 @@
     [RefreshedTime]         DATETIME       NULL,
     [DisplayFolder]         NVARCHAR (MAX) NULL,
     [HideMembers]           BIGINT         NULL,
-    CONSTRAINT [PK_TMSCHEMA_HIERARCHIES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_HIERARCHIES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

@@ -635,174 +635,424 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":810,"Name":"other properties, where (ISNULL(is_repo_managed, 0) = 0)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":810,"Name":"other properties, where (ISNULL(is_repo_managed, 0) = 0) via_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',810,';',NULL);
 
 /*
 update other properties for RepoObject which are not is_repo_managed
 
 */
-UPDATE repo.SysColumn_RepoObjectColumn_via_guid
-SET [Repo_default_definition] = [default_definition]
- , [Repo_default_is_system_named] = [default_is_system_named]
- , [Repo_default_name] = [default_name]
- , [Repo_definition] = [definition]
- , [Repo_generated_always_type] = [generated_always_type]
- , [Repo_graph_type] = [graph_type]
- , [Repo_is_nullable] = [is_nullable]
- , [Repo_is_persisted] = [is_persisted]
- , [Repo_user_type_fullname] = [user_type_fullname]
- , [Repo_user_type_name] = [user_type_name]
- , [Repo_uses_database_collation] = [uses_database_collation]
- , [Repo_is_computed] = [is_computed]
- , [Repo_is_identity] = [is_identity]
- , [Repo_seed_value] = [seed_value]
- , [Repo_increment_value] = [increment_value]
-WHERE
- --not is_repo_managed 
- ISNULL([is_repo_managed], 0) = 0
- AND (
-  --
-  1 = 0
-  --
-  OR [Repo_default_definition] <> [default_definition]
-  OR (
-   [Repo_default_definition] IS NULL
-   AND NOT [default_definition] IS NULL
-   )
-  OR (
-   NOT [Repo_default_definition] IS NULL
-   AND [default_definition] IS NULL
-   )
-  OR [Repo_default_is_system_named] <> [default_is_system_named]
-  OR (
-   [Repo_default_is_system_named] IS NULL
-   AND NOT [default_is_system_named] IS NULL
-   )
-  OR (
-   NOT [Repo_default_is_system_named] IS NULL
-   AND [default_is_system_named] IS NULL
-   )
-  OR [Repo_default_name] <> [default_name]
-  OR (
-   [Repo_default_name] IS NULL
-   AND NOT [default_name] IS NULL
-   )
-  OR (
-   NOT [Repo_default_name] IS NULL
-   AND [default_name] IS NULL
-   )
-  OR [Repo_definition] <> [definition]
-  OR (
-   [Repo_definition] IS NULL
-   AND NOT [definition] IS NULL
-   )
-  OR (
-   NOT [Repo_definition] IS NULL
-   AND [definition] IS NULL
-   )
-  OR [Repo_generated_always_type] <> [generated_always_type]
-  OR (
-   [Repo_generated_always_type] IS NULL
-   AND NOT [generated_always_type] IS NULL
-   )
-  OR (
-   NOT [Repo_generated_always_type] IS NULL
-   AND [generated_always_type] IS NULL
-   )
-  OR [Repo_graph_type] <> [graph_type]
-  OR (
-   [Repo_graph_type] IS NULL
-   AND NOT [graph_type] IS NULL
-   )
-  OR (
-   NOT [Repo_graph_type] IS NULL
-   AND [graph_type] IS NULL
-   )
-  OR [Repo_is_nullable] <> [is_nullable]
-  OR (
-   [Repo_is_nullable] IS NULL
-   AND NOT [is_nullable] IS NULL
-   )
-  OR (
-   NOT [Repo_is_nullable] IS NULL
-   AND [is_nullable] IS NULL
-   )
-  OR [Repo_is_persisted] <> [is_persisted]
-  OR (
-   [Repo_is_persisted] IS NULL
-   AND NOT [is_persisted] IS NULL
-   )
-  OR (
-   NOT [Repo_is_persisted] IS NULL
-   AND [is_persisted] IS NULL
-   )
-  OR [Repo_user_type_fullname] <> [user_type_fullname]
-  OR (
-   [Repo_user_type_fullname] IS NULL
-   AND NOT [user_type_fullname] IS NULL
-   )
-  OR (
-   NOT [Repo_user_type_fullname] IS NULL
-   AND [user_type_fullname] IS NULL
-   )
-  --OR [Repo_user_type_name] <> [user_type_name]
-  --OR ([Repo_user_type_name] IS NULL
-  --    AND NOT [user_type_name] IS NULL)
-  --OR (NOT [Repo_user_type_name] IS NULL
-  --    AND [user_type_name] IS NULL)
-  OR [Repo_uses_database_collation] <> [uses_database_collation]
-  OR (
-   [Repo_uses_database_collation] IS NULL
-   AND NOT [uses_database_collation] IS NULL
-   )
-  OR (
-   NOT [Repo_uses_database_collation] IS NULL
-   AND [uses_database_collation] IS NULL
-   )
-  OR [Repo_is_computed] <> [is_computed]
-  OR (
-   [Repo_is_computed] IS NULL
-   AND NOT [is_computed] IS NULL
-   )
-  OR (
-   NOT [Repo_is_computed] IS NULL
-   AND [is_computed] IS NULL
-   )
-  OR [Repo_is_identity] <> [is_identity]
-  OR (
-   [Repo_is_identity] IS NULL
-   AND NOT [is_identity] IS NULL
-   )
-  OR (
-   NOT [Repo_is_identity] IS NULL
-   AND [is_identity] IS NULL
-   )
-  OR [Repo_seed_value] <> [seed_value]
-  OR (
-   [Repo_seed_value] IS NULL
-   AND NOT [seed_value] IS NULL
-   )
-  OR (
-   NOT [Repo_seed_value] IS NULL
-   AND [seed_value] IS NULL
-   )
-  OR [Repo_increment_value] <> [increment_value]
-  OR (
-   [Repo_increment_value] IS NULL
-   AND NOT [increment_value] IS NULL
-   )
-  OR (
-   NOT [Repo_increment_value] IS NULL
-   AND [increment_value] IS NULL
-   )
-  --
-  );
+Update
+    repo.SysColumn_RepoObjectColumn_via_guid
+Set
+    Repo_default_definition = default_definition
+  , Repo_default_is_system_named = default_is_system_named
+  , Repo_default_name = default_name
+  , Repo_definition = definition
+  , Repo_generated_always_type = generated_always_type
+  , Repo_graph_type = graph_type
+  , Repo_is_nullable = is_nullable
+  , Repo_is_persisted = is_persisted
+  , Repo_user_type_fullname = user_type_fullname
+  , Repo_user_type_name = user_type_name
+  , Repo_uses_database_collation = uses_database_collation
+  , Repo_is_computed = is_computed
+  , Repo_is_identity = is_identity
+  , Repo_seed_value = seed_value
+  , Repo_increment_value = increment_value
+Where
+    --not is_repo_managed 
+    IsNull ( is_repo_managed, 0 )       = 0
+    And
+    (
+        --
+        1                               = 0
+        --
+        Or Repo_default_definition      <> default_definition
+        Or
+        (
+            Repo_default_definition Is Null
+            And Not default_definition Is Null
+        )
+        Or
+        (
+            Not Repo_default_definition Is Null
+            And default_definition Is Null
+        )
+        Or Repo_default_is_system_named <> default_is_system_named
+        Or
+        (
+            Repo_default_is_system_named Is Null
+            And Not default_is_system_named Is Null
+        )
+        Or
+        (
+            Not Repo_default_is_system_named Is Null
+            And default_is_system_named Is Null
+        )
+        Or Repo_default_name            <> default_name
+        Or
+        (
+            Repo_default_name Is Null
+            And Not default_name Is Null
+        )
+        Or
+        (
+            Not Repo_default_name Is Null
+            And default_name Is Null
+        )
+        Or Repo_definition              <> definition
+        Or
+        (
+            Repo_definition Is Null
+            And Not definition Is Null
+        )
+        Or
+        (
+            Not Repo_definition Is Null
+            And definition Is Null
+        )
+        Or Repo_generated_always_type   <> generated_always_type
+        Or
+        (
+            Repo_generated_always_type Is Null
+            And Not generated_always_type Is Null
+        )
+        Or
+        (
+            Not Repo_generated_always_type Is Null
+            And generated_always_type Is Null
+        )
+        Or Repo_graph_type              <> graph_type
+        Or
+        (
+            Repo_graph_type Is Null
+            And Not graph_type Is Null
+        )
+        Or
+        (
+            Not Repo_graph_type Is Null
+            And graph_type Is Null
+        )
+        Or Repo_is_nullable             <> is_nullable
+        Or
+        (
+            Repo_is_nullable Is Null
+            And Not is_nullable Is Null
+        )
+        Or
+        (
+            Not Repo_is_nullable Is Null
+            And is_nullable Is Null
+        )
+        Or Repo_is_persisted            <> is_persisted
+        Or
+        (
+            Repo_is_persisted Is Null
+            And Not is_persisted Is Null
+        )
+        Or
+        (
+            Not Repo_is_persisted Is Null
+            And is_persisted Is Null
+        )
+        Or Repo_user_type_fullname      <> user_type_fullname
+        Or
+        (
+            Repo_user_type_fullname Is Null
+            And Not user_type_fullname Is Null
+        )
+        Or
+        (
+            Not Repo_user_type_fullname Is Null
+            And user_type_fullname Is Null
+        )
+        --OR [Repo_user_type_name] <> [user_type_name]
+        --OR ([Repo_user_type_name] IS NULL
+        --    AND NOT [user_type_name] IS NULL)
+        --OR (NOT [Repo_user_type_name] IS NULL
+        --    AND [user_type_name] IS NULL)
+        Or Repo_uses_database_collation <> uses_database_collation
+        Or
+        (
+            Repo_uses_database_collation Is Null
+            And Not uses_database_collation Is Null
+        )
+        Or
+        (
+            Not Repo_uses_database_collation Is Null
+            And uses_database_collation Is Null
+        )
+        Or Repo_is_computed             <> is_computed
+        Or
+        (
+            Repo_is_computed Is Null
+            And Not is_computed Is Null
+        )
+        Or
+        (
+            Not Repo_is_computed Is Null
+            And is_computed Is Null
+        )
+        Or Repo_is_identity             <> is_identity
+        Or
+        (
+            Repo_is_identity Is Null
+            And Not is_identity Is Null
+        )
+        Or
+        (
+            Not Repo_is_identity Is Null
+            And is_identity Is Null
+        )
+        Or Repo_seed_value              <> seed_value
+        Or
+        (
+            Repo_seed_value Is Null
+            And Not seed_value Is Null
+        )
+        Or
+        (
+            Not Repo_seed_value Is Null
+            And seed_value Is Null
+        )
+        Or Repo_increment_value         <> increment_value
+        Or
+        (
+            Repo_increment_value Is Null
+            And Not increment_value Is Null
+        )
+        Or
+        (
+            Not Repo_increment_value Is Null
+            And increment_value Is Null
+        )
+    --
+    );
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0)'
+SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0) via_guid'
+SET @source_object = '[repo_sys].[SysColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":820,"Name":"other properties, where (ISNULL(is_repo_managed, 0) = 0) via_name","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',820,';',NULL);
+
+/*
+update other properties for RepoObject which are not is_repo_managed
+
+*/
+Update
+    repo.SysColumn_RepoObjectColumn_via_name
+Set
+    Repo_default_definition = default_definition
+  , Repo_default_is_system_named = default_is_system_named
+  , Repo_default_name = default_name
+  , Repo_definition = definition
+  , Repo_generated_always_type = generated_always_type
+  , Repo_graph_type = graph_type
+  , Repo_is_nullable = is_nullable
+  , Repo_is_persisted = is_persisted
+  , Repo_user_type_fullname = user_type_fullname
+  , Repo_user_type_name = user_type_name
+  , Repo_uses_database_collation = uses_database_collation
+  , Repo_is_computed = is_computed
+  , Repo_is_identity = is_identity
+  , Repo_seed_value = seed_value
+  , Repo_increment_value = increment_value
+Where
+    --not is_repo_managed 
+    IsNull ( is_repo_managed, 0 )       = 0
+    And
+    (
+        --
+        1                               = 0
+        --
+        Or Repo_default_definition      <> default_definition
+        Or
+        (
+            Repo_default_definition Is Null
+            And Not default_definition Is Null
+        )
+        Or
+        (
+            Not Repo_default_definition Is Null
+            And default_definition Is Null
+        )
+        Or Repo_default_is_system_named <> default_is_system_named
+        Or
+        (
+            Repo_default_is_system_named Is Null
+            And Not default_is_system_named Is Null
+        )
+        Or
+        (
+            Not Repo_default_is_system_named Is Null
+            And default_is_system_named Is Null
+        )
+        Or Repo_default_name            <> default_name
+        Or
+        (
+            Repo_default_name Is Null
+            And Not default_name Is Null
+        )
+        Or
+        (
+            Not Repo_default_name Is Null
+            And default_name Is Null
+        )
+        Or Repo_definition              <> definition
+        Or
+        (
+            Repo_definition Is Null
+            And Not definition Is Null
+        )
+        Or
+        (
+            Not Repo_definition Is Null
+            And definition Is Null
+        )
+        Or Repo_generated_always_type   <> generated_always_type
+        Or
+        (
+            Repo_generated_always_type Is Null
+            And Not generated_always_type Is Null
+        )
+        Or
+        (
+            Not Repo_generated_always_type Is Null
+            And generated_always_type Is Null
+        )
+        Or Repo_graph_type              <> graph_type
+        Or
+        (
+            Repo_graph_type Is Null
+            And Not graph_type Is Null
+        )
+        Or
+        (
+            Not Repo_graph_type Is Null
+            And graph_type Is Null
+        )
+        Or Repo_is_nullable             <> is_nullable
+        Or
+        (
+            Repo_is_nullable Is Null
+            And Not is_nullable Is Null
+        )
+        Or
+        (
+            Not Repo_is_nullable Is Null
+            And is_nullable Is Null
+        )
+        Or Repo_is_persisted            <> is_persisted
+        Or
+        (
+            Repo_is_persisted Is Null
+            And Not is_persisted Is Null
+        )
+        Or
+        (
+            Not Repo_is_persisted Is Null
+            And is_persisted Is Null
+        )
+        Or Repo_user_type_fullname      <> user_type_fullname
+        Or
+        (
+            Repo_user_type_fullname Is Null
+            And Not user_type_fullname Is Null
+        )
+        Or
+        (
+            Not Repo_user_type_fullname Is Null
+            And user_type_fullname Is Null
+        )
+        --OR [Repo_user_type_name] <> [user_type_name]
+        --OR ([Repo_user_type_name] IS NULL
+        --    AND NOT [user_type_name] IS NULL)
+        --OR (NOT [Repo_user_type_name] IS NULL
+        --    AND [user_type_name] IS NULL)
+        Or Repo_uses_database_collation <> uses_database_collation
+        Or
+        (
+            Repo_uses_database_collation Is Null
+            And Not uses_database_collation Is Null
+        )
+        Or
+        (
+            Not Repo_uses_database_collation Is Null
+            And uses_database_collation Is Null
+        )
+        Or Repo_is_computed             <> is_computed
+        Or
+        (
+            Repo_is_computed Is Null
+            And Not is_computed Is Null
+        )
+        Or
+        (
+            Not Repo_is_computed Is Null
+            And is_computed Is Null
+        )
+        Or Repo_is_identity             <> is_identity
+        Or
+        (
+            Repo_is_identity Is Null
+            And Not is_identity Is Null
+        )
+        Or
+        (
+            Not Repo_is_identity Is Null
+            And is_identity Is Null
+        )
+        Or Repo_seed_value              <> seed_value
+        Or
+        (
+            Repo_seed_value Is Null
+            And Not seed_value Is Null
+        )
+        Or
+        (
+            Not Repo_seed_value Is Null
+            And seed_value Is Null
+        )
+        Or Repo_increment_value         <> increment_value
+        Or
+        (
+            Repo_increment_value Is Null
+            And Not increment_value Is Null
+        )
+        Or
+        (
+            Not Repo_increment_value Is Null
+            And increment_value Is Null
+        )
+    --
+    );
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'other properties, where (ISNULL(is_repo_managed, 0) = 0) via_name'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
@@ -913,167 +1163,414 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1010,"Name":"persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":1010,"Name":"persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid, via_guid","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1010,';',NULL);
 
 /*
 persistence: update RepoObjectColumn_name (and other repo attributes) from SysObjecColumn_name (and other sys attributes) of persistence_source_RepoObjectColumn_guid
 
 */
-UPDATE roc_p
-SET [RepoObjectColumn_name] = [scroc].[SysObjectColumn_name]
- --
- , [Repo_default_definition] = [scroc].[default_definition]
- --skip Repo_default_name
- --skip Repo_default_is_system_named
- --, [Repo_default_is_system_named] = [scroc].[default_is_system_named]
- , [Repo_definition] = [scroc].[definition]
- , [Repo_generated_always_type] = [scroc].[generated_always_type]
- , [Repo_graph_type] = [scroc].[graph_type]
- , [Repo_is_nullable] = [scroc].[is_nullable]
- , [Repo_is_persisted] = [scroc].[is_persisted]
- , [Repo_user_type_fullname] = [scroc].[user_type_fullname]
- , [Repo_user_type_name] = [scroc].[user_type_name]
- , [Repo_uses_database_collation] = [scroc].[uses_database_collation]
- , [Repo_is_computed] = [scroc].[is_computed]
- , [Repo_is_identity] = [scroc].[is_identity]
- , [Repo_seed_value] = [scroc].[seed_value]
- , [Repo_increment_value] = [scroc].[increment_value]
-FROM [repo].[RepoObjectColumn] [roc_p]
---we need some attributes from roc_s (source)
-INNER JOIN [repo].[SysColumn_RepoObjectColumn_via_guid] [scroc]
- ON [scroc].[RepoObjectColumn_guid] = [roc_p].[persistence_source_RepoObjectColumn_guid]
-INNER JOIN [repo].[RepoObject] [ro_p]
- ON [roc_p].[RepoObject_guid] = [ro_p].[RepoObject_guid]
-WHERE
- --persistence object ist marked [is_repo_managed] = 1
- [ro_p].[is_repo_managed] = 1
- AND (
+Update
+    roc_p
+Set
+    roc_p.RepoObjectColumn_name = scroc.SysObjectColumn_name
   --
-  1 = 0
-  --
-  OR [roc_p].[RepoObjectColumn_name] <> [scroc].[SysObjectColumn_name]
-  --
-  OR [roc_p].[Repo_default_definition] <> [scroc].[default_definition]
-  OR (
-   [roc_p].[Repo_default_definition] IS NULL
-   AND NOT [scroc].[default_definition] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_default_definition] IS NULL
-   AND [scroc].[default_definition] IS NULL
-   )
-  --OR [roc_p].[Repo_default_is_system_named] <> [scroc].[default_is_system_named]
-  --OR ([roc_p].[Repo_default_is_system_named] IS NULL
-  --    AND NOT [scroc].[default_is_system_named] IS NULL)
-  --OR (NOT [roc_p].[Repo_default_is_system_named] IS NULL
-  --    AND [scroc].[default_is_system_named] IS NULL)
-  OR [roc_p].[Repo_definition] <> [scroc].[definition]
-  OR (
-   [roc_p].[Repo_definition] IS NULL
-   AND NOT [scroc].[definition] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_definition] IS NULL
-   AND [scroc].[definition] IS NULL
-   )
-  OR [roc_p].[Repo_generated_always_type] <> [scroc].[generated_always_type]
-  OR (
-   [roc_p].[Repo_generated_always_type] IS NULL
-   AND NOT [scroc].[generated_always_type] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_generated_always_type] IS NULL
-   AND [scroc].[generated_always_type] IS NULL
-   )
-  OR [roc_p].[Repo_graph_type] <> [scroc].[graph_type]
-  OR (
-   [roc_p].[Repo_graph_type] IS NULL
-   AND NOT [scroc].[graph_type] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_graph_type] IS NULL
-   AND [scroc].[graph_type] IS NULL
-   )
-  OR [roc_p].[Repo_is_nullable] <> [scroc].[is_nullable]
-  OR (
-   [roc_p].[Repo_is_nullable] IS NULL
-   AND NOT [scroc].[is_nullable] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_is_nullable] IS NULL
-   AND [scroc].[is_nullable] IS NULL
-   )
-  OR [roc_p].[Repo_is_persisted] <> [scroc].[is_persisted]
-  OR (
-   [roc_p].[Repo_is_persisted] IS NULL
-   AND NOT [scroc].[is_persisted] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_is_persisted] IS NULL
-   AND [scroc].[is_persisted] IS NULL
-   )
-  OR [roc_p].[Repo_user_type_fullname] <> [scroc].[user_type_fullname]
-  OR (
-   [roc_p].[Repo_user_type_fullname] IS NULL
-   AND NOT [scroc].[user_type_fullname] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_user_type_fullname] IS NULL
-   AND [scroc].[user_type_fullname] IS NULL
-   )
-  --we don't need to check user_type_name, it is included in user_type_fullname
-  OR [roc_p].[Repo_uses_database_collation] <> [scroc].[uses_database_collation]
-  OR (
-   [roc_p].[Repo_uses_database_collation] IS NULL
-   AND NOT [scroc].[uses_database_collation] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_uses_database_collation] IS NULL
-   AND [scroc].[uses_database_collation] IS NULL
-   )
-  OR [roc_p].[Repo_is_computed] <> [scroc].[is_computed]
-  OR (
-   [roc_p].[Repo_is_computed] IS NULL
-   AND NOT [scroc].[is_computed] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_is_computed] IS NULL
-   AND [scroc].[is_computed] IS NULL
-   )
-  OR [roc_p].[Repo_is_identity] <> [scroc].[is_identity]
-  OR (
-   [roc_p].[Repo_is_identity] IS NULL
-   AND NOT [scroc].[is_identity] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_is_identity] IS NULL
-   AND [scroc].[is_identity] IS NULL
-   )
-  OR [roc_p].[Repo_seed_value] <> [scroc].[seed_value]
-  OR (
-   [roc_p].[Repo_seed_value] IS NULL
-   AND NOT [scroc].[seed_value] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_seed_value] IS NULL
-   AND [scroc].[seed_value] IS NULL
-   )
-  OR [roc_p].[Repo_increment_value] <> [scroc].[increment_value]
-  OR (
-   [roc_p].[Repo_increment_value] IS NULL
-   AND NOT [scroc].[increment_value] IS NULL
-   )
-  OR (
-   NOT [roc_p].[Repo_increment_value] IS NULL
-   AND [scroc].[increment_value] IS NULL
-   )
-  )
+  , roc_p.Repo_default_definition = scroc.default_definition
+  --skip Repo_default_name
+  --skip Repo_default_is_system_named
+  --, [Repo_default_is_system_named] = [scroc].[default_is_system_named]
+  , roc_p.Repo_definition = scroc.definition
+  , roc_p.Repo_generated_always_type = scroc.generated_always_type
+  , roc_p.Repo_graph_type = scroc.graph_type
+  , roc_p.Repo_is_nullable = scroc.is_nullable
+  , roc_p.Repo_is_persisted = scroc.is_persisted
+  , roc_p.Repo_user_type_fullname = scroc.user_type_fullname
+  , roc_p.Repo_user_type_name = scroc.user_type_name
+  , roc_p.Repo_uses_database_collation = scroc.uses_database_collation
+  , roc_p.Repo_is_computed = scroc.is_computed
+  , roc_p.Repo_is_identity = scroc.is_identity
+  , roc_p.Repo_seed_value = scroc.seed_value
+  , roc_p.Repo_increment_value = scroc.increment_value
+From
+    repo.RepoObjectColumn                        As roc_p
+    --we need some attributes from roc_s (source)
+    Inner Join
+        repo.SysColumn_RepoObjectColumn_via_guid As scroc
+            On
+            scroc.RepoObjectColumn_guid = roc_p.persistence_source_RepoObjectColumn_guid
+
+    Inner Join
+        repo.RepoObject                          As ro_p
+            On
+            roc_p.RepoObject_guid       = ro_p.RepoObject_guid
+Where
+    --persistence object ist marked [is_repo_managed] = 1
+    ro_p.is_repo_managed                      = 1
+    And
+    (
+        --
+        1                                     = 0
+        --
+        Or roc_p.RepoObjectColumn_name        <> scroc.SysObjectColumn_name
+        --
+        Or roc_p.Repo_default_definition      <> scroc.default_definition
+        Or
+        (
+            roc_p.Repo_default_definition Is Null
+            And Not scroc.default_definition Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_default_definition Is Null
+            And scroc.default_definition Is Null
+        )
+        --OR [roc_p].[Repo_default_is_system_named] <> [scroc].[default_is_system_named]
+        --OR ([roc_p].[Repo_default_is_system_named] IS NULL
+        --    AND NOT [scroc].[default_is_system_named] IS NULL)
+        --OR (NOT [roc_p].[Repo_default_is_system_named] IS NULL
+        --    AND [scroc].[default_is_system_named] IS NULL)
+        Or roc_p.Repo_definition              <> scroc.definition
+        Or
+        (
+            roc_p.Repo_definition Is Null
+            And Not scroc.definition Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_definition Is Null
+            And scroc.definition Is Null
+        )
+        Or roc_p.Repo_generated_always_type   <> scroc.generated_always_type
+        Or
+        (
+            roc_p.Repo_generated_always_type Is Null
+            And Not scroc.generated_always_type Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_generated_always_type Is Null
+            And scroc.generated_always_type Is Null
+        )
+        Or roc_p.Repo_graph_type              <> scroc.graph_type
+        Or
+        (
+            roc_p.Repo_graph_type Is Null
+            And Not scroc.graph_type Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_graph_type Is Null
+            And scroc.graph_type Is Null
+        )
+        Or roc_p.Repo_is_nullable             <> scroc.is_nullable
+        Or
+        (
+            roc_p.Repo_is_nullable Is Null
+            And Not scroc.is_nullable Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_nullable Is Null
+            And scroc.is_nullable Is Null
+        )
+        Or roc_p.Repo_is_persisted            <> scroc.is_persisted
+        Or
+        (
+            roc_p.Repo_is_persisted Is Null
+            And Not scroc.is_persisted Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_persisted Is Null
+            And scroc.is_persisted Is Null
+        )
+        Or roc_p.Repo_user_type_fullname      <> scroc.user_type_fullname
+        Or
+        (
+            roc_p.Repo_user_type_fullname Is Null
+            And Not scroc.user_type_fullname Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_user_type_fullname Is Null
+            And scroc.user_type_fullname Is Null
+        )
+        --we don't need to check user_type_name, it is included in user_type_fullname
+        Or roc_p.Repo_uses_database_collation <> scroc.uses_database_collation
+        Or
+        (
+            roc_p.Repo_uses_database_collation Is Null
+            And Not scroc.uses_database_collation Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_uses_database_collation Is Null
+            And scroc.uses_database_collation Is Null
+        )
+        Or roc_p.Repo_is_computed             <> scroc.is_computed
+        Or
+        (
+            roc_p.Repo_is_computed Is Null
+            And Not scroc.is_computed Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_computed Is Null
+            And scroc.is_computed Is Null
+        )
+        Or roc_p.Repo_is_identity             <> scroc.is_identity
+        Or
+        (
+            roc_p.Repo_is_identity Is Null
+            And Not scroc.is_identity Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_identity Is Null
+            And scroc.is_identity Is Null
+        )
+        Or roc_p.Repo_seed_value              <> scroc.seed_value
+        Or
+        (
+            roc_p.Repo_seed_value Is Null
+            And Not scroc.seed_value Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_seed_value Is Null
+            And scroc.seed_value Is Null
+        )
+        Or roc_p.Repo_increment_value         <> scroc.increment_value
+        Or
+        (
+            roc_p.Repo_increment_value Is Null
+            And Not scroc.increment_value Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_increment_value Is Null
+            And scroc.increment_value Is Null
+        )
+    )
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid'
+SET @step_name = 'persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid, via_guid'
+SET @source_object = '[repo_sys].[SysColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":1020,"Name":"persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid, via_name","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo_sys].[SysColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1020,';',NULL);
+
+/*
+persistence: update RepoObjectColumn_name (and other repo attributes) from SysObjecColumn_name (and other sys attributes) of persistence_source_RepoObjectColumn_guid
+
+*/
+Update
+    roc_p
+Set
+    roc_p.RepoObjectColumn_name = scroc.SysObjectColumn_name
+  --
+  , roc_p.Repo_default_definition = scroc.default_definition
+  --skip Repo_default_name
+  --skip Repo_default_is_system_named
+  --, [Repo_default_is_system_named] = [scroc].[default_is_system_named]
+  , roc_p.Repo_definition = scroc.definition
+  , roc_p.Repo_generated_always_type = scroc.generated_always_type
+  , roc_p.Repo_graph_type = scroc.graph_type
+  , roc_p.Repo_is_nullable = scroc.is_nullable
+  , roc_p.Repo_is_persisted = scroc.is_persisted
+  , roc_p.Repo_user_type_fullname = scroc.user_type_fullname
+  , roc_p.Repo_user_type_name = scroc.user_type_name
+  , roc_p.Repo_uses_database_collation = scroc.uses_database_collation
+  , roc_p.Repo_is_computed = scroc.is_computed
+  , roc_p.Repo_is_identity = scroc.is_identity
+  , roc_p.Repo_seed_value = scroc.seed_value
+  , roc_p.Repo_increment_value = scroc.increment_value
+From
+    repo.RepoObjectColumn                        As roc_p
+    --we need some attributes from roc_s (source)
+    Inner Join
+        repo.SysColumn_RepoObjectColumn_via_name As scroc
+            On
+            scroc.RepoObjectColumn_guid = roc_p.persistence_source_RepoObjectColumn_guid
+
+    Inner Join
+        repo.RepoObject                          As ro_p
+            On
+            roc_p.RepoObject_guid       = ro_p.RepoObject_guid
+Where
+    --persistence object ist marked [is_repo_managed] = 1
+    ro_p.is_repo_managed                      = 1
+    And
+    (
+        --
+        1                                     = 0
+        --
+        Or roc_p.RepoObjectColumn_name        <> scroc.SysObjectColumn_name
+        --
+        Or roc_p.Repo_default_definition      <> scroc.default_definition
+        Or
+        (
+            roc_p.Repo_default_definition Is Null
+            And Not scroc.default_definition Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_default_definition Is Null
+            And scroc.default_definition Is Null
+        )
+        --OR [roc_p].[Repo_default_is_system_named] <> [scroc].[default_is_system_named]
+        --OR ([roc_p].[Repo_default_is_system_named] IS NULL
+        --    AND NOT [scroc].[default_is_system_named] IS NULL)
+        --OR (NOT [roc_p].[Repo_default_is_system_named] IS NULL
+        --    AND [scroc].[default_is_system_named] IS NULL)
+        Or roc_p.Repo_definition              <> scroc.definition
+        Or
+        (
+            roc_p.Repo_definition Is Null
+            And Not scroc.definition Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_definition Is Null
+            And scroc.definition Is Null
+        )
+        Or roc_p.Repo_generated_always_type   <> scroc.generated_always_type
+        Or
+        (
+            roc_p.Repo_generated_always_type Is Null
+            And Not scroc.generated_always_type Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_generated_always_type Is Null
+            And scroc.generated_always_type Is Null
+        )
+        Or roc_p.Repo_graph_type              <> scroc.graph_type
+        Or
+        (
+            roc_p.Repo_graph_type Is Null
+            And Not scroc.graph_type Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_graph_type Is Null
+            And scroc.graph_type Is Null
+        )
+        Or roc_p.Repo_is_nullable             <> scroc.is_nullable
+        Or
+        (
+            roc_p.Repo_is_nullable Is Null
+            And Not scroc.is_nullable Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_nullable Is Null
+            And scroc.is_nullable Is Null
+        )
+        Or roc_p.Repo_is_persisted            <> scroc.is_persisted
+        Or
+        (
+            roc_p.Repo_is_persisted Is Null
+            And Not scroc.is_persisted Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_persisted Is Null
+            And scroc.is_persisted Is Null
+        )
+        Or roc_p.Repo_user_type_fullname      <> scroc.user_type_fullname
+        Or
+        (
+            roc_p.Repo_user_type_fullname Is Null
+            And Not scroc.user_type_fullname Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_user_type_fullname Is Null
+            And scroc.user_type_fullname Is Null
+        )
+        --we don't need to check user_type_name, it is included in user_type_fullname
+        Or roc_p.Repo_uses_database_collation <> scroc.uses_database_collation
+        Or
+        (
+            roc_p.Repo_uses_database_collation Is Null
+            And Not scroc.uses_database_collation Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_uses_database_collation Is Null
+            And scroc.uses_database_collation Is Null
+        )
+        Or roc_p.Repo_is_computed             <> scroc.is_computed
+        Or
+        (
+            roc_p.Repo_is_computed Is Null
+            And Not scroc.is_computed Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_computed Is Null
+            And scroc.is_computed Is Null
+        )
+        Or roc_p.Repo_is_identity             <> scroc.is_identity
+        Or
+        (
+            roc_p.Repo_is_identity Is Null
+            And Not scroc.is_identity Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_is_identity Is Null
+            And scroc.is_identity Is Null
+        )
+        Or roc_p.Repo_seed_value              <> scroc.seed_value
+        Or
+        (
+            roc_p.Repo_seed_value Is Null
+            And Not scroc.seed_value Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_seed_value Is Null
+            And scroc.seed_value Is Null
+        )
+        Or roc_p.Repo_increment_value         <> scroc.increment_value
+        Or
+        (
+            roc_p.Repo_increment_value Is Null
+            And Not scroc.increment_value Is Null
+        )
+        Or
+        (
+            Not roc_p.Repo_increment_value Is Null
+            And scroc.increment_value Is Null
+        )
+    )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'persistence: update RepoObjectColumn_name and repo attributes from sys attributes of persistence_source_RepoObjectColumn_guid, via_name'
 SET @source_object = '[repo_sys].[SysColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 

@@ -8,7 +8,10 @@
     [dataSources_provider]          NVARCHAR (500)  NULL,
     [referenced_AntoraComponent]    NVARCHAR (128)  NULL,
     [referenced_AntoraModule]       NVARCHAR (128)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO

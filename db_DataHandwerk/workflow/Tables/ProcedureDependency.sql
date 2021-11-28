@@ -7,11 +7,17 @@
     [Description]                           NVARCHAR (4000)  NULL,
     [referenced_RepoObject_guid]            UNIQUEIDENTIFIER NULL,
     [referencing_RepoObject_guid]           UNIQUEIDENTIFIER NULL,
-    CONSTRAINT [PK_ProcedureDependency] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [PK_ProcedureDependency] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced] FOREIGN KEY ([referenced_Procedure_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]),
     CONSTRAINT [FK_ProcedureDependency_RepoObject_referencing] FOREIGN KEY ([referencing_Procedure_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_ProcedureDependency] UNIQUE NONCLUSTERED ([referenced_Procedure_RepoObject_guid] ASC, [referencing_Procedure_RepoObject_guid] ASC)
 );
+
+
+GO
+ALTER TABLE [workflow].[ProcedureDependency] NOCHECK CONSTRAINT [FK_ProcedureDependency_RepoObject_referenced];
+
+
 
 
 GO

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [reference].[RepoObjectColumnSource_virtual] (
     [RepoObjectColumn_guid]        UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectColumnSource_virtual_RepoObjectColumn_guid] DEFAULT (newsequentialid()) NOT NULL,
     [Source_RepoObjectColumn_guid] UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectColumnSource_virtual_RepoObjectColumn_guid1] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_RepoObjectColumnSource_virtual] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC, [Source_RepoObjectColumn_guid] ASC),
+    CONSTRAINT [PK_RepoObjectColumnSource_virtual] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC, [Source_RepoObjectColumn_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObjectColumnSource_virtual_RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source] FOREIGN KEY ([Source_RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid])
 );
@@ -9,6 +9,12 @@
 
 GO
 ALTER TABLE [reference].[RepoObjectColumnSource_virtual] NOCHECK CONSTRAINT [FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source];
+
+
+
+
+GO
+
 
 
 
@@ -125,4 +131,12 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4577342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn_source';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '4477342a-21a5-eb11-84fa-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectColumnSource_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnSource_virtual_RepoObjectColumn';
 

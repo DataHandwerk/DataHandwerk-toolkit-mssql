@@ -13,8 +13,10 @@
     [TrendDescription]   NVARCHAR (MAX) NULL,
     [TrendExpression]    NVARCHAR (MAX) NULL,
     [ModifiedTime]       DATETIME       NOT NULL,
-    CONSTRAINT [PK_TMSCHEMA_KPIS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_KPIS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

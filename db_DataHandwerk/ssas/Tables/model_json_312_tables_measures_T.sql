@@ -11,8 +11,13 @@
     [tables_measures_expression_ja]  NVARCHAR (MAX)   NULL,
     [tables_measures_formatString]   NVARCHAR (500)   NULL,
     [tables_measures_isHidden]       BIT              NULL,
-    CONSTRAINT [PK_model_json_312_tables_measures_T] PRIMARY KEY CLUSTERED ([Measure_guid] ASC)
+    [RepoObject_fullname2]           AS               (([databasename]+'.')+[tables_name]) PERSISTED NOT NULL,
+    [Measure_fullname]               AS               ((quotename([databasename])+'.')+quotename([tables_measures_name])) PERSISTED,
+    [Measure_fullname2]              AS               (([databasename]+'.measures.')+[tables_measures_name]) PERSISTED NOT NULL,
+    CONSTRAINT [PK_model_json_312_tables_measures_T] PRIMARY KEY CLUSTERED ([Measure_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -226,4 +231,16 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'c530c78c-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'model_json_312_tables_measures_T', @level2type = N'CONSTRAINT', @level2name = N'PK_model_json_312_tables_measures_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '727f7d5a-464d-ec11-8531-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'model_json_312_tables_measures_T', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '747f7d5a-464d-ec11-8531-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'model_json_312_tables_measures_T', @level2type = N'COLUMN', @level2name = N'Measure_fullname2';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '737f7d5a-464d-ec11-8531-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'model_json_312_tables_measures_T', @level2type = N'COLUMN', @level2name = N'Measure_fullname';
 

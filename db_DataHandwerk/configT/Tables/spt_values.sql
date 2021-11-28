@@ -5,7 +5,10 @@
     [low]    INT           NULL,
     [high]   INT           NULL,
     [status] INT           NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

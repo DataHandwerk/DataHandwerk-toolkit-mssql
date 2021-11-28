@@ -4,11 +4,11 @@
     [Number]                      INT             NOT NULL,
     [Parent_Number]               INT             NULL,
     [Name]                        NVARCHAR (1000) NULL,
+    [Statement]                   NVARCHAR (MAX)  NULL,
     [has_logging]                 TINYINT         CONSTRAINT [DF_GeneratorUspStep_has_logging] DEFAULT ((1)) NOT NULL,
     [is_condition]                TINYINT         CONSTRAINT [DF_GeneratorUspStep_is_condition] DEFAULT ((0)) NOT NULL,
     [is_inactive]                 TINYINT         CONSTRAINT [DF_GeneratorUspStep_is_inactive] DEFAULT ((0)) NOT NULL,
     [is_SubProcedure]             TINYINT         CONSTRAINT [DF_GeneratorUspStep_is_SubProcedure] DEFAULT ((0)) NOT NULL,
-    [Statement]                   NVARCHAR (MAX)  NULL,
     [log_source_object]           NVARCHAR (261)  NULL,
     [log_target_object]           NVARCHAR (261)  NULL,
     [log_flag_InsertUpdateDelete] CHAR (1)        NULL,
@@ -26,6 +26,8 @@
     CONSTRAINT [FK_GeneratorUspStep_GeneratorUsp] FOREIGN KEY ([usp_id]) REFERENCES [uspgenerator].[GeneratorUsp] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_GeneratorUspStep_Number] UNIQUE NONCLUSTERED ([usp_id] ASC, [Number] ASC)
 );
+
+
 
 
 

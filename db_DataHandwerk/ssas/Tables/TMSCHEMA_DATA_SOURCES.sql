@@ -18,8 +18,10 @@
     [Options]           NVARCHAR (MAX) NULL,
     [Credential]        NVARCHAR (MAX) NULL,
     [ContextExpression] NVARCHAR (MAX) NULL,
-    CONSTRAINT [PK_TMSCHEMA_DATA_SOURCES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_DATA_SOURCES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

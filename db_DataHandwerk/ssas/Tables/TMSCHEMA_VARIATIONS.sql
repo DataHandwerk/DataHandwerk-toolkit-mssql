@@ -8,8 +8,10 @@
     [DefaultHierarchyID] NUMERIC (20)   NULL,
     [DefaultColumnID]    NUMERIC (20)   NULL,
     [IsDefault]          BIT            NULL,
-    CONSTRAINT [PK_TMSCHEMA_VARIATIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_VARIATIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

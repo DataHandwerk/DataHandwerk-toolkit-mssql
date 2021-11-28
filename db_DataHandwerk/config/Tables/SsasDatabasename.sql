@@ -3,8 +3,10 @@
     [LinkedServer]    NVARCHAR (128) CONSTRAINT [DF_databasename_LinkedServer] DEFAULT ('') NOT NULL,
     [isActive]        BIT            CONSTRAINT [DF_databasename_isActive] DEFAULT ((1)) NOT NULL,
     [isCurrentImport] BIT            CONSTRAINT [DF_databasename_isCurrentImport] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_SsasDatabasename] PRIMARY KEY CLUSTERED ([databasename] ASC)
+    CONSTRAINT [PK_SsasDatabasename] PRIMARY KEY CLUSTERED ([databasename] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

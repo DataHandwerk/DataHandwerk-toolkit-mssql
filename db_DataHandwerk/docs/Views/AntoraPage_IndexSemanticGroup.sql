@@ -15,7 +15,7 @@ Select
                                                                                                        ))
          )
 From
-    docs.AntoraIndexSemanticgroup
+    docs.IndexSemanticgroup
 Group By
     cultures_name
 Go

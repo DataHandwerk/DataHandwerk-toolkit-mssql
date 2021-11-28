@@ -85,7 +85,7 @@ Select
   , Unit_ObjectName    = m.RepoObject_name
   , Unit_ColummName    = Null
   , Unit_Name          = m.measures_name
-  , Unit_fullname2     = m.measures_fullname2
+  , Unit_fullname2     = m.Measure_fullname2
   , Unit_TypeName      = Null
   , Unit_isHidden      = m.measures_isHidden
   , Unit_IsSsas        = m.is_ssas
@@ -99,7 +99,7 @@ Select
   , Object_fullname2   = m.RepoObject_fullname2
   , Object_Type        = 'U'
 From
-    repo.Measures As m
+    repo.Measure As m
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2b208663-370f-ec11-8518-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'Unit_1_union', @level2type = N'COLUMN', @level2name = N'Object_Type';
 

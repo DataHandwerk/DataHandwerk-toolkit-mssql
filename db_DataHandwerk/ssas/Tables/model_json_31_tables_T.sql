@@ -11,8 +11,10 @@
     [tables_measures_ja]    NVARCHAR (MAX)   NULL,
     [tables_partitions_ja]  NVARCHAR (MAX)   NULL,
     [RepoObject_guid]       UNIQUEIDENTIFIER CONSTRAINT [DF_model_json_31_tables_T_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
-    CONSTRAINT [PK_model_json_31_tables_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [tables_name] ASC)
+    CONSTRAINT [PK_model_json_31_tables_T] PRIMARY KEY CLUSTERED ([databasename] ASC, [tables_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

@@ -36,8 +36,10 @@
     [ErrorMessage]          NVARCHAR (MAX) NULL,
     [SourceProviderType]    NVARCHAR (MAX) NULL,
     [DisplayFolder]         NVARCHAR (MAX) NULL,
-    CONSTRAINT [PK_TMSCHEMA_COLUMNS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_COLUMNS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

@@ -3,7 +3,7 @@
 <<property_start>>exampleUsage
 EXEC [property].[usp_RepoObjectProperty_set]
 @RepoObject_fullname2 = 'SchemaName.ObjectName'
-, @property_name = 'MS_Description'
+, @property_name = 'Description'
 , @property_value =
 'description for SchemaName.ObjectName
 
@@ -11,7 +11,7 @@ see details in xref:user-guide:create-update-connect-repo-db.adoc[]
 '
 <<property_end>>
 */
-CREATE Procedure property.usp_RepoObjectProperty_set
+CREATE Procedure [property].[usp_RepoObjectProperty_set]
     --
     @RepoObject_guid      UniqueIdentifier = Null --if @RepoObject_guid is NULL, then @RepoObject_fullname or @RepoObject_fullname2 is used
   , @RepoObject_fullname  NVarchar(261)    = Null --will be used to find matching @RepoObject_guid, if @RepoObject_guid is NULL; use [schema].[TableOrView]

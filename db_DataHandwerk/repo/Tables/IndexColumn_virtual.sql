@@ -3,7 +3,7 @@
     [index_column_id]       INT              NOT NULL,
     [RepoObjectColumn_guid] UNIQUEIDENTIFIER NOT NULL,
     [is_descending_key]     BIT              CONSTRAINT [DF__IndexColu__is_de__17C286CF] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_IndexColumn_unique] PRIMARY KEY CLUSTERED ([index_guid] ASC, [index_column_id] ASC),
+    CONSTRAINT [PK_IndexColumn_unique] PRIMARY KEY CLUSTERED ([index_guid] ASC, [index_column_id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_IndexColumn_virtual__Index_virtual] FOREIGN KEY ([index_guid]) REFERENCES [repo].[Index_virtual] ([index_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_IndexColumn_virtual_RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid])
 );
@@ -11,6 +11,12 @@
 
 GO
 ALTER TABLE [repo].[IndexColumn_virtual] NOCHECK CONSTRAINT [FK_IndexColumn_virtual_RepoObjectColumn];
+
+
+
+
+GO
+
 
 
 
@@ -172,4 +178,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '03dc7461-499d-eb11-84f6-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_virtual', @level2type = N'CONSTRAINT', @level2name = N'FK_IndexColumn_virtual_RepoObjectColumn';
 

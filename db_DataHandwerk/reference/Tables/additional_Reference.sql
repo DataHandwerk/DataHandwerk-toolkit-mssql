@@ -12,9 +12,11 @@
     [Id]                          INT            IDENTITY (1, 1) NOT NULL,
     [tik]                         AS             (concat(N'',[referenced_AntoraComponent],'|~|',[referenced_AntoraModule],'|~|',[referenced_Schema],'|~|',[referenced_Object],'|~|',[referenced_Column],'|~|',[referencing_AntoraComponent],'|~|',[referencing_AntoraModule],'|~|',[referencing_Schema],'|~|',[referencing_Object],'|~|',[referencing_Column],'|~|')) PERSISTED NOT NULL,
     [tik_hash]                    AS             (CONVERT([binary](16),hashbytes('MD5',lower(concat(N'',[referenced_AntoraComponent],'|~|',[referenced_AntoraModule],'|~|',[referenced_Schema],'|~|',[referenced_Object],'|~|',[referenced_Column],'|~|',[referencing_AntoraComponent],'|~|',[referencing_AntoraModule],'|~|',[referencing_Schema],'|~|',[referencing_Object],'|~|',[referencing_Column],'|~|'))))) PERSISTED,
-    CONSTRAINT [PK_additional_Reference] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [PK_additional_Reference] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [uq_additional_Reference] UNIQUE NONCLUSTERED ([tik_hash] ASC)
 );
+
+
 
 
 

@@ -9,8 +9,10 @@
     [RepoObject_schema_name] NVARCHAR (128)   NOT NULL,
     [RepoObject_name]        NVARCHAR (128)   NOT NULL,
     [RepoObjectColumn_name]  NVARCHAR (128)   NOT NULL,
-    CONSTRAINT [PK_external_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC)
+    CONSTRAINT [PK_external_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 GO

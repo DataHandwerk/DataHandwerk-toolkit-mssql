@@ -9,9 +9,11 @@
     [parent_RepoObject_guid] UNIQUEIDENTIFIER NOT NULL,
     [referenced_index_guid]  UNIQUEIDENTIFIER NULL,
     [RowNumberInReferencing] INT              NULL,
-    CONSTRAINT [PK_Index_virtual] PRIMARY KEY CLUSTERED ([index_guid] ASC),
+    CONSTRAINT [PK_Index_virtual] PRIMARY KEY CLUSTERED ([index_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_Index_virtual__RepoObject] FOREIGN KEY ([parent_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 

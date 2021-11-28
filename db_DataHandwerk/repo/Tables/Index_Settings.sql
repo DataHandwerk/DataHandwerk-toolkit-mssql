@@ -4,8 +4,10 @@
     [IndexPatternColumnName]     NVARCHAR (4000)  NULL,
     [IndexSemanticGroup]         NVARCHAR (512)   NULL,
     [is_create_constraint]       BIT              CONSTRAINT [DF__Index_Set__is_cr__1209AD79] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_Index_Settings] PRIMARY KEY CLUSTERED ([index_guid] ASC)
+    CONSTRAINT [PK_Index_Settings] PRIMARY KEY CLUSTERED ([index_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

@@ -70,5 +70,14 @@
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "wBQkuyjxVTth94Uz"
+    },
+    {
+        "type": "File",
+        "name": "d:\\Repos\\gitlab\\DataHandwerk\\DataHandwerk-toolkit-mssql\\db_DataHandwerk\\some-cmd.adoc",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\gitlab\\DataHandwerk\\DataHandwerk-toolkit-mssql\\db_DataHandwerk\\some-cmd.adoc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "t7mV5GcUHoXfDd1p"
     }
 ]

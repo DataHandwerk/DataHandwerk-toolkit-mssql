@@ -5,8 +5,10 @@
     [SchemaName]            NVARCHAR (128)   NOT NULL,
     [ObjectName]            NVARCHAR (128)   NOT NULL,
     [ColumnName]            NVARCHAR (128)   NOT NULL,
-    CONSTRAINT [PK_additional_Reference_ObjectColumn_T] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC)
+    CONSTRAINT [PK_additional_Reference_ObjectColumn_T] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

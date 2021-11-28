@@ -8,8 +8,10 @@
     [AntoraModule]           NVARCHAR (MAX)   NULL,
     [RepoObject_schema_name] NVARCHAR (128)   NOT NULL,
     [RepoObject_name]        NVARCHAR (128)   NOT NULL,
-    CONSTRAINT [PK_external_RepoObjectProperty] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [property_name] ASC)
+    CONSTRAINT [PK_external_RepoObjectProperty] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [property_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 GO

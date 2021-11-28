@@ -1,13 +1,13 @@
 ﻿
-CREATE View [docs].[RepoObject_MeasureList]
+CREATE View docs.RepoObject_MeasureList
 As
 Select
     rom.RepoObject_guid
   , rof.cultures_name
   , rof.RepoObject_DisplayName
   , rof.FilenameRelatedMeasures
-  , is_external                        = Max ( Cast(rof.is_external As TinyInt))
-  , AntoraMeasureDetails               =
+  , is_external          = Max ( Cast(rof.is_external As TinyInt))
+  , AntoraMeasureDetails =
   --
   String_Agg (
                  Concat (
@@ -79,25 +79,6 @@ Select
                                          --add additional line to get more space
                                          , '{empty} +'
                                          , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-
-                                         --, Case
-                                         --      When rom.Description <> ''
-                                         --          Then
-                                         --          Concat (
-                                         --                     '.Description'
-                                         --                   , Char ( 13 ) + Char ( 10 )
-                                         --                   , '--'
-                                         --                   , Char ( 13 ) + Char ( 10 )
-                                         --                   , rom.Description
-                                         --                   , Char ( 13 ) + Char ( 10 )
-                                         --                   , '--'
-                                         --                   , Char ( 13 ) + Char ( 10 )
-                                         --                   --add additional line to get more space
-                                         --                   , '{empty} +'
-                                         --                   , Char ( 13 ) + Char ( 10 )
-                                         --                   , Char ( 13 ) + Char ( 10 )
-                                         --                 )
-                                         --  End
                                          , Case
                                                When rom.Expression <> ''
                                                    Then
@@ -112,6 +93,9 @@ Select
                                                             , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                                                           )
                                            End
+                                         , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                                         --, mplist.MeasurePropertyList
+                                         , mplist.MeasurePropertyTable
                                        )
                           --
                           )
@@ -121,63 +105,63 @@ Select
                                 transl.displayfolder_DisplayName
                               , transl.is_displayfolder Desc
                               , transl.Measure_DisplayName)
-  --todo: some measures are in multiple displayfolders, but we need a measure only once. How to do? And how to get them in the right order?
-  , AntoraMeasureDescriptions          =
-  --
-  Iif(rof.RepoObject_DisplayName = '_measures'
-    , String_Agg (
-                     Concat (
-                                --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                                Cast(N'' As NVarchar(Max))
-                              , Char ( 13 ) + Char ( 10 )
-                              , '=== '
-                              , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
-                              , ' - description'
-                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                              , '// tag::description-measure-'
-                                + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
-                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                              , rom.Description
-                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                              , '// end::description-measure-'
-                                + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
-                            )
-                   , Char ( 13 ) + Char ( 10 )
-                 ) Within Group(Order By
-                                    transl.displayfolder_DisplayName
-                                  , transl.is_displayfolder Desc
-                                  , transl.Measure_DisplayName)
-    , '')
-  --todo: some measures are in multiple displayfolders, but we need a measure only once. How to do? And how to get them in the right order?
-  , AntoraMeasureDescriptionTagContent =
-  --
-  Iif(rof.RepoObject_DisplayName = '_measures'
-    , String_Agg (
-                     Concat (
-                                --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
-                                Cast(N'' As NVarchar(Max))
-                              , Char ( 13 ) + Char ( 10 )
-                              , '=== '
-                              , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
-                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                              , '// tag::description-measure-'
-                                + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
-                              , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                              , '// uncomment the following attribute, to hide exported descriptions' + Char ( 13 )
-                                + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                              , '//:hide-exported-description-measure-'
-                                + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + ':'
-                              , Char ( 13 ) + Char ( 10 )
-                              , '// end::description-measure-'
-                                + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
-                            )
-                   , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                 ) Within Group(Order By
-                                    transl.displayfolder_DisplayName
-                                  , transl.is_displayfolder Desc
-                                  , transl.Measure_DisplayName)
-    , '')
-  , PlantumlMeasures                   =
+  ----todo: some measures are in multiple displayfolders, but we need a measure only once. How to do? And how to get them in the right order?
+  --, AntoraMeasureDescriptions          =
+  ----
+  --Iif(rof.RepoObject_DisplayName = '_measures'
+  --  , String_Agg (
+  --                   Concat (
+  --                              --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+  --                              Cast(N'' As NVarchar(Max))
+  --                            , Char ( 13 ) + Char ( 10 )
+  --                            , '=== '
+  --                            , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
+  --                            , ' - description'
+  --                            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  --                            , '// tag::description-measure-'
+  --                              + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
+  --                            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  --                            , rom.Description
+  --                            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  --                            , '// end::description-measure-'
+  --                              + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
+  --                          )
+  --                 , Char ( 13 ) + Char ( 10 )
+  --               ) Within Group(Order By
+  --                                  transl.displayfolder_DisplayName
+  --                                , transl.is_displayfolder Desc
+  --                                , transl.Measure_DisplayName)
+  --  , '')
+  ----todo: some measures are in multiple displayfolders, but we need a measure only once. How to do? And how to get them in the right order?
+  --, AntoraMeasureDescriptionTagContent =
+  ----
+  --Iif(rof.RepoObject_DisplayName = '_measures'
+  --  , String_Agg (
+  --                   Concat (
+  --                              --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+  --                              Cast(N'' As NVarchar(Max))
+  --                            , Char ( 13 ) + Char ( 10 )
+  --                            , '=== '
+  --                            , docs.fs_cleanStringForHeader ( transl.Measure_DisplayName )
+  --                            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  --                            , '// tag::description-measure-'
+  --                              + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
+  --                            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  --                            , '// uncomment the following attribute, to hide exported descriptions' + Char ( 13 )
+  --                              + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  --                            , '//:hide-exported-description-measure-'
+  --                              + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + ':'
+  --                            , Char ( 13 ) + Char ( 10 )
+  --                            , '// end::description-measure-'
+  --                              + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
+  --                          )
+  --                 , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+  --               ) Within Group(Order By
+  --                                  transl.displayfolder_DisplayName
+  --                                , transl.is_displayfolder Desc
+  --                                , transl.Measure_DisplayName)
+  --  , '')
+  , PlantumlMeasures     =
   --
   String_Agg (
                  Concat (
@@ -208,18 +192,24 @@ Select
                               , transl.is_displayfolder Desc
                               , transl.Measure_DisplayName)
 From
-    repo.Measures_union                               As rom
+    repo.Measure_union                               As rom
     Left Outer Join
         docs.RepoObject_OutputFilter_T                As rof
             On
             rom.RepoObject_guid        = rof.RepoObject_guid
 
     Left Join
-        ssas.Measures_translation_displayfolder_union As transl
+        ssas.Measure_translation_displayfolder_union As transl
             On
             transl.Measure_guid        = rom.Measure_guid
             And transl.cultures_name   = rof.cultures_name
             And transl.RepoObject_name = rof.RepoObject_name
+
+    Left Join
+        docs.Measure_MeasurePropertyList              As mplist
+            On
+            mplist.Measure_guid        = rom.Measure_guid
+--And mplist.cultures_name   = rof.cultures_name
 Group By
     rom.RepoObject_guid
   , rof.cultures_name
@@ -250,11 +240,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75f9e
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fb641888-fd45-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList', @level2type = N'COLUMN', @level2name = N'AntoraMeasureDescriptionTagContent';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fa641888-fd45-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'RepoObject_MeasureList', @level2type = N'COLUMN', @level2name = N'AntoraMeasureDescriptions';
+
 
 
 GO

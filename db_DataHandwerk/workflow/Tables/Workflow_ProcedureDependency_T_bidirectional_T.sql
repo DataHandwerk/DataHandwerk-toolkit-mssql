@@ -5,8 +5,10 @@
     [referenced_RepoObject_fullname]        NVARCHAR (261)   NOT NULL,
     [referencing_RepoObject_fullname]       NVARCHAR (261)   NOT NULL,
     [is_inactive]                           BIT              CONSTRAINT [DF_Workflow_ProcedureDependency_T_bidirectional_T_is_active] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_Workflow_ProcedureDependency_T_bidirectional_T] PRIMARY KEY CLUSTERED ([Workflow_id] ASC, [referenced_Procedure_RepoObject_guid] ASC, [referencing_Procedure_RepoObject_guid] ASC)
+    CONSTRAINT [PK_Workflow_ProcedureDependency_T_bidirectional_T] PRIMARY KEY CLUSTERED ([Workflow_id] ASC, [referenced_Procedure_RepoObject_guid] ASC, [referencing_Procedure_RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

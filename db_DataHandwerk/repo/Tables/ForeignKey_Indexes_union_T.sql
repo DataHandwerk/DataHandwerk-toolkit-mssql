@@ -23,7 +23,10 @@
     [referencing_SysObject_name]             NVARCHAR (128)   NULL,
     [referencing_SysObject_schema_name]      NVARCHAR (128)   NULL,
     [update_referential_action]              TINYINT          NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 

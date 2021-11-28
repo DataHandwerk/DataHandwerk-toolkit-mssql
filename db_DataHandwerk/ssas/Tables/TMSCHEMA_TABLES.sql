@@ -13,8 +13,10 @@
     [ShowAsVariationsOnly]          BIT            NOT NULL,
     [IsPrivate]                     BIT            NOT NULL,
     [DefaultDetailRowsDefinitionID] NUMERIC (20)   NULL,
-    CONSTRAINT [PK_TMSCHEMA_TABLES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_TABLES] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

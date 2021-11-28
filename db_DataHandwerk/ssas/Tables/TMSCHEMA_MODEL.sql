@@ -13,8 +13,10 @@
     [Version]               BIGINT         NOT NULL,
     [DataAccessOptions]     NVARCHAR (MAX) NULL,
     [DefaultMeasureID]      NUMERIC (20)   NULL,
-    CONSTRAINT [PK_TMSCHEMA_MODEL] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_MODEL] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

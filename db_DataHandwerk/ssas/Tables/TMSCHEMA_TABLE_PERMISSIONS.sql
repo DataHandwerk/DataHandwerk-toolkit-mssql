@@ -8,8 +8,10 @@
     [State]              BIGINT         NOT NULL,
     [ErrorMessage]       NVARCHAR (MAX) NULL,
     [MetadataPermission] BIGINT         NULL,
-    CONSTRAINT [PK_TMSCHEMA_TABLE_PERMISSIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC)
+    CONSTRAINT [PK_TMSCHEMA_TABLE_PERMISSIONS] PRIMARY KEY CLUSTERED ([databasename] ASC, [ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

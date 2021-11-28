@@ -1,8 +1,10 @@
 ﻿CREATE TABLE [property].[PropertyName_RepoObject_T] (
     [property_name]   NVARCHAR (128) NOT NULL,
     [has_inheritance] BIT            CONSTRAINT [DF_PropertyName_RepoObject_T_has_inheritance] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_PropertyName_RepoObject_T] PRIMARY KEY CLUSTERED ([property_name] ASC)
+    CONSTRAINT [PK_PropertyName_RepoObject_T] PRIMARY KEY CLUSTERED ([property_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 GO
