@@ -97,7 +97,7 @@ Begin
                    , ' /p:TableData=[sqlparse].[RepoObject_SqlModules]'
                    , ' /p:TableData=[sqlparse].[RepoObject_SqlModules_41_from_T]'
                    , ' /p:TableData=[sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T]'
-                   , ' /p:TableData=[ssas].[Measures_translation_T]'
+                   , ' /p:TableData=[ssas].[Measure_translation_T]'
                    , ' /p:TableData=[ssas].[model_json]'
                    , ' /p:TableData=[ssas].[model_json_31_tables_T]'
                    , ' /p:TableData=[ssas].[model_json_311_tables_columns_T]'
