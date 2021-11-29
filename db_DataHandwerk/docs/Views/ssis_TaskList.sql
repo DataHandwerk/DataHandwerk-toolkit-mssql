@@ -1,4 +1,5 @@
-﻿CREATE View [docs].[ssis_TaskList]
+﻿
+CREATE View docs.ssis_TaskList
 As
 Select
     task.AntoraModule
@@ -54,10 +55,10 @@ Select
                             + Cast(task.SqlConnection As NVarchar(50)) + Char ( 13 ) + Char ( 10 ) + Char ( 13 )
                             + Char ( 10 )
                           , '|' + 'Sql Project Connection' + Char ( 13 ) + Char ( 10 ) + 'a|' + +' <<connection-'
-                            + docs.fs_cleanStringForAnchorId ( projcon.ConnectionManagerName ) + '>>' + Char ( 13 )
+                            + docs.fs_cleanStringForAnchorId ( projconsql.ConnectionManagerName ) + '>>' + Char ( 13 )
                             + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                           , '|' + 'Sql Package Connection' + Char ( 13 ) + Char ( 10 ) + 'a|' + ' <<connection-'
-                            + docs.fs_cleanStringForAnchorId ( packcon.ConnectionManagerName ) + '>>' + Char ( 13 )
+                            + docs.fs_cleanStringForAnchorId ( packconsql.ConnectionManagerName ) + '>>' + Char ( 13 )
                             + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                           , '|' + 'Sql Statement' + Char ( 13 ) + Char ( 10 )
                             --
@@ -79,9 +80,13 @@ Select
                           --
                           , '|' + 'Execute PackageExpression' + Char ( 13 ) + Char ( 10 ) + '|'
                             + task.ExecutePackageExpression + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                          --different ways to get an Executed PackageName
                           , '|' + 'Executed PackageName' + Char ( 13 ) + Char ( 10 ) + 'a|' + 'xref:'
                             + docs.fs_cleanStringForFilename ( Replace ( task.ExecutedPackageName, '.dtsx', '' ))
                             + '.adoc[]' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                          , '|' + 'Executed PackageName' + Char ( 13 ) + Char ( 10 ) + 'a|' + 'xref:'
+                            + docs.fs_cleanStringForFilename ( packconepc.DtsPackageBaseName ) + '.adoc[]'
+                            + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                           , '|' + 'Execute Package Connection' + Char ( 13 ) + Char ( 10 ) + '|'
                             + task.ExecutePackageConnection + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
 
@@ -110,38 +115,51 @@ Select
 From
     ssis.PackageTask                         As task
     Left Join
-        ssis.PackageConnection               As packcon
+        ssis.PackageConnection               As packconsql
             On
-            packcon.AntoraModule            = task.AntoraModule
-            And packcon.PackageName         = task.PackageName
-            And packcon.ConnectionManagerID = task.SqlConnection
+            packconsql.AntoraModule            = task.AntoraModule
+            And packconsql.PackageName         = task.PackageName
+            And packconsql.ConnectionManagerID = task.SqlConnection
 
     Left Join
-        ssis.ProjectConnection               As projcon
+        ssis.ProjectConnection               As projconsql
             On
-            projcon.AntoraModule            = task.AntoraModule
-            And projcon.ConnectionManagerID = task.SqlConnection
+            projconsql.AntoraModule            = task.AntoraModule
+            And projconsql.ConnectionManagerID = task.SqlConnection
+
+    Left Join
+        ssis.PackageConnection               As packconepc
+            On
+            packconepc.AntoraModule            = task.AntoraModule
+            And packconepc.PackageName         = task.PackageName
+            And packconepc.ConnectionManagerID = task.ExecutePackageConnection
+
+    --Left Join
+    --    ssis.ProjectConnection               As projconepc
+    --        On
+    --        projconepc.AntoraModule            = task.AntoraModule
+    --        And projconepc.ConnectionManagerID = task.ExecutePackageConnection
 
     Left Join
         docs.ssis_SqlTaskParameterInnerTable As sqlpit
             On
-            sqlpit.AntoraModule             = task.AntoraModule
-            And sqlpit.PackageName          = task.PackageName
-            And sqlpit.TaskPath             = task.TaskPath
+            sqlpit.AntoraModule                = task.AntoraModule
+            And sqlpit.PackageName             = task.PackageName
+            And sqlpit.TaskPath                = task.TaskPath
 
     Left Join
         docs.ssis_DftTaskComponentList       As dfttsl
             On
-            dfttsl.AntoraModule             = task.AntoraModule
-            And dfttsl.PackageName          = task.PackageName
-            And dfttsl.TaskPath             = task.TaskPath
+            dfttsl.AntoraModule                = task.AntoraModule
+            And dfttsl.PackageName             = task.PackageName
+            And dfttsl.TaskPath                = task.TaskPath
 
     Left Join
         docs.ssis_PumlDftTask                As pumldft
             On
-            pumldft.AntoraModule            = task.AntoraModule
-            And pumldft.PackageName         = task.PackageName
-            And pumldft.TaskPath            = task.TaskPath
+            pumldft.AntoraModule               = task.AntoraModule
+            And pumldft.PackageName            = task.PackageName
+            And pumldft.TaskPath               = task.TaskPath
 Group By
     task.AntoraModule
   , task.PackageName

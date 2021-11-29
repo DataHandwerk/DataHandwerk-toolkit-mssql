@@ -839,7 +839,6 @@
     <Build Include="docs\Views\ssis_DftTaskComponentList.sql" />
     <Build Include="docs\Views\ssis_DftTaskComponentInputList.sql" />
     <Build Include="docs\Views\ssis_DftTaskComponentInputColumnList.sql" />
-    <Build Include="docs\Views\ssis_ConnectionList.sql" />
     <Build Include="docs\Views\ssis_Adoc.sql" />
     <Build Include="docs\Views\Schema_PumlPartial_FkRefList.sql" />
     <Build Include="ssis_t\Views\TblProjectConnection_src.sql" />
@@ -957,6 +956,7 @@
     <Build Include="dbo\Stored Procedures\usp_generate_merge.sql" />
     <Build Include="dbo\Stored Procedures\usp_AlterTablesDataCompression.sql" />
     <Build Include="config\Stored Procedures\usp_extract_dacpac.sql" />
+    <Build Include="docs\Views\ssis_PackageConnectionList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

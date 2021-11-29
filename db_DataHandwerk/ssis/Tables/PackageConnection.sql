@@ -7,8 +7,12 @@
     [ConnectionString]             VARCHAR (MAX)    NULL,
     [ExpressionValue]              VARCHAR (MAX)    NULL,
     [RetainSameConnectionProperty] NVARCHAR (MAX)   NULL,
+    [isFileAndDtsPackage]          AS               (case when [ConnectionManagerType]='FILE' AND right([ConnectionString],(5))='.dtsx' then (1) else (0) end) PERSISTED NOT NULL,
+    [DtsPackageBaseName]           AS               (case when [ConnectionManagerType]='FILE' AND right([ConnectionString],(5))='.dtsx' then substring([ConnectionString],(len([ConnectionString])-charindex('\',reverse([ConnectionString])))+(2),charindex('\',reverse([ConnectionString]))-(6))  end) PERSISTED,
     CONSTRAINT [PK_PackageConnection] PRIMARY KEY CLUSTERED ([AntoraModule] ASC, [PackageName] ASC, [ConnectionManagerID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 GO

@@ -1,11 +1,10 @@
 ﻿
-
-CREATE View [docs].[ssis_ConnectionList]
+CREATE View docs.ssis_PackageConnectionList
 As
 Select
     AntoraModule
   , PackageName
-  , ConnectionList =
+  , PackageConnectionList =
   --
   String_Agg (
                  Concat (
@@ -28,6 +27,9 @@ Select
                             + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                           , '|' + 'ConnectionString' + Char ( 13 ) + Char ( 10 ) + '|' + ConnectionString + Char ( 13 )
                             + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                          , '|' + 'Package Link' + Char ( 13 ) + Char ( 10 ) + 'a|' + 'xref:'
+                            + docs.fs_cleanStringForFilename ( DtsPackageBaseName ) + '.adoc[]' + Char ( 13 )
+                            + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                           , '|' + 'ConnectionManagerID' + Char ( 13 ) + Char ( 10 ) + '|'
                             + Cast(ConnectionManagerID As NVarchar(50)) + Char ( 13 ) + Char ( 10 ) + Char ( 13 )
                             + Char ( 10 )
@@ -48,17 +50,17 @@ Group By
     AntoraModule
   , PackageName
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4cddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_ConnectionList', @level2type = N'COLUMN', @level2name = N'ConnectionList';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4cddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_PackageConnectionList', @level2type = N'COLUMN', @level2name = N'PackageConnectionList';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4bddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_ConnectionList', @level2type = N'COLUMN', @level2name = N'PackageName';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4bddc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_PackageConnectionList', @level2type = N'COLUMN', @level2name = N'PackageName';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4addc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_ConnectionList', @level2type = N'COLUMN', @level2name = N'AntoraModule';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '4addc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_PackageConnectionList', @level2type = N'COLUMN', @level2name = N'AntoraModule';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '859a07f7-c23c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_ConnectionList';
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '859a07f7-c23c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'VIEW', @level1name = N'ssis_PackageConnectionList';
 

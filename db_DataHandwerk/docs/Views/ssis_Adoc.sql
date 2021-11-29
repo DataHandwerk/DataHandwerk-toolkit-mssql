@@ -67,7 +67,7 @@ Select
            , Char ( 13 ) + Char ( 10 )
            , '// tag::ConnectionList[]'
            , Char ( 13 ) + Char ( 10 )
-           , cl.ConnectionList
+           , cl.PackageConnectionList
            , Char ( 13 ) + Char ( 10 )
            , '// end::ConnectionList[]'
            , Char ( 13 ) + Char ( 10 )
@@ -287,7 +287,7 @@ From
             And gl.PackageName   = p.PackageName
 
     Left Join
-        docs.ssis_ConnectionList        As cl
+        docs.ssis_PackageConnectionList        As cl
             On
             cl.AntoraModule      = p.AntoraModule
             And cl.PackageName   = p.PackageName

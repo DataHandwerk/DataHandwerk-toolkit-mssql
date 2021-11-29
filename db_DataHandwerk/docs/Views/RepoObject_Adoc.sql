@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>Description
 `AdocContent` is the content of a page to be used by Antora as partial.
@@ -18,7 +17,7 @@ All Parts of the documentations are tagged, Antora can reference the content usi
 To use additional content in Antora documentation first try to include new properties into xref:property.repoobjectproperty.adoc[]
 <<property_end>>
 */
-CREATE View [docs].[RepoObject_Adoc]
+CREATE View docs.RepoObject_Adoc
 As
 Select
     rof.RepoObject_guid
@@ -400,8 +399,8 @@ Select
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '// tag::description[]'
            , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-           , '// uncomment the following attribute, to hide exported (by AntoraExport) descriptions. Keep the empty line on top of the attribute!' + Char ( 13 ) + Char ( 10 )
-             + Char ( 13 ) + Char ( 10 )
+           , '// uncomment the following attribute, to hide exported (by AntoraExport) descriptions. Keep the empty line on top of the attribute!'
+             + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
            , '//:hide-exported-description:'
            , Char ( 13 ) + Char ( 10 )
            , '// end::description[]'
