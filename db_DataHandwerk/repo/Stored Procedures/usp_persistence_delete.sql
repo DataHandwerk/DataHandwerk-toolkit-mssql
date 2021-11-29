@@ -18,7 +18,7 @@ EXEC repo.usp_persistence_delete
 
 
 */
-Create   Procedure repo.usp_persistence_delete
+CREATE Procedure repo.usp_persistence_delete
     @usp_persistence_uspid    Int              = Null
   , @usp_persistence_fullname NVarchar(261)    = Null
   , @source_RepoObject_guid   UniqueIdentifier = Null --
@@ -114,7 +114,7 @@ Exec logs.usp_ExecutionLog_insert
 --
 ----START
 --
-Declare @info_01_message NVarchar(1000);
+Declare @info_01_message NVarchar(4000);
 
 --try to sync @target_RepoObject_guid and @target_fullname
 If @target_RepoObject_guid Is Null
@@ -282,8 +282,13 @@ If Not @usp_persistence_uspid Is Null
        )
 Begin
     Set @info_01_message
-        = N'@usp_persistence_uspid ' + @usp_persistence_uspid + N' and @usp_persistence_fullname '
-          + @usp_persistence_fullname + N' does not match';
+        = Concat (
+                     N'@usp_persistence_uspid '
+                   , @usp_persistence_uspid
+                   , N' and @usp_persistence_fullname '
+                   , @usp_persistence_fullname
+                   , N' does not match'
+                 );
 
     Throw 51002, @info_01_message, 1;
 End;
@@ -292,8 +297,13 @@ If Not @usp_persistence_uspid Is Null
    And Not @usp_persistence_fullname Like '%usp_PERSIST_%'
 Begin
     Set @info_01_message
-        = N'@usp_persistence_uspid ' + @usp_persistence_uspid + N'; @usp_persistence_fullname '
-          + @usp_persistence_fullname + N' not LIKE ''%usp_PERSIST_%''';
+        = Concat (
+                     N'@usp_persistence_uspid '
+                   , @usp_persistence_uspid
+                   , N'; @usp_persistence_fullname '
+                   , @usp_persistence_fullname
+                   , N' not LIKE ''%usp_PERSIST_%'''
+                 );
 
     Throw 51004, @info_01_message, 1;
 End;
@@ -346,10 +356,10 @@ Set @info_01_message
 
 Print @info_01_message
 
-Set @info_01_message = N'Delete
+Set @info_01_message = Concat ( N'Delete
 uspgenerator.GeneratorUsp
 Where
-    id = ' + @usp_persistence_uspid
+    id = ', @usp_persistence_uspid )
 
 Print @info_01_message
 
@@ -358,10 +368,10 @@ uspgenerator.GeneratorUsp
 Where
     id = @usp_persistence_uspid
 
-Set @info_01_message = N'Delete
+Set @info_01_message = Concat ( N'Delete
 repo.RepoObject_persistence
 Where
-    target_RepoObject_guid = ' + @usp_persistence_uspid
+    target_RepoObject_guid = ', @usp_persistence_uspid )
 
 Print @info_01_message
 
