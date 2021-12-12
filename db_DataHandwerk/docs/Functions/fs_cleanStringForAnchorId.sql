@@ -21,7 +21,7 @@ As
 Begin
     Return
 	Lower ( 
-	Replace ( Replace (  Replace ( Replace (  Replace (Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( 
+	Replace ( Replace ( Replace ( Replace ( Replace (  Replace (Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( 
 		Trim( @source_string )
 		, ' ', 'blank' )
 		, '+', 'plus' )
@@ -41,6 +41,7 @@ Begin
 		, '%', 'percent' )
 		, '|', 'vbar')
 		, '`', 'backtick')
+		, ':', 'colon' )
 	--Lower:
 	)
 End;

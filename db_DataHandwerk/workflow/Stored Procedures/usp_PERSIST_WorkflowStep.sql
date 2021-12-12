@@ -71,7 +71,7 @@ PRINT '[workflow].[usp_PERSIST_WorkflowStep]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[WorkflowStep_S]","log_target_object":"[workflow].[WorkflowStep]","log_flag_InsertUpdateDelete":"I"}]}*/
+/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[WorkflowStep_src]","log_target_object":"[workflow].[WorkflowStep]","log_flag_InsertUpdateDelete":"I"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',54,';',700,';',NULL);
 
 INSERT INTO 
@@ -84,7 +84,7 @@ SELECT
   [Procedure_RepoObject_guid]
 , [Workflow_id]
 
-FROM [workflow].[WorkflowStep_S] AS S
+FROM [workflow].[WorkflowStep_src] AS S
 WHERE
 NOT EXISTS
 (SELECT 1
@@ -98,7 +98,7 @@ AND T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'insert missing'
-SET @source_object = '[workflow].[WorkflowStep_S]'
+SET @source_object = '[workflow].[WorkflowStep_src]'
 SET @target_object = '[workflow].[WorkflowStep]'
 
 EXEC logs.usp_ExecutionLog_insert 

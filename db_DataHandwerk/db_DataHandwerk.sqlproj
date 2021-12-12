@@ -514,9 +514,7 @@
     <Build Include="workflow\Stored Procedures\usp_workflow.sql" />
     <Build Include="workflow\Views\ProcedureDependency_input_PersistenceDependency.sql" />
     <Build Include="workflow\Views\ProcedureDependency_input_PersistenceDependency_S.sql" />
-    <Build Include="workflow\Stored Procedures\usp_PERSIST_ProcedureDependency_input_PersistenceDependency.sql" />
     <Build Include="reference\Views\RepoObject_reference_persistence_target_as_source.sql" />
-    <Build Include="workflow\Views\WorkflowStep_S.sql" />
     <Build Include="workflow\Views\WorkflowStep_ForUpdate.sql" />
     <Build Include="workflow\Views\WorkflowStep_active.sql" />
     <Build Include="workflow\Views\Biml_Task.sql" />
@@ -812,7 +810,6 @@
     <Build Include="ssis\Tables\PackageTask_Dft_Component_input.sql" />
     <Build Include="ssis\Tables\PackageTask_Dft_Component_input_inputColumn.sql" />
     <Build Include="ssis\Tables\PackageTask_Dft_Component_input_externalMetadataColumn.sql" />
-    <Build Include="ssis\Tables\PackageTask_Dft_SrcDest.sql" />
     <Build Include="ssis\Tables\PackageTask_Sql_Parameter.sql" />
     <Build Include="ssis\Tables\PackageVariable.sql" />
     <Build Include="ssis\Tables\PackageParameter.sql" />
@@ -887,8 +884,6 @@
     <Build Include="ssis\Views\PackageTask_src.sql" />
     <Build Include="ssis\Views\PackageTask_Sql_Parameter_tgt.sql" />
     <Build Include="ssis\Views\PackageTask_Sql_Parameter_src.sql" />
-    <Build Include="ssis\Views\PackageTask_Dft_SrcDest_tgt.sql" />
-    <Build Include="ssis\Views\PackageTask_Dft_SrcDest_src.sql" />
     <Build Include="ssis\Views\PackageParameter_tgt.sql" />
     <Build Include="ssis\Views\PackageParameter_src.sql" />
     <Build Include="ssis\Views\PackageFlow_tgt.sql" />
@@ -907,7 +902,6 @@
     <Build Include="ssis_t\Stored Procedures\usp_GetPackageDetails.sql" />
     <Build Include="ssis\Stored Procedures\usp_PERSIST_ProjectConnection_tgt.sql" />
     <Build Include="ssis\Stored Procedures\usp_import.sql" />
-    <Build Include="ssis\Stored Procedures\usp_PERSIST_PackageTask_Dft_SrcDest_tgt.sql" />
     <Build Include="ssis\Stored Procedures\usp_PERSIST_PackageTask_Dft_Component_output_tgt.sql" />
     <Build Include="ssis\Stored Procedures\usp_PERSIST_PackageTask_Dft_Component_output_outputColumn_tgt.sql" />
     <Build Include="ssis\Stored Procedures\usp_PERSIST_PackageTask_Dft_Component_output_externalMetadataColumn_tgt.sql" />
@@ -957,6 +951,9 @@
     <Build Include="dbo\Stored Procedures\usp_AlterTablesDataCompression.sql" />
     <Build Include="config\Stored Procedures\usp_extract_dacpac.sql" />
     <Build Include="docs\Views\ssis_PackageConnectionList.sql" />
+    <Build Include="workflow\Views\WorkflowStep_src.sql" />
+    <Build Include="uspgenerator\Views\GeneratorUsp_check_persistence.sql" />
+    <Build Include="docs\Views\RepoObject_OutputFilter_T_gross.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

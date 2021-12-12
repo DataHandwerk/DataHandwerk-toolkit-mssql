@@ -617,3 +617,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '21896
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '20896e49-f924-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'is_DocsExclude';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd9c9bf7f-1355-ec11-8533-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'Index_gross', @level2type = N'COLUMN', @level2name = N'is_external';
+

@@ -194,7 +194,7 @@ Select
 From
     repo.Measure_union                               As rom
     Left Outer Join
-        docs.RepoObject_OutputFilter_T                As rof
+        docs.RepoObject_OutputFilter_T_gross         As rof
             On
             rom.RepoObject_guid        = rof.RepoObject_guid
 
@@ -206,7 +206,7 @@ From
             And transl.RepoObject_name = rof.RepoObject_name
 
     Left Join
-        docs.Measure_MeasurePropertyList              As mplist
+        docs.Measure_MeasurePropertyList             As mplist
             On
             mplist.Measure_guid        = rom.Measure_guid
 --And mplist.cultures_name   = rof.cultures_name

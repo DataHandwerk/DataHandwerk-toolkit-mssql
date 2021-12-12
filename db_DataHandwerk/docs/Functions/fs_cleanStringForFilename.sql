@@ -7,12 +7,13 @@ As
 Begin
     Return 
 	  Lower ( 
-	    Replace ( Replace ( Replace ( Replace (
+	    Replace ( Replace ( Replace ( Replace ( Replace (
 		Trim ( @source_string )
 		, ' ', 'blank' )
 		, '/', 'slash' )
 		, '\', 'backslash' )
 		, '*', 'star' )
+		, ':', 'colon' )
 	)
 End;
 GO

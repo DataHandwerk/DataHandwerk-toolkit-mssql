@@ -21,9 +21,10 @@
     [AntoraModule]                NVARCHAR (MAX)   NULL,
     [PumlEntityTopDefault]        NVARCHAR (MAX)   NOT NULL,
     [PumlEntityTopWorkaround]     NVARCHAR (MAX)   NOT NULL,
-    [FilenameRelatedMeasures]     AS               (case when [is_ssas]=(1) then [docs].[fs_cleanStringForFilename]([RepoObject_schema_name]+'._measures')  end),
     CONSTRAINT [PK_RepoObject_OutputFilter_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 
@@ -129,5 +130,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '16ebff08-78
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f0c51ae6-cc46-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_OutputFilter_T', @level2type = N'COLUMN', @level2name = N'FilenameRelatedMeasures';
+
 

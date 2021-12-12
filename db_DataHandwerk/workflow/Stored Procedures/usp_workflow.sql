@@ -71,8 +71,8 @@ PRINT '[workflow].[usp_workflow]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
-EXEC [workflow].[usp_PERSIST_ProcedureDependency_input_PersistenceDependency]
+/*{"ReportUspStep":[{"Number":210,"Name":"[workflow].[usp_PERSIST_ProcedureDependency_PersistenceDependency_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1,"log_flag_InsertUpdateDelete":"u"}]}*/
+EXEC [workflow].[usp_PERSIST_ProcedureDependency_PersistenceDependency_tgt]
 --add your own parameters
 --logging parameters
  @execution_instance_guid = @execution_instance_guid
@@ -115,19 +115,18 @@ EXEC [workflow].[usp_PERSIST_Workflow_ProcedureDependency_T_bidirectional_T]
 PRINT CONCAT('usp_id;Number;Parent_Number: ',51,';',410,';',NULL);
 
 --Declare @rows Int;
-
 Set @rows = 0;
+
 Declare @updated Int = -1;
 
 While @updated <> 0
 Begin
-
     Update
         T1
     Set
         T1.is_redundant = 1
     From
-        workflow.Workflow_ProcedureDependency_T             As T1
+        workflow.Workflow_ProcedureDependency_T               As T1
         Inner Join
             workflow.Workflow_ProcedureDependency_T_redundant As T2
                 On
@@ -135,12 +134,11 @@ Begin
                 And T1.referencing_Procedure_RepoObject_guid = T2.referencing_Procedure_RepoObject_guid
                 And T1.referenced_Procedure_RepoObject_guid  = T2.referenced_Procedure_RepoObject_guid
     Where
-        ( T1.is_redundant            = 0 )
-        And T2.[RownrPerReferencing] = 1;
+        ( T1.is_redundant          = 0 )
+        And T2.RownrPerReferencing = 1
 
-    Set @updated = @@RowCount;
-    Set @rows = @rows + @updated;
-
+    Set @updated = @@RowCount
+    Set @rows = @rows + @updated
 End;
 
 --Print @updated;
@@ -174,50 +172,136 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":510,"Name":"fill [workflow].[WorkflowStep_Sortorder]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[WorkflowStep_active]","log_target_object":"[workflow].[WorkflowStep_Sortorder]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',51,';',510,';',NULL);
 
-Truncate Table [workflow].[WorkflowStep_Sortorder];
+Truncate Table workflow.WorkflowStep_Sortorder;
 
-Insert Into [workflow].[WorkflowStep_Sortorder]
-(
-    Workflow_id
-  , Procedure_RepoObject_guid
-)
+--Declare @rows Int;
+Set @rows = 0;
 
---Procedure without referenced, not yet in [WorkflowStep_Sortorder]
-Select
-    T1.Workflow_id
-  , T1.Procedure_RepoObject_guid
-From
-    workflow.WorkflowStep_active As T1
-Where
-    --exclude those procedure that are already listed in the target table.
-    Not Exists
-(
+--the following inserts must be done iteratively until there is nothing left to insert
+Declare @inserted Int = -1;
+
+While @inserted <> 0
+Begin
+    Insert Into workflow.WorkflowStep_Sortorder
+    (
+        Workflow_id
+      , Procedure_RepoObject_guid
+    )
+
+    --Procedure without referenced, not yet in [WorkflowStep_Sortorder]
     Select
-        1
+        T1.Workflow_id
+      , T1.Procedure_RepoObject_guid
     From
-        [workflow].[WorkflowStep_Sortorder] T2
+        workflow.WorkflowStep_active As T1
     Where
-        T2.Workflow_id                   = T1.Workflow_id
-        And T2.Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
-)
-    -- procedure should not be referenced by other procedures
-    And Not Exists
-(
-    Select
-        1
-    From
-        workflow.Workflow_ProcedureDependency_T_NotInSortorder T2
-    Where
-        T2.Workflow_id                               = T1.Workflow_id
-        And T2.referencing_Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
-);
+        --exclude those procedure that are already listed in the target table.
+        Not Exists
+    (
+        Select
+            1
+        From
+            workflow.WorkflowStep_Sortorder As T2
+        Where
+            T2.Workflow_id                   = T1.Workflow_id
+            And T2.Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
+    )
+        -- procedure should not be referenced by other procedures
+        And Not Exists
+    (
+        Select
+            1
+        From
+            workflow.Workflow_ProcedureDependency_T_NotInSortorder As T2
+        Where
+            T2.Workflow_id                               = T1.Workflow_id
+            And T2.referencing_Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
+    )
 
+    Set @inserted = @@RowCount
+    Set @rows = @rows + @inserted
+End
+
+--Print @inserted
+--Print @rows
 
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'fill [workflow].[WorkflowStep_Sortorder]'
+SET @source_object = '[workflow].[WorkflowStep_active]'
+SET @target_object = '[workflow].[WorkflowStep_Sortorder]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":610,"Name":"check [workflow].[Workflow_ProcedureDependency_T_bidirectional] (should be empty)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[WorkflowStep_active]","log_target_object":"[workflow].[WorkflowStep_Sortorder]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',51,';',610,';',NULL);
+
+Select
+    Workflow_id
+  , referenced_Procedure_RepoObject_guid
+  , referencing_Procedure_RepoObject_guid
+  , referenced_RepoObject_fullname
+  , referencing_RepoObject_fullname
+From
+    workflow.Workflow_ProcedureDependency_T_bidirectional
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'check [workflow].[Workflow_ProcedureDependency_T_bidirectional] (should be empty)'
+SET @source_object = '[workflow].[WorkflowStep_active]'
+SET @target_object = '[workflow].[WorkflowStep_Sortorder]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":620,"Name":"check [workflow].[Workflow_ProcedureDependency_T_NotInSortorder_check] (should be empty)","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[workflow].[WorkflowStep_active]","log_target_object":"[workflow].[WorkflowStep_Sortorder]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',51,';',620,';',NULL);
+
+Select
+    Workflow_id
+  , referenced_Procedure_RepoObject_guid
+  , referencing_Procedure_RepoObject_guid
+  , RepoObject_fullname_1
+  , RepoObject_fullname_2
+From
+    workflow.Workflow_ProcedureDependency_T_NotInSortorder_check
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'check [workflow].[Workflow_ProcedureDependency_T_NotInSortorder_check] (should be empty)'
 SET @source_object = '[workflow].[WorkflowStep_active]'
 SET @target_object = '[workflow].[WorkflowStep_Sortorder]'
 

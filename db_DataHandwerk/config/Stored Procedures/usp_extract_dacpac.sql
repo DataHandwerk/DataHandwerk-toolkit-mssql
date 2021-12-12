@@ -118,7 +118,7 @@ Begin
                    , ' /p:TableData=[ssis].[PackageTask_Dft_Component_output]'
                    , ' /p:TableData=[ssis].[PackageTask_Dft_Component_output_externalMetadataColumn]'
                    , ' /p:TableData=[ssis].[PackageTask_Dft_Component_output_outputcolumn]'
-                   , ' /p:TableData=[ssis].[PackageTask_Dft_SrcDest]'
+                   --, ' /p:TableData=[ssis].[PackageTask_Dft_SrcDest]'
                    , ' /p:TableData=[ssis].[PackageTask_Sql_Parameter]'
                    , ' /p:TableData=[ssis].[PackageVariable]'
                    , ' /p:TableData=[ssis].[Project]'

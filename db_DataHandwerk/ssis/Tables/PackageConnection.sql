@@ -15,6 +15,8 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '7364fbe4-113b-ec11-852c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssis', @level1type = N'TABLE', @level1name = N'PackageConnection', @level2type = N'CONSTRAINT', @level2name = N'PK_PackageConnection';
 
@@ -53,4 +55,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0f9d
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '5864fbe4-113b-ec11-852c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssis', @level1type = N'TABLE', @level1name = N'PackageConnection';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd7c9bf7f-1355-ec11-8533-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssis', @level1type = N'TABLE', @level1name = N'PackageConnection', @level2type = N'COLUMN', @level2name = N'isFileAndDtsPackage';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'd8c9bf7f-1355-ec11-8533-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssis', @level1type = N'TABLE', @level1name = N'PackageConnection', @level2type = N'COLUMN', @level2name = N'DtsPackageBaseName';
 

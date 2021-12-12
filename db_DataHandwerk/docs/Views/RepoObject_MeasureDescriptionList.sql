@@ -3,7 +3,7 @@
 descriptions for measures are only entered once, in the RepoObject '_measures', containing all measures +
 it should be also used by all other tables of tht ssas model
 */
-CREATE View [docs].[RepoObject_MeasureDescriptionList]
+CREATE View docs.RepoObject_MeasureDescriptionList
 As
 Select
     --PK: (FilenameRelatedMeasures, cultures_name)
@@ -46,8 +46,8 @@ Select
                           , '// tag::description-measure-'
                             + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + '[]'
                           , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
-                          , '// uncomment the following attribute, to hide exported (by AntoraExport) descriptions. Keep the empty line on top of the attribute!' + Char ( 13 )
-                            + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                          , '// uncomment the following attribute, to hide exported (by AntoraExport) descriptions. Keep the empty line on top of the attribute!'
+                            + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                           , '//:hide-exported-description-measure-'
                             + docs.fs_cleanStringForAnchorId ( transl.Measure_DisplayName ) + ':'
                           , Char ( 13 ) + Char ( 10 )
@@ -58,14 +58,14 @@ Select
              ) Within Group(Order By
                                 transl.Measure_DisplayName)
 From
-    repo.Measure_union                As rom
+    repo.Measure_union                       As rom
     Inner Join
-        docs.RepoObject_OutputFilter_T As rof
+        docs.RepoObject_OutputFilter_T_gross As rof
             On
             rom.RepoObject_guid        = rof.RepoObject_guid
 
     Inner Join
-        ssas.Measure_translation_T    As transl
+        ssas.Measure_translation_T           As transl
             On
             transl.Measure_guid        = rom.Measure_guid
             And transl.cultures_name   = rof.cultures_name

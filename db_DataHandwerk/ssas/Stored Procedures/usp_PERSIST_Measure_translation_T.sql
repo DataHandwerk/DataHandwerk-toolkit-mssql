@@ -2,7 +2,7 @@
 code of this procedure is managed in the dhw repository. Do not modify manually.
 Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
 */
-CREATE   PROCEDURE ssas.usp_PERSIST_Measure_translation_T
+CREATE   PROCEDURE [ssas].[usp_PERSIST_Measure_translation_T]
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -64,24 +64,34 @@ EXEC logs.usp_ExecutionLog_insert
 ----data type is sql_variant
 
 --
-PRINT '[ssas].[usp_PERSIST_Measures_translation_T]'
+PRINT '[ssas].[usp_PERSIST_Measure_translation_T]'
 --keep the code between logging parameters and "START" unchanged!
 --
 ----START
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":400,"Name":"truncate persistence target","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_target_object":"[ssas].[Measures_translation_T]","log_flag_InsertUpdateDelete":"D"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',112,';',400,';',NULL);
+/*{"ReportUspStep":[{"Number":500,"Name":"delete persistence target missing in source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssas].[Measure_translation]","log_target_object":"[ssas].[Measure_translation_T]","log_flag_InsertUpdateDelete":"D"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',142,';',500,';',NULL);
 
-TRUNCATE TABLE ssas.Measure_translation_T
+DELETE T
+FROM [ssas].[Measure_translation_T] AS T
+WHERE
+NOT EXISTS
+(SELECT 1 FROM [ssas].[Measure_translation] AS S
+WHERE
+T.[Measure_guid] = S.[Measure_guid]
+AND T.[cultures_name] = S.[cultures_name]
+AND T.[RepoObject_name] = S.[RepoObject_name]
+)
+ 
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'truncate persistence target'
-SET @source_object = NULL
-SET @target_object = '[ssas].[Measures_translation_T]'
+SET @step_name = 'delete persistence target missing in source'
+SET @source_object = '[ssas].[Measure_translation]'
+SET @target_object = '[ssas].[Measure_translation_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
@@ -100,11 +110,68 @@ EXEC logs.usp_ExecutionLog_insert
  , @deleted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":800,"Name":"insert all","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssas].[Measures_translation]","log_target_object":"[ssas].[Measures_translation_T]","log_flag_InsertUpdateDelete":"I"}]}*/
-PRINT CONCAT('usp_id;Number;Parent_Number: ',112,';',800,';',NULL);
+/*{"ReportUspStep":[{"Number":600,"Name":"update changed","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssas].[Measure_translation]","log_target_object":"[ssas].[Measure_translation_T]","log_flag_InsertUpdateDelete":"U"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',142,';',600,';',NULL);
+
+UPDATE T
+SET
+  T.[Measure_guid] = S.[Measure_guid]
+, T.[cultures_name] = S.[cultures_name]
+, T.[RepoObject_name] = S.[RepoObject_name]
+, T.[displayfolder_DisplayName] = S.[displayfolder_DisplayName]
+, T.[displayfolder_translation] = S.[displayfolder_translation]
+, T.[Measure_DisplayName] = S.[Measure_DisplayName]
+, T.[Measure_translation] = S.[Measure_translation]
+, T.[measures_displayFolder] = S.[measures_displayFolder]
+, T.[measures_name] = S.[measures_name]
+, T.[RepoSchema_name] = S.[RepoSchema_name]
+
+FROM [ssas].[Measure_translation_T] AS T
+INNER JOIN [ssas].[Measure_translation] AS S
+ON
+T.[Measure_guid] = S.[Measure_guid]
+AND T.[cultures_name] = S.[cultures_name]
+AND T.[RepoObject_name] = S.[RepoObject_name]
+
+WHERE
+   T.[displayfolder_DisplayName] <> S.[displayfolder_DisplayName] OR (S.[displayfolder_DisplayName] IS NULL AND NOT T.[displayfolder_DisplayName] IS NULL) OR (NOT S.[displayfolder_DisplayName] IS NULL AND T.[displayfolder_DisplayName] IS NULL)
+OR T.[displayfolder_translation] <> S.[displayfolder_translation] OR (S.[displayfolder_translation] IS NULL AND NOT T.[displayfolder_translation] IS NULL) OR (NOT S.[displayfolder_translation] IS NULL AND T.[displayfolder_translation] IS NULL)
+OR T.[Measure_DisplayName] <> S.[Measure_DisplayName] OR (S.[Measure_DisplayName] IS NULL AND NOT T.[Measure_DisplayName] IS NULL) OR (NOT S.[Measure_DisplayName] IS NULL AND T.[Measure_DisplayName] IS NULL)
+OR T.[Measure_translation] <> S.[Measure_translation] OR (S.[Measure_translation] IS NULL AND NOT T.[Measure_translation] IS NULL) OR (NOT S.[Measure_translation] IS NULL AND T.[Measure_translation] IS NULL)
+OR T.[measures_displayFolder] <> S.[measures_displayFolder] OR (S.[measures_displayFolder] IS NULL AND NOT T.[measures_displayFolder] IS NULL) OR (NOT S.[measures_displayFolder] IS NULL AND T.[measures_displayFolder] IS NULL)
+OR T.[measures_name] <> S.[measures_name]
+OR T.[RepoSchema_name] <> S.[RepoSchema_name]
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'update changed'
+SET @source_object = '[ssas].[Measure_translation]'
+SET @target_object = '[ssas].[Measure_translation_T]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":700,"Name":"insert missing","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssas].[Measure_translation]","log_target_object":"[ssas].[Measure_translation_T]","log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',142,';',700,';',NULL);
 
 INSERT INTO 
- ssas.Measure_translation_T
+ [ssas].[Measure_translation_T]
  (
   [Measure_guid]
 , [cultures_name]
@@ -129,14 +196,23 @@ SELECT
 , [measures_name]
 , [RepoSchema_name]
 
-FROM ssas.Measure_translation AS S
+FROM [ssas].[Measure_translation] AS S
+WHERE
+NOT EXISTS
+(SELECT 1
+FROM [ssas].[Measure_translation_T] AS T
+WHERE
+T.[Measure_guid] = S.[Measure_guid]
+AND T.[cultures_name] = S.[cultures_name]
+AND T.[RepoObject_name] = S.[RepoObject_name]
+)
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
-SET @step_name = 'insert all'
-SET @source_object = '[ssas].[Measures_translation]'
-SET @target_object = '[ssas].[Measures_translation_T]'
+SET @step_name = 'insert missing'
+SET @source_object = '[ssas].[Measure_translation]'
+SET @target_object = '[ssas].[Measure_translation_T]'
 
 EXEC logs.usp_ExecutionLog_insert 
  @execution_instance_guid = @execution_instance_guid
