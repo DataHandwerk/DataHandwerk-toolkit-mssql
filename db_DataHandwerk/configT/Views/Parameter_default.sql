@@ -1,6 +1,8 @@
 ﻿
 
 
+
+
 /*
 <<property_start>>Description
 include::sqldb:partial$descriptiontags/config.parameter.adoc[tag=description,opts=optional]
@@ -445,30 +447,6 @@ uspgenerator_usp_id:
 
 ' + 'endif::ExistsProperty--adocuspsteps[]
 
-//ifdef::ExistsProperty--pk_index_guid[]
-//
-//== PK
-//
-//PK SemanticGroup:
-//include::partial$content/{docname}.adoc[tag=pk_indexsemanticgroup]
-//
-//PK Column Name(s):
-//include::partial$content/{docname}.adoc[tag=pk_indexpatterncolumnname]
-//
-//PK Column Datatype(s):
-//include::partial$content/{docname}.adoc[tag=pk_indexpatterncolumndatatype]
-//
-//.PK columns of {docname}
-//[cols="d,8m,m,m,m,d"]
-//|===
-//|PK|Column Name|Data Type|NULL?|ID|Calc
-//
-//include::partial$content/{docname}.adoc[tag=AntoraPkColumnTableRows]
-//
-//|===
-//
-//endif::ExistsProperty--pk_index_guid[]
-
 == Entity Diagram
 
 ' + 'include::partial$content/{docname}.adoc[tag=puml_entity,opts=optional]
@@ -483,9 +461,9 @@ uspgenerator_usp_id:
 == Columns
 
 .Columns of {doctitle}
-[cols="d,8m,m,m,m,d"]
+[cols="d,8a,m,m,m"]
 |===
-|PK|Column Name|Data Type|NULL?|ID|Calc
+|PK|Column Name|Data Type|NULL?|ID
 
 ' + 'include::partial$content/{docname}.adoc[tag=AntoraPkColumnTableRows]
 

@@ -1,5 +1,6 @@
 ﻿
-CREATE View docs.RepoObject_ColumnList
+
+CREATE View [docs].[RepoObject_ColumnList]
 As
 Select
     rof.RepoObject_guid
@@ -31,7 +32,7 @@ Select
                               , docs.fs_cleanStringForHeader ( transl.RepoObjectColumn_DisplayName )
                               , Char ( 13 ) + Char ( 10 )
                               , Char ( 13 ) + Char ( 10 )
-                              , '[cols="d,8m,m,m,m,d"]'
+                              , '[cols="d,8a,m,m,m"]'
                               , Char ( 13 ) + Char ( 10 )
                               , '|==='
                               , Char ( 13 ) + Char ( 10 )
@@ -43,6 +44,44 @@ Select
                                          , Iif(roc.is_index_primary_key = 1, '*', '')
                                          , transl.RepoObjectColumn_DisplayName
                                          , Iif(roc.is_index_primary_key = 1, '*', '')
+                                         , Case
+                                               When roc.Repo_definition <> ''
+                                                   Then
+                                                   Concat (
+                                                              Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                                                            , '.Definition'
+                                                            , Iif(roc.Repo_is_persisted = 1, ' (PERSISTED)', Null)
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '[source,sql]'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '----'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , Replace ( roc.Repo_definition, '|', '\|' )
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '----'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                          )
+                                           End
+                                         , Case
+                                               When roc.Repo_default_definition <> ''
+                                                   Then
+                                                   Concat (
+                                                              Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
+                                                            , '.Default: '
+                                                            , roc.Repo_default_name
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '[source,sql]'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '----'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , Replace ( roc.Repo_default_definition, '|', '\|' )
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , '----'
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                            , Char ( 13 ) + Char ( 10 )
+                                                          )
+                                           End
                                          , Char ( 13 ) + Char ( 10 )
                                          , '|'
                                          , roc.Repo_user_type_fullname
@@ -56,11 +95,11 @@ Select
                                                + Cast(roc.Repo_increment_value As NVarchar(4000)) + ')'
                                              , Null)
                                          , Char ( 13 ) + Char ( 10 )
-                                         , '|'
-                                         , Iif(roc.Repo_is_computed = 1
-                                               , Iif(roc.Repo_is_persisted = 1, 'Persisted', 'Calc')
-                                               , Null)
-                                         , Char ( 13 ) + Char ( 10 )
+                                       --, '|'
+                                       --, Iif(roc.Repo_is_computed = 1
+                                       --      , Iif(roc.Repo_is_persisted = 1, 'Persisted', 'Calc')
+                                       --      , Null)
+                                       --, Char ( 13 ) + Char ( 10 )
                                        )
                               , '|==='
                               , Char ( 13 ) + Char ( 10 )
@@ -83,38 +122,42 @@ Select
                                                  , Char ( 13 ) + Char ( 10 )
                                                )
                                 End
-                              , Case
-                                    When roc.Repo_default_definition <> ''
-                                        Then
-                                        Concat (
-                                                   '.Default: '
-                                                 , roc.Repo_default_name
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , '....'
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , roc.Repo_default_definition
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , '....'
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , Char ( 13 ) + Char ( 10 )
-                                               )
-                                End
-                              , Case
-                                    When roc.Repo_definition <> ''
-                                        Then
-                                        Concat (
-                                                   '.Definition'
-                                                 , Iif(roc.Repo_is_persisted = 1, ' (PERSISTED)', Null)
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , '....'
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , roc.Repo_definition
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , '....'
-                                                 , Char ( 13 ) + Char ( 10 )
-                                                 , Char ( 13 ) + Char ( 10 )
-                                               )
-                                End
+                              --, Case
+                              --      When roc.Repo_default_definition <> ''
+                              --          Then
+                              --          Concat (
+                              --                     '.Default: '
+                              --                   , roc.Repo_default_name
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , '[source,sql]'
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , '----'
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , roc.Repo_default_definition
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , '----'
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                 )
+                              --  End
+                              --, Case
+                              --      When roc.Repo_definition <> ''
+                              --          Then
+                              --          Concat (
+                              --                     '.Definition'
+                              --                   , Iif(roc.Repo_is_persisted = 1, ' (PERSISTED)', Null)
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , '[source,sql]'
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , '----'
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , roc.Repo_definition
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , '----'
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                   , Char ( 13 ) + Char ( 10 )
+                              --                 )
+                              --  End
                               , Case
                                     When roc.has_get_referenced_issue = 1
                                         Then
@@ -193,6 +236,52 @@ Select
                                                  , docs.fs_cleanStringForAnchorId ( transl.RepoObjectColumn_DisplayName )
                                                  , '>>'
                                                  , '*'
+                                                 , Case
+                                                       When roc.Repo_definition <> ''
+                                                           Then
+                                                           Concat (
+                                                                      Char ( 13 ) + Char ( 10 ) + Char ( 13 )
+                                                                      + Char ( 10 )
+                                                                    , '.Definition'
+                                                                    , Iif(roc.Repo_is_persisted = 1
+                                                                          , ' (PERSISTED)'
+                                                                          , Null)
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '[source,sql]'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Replace ( roc.Repo_definition, '|', '\|' )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                  )
+                                                   End
+                                                 , Case
+                                                       When roc.Repo_default_definition <> ''
+                                                           Then
+                                                           Concat (
+                                                                      Char ( 13 ) + Char ( 10 ) + Char ( 13 )
+                                                                      + Char ( 10 )
+                                                                    , '.Default: '
+                                                                    , roc.Repo_default_name
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '[source,sql]'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Replace (
+                                                                                  roc.Repo_default_definition
+                                                                                , '|'
+                                                                                , '\|'
+                                                                              )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                  )
+                                                   End
                                                  , Char ( 13 ) + Char ( 10 )
                                                  , '|'
                                                  , roc.Repo_user_type_fullname
@@ -206,11 +295,11 @@ Select
                                                        + Cast(roc.Repo_increment_value As NVarchar(4000)) + ')'
                                                      , Null)
                                                  , Char ( 13 ) + Char ( 10 )
-                                                 , '|'
-                                                 , Iif(roc.Repo_is_computed = 1
-                                                       , Iif(roc.Repo_is_persisted = 1, 'Persisted', 'Calc')
-                                                       , Null)
-                                                 , Char ( 13 ) + Char ( 10 )
+                                               --, '|'
+                                               --, Iif(roc.Repo_is_computed = 1
+                                               --      , Iif(roc.Repo_is_persisted = 1, 'Persisted', 'Calc')
+                                               --      , Null)
+                                               --, Char ( 13 ) + Char ( 10 )
                                                )
                                 End
                             )
@@ -244,6 +333,52 @@ Select
                                                  , '<<column-'
                                                  , docs.fs_cleanStringForAnchorId ( transl.RepoObjectColumn_DisplayName )
                                                  , '>>'
+                                                 , Case
+                                                       When roc.Repo_definition <> ''
+                                                           Then
+                                                           Concat (
+                                                                      Char ( 13 ) + Char ( 10 ) + Char ( 13 )
+                                                                      + Char ( 10 )
+                                                                    , '.Definition'
+                                                                    , Iif(roc.Repo_is_persisted = 1
+                                                                          , ' (PERSISTED)'
+                                                                          , Null)
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '[source,sql]'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Replace ( roc.Repo_definition, '|', '\|' )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                  )
+                                                   End
+                                                 , Case
+                                                       When roc.Repo_default_definition <> ''
+                                                           Then
+                                                           Concat (
+                                                                      Char ( 13 ) + Char ( 10 ) + Char ( 13 )
+                                                                      + Char ( 10 )
+                                                                    , '.Default: '
+                                                                    , roc.Repo_default_name
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '[source,sql]'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Replace (
+                                                                                  roc.Repo_default_definition
+                                                                                , '|'
+                                                                                , '\|'
+                                                                              )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , '----'
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                    , Char ( 13 ) + Char ( 10 )
+                                                                  )
+                                                   End
                                                  , Char ( 13 ) + Char ( 10 )
                                                  , '|'
                                                  , roc.Repo_user_type_fullname
@@ -257,11 +392,11 @@ Select
                                                        + Cast(roc.Repo_increment_value As NVarchar(4000)) + ')'
                                                      , Null)
                                                  , Char ( 13 ) + Char ( 10 )
-                                                 , '|'
-                                                 , Iif(roc.Repo_is_computed = 1
-                                                       , Iif(roc.Repo_is_persisted = 1, 'Persisted', 'Calc')
-                                                       , Null)
-                                                 , Char ( 13 ) + Char ( 10 )
+                                               --, '|'
+                                               --, Iif(roc.Repo_is_computed = 1
+                                               --      , Iif(roc.Repo_is_persisted = 1, 'Persisted', 'Calc')
+                                               --      , Null)
+                                               --, Char ( 13 ) + Char ( 10 )
                                                )
                                 End
                             )
