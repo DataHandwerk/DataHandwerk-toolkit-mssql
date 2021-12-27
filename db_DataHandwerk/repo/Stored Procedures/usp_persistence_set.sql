@@ -91,12 +91,12 @@ Exec repo.usp_persistence_set
   , @is_persistence_update_changed = 1
   , @is_persistence_insert = 1
   , @is_persistence_persist_source = 0
+  , @prescript = NULL
+  , @postscript = NULL
 ----not implemented:
 --, @is_persistence_merge_delete_missing = 0
 --, @is_persistence_merge_update_changed = 0
 --, @is_persistence_merge_insert = 0
---, @source_filter = NULL
---, @target_filter = NULL
 
 --prepare code for persistence table and procedure
 
@@ -193,7 +193,7 @@ EXEC repo.[usp_persistence_set]
 <<property_end>>
 
 */
-CREATE Procedure [repo].[usp_persistence_set]
+CREATE Procedure repo.usp_persistence_set
     @source_RepoObject_guid                UniqueIdentifier = Null        --
   , @source_fullname                       NVarchar(261)    = Null        --it is possible to use @source_RepoObject_guid OR @source_fullname; use: "[schema].[object_name]"
   , @persistence_RepoObject_guid           UniqueIdentifier = Null Output --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created, don't use brackts: "object_name_T"
@@ -212,8 +212,6 @@ CREATE Procedure [repo].[usp_persistence_set]
   , @has_history                           Bit              = Null
   , @history_schema_name                   NVarchar(128)    = Null
   , @history_table_name                    NVarchar(128)    = Null
-                                                                          --, @source_filter                         NVarchar(4000)   = Null
-                                                                          --, @target_filter                         NVarchar(4000)   = Null
 
                                                                           --todo
                                                                           --think about an additional parameter
@@ -225,6 +223,8 @@ CREATE Procedure [repo].[usp_persistence_set]
                                                                           --
                                                                           --by default the source schema is used and the source name with prefix '_T' for table
                                                                           --todo: use general parameters to define this
+  , @prescript                             NVarchar(Max)    = Null
+  , @postscript                            NVarchar(Max)    = Null
                                                                           -- some optional parameters, used for logging
   , @execution_instance_guid               UniqueIdentifier = Null        --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id                     BigInt           = Null        --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
@@ -306,9 +306,8 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_15 = @has_history
   , @parameter_16 = @history_schema_name
   , @parameter_17 = @history_table_name
-
---, @parameter_18 = @source_filter
---, @parameter_19 = @target_filter
+  , @parameter_18 = @prescript
+  , @parameter_19 = @postscript
 
 --
 ----START
@@ -752,8 +751,10 @@ Set
                                                    )
   , history_schema_name = IsNull ( @history_schema_name, history_schema_name )
   , history_table_name = IsNull ( @history_table_name, history_table_name )
---, source_filter = IsNull ( @source_filter, source_filter )
---, target_filter = IsNull ( @target_filter, target_filter )
+  --todo: think about, how to delete scripts?
+  --using '' as parameter content?
+  , prescript = IsNull ( @prescript, prescript )
+  , postscript = IsNull ( @postscript, postscript )
 Where
     target_RepoObject_guid = @persistence_RepoObject_guid;
 

@@ -50,6 +50,7 @@ Select
     ic.index_guid
   , ic.index_column_id
   , ic.is_descending_key
+  , ic.ColumnsPerIndex
                                          --, [ic].[RepoObjectColumn_guid] --referenced RepoObjectColumn; redundant; remove it, if not used
   , ref.referenced_RepoObject_guid
   , ref.referenced_RepoObjectColumn_guid --also referenced RepoObjectColumn (as above), left join; but is it possible that it is NULL? No, because of the first EXISTS condition
@@ -260,4 +261,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'de7dc759-0f5d-ec11-8534-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'ColumnsPerIndex';
 

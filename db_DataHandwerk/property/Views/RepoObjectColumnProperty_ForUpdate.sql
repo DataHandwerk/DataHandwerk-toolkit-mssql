@@ -8,6 +8,8 @@ Select
   , rocp.property_value
   , rocp.inheritance
   --, rocp.[property_basetype]
+  , rocg.InheritanceType
+  , rocg.InheritanceDefinition
   , rocg.RepoObjectColumn_fullname
   , rocg.RepoObjectColumn_fullname2
   , rocg.RepoObjectColumn_name

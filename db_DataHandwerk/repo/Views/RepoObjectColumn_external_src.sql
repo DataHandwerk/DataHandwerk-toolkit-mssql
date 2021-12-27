@@ -1,11 +1,11 @@
 ﻿
-
 /*
 <<property_start>>Description
-converts xref:sqldb:reference.additional_reference_objectcolumn_t.adoc[] into xref:sqldb:repo.repoobjectcolumn.adoc[]
+* converts xref:sqldb:reference.additional_reference_objectcolumn_t.adoc[] into xref:sqldb:repo.repoobjectcolumn.adoc[]
+* [ ] todo: solve issues with same external object names like internal names
 <<property_end>>
 */
-CREATE View [repo].[RepoObjectColumn_external_src]
+CREATE View repo.RepoObjectColumn_external_src
 As
 Select
     --PK: RepoObjectColumn_guid
@@ -25,6 +25,17 @@ From
             And ro.AntoraModule = T2.AntoraModule
             And ro.SchemaName   = T2.SchemaName
             And ro.ObjectName   = T2.ObjectName
+--workaround to solve issues with not imported same named external objects
+Where
+    Exists
+(
+    Select
+        1
+    From
+        repo.RepoObject As tgt
+    Where
+        tgt.RepoObject_guid = ro.RepoObject_guid
+)
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ad5f98ee-1a1b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_external_src', @level2type = N'COLUMN', @level2name = N'is_SysObjectColumn_missing';
 

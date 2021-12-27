@@ -1,10 +1,9 @@
 ﻿
-
 /*
 Added some lookup columns [repo].[RepoObject_persistence]
 to simplify data entry in the frontend
 */
-CREATE View [repo].[RepoObject_persistence_ForUpdate]
+CREATE View repo.RepoObject_persistence_ForUpdate
 As
 Select
     ro_p.target_RepoObject_guid
@@ -25,8 +24,10 @@ Select
   , ro_p.is_persistence_update_changed
   , ro_p.is_persistence_persist_source
   , ro_p.source_RepoObject_guid
-  , ro_p.is_persistence
-  , ro_p.temporal_type
+  , ro_p.prescript
+  , ro_p.postscript
+  --, ro_p.is_persistence
+  --, ro_p.temporal_type
   , ro_p.source_RepoObject_name
   , default_source_RepoObject_name = Iif(Right(ro.RepoObject_name, 2) = '_T'
                                          , Left(ro.RepoObject_name, Len ( ro.RepoObject_name ) - 2)
@@ -38,12 +39,6 @@ From
             On
             ro.RepoObject_guid = ro_p.target_RepoObject_guid
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '98813d1c-6662-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'temporal_type';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_persistence].[temporal_type]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'temporal_type';
-
 
 
 
@@ -51,12 +46,18 @@ GO
 
 
 
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '97813d1c-6662-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'is_persistence';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_persistence].[is_persistence]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'is_persistence';
+
+
+
+GO
+
+
+
+GO
+
 
 
 
@@ -303,4 +304,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ef2c2
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '7addc905-c33c-ec11-852d-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'is_persistence_persist_source';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f3fc3777-245f-ec11-8536-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'prescript';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'f4fc3777-245f-ec11-8536-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'postscript';
 

@@ -16,6 +16,7 @@ Select
   , T1.is_index_primary_key
   , T1.is_index_real
   , T1.parent_SysObject_fullname
+  , ColumnsPerIndex = Count ( * ) Over ( Partition By T1.index_guid )
 From
     repo_sys.IndexColumn_unique As T1
 Where
@@ -36,6 +37,7 @@ Select
   , T2.is_index_primary_key
   , T2.is_index_real
   , T2.parent_Object_fullname
+  , ColumnsPerIndex = Count ( * ) Over ( Partition By T2.index_guid )
 From
     repo.IndexColumn_virtual_gross As T2
 Where
@@ -56,6 +58,7 @@ Select
   , T2.is_index_primary_key
   , T2.is_index_real
   , T2.parent_Object_fullname
+  , ColumnsPerIndex = Count ( * ) Over ( Partition By T2.index_guid )
 From
     repo.IndexColumn_ssas_gross As T2
 Where
@@ -274,4 +277,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dd7dc759-0f5d-ec11-8534-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexColumn_union', @level2type = N'COLUMN', @level2name = N'ColumnsPerIndex';
 

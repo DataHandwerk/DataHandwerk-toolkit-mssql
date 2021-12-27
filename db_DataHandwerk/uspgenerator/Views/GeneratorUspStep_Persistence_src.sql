@@ -9,7 +9,33 @@
 
 CREATE View uspgenerator.GeneratorUspStep_Persistence_src
 As
---00:00:01
+Select
+    --
+    usp_id                      = gu.id
+  , Number                      = 90
+  , Parent_Number               = Null
+  , Name                        = 'prescript'
+  , has_logging                 = 1
+  , is_condition                = 0
+  , is_inactive                 = 0
+  , is_SubProcedure             = 0
+  , Statement                   = ro.prescript
+  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_target_object           = Cast(Null As NVarchar(261))
+  , log_flag_InsertUpdateDelete = Cast(Null As Char(1))
+  --
+  , gu.usp_fullname
+  , ro.RepoObject_guid
+From
+    repo.RepoObject_gross         As ro
+    Inner Join
+        uspgenerator.GeneratorUsp As gu
+            On
+            ro.RepoObject_schema_name   = gu.usp_schema
+            And ro.usp_persistence_name = gu.usp_name
+Where
+    ro.prescript <> ''
+Union All
 Select
     --
     usp_id                      = gu.id
@@ -35,7 +61,6 @@ From
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
 Union All
---00:00:01
 Select
     --
     usp_id                      = gu.id
@@ -180,7 +205,6 @@ From
             On
             i.index_guid                = ro_s.pk_index_guid
 Union All
---00:00:00
 Select
     --
     usp_id                      = gu.id
@@ -431,84 +455,68 @@ From
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
+--Union All
+--Select
+--    usp_id                      = gu.id
+--  , Number                      = 900
+--  , Parent_Number               = Null
+--  , Name                        = 'merge'
+--  , has_logging                 = 1
+--  , is_condition                = 0
+--  , is_inactive                 = 0
+--  , is_SubProcedure             = 0
+--  , Statement                   = 'INSERT INTO 
+-- ' + ro.RepoObject_fullname + '
+-- (
+--' + ros2.PersistenceInsertColumnList + ')
+--SELECT
+--' + ros2.PersistenceInsertColumnList + '
+--FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S'
+--  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
+--  , log_target_object           = ro.RepoObject_fullname
+--  , log_flag_InsertUpdateDelete = 'I'
+--  --
+--  , gu.usp_fullname
+--  , ro.RepoObject_guid
+--From
+--    repo.RepoObject_gross         As ro
+--    Left Join
+--        repo.RepoObject_sat2_T    As ros2
+--            On
+--            ros2.RepoObject_guid        = ro.RepoObject_guid
+
+--    Inner Join
+--        uspgenerator.GeneratorUsp As gu
+--            On
+--            ro.RepoObject_schema_name   = gu.usp_schema
+--            And ro.usp_persistence_name = gu.usp_name
 Union All
---00:00:09
 Select
+    --
     usp_id                      = gu.id
-  , Number                      = 900
+  , Number                      = 990
   , Parent_Number               = Null
-  , Name                        = 'merge'
+  , Name                        = 'postscript'
   , has_logging                 = 1
   , is_condition                = 0
   , is_inactive                 = 0
   , is_SubProcedure             = 0
-  , Statement                   = 'INSERT INTO 
- ' + ro.RepoObject_fullname + '
- (
-' + ros2.PersistenceInsertColumnList + ')
-SELECT
-' + ros2.PersistenceInsertColumnList + '
-FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S'
-  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
-  , log_target_object           = ro.RepoObject_fullname
-  , log_flag_InsertUpdateDelete = 'I'
+  , Statement                   = ro.postscript
+  , log_source_object           = ro.persistence_source_SysObject_fullname
+  , log_target_object           = Cast(Null As NVarchar(261))
+  , log_flag_InsertUpdateDelete = Cast(Null As Char(1))
   --
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
     repo.RepoObject_gross         As ro
-    Left Join
-        repo.RepoObject_sat2_T    As ros2
-            On
-            ros2.RepoObject_guid        = ro.RepoObject_guid
-
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
-/*
-MERGE [graph].[ReferencedObject] as T
-USING
-(
-    SELECT
-        [RepoObject_guid] AS [Procedure_RepoObject_guid]
-      , ''                AS [Instance]
-    FROM
-        [repo].[RepoObject]
-    WHERE
-        [RepoObject_type] = 'P'
-) AS S
-ON T.[Procedure_RepoObject_guid] = S.[Procedure_RepoObject_guid]
-   AND T.[Instance] = S.[Instance]
-WHEN MATCHED AND (
-                     t.property_nvarchar <> Cast(s.property_value As NVarchar(4000))
-                     Or t.property_value Is Null
-                        And Not s.property_value Is Null
-                     Or s.property_value Is Null
-                        And Not t.property_value Is Null
-                 )
-    Then Update Set
-             property_value = s.property_value
-WHEN NOT MATCHED BY TARGET
-    THEN INSERT
-         (
-             $FROM_ID
-           , $TO_ID
-         )
-         VALUES
-             (
-                 referencing.$NODE_ID
-               , referenced.$NODE_ID
-             )
-WHEN NOT MATCHED BY SOURCE
-    THEN DELETE
-OUTPUT
-    deleted.*
-  , $ACTION
-  , inserted.*;
-
-*/
+Where
+    ro.postscript <> ''
 Go
 
 Execute sp_addextendedproperty

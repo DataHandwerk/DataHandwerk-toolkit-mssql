@@ -1,8 +1,8 @@
 ﻿
 /*
 <<property_start>>Description
-* delete entry from [repo].[RepoObject_persistence]
-* delete entry from [uspgenerator].[GeneratorUsp]
+* delete entry from xref:sqldb:repo.repoobject_persistence.adoc[]
+* delete entry from xref:sqldb:uspgenerator.generatorusp.adoc[]
 <<property_end>>
 
 <<property_start>>exampleUsage
@@ -18,7 +18,7 @@ EXEC repo.usp_persistence_delete
 
 
 */
-CREATE Procedure repo.usp_persistence_delete
+CREATE Procedure [repo].[usp_persistence_delete]
     @usp_persistence_uspid    Int              = Null
   , @usp_persistence_fullname NVarchar(261)    = Null
   , @source_RepoObject_guid   UniqueIdentifier = Null --
@@ -96,20 +96,6 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_05 = @target_RepoObject_guid
   , @parameter_06 = @target_fullname
 
---, @parameter_07 = @is_persistence_delete_missing
---, @parameter_08 = @is_persistence_delete_changed
---, @parameter_09 = @is_persistence_update_changed
---, @parameter_10 = @is_persistence_insert
---, @parameter_11 = @is_persistence_persist_source
---, @parameter_12 = @is_persistence_merge_update_changed
---, @parameter_13 = @is_persistence_merge_insert
---, @parameter_14 = @has_history_columns
---, @parameter_15 = @has_history
---, @parameter_16 = @history_schema_name
---, @parameter_17 = @history_table_name
-
---, @parameter_18 = @source_filter
---, @parameter_19 = @target_filter
 
 --
 ----START

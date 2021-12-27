@@ -13,8 +13,11 @@
     [is_index_primary_key]                BIT              NULL,
     [is_index_real]                       BIT              NULL,
     [parent_SysObject_fullname]           NVARCHAR (261)   NULL,
+    [ColumnsPerIndex]                     INT              NULL,
     CONSTRAINT [PK_IndexColumn_union_T] PRIMARY KEY CLUSTERED ([index_guid] ASC, [index_column_id] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 GO
@@ -79,4 +82,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '65288
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '00c6a3b8-1612-ec11-851a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_union_T';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e07dc759-0f5d-ec11-8534-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_union_T', @level2type = N'COLUMN', @level2name = N'ColumnsPerIndex';
 

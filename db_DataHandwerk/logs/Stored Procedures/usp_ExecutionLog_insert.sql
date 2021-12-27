@@ -16,7 +16,7 @@ if a procedure is called several times per ssis_execution, for example the @ssis
 it is also possible to use the @execution_log_id output parameter ad to store it back as @parent_execution_log_id
 
 */
-CREATE Procedure [logs].[usp_ExecutionLog_insert]
+CREATE Procedure logs.usp_ExecutionLog_insert
     @execution_instance_guid UniqueIdentifier
   , @ssis_execution_id       BigInt           = Null
   , @sub_execution_id        Int              = Null
@@ -33,35 +33,35 @@ CREATE Procedure [logs].[usp_ExecutionLog_insert]
   , @inserted                Int              = Null
   , @updated                 Int              = Null
   , @deleted                 Int              = Null
-  , @info_01                 Sql_Variant      = Null
-  , @info_02                 Sql_Variant      = Null
-  , @info_03                 Sql_Variant      = Null
-  , @info_04                 Sql_Variant      = Null
-  , @info_05                 Sql_Variant      = Null
-  , @info_06                 Sql_Variant      = Null
-  , @info_07                 Sql_Variant      = Null
-  , @info_08                 Sql_Variant      = Null
-  , @info_09                 Sql_Variant      = Null
-  , @parameter_01            Sql_Variant      = Null
-  , @parameter_02            Sql_Variant      = Null
-  , @parameter_03            Sql_Variant      = Null
-  , @parameter_04            Sql_Variant      = Null
-  , @parameter_05            Sql_Variant      = Null
-  , @parameter_06            Sql_Variant      = Null
-  , @parameter_07            Sql_Variant      = Null
-  , @parameter_08            Sql_Variant      = Null
-  , @parameter_09            Sql_Variant      = Null
-  , @parameter_10            Sql_Variant      = Null
-  , @parameter_11            Sql_Variant      = Null
-  , @parameter_12            Sql_Variant      = Null
-  , @parameter_13            Sql_Variant      = Null
-  , @parameter_14            Sql_Variant      = Null
-  , @parameter_15            Sql_Variant      = Null
-  , @parameter_16            Sql_Variant      = Null
-  , @parameter_17            Sql_Variant      = Null
-  , @parameter_18            Sql_Variant      = Null
-  , @parameter_19            Sql_Variant      = Null
-  , @parameter_20            Sql_Variant      = Null
+  , @info_01                 NVarchar(4000)   = Null
+  , @info_02                 NVarchar(4000)   = Null
+  , @info_03                 NVarchar(4000)   = Null
+  , @info_04                 NVarchar(4000)   = Null
+  , @info_05                 NVarchar(4000)   = Null
+  , @info_06                 NVarchar(4000)   = Null
+  , @info_07                 NVarchar(4000)   = Null
+  , @info_08                 NVarchar(4000)   = Null
+  , @info_09                 NVarchar(4000)   = Null
+  , @parameter_01            NVarchar(4000)   = Null
+  , @parameter_02            NVarchar(4000)   = Null
+  , @parameter_03            NVarchar(4000)   = Null
+  , @parameter_04            NVarchar(4000)   = Null
+  , @parameter_05            NVarchar(4000)   = Null
+  , @parameter_06            NVarchar(4000)   = Null
+  , @parameter_07            NVarchar(4000)   = Null
+  , @parameter_08            NVarchar(4000)   = Null
+  , @parameter_09            NVarchar(4000)   = Null
+  , @parameter_10            NVarchar(4000)   = Null
+  , @parameter_11            NVarchar(4000)   = Null
+  , @parameter_12            NVarchar(4000)   = Null
+  , @parameter_13            NVarchar(4000)   = Null
+  , @parameter_14            NVarchar(4000)   = Null
+  , @parameter_15            NVarchar(4000)   = Null
+  , @parameter_16            NVarchar(4000)   = Null
+  , @parameter_17            NVarchar(4000)   = Null
+  , @parameter_18            NVarchar(4000)   = Null
+  , @parameter_19            NVarchar(4000)   = Null
+  , @parameter_20            NVarchar(4000)   = Null
   , @execution_log_id        BigInt           = Null Output
 As
 Declare @start_dt DateTime = GetDate ();

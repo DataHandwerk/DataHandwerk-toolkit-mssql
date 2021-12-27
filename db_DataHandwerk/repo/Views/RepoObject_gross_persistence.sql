@@ -1,9 +1,10 @@
-﻿/*
+﻿
+/*
 <<property_start>>Description
 to avoid cyclic object references we use a limited xref:sqldb:repo.repoobject_gross_persistence.adoc[] instead of xref:sqldb:repo.repoobject_gross.adoc[] in xref:sqldb:reference.repoobject_reference_persistence_target_as_source.adoc[]
 <<property_end>>
 */
-Create View repo.RepoObject_gross_persistence
+CREATE View repo.RepoObject_gross_persistence
 As
 Select
     --
@@ -104,8 +105,8 @@ Select
   , ro_p.is_persistence_persist_source
   , ro_p.history_schema_name
   , ro_p.history_table_name
-  , ro_p.source_filter
-  , ro_p.target_filter
+  , prescript                                           = ro_p.prescript
+  , postscript                                          = ro_p.postscript
   , ro_p.temporal_type
 --Attention, this will be written back into Property 'Description'
 --this could be an issue, if it will be changed in differen places, which should be the primary?
@@ -192,11 +193,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b2634
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'target_filter';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'source_filter';
+
 
 
 GO
@@ -465,4 +466,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6e634
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '89f74ad3-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'prescript';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'postscript';
 

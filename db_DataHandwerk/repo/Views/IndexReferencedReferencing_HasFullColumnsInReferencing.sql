@@ -1,6 +1,4 @@
 ﻿
-
-
 /*
 HasFullColumnsInReferencing:
 Filter repo.IndexReferencedReferencing
@@ -37,6 +35,7 @@ Select
   , T1.referenced_RepoObject_guid
   , T1.referenced_index_guid
   , T2.RowNumberInReferencing
+  , T2.ColumnsPerIndex
   , T3.referencing_IndexPatternColumnGuid
 From
     repo.IndexReferencedReferencing                                          As T1
@@ -218,4 +217,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'df7dc759-0f5d-ec11-8534-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'IndexReferencedReferencing_HasFullColumnsInReferencing', @level2type = N'COLUMN', @level2name = N'ColumnsPerIndex';
 

@@ -1,11 +1,11 @@
 ﻿
-
 /*
 <<property_start>>Description
 * converts xref:sqldb:reference.additional_reference_object_t.adoc[] into xref:sqldb:repo.repoobject.adoc[]
+* [ ] todo: solve issues with same external object names like internal names
 <<property_end>>
 */
-CREATE View [repo].[RepoObject_external_src]
+CREATE View repo.RepoObject_external_src
 As
 Select
     --PK: RepoObject_guid
@@ -31,6 +31,27 @@ Where
             T1.AntoraComponent = AntoraComponent.Parameter_value_result
             And T1.AntoraModule = AntoraModule.Parameter_value_result
         )
+    --work around to exclude same named objects
+    And Not Exists
+(
+    Select
+        1
+    From
+        repo.RepoObject As tgt
+    Where
+        tgt.RepoObject_schema_name = T1.SchemaName
+        And tgt.RepoObject_name    = T1.ObjectName
+)
+    And Not Exists
+(
+    Select
+        1
+    From
+        repo.RepoObject As tgt
+    Where
+        tgt.SysObject_schema_name = T1.SchemaName
+        And tgt.SysObject_name    = T1.ObjectName
+)
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '41fe2e93-491a-ec11-851f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_external_src', @level2type = N'COLUMN', @level2name = N'is_external';
 

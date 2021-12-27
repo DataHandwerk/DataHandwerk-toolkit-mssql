@@ -21,7 +21,7 @@ As
 Begin
     Return
 	Lower ( 
-	Replace ( Replace ( Replace ( Replace ( Replace (  Replace (Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( 
+	Replace ( Replace ( Replace ( Replace ( Replace ( Replace (  Replace (Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( Replace ( 
 		Trim( @source_string )
 		, ' ', 'blank' )
 		, '+', 'plus' )
@@ -35,6 +35,7 @@ Begin
 		, ']', 'endsb' )
 		, '/', 'slash' )
 		, '\', 'backslash' )
+		, ',', 'comma' )
 		, '.', 'dot' )
 		, '?', 'questionmark' )
 		, '*', 'star' )

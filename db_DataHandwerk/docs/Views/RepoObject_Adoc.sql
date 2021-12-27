@@ -50,10 +50,10 @@ Select
            , '// tag::HeaderFullDisplayName[]'
            , Char ( 13 ) + Char ( 10 )
            , '= ' + Max ( rof.RepoObject_FullDisplayName2 )
+           , ' - ' + Trim ( Max ( ro.SysObject_type ))
            , Char ( 13 ) + Char ( 10 )
            , '// end::HeaderFullDisplayName[]'
            , Char ( 13 ) + Char ( 10 )
-
            --
            , Char ( 13 ) + Char ( 10 )
            , '== existing_properties' + Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )

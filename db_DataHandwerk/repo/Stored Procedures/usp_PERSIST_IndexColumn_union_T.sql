@@ -108,6 +108,7 @@ INSERT INTO
  (
   [index_guid]
 , [index_column_id]
+, [ColumnsPerIndex]
 , [index_name]
 , [is_descending_key]
 , [is_index_primary_key]
@@ -124,6 +125,7 @@ INSERT INTO
 SELECT
   [index_guid]
 , [index_column_id]
+, [ColumnsPerIndex]
 , [index_name]
 , [is_descending_key]
 , [is_index_primary_key]

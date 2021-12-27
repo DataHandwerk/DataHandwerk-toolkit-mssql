@@ -1,4 +1,4 @@
-﻿CREATE TABLE [repo].[RepoObject_persistence] (
+CREATE TABLE [repo].[RepoObject_persistence] (
     [target_RepoObject_guid]                UNIQUEIDENTIFIER NOT NULL,
     [has_history]                           BIT              CONSTRAINT [DF__RepoObjec__has_h__29AC2CE0] DEFAULT ((0)) NOT NULL,
     [has_history_columns]                   BIT              CONSTRAINT [DF__RepoObjec__has_h__2AA05119] DEFAULT ((0)) NOT NULL,
@@ -17,13 +17,15 @@
     [is_persistence_merge_update_changed]   BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_update_changed1] DEFAULT ((0)) NOT NULL,
     [source_RepoObject_guid]                UNIQUEIDENTIFIER NULL,
     [source_RepoObject_name]                NVARCHAR (128)   NULL,
-    [source_filter]                         NVARCHAR (4000)  NULL,
-    [target_filter]                         NVARCHAR (4000)  NULL,
+    [prescript]                             NVARCHAR (MAX)   NULL,
+    [postscript]                            NVARCHAR (MAX)   NULL,
     [is_persistence]                        AS               (CONVERT([bit],(1),(0))),
     [temporal_type]                         AS               (CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end,(0))),
-    CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -377,11 +379,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fc456058-8a
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5ad9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'target_filter';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'source_filter';
+
 
 
 GO
@@ -541,5 +543,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '44ddc
 
 
 GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'prescript';
 
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5ad9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'postscript';
 

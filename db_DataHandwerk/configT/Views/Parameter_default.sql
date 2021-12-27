@@ -1,4 +1,6 @@
 ﻿
+
+
 /*
 <<property_start>>Description
 include::sqldb:partial$descriptiontags/config.parameter.adoc[tag=description,opts=optional]
@@ -35,7 +37,7 @@ dhw,sqldb,configT,Parameter_default,Parameter_default_value,dhw,sqldb,config,Par
 <<property_end>>
 */
 
-CREATE View configT.Parameter_default
+CREATE View [configT].[Parameter_default]
 As
 --
 --first [Parameter_default_value] datatype should be SQL_VARIANT to avoid taye casting issues for other entries
@@ -364,6 +366,8 @@ Select
   , Parameter_default_value =
   --
   'include::partial$content/{docname}.adoc[tag=HeaderFullDisplayName]
+:noindex:
+
 ' + 'include::partial$content/{docname}.adoc[tag=existing_properties]
 ' + 'include::partial$content/{docname}.adoc[tag=boolean_attributes]
 
@@ -403,6 +407,7 @@ InheritanceType:
 
 == Description
 
+' + '// tag::description[]
 ' + 'include::partial$descriptiontags/{docname}.adoc[tag=description,opts=optional]
 
 //the following attribute could be set in the include above to enable or disable the usage of exported descriptions
@@ -411,6 +416,7 @@ InheritanceType:
 ' + 'include::partial$content/{docname}.adoc[tag=description,opts=optional]
 
 ' + 'endif::hide-exported-description[]
+' + '// end::description[]
 
 '
 Union All
