@@ -196,7 +196,7 @@ EXEC repo.[usp_persistence_set]
 <<property_end>>
 
 */
-CREATE Procedure repo.usp_persistence_set
+CREATE Procedure [repo].[usp_persistence_set]
     @source_RepoObject_guid                UniqueIdentifier = Null        --
   , @source_fullname                       NVarchar(261)    = Null        --it is possible to use @source_RepoObject_guid OR @source_fullname; use: "[schema].[object_name]"
   , @persistence_RepoObject_guid           UniqueIdentifier = Null Output --if this parameter is not null then an existing RepoObject is used to modify, if it is null then a RepoObject will be created, don't use brackts: "object_name_T"
@@ -589,7 +589,8 @@ Begin
               , @persistence_table_name
               , 'U'
               , @persistence_schema_name
-              , 1
+              -- #42, is_repo_managed: 0 as default instead of 1 and don't force it to be 1
+              , 0
             );
 
         Set @persistence_RepoObject_guid =
@@ -804,47 +805,48 @@ Exec logs.usp_ExecutionLog_insert
   , @info_08 = Null
   , @info_09 = Null;
 
---ensure @persistence_RepoObject_guid is marked as [is_repo_managed] = 1
-Update
-    repo.RepoObject
-Set
-    is_repo_managed = 1
-Where
-    IsNull ( is_repo_managed, 0 ) <> 1
-    And RepoObject_guid           = @persistence_RepoObject_guid;
+-- #42, is_repo_managed: 0 as default instead of 1 and don't force it to be 1
+----ensure @persistence_RepoObject_guid is marked as [is_repo_managed] = 1
+--Update
+--    repo.RepoObject
+--Set
+--    is_repo_managed = 1
+--Where
+--    IsNull ( is_repo_managed, 0 ) <> 1
+--    And RepoObject_guid           = @persistence_RepoObject_guid;
 
-Set @rows = @@RowCount;
-Set @step_id = @step_id + 1;
-Set @step_name = N'SET [is_repo_managed] = 1 (WHERE [RepoObject_guid] = @persistence_RepoObject_guid)';
-Set @source_object = Null;
-Set @target_object = N'[repo].[RepoObject]';
+--Set @rows = @@RowCount;
+--Set @step_id = @step_id + 1;
+--Set @step_name = N'SET [is_repo_managed] = 1 (WHERE [RepoObject_guid] = @persistence_RepoObject_guid)';
+--Set @source_object = Null;
+--Set @target_object = N'[repo].[RepoObject]';
 
-Exec logs.usp_ExecutionLog_insert
-    @execution_instance_guid = @execution_instance_guid
-  , @ssis_execution_id = @ssis_execution_id
-  , @sub_execution_id = @sub_execution_id
-  , @parent_execution_log_id = @parent_execution_log_id
-  , @current_execution_guid = @current_execution_guid
-  , @proc_id = @proc_id
-  , @proc_schema_name = @proc_schema_name
-  , @proc_name = @proc_name
-  , @event_info = @event_info
-  , @step_id = @step_id
-  , @step_name = @step_name
-  , @source_object = @source_object
-  , @target_object = @target_object
-  , @inserted = Null
-  , @updated = @rows
-  , @deleted = Null
-  , @info_01 = Null
-  , @info_02 = Null
-  , @info_03 = Null
-  , @info_04 = Null
-  , @info_05 = Null
-  , @info_06 = Null
-  , @info_07 = Null
-  , @info_08 = Null
-  , @info_09 = Null;
+--Exec logs.usp_ExecutionLog_insert
+--    @execution_instance_guid = @execution_instance_guid
+--  , @ssis_execution_id = @ssis_execution_id
+--  , @sub_execution_id = @sub_execution_id
+--  , @parent_execution_log_id = @parent_execution_log_id
+--  , @current_execution_guid = @current_execution_guid
+--  , @proc_id = @proc_id
+--  , @proc_schema_name = @proc_schema_name
+--  , @proc_name = @proc_name
+--  , @event_info = @event_info
+--  , @step_id = @step_id
+--  , @step_name = @step_name
+--  , @source_object = @source_object
+--  , @target_object = @target_object
+--  , @inserted = Null
+--  , @updated = @rows
+--  , @deleted = Null
+--  , @info_01 = Null
+--  , @info_02 = Null
+--  , @info_03 = Null
+--  , @info_04 = Null
+--  , @info_05 = Null
+--  , @info_06 = Null
+--  , @info_07 = Null
+--  , @info_08 = Null
+--  , @info_09 = Null;
 
 --set temporal_type
 --0 = NON_TEMPORAL_TABLE
