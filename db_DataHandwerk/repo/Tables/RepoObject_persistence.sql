@@ -1,4 +1,4 @@
-CREATE TABLE [repo].[RepoObject_persistence] (
+﻿CREATE TABLE [repo].[RepoObject_persistence] (
     [target_RepoObject_guid]                UNIQUEIDENTIFIER NOT NULL,
     [has_history]                           BIT              CONSTRAINT [DF__RepoObjec__has_h__29AC2CE0] DEFAULT ((0)) NOT NULL,
     [has_history_columns]                   BIT              CONSTRAINT [DF__RepoObjec__has_h__2AA05119] DEFAULT ((0)) NOT NULL,
@@ -12,18 +12,26 @@ CREATE TABLE [repo].[RepoObject_persistence] (
     [is_persistence_truncate]               BIT              CONSTRAINT [DF__RepoObjec__is_pe__2F650636] DEFAULT ((1)) NOT NULL,
     [is_persistence_update_changed]         BIT              CONSTRAINT [DF__RepoObjec__is_pe__30592A6F] DEFAULT ((0)) NOT NULL,
     [is_persistence_persist_source]         BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_merge_update_changed1] DEFAULT ((0)) NOT NULL,
-    [is_persistence_merge_delete_missing]   BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_delete_missing1] DEFAULT ((0)) NOT NULL,
-    [is_persistence_merge_insert]           BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_insert1] DEFAULT ((0)) NOT NULL,
-    [is_persistence_merge_update_changed]   BIT              CONSTRAINT [DF_RepoObject_persistence_is_persistence_update_changed1] DEFAULT ((0)) NOT NULL,
     [source_RepoObject_guid]                UNIQUEIDENTIFIER NULL,
     [source_RepoObject_name]                NVARCHAR (128)   NULL,
+    [final_target_RepoObject_name]          NVARCHAR (128)   NULL,
+    [ColumnListNoCompareButUpdate]          NVARCHAR (4000)  NULL,
+    [ColumnListNoCompareNoUpdate]           NVARCHAR (4000)  NULL,
+    [ColumnListIgnore]                      NVARCHAR (4000)  NULL,
     [prescript]                             NVARCHAR (MAX)   NULL,
     [postscript]                            NVARCHAR (MAX)   NULL,
+    [ExecutionLogId_action]                 CHAR (1)         NULL,
     [is_persistence]                        AS               (CONVERT([bit],(1),(0))),
     [temporal_type]                         AS               (CONVERT([tinyint],case [has_history] when (1) then (2) else (0) end,(0))),
-    CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC),
+    CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+
+
+
+
 
 
 
@@ -367,15 +375,11 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fe456058-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_update_changed1';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fd456058-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_insert1';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'fc456058-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_delete_missing1';
+
 
 
 GO
@@ -387,7 +391,11 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '58d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
+
+
+
+GO
+
 
 
 GO
@@ -395,15 +403,15 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '57d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
-
-
-GO
 
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '56d9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
+
+
+
+GO
+
 
 
 GO
@@ -427,27 +435,27 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_update_changed1';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_update_changed1';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_insert1';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_insert1';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_delete_missing1';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'CONSTRAINT', @level2name = N'DF_RepoObject_persistence_is_persistence_delete_missing1';
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO
@@ -548,4 +556,56 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '59d9c
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '5ad9c65f-8af6-eb11-850c-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'postscript';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'comma separated list of columns which should not be used for change tracking. +
+And they should never be updated in target', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoCompareNoUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'comma separated list of columns which should not be used for change tracking. +
+But if something else changes, they should be updated in target', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoCompareButUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'comma separated list of columns which should be ignored in the source at all', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListIgnore';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6c034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoCompareNoUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6b034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoCompareButUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6d034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListIgnore';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'in case the persistence target object is a view and it hard to dectect the real final target table using some heuristic, it is possible to add an explicit hint here.', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'source_RepoObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '33393564-ae7b-ec11-8541-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'final_target_RepoObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'in case the persistence target object is a view and it hard to dectect the real final target table using some heuristic, it is possible to add an explicit hint.', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'final_target_RepoObject_name';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '34393564-ae7b-ec11-8541-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ExecutionLogId_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'ExecutionLogId_action:
+
+* ''i'' - Insert only, but don''t update +
+analog to ''ColumnListNoCompareNoUpdate''
+* ''u'' - update, if something as result of comparing updates +
+analog to ''ColumnListNoCompareButUpdate''
+* other values or empty - don''t care about', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ExecutionLogId_action';
 

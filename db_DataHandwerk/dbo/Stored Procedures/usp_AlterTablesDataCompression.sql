@@ -9,15 +9,15 @@ EXEC [dbo].[usp_AlterTablesDataCompression]
 @Schema = 'MySchema'
 <<property_end>>
 */
-CREATE Procedure dbo.usp_AlterTablesDataCompression
+CREATE Procedure [dbo].[usp_AlterTablesDataCompression]
 (
     @Schema           NVarchar(128) Null
   , @Data_Compression NVarchar(50) = 'Page'
 )
 As
-Declare @Table_Schema Varchar(100);
-Declare @Table_Name Varchar(100);
-Declare @Table_Name_Full Varchar(100);
+Declare @Table_Schema Varchar(128);
+Declare @Table_Name Varchar(128);
+Declare @Table_Name_Full Varchar(300);
 Declare @cmd As NVarchar(4000);
 
 If @Schema Is Not Null

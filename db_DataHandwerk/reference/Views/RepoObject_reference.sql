@@ -28,8 +28,18 @@ Where
     From
         reference.RepoObject_reference_persistence_target_as_source As T2
     Where
-        T2.has_match_left_and_suffix_tgt   = 1
-        And T2.referenced_RepoObject_guid  = T1.referencing_RepoObject_guid
+        T2.referenced_RepoObject_guid        = T1.referencing_RepoObject_guid
+        And T2.referencing_RepoObject_guid   = T1.referenced_RepoObject_guid
+        And T2.has_match_left_and_suffix_tgt = 1
+)
+    And Not Exists
+(
+    Select
+        1
+    From
+        reference.RepoObject_reference_persistence_target_as_source_explicit As T2
+    Where
+        T2.referenced_RepoObject_guid      = T1.referencing_RepoObject_guid
         And T2.referencing_RepoObject_guid = T1.referenced_RepoObject_guid
 )
 Group By

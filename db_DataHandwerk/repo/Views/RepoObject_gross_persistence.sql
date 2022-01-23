@@ -99,12 +99,13 @@ Select
   , ro_p.is_persistence_insert
   , ro_p.is_persistence_truncate
   , ro_p.is_persistence_update_changed
-  , ro_p.is_persistence_merge_delete_missing
-  , ro_p.is_persistence_merge_insert
-  , ro_p.is_persistence_merge_update_changed
+  --, ro_p.is_persistence_merge_delete_missing
+  --, ro_p.is_persistence_merge_insert
+  --, ro_p.is_persistence_merge_update_changed
   , ro_p.is_persistence_persist_source
   , ro_p.history_schema_name
   , ro_p.history_table_name
+  , ro_p.ExecutionLogId_action
   , prescript                                           = ro_p.prescript
   , postscript                                          = ro_p.postscript
   , ro_p.temporal_type
@@ -211,17 +212,6 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ae634
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ad634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_persist_source';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ac634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ab634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'aa634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
 
 
 GO
@@ -474,4 +464,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b0634
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b1634de2-5048-ec11-8530-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'postscript';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '35393564-ae7b-ec11-8541-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross_persistence', @level2type = N'COLUMN', @level2name = N'ExecutionLogId_action';
 

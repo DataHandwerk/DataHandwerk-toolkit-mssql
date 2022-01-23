@@ -1737,4 +1737,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[RepoSchema_description]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="42c5f076-a71c-48e7-ba9b-7176e0eeaf7c" ChangeDateTime="01/05/2022 16:18:18">
+    <Property Name="ElementName" Value="[repo].[RepoObject_persistence].[ColumnListNoChangeDetectionButUpdate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[RepoObject_persistence]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[ColumnListNoCompareButUpdate]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dd7720e4-d5ac-4166-8dee-fb873c78ef25" ChangeDateTime="01/05/2022 16:19:22">
+    <Property Name="ElementName" Value="[repo].[RepoObject_persistence].[ColumnListNoChangeDetectionNoUpdate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[RepoObject_persistence]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[ColumnListNoCompareNoUpdate]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e47d638f-c33f-428f-8cad-54b026bb4de6" ChangeDateTime="01/05/2022 16:27:11">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn].[is_persistence_no_check]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[RepoObjectColumn]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[is_persistence_NoCompareNoUpdate]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d44dd591-d843-4799-a81a-ce2d725e0f3e" ChangeDateTime="01/05/2022 16:30:42">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn].[is_persistence_no_include]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[RepoObjectColumn]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[is_persistence_Ignore]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2d8f40db-a34b-4849-bf38-57a6d41bd418" ChangeDateTime="01/05/2022 16:31:45">
+    <Property Name="ElementName" Value="[repo].[RepoObjectColumn].[is_persistence_no_update]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[repo].[RepoObjectColumn]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="is_persistence_NoCompareButUpdate" />
+  </Operation>
 </Operations>

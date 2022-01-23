@@ -1,11 +1,15 @@
 ﻿CREATE TABLE [repo].[RepoObjectColumn] (
     [RepoObjectColumn_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_guid] DEFAULT (newsequentialid()) NOT NULL,
+    [RepoObjectColumn_name]                     NVARCHAR (128)   CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_name] DEFAULT (newid()) NOT NULL,
+    [SysObjectColumn_name]                      NVARCHAR (128)   CONSTRAINT [DF_RepoObjectColumn_SysObjectColumn_name] DEFAULT (newid()) NOT NULL,
+    [has_different_sys_names]                   AS               (CONVERT([bit],case when [RepoObjectColumn_name]<>[SysObjectColumn_name] then (1) else (0) end,(0))),
+    [RepoObject_guid]                           UNIQUEIDENTIFIER NOT NULL,
     [Inheritance_StringAggSeparatorSql]         NVARCHAR (4000)  NULL,
     [InheritanceDefinition]                     NVARCHAR (4000)  NULL,
     [InheritanceType]                           TINYINT          NULL,
-    [is_persistence_no_check]                   BIT              NULL,
-    [is_persistence_no_include]                 BIT              NULL,
-    [is_persistence_no_update]                  BIT              NULL,
+    [is_persistence_Ignore]                     BIT              NULL,
+    [is_persistence_NoCompareNoUpdate]          BIT              NULL,
+    [is_persistence_NoCompareButUpdate]         BIT              NULL,
     [is_query_plan_expression]                  BIT              NULL,
     [is_required_ColumnMerge]                   BIT              NULL,
     [is_SysObjectColumn_missing]                BIT              NULL,
@@ -27,11 +31,7 @@
     [Repo_user_type_fullname]                   NVARCHAR (128)   NULL,
     [Repo_uses_database_collation]              BIT              NULL,
     [RepoObjectColumn_column_id]                INT              NULL,
-    [RepoObjectColumn_name]                     NVARCHAR (128)   CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_name] DEFAULT (newid()) NOT NULL,
-    [RepoObject_guid]                           UNIQUEIDENTIFIER NOT NULL,
     [SysObjectColumn_column_id]                 INT              NULL,
-    [SysObjectColumn_name]                      NVARCHAR (128)   CONSTRAINT [DF_RepoObjectColumn_SysObjectColumn_name] DEFAULT (newid()) NOT NULL,
-    [has_different_sys_names]                   AS               (CONVERT([bit],case when [RepoObjectColumn_name]<>[SysObjectColumn_name] then (1) else (0) end,(0))),
     [is_RepoObjectColumn_name_uniqueidentifier] AS               (case when TRY_CAST([RepoObjectColumn_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
     [is_SysObjectColumn_name_uniqueidentifier]  AS               (case when TRY_CAST([SysObjectColumn_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
     [Column_name]                               AS               (case when TRY_CAST([RepoObjectColumn_name] AS [uniqueidentifier]) IS NULL then [RepoObjectColumn_name] else [SysObjectColumn_name] end) PERSISTED NOT NULL,
@@ -40,6 +40,8 @@
     CONSTRAINT [UK_RepoObjectColumn__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC, [RepoObjectColumn_name] ASC),
     CONSTRAINT [UK_RepoObjectColumn__SysNames] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [SysObjectColumn_name] ASC)
 );
+
+
 
 
 
@@ -363,15 +365,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'def37
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ddf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_no_update';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'ddf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_NoCompareButUpdate';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dcf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_no_include';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dcf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_Ignore';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dbf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_no_check';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dbf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_NoCompareNoUpdate';
 
 
 GO

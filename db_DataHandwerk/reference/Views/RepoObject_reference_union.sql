@@ -108,6 +108,30 @@ Select
   , T1.referenced_id
   , T1.referenced_schema_name
   , T1.referenced_type
+  , referenced_external_AntoraComponent  = Null
+  , referenced_external_AntoraModule     = Null
+  , referenced_is_external               = 0
+  , T1.referencing_entity_name
+  , T1.referencing_fullname
+  , T1.referencing_id
+  , T1.referencing_schema_name
+  , T1.referencing_type
+  , referencing_external_AntoraComponent = Null
+  , referencing_external_AntoraModule    = Null
+  , referencing_is_external              = 0
+  , T1.InformationSource
+  , one                                  = 1
+From
+    reference.RepoObject_reference_persistence_target_as_source_explicit As T1
+Union All
+Select
+    T1.referenced_RepoObject_guid
+  , T1.referencing_RepoObject_guid
+  , T1.referenced_entity_name
+  , T1.referenced_fullname
+  , T1.referenced_id
+  , T1.referenced_schema_name
+  , T1.referenced_type
   , T1.referenced_external_AntoraComponent
   , T1.referenced_external_AntoraModule
   , T1.referenced_is_external

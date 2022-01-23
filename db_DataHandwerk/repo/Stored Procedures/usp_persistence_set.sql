@@ -91,8 +91,11 @@ Exec repo.usp_persistence_set
   , @is_persistence_update_changed = 1
   , @is_persistence_insert = 1
   , @is_persistence_persist_source = 0
-  , @prescript = NULL
-  , @postscript = NULL
+  , @prescript = Null
+  , @postscript = Null
+  , @ColumnListNoCompareButUpdate = Null
+  , @ColumnListNoCompareNoUpdate = Null
+  , @ColumnListIgnore = Null
 ----not implemented:
 --, @is_persistence_merge_delete_missing = 0
 --, @is_persistence_merge_update_changed = 0
@@ -225,11 +228,15 @@ CREATE Procedure repo.usp_persistence_set
                                                                           --todo: use general parameters to define this
   , @prescript                             NVarchar(Max)    = Null
   , @postscript                            NVarchar(Max)    = Null
+  , @ColumnListNoCompareButUpdate          NVarchar(4000)   = Null
+  , @ColumnListNoCompareNoUpdate           NVarchar(4000)   = Null
+  , @ColumnListIgnore                      NVarchar(4000)   = Null
                                                                           -- some optional parameters, used for logging
   , @execution_instance_guid               UniqueIdentifier = Null        --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
   , @ssis_execution_id                     BigInt           = Null        --only SSIS system variable ServerExecutionID should be used, or any other consistent number system, do not mix
   , @sub_execution_id                      Int              = Null
   , @parent_execution_log_id               BigInt           = Null
+  , @ExecutionLogId_action                 Char(1)          = Null
 As
 Declare
     @current_execution_log_id BigInt
@@ -278,7 +285,7 @@ Exec logs.usp_ExecutionLog_insert
   , @inserted = Null
   , @updated = Null
   , @deleted = Null
-  , @info_01 = Null
+  --, @info_01 = Null
   , @info_02 = Null
   , @info_03 = Null
   , @info_04 = Null
@@ -299,15 +306,17 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_09 = @is_persistence_update_changed
   , @parameter_10 = @is_persistence_insert
   , @parameter_11 = @is_persistence_persist_source
-  --, @parameter_11 = @is_persistence_merge_delete_missing
-  --, @parameter_12 = @is_persistence_merge_update_changed
-  --, @parameter_13 = @is_persistence_merge_insert
-  , @parameter_14 = @has_history_columns
-  , @parameter_15 = @has_history
-  , @parameter_16 = @history_schema_name
-  , @parameter_17 = @history_table_name
-  , @parameter_18 = @prescript
-  , @parameter_19 = @postscript
+  , @parameter_12 = @has_history_columns
+  , @parameter_13 = @has_history
+  , @parameter_14 = @history_schema_name
+  , @parameter_15 = @history_table_name
+  , @parameter_16 = @prescript
+  , @parameter_17 = @postscript
+  , @parameter_18 = @ColumnListNoCompareButUpdate
+  , @parameter_19 = @ColumnListNoCompareNoUpdate
+  , @parameter_20 = @ColumnListIgnore
+  ----no more paramater columns available, use @info columns
+  , @info_01 = @ExecutionLogId_action
 
 --
 ----START
@@ -755,6 +764,10 @@ Set
   --using '' as parameter content?
   , prescript = IsNull ( @prescript, prescript )
   , postscript = IsNull ( @postscript, postscript )
+  , ColumnListNoCompareButUpdate = IsNull ( @ColumnListNoCompareButUpdate, ColumnListNoCompareButUpdate )
+  , ColumnListNoCompareNoUpdate = IsNull ( @ColumnListNoCompareNoUpdate, ColumnListNoCompareNoUpdate )
+  , ColumnListIgnore = IsNull ( @ColumnListIgnore, ColumnListIgnore )
+  , ExecutionLogId_action = IsNull ( @ExecutionLogId_action, ExecutionLogId_action )
 Where
     target_RepoObject_guid = @persistence_RepoObject_guid;
 
@@ -893,150 +906,9 @@ Exec logs.usp_ExecutionLog_insert
 -------------------------------------------------
 --
 --ensure all columns from source exists:
---the following already happens in [repo].[usp_sync_guid_RepoObjectColumn] and we don't need to repeat it here:
+--this already happens in [repo].[usp_sync_guid_RepoObjectColumn] and we don't need to repeat it here:
 --
-/*
---persistence: update RepoObjectColumn_name from SysObjecColumn_name of persistence_source_RepoObjectColumn_guid
-UPDATE roc_p
-	SET
-	    [RepoObjectColumn_name] = [roc_s].[SysObjectColumn_name]
-	, [Repo_user_type_name] = [roc_s].[Sys_user_type_name]
-	, [Repo_user_type_fullname] = [roc_s].[Sys_user_type_fullname]
-FROM   [repo].[RepoObjectColumn] [roc_p]
-	    INNER JOIN
-	    [repo].[RepoObjectColumn] [roc_s]
-	    ON [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
-	    INNER JOIN
-	    [repo].[RepoObject] [ro_p]
-	    ON [roc_p].[RepoObject_guid] = [ro_p].[RepoObject_guid]
-WHERE
-	    [ro_p].[is_repo_managed] = 1
-	    AND ([roc_p].[RepoObjectColumn_name] <> [roc_s].[SysObjectColumn_name]
-	        OR [roc_p].[Repo_user_type_fullname] <> [roc_s].[Sys_user_type_fullname]
-	        OR ([roc_p].[Repo_user_type_fullname] IS NULL
-	            AND NOT [roc_s].[Sys_user_type_fullname] IS NULL)
-	        OR (NOT [roc_p].[Repo_user_type_fullname] IS NULL
-	            AND [roc_s].[Sys_user_type_fullname] IS NULL)
-	    --we don't need to check user_type_name, it is included in user_type_fullname
-	    --OR [roc_p].[Repo_user_type_name] <> [roc_s].[Sys_user_type_name]
-	    --
-	    )
-*/
 
-----try to find [persistence_source_RepoObjectColumn_guid] for existing persistence columns by Column name
---UPDATE roc_p
---SET [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
-----update attributes later in a separate step:
-----, [roc_p].[Repo_user_type_name] = [roc_s].[Sys_user_type_name]
-----, [roc_p].[Repo_user_type_fullname] = [roc_s].[Sys_user_type_fullname]
---FROM [repo].[RepoObjectColumn] AS [roc_p]
---INNER JOIN [repo].[RepoObjectColumn] AS [roc_s]
--- ON [roc_p].[RepoObjectColumn_name] = [roc_s].[RepoObjectColumn_name]
---WHERE [roc_p].[persistence_source_RepoObjectColumn_guid] IS NULL
--- AND [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
--- AND [roc_s].[RepoObject_guid] = @source_RepoObject_guid
--- --skip special table columns (ValidFrom, ValidTo) in target (= persistence)
--- AND (
---  [roc_p].[Repo_generated_always_type] = 0
---  OR [roc_p].[Repo_generated_always_type] IS NULL
---  )
--- --skip [is_query_plan_expression] in target
--- AND (
---  [roc_p].[is_query_plan_expression] = 0
---  OR [roc_p].[is_query_plan_expression] IS NULL
---  )
---SET @rows = @@rowcount;
---SET @step_id = @step_id + 1
---SET @step_name = '[roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid] (matching by column name)'
---SET @source_object = '[repo].[RepoObjectColumn]'
---SET @target_object = '[repo].[RepoObjectColumn]'
---EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
--- , @ssis_execution_id = @ssis_execution_id
--- , @sub_execution_id = @sub_execution_id
--- , @parent_execution_log_id = @parent_execution_log_id
--- , @current_execution_guid = @current_execution_guid
--- , @proc_id = @proc_id
--- , @proc_schema_name = @proc_schema_name
--- , @proc_name = @proc_name
--- , @event_info = @event_info
--- , @step_id = @step_id
--- , @step_name = @step_name
--- , @source_object = @source_object
--- , @target_object = @target_object
--- , @inserted = NULL
--- , @updated = @rows
--- , @deleted = NULL
--- , @info_01 = NULL
--- , @info_02 = NULL
--- , @info_03 = NULL
--- , @info_04 = NULL
--- , @info_05 = NULL
--- , @info_06 = NULL
--- , @info_07 = NULL
--- , @info_08 = NULL
--- , @info_09 = NULL
-----add missing (in target) persistence columns, existing in source
---INSERT INTO [repo].[RepoObjectColumn] (
--- [RepoObject_guid]
--- , [RepoObjectColumn_name]
--- , [persistence_source_RepoObjectColumn_guid]
--- )
-----do this in a separate step:
-----, [Repo_user_type_name]
-----, [Repo_user_type_fullname]
---SELECT @persistence_RepoObject_guid
--- , [roc_s].[RepoObjectColumn_name]
--- , [roc_s].[RepoObjectColumn_guid]
-----, [roc_s].[Sys_user_type_name]
-----, [roc_s].[Sys_user_type_fullname]
---FROM [repo].[RepoObjectColumn] AS [roc_s]
---WHERE [roc_s].[RepoObject_guid] = @source_RepoObject_guid
--- AND NOT EXISTS (
---  SELECT 1
---  FROM [repo].[RepoObjectColumn] AS [roc_p]
---  WHERE [roc_p].[RepoObject_guid] = @persistence_RepoObject_guid
---   AND [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
---  )
--- --skip special table columns (ValidFrom, ValidTo) in source
--- AND (
---  [roc_s].[Repo_generated_always_type] = 0
---  OR [roc_s].[Repo_generated_always_type] IS NULL
---  )
--- --skip [is_query_plan_expression] in source
--- AND (
---  [roc_s].[is_query_plan_expression] = 0
---  OR [roc_s].[is_query_plan_expression] IS NULL
---  )
---SET @rows = @@rowcount;
---SET @step_id = @step_id + 1
---SET @step_name = 'add missing persistence columns existing in source'
---SET @source_object = '[repo].[RepoObjectColumn]'
---SET @target_object = '[repo].[RepoObjectColumn]'
---EXEC repo.usp_ExecutionLog_insert @execution_instance_guid = @execution_instance_guid
--- , @ssis_execution_id = @ssis_execution_id
--- , @sub_execution_id = @sub_execution_id
--- , @parent_execution_log_id = @parent_execution_log_id
--- , @current_execution_guid = @current_execution_guid
--- , @proc_id = @proc_id
--- , @proc_schema_name = @proc_schema_name
--- , @proc_name = @proc_name
--- , @event_info = @event_info
--- , @step_id = @step_id
--- , @step_name = @step_name
--- , @source_object = @source_object
--- , @target_object = @target_object
--- , @inserted = @rows
--- , @updated = NULL
--- , @deleted = NULL
--- , @info_01 = NULL
--- , @info_02 = NULL
--- , @info_03 = NULL
--- , @info_04 = NULL
--- , @info_05 = NULL
--- , @info_06 = NULL
--- , @info_07 = NULL
--- , @info_08 = NULL
--- , @info_09 = NULL
 --sync new columns, use existing procedure to manage the filling of Repo_... columns
 Exec repo.usp_sync_guid
     @execution_instance_guid = @execution_instance_guid
@@ -1044,63 +916,6 @@ Exec repo.usp_sync_guid
   , @sub_execution_id = @sub_execution_id
   , @parent_execution_log_id = @current_execution_log_id;
 
-/*
-	ensure all columns from source exists
-	
-	
-	[has_history_columns]
-	über [repo].[RepoObjectColumn] oder direkt im sql der Tabelle?
-	wass passiert, wenn diese Spalten erst später hinzugefügt werden sollen?
-	
-	*/
--------------------------------------------------
--------------  SQL for table  -------------------
--------------------------------------------------
---
---
--------------------------------------------------
--------------  SQL for procedure  ---------------
--------------------------------------------------
---
---
-----todo: which to use for persistence name? RepoObject names or SysObject names?
-----SysObject Names could be still empty, if @persistence_RepoObject_guid exists only in repo but not yet in database
---SELECT
---       @persistence_schema_name = [RepoObject_schema_name]
---     , @persistence_table_name = [RepoObject_name]
---FROM
---     repo.RepoObject AS ro
---WHERE  [ro].[SysObject_type] = 'U'
---       AND [RepoObject_guid] = @persistence_RepoObject_guid
-/*
-	if not @persistence_RepoObject_guid is null
-	check, if @persistence_RepoObject_guid exists and it is a user table
-	
-	check, if @persistence_RepoObject_guid is in [repo].[RepoObject_persistence]
-	wenn nicht, dieses dort eintragen
-	
-	
-	if @persistence_RepoObject_guid is null
-	
-	create new RepoObject and insert into [repo].[RepoObject_persistence]
-	set @persistence_RepoObject_guid to the new RepoObject
-	
-	Spalten
-	
-	sql für create table
-	
-	nachdenken über
-	- umbenannte Spalten
-	- geänderter Datentyp
-	- neue Spalten
-	- nicht mehr existierende Spalten
-	
-	sql für Prozedure zum Befüllen der Persistierung 
-	
-	*/
---
---END
---
 --SET @rows = @@ROWCOUNT;
 Set @step_id = @step_id + 1;
 Set @step_name = N'end';
@@ -1133,8 +948,8 @@ Exec logs.usp_ExecutionLog_insert
   , @info_07 = Null
   , @info_08 = Null
   , @info_09 = Null;
-
 Go
+
 Execute sp_addextendedproperty
     @name = N'RepoObject_guid'
   , @value = 'ba90291c-9d61-eb11-84dc-a81e8446d5b0'
@@ -1142,38 +957,26 @@ Execute sp_addextendedproperty
   , @level0name = N'repo'
   , @level1type = N'PROCEDURE'
   , @level1name = N'usp_persistence_set';
-
-
 Go
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectList', @value = N'* [config].[Parameter]
+
+Execute sp_addextendedproperty
+    @name = N'ReferencedObjectList'
+  , @value = N'* [config].[Parameter]
 * [logs].[usp_ExecutionLog_insert]
 * [repo].[RepoObject]
 * [repo].[RepoObject_persistence]
-* [repo].[usp_sync_guid]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+* [repo].[usp_sync_guid]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
+Go
 
-GO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'exampleWrong_Usage', @value = N'
+Execute sp_addextendedproperty
+    @name = N'exampleWrong_Usage'
+  , @value = N'
 ---this will NOT work, because there is no @persistence_schema_name
 ---(it is  not implemented)
 
@@ -1183,11 +986,16 @@ EXEC repo.[usp_persistence_set]
   , @persistence_table_name = ''Index''
   , @is_persistence_check_for_empty_source = 1
   , @is_persistence_truncate = 1
-  , @is_persistence_insert = 1;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+  , @is_persistence_insert = 1;'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'exampleUsage_3', @value = N'
+Execute sp_addextendedproperty
+    @name = N'exampleUsage_3'
+  , @value = N'
 ---define alternative persistence_table_name
 
 EXEC repo.[usp_persistence_set]
@@ -1196,26 +1004,32 @@ EXEC repo.[usp_persistence_set]
   , @persistence_table_name = ''zzz_qqq''
   , @is_persistence_check_for_empty_source = 1
   , @is_persistence_truncate = 1
-  , @is_persistence_insert = 1;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+  , @is_persistence_insert = 1;'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'exampleUsage_2', @value = N'
+Execute sp_addextendedproperty
+    @name = N'exampleUsage_2'
+  , @value = N'
 --create new default persistence [SchemaName].[SourceViewName_T], 
 --using default properties, defined in [repo].[RepoObject_persistence]:
 --@is_persistence_truncate = 1
 --@is_persistence_insert = 1
 
 EXEC repo.[usp_persistence_set]
-@source_fullname = ''[SchemaName].[SourceViewName]'';', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+@source_fullname = ''[SchemaName].[SourceViewName]'';'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'exampleUsage', @value = N'
+Execute sp_addextendedproperty
+    @name = N'exampleUsage'
+  , @value = N'
 --use explicite parameters to create a delete-update-insert persistence procedure without history
 
 Exec repo.[usp_persistence_set]
@@ -1270,33 +1084,29 @@ FROM
 
 --try to execute the generated procedure
 
-EXEC [SchemaName].[usp_PERSIST_SourceViewName_T];', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+EXEC [SchemaName].[usp_PERSIST_SourceViewName_T];'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'AntoraReferencedList', @value = N'* xref:config.Parameter.adoc[]
+Execute sp_addextendedproperty
+    @name = N'AntoraReferencedList'
+  , @value = N'* xref:config.Parameter.adoc[]
 * xref:logs.usp_ExecutionLog_insert.adoc[]
 * xref:repo.RepoObject.adoc[]
 * xref:repo.RepoObject_persistence.adoc[]
-* xref:repo.usp_sync_guid.adoc[]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+* xref:repo.usp_sync_guid.adoc[]'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'exampleUsage_5', @value = N'
+Execute sp_addextendedproperty
+    @name = N'exampleUsage_5'
+  , @value = N'
 --an existing table, for example in another schema, is to be used as target
 --we NEED to obtain @persistence_RepoObject_guid
 
@@ -1328,21 +1138,16 @@ EXEC repo.[usp_persistence_set]
   , @is_persistence_delete_missing = 1
   , @is_persistence_delete_changed = 0
   , @is_persistence_update_changed = 1
-  , @is_persistence_insert = 1;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+  , @is_persistence_insert = 1;'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
-
-
-
-
-
-
-
-
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'exampleUsage_4', @value = N'
+Execute sp_addextendedproperty
+    @name = N'exampleUsage_4'
+  , @value = N'
 --todo: better example for source_filter and target_filter
 
 Exec repo.[usp_persistence_set]
@@ -1363,23 +1168,26 @@ Exec repo.[usp_persistence_set]
   , @is_persistence_merge_update_changed = 1
   , @is_persistence_merge_insert = 1
   , @source_filter = NULL
-  , @target_filter = NULL;', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
+  , @target_filter = NULL;'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
+Execute sp_addextendedproperty
+    @name = N'is_ssas'
+  , @value = N'0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';
+Go
 
-
-
-
-
-
-
-
-
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
-
-
-GO
-EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'PROCEDURE', @level1name = N'usp_persistence_set';
-
+Execute sp_addextendedproperty
+    @name = N'is_repo_managed'
+  , @value = N'0'
+  , @level0type = N'SCHEMA'
+  , @level0name = N'repo'
+  , @level1type = N'PROCEDURE'
+  , @level1name = N'usp_persistence_set';

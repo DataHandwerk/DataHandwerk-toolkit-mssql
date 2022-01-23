@@ -9,12 +9,12 @@ EXEC [dbo].[usp_RefreshViews]
 @Schema = 'MySchema'
 <<property_end>>
 */
-CREATE Procedure dbo.usp_RefreshViews
+CREATE Procedure [dbo].[usp_RefreshViews]
 ( @Schema NVarchar(128) = Null )
 As
-Declare @View_Schema Varchar(100);
-Declare @View_Name Varchar(100);
-Declare @View_Name_Full Varchar(100);
+Declare @View_Schema Varchar(128);
+Declare @View_Name Varchar(128);
+Declare @View_Name_Full Varchar(300);
 Declare @cmd As NVarchar(4000);
 
 If @Schema Is Not Null

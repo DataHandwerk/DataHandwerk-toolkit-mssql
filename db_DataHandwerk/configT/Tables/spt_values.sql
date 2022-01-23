@@ -4,9 +4,14 @@
     [type]   NCHAR (3)     NOT NULL,
     [low]    INT           NULL,
     [high]   INT           NULL,
-    [status] INT           NULL
+    [status] INT           NULL,
+    CONSTRAINT [uq_spt_values_1] UNIQUE NONCLUSTERED ([name] ASC, [number] ASC, [type] ASC)
 )
 WITH (DATA_COMPRESSION = PAGE);
+
+
+
+
 
 
 
@@ -47,9 +52,7 @@ GO
 
 
 GO
-CREATE NONCLUSTERED INDEX [idx_spt_values_1]
-    ON [configT].[spt_values]([number] ASC, [type] ASC)
-    INCLUDE([name]);
+
 
 
 GO
@@ -64,4 +67,8 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '412e3185-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'configT', @level1type = N'TABLE', @level1name = N'spt_values', @level2type = N'CONSTRAINT', @level2name = N'uq_spt_values_1';
 

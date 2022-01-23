@@ -1,18 +1,20 @@
 ﻿CREATE TABLE [property].[RepoObjectProperty] (
-    [RepoObjectProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [RepoObject_guid]       UNIQUEIDENTIFIER NOT NULL,
     [property_name]         NVARCHAR (128)   NOT NULL,
     [property_value]        NVARCHAR (MAX)   NULL,
     [inheritance]           TINYINT          NULL,
+    [RepoObjectProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [property_int]          AS               (TRY_CAST(left([property_value],(4000)) AS [int])),
     [property_bigint]       AS               (TRY_CAST(left([property_value],(4000)) AS [bigint])),
     [property_real]         AS               (TRY_CAST(left([property_value],(4000)) AS [real])),
     [property_float]        AS               (TRY_CAST(left([property_value],(4000)) AS [float])),
     [property_money]        AS               (TRY_CAST(left([property_value],(4000)) AS [money])),
-    CONSTRAINT [PK_RepoObjectProperty] PRIMARY KEY CLUSTERED ([RepoObjectProperty_id] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_RepoObjectProperty] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [property_name] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObjectProperty__RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObjectProperty] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 

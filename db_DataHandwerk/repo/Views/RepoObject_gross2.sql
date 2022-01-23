@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.RepoObject_gross2
+
+CREATE View [repo].[RepoObject_gross2]
 As
 Select
     ro.RepoObject_guid
@@ -75,10 +76,11 @@ Select
   , ro.is_persistence_insert
   , ro.is_persistence_truncate
   , ro.is_persistence_update_changed
-  , ro.is_persistence_merge_delete_missing
-  , ro.is_persistence_merge_insert
-  , ro.is_persistence_merge_update_changed
+  --, ro.is_persistence_merge_delete_missing
+  --, ro.is_persistence_merge_insert
+  --, ro.is_persistence_merge_update_changed
   , ro.is_persistence_persist_source
+  , ro.ExecutionLogId_action
   , ro.history_schema_name
   , ro.history_table_name
   , prescript          = ro.prescript
@@ -93,6 +95,7 @@ Select
   , ColumnList.DbmlColumnList
   , ColumnList.PersistenceCompareColumnList
   , ColumnList.PersistenceInsertColumnList
+  , ColumnList.PersistenceInsertColumnListSource
   , ColumnList.PersistenceUpdateColumnList
   , SqlModules.sql_modules_definition
   , sql_modules_antora = Replace (
@@ -734,11 +737,7 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0b6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[is_persistence_merge_update_changed]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
 
 
 GO
@@ -746,11 +745,7 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0a6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[is_persistence_merge_insert]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
 
 
 GO
@@ -758,11 +753,19 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '096ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[is_persistence_merge_delete_missing]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
+
+
+
+GO
+
+
+
+GO
+
 
 
 GO
@@ -1075,4 +1078,12 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0f6ce
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObject_gross].[target_filter]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'postscript';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2f393564-ae7b-ec11-8541-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'PersistenceInsertColumnListSource';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2e393564-ae7b-ec11-8541-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'ExecutionLogId_action';
 

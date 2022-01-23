@@ -238,21 +238,6 @@
     <Build Include="graph\Views\RepoObjectColumn_S.sql" />
     <Build Include="graph\Views\RepoObject_S.sql" />
     <Build Include="repo\Views\RepoObject_RequiredRepoObjectMerge.sql" />
-    <None Include="_scripts\StaticData\dhw_self\21_dhw_self_repo_GeneratorUsp.sql" />
-    <None Include="_scripts\StaticData\dhw_self\_dhw_self_repo_.sql" />
-    <None Include="_scripts\StaticData\dhw_self\22_dhw_self_repo_GeneratorUspParameter.sql" />
-    <None Include="_scripts\StaticData\dhw_self\23_dhw_self_repo_GeneratorUspStep.sql" />
-    <None Include="_scripts\StaticData\dhw_self\31_dhw_self_repo_ProcedureInstance.sql" />
-    <None Include="_scripts\StaticData\dhw_self\32_dhw_self_repo_ProcedureInstanceDependency.sql" />
-    <None Include="_scripts\StaticData\dhw_self\33_dhw_self_repo_Workflow.sql" />
-    <None Include="_scripts\StaticData\dhw_self\34_dhw_self_repo_WorkflowStep.sql" />
-    <None Include="_scripts\StaticData\dhw_self\41_dhw_self_repo_RepoObject.sql" />
-    <None Include="_scripts\StaticData\dhw_self\42_dhw_self_repo_RepoObject_persistence.sql" />
-    <None Include="_scripts\StaticData\dhw_self\43_dhw_self_repo_RepoObject_SqlModules.sql" />
-    <None Include="_scripts\StaticData\dhw_self\51_dhw_self_repo_RepoObjectColumn.sql" />
-    <None Include="_scripts\StaticData\dhw_self\61_dhw_self_repo_Index_virtual.sql" />
-    <None Include="_scripts\StaticData\dhw_self\62_dhw_self_repo_IndexColumn_virtual.sql" />
-    <None Include="_scripts\StaticData\dhw_self\63_dhw_self_repo_Index_Settings.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="repo_sys\Views\ForeignKeyColumn.sql" />
     <Build Include="repo_sys\Views\ForeignKey.sql" />
@@ -388,7 +373,6 @@
     <Build Include="repo\Views\RepoObject_persistence_ForUpdate.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_30_0.sql" />
     <Build Include="docs\Views\RepoObject_Plantuml_ObjectRefList_0_30.sql" />
-    <Build Include="dbo\Tables\zzz.sql" />
     <Build Include="Security\property.sql" />
     <Build Include="property\Tables\RepoObjectProperty.sql" />
     <Build Include="property\Tables\RepoObjectColumnProperty.sql" />
@@ -954,6 +938,12 @@
     <Build Include="workflow\Views\WorkflowStep_src.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_check_persistence.sql" />
     <Build Include="docs\Views\RepoObject_OutputFilter_T_gross.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_target_Ignore.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_source_Ignore.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_NoCompareNoUpdate.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_NoCompareButUpdate.sql" />
+    <Build Include="reference\Views\RepoObject_reference_persistence_target_as_source_explicit.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GenerateCmd.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />
@@ -961,7 +951,6 @@
     <None Include="project_2_db_self.scmp" />
     <None Include="db_other_2_project.scmp" />
     <None Include="project_2_db_other.scmp" />
-    <None Include="_scripts\StaticData\dhw_self\11_dhw_self_repo_parameter.sql" />
     <None Include="xcopy-exclude.txt" />
     <None Include="xcopy-readme.txt" />
     <None Include="some-cmd.adoc" />

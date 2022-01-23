@@ -1,14 +1,14 @@
 ﻿
-create View repo.RepoObjectColumn_external_tgt
+CREATE View repo.RepoObjectColumn_external_tgt
 As
 Select
     T1.RepoObjectColumn_guid
   , T1.Inheritance_StringAggSeparatorSql
   , T1.InheritanceDefinition
   , T1.InheritanceType
-  , T1.is_persistence_no_check
-  , T1.is_persistence_no_include
-  , T1.is_persistence_no_update
+  , T1.is_persistence_NoCompareNoUpdate
+  , T1.is_persistence_Ignore
+  , T1.is_persistence_NoCompareButUpdate
   , T1.is_query_plan_expression
   , T1.is_required_ColumnMerge
   , T1.is_SysObjectColumn_missing
@@ -147,15 +147,21 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b55f9
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b45f98ee-1a1b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_external_tgt', @level2type = N'COLUMN', @level2name = N'is_persistence_no_update';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '93034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_external_tgt', @level2type = N'COLUMN', @level2name = N'is_persistence_NoCompareButUpdate';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b35f98ee-1a1b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_external_tgt', @level2type = N'COLUMN', @level2name = N'is_persistence_no_include';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '92034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_external_tgt', @level2type = N'COLUMN', @level2name = N'is_persistence_Ignore';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'b25f98ee-1a1b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_external_tgt', @level2type = N'COLUMN', @level2name = N'is_persistence_no_check';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '91034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_external_tgt', @level2type = N'COLUMN', @level2name = N'is_persistence_NoCompareNoUpdate';
+
+
 
 
 GO

@@ -1,4 +1,5 @@
-﻿CREATE TABLE [reference].[additional_Reference] (
+CREATE TABLE [reference].[additional_Reference] (
+    [tik_hash_c]                  AS             (isnull(CONVERT([nvarchar](32),hashbytes('MD5',lower(concat(N'',[referenced_AntoraComponent],'|~|',[referenced_AntoraModule],'|~|',[referenced_Schema],'|~|',[referenced_Object],'|~|',[referenced_Column],'|~|',[referencing_AntoraComponent],'|~|',[referencing_AntoraModule],'|~|',[referencing_Schema],'|~|',[referencing_Object],'|~|',[referencing_Column],'|~|'))),(2)),'')) PERSISTED NOT NULL,
     [referenced_AntoraComponent]  NVARCHAR (128) CONSTRAINT [DF_additional_Reference_referenced_AntoraComponent] DEFAULT (N'mycomponent') NOT NULL,
     [referenced_AntoraModule]     NVARCHAR (128) CONSTRAINT [DF_additional_Reference_referenced_AntoraModule] DEFAULT (N'sqldb') NOT NULL,
     [referenced_Schema]           NVARCHAR (128) NOT NULL,
@@ -10,11 +11,15 @@
     [referencing_Object]          NVARCHAR (128) NOT NULL,
     [referencing_Column]          NVARCHAR (128) NULL,
     [Id]                          INT            IDENTITY (1, 1) NOT NULL,
-    [tik]                         AS             (concat(N'',[referenced_AntoraComponent],'|~|',[referenced_AntoraModule],'|~|',[referenced_Schema],'|~|',[referenced_Object],'|~|',[referenced_Column],'|~|',[referencing_AntoraComponent],'|~|',[referencing_AntoraModule],'|~|',[referencing_Schema],'|~|',[referencing_Object],'|~|',[referencing_Column],'|~|')) PERSISTED NOT NULL,
+    [tik]                         AS             (isnull(concat(N'',[referenced_AntoraComponent],'|~|',[referenced_AntoraModule],'|~|',[referenced_Schema],'|~|',[referenced_Object],'|~|',[referenced_Column],'|~|',[referencing_AntoraComponent],'|~|',[referencing_AntoraModule],'|~|',[referencing_Schema],'|~|',[referencing_Object],'|~|',[referencing_Column],'|~|'),'')) PERSISTED NOT NULL,
     [tik_hash]                    AS             (CONVERT([binary](16),hashbytes('MD5',lower(concat(N'',[referenced_AntoraComponent],'|~|',[referenced_AntoraModule],'|~|',[referenced_Schema],'|~|',[referenced_Object],'|~|',[referenced_Column],'|~|',[referencing_AntoraComponent],'|~|',[referencing_AntoraModule],'|~|',[referencing_Schema],'|~|',[referencing_Object],'|~|',[referencing_Column],'|~|'))))) PERSISTED,
-    CONSTRAINT [PK_additional_Reference] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_additional_Reference] PRIMARY KEY CLUSTERED ([tik_hash_c] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [uq_additional_Reference] UNIQUE NONCLUSTERED ([tik_hash] ASC)
 );
+
+
+
+
 
 
 
@@ -208,5 +213,5 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9a034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'additional_Reference', @level2type = N'COLUMN', @level2name = N'tik_hash_c';
 

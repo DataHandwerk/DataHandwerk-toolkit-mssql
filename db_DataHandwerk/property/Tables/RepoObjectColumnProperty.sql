@@ -1,18 +1,20 @@
 ﻿CREATE TABLE [property].[RepoObjectColumnProperty] (
-    [RepoObjectColumnProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [RepoObjectColumn_guid]       UNIQUEIDENTIFIER NOT NULL,
     [property_name]               NVARCHAR (128)   NOT NULL,
     [property_value]              NVARCHAR (MAX)   NOT NULL,
     [inheritance]                 TINYINT          NULL,
+    [RepoObjectColumnProperty_id] INT              IDENTITY (1, 1) NOT NULL,
     [property_int]                AS               (TRY_CAST(left([property_value],(4000)) AS [int])),
     [property_bigint]             AS               (TRY_CAST(left([property_value],(4000)) AS [bigint])),
     [property_real]               AS               (TRY_CAST(left([property_value],(4000)) AS [real])),
     [property_float]              AS               (TRY_CAST(left([property_value],(4000)) AS [float])),
     [property_money]              AS               (TRY_CAST(left([property_value],(4000)) AS [money])),
-    CONSTRAINT [PK_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumnProperty_id] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObjectColumnProperty__RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObjectColumnProperty] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 

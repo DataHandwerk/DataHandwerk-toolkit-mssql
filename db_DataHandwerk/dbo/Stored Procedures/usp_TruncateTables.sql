@@ -9,12 +9,12 @@ EXEC [dbo].[usp_TruncateTables]
 @Schema = 'MySchema'
 <<property_end>>
 */
-CREATE Procedure dbo.usp_TruncateTables
+CREATE Procedure [dbo].[usp_TruncateTables]
 ( @Schema NVarchar(128) Null )
 As
-Declare @Table_Schema Varchar(100);
-Declare @Table_Name Varchar(100);
-Declare @Table_Name_Full Varchar(100);
+Declare @Table_Schema Varchar(128);
+Declare @Table_Name Varchar(128);
+Declare @Table_Name_Full Varchar(300);
 Declare @cmd As NVarchar(4000);
 
 If @Schema Is Not Null

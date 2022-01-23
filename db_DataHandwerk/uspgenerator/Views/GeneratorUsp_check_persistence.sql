@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 <<property_start>>Description
 Sometimes it can happen that a persistence was created with the Persistence Generator and still exists in xref:sqldb:uspgenerator.generatorusp.adoc[], 
 although the persistence has already been removed from xref:sqldb:repo.repoobject_persistence.adoc[].
@@ -33,9 +34,14 @@ Select
   , T3.is_persistence_truncate
   , T3.is_persistence_update_changed
   , T3.is_persistence_persist_source
-  , T3.is_persistence_merge_delete_missing
-  , T3.is_persistence_merge_insert
-  , T3.is_persistence_merge_update_changed
+  --, T3.is_persistence_merge_delete_missing
+  --, T3.is_persistence_merge_insert
+  --, T3.is_persistence_merge_update_changed
+  , T3.[ColumnListNoCompareButUpdate]
+  , T3.[ColumnListNoCompareNoUpdate]
+  , T3.ColumnListIgnore
+  , T3.prescript
+  , T3.postscript
   , T3.source_RepoObject_guid
   , T3.source_RepoObject_name
   , T3.is_persistence
@@ -70,15 +76,15 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '396be
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '386be88f-2055-ec11-8533-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_update_changed';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '376be88f-2055-ec11-8533-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_insert';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '366be88f-2055-ec11-8533-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'is_persistence_merge_delete_missing';
+
+
+
+GO
+
 
 
 GO
@@ -171,4 +177,24 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '206be
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'f604f585-2055-ec11-8533-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '71034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'prescript';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '72034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'postscript';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6f034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoCompareNoUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '6e034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoCompareButUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '70034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_check_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListIgnore';
 

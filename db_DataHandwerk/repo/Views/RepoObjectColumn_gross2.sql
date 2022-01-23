@@ -8,9 +8,9 @@ Select
   , roc.Inheritance_StringAggSeparatorSql
   , roc.InheritanceDefinition
   , roc.InheritanceType
-  , roc.is_persistence_no_check
-  , roc.is_persistence_no_include
-  , roc.is_persistence_no_update
+  , roc.is_persistence_NoCompareNoUpdate
+  , roc.is_persistence_Ignore
+  , roc.is_persistence_NoCompareButUpdate
   , roc.is_query_plan_expression
   , roc.is_RepoObjectColumn_name_uniqueidentifier
   , roc.is_required_ColumnMerge
@@ -371,15 +371,21 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2f6ce
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2e6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_no_update';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '75034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_NoCompareButUpdate';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2d6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_no_include';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '74034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_Ignore';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2c6ce6eb-ad08-ec11-8515-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_no_check';
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '73034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_NoCompareNoUpdate';
+
+
 
 
 GO
@@ -810,15 +816,15 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[is_persistence_no_update]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_no_update';
 
-
-GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[is_persistence_no_include]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_no_include';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn_gross].[is_persistence_no_check]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross2', @level2type = N'COLUMN', @level2name = N'is_persistence_no_check';
+
+
+
+GO
+
 
 
 GO

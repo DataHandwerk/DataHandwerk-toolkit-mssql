@@ -3,6 +3,8 @@
 
 
 
+
+
 /*
 <<property_start>>Description
 include::sqldb:partial$descriptiontags/config.parameter.adoc[tag=description,opts=optional]
@@ -102,6 +104,12 @@ Select
   , sub_Parameter           = N''
   , Parameter_desciption    = N'default suffix for persistence table which will be added to source object name'
   , Parameter_default_value = N'_T'
+Union All
+Select
+    Parameter_name          = 'persistence_ExecutionLogId_ColumnName'
+  , sub_Parameter           = N''
+  , Parameter_desciption    = N'default column name to be filled with execution_log_id of the current persistence process'
+  , Parameter_default_value = N'execution_log_id'
 Union All
 Select
     Parameter_name          = 'Hist_ValidFrom_column_name'
@@ -644,6 +652,7 @@ Select
   , Parameter_default_value =
   --
   'include::partial$content/{docname}.adoc[tag=HeaderFullDisplayName]
+:noindex:
 
 == Package Properties
 

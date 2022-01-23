@@ -1175,22 +1175,23 @@ Update
 Set
     roc_p.RepoObjectColumn_name = scroc.SysObjectColumn_name
   --
-  , roc_p.Repo_default_definition = scroc.default_definition
-  --skip Repo_default_name
-  --skip Repo_default_is_system_named
-  --, [Repo_default_is_system_named] = [scroc].[default_is_system_named]
-  , roc_p.Repo_definition = scroc.definition
-  , roc_p.Repo_generated_always_type = scroc.generated_always_type
-  , roc_p.Repo_graph_type = scroc.graph_type
   , roc_p.Repo_is_nullable = scroc.is_nullable
-  , roc_p.Repo_is_persisted = scroc.is_persisted
   , roc_p.Repo_user_type_fullname = scroc.user_type_fullname
   , roc_p.Repo_user_type_name = scroc.user_type_name
   , roc_p.Repo_uses_database_collation = scroc.uses_database_collation
-  , roc_p.Repo_is_computed = scroc.is_computed
-  , roc_p.Repo_is_identity = scroc.is_identity
-  , roc_p.Repo_seed_value = scroc.seed_value
-  , roc_p.Repo_increment_value = scroc.increment_value
+  ----these should not be inherited to avoid issues in persistence usp generation
+  --, roc_p.Repo_is_computed = scroc.is_computed
+  --, roc_p.Repo_is_identity = scroc.is_identity
+  --, roc_p.Repo_seed_value = scroc.seed_value
+  --, roc_p.Repo_increment_value = scroc.increment_value
+  --, roc_p.Repo_definition = scroc.definition
+  --, roc_p.Repo_default_definition = scroc.default_definition
+  --, roc_p.Repo_graph_type = scroc.graph_type
+  --, roc_p.Repo_is_persisted = scroc.is_persisted
+  --, roc_p.Repo_generated_always_type = scroc.generated_always_type
+  --skip Repo_default_name
+  --skip Repo_default_is_system_named
+  --, [Repo_default_is_system_named] = [scroc].[default_is_system_named]
 From
     repo.RepoObjectColumn                        As roc_p
     --we need some attributes from roc_s (source)
@@ -1229,39 +1230,39 @@ Where
         --    AND NOT [scroc].[default_is_system_named] IS NULL)
         --OR (NOT [roc_p].[Repo_default_is_system_named] IS NULL
         --    AND [scroc].[default_is_system_named] IS NULL)
-        Or roc_p.Repo_definition              <> scroc.definition
-        Or
-        (
-            roc_p.Repo_definition Is Null
-            And Not scroc.definition Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_definition Is Null
-            And scroc.definition Is Null
-        )
-        Or roc_p.Repo_generated_always_type   <> scroc.generated_always_type
-        Or
-        (
-            roc_p.Repo_generated_always_type Is Null
-            And Not scroc.generated_always_type Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_generated_always_type Is Null
-            And scroc.generated_always_type Is Null
-        )
-        Or roc_p.Repo_graph_type              <> scroc.graph_type
-        Or
-        (
-            roc_p.Repo_graph_type Is Null
-            And Not scroc.graph_type Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_graph_type Is Null
-            And scroc.graph_type Is Null
-        )
+        --Or roc_p.Repo_definition              <> scroc.definition
+        --Or
+        --(
+        --    roc_p.Repo_definition Is Null
+        --    And Not scroc.definition Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_definition Is Null
+        --    And scroc.definition Is Null
+        --)
+        --Or roc_p.Repo_generated_always_type   <> scroc.generated_always_type
+        --Or
+        --(
+        --    roc_p.Repo_generated_always_type Is Null
+        --    And Not scroc.generated_always_type Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_generated_always_type Is Null
+        --    And scroc.generated_always_type Is Null
+        --)
+        --Or roc_p.Repo_graph_type              <> scroc.graph_type
+        --Or
+        --(
+        --    roc_p.Repo_graph_type Is Null
+        --    And Not scroc.graph_type Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_graph_type Is Null
+        --    And scroc.graph_type Is Null
+        --)
         Or roc_p.Repo_is_nullable             <> scroc.is_nullable
         Or
         (
@@ -1273,17 +1274,17 @@ Where
             Not roc_p.Repo_is_nullable Is Null
             And scroc.is_nullable Is Null
         )
-        Or roc_p.Repo_is_persisted            <> scroc.is_persisted
-        Or
-        (
-            roc_p.Repo_is_persisted Is Null
-            And Not scroc.is_persisted Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_is_persisted Is Null
-            And scroc.is_persisted Is Null
-        )
+        --Or roc_p.Repo_is_persisted            <> scroc.is_persisted
+        --Or
+        --(
+        --    roc_p.Repo_is_persisted Is Null
+        --    And Not scroc.is_persisted Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_is_persisted Is Null
+        --    And scroc.is_persisted Is Null
+        --)
         Or roc_p.Repo_user_type_fullname      <> scroc.user_type_fullname
         Or
         (
@@ -1307,51 +1308,52 @@ Where
             Not roc_p.Repo_uses_database_collation Is Null
             And scroc.uses_database_collation Is Null
         )
-        Or roc_p.Repo_is_computed             <> scroc.is_computed
-        Or
-        (
-            roc_p.Repo_is_computed Is Null
-            And Not scroc.is_computed Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_is_computed Is Null
-            And scroc.is_computed Is Null
-        )
-        Or roc_p.Repo_is_identity             <> scroc.is_identity
-        Or
-        (
-            roc_p.Repo_is_identity Is Null
-            And Not scroc.is_identity Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_is_identity Is Null
-            And scroc.is_identity Is Null
-        )
-        Or roc_p.Repo_seed_value              <> scroc.seed_value
-        Or
-        (
-            roc_p.Repo_seed_value Is Null
-            And Not scroc.seed_value Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_seed_value Is Null
-            And scroc.seed_value Is Null
-        )
-        Or roc_p.Repo_increment_value         <> scroc.increment_value
-        Or
-        (
-            roc_p.Repo_increment_value Is Null
-            And Not scroc.increment_value Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_increment_value Is Null
-            And scroc.increment_value Is Null
-        )
+        --Or roc_p.Repo_is_computed             <> scroc.is_computed
+        --Or
+        --(
+        --    roc_p.Repo_is_computed Is Null
+        --    And Not scroc.is_computed Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_is_computed Is Null
+        --    And scroc.is_computed Is Null
+        --)
+        --Or roc_p.Repo_is_identity             <> scroc.is_identity
+        --Or
+        --(
+        --    roc_p.Repo_is_identity Is Null
+        --    And Not scroc.is_identity Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_is_identity Is Null
+        --    And scroc.is_identity Is Null
+        --)
+        --Or roc_p.Repo_seed_value              <> scroc.seed_value
+        --Or
+        --(
+        --    roc_p.Repo_seed_value Is Null
+        --    And Not scroc.seed_value Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_seed_value Is Null
+        --    And scroc.seed_value Is Null
+        --)
+        --Or roc_p.Repo_increment_value         <> scroc.increment_value
+        --Or
+        --(
+        --    roc_p.Repo_increment_value Is Null
+        --    And Not scroc.increment_value Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_increment_value Is Null
+        --    And scroc.increment_value Is Null
+        --)
     )
+
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -1389,22 +1391,23 @@ Update
 Set
     roc_p.RepoObjectColumn_name = scroc.SysObjectColumn_name
   --
-  , roc_p.Repo_default_definition = scroc.default_definition
-  --skip Repo_default_name
-  --skip Repo_default_is_system_named
-  --, [Repo_default_is_system_named] = [scroc].[default_is_system_named]
-  , roc_p.Repo_definition = scroc.definition
-  , roc_p.Repo_generated_always_type = scroc.generated_always_type
-  , roc_p.Repo_graph_type = scroc.graph_type
   , roc_p.Repo_is_nullable = scroc.is_nullable
-  , roc_p.Repo_is_persisted = scroc.is_persisted
   , roc_p.Repo_user_type_fullname = scroc.user_type_fullname
   , roc_p.Repo_user_type_name = scroc.user_type_name
   , roc_p.Repo_uses_database_collation = scroc.uses_database_collation
-  , roc_p.Repo_is_computed = scroc.is_computed
-  , roc_p.Repo_is_identity = scroc.is_identity
-  , roc_p.Repo_seed_value = scroc.seed_value
-  , roc_p.Repo_increment_value = scroc.increment_value
+  ----these should not be inherited to avoid issues in persistence usp generation
+  --, roc_p.Repo_is_computed = scroc.is_computed
+  --, roc_p.Repo_is_identity = scroc.is_identity
+  --, roc_p.Repo_seed_value = scroc.seed_value
+  --, roc_p.Repo_increment_value = scroc.increment_value
+  --, roc_p.Repo_definition = scroc.definition
+  --, roc_p.Repo_default_definition = scroc.default_definition
+  --, roc_p.Repo_graph_type = scroc.graph_type
+  --, roc_p.Repo_is_persisted = scroc.is_persisted
+  --, roc_p.Repo_generated_always_type = scroc.generated_always_type
+  --skip Repo_default_name
+  --skip Repo_default_is_system_named
+  --, [Repo_default_is_system_named] = [scroc].[default_is_system_named]
 From
     repo.RepoObjectColumn                        As roc_p
     --we need some attributes from roc_s (source)
@@ -1443,39 +1446,39 @@ Where
         --    AND NOT [scroc].[default_is_system_named] IS NULL)
         --OR (NOT [roc_p].[Repo_default_is_system_named] IS NULL
         --    AND [scroc].[default_is_system_named] IS NULL)
-        Or roc_p.Repo_definition              <> scroc.definition
-        Or
-        (
-            roc_p.Repo_definition Is Null
-            And Not scroc.definition Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_definition Is Null
-            And scroc.definition Is Null
-        )
-        Or roc_p.Repo_generated_always_type   <> scroc.generated_always_type
-        Or
-        (
-            roc_p.Repo_generated_always_type Is Null
-            And Not scroc.generated_always_type Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_generated_always_type Is Null
-            And scroc.generated_always_type Is Null
-        )
-        Or roc_p.Repo_graph_type              <> scroc.graph_type
-        Or
-        (
-            roc_p.Repo_graph_type Is Null
-            And Not scroc.graph_type Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_graph_type Is Null
-            And scroc.graph_type Is Null
-        )
+        --Or roc_p.Repo_definition              <> scroc.definition
+        --Or
+        --(
+        --    roc_p.Repo_definition Is Null
+        --    And Not scroc.definition Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_definition Is Null
+        --    And scroc.definition Is Null
+        --)
+        --Or roc_p.Repo_generated_always_type   <> scroc.generated_always_type
+        --Or
+        --(
+        --    roc_p.Repo_generated_always_type Is Null
+        --    And Not scroc.generated_always_type Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_generated_always_type Is Null
+        --    And scroc.generated_always_type Is Null
+        --)
+        --Or roc_p.Repo_graph_type              <> scroc.graph_type
+        --Or
+        --(
+        --    roc_p.Repo_graph_type Is Null
+        --    And Not scroc.graph_type Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_graph_type Is Null
+        --    And scroc.graph_type Is Null
+        --)
         Or roc_p.Repo_is_nullable             <> scroc.is_nullable
         Or
         (
@@ -1487,17 +1490,17 @@ Where
             Not roc_p.Repo_is_nullable Is Null
             And scroc.is_nullable Is Null
         )
-        Or roc_p.Repo_is_persisted            <> scroc.is_persisted
-        Or
-        (
-            roc_p.Repo_is_persisted Is Null
-            And Not scroc.is_persisted Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_is_persisted Is Null
-            And scroc.is_persisted Is Null
-        )
+        --Or roc_p.Repo_is_persisted            <> scroc.is_persisted
+        --Or
+        --(
+        --    roc_p.Repo_is_persisted Is Null
+        --    And Not scroc.is_persisted Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_is_persisted Is Null
+        --    And scroc.is_persisted Is Null
+        --)
         Or roc_p.Repo_user_type_fullname      <> scroc.user_type_fullname
         Or
         (
@@ -1521,51 +1524,52 @@ Where
             Not roc_p.Repo_uses_database_collation Is Null
             And scroc.uses_database_collation Is Null
         )
-        Or roc_p.Repo_is_computed             <> scroc.is_computed
-        Or
-        (
-            roc_p.Repo_is_computed Is Null
-            And Not scroc.is_computed Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_is_computed Is Null
-            And scroc.is_computed Is Null
-        )
-        Or roc_p.Repo_is_identity             <> scroc.is_identity
-        Or
-        (
-            roc_p.Repo_is_identity Is Null
-            And Not scroc.is_identity Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_is_identity Is Null
-            And scroc.is_identity Is Null
-        )
-        Or roc_p.Repo_seed_value              <> scroc.seed_value
-        Or
-        (
-            roc_p.Repo_seed_value Is Null
-            And Not scroc.seed_value Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_seed_value Is Null
-            And scroc.seed_value Is Null
-        )
-        Or roc_p.Repo_increment_value         <> scroc.increment_value
-        Or
-        (
-            roc_p.Repo_increment_value Is Null
-            And Not scroc.increment_value Is Null
-        )
-        Or
-        (
-            Not roc_p.Repo_increment_value Is Null
-            And scroc.increment_value Is Null
-        )
+        --Or roc_p.Repo_is_computed             <> scroc.is_computed
+        --Or
+        --(
+        --    roc_p.Repo_is_computed Is Null
+        --    And Not scroc.is_computed Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_is_computed Is Null
+        --    And scroc.is_computed Is Null
+        --)
+        --Or roc_p.Repo_is_identity             <> scroc.is_identity
+        --Or
+        --(
+        --    roc_p.Repo_is_identity Is Null
+        --    And Not scroc.is_identity Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_is_identity Is Null
+        --    And scroc.is_identity Is Null
+        --)
+        --Or roc_p.Repo_seed_value              <> scroc.seed_value
+        --Or
+        --(
+        --    roc_p.Repo_seed_value Is Null
+        --    And Not scroc.seed_value Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_seed_value Is Null
+        --    And scroc.seed_value Is Null
+        --)
+        --Or roc_p.Repo_increment_value         <> scroc.increment_value
+        --Or
+        --(
+        --    roc_p.Repo_increment_value Is Null
+        --    And Not scroc.increment_value Is Null
+        --)
+        --Or
+        --(
+        --    Not roc_p.Repo_increment_value Is Null
+        --    And scroc.increment_value Is Null
+        --)
     )
+
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -1654,40 +1658,63 @@ persistence: add missing (in target) persistence columns, existing in source
 before the persistence sql can be created the [repo].[usp_sync_guid_RepoObjectColumn] needs to be executed again
 
 */
-INSERT INTO [repo].[RepoObjectColumn] (
- [RepoObject_guid]
- , [RepoObjectColumn_name]
- , [persistence_source_RepoObjectColumn_guid]
- )
-SELECT rop.[target_RepoObject_guid]
- , [roc_s].[RepoObjectColumn_name]
- , [roc_s].[RepoObjectColumn_guid]
-FROM [repo].[RepoObjectColumn] AS [roc_s]
-INNER JOIN [repo].[RepoObject_persistence] rop
- ON rop.source_RepoObject_guid = [roc_s].[RepoObject_guid]
-WHERE
- --
- NOT EXISTS (
-  SELECT 1
-  FROM [repo].[RepoObjectColumn] AS [roc_p]
-  WHERE [roc_p].[RepoObject_guid] = rop.[target_RepoObject_guid]
-   AND [roc_p].[persistence_source_RepoObjectColumn_guid] = [roc_s].[RepoObjectColumn_guid]
-  )
- --skip is_persistence_no_include
- AND (
-  [roc_s].is_persistence_no_include = 0
-  OR [roc_s].is_persistence_no_include IS NULL
-  )
- --skip special table columns (ValidFrom, ValidTo) in source
- AND (
-  [roc_s].[Repo_generated_always_type] = 0
-  OR [roc_s].[Repo_generated_always_type] IS NULL
-  )
- --skip [is_query_plan_expression] in source
- AND (
-  [roc_s].[is_query_plan_expression] = 0
-  OR [roc_s].[is_query_plan_expression] IS NULL
-  )
+Insert Into repo.RepoObjectColumn
+(
+    RepoObject_guid
+  , RepoObjectColumn_name
+  , persistence_source_RepoObjectColumn_guid
+)
+Select
+    rop.target_RepoObject_guid
+  , roc_s.RepoObjectColumn_name
+  , roc_s.RepoObjectColumn_guid
+From
+    repo.RepoObjectColumn                         As roc_s
+    Inner Join
+        repo.RepoObject_persistence               As rop
+            On
+            rop.source_RepoObject_guid              = roc_s.RepoObject_guid
+    --source columns to be ignored for this persistence
+    --we need this special view, because the option of ignored columns is a configuration of the persistence
+    --and therefore it is a configuration of the target columns
+    --but if it is ignored then highly likly it is missing in the target
+
+    Left Outer Join
+        repo.RepoObject_persistence_source_Ignore As roc_s_ignore
+            On
+            roc_s_ignore.RepoObjectColumn_guid      = roc_s.RepoObjectColumn_guid
+            And roc_s_ignore.target_RepoObject_guid = rop.target_RepoObject_guid
+            --redundant: there should be only one source object per target object; just to be sure
+            And roc_s_ignore.source_RepoObject_guid = rop.source_RepoObject_guid
+Where
+    --
+    Not Exists
+(
+    Select
+        1
+    From
+        repo.RepoObjectColumn As roc_p
+    Where
+        roc_p.RepoObject_guid                              = rop.target_RepoObject_guid
+        And roc_p.persistence_source_RepoObjectColumn_guid = roc_s.RepoObjectColumn_guid
+)
+    --skip source colums which are marked to be ignored in the persistence
+    --if the following join exists, then the columns needs to be ignored
+    --if it is null, it is not ignored
+    And roc_s_ignore.RepoObjectColumn_guid Is Null
+
+    --skip special table columns (ValidFrom, ValidTo) in source
+    And
+    (
+        roc_s.Repo_generated_always_type = 0
+        Or roc_s.Repo_generated_always_type Is Null
+    )
+    --skip [is_query_plan_expression] in source
+    And
+    (
+        roc_s.is_query_plan_expression   = 0
+        Or roc_s.is_query_plan_expression Is Null
+    )
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
@@ -1795,6 +1822,129 @@ Where
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'persistence: SET [persistence_source_RepoObjectColumn_guid] = NULL (missing source column)'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":1510,"Name":"persistence: update is_persistence_NoCompareButUpdate","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1510,';',NULL);
+
+Update
+    tgt
+Set
+    tgt.is_persistence_NoCompareButUpdate = IsNull ( src.is_persistence_NoCompareButUpdate, 0 )
+From
+    repo.RepoObjectColumn                              As tgt
+    Left Join
+        repo.RepoObject_persistence_NoCompareButUpdate As src
+            On
+            src.RepoObjectColumn_guid = tgt.RepoObjectColumn_guid
+Where
+    tgt.is_persistence_NoCompareButUpdate Is Null
+    Or tgt.is_persistence_NoCompareButUpdate <> IsNull ( src.is_persistence_NoCompareButUpdate, 0 )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'persistence: update is_persistence_NoCompareButUpdate'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":1520,"Name":"persistence: update is_persistence_NoCompareNoUpdate","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1520,';',NULL);
+
+Update
+    tgt
+Set
+    tgt.is_persistence_NoCompareNoUpdate = IsNull ( src.is_persistence_NoCompareNoUpdate, 0 )
+From
+    repo.RepoObjectColumn                             As tgt
+    Left Join
+        repo.RepoObject_persistence_NoCompareNoUpdate As src
+            On
+            src.RepoObjectColumn_guid = tgt.RepoObjectColumn_guid
+Where
+    tgt.is_persistence_NoCompareNoUpdate Is Null
+    Or tgt.is_persistence_NoCompareNoUpdate <> IsNull ( src.is_persistence_NoCompareNoUpdate, 0 )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'persistence: update is_persistence_NoCompareNoUpdate'
+SET @source_object = '[repo].[RepoObjectColumn]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":1530,"Name":"persistence: update is_persistence_Ignore","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1530,';',NULL);
+
+Update
+    tgt
+Set
+    tgt.is_persistence_Ignore = IsNull ( src.is_persistence_Ignore, 0 )
+From
+    repo.RepoObjectColumn                         As tgt
+    Left Join
+        repo.RepoObject_persistence_target_Ignore As src
+            On
+            src.RepoObjectColumn_guid = tgt.RepoObjectColumn_guid
+Where
+    tgt.is_persistence_Ignore Is Null
+    Or tgt.is_persistence_Ignore <> IsNull ( src.is_persistence_Ignore, 0 )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'persistence: update is_persistence_Ignore'
 SET @source_object = '[repo].[RepoObjectColumn]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 

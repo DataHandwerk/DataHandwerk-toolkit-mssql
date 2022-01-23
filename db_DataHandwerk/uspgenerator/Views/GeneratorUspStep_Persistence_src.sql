@@ -1,4 +1,5 @@
 ﻿
+
 /*
 <<property_start>>Description
 * xref:sqldb:uspgenerator.generatoruspstep_persistence_src.adoc[] creates all possible steps for GeneratorUspStep
@@ -7,7 +8,7 @@
 <<property_end>>
 */
 
-CREATE View uspgenerator.GeneratorUspStep_Persistence_src
+CREATE View [uspgenerator].[GeneratorUspStep_Persistence_src]
 As
 Select
     --
@@ -22,7 +23,7 @@ Select
   , Statement                   = ro.prescript
   , log_source_object           = ro.persistence_source_SysObject_fullname
   , log_target_object           = Cast(Null As NVarchar(261))
-  , log_flag_InsertUpdateDelete = Cast(Null As Char(1))
+  , log_flag_InsertUpdateDelete = 'U'
   --
   , gu.usp_fullname
   , ro.RepoObject_guid
@@ -391,7 +392,7 @@ Select
  (
 ' + ro.PersistenceInsertColumnList + ')
 SELECT
-' + ro.PersistenceInsertColumnList + '
+' + ro.PersistenceInsertColumnListSource + '
 FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 WHERE
 NOT EXISTS
@@ -440,7 +441,7 @@ Select
  (
 ' + ro.PersistenceInsertColumnList + ')
 SELECT
-' + ro.PersistenceInsertColumnList + '
+' + ro.PersistenceInsertColumnListSource + '
 FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S'
   , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
   , log_target_object           = ro.RepoObject_fullname
@@ -455,41 +456,6 @@ From
             On
             ro.RepoObject_schema_name   = gu.usp_schema
             And ro.usp_persistence_name = gu.usp_name
---Union All
---Select
---    usp_id                      = gu.id
---  , Number                      = 900
---  , Parent_Number               = Null
---  , Name                        = 'merge'
---  , has_logging                 = 1
---  , is_condition                = 0
---  , is_inactive                 = 0
---  , is_SubProcedure             = 0
---  , Statement                   = 'INSERT INTO 
--- ' + ro.RepoObject_fullname + '
--- (
---' + ros2.PersistenceInsertColumnList + ')
---SELECT
---' + ros2.PersistenceInsertColumnList + '
---FROM ' + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S'
---  , log_source_object           = ro.persistence_source_SysObject_fullname_or_tempsource
---  , log_target_object           = ro.RepoObject_fullname
---  , log_flag_InsertUpdateDelete = 'I'
---  --
---  , gu.usp_fullname
---  , ro.RepoObject_guid
---From
---    repo.RepoObject_gross         As ro
---    Left Join
---        repo.RepoObject_sat2_T    As ros2
---            On
---            ros2.RepoObject_guid        = ro.RepoObject_guid
-
---    Inner Join
---        uspgenerator.GeneratorUsp As gu
---            On
---            ro.RepoObject_schema_name   = gu.usp_schema
---            And ro.usp_persistence_name = gu.usp_name
 Union All
 Select
     --
@@ -504,7 +470,7 @@ Select
   , Statement                   = ro.postscript
   , log_source_object           = ro.persistence_source_SysObject_fullname
   , log_target_object           = Cast(Null As NVarchar(261))
-  , log_flag_InsertUpdateDelete = Cast(Null As Char(1))
+  , log_flag_InsertUpdateDelete = 'U'
   --
   , gu.usp_fullname
   , ro.RepoObject_guid

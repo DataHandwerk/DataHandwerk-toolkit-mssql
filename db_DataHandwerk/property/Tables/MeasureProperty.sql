@@ -1,18 +1,19 @@
 ﻿CREATE TABLE [property].[MeasureProperty] (
-    [MeasureProperty_id] INT              IDENTITY (1, 1) NOT NULL,
-    [Measure_guid]       UNIQUEIDENTIFIER NOT NULL,
-    [property_name]      NVARCHAR (128)   NOT NULL,
-    [property_value]     NVARCHAR (MAX)   NULL,
-    [inheritance]        TINYINT          NULL,
-    [property_int]       AS               (TRY_CAST(left([property_value],(4000)) AS [int])),
-    [property_bigint]    AS               (TRY_CAST(left([property_value],(4000)) AS [bigint])),
-    [property_real]      AS               (TRY_CAST(left([property_value],(4000)) AS [real])),
-    [property_float]     AS               (TRY_CAST(left([property_value],(4000)) AS [float])),
-    [property_money]     AS               (TRY_CAST(left([property_value],(4000)) AS [money])),
-    CONSTRAINT [PK_MeasureProperty] PRIMARY KEY CLUSTERED ([MeasureProperty_id] ASC) WITH (DATA_COMPRESSION = PAGE),
+    [Measure_guid]    UNIQUEIDENTIFIER NOT NULL,
+    [property_name]   NVARCHAR (128)   NOT NULL,
+    [property_value]  NVARCHAR (MAX)   NULL,
+    [inheritance]     TINYINT          NULL,
+    [property_int]    AS               (TRY_CAST(left([property_value],(4000)) AS [int])),
+    [property_bigint] AS               (TRY_CAST(left([property_value],(4000)) AS [bigint])),
+    [property_real]   AS               (TRY_CAST(left([property_value],(4000)) AS [real])),
+    [property_float]  AS               (TRY_CAST(left([property_value],(4000)) AS [float])),
+    [property_money]  AS               (TRY_CAST(left([property_value],(4000)) AS [money])),
+    CONSTRAINT [PK_MeasureProperty] PRIMARY KEY CLUSTERED ([Measure_guid] ASC, [property_name] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_MeasureProperty_model_json_312_tables_measures_T] FOREIGN KEY ([Measure_guid]) REFERENCES [ssas].[model_json_312_tables_measures_T] ([Measure_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_MeasureProperty] UNIQUE NONCLUSTERED ([Measure_guid] ASC, [property_name] ASC)
 );
+
+
 
 
 GO
@@ -64,7 +65,7 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '767f7
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '757f7d5a-464d-ec11-8531-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'MeasureProperty', @level2type = N'COLUMN', @level2name = N'MeasureProperty_id';
+
 
 
 GO
