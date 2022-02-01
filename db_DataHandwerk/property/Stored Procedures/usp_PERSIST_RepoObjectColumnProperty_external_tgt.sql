@@ -125,7 +125,7 @@ T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
 AND T.[property_name] = S.[property_name]
 
 WHERE
-   T.[property_value] <> S.[property_value] OR (S.[property_value] IS NULL AND NOT T.[property_value] IS NULL) OR (NOT S.[property_value] IS NULL AND T.[property_value] IS NULL)
+   T.[property_value] <> S.[property_value]
 
 
 -- Logging START --

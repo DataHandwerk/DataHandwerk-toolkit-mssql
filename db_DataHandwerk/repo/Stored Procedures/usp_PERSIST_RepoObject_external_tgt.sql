@@ -131,16 +131,16 @@ ON
 T.[RepoObject_guid] = S.[RepoObject_guid]
 
 WHERE
-   T.[external_AntoraComponent] <> S.[external_AntoraComponent]
-OR T.[external_AntoraModule] <> S.[external_AntoraModule]
-OR T.[is_external] <> S.[is_external]
-OR T.[is_repo_managed] <> S.[is_repo_managed]
+   T.[external_AntoraComponent] <> S.[external_AntoraComponent] OR (S.[external_AntoraComponent] IS NULL AND NOT T.[external_AntoraComponent] IS NULL) OR (NOT S.[external_AntoraComponent] IS NULL AND T.[external_AntoraComponent] IS NULL)
+OR T.[external_AntoraModule] <> S.[external_AntoraModule] OR (S.[external_AntoraModule] IS NULL AND NOT T.[external_AntoraModule] IS NULL) OR (NOT S.[external_AntoraModule] IS NULL AND T.[external_AntoraModule] IS NULL)
+OR T.[is_external] <> S.[is_external] OR (S.[is_external] IS NULL AND NOT T.[is_external] IS NULL) OR (NOT S.[is_external] IS NULL AND T.[is_external] IS NULL)
+OR T.[is_repo_managed] <> S.[is_repo_managed] OR (S.[is_repo_managed] IS NULL AND NOT T.[is_repo_managed] IS NULL) OR (NOT S.[is_repo_managed] IS NULL AND T.[is_repo_managed] IS NULL)
 OR T.[RepoObject_name] <> S.[RepoObject_name]
 OR T.[RepoObject_schema_name] <> S.[RepoObject_schema_name]
 OR T.[RepoObject_type] <> S.[RepoObject_type]
 OR T.[SysObject_name] <> S.[SysObject_name]
 OR T.[SysObject_schema_name] <> S.[SysObject_schema_name]
-OR T.[SysObject_type] <> S.[SysObject_type]
+OR T.[SysObject_type] <> S.[SysObject_type] OR (S.[SysObject_type] IS NULL AND NOT T.[SysObject_type] IS NULL) OR (NOT S.[SysObject_type] IS NULL AND T.[SysObject_type] IS NULL)
 
 
 -- Logging START --

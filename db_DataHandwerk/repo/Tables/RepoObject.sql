@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [repo].[RepoObject] (
     [RepoObject_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObject_RepoObject_guid] DEFAULT (newsequentialid()) NOT NULL,
+    [RepoObject_fullname]                 AS               (concat('[',[RepoObject_schema_name],'].[',[RepoObject_name],']')) PERSISTED NOT NULL,
     [has_different_sys_names]             AS               (CONVERT([bit],case when [RepoObject_schema_name]<>[SysObject_schema_name] OR [RepoObject_name]<>[SysObject_name] then (1) else (0) end)),
     [has_execution_plan_issue]            BIT              NULL,
     [has_get_referenced_issue]            BIT              NULL,
@@ -34,7 +35,6 @@
     [is_RepoObject_name_uniqueidentifier] AS               (case when TRY_CAST([RepoObject_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
     [is_SysObject_name_uniqueidentifier]  AS               (case when TRY_CAST([SysObject_name] AS [uniqueidentifier]) IS NULL then (0) else (1) end) PERSISTED NOT NULL,
     [node_id]                             AS               (CONVERT([bigint],[SysObject_id])*(10000)),
-    [RepoObject_fullname]                 AS               (concat('[',[RepoObject_schema_name],'].[',[RepoObject_name],']')) PERSISTED NOT NULL,
     [RepoObject_fullname2]                AS               (concat([RepoObject_schema_name],'.',[RepoObject_name])) PERSISTED NOT NULL,
     [SysObject_fullname]                  AS               (concat('[',[SysObject_schema_name],'].[',[SysObject_name],']')) PERSISTED NOT NULL,
     [SysObject_fullname2]                 AS               (concat([SysObject_schema_name],'.',[SysObject_name])) PERSISTED NOT NULL,
@@ -47,6 +47,8 @@
     CONSTRAINT [UK_RepoObject__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_schema_name] ASC, [RepoObject_name] ASC),
     CONSTRAINT [UK_RepoObject__SysNames] UNIQUE NONCLUSTERED ([SysObject_schema_name] ASC, [SysObject_name] ASC)
 );
+
+
 
 
 

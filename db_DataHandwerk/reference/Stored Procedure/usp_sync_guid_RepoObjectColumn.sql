@@ -1740,7 +1740,48 @@ EXEC logs.usp_ExecutionLog_insert
  , @inserted = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1310,"Name":"persistence: insert missing HistValidColumns","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
+/*{"ReportUspStep":[{"Number":1305,"Name":"Update existing HistValidColumns via ColumnName","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn_HistValidColums_setpoint]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1305,';',NULL);
+
+Update
+    tgt
+Set
+    tgt.Repo_generated_always_type = setpoint.Repo_generated_always_type
+From
+    repo.RepoObjectColumn                              As tgt
+    Inner Join
+        repo.RepoObjectColumn_HistValidColums_setpoint As setpoint
+            On
+            tgt.RepoObject_guid = setpoint.RepoObject_guid
+            And tgt.Column_name = setpoint.RepoObjectColumn_name
+Where
+    tgt.Repo_generated_always_type <> setpoint.Repo_generated_always_type
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Update existing HistValidColumns via ColumnName'
+SET @source_object = '[repo].[RepoObjectColumn_HistValidColums_setpoint]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":1310,"Name":"persistence: insert missing HistValidColumns","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn_HistValidColums_setpoint]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"i"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1310,';',NULL);
 
 /*
@@ -1749,35 +1790,43 @@ currently we only insert missing but not delete not required
 maybe we should delete them?
 
 */
-INSERT INTO [repo].[RepoObjectColumn] (
- [Repo_generated_always_type]
- , [Repo_is_nullable]
- , [Repo_user_type_name]
- , [Repo_user_type_fullname]
- , [RepoObjectColumn_name]
- , [RepoObject_guid]
- )
-SELECT [Repo_generated_always_type]
- , [Repo_is_nullable]
- , [Repo_user_type_name]
- , [Repo_user_type_fullname]
- , [RepoObjectColumn_name]
- , [RepoObject_guid]
-FROM [repo].[RepoObjectColumn_HistValidColums_setpoint] AS setpoint
-WHERE NOT EXISTS (
-  SELECT 1
-  FROM [repo].[RepoObjectColumn] AS [roc]
-  WHERE [roc].[RepoObject_guid] = [setpoint].[RepoObject_guid]
-   --we link not by ColumnName, but by [Repo_generated_always_type]
-   --this way it is possible to change the name in [repo].[RepoObjectColumn], if required
-   AND [roc].[Repo_generated_always_type] = [setpoint].[Repo_generated_always_type]
-  )
+Insert Into repo.RepoObjectColumn
+(
+    Repo_generated_always_type
+  , Repo_is_nullable
+  , Repo_user_type_name
+  , Repo_user_type_fullname
+  , RepoObjectColumn_name
+  , RepoObject_guid
+)
+Select
+    setpoint.Repo_generated_always_type
+  , setpoint.Repo_is_nullable
+  , setpoint.Repo_user_type_name
+  , setpoint.Repo_user_type_fullname
+  , setpoint.RepoObjectColumn_name
+  , setpoint.RepoObject_guid
+From
+    repo.RepoObjectColumn_HistValidColums_setpoint As setpoint
+Where
+    Not Exists
+(
+    Select
+        1
+    From
+        repo.RepoObjectColumn As roc
+    Where
+        roc.RepoObject_guid                = setpoint.RepoObject_guid
+        --we link not by ColumnName, but by [Repo_generated_always_type]
+        --this way it is possible to change the name in [repo].[RepoObjectColumn], if required
+        And roc.Repo_generated_always_type = setpoint.Repo_generated_always_type
+)
 
 -- Logging START --
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'persistence: insert missing HistValidColumns'
-SET @source_object = '[repo].[RepoObject_persistence]'
+SET @source_object = '[repo].[RepoObjectColumn_HistValidColums_setpoint]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC logs.usp_ExecutionLog_insert 

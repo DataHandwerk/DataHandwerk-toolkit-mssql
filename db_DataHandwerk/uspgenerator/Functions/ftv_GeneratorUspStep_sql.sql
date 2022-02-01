@@ -106,6 +106,8 @@ Return
                                       End
                                     , Case
                                           When @usp_has_logging = 1
+                                               --also take into account s.has_logging => enable to avoid usage of not existing parameters in sub procedure
+                                               And s.has_logging = 1
                                               Then
                                               Concat (
                                                          ''

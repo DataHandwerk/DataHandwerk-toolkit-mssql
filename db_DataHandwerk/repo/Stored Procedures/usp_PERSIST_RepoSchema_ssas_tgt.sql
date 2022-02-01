@@ -126,7 +126,7 @@ T.[RepoSchema_name] = S.[RepoSchema_name]
 
 WHERE
    T.[is_ssas] <> S.[is_ssas]
-OR T.[is_SysSchema_missing] <> S.[is_SysSchema_missing]
+OR T.[is_SysSchema_missing] <> S.[is_SysSchema_missing] OR (S.[is_SysSchema_missing] IS NULL AND NOT T.[is_SysSchema_missing] IS NULL) OR (NOT S.[is_SysSchema_missing] IS NULL AND T.[is_SysSchema_missing] IS NULL)
 OR T.[RepoSchema_description] <> S.[RepoSchema_description] OR (S.[RepoSchema_description] IS NULL AND NOT T.[RepoSchema_description] IS NULL) OR (NOT S.[RepoSchema_description] IS NULL AND T.[RepoSchema_description] IS NULL)
 OR T.[RepoSchema_name] <> S.[RepoSchema_name]
 OR T.[SysSchema_name] <> S.[SysSchema_name]

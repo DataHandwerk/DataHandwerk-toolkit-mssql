@@ -151,7 +151,7 @@ OR T.[Script] <> S.[Script] OR (S.[Script] IS NULL AND NOT T.[Script] IS NULL) O
 OR T.[SqlConnection] <> S.[SqlConnection] OR (S.[SqlConnection] IS NULL AND NOT T.[SqlConnection] IS NULL) OR (NOT S.[SqlConnection] IS NULL AND T.[SqlConnection] IS NULL)
 OR T.[SqlStatementSource] <> S.[SqlStatementSource] OR (S.[SqlStatementSource] IS NULL AND NOT T.[SqlStatementSource] IS NULL) OR (NOT S.[SqlStatementSource] IS NULL AND T.[SqlStatementSource] IS NULL)
 OR T.[TaskDescription] <> S.[TaskDescription] OR (S.[TaskDescription] IS NULL AND NOT T.[TaskDescription] IS NULL) OR (NOT S.[TaskDescription] IS NULL AND T.[TaskDescription] IS NULL)
-OR T.[TaskName] <> S.[TaskName] OR (S.[TaskName] IS NULL AND NOT T.[TaskName] IS NULL) OR (NOT S.[TaskName] IS NULL AND T.[TaskName] IS NULL)
+OR T.[TaskName] <> S.[TaskName]
 OR T.[TaskType] <> S.[TaskType] OR (S.[TaskType] IS NULL AND NOT T.[TaskType] IS NULL) OR (NOT S.[TaskType] IS NULL AND T.[TaskType] IS NULL)
 
 

@@ -125,8 +125,8 @@ ON
 T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
 
 WHERE
-   T.[is_SysObjectColumn_missing] <> S.[is_SysObjectColumn_missing]
-OR T.[RepoObject_guid] <> S.[RepoObject_guid] OR (S.[RepoObject_guid] IS NULL AND NOT T.[RepoObject_guid] IS NULL) OR (NOT S.[RepoObject_guid] IS NULL AND T.[RepoObject_guid] IS NULL)
+   T.[is_SysObjectColumn_missing] <> S.[is_SysObjectColumn_missing] OR (S.[is_SysObjectColumn_missing] IS NULL AND NOT T.[is_SysObjectColumn_missing] IS NULL) OR (NOT S.[is_SysObjectColumn_missing] IS NULL AND T.[is_SysObjectColumn_missing] IS NULL)
+OR T.[RepoObject_guid] <> S.[RepoObject_guid]
 OR T.[RepoObjectColumn_name] <> S.[RepoObjectColumn_name]
 OR T.[SysObjectColumn_name] <> S.[SysObjectColumn_name]
 

@@ -130,7 +130,7 @@ AND T.[cultures_name] = S.[cultures_name]
 AND T.[cultures_translations_model_name] = S.[cultures_translations_model_name]
 
 WHERE
-   T.[cultures_translations_model_name] <> S.[cultures_translations_model_name] OR (S.[cultures_translations_model_name] IS NULL AND NOT T.[cultures_translations_model_name] IS NULL) OR (NOT S.[cultures_translations_model_name] IS NULL AND T.[cultures_translations_model_name] IS NULL)
+   T.[cultures_translations_model_name] <> S.[cultures_translations_model_name]
 OR T.[cultures_translations_model_perspectives_ja] <> S.[cultures_translations_model_perspectives_ja] OR (S.[cultures_translations_model_perspectives_ja] IS NULL AND NOT T.[cultures_translations_model_perspectives_ja] IS NULL) OR (NOT S.[cultures_translations_model_perspectives_ja] IS NULL AND T.[cultures_translations_model_perspectives_ja] IS NULL)
 OR T.[cultures_translations_model_tables_ja] <> S.[cultures_translations_model_tables_ja] OR (S.[cultures_translations_model_tables_ja] IS NULL AND NOT T.[cultures_translations_model_tables_ja] IS NULL) OR (NOT S.[cultures_translations_model_tables_ja] IS NULL AND T.[cultures_translations_model_tables_ja] IS NULL)
 OR T.[cultures_translations_model_translatedDescription] <> S.[cultures_translations_model_translatedDescription] OR (S.[cultures_translations_model_translatedDescription] IS NULL AND NOT T.[cultures_translations_model_translatedDescription] IS NULL) OR (NOT S.[cultures_translations_model_translatedDescription] IS NULL AND T.[cultures_translations_model_translatedDescription] IS NULL)

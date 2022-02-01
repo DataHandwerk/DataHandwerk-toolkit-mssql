@@ -128,8 +128,8 @@ ON
 T.[RepoObjectColumn_guid] = S.[RepoObjectColumn_guid]
 
 WHERE
-   T.[is_SysObjectColumn_missing] <> S.[is_SysObjectColumn_missing]
-OR T.[Repo_is_nullable] <> S.[Repo_is_nullable]
+   T.[is_SysObjectColumn_missing] <> S.[is_SysObjectColumn_missing] OR (S.[is_SysObjectColumn_missing] IS NULL AND NOT T.[is_SysObjectColumn_missing] IS NULL) OR (NOT S.[is_SysObjectColumn_missing] IS NULL AND T.[is_SysObjectColumn_missing] IS NULL)
+OR T.[Repo_is_nullable] <> S.[Repo_is_nullable] OR (S.[Repo_is_nullable] IS NULL AND NOT T.[Repo_is_nullable] IS NULL) OR (NOT S.[Repo_is_nullable] IS NULL AND T.[Repo_is_nullable] IS NULL)
 OR T.[Repo_user_type_fullname] <> S.[Repo_user_type_fullname] OR (S.[Repo_user_type_fullname] IS NULL AND NOT T.[Repo_user_type_fullname] IS NULL) OR (NOT S.[Repo_user_type_fullname] IS NULL AND T.[Repo_user_type_fullname] IS NULL)
 OR T.[Repo_user_type_name] <> S.[Repo_user_type_name] OR (S.[Repo_user_type_name] IS NULL AND NOT T.[Repo_user_type_name] IS NULL) OR (NOT S.[Repo_user_type_name] IS NULL AND T.[Repo_user_type_name] IS NULL)
 OR T.[RepoObject_guid] <> S.[RepoObject_guid]

@@ -129,14 +129,14 @@ ON
 T.[RepoObject_guid] = S.[RepoObject_guid]
 
 WHERE
-   T.[is_repo_managed] <> S.[is_repo_managed]
+   T.[is_repo_managed] <> S.[is_repo_managed] OR (S.[is_repo_managed] IS NULL AND NOT T.[is_repo_managed] IS NULL) OR (NOT S.[is_repo_managed] IS NULL AND T.[is_repo_managed] IS NULL)
 OR T.[is_ssas] <> S.[is_ssas]
 OR T.[RepoObject_name] <> S.[RepoObject_name]
 OR T.[RepoObject_schema_name] <> S.[RepoObject_schema_name]
 OR T.[RepoObject_type] <> S.[RepoObject_type]
 OR T.[SysObject_name] <> S.[SysObject_name]
 OR T.[SysObject_schema_name] <> S.[SysObject_schema_name]
-OR T.[SysObject_type] <> S.[SysObject_type]
+OR T.[SysObject_type] <> S.[SysObject_type] OR (S.[SysObject_type] IS NULL AND NOT T.[SysObject_type] IS NULL) OR (NOT S.[SysObject_type] IS NULL AND T.[SysObject_type] IS NULL)
 
 
 -- Logging START --

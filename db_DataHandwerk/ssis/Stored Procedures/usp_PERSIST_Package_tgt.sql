@@ -142,7 +142,7 @@ WHERE
 OR T.[PackageCreatorComputerName] <> S.[PackageCreatorComputerName] OR (S.[PackageCreatorComputerName] IS NULL AND NOT T.[PackageCreatorComputerName] IS NULL) OR (NOT S.[PackageCreatorComputerName] IS NULL AND T.[PackageCreatorComputerName] IS NULL)
 OR T.[PackageCreatorName] <> S.[PackageCreatorName] OR (S.[PackageCreatorName] IS NULL AND NOT T.[PackageCreatorName] IS NULL) OR (NOT S.[PackageCreatorName] IS NULL AND T.[PackageCreatorName] IS NULL)
 OR T.[PackageDescription] <> S.[PackageDescription] OR (S.[PackageDescription] IS NULL AND NOT T.[PackageDescription] IS NULL) OR (NOT S.[PackageDescription] IS NULL AND T.[PackageDescription] IS NULL)
-OR T.[PackageDTSID] <> S.[PackageDTSID] OR (S.[PackageDTSID] IS NULL AND NOT T.[PackageDTSID] IS NULL) OR (NOT S.[PackageDTSID] IS NULL AND T.[PackageDTSID] IS NULL)
+OR T.[PackageDTSID] <> S.[PackageDTSID]
 OR T.[PackageLastModifiedProductVersion] <> S.[PackageLastModifiedProductVersion] OR (S.[PackageLastModifiedProductVersion] IS NULL AND NOT T.[PackageLastModifiedProductVersion] IS NULL) OR (NOT S.[PackageLastModifiedProductVersion] IS NULL AND T.[PackageLastModifiedProductVersion] IS NULL)
 OR T.[PackageLocaleID] <> S.[PackageLocaleID] OR (S.[PackageLocaleID] IS NULL AND NOT T.[PackageLocaleID] IS NULL) OR (NOT S.[PackageLocaleID] IS NULL AND T.[PackageLocaleID] IS NULL)
 OR T.[PackageObjectName] <> S.[PackageObjectName] OR (S.[PackageObjectName] IS NULL AND NOT T.[PackageObjectName] IS NULL) OR (NOT S.[PackageObjectName] IS NULL AND T.[PackageObjectName] IS NULL)

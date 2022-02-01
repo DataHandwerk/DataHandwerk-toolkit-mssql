@@ -144,7 +144,7 @@ OR T.[tables_measures_expression] <> S.[tables_measures_expression] OR (S.[table
 OR T.[tables_measures_expression_ja] <> S.[tables_measures_expression_ja] OR (S.[tables_measures_expression_ja] IS NULL AND NOT T.[tables_measures_expression_ja] IS NULL) OR (NOT S.[tables_measures_expression_ja] IS NULL AND T.[tables_measures_expression_ja] IS NULL)
 OR T.[tables_measures_formatString] <> S.[tables_measures_formatString] OR (S.[tables_measures_formatString] IS NULL AND NOT T.[tables_measures_formatString] IS NULL) OR (NOT S.[tables_measures_formatString] IS NULL AND T.[tables_measures_formatString] IS NULL)
 OR T.[tables_measures_isHidden] <> S.[tables_measures_isHidden] OR (S.[tables_measures_isHidden] IS NULL AND NOT T.[tables_measures_isHidden] IS NULL) OR (NOT S.[tables_measures_isHidden] IS NULL AND T.[tables_measures_isHidden] IS NULL)
-OR T.[tables_measures_name] <> S.[tables_measures_name] OR (S.[tables_measures_name] IS NULL AND NOT T.[tables_measures_name] IS NULL) OR (NOT S.[tables_measures_name] IS NULL AND T.[tables_measures_name] IS NULL)
+OR T.[tables_measures_name] <> S.[tables_measures_name]
 OR T.[tables_name] <> S.[tables_name]
 
 

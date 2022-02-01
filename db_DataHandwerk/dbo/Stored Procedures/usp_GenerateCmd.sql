@@ -22,6 +22,17 @@ Exec dbo.usp_GenerateCmd
 '
 
 Exec dbo.usp_GenerateCmd
+@Schema = 'Integration'
+, @CmdPattern =
+'ALTER TABLE @Table_Name_Full ADD CONSTRAINT
+	UQ_@Table_Name_1 UNIQUE NONCLUSTERED 
+	(
+	SourceDataId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+'
+
+Exec dbo.usp_GenerateCmd
 @Schema = 'dm'
 , @TABLE_TYPE = 'VIEW'
 , @CmdPattern =
@@ -30,9 +41,27 @@ Into @Table_Name_Full
 From EventAnalytics_stvinzenz.@Table_Name_Full
 
 '
+
+Exec dbo.usp_GenerateCmd
+@Schema = 'bi'
+, @TABLE_TYPE = 'BASE TABLE'
+, @CmdPattern =
+'
+ALTER TABLE @Table_Name_Full
+    ADD
+        SysStartTime DATETIME2 GENERATED ALWAYS AS ROW START --HIDDEN
+            CONSTRAINT DF_@Table_Name_SysStartTime DEFAULT SYSUTCDATETIME()
+      , SysEndTime DATETIME2 GENERATED ALWAYS AS ROW END --HIDDEN
+            CONSTRAINT DF_@Table_Name_SysEndTime DEFAULT CONVERT(DATETIME2, ''9999-12-31 23:59:59.9999999'')
+      , PERIOD FOR SYSTEM_TIME (SysStartTime, SysEndTime);
+GO
+ALTER TABLE @Table_Name_Full
+    SET (SYSTEM_VERSIONING = ON (HISTORY_TABLE = @Table_Schema.@Table_Name_hist));
+GO
+'
 <<property_end>>
 */
-Create   Procedure dbo.usp_GenerateCmd
+CREATE   Procedure [dbo].[usp_GenerateCmd]
 (
     @Schema     NVarchar(128) Null
   , @CmdPattern NVarchar(Max) = Null

@@ -129,7 +129,7 @@ T.[AntoraModule] = S.[AntoraModule]
 AND T.[ConnectionManagerID] = S.[ConnectionManagerID]
 
 WHERE
-   T.[ConnectionManagerName] <> S.[ConnectionManagerName] OR (S.[ConnectionManagerName] IS NULL AND NOT T.[ConnectionManagerName] IS NULL) OR (NOT S.[ConnectionManagerName] IS NULL AND T.[ConnectionManagerName] IS NULL)
+   T.[ConnectionManagerName] <> S.[ConnectionManagerName]
 OR T.[ConnectionManagerType] <> S.[ConnectionManagerType] OR (S.[ConnectionManagerType] IS NULL AND NOT T.[ConnectionManagerType] IS NULL) OR (NOT S.[ConnectionManagerType] IS NULL AND T.[ConnectionManagerType] IS NULL)
 OR T.[ConnectionPath] <> S.[ConnectionPath]
 OR T.[ConnectionString] <> S.[ConnectionString] OR (S.[ConnectionString] IS NULL AND NOT T.[ConnectionString] IS NULL) OR (NOT S.[ConnectionString] IS NULL AND T.[ConnectionString] IS NULL)

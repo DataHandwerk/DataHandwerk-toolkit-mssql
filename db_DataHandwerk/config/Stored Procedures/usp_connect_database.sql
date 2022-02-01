@@ -25,7 +25,7 @@ Begin
       , @Parameter_value = @dwh_database_name;
 
     Begin
-        Declare @SQLString NVarchar(4000);
+        Declare @SQLString NVarchar(max);
 
         Set @SQLString
             = N'
