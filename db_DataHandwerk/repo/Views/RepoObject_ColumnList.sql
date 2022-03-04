@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [repo].[RepoObject_ColumnList]
 As
 Select
@@ -392,6 +393,52 @@ Select
                  + Char ( 13 ) + Char ( 10 )
                , '')
          )
+  , PersistenceTempTableColumnList       =
+  --should contain all columns, also identity, computed and so on
+  --
+  Concat (
+             Stuff (
+                       String_Agg (
+                                      Concat (
+                                                 --we need to convert to first argument nvarchar(max) to avoid the limit of 8000 byte
+                                                 Cast('' As NVarchar(Max))
+                                               , ''
+                                               , Case
+                                                     When
+                                               --source should exists
+                                               Not roc.persistence_source_RepoObjectColumn_guid Is Null
+                                               --roc is the target colum. A column which should be ignored could or could not exist in the target
+                                               --it it exists, it needs to be exluded
+                                               --if not, it will not be in the list of columns
+                                               And IsNull ( roc.is_persistence_Ignore, 0 ) = 0
+                                               And IsNull ( roc.is_query_plan_expression, 0 ) = 0
+                                               --And roc.Repo_generated_always_type = 0
+                                               --And roc.Repo_is_computed = 0
+                                               --And roc.Repo_is_identity = 0
+                                                         Then
+                                                         Concat (
+                                                                    ', '
+                                                                  , QuoteName ( roc.RepoObjectColumn_name )
+                                                                  , Char ( 13 ) + Char ( 10 )
+                                                                )
+                                                 End
+                                             )
+                                    , ''
+                                  ) Within Group(Order By
+                                                     roc.RepoObjectColumn_column_id)
+                     , 1
+                     , 2
+                     , '  '
+                   )
+           , Iif(
+                 Max ( rop.ExecutionLogId_action ) In
+                 ( 'i', 'u' )
+               , ', ' + Max ( persistence_ExecutionLogId_ColumnName.Parameter_value_result )
+                 --+ ' = @current_execution_log_id'
+                 --
+                 + Char ( 13 ) + Char ( 10 )
+               , '')
+         )
   , PersistenceUpdateColumnList       =
   --
   Concat (
@@ -598,4 +645,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '31393
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '30393564-ae7b-ec11-8541-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'PersistenceInsertColumnListSource';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a77ca63c-d59b-ec11-8551-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_ColumnList', @level2type = N'COLUMN', @level2name = N'PersistenceTempTableColumnList';
 

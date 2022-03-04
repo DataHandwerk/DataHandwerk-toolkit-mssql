@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 <<property_start>>Description
 * xref:sqldb:uspgenerator.generatoruspstep_persistence_src.adoc[] creates all possible steps for GeneratorUspStep
@@ -100,14 +102,12 @@ Select
   , is_condition                = 0
   , is_inactive                 = 0
   , is_SubProcedure             = 0
-  , Statement                   = '--do this in two steps: create table and then fill table
---create empty temp table #source
-SELECT Top 0 * into #source  FROM ' + ro.persistence_source_SysObject_fullname
-                                  + '
---fill temp table #source from source
-INSERT
-INTO #source
-SELECT * FROM ' + ro.persistence_source_SysObject_fullname
+  , Statement                   = '
+SELECT
+' + ro.PersistenceTempTableColumnList + '
+INTO
+  #source
+FROM ' + ro.persistence_source_SysObject_fullname
   , log_source_object           = ro.persistence_source_SysObject_fullname
   , log_target_object           = '#source'
   , log_flag_InsertUpdateDelete = 'I'
@@ -115,7 +115,7 @@ SELECT * FROM ' + ro.persistence_source_SysObject_fullname
   , gu.usp_fullname
   , ro.RepoObject_guid
 From
-    repo.RepoObject_gross         As ro
+    repo.RepoObject_gross2        As ro
     Inner Join
         uspgenerator.GeneratorUsp As gu
             On

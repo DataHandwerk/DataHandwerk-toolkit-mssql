@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [repo].[RepoObject_gross2]
 As
 Select
@@ -96,6 +97,7 @@ Select
   , ColumnList.PersistenceCompareColumnList
   , ColumnList.PersistenceInsertColumnList
   , ColumnList.PersistenceInsertColumnListSource
+  , ColumnList.PersistenceTempTableColumnList
   , ColumnList.PersistenceUpdateColumnList
   , SqlModules.sql_modules_definition
   , sql_modules_antora = Replace (
@@ -1086,4 +1088,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2f393
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2e393564-ae7b-ec11-8541-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'ExecutionLogId_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'a67ca63c-d59b-ec11-8551-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_gross2', @level2type = N'COLUMN', @level2name = N'PersistenceTempTableColumnList';
 
