@@ -1,5 +1,4 @@
 ﻿
-
 /*active workflows and active steps*/
 CREATE View workflow.WorkflowStep_active
 As
@@ -8,12 +7,18 @@ Select
   , Workflow_Name = T2.Name
   , T1.Procedure_RepoObject_guid
   , T1.is_PossibleReferenced
+  , ro.RepoObject_fullname
 From
     workflow.WorkflowStep As T1
     Inner Join
         workflow.Workflow As T2
             On
-            T1.Workflow_id = T2.id
+            T1.Workflow_id               = T2.id
+
+    Inner Join
+        repo.RepoObject   As ro
+            On
+            T1.Procedure_RepoObject_guid = ro.RepoObject_guid
 Where
     ( T1.is_active     = 1 )
     And ( T2.is_active = 1 )
@@ -77,4 +82,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [workflow].[WorkflowStep].[is_PossibleReferenced]', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'WorkflowStep_active', @level2type = N'COLUMN', @level2name = N'is_PossibleReferenced';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '9669cc39-c2eb-ec11-8568-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'workflow', @level1type = N'VIEW', @level1name = N'WorkflowStep_active', @level2type = N'COLUMN', @level2name = N'RepoObject_fullname';
 

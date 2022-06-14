@@ -911,6 +911,8 @@
     <Build Include="repo\Views\RepoObject_persistence_NoCompareButUpdate.sql" />
     <Build Include="reference\Views\RepoObject_reference_persistence_target_as_source_explicit.sql" />
     <Build Include="dbo\Stored Procedures\usp_GenerateCmd.sql" />
+    <Build Include="workflow\Views\Workflow_SqlUsp_wo_GO.sql" />
+    <Build Include="uspgenerator\Views\GeneratorUsp_SqlUsp_wo_GO.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

@@ -1,7 +1,7 @@
 ﻿
 /*
 <<property_start>>Description
-* truncate tables in a given schema
+* change table compression of tables in a given schema
 <<property_end>>
 
 <<property_start>>exampleUsage

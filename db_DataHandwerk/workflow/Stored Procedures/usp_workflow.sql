@@ -217,6 +217,8 @@ Begin
             T2.Workflow_id                               = T1.Workflow_id
             And T2.referencing_Procedure_RepoObject_guid = T1.Procedure_RepoObject_guid
     )
+    Order By
+        T1.RepoObject_fullname
 
     Set @inserted = @@RowCount
     Set @rows = @rows + @inserted
