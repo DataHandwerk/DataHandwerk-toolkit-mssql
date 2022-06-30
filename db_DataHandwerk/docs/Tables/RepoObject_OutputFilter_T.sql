@@ -1,4 +1,4 @@
-﻿CREATE TABLE [docs].[RepoObject_OutputFilter_T] (
+CREATE TABLE [docs].[RepoObject_OutputFilter_T] (
     [RepoObject_guid]             UNIQUEIDENTIFIER NOT NULL,
     [cultures_name]               NVARCHAR (10)    NOT NULL,
     [SysObject_type]              CHAR (2)         NULL,
@@ -21,8 +21,10 @@
     [AntoraModule]                NVARCHAR (MAX)   NULL,
     [PumlEntityTopDefault]        NVARCHAR (MAX)   NOT NULL,
     [PumlEntityTopWorkaround]     NVARCHAR (MAX)   NOT NULL,
-    CONSTRAINT [PK_RepoObject_OutputFilter_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [PK_RepoObject_OutputFilter_T] PRIMARY KEY NONCLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC)
 );
+
+
 
 
 
@@ -130,5 +132,6 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '16ebff08-78
 
 
 GO
-
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObject_OutputFilter_T]
+    ON [docs].[RepoObject_OutputFilter_T];
 

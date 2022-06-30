@@ -11,8 +11,11 @@
     [sql_modules_formatted2]       NVARCHAR (MAX)   NULL,
     [AntoraReferencedList]         NVARCHAR (MAX)   NULL,
     [AntoraReferencingList]        NVARCHAR (MAX)   NULL,
-    CONSTRAINT [PK_RepoObject_sat2_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
-);
+    CONSTRAINT [PK_RepoObject_sat2_T] PRIMARY KEY NONCLUSTERED ([RepoObject_guid] ASC)
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO
@@ -69,4 +72,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '69bd0
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'caeb859e-f924-ec11-8527-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_sat2_T';
+
+
+GO
+CREATE COLUMNSTORE INDEX [CCI_RepoObject_sat2_T]
+    ON [repo].[RepoObject_sat2_T]([RepoObject_guid]);
 

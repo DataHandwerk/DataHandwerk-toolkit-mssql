@@ -4,8 +4,11 @@
     [IndexPatternColumnName]     NVARCHAR (4000)  NULL,
     [IndexSemanticGroup]         NVARCHAR (512)   NULL,
     [is_create_constraint]       BIT              CONSTRAINT [DF__Index_Set__is_cr__1209AD79] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_Index_Settings] PRIMARY KEY CLUSTERED ([index_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
-);
+    CONSTRAINT [PK_Index_Settings] PRIMARY KEY NONCLUSTERED ([index_guid] ASC)
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 
@@ -101,4 +104,9 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_Settings';
+
+
+GO
+CREATE COLUMNSTORE INDEX [CCI_Index_Settings]
+    ON [repo].[Index_Settings]([index_guid]);
 

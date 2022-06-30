@@ -22,10 +22,12 @@
     [info_07]                     NVARCHAR (MAX)  NULL,
     [info_08]                     NVARCHAR (MAX)  NULL,
     [info_09]                     NVARCHAR (MAX)  NULL,
-    CONSTRAINT [PK_GeneratorUspStep] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_GeneratorUspStep] PRIMARY KEY NONCLUSTERED ([id] ASC),
     CONSTRAINT [FK_GeneratorUspStep_GeneratorUsp] FOREIGN KEY ([usp_id]) REFERENCES [uspgenerator].[GeneratorUsp] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_GeneratorUspStep_Number] UNIQUE NONCLUSTERED ([usp_id] ASC, [Number] ASC)
 );
+
+
 
 
 
@@ -261,4 +263,9 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'TABLE', @level1name = N'GeneratorUspStep';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_GeneratorUspStep]
+    ON [uspgenerator].[GeneratorUspStep];
 

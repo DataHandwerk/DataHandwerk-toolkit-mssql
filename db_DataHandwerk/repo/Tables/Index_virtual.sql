@@ -9,9 +9,11 @@
     [parent_RepoObject_guid] UNIQUEIDENTIFIER NOT NULL,
     [referenced_index_guid]  UNIQUEIDENTIFIER NULL,
     [RowNumberInReferencing] INT              NULL,
-    CONSTRAINT [PK_Index_virtual] PRIMARY KEY CLUSTERED ([index_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_Index_virtual] PRIMARY KEY NONCLUSTERED ([index_guid] ASC),
     CONSTRAINT [FK_Index_virtual__RepoObject] FOREIGN KEY ([parent_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -273,4 +275,9 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_virtual';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_Index_virtual]
+    ON [repo].[Index_virtual];
 

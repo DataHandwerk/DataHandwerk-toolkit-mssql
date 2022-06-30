@@ -9,8 +9,10 @@
     [RepoObject_PumlOnlyPkOrIndexOrMeasure] NVARCHAR (MAX)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_PumlOnlyPkOrIndex1] DEFAULT ('') NULL,
     [RepoObject_fullname2]                  NVARCHAR (257)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname2] DEFAULT ('') NOT NULL,
     [RepoObject_schema_name]                NVARCHAR (128)   CONSTRAINT [DF_RepoObject_Plantuml_Entity_T_RepoObject_fullname21] DEFAULT ('') NOT NULL,
-    CONSTRAINT [PK_RepoObject_Plantuml_Entity_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [PK_RepoObject_Plantuml_Entity_T] PRIMARY KEY NONCLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC)
 );
+
+
 
 
 
@@ -278,4 +280,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'a5a507d5-06
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '520389e1-0622-ec11-8524-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Plantuml_Entity_T', @level2type = N'COLUMN', @level2name = N'cultures_name';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObject_Plantuml_Entity_T]
+    ON [docs].[RepoObject_Plantuml_Entity_T];
 

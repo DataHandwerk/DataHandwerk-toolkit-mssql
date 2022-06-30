@@ -14,8 +14,9 @@
     [referenced_RepoObjectColumn_name]  NVARCHAR (128)   NOT NULL,
     [referencing_RepoObject_fullname]   NVARCHAR (261)   NOT NULL,
     [referencing_RepoObjectColumn_name] NVARCHAR (128)   NOT NULL
-)
-WITH (DATA_COMPRESSION = PAGE);
+);
+
+
 
 
 
@@ -104,4 +105,9 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_Inheritance_temp';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObjectColumn_Inheritance_temp]
+    ON [property].[RepoObjectColumn_Inheritance_temp];
 

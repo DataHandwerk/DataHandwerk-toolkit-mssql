@@ -1,5 +1,6 @@
 ﻿
 
+
 /*
 <<property_start>>exampleUsage 
 --get detailed PlantUML sequence diagram
@@ -107,7 +108,7 @@ Select
           Concat (
                      Char ( 13 ) + Char ( 10 )
                    , '== '
-                   , proc_fullname
+                   , concat(quotename([proc_schema_name]),'.',quotename([proc_name])) --proc_fullname
                    , ' - '
                    , step_name
                    , ' =='

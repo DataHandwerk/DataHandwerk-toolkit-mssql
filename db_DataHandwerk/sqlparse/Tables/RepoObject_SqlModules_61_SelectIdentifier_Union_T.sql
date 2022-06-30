@@ -7,8 +7,9 @@
     [source_column_QuoteName] NVARCHAR (MAX)   NULL,
     [source_table_QuoteName]  NVARCHAR (MAX)   NULL,
     [SysObject_fullname]      NVARCHAR (261)   NULL
-)
-WITH (DATA_COMPRESSION = PAGE);
+);
+
+
 
 
 
@@ -191,4 +192,9 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'sqlparse', @level1type = N'TABLE', @level1name = N'RepoObject_SqlModules_61_SelectIdentifier_Union_T';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
+    ON [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T];
 

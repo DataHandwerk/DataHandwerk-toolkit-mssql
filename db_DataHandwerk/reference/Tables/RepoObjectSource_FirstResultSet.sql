@@ -11,9 +11,12 @@
     [system_type_name]     NVARCHAR (128)   NULL,
     [created_dt]           DATETIME         NOT NULL,
     [is_hidden]            BIT              NULL,
-    CONSTRAINT [PK_RepoObjectSource_FirstResultSet] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [column_ordinal] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_RepoObjectSource_FirstResultSet] PRIMARY KEY NONCLUSTERED ([RepoObject_guid] ASC, [column_ordinal] ASC),
     CONSTRAINT [FK_RepoObjectSource_FirstResultSet__RepoObject] FOREIGN KEY ([RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 
@@ -133,4 +136,9 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 GO
 EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level0type = N'SCHEMA', @level0name = N'reference', @level1type = N'TABLE', @level1name = N'RepoObjectSource_FirstResultSet';
+
+
+GO
+CREATE COLUMNSTORE INDEX [CCI_RepoObjectSource_FirstResultSet]
+    ON [reference].[RepoObjectSource_FirstResultSet]([RepoObject_guid]);
 

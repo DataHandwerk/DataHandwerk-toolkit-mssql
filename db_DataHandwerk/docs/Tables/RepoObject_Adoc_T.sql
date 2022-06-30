@@ -16,8 +16,10 @@
     [SysObject_schema_name]       NVARCHAR (128)   NULL,
     [SysObject_type]              CHAR (2)         NULL,
     [SysObject_type_name]         NVARCHAR (128)   NULL,
-    CONSTRAINT [PK_RepoObject_Adoc_T] PRIMARY KEY CLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [PK_RepoObject_Adoc_T] PRIMARY KEY NONCLUSTERED ([RepoObject_guid] ASC, [cultures_name] ASC)
 );
+
+
 
 
 
@@ -274,4 +276,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'd0a94a7f-fd
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'fc641888-fd45-ec11-852f-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'docs', @level1type = N'TABLE', @level1name = N'RepoObject_Adoc_T', @level2type = N'COLUMN', @level2name = N'AdocDescriptionTagsContent';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObject_Adoc_T]
+    ON [docs].[RepoObject_Adoc_T];
 

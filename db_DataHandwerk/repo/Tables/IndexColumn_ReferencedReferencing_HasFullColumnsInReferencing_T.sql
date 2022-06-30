@@ -8,8 +8,9 @@
     [referencing_RepoObject_guid]       UNIQUEIDENTIFIER NULL,
     [referencing_RepoObjectColumn_guid] UNIQUEIDENTIFIER NULL,
     [ColumnsPerIndex]                   INT              NULL
-)
-WITH (DATA_COMPRESSION = PAGE);
+);
+
+
 
 
 
@@ -216,4 +217,9 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'dc7dc759-0f5d-ec11-8534-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T', @level2type = N'COLUMN', @level2name = N'ColumnsPerIndex';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T]
+    ON [repo].[IndexColumn_ReferencedReferencing_HasFullColumnsInReferencing_T];
 

@@ -9,10 +9,13 @@
     [property_real]               AS               (TRY_CAST(left([property_value],(4000)) AS [real])),
     [property_float]              AS               (TRY_CAST(left([property_value],(4000)) AS [float])),
     [property_money]              AS               (TRY_CAST(left([property_value],(4000)) AS [money])),
-    CONSTRAINT [PK_RepoObjectColumnProperty] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC) WITH (DATA_COMPRESSION = PAGE),
+    CONSTRAINT [PK_RepoObjectColumnProperty] PRIMARY KEY NONCLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC),
     CONSTRAINT [FK_RepoObjectColumnProperty__RepoObjectColumn] FOREIGN KEY ([RepoObjectColumn_guid]) REFERENCES [repo].[RepoObjectColumn] ([RepoObjectColumn_guid]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [UK_RepoObjectColumnProperty] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [property_name] ASC)
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 
@@ -309,4 +312,9 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'af90291c-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'property', @level1type = N'TABLE', @level1name = N'RepoObjectColumnProperty', @level2type = N'CONSTRAINT', @level2name = N'FK_RepoObjectColumnProperty__RepoObjectColumn';
+
+
+GO
+CREATE COLUMNSTORE INDEX [CCI_RepoObjectColumnProperty]
+    ON [property].[RepoObjectColumnProperty]([RepoObjectColumn_guid]);
 

@@ -6,8 +6,11 @@
     [DbmlIndexColumnList]        NVARCHAR (MAX)   NULL,
     [PersistenceWhereColumnList] NVARCHAR (MAX)   NULL,
     [PumlIndexColumnList]        NVARCHAR (MAX)   NULL,
-    CONSTRAINT [PK_Index_ColumList_T] PRIMARY KEY CLUSTERED ([index_guid] ASC) WITH (DATA_COMPRESSION = PAGE)
-);
+    CONSTRAINT [PK_Index_ColumList_T] PRIMARY KEY NONCLUSTERED ([index_guid] ASC)
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO
@@ -44,4 +47,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'c036a
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '83b1dda3-c111-ec11-8519-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'Index_ColumList_T';
+
+
+GO
+CREATE COLUMNSTORE INDEX [CCI_Index_ColumList_T]
+    ON [repo].[Index_ColumList_T]([index_guid]);
 

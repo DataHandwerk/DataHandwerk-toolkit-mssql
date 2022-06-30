@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [logs].[ExecutionLog] (
     [id]                      BIGINT           IDENTITY (1, 1) NOT NULL,
     [parent_execution_log_id] BIGINT           NULL,
-    [proc_fullname]           AS               (concat(quotename([proc_schema_name]),'.',quotename([proc_name]))),
     [created_dt]              DATETIME         NULL,
     [step_id]                 INT              NULL,
     [step_name]               NVARCHAR (1000)  NULL,
@@ -47,8 +46,10 @@
     [parameter_20]            NVARCHAR (4000)  NULL,
     [proc_schema_name]        NVARCHAR (128)   NULL,
     [proc_name]               NVARCHAR (128)   NULL,
-    CONSTRAINT [PK_ExecutionLog] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [PK_ExecutionLog] PRIMARY KEY NONCLUSTERED ([id] ASC)
 );
+
+
 
 
 
@@ -270,12 +271,11 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = 'e7f27
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '0bf37926-9d61-eb11-84dc-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [logs].[ExecutionLog].[proc_name]
-* [logs].[ExecutionLog].[proc_schema_name]', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'COLUMN', @level2name = N'proc_fullname';
+
 
 
 
@@ -333,4 +333,9 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'ef1ea651-464d-ec11-8531-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'logs', @level1type = N'TABLE', @level1name = N'ExecutionLog', @level2type = N'CONSTRAINT', @level2name = N'PK_ExecutionLog';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_ExecutionLog]
+    ON [logs].[ExecutionLog];
 

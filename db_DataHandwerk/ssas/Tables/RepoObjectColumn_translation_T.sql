@@ -17,8 +17,10 @@
     [displayfolder_DisplayName]                       NVARCHAR (512)   NULL,
     [pk_index_guid]                                   UNIQUEIDENTIFIER NULL,
     [tabcol_IsHidden]                                 TINYINT          NULL,
-    CONSTRAINT [PK_RepoObjectColumn_translation_T] PRIMARY KEY CLUSTERED ([RepoObjectColumn_guid] ASC, [cultures_name] ASC) WITH (DATA_COMPRESSION = PAGE)
+    CONSTRAINT [PK_RepoObjectColumn_translation_T] PRIMARY KEY NONCLUSTERED ([RepoObjectColumn_guid] ASC, [cultures_name] ASC)
 );
+
+
 
 
 
@@ -109,4 +111,9 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '04a71
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '05a715de-5027-ec11-852a-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'ssas', @level1type = N'TABLE', @level1name = N'RepoObjectColumn_translation_T', @level2type = N'COLUMN', @level2name = N'displayfolder_DisplayName';
+
+
+GO
+CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObjectColumn_translation_T]
+    ON [ssas].[RepoObjectColumn_translation_T];
 
