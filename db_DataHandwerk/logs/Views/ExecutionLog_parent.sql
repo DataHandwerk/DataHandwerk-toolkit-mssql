@@ -1,5 +1,6 @@
 ﻿
-CREATE View logs.ExecutionLog_parent
+
+CREATE View [logs].[ExecutionLog_parent]
 As
 Select
     T1.id
@@ -31,7 +32,7 @@ Select
   , parent_parameter_18           = parent.parameter_18
   , parent_parameter_19           = parent.parameter_19
   , parent_parameter_20           = parent.parameter_20
-  , parent_proc_fullname          = parent.proc_fullname
+  , parent_proc_fullname          = Concat(QuoteName(parent.[proc_schema_name]),'.',QuoteName(parent.[proc_name])) --proc_fullname
 From
     logs.ExecutionLog     As T1
     Left Join

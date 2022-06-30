@@ -1,6 +1,7 @@
 ﻿
 
-CREATE View logs.ExecutionLog_puml_Sequence_start_stop
+
+CREATE View [logs].[ExecutionLog_puml_Sequence_start_stop]
 As
 Select
     T1.id
@@ -22,7 +23,7 @@ Select
                      ' <- '
              End
            , '"'
-           , T1.proc_fullname
+           , concat(quotename(T1.[proc_schema_name]),'.',quotename(T1.[proc_name])) -- T1.proc_fullname
            , '"'
            , Char ( 13 ) + Char ( 10 )
            , Case T1.step_name
@@ -34,10 +35,10 @@ Select
                      'deactivate '
              End
            , '"'
-           , T1.proc_fullname
+           , concat(quotename(T1.[proc_schema_name]),'.',quotename(T1.[proc_name])) -- T1.proc_fullname
            , '"'
          )
-  , T1.proc_fullname
+  , proc_fullname = Concat(quotename(T1.[proc_schema_name]),'.',quotename(T1.[proc_name])) -- T1.proc_fullname
   , parent.parent_proc_fullname
   , T1.created_dt
 From
