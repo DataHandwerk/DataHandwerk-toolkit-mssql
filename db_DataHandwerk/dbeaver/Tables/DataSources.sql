@@ -2,8 +2,10 @@
     [id]         INT           IDENTITY (1, 1) NOT NULL,
     [BulkColumn] VARCHAR (MAX) NULL,
     [is_json]    AS            (isjson([BulkColumn])),
-    CONSTRAINT [PK_dbeaver_DataSources] PRIMARY KEY CLUSTERED ([id] ASC)
+    CONSTRAINT [PK_dbeaver_DataSources] PRIMARY KEY CLUSTERED ([id] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
 
 

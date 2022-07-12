@@ -100,7 +100,7 @@ EXEC logs.usp_ExecutionLog_insert
 
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":200,"Name":"[repo].[usp_sync_guid_RepoSchema]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":200,"Name":"[repo].[usp_sync_guid_RepoSchema]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_sync_guid_RepoSchema]
 --add your own parameters
 --logging parameters
@@ -110,7 +110,7 @@ EXEC [repo].[usp_sync_guid_RepoSchema]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":300,"Name":"[repo].[usp_sync_guid_RepoObject]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":300,"Name":"[repo].[usp_sync_guid_RepoObject]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_sync_guid_RepoObject]
 --add your own parameters
 --logging parameters
@@ -120,7 +120,7 @@ EXEC [repo].[usp_sync_guid_RepoObject]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":400,"Name":"[repo].[usp_sync_guid_RepoObjectColumn]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":400,"Name":"[repo].[usp_sync_guid_RepoObjectColumn]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_sync_guid_RepoObjectColumn]
 --add your own parameters
 --logging parameters

@@ -3,7 +3,10 @@
     [task]       VARCHAR (2000) NULL,
     [sequenceno] NVARCHAR (MAX) NULL,
     [trank]      BIGINT         NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO

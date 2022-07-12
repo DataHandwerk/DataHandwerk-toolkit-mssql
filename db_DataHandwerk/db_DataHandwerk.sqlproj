@@ -913,6 +913,7 @@
     <Build Include="dbo\Stored Procedures\usp_GenerateCmd.sql" />
     <Build Include="workflow\Views\Workflow_SqlUsp_wo_GO.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_SqlUsp_wo_GO.sql" />
+    <Build Include="docs\Tables\command.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

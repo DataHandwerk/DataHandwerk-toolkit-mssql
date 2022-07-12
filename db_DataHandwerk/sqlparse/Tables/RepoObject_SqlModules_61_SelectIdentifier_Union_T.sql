@@ -7,7 +7,10 @@
     [source_column_QuoteName] NVARCHAR (MAX)   NULL,
     [source_table_QuoteName]  NVARCHAR (MAX)   NULL,
     [SysObject_fullname]      NVARCHAR (261)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 
@@ -195,6 +198,5 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 
 GO
-CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObject_SqlModules_61_SelectIdentifier_Union_T]
-    ON [sqlparse].[RepoObject_SqlModules_61_SelectIdentifier_Union_T];
+
 

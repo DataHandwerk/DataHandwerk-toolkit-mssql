@@ -6,6 +6,8 @@
 );
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [NCIX_TblPrecedenceConstraint1]
     ON [ssis_t].[tempprecedence1]([level] ASC);
@@ -13,7 +15,9 @@ CREATE NONCLUSTERED INDEX [NCIX_TblPrecedenceConstraint1]
 
 GO
 CREATE CLUSTERED INDEX [CIX_TblPrecedenceConstraint1]
-    ON [ssis_t].[tempprecedence1]([RowID] ASC);
+    ON [ssis_t].[tempprecedence1]([RowID] ASC) WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO

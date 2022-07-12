@@ -71,7 +71,7 @@ PRINT '[reference].[usp_additional_Reference]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":210,"Name":"[reference].[usp_PERSIST_additional_Reference_database_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":210,"Name":"[reference].[usp_PERSIST_additional_Reference_database_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_additional_Reference_database_T]
 --add your own parameters
 --logging parameters
@@ -81,7 +81,7 @@ EXEC [reference].[usp_PERSIST_additional_Reference_database_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":220,"Name":"[reference].[usp_PERSIST_additional_Reference_Object_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":220,"Name":"[reference].[usp_PERSIST_additional_Reference_Object_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_additional_Reference_Object_T]
 --add your own parameters
 --logging parameters
@@ -91,7 +91,7 @@ EXEC [reference].[usp_PERSIST_additional_Reference_Object_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":230,"Name":"[reference].[usp_PERSIST_additional_Reference_ObjectColumn_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":230,"Name":"[reference].[usp_PERSIST_additional_Reference_ObjectColumn_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_additional_Reference_ObjectColumn_T]
 --add your own parameters
 --logging parameters
@@ -101,7 +101,7 @@ EXEC [reference].[usp_PERSIST_additional_Reference_ObjectColumn_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":310,"Name":"[repo].[usp_PERSIST_RepoObject_external_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":310,"Name":"[repo].[usp_PERSIST_RepoObject_external_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_RepoObject_external_tgt]
 --add your own parameters
 --logging parameters
@@ -111,7 +111,7 @@ EXEC [repo].[usp_PERSIST_RepoObject_external_tgt]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":320,"Name":"[repo].[usp_PERSIST_RepoObjectColumn_external_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":320,"Name":"[repo].[usp_PERSIST_RepoObjectColumn_external_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_RepoObjectColumn_external_tgt]
 --add your own parameters
 --logging parameters

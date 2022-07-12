@@ -71,7 +71,7 @@ PRINT '[repo].[usp_sync_guid_ssas]'
 --
 ----- start here with your own code
 --
-/*{"ReportUspStep":[{"Number":310,"Name":"[ssas].[usp_PERSIST_model_json_31_tables_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":310,"Name":"[ssas].[usp_PERSIST_model_json_31_tables_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_model_json_31_tables_T]
 --add your own parameters
 --logging parameters
@@ -81,7 +81,7 @@ EXEC [ssas].[usp_PERSIST_model_json_31_tables_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":311,"Name":"[ssas].[usp_PERSIST_model_json_311_tables_columns_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":311,"Name":"[ssas].[usp_PERSIST_model_json_311_tables_columns_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_model_json_311_tables_columns_T]
 --add your own parameters
 --logging parameters
@@ -91,7 +91,7 @@ EXEC [ssas].[usp_PERSIST_model_json_311_tables_columns_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":312,"Name":"[ssas].[usp_PERSIST_model_json_312_tables_measures_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":312,"Name":"[ssas].[usp_PERSIST_model_json_312_tables_measures_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_model_json_312_tables_measures_T]
 --add your own parameters
 --logging parameters
@@ -101,7 +101,7 @@ EXEC [ssas].[usp_PERSIST_model_json_312_tables_measures_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":320,"Name":"[ssas].[usp_PERSIST_model_json_32_relationships_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":320,"Name":"[ssas].[usp_PERSIST_model_json_32_relationships_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_model_json_32_relationships_T]
 --add your own parameters
 --logging parameters
@@ -111,7 +111,7 @@ EXEC [ssas].[usp_PERSIST_model_json_32_relationships_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":330,"Name":"[ssas].[usp_PERSIST_model_json_33_dataSources_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":330,"Name":"[ssas].[usp_PERSIST_model_json_33_dataSources_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_model_json_33_dataSources_T]
 --add your own parameters
 --logging parameters
@@ -121,7 +121,7 @@ EXEC [ssas].[usp_PERSIST_model_json_33_dataSources_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":340,"Name":"[ssas].[usp_PERSIST_model_json_3411_cultures_translations_model_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":340,"Name":"[ssas].[usp_PERSIST_model_json_3411_cultures_translations_model_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_model_json_3411_cultures_translations_model_T]
 --add your own parameters
 --logging parameters
@@ -131,7 +131,7 @@ EXEC [ssas].[usp_PERSIST_model_json_3411_cultures_translations_model_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":2100,"Name":"[repo].[usp_PERSIST_RepoSchema_ssas_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":2100,"Name":"[repo].[usp_PERSIST_RepoSchema_ssas_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_RepoSchema_ssas_tgt]
 --add your own parameters
 --logging parameters
@@ -141,7 +141,7 @@ EXEC [repo].[usp_PERSIST_RepoSchema_ssas_tgt]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":2200,"Name":"[repo].[usp_PERSIST_RepoObject_SSAS_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":2200,"Name":"[repo].[usp_PERSIST_RepoObject_SSAS_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_RepoObject_SSAS_tgt]
 --add your own parameters
 --logging parameters
@@ -151,7 +151,7 @@ EXEC [repo].[usp_PERSIST_RepoObject_SSAS_tgt]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":2300,"Name":"[repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":2300,"Name":"[repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]
 --add your own parameters
 --logging parameters
@@ -161,7 +161,7 @@ EXEC [repo].[usp_PERSIST_RepoObjectColumn_SSAS_tgt]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":2400,"Name":"[repo].[usp_PERSIST_Index_ssas_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":2400,"Name":"[repo].[usp_PERSIST_Index_ssas_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_Index_ssas_T]
 --add your own parameters
 --logging parameters
@@ -171,7 +171,7 @@ EXEC [repo].[usp_PERSIST_Index_ssas_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":2500,"Name":"[repo].[usp_PERSIST_IndexColumn_ssas_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":2500,"Name":"[repo].[usp_PERSIST_IndexColumn_ssas_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_IndexColumn_ssas_T]
 --add your own parameters
 --logging parameters
@@ -181,7 +181,7 @@ EXEC [repo].[usp_PERSIST_IndexColumn_ssas_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":3100,"Name":"[ssas].[usp_PERSIST_Measure_translation_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":3100,"Name":"[ssas].[usp_PERSIST_Measure_translation_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_Measure_translation_T]
 --add your own parameters
 --logging parameters

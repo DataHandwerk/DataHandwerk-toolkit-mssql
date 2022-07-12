@@ -74,13 +74,29 @@ PRINT '[ssis].[usp_PERSIST_PackageTask_Dft_Component_input_externalMetadataColum
 /*{"ReportUspStep":[{"Number":200,"Name":"persist source into #source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssis].[PackageTask_Dft_Component_input_externalMetadataColumn_src]","log_target_object":"#source","log_flag_InsertUpdateDelete":"I"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',132,';',200,';',NULL);
 
---do this in two steps: create table and then fill table
---create empty temp table #source
-SELECT Top 0 * into #source  FROM [ssis].[PackageTask_Dft_Component_input_externalMetadataColumn_src]
---fill temp table #source from source
-INSERT
-INTO #source
-SELECT * FROM [ssis].[PackageTask_Dft_Component_input_externalMetadataColumn_src]
+
+SELECT
+  [AntoraModule]
+, [PackageName]
+, [Column_refId]
+, [Column_dataType]
+, [Column_length]
+, [Column_name]
+, [Column_precision]
+, [Column_scale]
+, [Component_refId]
+, [ControlFlowDetailsRowID]
+, [externalMetadataColumns_isused]
+, [input_errorOrTruncationOperation]
+, [input_errorRowDisposition]
+, [input_hasSideEffects]
+, [input_name]
+, [input_refId]
+, [TaskPath]
+
+INTO
+  #source
+FROM [ssis].[PackageTask_Dft_Component_input_externalMetadataColumn_src]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

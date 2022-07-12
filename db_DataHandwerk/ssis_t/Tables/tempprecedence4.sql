@@ -4,7 +4,10 @@
     [tlevel] INT            NULL,
     [level]  INT            NULL,
     [trank]  BIGINT         NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO

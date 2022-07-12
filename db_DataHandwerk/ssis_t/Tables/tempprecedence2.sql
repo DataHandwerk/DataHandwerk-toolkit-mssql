@@ -4,7 +4,10 @@
     [task]        VARCHAR (2000) NULL,
     [parentlevel] INT            NULL,
     [LEVEL]       INT            NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO

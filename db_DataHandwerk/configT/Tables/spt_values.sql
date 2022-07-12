@@ -6,7 +6,10 @@
     [high]   INT           NULL,
     [status] INT           NULL,
     CONSTRAINT [uq_spt_values_1] UNIQUE NONCLUSTERED ([name] ASC, [number] ASC, [type] ASC)
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 
@@ -75,6 +78,5 @@ EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = '412e3185-57
 
 
 GO
-CREATE CLUSTERED COLUMNSTORE INDEX [CCI_spt_values]
-    ON [configT].[spt_values];
+
 

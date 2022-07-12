@@ -173,8 +173,12 @@ Begin
 
     Print @command
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
+
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     Set @command
         = 'bcp "SELECT [AdocDescriptionTagsContent] FROM [docs].[RepoObject_Adoc_T] WITH (READUNCOMMITTED) where [RepoObject_fullname2] = '''
@@ -198,8 +202,12 @@ Begin
 
     Print @command
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
+
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     Fetch Next From db_cursor
     Into

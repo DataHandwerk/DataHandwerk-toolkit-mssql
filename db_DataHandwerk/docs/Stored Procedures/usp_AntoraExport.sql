@@ -3,6 +3,8 @@ code of this procedure is managed in the dhw repository. Do not modify manually.
 Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
 */
 CREATE   PROCEDURE [docs].[usp_AntoraExport]
+@isExecuteCommand BIT = 1 /* specify whether the commands, collected in [docs].[command], should be executed using "Exec sys.xp_cmdshell" */
+,
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
   @execution_instance_guid UNIQUEIDENTIFIER = NULL --SSIS system variable ExecutionInstanceGUID could be used, any other unique guid is also fine. If NULL, then NEWID() is used to create one
@@ -62,7 +64,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @execution_log_id = @current_execution_log_id OUTPUT
 ----you can log the content of your own parameters, do this only in the start-step
 ----data type is sql_variant
-
+ , @parameter_01 = @isExecuteCommand
 --
 PRINT '[docs].[usp_AntoraExport]'
 --keep the code between logging parameters and "START" unchanged!
@@ -78,6 +80,12 @@ DECLARE @command NVARCHAR(4000)
 DECLARE @cultures_name NVARCHAR(10)
 Declare @AntoraModule Varchar(50)
 
+
+
+/*{"ReportUspStep":[{"Number":220,"Name":"Truncate Table [docs].[command]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":0}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',220,';',NULL);
+
+Truncate Table [docs].[command]
 
 
 /*{"ReportUspStep":[{"Number":300,"Name":"check Parameter AntoraDeleteFilesInModuleFolders","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[config].[Parameter]"}]}*/
@@ -117,9 +125,13 @@ FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\pa
           + N'" /s /m *.* /c "cmd /c if @isdir==FALSE del @path"'
 
     Print @command
+    
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     Set @command
         = N'FORFILES /p "'
@@ -132,8 +144,12 @@ FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\pa
 
     Print @command
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
+
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     Fetch Next From module_cursor
     Into
@@ -201,8 +217,12 @@ FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\pa
 
     Print @command
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
+
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     Set @command = N'FORFILES /p "'
                    --
@@ -215,8 +235,12 @@ FORFILES /p "D:\Repos\gitlab\DataHandwerk\dhw-antora-sqldb\docs\modules\sqldb\pa
 
     Print @command
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
+
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     Fetch Next From module_cursor
     Into
@@ -380,6 +404,68 @@ EXEC [docs].[usp_AntoraExport_SsisPartialsContent]
  , @sub_execution_id = @sub_execution_id
  , @parent_execution_log_id = @current_execution_log_id
 
+
+/*{"ReportUspStep":[{"Number":2000,"Name":"check Parameter isExecuteCommand","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[config].[Parameter]"}]}*/
+IF @isExecuteCommand = 1
+
+/*{"ReportUspStep":[{"Number":2010,"Parent_Number":2000,"Name":"Execute commands, collected in [docs].[command], using \"Exec sys.xp_cmdshell\"","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
+BEGIN
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',2010,';',2000);
+
+Declare command_cursor Cursor Local Fast_Forward For
+Select
+    command
+From
+    docs.command
+Order By
+    id
+
+Open command_cursor
+
+Fetch Next From command_cursor
+Into
+    @command
+
+While @@Fetch_Status = 0
+Begin
+
+    Print @command
+
+    --Execute the BCP command
+    Exec sys.xp_cmdshell @command, no_output
+
+    Fetch Next From command_cursor
+    Into
+        @command
+End
+
+Close command_cursor
+Deallocate command_cursor
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'Execute commands, collected in [docs].[command], using "Exec sys.xp_cmdshell"'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+END;
 
 --
 --finish your own code here

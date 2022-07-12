@@ -103,7 +103,7 @@ EXEC logs.usp_ExecutionLog_insert
 /*{"ReportUspStep":[{"Number":210,"Name":"(select config.fs_get_parameter_value ( 'sync enable', 'dwh' )) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select config.fs_get_parameter_value ( 'sync enable', 'dwh' )) = 1
 
-/*{"ReportUspStep":[{"Number":211,"Parent_Number":210,"Name":"[repo].[usp_sync_guid]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":211,"Parent_Number":210,"Name":"[repo].[usp_sync_guid]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [repo].[usp_sync_guid]
 --add your own parameters
@@ -118,7 +118,7 @@ END;
 /*{"ReportUspStep":[{"Number":220,"Name":"(select config.fs_get_parameter_value ( 'sync enable', 'ssas' )) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select config.fs_get_parameter_value ( 'sync enable', 'ssas' )) = 1
 
-/*{"ReportUspStep":[{"Number":221,"Parent_Number":220,"Name":"[repo].[usp_sync_guid_ssas]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":221,"Parent_Number":220,"Name":"[repo].[usp_sync_guid_ssas]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [repo].[usp_sync_guid_ssas]
 --add your own parameters
@@ -170,7 +170,7 @@ EXEC logs.usp_ExecutionLog_insert
 -- Logging END --
 END;
 
-/*{"ReportUspStep":[{"Number":235,"Name":"[ssas].[usp_PERSIST_RepoObjectColumn_translation_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":235,"Name":"[ssas].[usp_PERSIST_RepoObjectColumn_translation_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [ssas].[usp_PERSIST_RepoObjectColumn_translation_T]
 --add your own parameters
 --logging parameters
@@ -180,7 +180,7 @@ EXEC [ssas].[usp_PERSIST_RepoObjectColumn_translation_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":240,"Name":"[reference].[usp_additional_Reference]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":240,"Name":"[reference].[usp_additional_Reference]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_additional_Reference]
 --add your own parameters
 --logging parameters
@@ -190,7 +190,7 @@ EXEC [reference].[usp_additional_Reference]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":250,"Name":"[reference].[usp_PERSIST_RepoObject_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":250,"Name":"[reference].[usp_PERSIST_RepoObject_reference_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObject_reference_T]
 --add your own parameters
 --logging parameters
@@ -321,7 +321,7 @@ EXEC logs.usp_ExecutionLog_insert
 
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":280,"Name":"[reference].[usp_RepoObject_ReferenceTree_insert]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":280,"Name":"[reference].[usp_RepoObject_ReferenceTree_insert]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_RepoObject_ReferenceTree_insert]
 --add your own parameters
 --logging parameters
@@ -331,7 +331,7 @@ EXEC [reference].[usp_RepoObject_ReferenceTree_insert]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":290,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":290,"Name":"[reference].[usp_PERSIST_RepoObjectColumn_reference_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_PERSIST_RepoObjectColumn_reference_T]
 --add your own parameters
 --logging parameters
@@ -341,7 +341,7 @@ EXEC [reference].[usp_PERSIST_RepoObjectColumn_reference_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":292,"Name":"[repo].[usp_PERSIST_RepoObject_sat2_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":292,"Name":"[repo].[usp_PERSIST_RepoObject_sat2_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_PERSIST_RepoObject_sat2_T]
 --add your own parameters
 --logging parameters
@@ -354,7 +354,7 @@ EXEC [repo].[usp_PERSIST_RepoObject_sat2_T]
 /*{"ReportUspStep":[{"Number":300,"Name":"(select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_FirstResultSet', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_FirstResultSet', DEFAULT)) = 1
 
-/*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"[reference].[usp_RepoObjectSource_FirstResultSet]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":310,"Parent_Number":300,"Name":"[reference].[usp_RepoObjectSource_FirstResultSet]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObjectSource_FirstResultSet]
 --This can take a very long time
@@ -370,7 +370,7 @@ END;
 /*{"ReportUspStep":[{"Number":400,"Name":"(select [config].[fs_get_parameter_value]('main enable usp_RepoObject_update_SysObjectQueryPlan', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObject_update_SysObjectQueryPlan', DEFAULT)) = 1
 
-/*{"ReportUspStep":[{"Number":410,"Parent_Number":400,"Name":"[reference].[usp_RepoObject_update_SysObjectQueryPlan]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":410,"Parent_Number":400,"Name":"[reference].[usp_RepoObject_update_SysObjectQueryPlan]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObject_update_SysObjectQueryPlan]
 --add your own parameters
@@ -385,7 +385,7 @@ END;
 /*{"ReportUspStep":[{"Number":500,"Name":"(select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_QueryPlan', DEFAULT)) = 1","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0}]}*/
 IF (select [config].[fs_get_parameter_value]('main enable usp_RepoObjectSource_QueryPlan', DEFAULT)) = 1
 
-/*{"ReportUspStep":[{"Number":510,"Parent_Number":500,"Name":"[reference].[usp_RepoObjectSource_QueryPlan]\r\n--This can take a very long time","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":510,"Parent_Number":500,"Name":"[reference].[usp_RepoObjectSource_QueryPlan]\r\n--This can take a very long time","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 BEGIN
 EXEC [reference].[usp_RepoObjectSource_QueryPlan]
 --add your own parameters
@@ -397,7 +397,7 @@ EXEC [reference].[usp_RepoObjectSource_QueryPlan]
 
 END;
 
-/*{"ReportUspStep":[{"Number":610,"Name":"[reference].[usp_update_Referencing_Count]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":610,"Name":"[reference].[usp_update_Referencing_Count]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [reference].[usp_update_Referencing_Count]
 --add your own parameters
 --logging parameters
@@ -407,7 +407,7 @@ EXEC [reference].[usp_update_Referencing_Count]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":710,"Name":"[repo].[usp_index_inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":710,"Name":"[repo].[usp_index_inheritance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_index_inheritance]
 --add your own parameters
 --logging parameters
@@ -417,7 +417,7 @@ EXEC [repo].[usp_index_inheritance]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":720,"Name":"[repo].[usp_Index_ForeignKey]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":720,"Name":"[repo].[usp_Index_ForeignKey]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_Index_ForeignKey]
 --add your own parameters
 --logging parameters
@@ -427,7 +427,7 @@ EXEC [repo].[usp_Index_ForeignKey]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":730,"Name":"[property].[usp_PERSIST_PropertyName_Measure_T]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":730,"Name":"[property].[usp_PERSIST_PropertyName_Measure_T]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_PERSIST_PropertyName_Measure_T]
 --add your own parameters
 --logging parameters
@@ -437,7 +437,7 @@ EXEC [property].[usp_PERSIST_PropertyName_Measure_T]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":810,"Name":"[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":810,"Name":"[repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
 --add your own parameters
 --logging parameters
@@ -447,7 +447,7 @@ EXEC [repo].[usp_RepoObjectColumn_update_RepoObjectColumn_column_id]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":910,"Name":"[repo].[usp_GeneratorUsp_insert_update_persistence]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":910,"Name":"[repo].[usp_GeneratorUsp_insert_update_persistence]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [uspgenerator].[usp_GeneratorUsp_insert_update_persistence]
 --add your own parameters
 --logging parameters
@@ -551,7 +551,7 @@ EXEC [property].[usp_external_property_import]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":4110,"Name":"[property].[usp_RepoObject_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":4110,"Name":"[property].[usp_RepoObject_Inheritance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObject_Inheritance]
 --add your own parameters
 --logging parameters
@@ -561,7 +561,7 @@ EXEC [property].[usp_RepoObject_Inheritance]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":4120,"Name":"[property].[usp_RepoObjectColumn_Inheritance]","has_logging":0,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
+/*{"ReportUspStep":[{"Number":4120,"Name":"[property].[usp_RepoObjectColumn_Inheritance]","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":1}]}*/
 EXEC [property].[usp_RepoObjectColumn_Inheritance]
 --add your own parameters
 --logging parameters

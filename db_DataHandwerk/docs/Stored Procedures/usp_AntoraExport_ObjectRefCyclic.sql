@@ -138,8 +138,12 @@ Begin
 
     Print @command
 
-    --Execute the BCP command
-    Exec sys.xp_cmdshell @command, no_output
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
+
+    ----Execute the BCP command
+    --Exec sys.xp_cmdshell @command, no_output
 
     --Set @command
     --    = 'bcp "SELECT [ObjectRefCyclic_Puml] FROM [docs].[ObjectRefCyclic] '
@@ -160,8 +164,12 @@ Begin
 
     --Print @command
 
-    ----Execute the BCP command
-    --Exec sys.xp_cmdshell @command, no_output
+    --INSERT Into [docs].[command]
+    --(command)
+    --VALUES(@command)
+
+    ------Execute the BCP command
+    ----Exec sys.xp_cmdshell @command, no_output
 
     Fetch Next From page_cursor
     Into

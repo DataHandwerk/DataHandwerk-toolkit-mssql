@@ -5,9 +5,13 @@
 );
 
 
+
+
 GO
 CREATE CLUSTERED INDEX [CIX_TblPrecedenceConstraint1]
-    ON [ssis_t].[tempprecedence6]([ROWID] ASC);
+    ON [ssis_t].[tempprecedence6]([ROWID] ASC) WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO

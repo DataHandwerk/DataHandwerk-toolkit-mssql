@@ -74,13 +74,20 @@ PRINT '[ssis].[usp_PERSIST_PackageTask_Dft_Component_output_tgt]'
 /*{"ReportUspStep":[{"Number":200,"Name":"persist source into #source","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[ssis].[PackageTask_Dft_Component_output_src]","log_target_object":"#source","log_flag_InsertUpdateDelete":"I"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',137,';',200,';',NULL);
 
---do this in two steps: create table and then fill table
---create empty temp table #source
-SELECT Top 0 * into #source  FROM [ssis].[PackageTask_Dft_Component_output_src]
---fill temp table #source from source
-INSERT
-INTO #source
-SELECT * FROM [ssis].[PackageTask_Dft_Component_output_src]
+
+SELECT
+  [AntoraModule]
+, [PackageName]
+, [output_refId]
+, [Component_refId]
+, [ControlFlowDetailsRowID]
+, [output_isErrorOut]
+, [output_name]
+, [TaskPath]
+
+INTO
+  #source
+FROM [ssis].[PackageTask_Dft_Component_output_src]
 
 -- Logging START --
 SET @rows = @@ROWCOUNT

@@ -20,7 +20,10 @@
     [RepoObject_guid]            UNIQUEIDENTIFIER NOT NULL,
     [RowNumber_per_Object]       BIGINT           NULL,
     [SysObject_fullname]         NVARCHAR (261)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 
@@ -365,6 +368,5 @@ EXECUTE sp_addextendedproperty @name = N'is_ssas', @value = N'0', @level0type = 
 
 
 GO
-CREATE CLUSTERED COLUMNSTORE INDEX [CCI_RepoObject_SqlModules_41_from_T]
-    ON [sqlparse].[RepoObject_SqlModules_41_from_T];
+
 

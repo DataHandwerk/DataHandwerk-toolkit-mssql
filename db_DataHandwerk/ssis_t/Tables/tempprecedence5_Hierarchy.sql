@@ -3,7 +3,10 @@
     [task]       VARCHAR (2000)      NULL,
     [sequenceno] NVARCHAR (MAX)      NULL,
     [rid]        [sys].[hierarchyid] NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
 
 GO
