@@ -95,6 +95,7 @@ Exec repo.usp_persistence_set
   , @postscript = Null
   , @ColumnListNoCompareButUpdate = Null
   , @ColumnListNoCompareNoUpdate = Null
+  , @ColumnListNoInsert = Null
   , @ColumnListIgnore = Null
 ----not implemented:
 --, @is_persistence_merge_delete_missing = 0
@@ -230,6 +231,7 @@ CREATE Procedure [repo].[usp_persistence_set]
   , @postscript                            NVarchar(Max)    = Null
   , @ColumnListNoCompareButUpdate          NVarchar(4000)   = Null
   , @ColumnListNoCompareNoUpdate           NVarchar(4000)   = Null
+  , @ColumnListNoInsert                    NVarchar(4000)   = Null
   , @ColumnListIgnore                      NVarchar(4000)   = Null
                                                                           -- some optional parameters, used for logging
   , @execution_instance_guid               UniqueIdentifier = Null        --SSIS system variable ExecutionInstanceGUID could be used, but other any other guid
@@ -285,7 +287,7 @@ Exec logs.usp_ExecutionLog_insert
   , @inserted = Null
   , @updated = Null
   , @deleted = Null
-  --, @info_01 = Null
+  , @info_01 = @ColumnListIgnore --parameter 21
   , @info_02 = Null
   , @info_03 = Null
   , @info_04 = Null
@@ -314,7 +316,7 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_17 = @postscript
   , @parameter_18 = @ColumnListNoCompareButUpdate
   , @parameter_19 = @ColumnListNoCompareNoUpdate
-  , @parameter_20 = @ColumnListIgnore
+  , @parameter_20 = @ColumnListNoInsert
   ----no more paramater columns available, use @info columns
   , @info_01 = @ExecutionLogId_action
 
@@ -767,6 +769,7 @@ Set
   , postscript = IsNull ( @postscript, postscript )
   , ColumnListNoCompareButUpdate = IsNull ( @ColumnListNoCompareButUpdate, ColumnListNoCompareButUpdate )
   , ColumnListNoCompareNoUpdate = IsNull ( @ColumnListNoCompareNoUpdate, ColumnListNoCompareNoUpdate )
+  , ColumnListNoInsert = IsNull ( @ColumnListNoInsert, ColumnListNoInsert )
   , ColumnListIgnore = IsNull ( @ColumnListIgnore, ColumnListIgnore )
   , ExecutionLogId_action = IsNull ( @ExecutionLogId_action, ExecutionLogId_action )
 Where

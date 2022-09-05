@@ -1,4 +1,4 @@
-﻿CREATE TABLE [repo].[RepoObjectColumn] (
+CREATE TABLE [repo].[RepoObjectColumn] (
     [RepoObjectColumn_guid]                     UNIQUEIDENTIFIER CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_guid] DEFAULT (newsequentialid()) NOT NULL,
     [RepoObjectColumn_name]                     NVARCHAR (128)   CONSTRAINT [DF_RepoObjectColumn_RepoObjectColumn_name] DEFAULT (newid()) NOT NULL,
     [SysObjectColumn_name]                      NVARCHAR (128)   CONSTRAINT [DF_RepoObjectColumn_SysObjectColumn_name] DEFAULT (newid()) NOT NULL,
@@ -8,8 +8,9 @@
     [InheritanceDefinition]                     NVARCHAR (4000)  NULL,
     [InheritanceType]                           TINYINT          NULL,
     [is_persistence_Ignore]                     BIT              NULL,
-    [is_persistence_NoCompareNoUpdate]          BIT              NULL,
     [is_persistence_NoCompareButUpdate]         BIT              NULL,
+    [is_persistence_NoCompareNoUpdate]          BIT              NULL,
+    [is_persistence_NoInsert]                   BIT              NULL,
     [is_query_plan_expression]                  BIT              NULL,
     [is_required_ColumnMerge]                   BIT              NULL,
     [is_SysObjectColumn_missing]                BIT              NULL,
@@ -40,6 +41,8 @@
     CONSTRAINT [UK_RepoObjectColumn__RepoNames] UNIQUE NONCLUSTERED ([RepoObject_guid] ASC, [RepoObjectColumn_name] ASC),
     CONSTRAINT [UK_RepoObjectColumn__SysNames] UNIQUE NONCLUSTERED ([RepoObjectColumn_guid] ASC, [SysObjectColumn_name] ASC)
 );
+
+
 
 
 
@@ -596,5 +599,5 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 
 GO
-
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '19894b8d-2c2d-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObjectColumn', @level2type = N'COLUMN', @level2name = N'is_persistence_NoInsert';
 

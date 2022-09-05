@@ -1,14 +1,16 @@
 ﻿
-CREATE View repo.RepoObjectColumn_SSAS_tgt
+
+CREATE View [repo].[RepoObjectColumn_SSAS_tgt]
 As
 Select
     T1.RepoObjectColumn_guid
   , T1.Inheritance_StringAggSeparatorSql
   , T1.InheritanceDefinition
   , T1.InheritanceType
-  , T1.is_persistence_NoCompareNoUpdate
   , T1.is_persistence_Ignore
   , T1.is_persistence_NoCompareButUpdate
+  , T1.is_persistence_NoCompareNoUpdate
+  , T1.is_persistence_NoInsert
   , T1.is_query_plan_expression
   , T1.is_required_ColumnMerge
   , T1.is_SysObjectColumn_missing
@@ -440,4 +442,8 @@ EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [repo].[RepoObjectColumn].[Inheritance_StringAggSeparatorSql]', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_SSAS_tgt', @level2type = N'COLUMN', @level2name = N'Inheritance_StringAggSeparatorSql';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '25894b8d-2c2d-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_SSAS_tgt', @level2type = N'COLUMN', @level2name = N'is_persistence_NoInsert';
 

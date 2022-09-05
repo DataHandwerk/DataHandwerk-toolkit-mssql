@@ -317,6 +317,8 @@ Select
                                                --it it exists, it needs to be exluded
                                                --if not, it will not be in the list of columns
                                                And IsNull ( roc.is_persistence_Ignore, 0 ) = 0
+                                               --2022-09-05 #69
+                                               And IsNull ( roc.is_persistence_NoInsert, 0 ) = 0
                                                And IsNull ( roc.is_query_plan_expression, 0 ) = 0
                                                And roc.Repo_generated_always_type = 0
                                                And roc.Repo_is_computed = 0
@@ -362,6 +364,8 @@ Select
                                                --it it exists, it needs to be exluded
                                                --if not, it will not be in the list of columns
                                                And IsNull ( roc.is_persistence_Ignore, 0 ) = 0
+                                               --2022-09-05 #69
+                                               And IsNull ( roc.is_persistence_NoInsert, 0 ) = 0
                                                And IsNull ( roc.is_query_plan_expression, 0 ) = 0
                                                And roc.Repo_generated_always_type = 0
                                                And roc.Repo_is_computed = 0
@@ -487,7 +491,7 @@ Select
          )
   --2022-09-01
   --required to generate views to compare source and target content
-  , PersistenceSrcTgtColumnList =
+  , PersistenceSrcTgtColumnList       =
   --
   Concat (
              Stuff (

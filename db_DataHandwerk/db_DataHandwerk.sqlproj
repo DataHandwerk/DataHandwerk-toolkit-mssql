@@ -915,6 +915,7 @@
     <Build Include="uspgenerator\Views\GeneratorUsp_SqlUsp_wo_GO.sql" />
     <Build Include="docs\Tables\command.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_SqlViewPersistenceUpdateCheck.sql" />
+    <Build Include="repo\Views\RepoObject_persistence_NoInsert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

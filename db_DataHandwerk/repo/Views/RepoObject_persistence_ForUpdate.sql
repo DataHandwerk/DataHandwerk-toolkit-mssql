@@ -1,9 +1,10 @@
 ﻿
+
 /*
 Added some lookup columns [repo].[RepoObject_persistence]
 to simplify data entry in the frontend
 */
-CREATE View repo.RepoObject_persistence_ForUpdate
+CREATE View [repo].[RepoObject_persistence_ForUpdate]
 As
 Select
     ro_p.target_RepoObject_guid
@@ -26,6 +27,7 @@ Select
   , ro_p.ColumnListIgnore
   , ro_p.ColumnListNoCompareButUpdate
   , ro_p.ColumnListNoCompareNoUpdate
+  , ro_p.ColumnListNoInsert
   , ro_p.source_RepoObject_guid
   , ro_p.prescript
   , ro_p.postscript
@@ -327,4 +329,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '98034
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '97034690-576e-ec11-8539-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'ColumnListIgnore';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '26894b8d-2c2d-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObject_persistence_ForUpdate', @level2type = N'COLUMN', @level2name = N'ColumnListNoInsert';
 

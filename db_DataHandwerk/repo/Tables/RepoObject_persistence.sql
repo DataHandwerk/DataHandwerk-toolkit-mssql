@@ -17,6 +17,7 @@
     [final_target_RepoObject_name]          NVARCHAR (128)   NULL,
     [ColumnListNoCompareButUpdate]          NVARCHAR (4000)  NULL,
     [ColumnListNoCompareNoUpdate]           NVARCHAR (4000)  NULL,
+    [ColumnListNoInsert]                    NVARCHAR (4000)  NULL,
     [ColumnListIgnore]                      NVARCHAR (4000)  NULL,
     [prescript]                             NVARCHAR (MAX)   NULL,
     [postscript]                            NVARCHAR (MAX)   NULL,
@@ -26,6 +27,8 @@
     CONSTRAINT [PK_RepoObject_persistence] PRIMARY KEY CLUSTERED ([target_RepoObject_guid] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_RepoObject_persistence__RepoObject__target] FOREIGN KEY ([target_RepoObject_guid]) REFERENCES [repo].[RepoObject] ([RepoObject_guid]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 
@@ -608,4 +611,13 @@ analog to ''ColumnListNoCompareNoUpdate''
 * ''u'' - update, if something as result of comparing updates +
 analog to ''ColumnListNoCompareButUpdate''
 * other values or empty - don''t care about', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ExecutionLogId_action';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '18894b8d-2c2d-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoInsert';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'comma separated list of columns which should not be used for change tracking. +
+But if something else changes, they should be updated in target', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'TABLE', @level1name = N'RepoObject_persistence', @level2type = N'COLUMN', @level2name = N'ColumnListNoInsert';
 

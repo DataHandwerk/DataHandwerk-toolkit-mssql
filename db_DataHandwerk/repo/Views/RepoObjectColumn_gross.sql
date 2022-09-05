@@ -1,5 +1,6 @@
 ﻿
-CREATE View repo.RepoObjectColumn_gross
+
+CREATE View [repo].[RepoObjectColumn_gross]
 As
 Select
     roc.RepoObjectColumn_guid
@@ -10,9 +11,10 @@ Select
   , roc.Inheritance_StringAggSeparatorSql
   , roc.InheritanceDefinition
   , roc.InheritanceType
-  , roc.is_persistence_NoCompareNoUpdate
   , roc.is_persistence_Ignore
   , roc.is_persistence_NoCompareButUpdate
+  , roc.is_persistence_NoCompareNoUpdate
+  , roc.is_persistence_NoInsert
   , roc.is_query_plan_expression
   , roc.is_RepoObjectColumn_name_uniqueidentifier
   , roc.is_required_ColumnMerge
@@ -1360,4 +1362,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '2aa38
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '90e80294-161b-ec11-8520-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'is_external';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '23894b8d-2c2d-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'repo', @level1type = N'VIEW', @level1name = N'RepoObjectColumn_gross', @level2type = N'COLUMN', @level2name = N'is_persistence_NoInsert';
 

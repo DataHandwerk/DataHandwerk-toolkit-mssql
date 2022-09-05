@@ -1891,7 +1891,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1510,"Name":"persistence: update is_persistence_NoCompareButUpdate","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":1510,"Name":"persistence: update is_persistence_NoCompareButUpdate","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence_NoCompareButUpdate]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1510,';',NULL);
 
 Update
@@ -1912,7 +1912,7 @@ Where
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'persistence: update is_persistence_NoCompareButUpdate'
-SET @source_object = '[repo].[RepoObjectColumn]'
+SET @source_object = '[repo].[RepoObject_persistence_NoCompareButUpdate]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -1932,7 +1932,7 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1520,"Name":"persistence: update is_persistence_NoCompareNoUpdate","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":1520,"Name":"persistence: update is_persistence_NoCompareNoUpdate","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence_NoCompareNoUpdate]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1520,';',NULL);
 
 Update
@@ -1953,7 +1953,7 @@ Where
 SET @rows = @@ROWCOUNT
 SET @step_id = @step_id + 1
 SET @step_name = 'persistence: update is_persistence_NoCompareNoUpdate'
-SET @source_object = '[repo].[RepoObjectColumn]'
+SET @source_object = '[repo].[RepoObject_persistence_NoCompareNoUpdate]'
 SET @target_object = '[repo].[RepoObjectColumn]'
 
 EXEC logs.usp_ExecutionLog_insert 
@@ -1973,8 +1973,49 @@ EXEC logs.usp_ExecutionLog_insert
  , @updated = @rows
 -- Logging END --
 
-/*{"ReportUspStep":[{"Number":1530,"Name":"persistence: update is_persistence_Ignore","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+/*{"ReportUspStep":[{"Number":1530,"Name":"persistence: update is_persistence_NoInsert","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObject_persistence_NoInsert]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
 PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1530,';',NULL);
+
+Update
+    tgt
+Set
+    tgt.is_persistence_NoInsert = IsNull ( src.is_persistence_NoInsert, 0 )
+From
+    repo.RepoObjectColumn                             As tgt
+    Left Join
+        repo.RepoObject_persistence_NoInsert As src
+            On
+            src.RepoObjectColumn_guid = tgt.RepoObjectColumn_guid
+Where
+    tgt.is_persistence_NoInsert Is Null
+    Or tgt.is_persistence_NoInsert <> IsNull ( src.is_persistence_NoInsert, 0 )
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'persistence: update is_persistence_NoInsert'
+SET @source_object = '[repo].[RepoObject_persistence_NoInsert]'
+SET @target_object = '[repo].[RepoObjectColumn]'
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @updated = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":1540,"Name":"persistence: update is_persistence_Ignore","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[repo].[RepoObjectColumn]","log_target_object":"[repo].[RepoObjectColumn]","log_flag_InsertUpdateDelete":"u"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',6,';',1540,';',NULL);
 
 Update
     tgt
