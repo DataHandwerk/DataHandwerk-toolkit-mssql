@@ -914,6 +914,7 @@
     <Build Include="workflow\Views\Workflow_SqlUsp_wo_GO.sql" />
     <Build Include="uspgenerator\Views\GeneratorUsp_SqlUsp_wo_GO.sql" />
     <Build Include="docs\Tables\command.sql" />
+    <Build Include="uspgenerator\Views\GeneratorUsp_SqlViewPersistenceUpdateCheck.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.adoc" />

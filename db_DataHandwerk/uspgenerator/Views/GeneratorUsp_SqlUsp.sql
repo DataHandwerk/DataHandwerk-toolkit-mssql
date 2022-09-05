@@ -1,12 +1,11 @@
 ﻿
-
 /*
 [SqlUsp] contains the final code for the usp, defined in
 - [repo].[GeneratorUsp]
 - [repo].[GeneratorUspParameter]
 - [repo].[GeneratorUspStep]
 */
-CREATE View [uspgenerator].[GeneratorUsp_SqlUsp]
+CREATE View uspgenerator.GeneratorUsp_SqlUsp
 As
 Select
     usp_id         = u.id
@@ -158,6 +157,8 @@ END
 GO
 '
                             )
+  --2022-09-02 SqlViewPersistenceUpdateCheck
+  , sqlview.SqlViewPersistenceUpdateCheck
   , AdocUspSteps   = Concat (
                                 '.Steps in '
                               , u.usp_fullname
@@ -189,22 +190,28 @@ GO
   , SqlStepList    = StepList.StepList
   , ro.RepoObject_guid
 From
-    uspgenerator.GeneratorUsp                   As u
+    uspgenerator.GeneratorUsp                                   As u
     Left Join
-        uspgenerator.GeneratorUsp_ParameterList As ParameterList
+        uspgenerator.GeneratorUsp_ParameterList                 As ParameterList
             On
             ParameterList.usp_id = u.id
 
     Left Join
-        uspgenerator.GeneratorUsp_StepList      As StepList
+        uspgenerator.GeneratorUsp_StepList                      As StepList
             On
             StepList.usp_id = u.id
 
     Left Join
-        repo.RepoObject                         As ro
+        repo.RepoObject                                         As ro
             On
             ro.RepoObject_fullname = u.usp_fullname
-    Cross Join config.ftv_dwh_database ()       As dwhdb
+    --2022-09-02
+
+    Left Join
+        uspgenerator.GeneratorUsp_SqlViewPersistenceUpdateCheck As sqlview
+            On
+            sqlview.usp_id = u.id
+    Cross Join config.ftv_dwh_database ()                       As dwhdb
 Go
 
 Execute sp_addextendedproperty
@@ -460,4 +467,8 @@ EXECUTE sp_addextendedproperty @name = N'is_repo_managed', @value = N'0', @level
 
 GO
 EXECUTE sp_addextendedproperty @name = N'ReferencedObjectColumnList', @value = N'* [uspgenerator].[GeneratorUsp].[id]', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'usp_id';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '183ad98e-d92a-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlUsp', @level2type = N'COLUMN', @level2name = N'SqlViewPersistenceUpdateCheck';
 

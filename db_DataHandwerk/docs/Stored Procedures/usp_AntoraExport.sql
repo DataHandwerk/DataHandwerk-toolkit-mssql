@@ -3,7 +3,7 @@ code of this procedure is managed in the dhw repository. Do not modify manually.
 Use [uspgenerator].[GeneratorUsp], [uspgenerator].[GeneratorUspParameter], [uspgenerator].[GeneratorUspStep], [uspgenerator].[GeneratorUsp_SqlUsp]
 */
 CREATE   PROCEDURE [docs].[usp_AntoraExport]
-@isExecuteCommand BIT = 1 /* specify whether the commands, collected in [docs].[command], should be executed using "Exec sys.xp_cmdshell" */
+@isExecuteCommand BIT = 0 /* specify whether the commands, collected in [docs].[command], should be executed using "Exec sys.xp_cmdshell" */
 ,
 ----keep the code between logging parameters and "START" unchanged!
 ---- parameters, used for logging; you don't need to care about them, but you can use them, wenn calling from SSIS or in your workflow to log the context of the procedure call
@@ -405,12 +405,46 @@ EXEC [docs].[usp_AntoraExport_SsisPartialsContent]
  , @parent_execution_log_id = @current_execution_log_id
 
 
-/*{"ReportUspStep":[{"Number":2000,"Name":"check Parameter isExecuteCommand","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[config].[Parameter]"}]}*/
+/*{"ReportUspStep":[{"Number":2000,"Name":"INSERT Into [docs].[command] empty line","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',2000,';',NULL);
+
+    Set @command
+        = N''
+    INSERT Into [docs].[command]
+    (command)
+    VALUES(@command)
+
+
+-- Logging START --
+SET @rows = @@ROWCOUNT
+SET @step_id = @step_id + 1
+SET @step_name = 'INSERT Into [docs].[command] empty line'
+SET @source_object = NULL
+SET @target_object = NULL
+
+EXEC logs.usp_ExecutionLog_insert 
+ @execution_instance_guid = @execution_instance_guid
+ , @ssis_execution_id = @ssis_execution_id
+ , @sub_execution_id = @sub_execution_id
+ , @parent_execution_log_id = @parent_execution_log_id
+ , @current_execution_guid = @current_execution_guid
+ , @proc_id = @proc_id
+ , @proc_schema_name = @proc_schema_name
+ , @proc_name = @proc_name
+ , @event_info = @event_info
+ , @step_id = @step_id
+ , @step_name = @step_name
+ , @source_object = @source_object
+ , @target_object = @target_object
+ , @inserted = @rows
+-- Logging END --
+
+/*{"ReportUspStep":[{"Number":3000,"Name":"check Parameter isExecuteCommand","has_logging":0,"is_condition":1,"is_inactive":0,"is_SubProcedure":0,"log_source_object":"[config].[Parameter]"}]}*/
 IF @isExecuteCommand = 1
 
-/*{"ReportUspStep":[{"Number":2010,"Parent_Number":2000,"Name":"Execute commands, collected in [docs].[command], using \"Exec sys.xp_cmdshell\"","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
+/*{"ReportUspStep":[{"Number":3010,"Parent_Number":3000,"Name":"Execute commands, collected in [docs].[command], using \"Exec sys.xp_cmdshell\"","has_logging":1,"is_condition":0,"is_inactive":0,"is_SubProcedure":0,"log_flag_InsertUpdateDelete":"I"}]}*/
 BEGIN
-PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',2010,';',2000);
+PRINT CONCAT('usp_id;Number;Parent_Number: ',27,';',3010,';',3000);
 
 Declare command_cursor Cursor Local Fast_Forward For
 Select
