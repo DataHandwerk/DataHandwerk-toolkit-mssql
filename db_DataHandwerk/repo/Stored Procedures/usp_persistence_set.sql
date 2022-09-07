@@ -287,8 +287,9 @@ Exec logs.usp_ExecutionLog_insert
   , @inserted = Null
   , @updated = Null
   , @deleted = Null
-  , @info_01 = @ColumnListIgnore --parameter 21
-  , @info_02 = Null
+  ---- info paramters are used below after @parameter_20
+  --, @info_01 = Null
+  --, @info_02 = Null
   , @info_03 = Null
   , @info_04 = Null
   , @info_05 = Null
@@ -319,6 +320,7 @@ Exec logs.usp_ExecutionLog_insert
   , @parameter_20 = @ColumnListNoInsert
   ----no more paramater columns available, use @info columns
   , @info_01 = @ExecutionLogId_action
+  , @info_02 = @ColumnListIgnore --parameter 21
 
 --
 ----START
