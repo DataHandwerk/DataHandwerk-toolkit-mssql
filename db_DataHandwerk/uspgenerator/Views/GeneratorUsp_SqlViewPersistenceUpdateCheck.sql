@@ -1,11 +1,16 @@
-﻿--similair logic to [uspgenerator].[GeneratorUspStep_Persistence_src]
+﻿
+--similair logic to [uspgenerator].[GeneratorUspStep_Persistence_src]
 --step 600
 --'update changed'
-Create   View uspgenerator.GeneratorUsp_SqlViewPersistenceUpdateCheck
+
+CREATE View uspgenerator.GeneratorUsp_SqlViewPersistenceUpdateCheck
 As
 Select
     usp_id                        = gu.id
-  , view_fullname                 = Replace ( gu.usp_fullname, 'usp_PERSIST_', 'PersistenceUpdateCheck_' )
+  --, view_fullname                 = Replace ( gu.usp_fullname, 'usp_PERSIST_', 'PersistenceUpdateCheck_' )
+  , view_fullname                 = QuoteName ( ro.RepoObject_schema_name ) + '.'
+                                    + QuoteName ( 'PersistenceUpdateCheck_' + ro.RepoObject_name )
+  , view_fullname2                = ro.RepoObject_schema_name + '.' + 'PersistenceUpdateCheck_' + ro.RepoObject_name
   , SqlViewPersistenceUpdateCheck = Concat (
                                                'USE  ['
                                              , dwhdb.dwh_database_name
@@ -27,20 +32,41 @@ Select
                                              , Char ( 13 ) + Char ( 10 )
                                              , 'CREATE OR ALTER VIEW '
                                              , Char ( 13 ) + Char ( 10 )
-                                             , Replace ( gu.usp_fullname, 'usp_PERSIST_', 'PersistenceUpdateCheck_' )
+                                             --, Replace ( gu.usp_fullname, 'usp_PERSIST_', 'PersistenceUpdateCheck_' )
+                                             , QuoteName ( ro.RepoObject_schema_name ) + '.'
+                                               + QuoteName ( 'PersistenceUpdateCheck_' + ro.RepoObject_name )
                                              , '
 AS
 SELECT
 '
                                              , ro.PersistenceSrcTgtColumnList
+                                             --2022-09-07 #70 uspgenerator.GeneratorUsp_SqlViewPersistenceUpdateCheck - add some metadata as columns (Schema, target table)
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , ', src_fullname = ''' + ro.persistence_source_RepoObject_fullname + ''''
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , ', src_fullname2 = ''' + ro.persistence_source_RepoObject_fullname2
+                                               + ''''
+                                             --, Char ( 13 ) + Char ( 10 )
+                                             --, ', target_fullname = ''' + Replace ( gu.usp_fullname, 'usp_PERSIST_', '' )
+                                             --  + ''''
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , ', tgt_SchemaName = ''' + ro.RepoObject_schema_name + ''''
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , ', tgt_Name = ''' + ro.RepoObject_name + ''''
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , ', tgt_Fullname = ''' + ro.RepoObject_fullname + ''''
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , ', tgt_Fullname2 = ''' + ro.RepoObject_fullname2 + ''''
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , Concat ( ', uspgenerator_usp_id = ', gu.id )
+                                             , Char ( 13 ) + Char ( 10 )
+                                             , ', uspgenerator_usp_Fullname = ''' + gu.usp_fullname + ''''
+                                             , Char ( 13 ) + Char ( 10 )
                                              , '
-FROM '
-                                               + ro.RepoObject_fullname + ' AS T
-INNER JOIN '
-                                               + ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
+FROM ' +                                     ro.RepoObject_fullname + ' AS T
+INNER JOIN ' +                               ro.persistence_source_SysObject_fullname_or_tempsource + ' AS S
 ON
-'
-                                               + i.PersistenceWhereColumnList
+' +                                          i.PersistenceWhereColumnList
                                              --ro.PersistenceCompareColumnList could be empty
                                              , '
 WHERE
@@ -88,4 +114,8 @@ EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '143ad
 
 GO
 EXECUTE sp_addextendedproperty @name = N'RepoObject_guid', @value = 'd7539585-d92a-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlViewPersistenceUpdateCheck';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'RepoObjectColumn_guid', @value = '76e3d7e9-852e-ed11-8577-a81e8446d5b0', @level0type = N'SCHEMA', @level0name = N'uspgenerator', @level1type = N'VIEW', @level1name = N'GeneratorUsp_SqlViewPersistenceUpdateCheck', @level2type = N'COLUMN', @level2name = N'view_fullname2';
 
