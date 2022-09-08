@@ -5,12 +5,12 @@ Select
     rop.cultures_name
   , PumlEntityList       =
   --
-  String_Agg ( rop.RepoObject_Puml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                ro.ro_fullname2)
+  String_Agg ( Cast(rop.RepoObject_Puml As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                       ro.ro_fullname2)
   , PumlEntityOnlyPkList =
   --
-  String_Agg ( rop.RepoObject_PumlOnlyPK, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                      ro.ro_fullname2)
+  String_Agg ( Cast(rop.RepoObject_PumlOnlyPK As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                             ro.ro_fullname2)
   , XrefEntityList       =
   --
   String_Agg (

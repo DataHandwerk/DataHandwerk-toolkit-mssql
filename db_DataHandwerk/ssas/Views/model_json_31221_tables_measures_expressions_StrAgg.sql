@@ -7,8 +7,8 @@ Select
   , T1.tables_measures_name
   , T1.RepoObject_guid
   , T1.Measure_guid
-  , expressions_StrAgg = String_Agg ( T1.Value, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                            Try_Cast(T1.[Key] As Int))
+  , expressions_StrAgg = String_Agg ( Cast(T1.Value As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                   Try_Cast(T1.[Key] As Int))
 From
     ssas.model_json_3122_tables_measures_expressions_multiline As T1
 Group By

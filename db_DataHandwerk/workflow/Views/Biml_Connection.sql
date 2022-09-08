@@ -1,11 +1,10 @@
 ﻿
-
-
 CREATE View workflow.Biml_Connection
 As
 Select
     ConnectionName_Biml   = String_Agg (
-                                           '<Connection ConnectionName="' + T1.ConnectionName + '" />'
+                                           Cast('<Connection ConnectionName="' As NVarchar(Max)) + T1.ConnectionName
+                                           + '" />'
                                          , Char ( 13 ) + Char ( 10 )
                                        ) Within Group(Order By
                                                           T1.ConnectionName)

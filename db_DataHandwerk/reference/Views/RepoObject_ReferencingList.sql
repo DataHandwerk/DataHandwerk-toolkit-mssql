@@ -5,9 +5,9 @@ Select
     ror.Referenced_guid
   , AntoraReferencingList =
   --
-  String_Agg ( ror.referencing_AntoraXref, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                       ror.referencing_is_external
-                                                                                     , ror.referencing_fullname)
+  String_Agg ( Cast(ror.referencing_AntoraXref As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                              ror.referencing_is_external
+                                                                                                            , ror.referencing_fullname)
   , Referenced_fullname   = Max ( ror.referenced_fullname )
   , Referenced_fullname2  = Max ( ror.referenced_fullname2 )
   , Referenced_type       = Max ( ror.referenced_type )

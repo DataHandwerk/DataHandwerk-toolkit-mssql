@@ -93,10 +93,10 @@ Return
         ro.ro_guid
       , Referenced_Depth     = @Referenced_Depth
       , Referencing_Depth    = @Referencing_Depth
-      , PumlEntityList       = String_Agg ( rop.RepoObject_Puml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                             ro.Node_fullname2)
-      , PumlEntityOnlyPkList = String_Agg ( rop.RepoObject_PumlOnlyPK, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                   ro.Node_fullname2)
+      , PumlEntityList       = String_Agg ( Cast(rop.RepoObject_Puml As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                                    ro.Node_fullname2)
+      , PumlEntityOnlyPkList = String_Agg ( Cast(rop.RepoObject_PumlOnlyPK As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                                          ro.Node_fullname2)
     From
         ro
         Inner Join

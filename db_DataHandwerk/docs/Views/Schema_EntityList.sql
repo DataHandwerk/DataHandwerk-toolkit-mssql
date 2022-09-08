@@ -4,21 +4,30 @@ As
 Select
     roe.RepoObject_schema_name
   , roe.cultures_name
-  , EntityList_Puml                       = String_Agg ( roe.RepoObject_Puml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                          roe.RepoObject_fullname2)
-  , EntityList_PumlOnlyIndex              = String_Agg ( roe.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                                   roe.RepoObject_fullname2)
-  , EntityList_PumlOnlyPK                 = String_Agg ( roe.RepoObject_PumlOnlyPK, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                                roe.RepoObject_fullname2)
-  , EntityList_PumlOnlyPkOrIndex          = String_Agg ( roe.RepoObject_PumlOnlyPkOrIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                                       roe.RepoObject_fullname2)
-  , EntityList_PumlOnlyPkOrIndexOrMeasure = String_Agg (
-                                                           roe.RepoObject_PumlOnlyPkOrIndexOrMeasure
+  , EntityList_Puml                       = String_Agg ( Cast(roe.RepoObject_Puml As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                                                 roe.RepoObject_fullname2)
+  , EntityList_PumlOnlyIndex              = String_Agg (
+                                                           Cast(roe.RepoObject_PumlOnlyIndex As NVarchar(Max))
                                                          , Char ( 13 ) + Char ( 10 )
                                                        ) Within Group(Order By
                                                                           roe.RepoObject_fullname2)
-  , EntityList_PumlOnlyPkOrNotHidden      = String_Agg ( roe.RepoObject_PumlOnlyPkOrNotHidden, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                                           roe.RepoObject_fullname2)
+  , EntityList_PumlOnlyPK                 = String_Agg ( Cast(roe.RepoObject_PumlOnlyPK As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                                                       roe.RepoObject_fullname2)
+  , EntityList_PumlOnlyPkOrIndex          = String_Agg (
+                                                           Cast(roe.RepoObject_PumlOnlyPkOrIndex As NVarchar(Max))
+                                                         , Char ( 13 ) + Char ( 10 )
+                                                       ) Within Group(Order By
+                                                                          roe.RepoObject_fullname2)
+  , EntityList_PumlOnlyPkOrIndexOrMeasure = String_Agg (
+                                                           Cast(roe.RepoObject_PumlOnlyPkOrIndexOrMeasure As NVarchar(Max))
+                                                         , Char ( 13 ) + Char ( 10 )
+                                                       ) Within Group(Order By
+                                                                          roe.RepoObject_fullname2)
+  , EntityList_PumlOnlyPkOrNotHidden      = String_Agg (
+                                                           Cast(roe.RepoObject_PumlOnlyPkOrNotHidden As NVarchar(Max))
+                                                         , Char ( 13 ) + Char ( 10 )
+                                                       ) Within Group(Order By
+                                                                          roe.RepoObject_fullname2)
 From
     docs.RepoObject_Plantuml_Entity_T As roe
 Group By

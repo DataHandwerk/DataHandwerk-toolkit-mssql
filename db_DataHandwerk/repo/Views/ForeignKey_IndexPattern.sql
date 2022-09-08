@@ -9,14 +9,14 @@ Select
   , ForeignKey_fullname                = Max ( fk.ForeignKey_fullname )
   , referencing_RepoObject_guid        = Max ( fkc.referencing_RepoObject_guid )
   , referenced_RepoObject_guid         = Max ( fkc.referenced_RepoObject_guid )
-  , referencing_IndexPatternColumnName = String_Agg ( fkc.referencing_column_name, ',' ) Within Group(Order By
-                                                                                                          fkc.constraint_column_id)
+  , referencing_IndexPatternColumnName = String_Agg ( Cast(fkc.referencing_column_name As NVarchar(Max)), ',' ) Within Group(Order By
+                                                                                                                                 fkc.constraint_column_id)
   -- , referencing_IndexPatternColumnGuid = String_Agg(CAST(referencing_RepoObjectColumn_guid AS VARCHAR(36)), ',') WITHIN
   --GROUP (
   --  ORDER BY [constraint_column_id]
   --  )
-  , referenced_IndexPatternColumnName  = String_Agg ( fkc.referenced_column_name, ',' ) Within Group(Order By
-                                                                                                         fkc.constraint_column_id)
+  , referenced_IndexPatternColumnName  = String_Agg ( Cast(fkc.referenced_column_name As NVarchar(Max)), ',' ) Within Group(Order By
+                                                                                                                                fkc.constraint_column_id)
   -- , referenced_IndexPatternColumnGuid = String_Agg(CAST(referenced_RepoObjectColumn_guid AS VARCHAR(36)), ',') WITHIN
   --GROUP (
   --  ORDER BY [constraint_column_id]

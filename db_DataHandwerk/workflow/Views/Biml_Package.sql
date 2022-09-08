@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View workflow.Biml_Package
 As
 Select
@@ -17,8 +16,8 @@ Select
                         , Char ( 13 ) + Char ( 10 )
                         , '<Tasks>'
                         , Char ( 13 ) + Char ( 10 )
-                        , String_Agg ( T2.TaskBiml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                T2.TaskBiml)
+                        , String_Agg ( Cast(T2.TaskBiml As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                       T2.TaskBiml)
                         , Char ( 13 ) + Char ( 10 )
                         , '</Tasks>'
                         , Char ( 13 ) + Char ( 10 )

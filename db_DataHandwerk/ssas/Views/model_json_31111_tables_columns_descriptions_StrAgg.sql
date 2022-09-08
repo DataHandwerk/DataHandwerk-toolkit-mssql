@@ -7,8 +7,8 @@ Select
   , T1.tables_columns_name
   , T1.RepoObject_guid
   , T1.RepoObjectColumn_guid
-  , descriptions_StrAgg = String_Agg ( T1.Value, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                             Try_Cast(T1.[Key] As Int))
+  , descriptions_StrAgg = String_Agg ( Cast(T1.Value As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                    Try_Cast(T1.[Key] As Int))
 From
     ssas.model_json_3111_tables_columns_descriptions_multiline As T1
 Group By

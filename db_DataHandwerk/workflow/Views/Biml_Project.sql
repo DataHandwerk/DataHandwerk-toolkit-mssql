@@ -1,5 +1,4 @@
 ﻿
-
 CREATE View workflow.Biml_Project
 As
 Select
@@ -10,7 +9,7 @@ Select
             <Packages>
 '
                             , String_Agg (
-                                             '<Package PackageName="' + T2.Package_Name + '" />'
+                                             Cast('<Package PackageName="' As NVarchar(Max)) + T2.Package_Name + '" />'
                                            , Char ( 13 ) + Char ( 10 )
                                          ) Within Group(Order By
                                                             T2.Package_Name)
@@ -30,8 +29,8 @@ Select
     </Connections>
     <Packages>
 '
-                            , String_Agg ( T2.Package_Biml, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                        T2.Package_Name)
+                            , String_Agg ( Cast(T2.Package_Biml As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                               T2.Package_Name)
                             , '    
 
     </Packages>

@@ -31,7 +31,8 @@ Select
              , Char ( 13 ) + Char ( 10 )
              , String_Agg (
                               Concat (
-                                         '** xref:nav/nav-schema-'
+                                         Cast('' As NVarchar(Max))
+                                       , '** xref:nav/nav-schema-'
                                          + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name ) + '.adoc[]'
                                        , Char ( 13 ) + Char ( 10 )
                                        , '+'
@@ -56,8 +57,12 @@ Select
              , Char ( 13 ) + Char ( 10 )
              , Char ( 13 ) + Char ( 10 )
              , String_Agg (
-                              'include::nav-schema-' + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name )
-                              + '.adoc[leveloffset=+1]'
+                              Concat (
+                                         Cast('' As NVarchar(Max))
+                                       , 'include::nav-schema-'
+                                         + docs.fs_cleanStringForFilename ( ro.RepoObject_schema_name )
+                                         + '.adoc[leveloffset=+1]'
+                                     )
                             , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                           ) Within Group(Order By
                                              ro.RepoObject_schema_name)

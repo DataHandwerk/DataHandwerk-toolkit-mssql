@@ -1,5 +1,4 @@
 ﻿
-
 /*
 <<property_start>>Description
 obsolet
@@ -9,12 +8,12 @@ Because the target table structure was created from
 we just scan the target table columns to get the column lists
 <<property_end>>
 */
-CREATE View [configT].[SsasDmvTableImport_DmvColumnList]
+CREATE View configT.SsasDmvTableImport_DmvColumnList
 As
 Select
     T1.DmvTableName
-  , DmvColumnList = String_Agg ( QuoteName ( sc.name ), Char ( 13 ) + Char ( 10 ) + ', ' ) Within Group(Order By
-                                                                                                            sc.column_id)
+  , DmvColumnList = String_Agg ( Cast(QuoteName ( sc.name ) As NVarchar(Max)), Char ( 13 ) + Char ( 10 ) + ', ' ) Within Group(Order By
+                                                                                                                                   sc.column_id)
 From
     configT.SsasDmvTableImport As T1
     Inner Join

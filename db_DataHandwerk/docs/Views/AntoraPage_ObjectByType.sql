@@ -19,7 +19,8 @@ Select
                                , Char ( 13 ) + Char ( 10 )
                                , String_Agg (
                                                 Concat (
-                                                           '** xref:nav/nav-type-'
+                                                           Cast('' As NVarchar(Max))
+                                                         , '** xref:nav/nav-type-'
                                                            + docs.fs_cleanStringForFilename ( ct.type ) + '.adoc[]'
                                                          , Char ( 13 ) + Char ( 10 )
                                                          , '+'
@@ -42,8 +43,11 @@ Select
                                , Char ( 13 ) + Char ( 10 )
                                , Char ( 13 ) + Char ( 10 )
                                , String_Agg (
-                                                'include::nav-type-' + docs.fs_cleanStringForFilename ( ct.type )
-                                                + '.adoc[leveloffset=+1]'
+                                                Concat (
+                                                           Cast('' As NVarchar(Max))
+                                                         , 'include::nav-type-' + docs.fs_cleanStringForFilename ( ct.type )
+                                                           + '.adoc[leveloffset=+1]'
+                                                       )
                                               , Char ( 13 ) + Char ( 10 ) + Char ( 13 ) + Char ( 10 )
                                             ) Within Group(Order By
                                                                ct.type_desc Desc)

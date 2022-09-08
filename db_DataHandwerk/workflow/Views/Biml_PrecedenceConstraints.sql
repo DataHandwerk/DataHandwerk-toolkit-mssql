@@ -8,10 +8,12 @@ Select
   , PrecedenceConstraints =
   --
   '    <PrecedenceConstraints>' + Char ( 13 ) + Char ( 10 ) + '      <Inputs>' + Char ( 13 ) + Char ( 10 )
-  + String_Agg ( '        <Input OutputPathName="' + referenced_TaskName + '.Output" />', Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                                      referenced_TaskName)
-  + Char ( 13 ) + Char ( 10 ) + '      </Inputs>' + Char ( 13 ) + Char ( 10 ) + '    </PrecedenceConstraints>'
-  + Char ( 13 ) + Char ( 10 )
+  + String_Agg (
+                   Cast('        <Input OutputPathName="' As NVarchar(Max)) + referenced_TaskName + '.Output" />'
+                 , Char ( 13 ) + Char ( 10 )
+               ) Within Group(Order By
+                                  referenced_TaskName) + Char ( 13 ) + Char ( 10 ) + '      </Inputs>' + Char ( 13 )
+  + Char ( 10 ) + '    </PrecedenceConstraints>' + Char ( 13 ) + Char ( 10 )
 From
     workflow.Workflow_ProcedureDependency_T_TaskName
 Group By

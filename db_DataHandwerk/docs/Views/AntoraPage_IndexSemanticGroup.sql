@@ -8,11 +8,11 @@ Select
   Concat (
              '= Index SemanticGroup'
            , Char ( 13 ) + Char ( 10 )
-           , String_Agg ( AntoraIndexSemanticgroup, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                IsNull (
-                                                                                                           IndexSemanticGroup
-                                                                                                         , 'zzzzzzz'
-                                                                                                       ))
+           , String_Agg ( Cast(AntoraIndexSemanticgroup As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                       IsNull (
+                                                                                                                                  IndexSemanticGroup
+                                                                                                                                , 'zzzzzzz'
+                                                                                                                              ))
          )
 From
     docs.IndexSemanticgroup

@@ -1,12 +1,12 @@
-
+﻿
 CREATE View docs.RepoObject_PlantUml_PumlEntityFkList
 As
 Select
     ro.RepoObject_guid
   , rop.cultures_name
   , RepoObject_fullname2 = Max ( ro.RepoObject_fullname2 )
-  , PumlEntityFkList     = String_Agg ( rop.RepoObject_PumlOnlyIndex, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                  ro.included_RepoObject_fullname2)
+  , PumlEntityFkList     = String_Agg ( Cast(rop.RepoObject_PumlOnlyIndex As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                                         ro.included_RepoObject_fullname2)
 From
     repo.RepoObject_related_FK_union      As ro
     Inner Join

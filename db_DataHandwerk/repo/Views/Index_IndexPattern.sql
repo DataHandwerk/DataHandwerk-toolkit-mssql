@@ -1,14 +1,13 @@
 ﻿
-
-CREATE View [repo].[Index_IndexPattern]
+CREATE View repo.Index_IndexPattern
 As
 --
 Select
     index_guid
-  , IndexPatternColumnName     = String_Agg ( SysObject_column_name, ',' ) Within Group(Order By
-                                                                                            index_column_id)
-  , IndexPatternColumnDatatype = String_Agg ( SysObject_column_user_type_fullname, ',' ) Within Group(Order By
-                                                                                                          index_column_id)
+  , IndexPatternColumnName     = String_Agg ( Cast(SysObject_column_name As NVarchar(Max)), ',' ) Within Group(Order By
+                                                                                                                   index_column_id)
+  , IndexPatternColumnDatatype = String_Agg ( Cast(SysObject_column_user_type_fullname As NVarchar(Max)), ',' ) Within Group(Order By
+                                                                                                                                 index_column_id)
 From
     repo.IndexColumn_union_T
 Where

@@ -4,9 +4,9 @@ As
 Select
     rel.SchemaName
   , schema_2_culture.cultures_name
-  , SsasRelationList_PumlRelation = String_Agg ( rel.PumlRelation, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                               rel.referenced_RepoObject_fullname2
-                                                                                                             , rel.referencing_RepoObject_fullname2)
+  , SsasRelationList_PumlRelation = String_Agg ( Cast(rel.PumlRelation As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                                      rel.referenced_RepoObject_fullname2
+                                                                                                                                    , rel.referencing_RepoObject_fullname2)
 From
     docs.ssas_PumlRelation As rel
     Left Join

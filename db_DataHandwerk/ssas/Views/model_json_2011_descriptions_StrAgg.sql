@@ -3,8 +3,8 @@ CREATE View ssas.model_json_2011_descriptions_StrAgg
 As
 Select
     T1.databasename
-  , descriptions_StrAgg = String_Agg ( T1.Value, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                             Try_Cast(T1.[Key] As Int))
+  , descriptions_StrAgg = String_Agg ( Cast(T1.Value As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                                    Try_Cast(T1.[Key] As Int))
 From
     ssas.model_json_201_descriptions_multiline As T1
 Group By

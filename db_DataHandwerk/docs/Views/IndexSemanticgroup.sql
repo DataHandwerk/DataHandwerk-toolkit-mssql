@@ -17,8 +17,11 @@ Select
                                + '== ' + IsNull ( IndexSemanticGroup, '(no group)' ) + Char ( 13 ) + Char ( 10 )
                                + Char ( 13 ) + Char ( 10 )
                                --
-                               + String_Agg ( AntoraIndexSemanticgroupPatterndatatype, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                                                                   IndexPatternColumnDatatype)
+                               + String_Agg (
+                                                Cast(AntoraIndexSemanticgroupPatterndatatype As NVarchar(Max))
+                                              , Char ( 13 ) + Char ( 10 )
+                                            ) Within Group(Order By
+                                                               IndexPatternColumnDatatype)
 From
     docs.IndexSemanticgroupPatterndatatype
 Group By

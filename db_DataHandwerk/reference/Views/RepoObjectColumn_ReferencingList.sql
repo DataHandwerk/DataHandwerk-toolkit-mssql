@@ -5,8 +5,8 @@ Select
     ror.Referenced_guid
   , AntoraReferencingColumnList =
   --
-  String_Agg ( ror.referencing_AntoraXref, Char ( 13 ) + Char ( 10 )) Within Group(Order By
-                                                                                       ror.Referencing_fullname)
+  String_Agg ( Cast(ror.referencing_AntoraXref As NVarchar(Max)), Char ( 13 ) + Char ( 10 )) Within Group(Order By
+                                                                                                              ror.Referencing_fullname)
   , Referenced_fullname         = Max ( ror.Referenced_fullname )
   , Referenced_fullname2        = Max ( ror.Referenced_fullname2 )
   , ReferencedColumn_fullname   = Max ( ror.ReferencedColumn_fullname )
